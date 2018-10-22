@@ -3,17 +3,44 @@
 //   ../gd-sprest-def
 
 declare module 'gd-sprest' {
-    import { SP } from "gd-sprest-def";
+    /**
+        * Helper Class
+        */
+    export * from "gd-sprest/helper/types/helper";
+    
+    /**
+        * Library Components
+        */
+    export * from "gd-sprest/lib/types";
+    
+    /**
+        * $REST Global Variable
+        */
+    export * from "gd-sprest/rest";
+    
+    /**
+        * SharePoint Enumerator Types
+        */
+    import { SPTypes } from "gd-sprest/mapper/types";
+    export { SPTypes }
+    
+    /**
+        * Library Types
+        */
+    import * as Types from "gd-sprest/types";
+    export { Types }
+}
+
+declare module 'gd-sprest/helper/types/helper' {
     import * as HelperTypes from "gd-sprest/helper/types";
-    import * as LibTypes from "gd-sprest/lib/types";
     import * as MapperTypes from "gd-sprest/mapper/types";
     import * as UtilTypes from "gd-sprest/utils/types";
     
-    export {
-            HelperTypes as Helper,
-            MapperTypes as SP,
-            UtilTypes as Util
-    }
+    /**
+        * Helper
+        */
+    export const Helper: IHelper;
+    
     /**
         * Helper
         */
@@ -123,6 +150,35 @@ declare module 'gd-sprest' {
                 */
             WebPart: HelperTypes.IWebPart;
     }
+}
+
+declare module 'gd-sprest/lib/types' {
+    export * from "gd-sprest/lib/types/contextInfo";
+    export * from "gd-sprest/lib/types/graph";
+    export * from "gd-sprest/lib/types/list";
+    export * from "gd-sprest/lib/types/navigation";
+    export * from "gd-sprest/lib/types/peopleManager";
+    export * from "gd-sprest/lib/types/peoplePicker";
+    export * from "gd-sprest/lib/types/profileLoader";
+    export * from "gd-sprest/lib/types/search";
+    export * from "gd-sprest/lib/types/site";
+    export * from "gd-sprest/lib/types/socialFeed";
+    export * from "gd-sprest/lib/types/userProfile";
+    export * from "gd-sprest/lib/types/utility";
+    export * from "gd-sprest/lib/types/web";
+}
+
+declare module 'gd-sprest/rest' {
+    import { SP } from "gd-sprest-def";
+    import { IHelper } from "gd-sprest/helper/types/helper";
+    import * as LibTypes from "gd-sprest/lib/types";
+    import * as MapperTypes from "gd-sprest/mapper/types";
+    import * as UtilTypes from "gd-sprest/utils/types";
+    
+    /**
+        * SharePoint REST Library
+        */
+    export const $REST: IREST;
     
     /**
         * SharePoint REST Library
@@ -257,39 +313,6 @@ declare module 'gd-sprest' {
     }
 }
 
-declare module 'gd-sprest/helper/types' {
-    export * from "gd-sprest/helper/types/app";
-    export * from "gd-sprest/helper/types/dependencies";
-    export * from "gd-sprest/helper/types/fieldSchemaXML";
-    export * from "gd-sprest/helper/types/jslink";
-    export * from "gd-sprest/helper/types/linkInfo";
-    export * from "gd-sprest/helper/types/listForm";
-    export * from "gd-sprest/helper/types/listFormField";
-    export * from "gd-sprest/helper/types/loader";
-    export * from "gd-sprest/helper/types/methods";
-    export * from "gd-sprest/helper/types/sp";
-    export * from "gd-sprest/helper/types/spCfg";
-    export * from "gd-sprest/helper/types/spCfgTypes";
-    export * from "gd-sprest/helper/types/taxonomy";
-    export * from "gd-sprest/helper/types/webpart";
-}
-
-declare module 'gd-sprest/lib/types' {
-    export * from "gd-sprest/lib/types/contextInfo";
-    export * from "gd-sprest/lib/types/graph";
-    export * from "gd-sprest/lib/types/list";
-    export * from "gd-sprest/lib/types/navigation";
-    export * from "gd-sprest/lib/types/peopleManager";
-    export * from "gd-sprest/lib/types/peoplePicker";
-    export * from "gd-sprest/lib/types/profileLoader";
-    export * from "gd-sprest/lib/types/search";
-    export * from "gd-sprest/lib/types/site";
-    export * from "gd-sprest/lib/types/socialFeed";
-    export * from "gd-sprest/lib/types/userProfile";
-    export * from "gd-sprest/lib/types/utility";
-    export * from "gd-sprest/lib/types/web";
-}
-
 declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/types/appTiles";
     export * from "gd-sprest/mapper/types/attachment";
@@ -350,6 +373,36 @@ declare module 'gd-sprest/mapper/types' {
     export { Results, SPTypes }
 }
 
+declare module 'gd-sprest/types' {
+    import * as HelperTypes from "gd-sprest/helper/types";
+    import * as MapperTypes from "gd-sprest/mapper/types";
+    
+    /**
+      * Types
+      */
+    export {
+        HelperTypes as Helper,
+        MapperTypes as SP
+    }
+}
+
+declare module 'gd-sprest/helper/types' {
+    export * from "gd-sprest/helper/types/app";
+    export * from "gd-sprest/helper/types/dependencies";
+    export * from "gd-sprest/helper/types/fieldSchemaXML";
+    export * from "gd-sprest/helper/types/jslink";
+    export * from "gd-sprest/helper/types/linkInfo";
+    export * from "gd-sprest/helper/types/listForm";
+    export * from "gd-sprest/helper/types/listFormField";
+    export * from "gd-sprest/helper/types/loader";
+    export * from "gd-sprest/helper/types/methods";
+    export * from "gd-sprest/helper/types/sp";
+    export * from "gd-sprest/helper/types/spCfg";
+    export * from "gd-sprest/helper/types/spCfgTypes";
+    export * from "gd-sprest/helper/types/taxonomy";
+    export * from "gd-sprest/helper/types/webpart";
+}
+
 declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/base";
     export * from "gd-sprest/utils/types/baseExecution";
@@ -359,1613 +412,6 @@ declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/requestType";
     export * from "gd-sprest/utils/types/targetInfo";
     export * from "gd-sprest/utils/types/xhrRequest";
-}
-
-declare module 'gd-sprest/helper/types/app' {
-    import * as SP from "gd-sprest/mapper/types";
-    
-    /**
-        * App Helper Methods
-        */
-    export interface IApp {
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolder - The destination folder.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolder: SP.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
-    
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolderUrl - The destination folder url, relative to the host web.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
-    
-            /**
-                * Method to copy a file from the app web to the host web
-                * @param fileUrls - An array of source file urls, relative to the app web.
-                * @param folderUrls - An array of destination folder urls, relative to the host web.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ files: Array<SP.IFileResult>, folders: Array<SP.IFolderResult> }>;
-    
-            /**
-                * Method to create sub-folders.
-                * @param folder - The app web relative url to the source file.
-                * @param subFolderUrl - The host web relative url of the destination folder.
-                */
-            createSubFolders(folder: SP.IFolder, subFolderUrl: string): PromiseLike<SP.IFolderResult>;
-    
-            /**
-                * Method to get the file content.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                * @param createFl - Flag to create the folder, if it doesn't exist.
-                */
-            getFolder(web: SP.IWeb | SP.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<SP.IFolderResult>;
-    
-            /**
-                * Method to remove empty folders
-                * @param web - The web containing the files.
-                * @param folderUrls - An array of folder urls, relative to the web.
-                */
-            removeEmptyFolders(web: SP.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
-    
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrl - The file url, relative to the web.
-                */
-            removeFile(web: SP.IWebResult, fileUrl: string): PromiseLike<void>;
-    
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                */
-            removeFiles(web: SP.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/dependencies' {
-    /**
-        * Dependencies
-        */
-    export interface IDependencies {
-            /**
-                * Constructor
-                * @param callback - The method to execute after the dependencies are loaded.
-                */
-            constructor(callback: (...args) => void);
-    
-            /** The maximum amount of time to wait for the scripts to be loaded. */
-            MAX_WAIT: number;
-    
-            /** Flag to determine if the page context information exists */
-            pageContextExistsFl: boolean;
-    
-            /** The script file names to load. */
-            SCRIPTS: Array<string>;
-    
-            /**
-                * Method to ensure the SP classes are loaded
-                */
-            loadDependencies();
-    
-            /**
-                * Method to wait for the page context to be loaded
-                */
-            waitForPageContext();
-    }
-}
-
-declare module 'gd-sprest/helper/types/fieldSchemaXML' {
-    import { IFieldInfo } from "gd-sprest/helper/types";
-    
-    /**
-      * Field Schema XML
-      */
-    export interface IFieldSchemaXML {
-        /** Creates the suitebar link */
-        new(fieldInfo: IFieldInfo): PromiseLike<string>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/jslink' {
-    /**
-        * JSLink
-        */
-    export interface IJSLink {
-            /**
-                * Internal field to method mapper
-                */
-            _fieldToMethodMapper: any;
-    
-            /**
-                * Internal field used by the hideField method.
-                */
-            _hideEventFl: boolean;
-    
-            /**
-                * Disables edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                * @param requireValueFl - Flag to only disable the field, if a value exists.
-                */
-            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-    
-            /**
-                * Disable quick edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                */
-            disableQuickEdit(ctx: any, field: any);
-    
-            /**
-                * Returns the list view.
-                * @param ctx - The client context.
-                */
-            getListView(ctx: any);
-    
-            /**
-                * Returns the list view items.
-                * @param ctx - The client context.
-                */
-            getListViewItems(ctx: any);
-    
-            /**
-                * Returns the selected list view items
-                */
-            getListViewSelectedItems();
-    
-            /**
-                * Returns the webpart containing the JSLink field/form/view.
-                * @param ctx - The client context.
-                */
-            getWebPart(ctx);
-    
-            /**
-                * Hides the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to hide.
-                */
-            hideField(ctx: any, field: any);
-    
-            /**
-                * Registers the JSLink configuration.
-                * @param cfg - The JSLink configuration.
-                */
-            register(cfg: IJSLinkCfg);
-    
-            /**
-                * Removes the field and html from the page.
-                * @param ctx - The client context.
-                * @param field - The field to remove.
-                */
-            removeField(ctx: any, field: any);
-    
-            /**
-                * Method to render the default html for a field.
-                * @param ctx - The client context.
-                * @param field - The form field.
-                * @param formType - The form type. (Display, Edit, New or View)
-                */
-            renderField(ctx, field, formType?: number);
-    }
-    
-    /**
-        * JSLink Configuration
-        */
-    export interface IJSLinkCfg {
-            /** The base view id. */
-            BaseViewID?: number | string;
-    
-            /** The list template type. */
-            ListTemplateType?: number;
-    
-            /** The post render event. */
-            OnPostRender?: any;
-    
-            /** The pre render event. */
-            OnPreRender?: any;
-    
-            /** The JSLink template overrides. */
-            Templates?: IJSLinkCfgTemplate;
-    }
-    /**
-        * JSLink Field Configuration
-        */
-    export interface IJSLinkCfgField {
-            DisplayForm?: any;
-            EditForm?: any;
-            NewForm?: any;
-            View?: any;
-    }
-    
-    /**
-        * JSLink Templates
-        */
-    export interface IJSLinkCfgTemplate {
-            Body?: any;
-            Footer?: any;
-            Fields?: { [key: string]: IJSLinkCfgField };
-            Group?: any;
-            Header?: any;
-            Item?: any;
-            OnPostRender?: any;
-            OnPreRender?: any;
-    }
-}
-
-declare module 'gd-sprest/helper/types/linkInfo' {
-    /**
-        * Link Information
-        */
-    export interface ILinkInfo {
-            /** True to append the link at the end of the list. */
-            appendFl?: boolean;
-    
-            /** The link class name */
-            className?: string;
-    
-            /** The link url */
-            href?: string;
-    
-            /** The link id */
-            id: string;
-    
-            /** The link click event */
-            onClick?: (ev?: MouseEvent) => void;
-    
-            /** The link title */
-            title: string;
-    }
-    
-    /**
-        * Ribbon Link
-        */
-    export interface IRibbonLink {
-            /** Creates the ribbon link */
-            new(props: ILinkInfo): HTMLAnchorElement;
-    }
-    
-    /**
-        * Suitebar Link
-        */
-    export interface ISuiteBarLink {
-            /** Creates the suitebar link */
-            new(props: ILinkInfo): HTMLAnchorElement;
-    }
-}
-
-declare module 'gd-sprest/helper/types/listForm' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    
-    /**
-        * List Form
-        */
-    export interface IListForm {
-            /**
-                * Creates an instance of the list form
-                * @param props - The list form properties.
-                */
-            create(props: IListFormProps): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to generate the odata query for the list item.
-                */
-            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
-    
-            /**
-                * Method to load the item attachments
-                * @param info - The list form information.
-             */
-            loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>
-    
-            /**
-                * Method to refresh the item.
-                * @param info - The list form information.
-                */
-            refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to remove attachment from an item.
-                */
-            removeAttachment(info: IListFormResult, fileName: string): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to save attachments to the item.
-                * @param info - The list form information.
-                * @param attachmentInfo - The attachment files to add.
-                */
-            saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
-    
-            /**
-                * Method to save the item.
-                * @param info - The list form information.
-                * @param itemValues - The list item values.
-                */
-            saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to show the file dialog.
-                * @param info - The list form information.
-                * @param onSave - The save event triggered when a file is uploaded to the item.
-                */
-            showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
-    
-            /**
-                * Method to show the file dialog.
-                * @param info - The list form information.
-                * @param onSave - The save event triggered when a file is uploaded to the item.
-                */
-            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
-    }
-    
-    /**
-        * List Form Attachment Information
-        */
-    export interface IListFormAttachmentInfo {
-            /** The file content */
-            data: any;
-    
-            /** The name of the file */
-            name: string;
-    }
-    
-    /**
-        * List Form Cache
-        */
-    export interface IListFormCache {
-            ct: string;
-            fields: string;
-            list: string;
-    }
-    
-    /**
-        * List Form Display
-        */
-    export interface IListFormDisplay {
-            /**
-                * Method to get the fields
-                */
-            getFields(): Array<HTMLDivElement>;
-    }
-    
-    /**
-        * List Form Display Properties
-        */
-    export interface IListFormDisplayProps {
-            /** The element to render the form to. */
-            el: Element;
-    
-            /** The fields to exclude from the form. */
-            excludeFields?: Array<string>;
-    
-            /** The fields to include in the form. */
-            includeFields?: Array<string>;
-    
-            /** The list form information. */
-            info: IListFormResult;
-    }
-    
-    /**
-        * List Form Edit
-        */
-    export interface IListFormEdit {
-            /**
-                * Method to get the fields
-                */
-            getFields<T = any>(): Array<T>;
-    
-            /**
-                * Method to get the form values
-                */
-            getValues<T = any>(): PromiseLike<T>;
-    }
-    
-    /**
-        * List Form Edit Properties
-        */
-    export interface IListFormEditProps extends IListFormDisplayProps {
-            /** The form mode (New/Edit) */
-            controlMode?: number;
-    }
-    
-    /**
-        * List Form Properties
-        */
-    export interface IListFormProps {
-            /** If defined, the data will be cached to the session storage. */
-            cacheKey?: string;
-    
-            /** The form fields to exclude. */
-            excludeFields?: Array<string>;
-    
-            /** The form fields */
-            fields?: Array<string>;
-    
-            /** The list item */
-            item?: Types.IListItemQueryResult | Types.IListItemResult;
-    
-            /** The item id */
-            itemId?: number;
-    
-            /** The list name */
-            listName: string;
-    
-            /** Flag to deteremine if we are loading attachments */
-            loadAttachments?: boolean;
-    
-            /** OData query used when loading an item */
-            query?: Types.ODataQuery;
-    
-            /** The relative web url containing the list */
-            webUrl?: string;
-    }
-    
-    /**
-        * List Form Result
-        */
-    export interface IListFormResult {
-            /** The item attachments. */
-            attachments?: Array<SP.Attachment>;
-    
-            /** The form fields. */
-            fields: { [key: string]: Types.IFieldResult };
-    
-            /** The list item. */
-            item?: Types.IListItemQueryResult | Types.IListItemResult;
-    
-            /** The item query. */
-            query?: Types.ODataQuery;
-    
-            /** The list. */
-            list: Types.IListResult;
-    
-            /** The relative web url containing the list. */
-            webUrl?: string;
-    }
-}
-
-declare module 'gd-sprest/helper/types/listFormField' {
-    import { ITermInfo } from "gd-sprest/helper/types";
-    import * as SP from "gd-sprest/mapper/types";
-    
-    /**
-        * List Form Field Information
-        */
-    export interface IListFormFieldInfo {
-            /** The default value. */
-            defaultValue?: any;
-    
-            /** The list field. */
-            field?: SP.IFieldResult | SP.IFieldQueryResult;
-    
-            /** The list name. */
-            listName: string;
-    
-            /** The internal name of the field. */
-            name: string;
-    
-            /** Flag indicating if the field is read-only. */
-            readOnly?: boolean;
-    
-            /** True indicates a required field type. */
-            required?: boolean;
-    
-            /** The display name of the field. */
-            title?: string;
-    
-            /** The field type. */
-            type?: number;
-    
-            /** The field type as a string. */
-            typeAsString?: string;
-    
-            /** The relative web url containing the list. */
-            webUrl?: string;
-    }
-    
-    /**
-        * List Form Choice Field Information
-        */
-    export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
-            /** The choices. */
-            choices?: Array<string>;
-    
-            /** The list field. */
-            field?: SP.IFieldChoice | SP.IFieldMultiChoice;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    }
-    
-    /**
-        * List Form Date Field Information
-        */
-    export interface IListFormDateFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldDateTime;
-    
-            /** Flag determining if we are displaying time */
-            showTime?: boolean;
-    }
-    
-    /**
-        * List Form Lookup Field Information
-        */
-    export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldLookup;
-    
-            /** The lookup field */
-            lookupField?: string;
-    
-            /** The lookup list id */
-            lookupListId?: string;
-    
-            /** The lookup web id */
-            lookupWebId?: string;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    }
-    
-    /**
-        * List Form MMS Field Information
-        */
-    export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldManagedMetadata;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    
-            /** The term id */
-            termId?: string;
-    
-            /** The term set id */
-            termSetId?: string;
-    
-            /** The term store id */
-            termStoreId?: string;
-    
-            /** The value field */
-            valueField?: SP.IFieldNote;
-    }
-    
-    /**
-        * List Form Number Field Information
-        */
-    export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
-            /** The number of decimals. */
-            decimals?: number;
-    
-            /** The list field. */
-            field?: SP.IFieldNumber | SP.IFieldCurrency;
-    
-            /** The maximum value */
-            maxValue?: number;
-    
-            /** The minimum value */
-            minValue?: number;
-    
-            /** Flag determining if we are displaying the value as a percentage */
-            showAsPercentage?: boolean;
-    }
-    
-    /**
-        * List Form Text Field Information
-        */
-    export interface IListFormTextFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldText | SP.IFieldNote;
-    
-            /** Flag determining if this is a note field */
-            multiline?: boolean;
-    
-            /** Flag determining if this field value is html encoded */
-            richText?: boolean;
-    
-            /** The number of rows to display */
-            rows?: number;
-    }
-    
-    /**
-        * List Form URL Field Information
-        */
-    export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldUrl;
-    }
-    
-    /**
-        * List Form User Field Information
-        */
-    export interface IListFormUserFieldInfo extends IListFormFieldInfo {
-            /** Flag to determine if groups are allowed */
-            allowGroups?: boolean;
-    
-            /** The list field. */
-            field?: SP.IFieldUser;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    }
-    
-    /**
-        * List Form Field
-        */
-    export interface IListFormField {
-            /**
-                * Creates an instance of the list form field
-                * @param props - The list form field properties
-                */
-            create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-    
-            /** Method to load the lookup data */
-            loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQueryResult>>;
-    
-            /** Method to load the mms data */
-            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
-    
-            /** Method to load the mms value field */
-            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<SP.IFieldNote>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/loader' {
-    /**
-        * Loader
-        */
-    export interface ILoader {
-            // Internal flag to determine if the SP core libraries have been loaded
-            loaded: boolean;
-    
-            /**
-                * Waits for the SharePoint core libraries to be loaded.
-                * @param callback - The callback function.
-                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
-                * @param loadLibraries - Flag to load the core libraries manually.
-                */
-            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean);
-    }
-}
-
-declare module 'gd-sprest/helper/types/methods' {
-    /**
-      * Request
-      */
-    export interface IRequest {
-        /** The data to pass in the request. */
-        data?: any;
-    
-        /** The request headers. */
-        headers?: { [key: string]: string };
-    
-        /** The request method. */
-        method?: string;
-    
-        /** The request url. */
-        url: string;
-    }
-}
-
-declare module 'gd-sprest/helper/types/sp' {
-    
-    /**
-        * Dialog Options
-        */
-    export interface IDialogOptions {
-            /** A Boolean value that specifies whether the dialog can be maximized. true if the Maximize button is shown; otherwise, false. */
-            allowMaximize?: boolean;
-    
-            /** An object that contains data that are passed to the dialog. */
-            args?: any;
-    
-            /** A Boolean value that specifies whether the dialog platform handles dialog sizing. */
-            autoSize?: boolean;
-    
-            /** A function pointer that specifies the return callback function. The function takes two parameters, a dialogResult of type SP.UI.DialogResult Enumeration and a returnValue of type object that contains any data returned by the dialog. */
-            dialogReturnValueCallback?: (dialogResult?: number, returnVal?: any) => void;
-    
-            /** An integer value that specifies the height of the dialog. If height is not specified, the height of the dialog is autosized by default. If autosize is false, the dialog height is set to 576 pixels. */
-            height?: number;
-    
-            /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
-            html?: HTMLElement;
-    
-            /** A Boolean value that specifies whether the Close button appears on the dialog. */
-            showClose?: boolean;
-    
-            /** A Boolean value that specifies whether the dialog opens in a maximized state. true the dialog opens maximized. Otherwise, the dialog is opened at the requested sized if specified; otherwise, the default size, if specified; otherwise, the autosized size. */
-            showMaximized?: boolean;
-    
-            /** A string that contains the title of the dialog. */
-            title?: string;
-    
-            /** A string that contains the URL of the page that appears in the dialog. If both url and html are specified, url takes precedence. Either url or html must be specified. */
-            url?: string;
-    
-            /** An integer value that specifies the width of the dialog. If width is not specified, the width of the dialog is autosized by default. If autosize is false, the width of the dialog is set to 768 pixels. */
-            width?: number;
-    
-            /** An integer value that specifies the x-offset of the dialog. This value works like the CSS left value. */
-            x?: number;
-    
-            /** An integer value that specifies the y-offset of the dialog. This value works like the CSS top value. */
-            y?: number;
-    }
-    
-    /**
-        * Modal Dialog
-        */
-    export interface IModalDialog {
-            /**
-                * Closes the most recently opened modal dialog with the specified dialog result.
-                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
-                */
-            close(dialogResult?: number);
-    
-            /**
-                * Closes the most recently opened modal dialog with the specified dialog result and return value.
-                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
-                * @param returnVal - The return value of the modal dialog.
-                */
-            commonModalDialogClose(dialogResult?: number, returnVal?: any);
-    
-            /**
-                * Displays a modal dialog with the specified URL, options, callback function, and arguments.
-                * @param url - The URL of the page to be shown in the modal dialog.
-                * @param options - The options to create the modal dialog.
-                * @param callback - The callback function that runs when the modal dialog is closed.
-                * @param args - The arguments to the modal dialog.
-                */
-            commonModalDialogOpen(url: string, options?: IDialogOptions, callback?: (dialogResult?: number, returnVal?: any) => void, args?: any);
-    
-            /**
-                * Method to ensure the core script is loaded
-                */
-            load(): PromiseLike<void>;
-    
-            /**
-                * Displays a modal dialog with the specified URL, callback function, width, and height.
-                * @param url - The URL of the page to be shown in the modal dialog.
-                * @param callback - The callback function that runs when the modal dialog is closed.
-                * @param width - The width of the modal dialog.
-                * @param height - The height of the modal dialog.
-                */
-            OpenPopUpPage(url: string, callback?: (dialogResult?: number, returnVal?: any) => void, width?: number, height?: number);
-    
-            /**
-                * Refreshes the parent page of the modal dialog when the dialog is closed by clicking OK.
-                * @param dialogResult - The result of the modal dialog.
-                */
-            RefreshPage(dialogResult?: number);
-    
-            /**
-                * Displays a modal dialog with specified dialog options.
-                * @param options - The options to create the modal dialog.
-                */
-            showModalDialog(options: IDialogOptions);
-    
-            /**
-                * Displays a modal dialog using the page at the specified URL.
-                * @param url - The URL of the page to be shown in the modal dialog.
-                */
-            ShowPopupDialog(url: string);
-    
-            /**
-                * Displays a wait screen dialog that has a Cancel button using the specified parameters.
-                * @param title - The title of the wait screen dialog.
-                * @param message - The message that is shown in the wait screen dialog.
-                * @param callback - The callback function that runs when the wait screen dialog is closed.
-                * @param height - The height of the wait screen dialog.
-                * @param width - The width of the wait screen dialog.
-                */
-            showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number);
-    
-            /**
-                * Displays a wait screen dialog that does not have a Cancel button using the specified parameters.
-                * @param title - The title of the wait screen dialog.
-                * @param message - The message that is shown in the wait screen dialog.
-                * @param height - The height of the wait screen dialog.
-                * @param width - The width of the wait screen dialog.
-                */
-            showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number);
-    }
-    
-    /**
-        * Notify
-        */
-    export interface INotify {
-            /**
-                * Adds a notification to the page. By default, notifications appear for five seconds.
-                * @param html - The message inside the notification.
-                * @param sticky - Specifies whether the notification stays on the page until removed.
-                * @returns A promise containing the ID of the notification that was added to the page.
-                */
-            addNotification(html: string, sticky?: boolean): PromiseLike<string>;
-    
-            /**
-                * Method to ensure the core script is loaded
-                */
-            load(): PromiseLike<void>;
-    
-            /**
-                * Removes the specified notification from the page.
-                * @param id - The notification to remove from the page.
-                */
-            removeNotification(id: string);
-    }
-    
-    /**
-        * Status
-        */
-    export interface IStatus {
-            /**
-                * Adds a status message to the page.
-                * @param title - The title of the status message.
-                * @param html - The contents of the status message.
-                * @param prepend - Specifies whether the status message will appear at the beginning of the list.
-                */
-            addStatus(title: string, html?: string, prepend?: boolean): PromiseLike<string>;
-    
-            /**
-                * Appends text to an existing status message.
-                * @param id - The ID of the status message to remove.
-                * @param title - The title of the status message.
-                * @param html - The contents of the status message.
-                */
-            appendStatus(id: string, title: string, html: string): PromiseLike<string>;
-    
-            /**
-                * Method to ensure the core script is loaded
-                */
-            load(): PromiseLike<void>;
-    
-            /**
-                * Removes all status messages from the page.
-                * @param hide - Specifies that the status messages should be hidden.
-                */
-            removeAllStatus(hide?: boolean);
-    
-            /**
-                * Removes the specified status message.
-                * @param id - The ID of the status message to remove.
-                */
-            removeStatus(id: string);
-    
-            /**
-                * Sets the priority color of the specified status message.
-                * @param id - The ID of the status message to remove.
-                * @param color - The color to set for the status message. The following table lists the values and their priority.
-                */
-            setStatusPriColor(id: string, color: string);
-    
-            /**
-                * Updates the specified status message.
-                * @param id - The ID of the status message to remove.
-                * @param html - The contents of the status message.
-                */
-            updateStatus(id: string, html: string);
-    }
-}
-
-declare module 'gd-sprest/helper/types/spCfg' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    
-    /**
-        * Field Information
-        */
-    export interface IFieldInfo {
-            /** The default value of the field. */
-            defaultValue?: string;
-    
-            /** The group name. */
-            group?: string;
-    
-            /** True for hidden fields. */
-            hidden?: boolean;
-    
-            /** The JSLink value for the field. */
-            jslink?: string;
-    
-            /** The internal name of the field. */
-            name: string;
-    
-            /** Flag to determine if the field is readonly. */
-            readOnly?: boolean;
-    
-            /** Flag to determine if the field is required. */
-            required?: boolean;
-    
-            /** The schema definition of the field. */
-            schemaXml?: string;
-    
-            /** Flag to make this field visible in the display form. */
-            showInDisplayForm?: boolean;
-    
-            /** Flag to make this field visible in the edit form. */
-            showInEditForm?: boolean;
-    
-            /** Flag to make this field visible in the list settings. */
-            showInListSettings?: boolean;
-    
-            /** Flag to make this field visible in the new form. */
-            showInNewForm?: boolean;
-    
-            /** Flag to make this field visible in the list views. */
-            showInViewForms?: boolean;
-    
-            /** The field title */
-            title?: string;
-    
-            /** The field type */
-            type?: number;
-    }
-    
-    /**
-        * Calculated Field Information
-        */
-    export interface IFieldInfoCalculated extends IFieldInfo {
-            /** The field references */
-            fieldRefs?: Array<string>;
-    
-            /** The date/time format */
-            format?: number;
-    
-            /** The formula */
-            formula?: string;
-    
-            /** The result type */
-            resultType?: string;
-    }
-    
-    /**
-        * Choice Field Information
-        */
-    export interface IFieldInfoChoice extends IFieldInfo {
-            /** The choices */
-            choices?: string[];
-    
-            /** Allow multiple choices */
-            multi?: boolean;
-    }
-    
-    /**
-        * Currency Field Information
-        */
-    export interface IFieldInfoCurrency extends IFieldInfo {
-            /** The number of decimal places */
-            decimals?: number;
-    
-            /** The country/region whose currency format is being used. */
-            lcid?: number;
-    
-            /** The maximum value */
-            max?: number;
-    
-            /** The minimum value */
-            min?: number;
-    }
-    
-    /**
-        * Date Field Information
-        */
-    export interface IFieldInfoDate extends IFieldInfo {
-            /** The date/time format */
-            format?: number;
-    }
-    
-    /**
-        * Lookup Field Information
-        */
-    export interface IFieldInfoLookup extends IFieldInfo {
-            /** The field reference (Required for associated lookup fields) */
-            fieldRef?: string;
-    
-            /** Allow multiple lookup values */
-            multi?: boolean;
-    
-            /** The list id */
-            listId?: string;
-    
-            /** The list name */
-            listName?: string;
-    
-            /** The lookup field to show */
-            showField?: string;
-    
-            /** The relative web url containing the list */
-            webUrl?: string;
-    }
-    
-    /**
-        * Managed Metadata
-        */
-    export interface IFieldInfoMMS extends IFieldInfo {
-            /** The locale value */
-            locale?: number;
-    }
-    
-    /**
-        * Note
-        */
-    export interface IFieldInfoNote extends IFieldInfo {
-            /** Flag to append the comments. (This requires versioning to be enabled) */
-            appendFl?: boolean;
-    
-            /** The note field type */
-            noteType?: number;
-    
-            /** The number of lines */
-            numberOfLines?: number;
-    }
-    
-    /**
-        * Number
-        */
-    export interface IFieldInfoNumber extends IFieldInfo {
-            /** The number of decimal places */
-            decimals?: number;
-    
-            /** The maximum value */
-            max?: number;
-    
-            /** The minimum value */
-            min?: number;
-    
-            /** The number field type */
-            numberType?: number;
-    }
-    
-    /**
-        * User
-        */
-    export interface IFieldInfoUser extends IFieldInfo {
-            /** Allow multiple choices */
-            multi?: boolean;
-    
-            /** The user selection mode */
-            selectionMode?: number;
-    
-            /** The user selection scope */
-            selectionScope?: number;
-    }
-    /**
-        * SharePoint Configuration - Content Type Information
-        */
-    export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation {
-            /**
-                * The content type. (This value is set internally.)
-                */
-            ContentType?: Types.IContentTypeResult;
-    
-            /**
-                * The field references.
-                */
-            FieldRefs?: Array<string>;
-    
-            /**
-                * The JSLink property.
-                */
-            JSLink?: string;
-    
-            /**
-                * The parent content type name, required if different then the name.
-                */
-            ParentName?: string;
-    
-            /**
-                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
-                */
-            ParentWebUrl?: string;
-    
-            /**
-                * Event triggered after the content type is created.
-                */
-            onCreated?: (ct: Types.IContentTypeResult) => void;
-    
-            /**
-                * Event triggered after the content type is updated.
-                */
-            onUpdated?: (ct: Types.IContentTypeResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - Custom Action Information
-        */
-    export interface ISPCfgCustomActionInfo {
-            /**
-                * Custom actions to be created at the site collection level.
-                */
-            Site?: Array<SP.UserCustomAction>,
-    
-            /**
-                * Custom actions to be created at the web level.
-                */
-            Web?: Array<SP.UserCustomAction>
-    }
-    
-    /**
-        * SharePoint Configuration - Field Information
-        */
-    export interface ISPCfgFieldInfo extends IFieldInfo {
-            /**
-                * Event triggered after the field is created.
-                */
-            onCreated?: (field: Types.IFieldResult) => void;
-    
-            /**
-                * Event triggered after the field is updated.
-                */
-            onUpdated?: (field: Types.IFieldResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - List Information
-        */
-    export interface ISPCfgListInfo {
-            /** The content Types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-    
-            /** The custom list fields. */
-            CustomFields?: Array<ISPCfgFieldInfo>;
-    
-            /** The list creation information. */
-            ListInformation: SP.ListCreationInformation;
-    
-            /** The title display name. */
-            TitleFieldDisplayName?: string;
-    
-            /** The user custom actions. */
-            UserCustomActions?: Array<SP.UserCustomAction>;
-    
-            /** The view information. */
-            ViewInformation?: Array<ISPCfgViewInfo>;
-    
-            /**
-                * Event triggered after the list is created or updated.
-                */
-            onCreated?: (list: Types.IListResult) => void;
-    
-            /**
-                * Event triggered after the list is updated.
-                */
-            onUpdated?: (list: Types.IListQueryResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - View Information
-        */
-    export interface ISPCfgViewInfo {
-            /** The JSLink property. */
-            JSLink?: string;
-    
-            /** The view fields. */
-            ViewFields?: Array<string>;
-    
-            /** The view name. */
-            ViewName: string;
-    
-            /** The view query. */
-            ViewQuery?: string;
-    
-            /**
-                * Event triggered after the view is created or updated.
-                */
-            onCreated?: (view: Types.IViewResult) => void;
-    
-            /**
-                * Event triggered after the view is updated.
-                */
-            onUpdated?: (view: Types.IView) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - WebPart Information
-        */
-    export interface ISPCfgWebPartInfo {
-            /** The file name of the webpart. */
-            FileName: string;
-    
-            /** The webpart group. */
-            Group?: string;
-    
-            /** The webpart xml */
-            XML: string;
-    
-            /**
-                * Event triggered after the webpart file is created.
-                */
-            onCreated?: (file: Types.IFileResult) => void;
-    
-            /**
-                * Event triggered after the webpart file is updated.
-                */
-            onUpdated?: (file: Types.IFileResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration Methods
-        */
-    export interface ISPConfig {
-            /** The configuration. */
-            _configuration: ISPConfigProps;
-    
-            /**
-                * Method to install the configuration
-                */
-            install(): PromiseLike<void>;
-    
-            /**
-                * Method to install the configuration
-                */
-            uninstall(): PromiseLike<void>;
-    }
-    
-    /**
-        * SharePoint Configuration - Properties
-        */
-    export interface ISPConfigProps {
-            /** The content Types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-    
-            /** The custom action configuration. */
-            CustomActionCfg?: ISPCfgCustomActionInfo;
-    
-            /** The site column configuration. */
-            Fields?: Array<ISPCfgFieldInfo>;
-    
-            /** The list configuration. */
-            ListCfg?: Array<ISPCfgListInfo>;
-    
-            /** The web part configuration. */
-            WebPartCfg?: Array<ISPCfgWebPartInfo>;
-    }
-    
-    /**
-        * SharePoint Configuration - Types
-        */
-    export interface ISPConfigTypes {
-            /** Fields */
-            Fields: number;
-    
-            /** Content Types */
-            ContentTypes: number;
-    
-            /** Lists */
-            Lists: number;
-    
-            /** Site User Custom Actions */
-            SiteUserCustomActions: number;
-    
-            /** Web User Custom Actions */
-            WebUserCustomActions: number;
-    }
-}
-
-declare module 'gd-sprest/helper/types/spCfgTypes' {
-    /** The field types */
-    export type ISPCfgFieldType = {
-        Boolean: number;
-        Calculated: number;
-        Choice: number;
-        Currency: number;
-        Date: number;
-        Geolocation: number;
-        Lookup: number;
-        MMS: number;
-        Note: number;
-        Number: number;
-        Text: number;
-        Url: number;
-        User: number;
-    }
-    
-    /** The configuration types */
-    export type ISPCfgType = {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
-    }
-}
-
-declare module 'gd-sprest/helper/types/taxonomy' {
-    /**
-        * Taxonomy Helper Class
-        */
-    export interface ITaxonomy {
-            /**
-                * Method to find a term by id
-                * @param term - The term
-                * @param termId - The term id to search for
-                */
-            findById(term: ITerm, termId: string): ITerm;
-    
-            /**
-                * Method to find a term by name
-                * @param term - The term
-                * @param termName - The term name to search for
-                */
-            findByName(term: ITerm, termName: string): ITerm;
-    
-            /**
-                * Method to get the term group
-                * @param groupName - The group name.
-                */
-            getTermGroup(groupName?: string): PromiseLike<{ context: any, termGroup: any }>;
-    
-            /**
-                * Method to get the term groups
-                */
-            getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
-    
-            /**
-                * Method to get the term sets for a group
-                * @param groupName - The group name.
-                */
-            getTermSets(groupName: string): PromiseLike<Array<ITermSetInfo>>;
-    
-            /**
-                * Method to get the term sets for the site collection
-                */
-            getTermSetsFromDefaultSC(): PromiseLike<Array<ITermSetInfo>>;
-    
-            /**
-                * Method to get the terms
-                * @param termSet - The term set.
-                * @param termSetTerms - The term set terms.
-                */
-            getTerms(termSet, termSetTerms): Array<ITermInfo>;
-    
-            /**
-                * Method to get the terms by id
-                * @param termStoreId - The term store guid
-                * @param termSetId - The term set guid
-                */
-            getTermsById(termStoreId: string, termSetId: string): PromiseLike<Array<ITermInfo>>;
-    
-            /**
-                * Method to get the term set by id
-                * @param termStoreId - The term store guid
-                * @param termSetId - The term set guid
-                */
-            getTermSetById(termStoreId: string, termSetId: string): PromiseLike<ITerm>;
-    
-            /**
-                * Method to get the terms from the default site collection
-                * @param termSetName - The term set name
-                */
-            getTermsFromDefaultSC(termSetName: string): PromiseLike<Array<ITermInfo>>;
-    
-            /**
-                * Method to get the term set from the default site collection
-                */
-            getTermSetFromDefaultSC(termSetName: string): PromiseLike<ITerm>;
-    
-            /**
-                * Method to get a terms from a specified group
-                */
-            getTermsByGroupName(termSetName: string, groupName: string): PromiseLike<Array<ITermInfo>>;
-    
-            /**
-                * Method to get the term set from the default site collection
-                */
-            getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
-    
-            /**
-                * Method to ensure the taxonomy script references are loaded.
-                */
-            loadScripts(): PromiseLike<void>;
-    
-            /**
-                * Method to convert a term set into an array of terms
-                * @param term - The term
-                */
-            toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
-    
-            /**
-                * Method to convert a term to a field value
-                * @param term - The term
-                */
-            toFieldValue(term: ITerm | ITermInfo): any;
-    
-            /**
-                * Method to convert a collection of terms to a field value
-                * @param terms - The terms
-                */
-            toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
-    
-            /**
-                * Method to convert an array of terms into a term set
-                * @param terms - The terms
-                */
-            toObject(terms: Array<ITermInfo>): ITerm;
-    }
-    
-    
-    /**
-        * Taxonomy Term
-        */
-    export interface ITerm {
-            /** The root term information */
-            info: ITermInfo;
-    
-            /** The parent term */
-            parent?: ITerm;
-    }
-    
-    /**
-        * Taxonomy Term Group Information
-        */
-    export interface ITermGroupInfo {
-            /** The term description */
-            description: string;
-    
-            /** The term id */
-            id: string;
-    
-            /** The term name */
-            name: string;
-    }
-    
-    /**
-        * Taxonomy Term Information
-        */
-    export interface ITermInfo {
-            /** The term description */
-            description: string;
-    
-            /** The term id */
-            id: string;
-    
-            /** The term name */
-            name: string;
-    
-            /** The parent term */
-            parent?: ITerm;
-    
-            /** The term path */
-            path: Array<string>;
-    
-            /** The term path as a string */
-            pathAsString: string;
-    
-            /** The term custom properties */
-            props: { [key: string]: string; };
-    }
-    
-    /**
-        * Taxonomy Term Set Information
-        */
-    export interface ITermSetInfo {
-            /** The term description */
-            description: string;
-    
-            /** The term id */
-            id: string;
-    
-            /** The term name */
-            name: string;
-    
-            /** The term custom properties */
-            props: { [key: string]: string; };
-    }
-}
-
-declare module 'gd-sprest/helper/types/webpart' {
-    /**
-        * Web Part
-        */
-    export interface IWebPart {
-            /**
-                * Creates an instance of a webpart.
-                * @param props - The webpart properties.
-                */
-            new(props: IWebPartProps);
-    
-            /**
-                * Adds a script editor webpart to a page.
-                * @param url - The relative url of the page.
-                * @param wpProps - The webpart properties.
-                */
-            addWebPartToPage(url: string, wpProps: IWebPartScriptEditor): PromiseLike<void>;
-    
-            /**
-                * Creates an instance of a webpart.
-                * @param props - The webpart properties.
-                */
-            create(props: IWebPartProps);
-    
-            /**
-                * Determines if the page is being edited.
-                */
-            isEditMode(): boolean;
-    }
-    
-    /**
-        * The webpart configuration
-        */
-    export interface IWebPartCfg {
-            /** The webpart id */
-            WebPartId?: string;
-    }
-    
-    /**
-        * The webpart information
-        */
-    export interface IWebPartInfo {
-            /** The configuration */
-            cfg: IWebPartCfg;
-    
-            /** The element to render the webpart to */
-            el: HTMLElement;
-    
-            /** The webpart id */
-            wpId: string;
-    }
-    
-    /**
-        * The webpart properties
-        */
-    export interface IWebPartProps {
-            /** The optional configuration element id */
-            cfgElementId?: string;
-    
-            /** The optional help link properties */
-            helpProps?: {
-                    /** The link title */
-                    title?: string;
-    
-                    /** The link url */
-                    url: string;
-            };
-    
-            /** The post render event */
-            onPostRender?: (wp: IWebPartInfo) => void;
-    
-            /** The render event triggered when the page is in 'Display' mode */
-            onRenderDisplay?: (wp: IWebPartInfo) => any;
-    
-            /** The render event triggered when the page is in 'Edit' mode */
-            onRenderEdit?: (wp: IWebPartInfo) => any;
-    
-            /** The target element id to render the webpart to */
-            elementId: string;
-    }
-    
-    /**
-        * The script editor webpart properties
-        */
-    export interface IWebPartScriptEditor {
-            /** The webpart description. */
-            description?: string;
-    
-            /** The webpart content. */
-            content: string;
-    
-            /** The webpart index. */
-            index?: number;
-    
-            /** The webpart title. */
-            title?: string;
-    
-            /** The webpart zone. */
-            zone?: string;
-    }
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
@@ -9166,6 +7612,1613 @@ declare module 'gd-sprest/mapper/types/webs' {
         * Web Results
         */
     export interface IWebResults extends IWebsMethods, IBaseCollection<IWebResult, IWebResult, IWebQueryResult> { }
+}
+
+declare module 'gd-sprest/helper/types/app' {
+    import * as SP from "gd-sprest/mapper/types";
+    
+    /**
+        * App Helper Methods
+        */
+    export interface IApp {
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolder - The destination folder.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolder: SP.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
+    
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolderUrl - The destination folder url, relative to the host web.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
+    
+            /**
+                * Method to copy a file from the app web to the host web
+                * @param fileUrls - An array of source file urls, relative to the app web.
+                * @param folderUrls - An array of destination folder urls, relative to the host web.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ files: Array<SP.IFileResult>, folders: Array<SP.IFolderResult> }>;
+    
+            /**
+                * Method to create sub-folders.
+                * @param folder - The app web relative url to the source file.
+                * @param subFolderUrl - The host web relative url of the destination folder.
+                */
+            createSubFolders(folder: SP.IFolder, subFolderUrl: string): PromiseLike<SP.IFolderResult>;
+    
+            /**
+                * Method to get the file content.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                * @param createFl - Flag to create the folder, if it doesn't exist.
+                */
+            getFolder(web: SP.IWeb | SP.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<SP.IFolderResult>;
+    
+            /**
+                * Method to remove empty folders
+                * @param web - The web containing the files.
+                * @param folderUrls - An array of folder urls, relative to the web.
+                */
+            removeEmptyFolders(web: SP.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
+    
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrl - The file url, relative to the web.
+                */
+            removeFile(web: SP.IWebResult, fileUrl: string): PromiseLike<void>;
+    
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                */
+            removeFiles(web: SP.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/types/dependencies' {
+    /**
+        * Dependencies
+        */
+    export interface IDependencies {
+            /**
+                * Constructor
+                * @param callback - The method to execute after the dependencies are loaded.
+                */
+            constructor(callback: (...args) => void);
+    
+            /** The maximum amount of time to wait for the scripts to be loaded. */
+            MAX_WAIT: number;
+    
+            /** Flag to determine if the page context information exists */
+            pageContextExistsFl: boolean;
+    
+            /** The script file names to load. */
+            SCRIPTS: Array<string>;
+    
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies();
+    
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext();
+    }
+}
+
+declare module 'gd-sprest/helper/types/fieldSchemaXML' {
+    import { IFieldInfo } from "gd-sprest/helper/types";
+    
+    /**
+      * Field Schema XML
+      */
+    export interface IFieldSchemaXML {
+        /** Creates the suitebar link */
+        new(fieldInfo: IFieldInfo): PromiseLike<string>;
+    }
+}
+
+declare module 'gd-sprest/helper/types/jslink' {
+    /**
+        * JSLink
+        */
+    export interface IJSLink {
+            /**
+                * Internal field to method mapper
+                */
+            _fieldToMethodMapper: any;
+    
+            /**
+                * Internal field used by the hideField method.
+                */
+            _hideEventFl: boolean;
+    
+            /**
+                * Disables edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                * @param requireValueFl - Flag to only disable the field, if a value exists.
+                */
+            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
+    
+            /**
+                * Disable quick edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                */
+            disableQuickEdit(ctx: any, field: any);
+    
+            /**
+                * Returns the list view.
+                * @param ctx - The client context.
+                */
+            getListView(ctx: any);
+    
+            /**
+                * Returns the list view items.
+                * @param ctx - The client context.
+                */
+            getListViewItems(ctx: any);
+    
+            /**
+                * Returns the selected list view items
+                */
+            getListViewSelectedItems();
+    
+            /**
+                * Returns the webpart containing the JSLink field/form/view.
+                * @param ctx - The client context.
+                */
+            getWebPart(ctx);
+    
+            /**
+                * Hides the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to hide.
+                */
+            hideField(ctx: any, field: any);
+    
+            /**
+                * Registers the JSLink configuration.
+                * @param cfg - The JSLink configuration.
+                */
+            register(cfg: IJSLinkCfg);
+    
+            /**
+                * Removes the field and html from the page.
+                * @param ctx - The client context.
+                * @param field - The field to remove.
+                */
+            removeField(ctx: any, field: any);
+    
+            /**
+                * Method to render the default html for a field.
+                * @param ctx - The client context.
+                * @param field - The form field.
+                * @param formType - The form type. (Display, Edit, New or View)
+                */
+            renderField(ctx, field, formType?: number);
+    }
+    
+    /**
+        * JSLink Configuration
+        */
+    export interface IJSLinkCfg {
+            /** The base view id. */
+            BaseViewID?: number | string;
+    
+            /** The list template type. */
+            ListTemplateType?: number;
+    
+            /** The post render event. */
+            OnPostRender?: any;
+    
+            /** The pre render event. */
+            OnPreRender?: any;
+    
+            /** The JSLink template overrides. */
+            Templates?: IJSLinkCfgTemplate;
+    }
+    /**
+        * JSLink Field Configuration
+        */
+    export interface IJSLinkCfgField {
+            DisplayForm?: any;
+            EditForm?: any;
+            NewForm?: any;
+            View?: any;
+    }
+    
+    /**
+        * JSLink Templates
+        */
+    export interface IJSLinkCfgTemplate {
+            Body?: any;
+            Footer?: any;
+            Fields?: { [key: string]: IJSLinkCfgField };
+            Group?: any;
+            Header?: any;
+            Item?: any;
+            OnPostRender?: any;
+            OnPreRender?: any;
+    }
+}
+
+declare module 'gd-sprest/helper/types/linkInfo' {
+    /**
+        * Link Information
+        */
+    export interface ILinkInfo {
+            /** True to append the link at the end of the list. */
+            appendFl?: boolean;
+    
+            /** The link class name */
+            className?: string;
+    
+            /** The link url */
+            href?: string;
+    
+            /** The link id */
+            id: string;
+    
+            /** The link click event */
+            onClick?: (ev?: MouseEvent) => void;
+    
+            /** The link title */
+            title: string;
+    }
+    
+    /**
+        * Ribbon Link
+        */
+    export interface IRibbonLink {
+            /** Creates the ribbon link */
+            new(props: ILinkInfo): HTMLAnchorElement;
+    }
+    
+    /**
+        * Suitebar Link
+        */
+    export interface ISuiteBarLink {
+            /** Creates the suitebar link */
+            new(props: ILinkInfo): HTMLAnchorElement;
+    }
+}
+
+declare module 'gd-sprest/helper/types/listForm' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/mapper/types";
+    
+    /**
+        * List Form
+        */
+    export interface IListForm {
+            /**
+                * Creates an instance of the list form
+                * @param props - The list form properties.
+                */
+            create(props: IListFormProps): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to generate the odata query for the list item.
+                */
+            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
+    
+            /**
+                * Method to load the item attachments
+                * @param info - The list form information.
+             */
+            loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>
+    
+            /**
+                * Method to refresh the item.
+                * @param info - The list form information.
+                */
+            refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to remove attachment from an item.
+                */
+            removeAttachment(info: IListFormResult, fileName: string): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to save attachments to the item.
+                * @param info - The list form information.
+                * @param attachmentInfo - The attachment files to add.
+                */
+            saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
+    
+            /**
+                * Method to save the item.
+                * @param info - The list form information.
+                * @param itemValues - The list item values.
+                */
+            saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to show the file dialog.
+                * @param info - The list form information.
+                * @param onSave - The save event triggered when a file is uploaded to the item.
+                */
+            showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
+    
+            /**
+                * Method to show the file dialog.
+                * @param info - The list form information.
+                * @param onSave - The save event triggered when a file is uploaded to the item.
+                */
+            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
+    }
+    
+    /**
+        * List Form Attachment Information
+        */
+    export interface IListFormAttachmentInfo {
+            /** The file content */
+            data: any;
+    
+            /** The name of the file */
+            name: string;
+    }
+    
+    /**
+        * List Form Cache
+        */
+    export interface IListFormCache {
+            ct: string;
+            fields: string;
+            list: string;
+    }
+    
+    /**
+        * List Form Display
+        */
+    export interface IListFormDisplay {
+            /**
+                * Method to get the fields
+                */
+            getFields(): Array<HTMLDivElement>;
+    }
+    
+    /**
+        * List Form Display Properties
+        */
+    export interface IListFormDisplayProps {
+            /** The element to render the form to. */
+            el: Element;
+    
+            /** The fields to exclude from the form. */
+            excludeFields?: Array<string>;
+    
+            /** The fields to include in the form. */
+            includeFields?: Array<string>;
+    
+            /** The list form information. */
+            info: IListFormResult;
+    }
+    
+    /**
+        * List Form Edit
+        */
+    export interface IListFormEdit {
+            /**
+                * Method to get the fields
+                */
+            getFields<T = any>(): Array<T>;
+    
+            /**
+                * Method to get the form values
+                */
+            getValues<T = any>(): PromiseLike<T>;
+    }
+    
+    /**
+        * List Form Edit Properties
+        */
+    export interface IListFormEditProps extends IListFormDisplayProps {
+            /** The form mode (New/Edit) */
+            controlMode?: number;
+    }
+    
+    /**
+        * List Form Properties
+        */
+    export interface IListFormProps {
+            /** If defined, the data will be cached to the session storage. */
+            cacheKey?: string;
+    
+            /** The form fields to exclude. */
+            excludeFields?: Array<string>;
+    
+            /** The form fields */
+            fields?: Array<string>;
+    
+            /** The list item */
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
+    
+            /** The item id */
+            itemId?: number;
+    
+            /** The list name */
+            listName: string;
+    
+            /** Flag to deteremine if we are loading attachments */
+            loadAttachments?: boolean;
+    
+            /** OData query used when loading an item */
+            query?: Types.ODataQuery;
+    
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    
+    /**
+        * List Form Result
+        */
+    export interface IListFormResult {
+            /** The item attachments. */
+            attachments?: Array<SP.Attachment>;
+    
+            /** The form fields. */
+            fields: { [key: string]: Types.IFieldResult };
+    
+            /** The list item. */
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
+    
+            /** The item query. */
+            query?: Types.ODataQuery;
+    
+            /** The list. */
+            list: Types.IListResult;
+    
+            /** The relative web url containing the list. */
+            webUrl?: string;
+    }
+}
+
+declare module 'gd-sprest/helper/types/listFormField' {
+    import { ITermInfo } from "gd-sprest/helper/types";
+    import * as SP from "gd-sprest/mapper/types";
+    
+    /**
+        * List Form Field Information
+        */
+    export interface IListFormFieldInfo {
+            /** The default value. */
+            defaultValue?: any;
+    
+            /** The list field. */
+            field?: SP.IFieldResult | SP.IFieldQueryResult;
+    
+            /** The list name. */
+            listName: string;
+    
+            /** The internal name of the field. */
+            name: string;
+    
+            /** Flag indicating if the field is read-only. */
+            readOnly?: boolean;
+    
+            /** True indicates a required field type. */
+            required?: boolean;
+    
+            /** The display name of the field. */
+            title?: string;
+    
+            /** The field type. */
+            type?: number;
+    
+            /** The field type as a string. */
+            typeAsString?: string;
+    
+            /** The relative web url containing the list. */
+            webUrl?: string;
+    }
+    
+    /**
+        * List Form Choice Field Information
+        */
+    export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
+            /** The choices. */
+            choices?: Array<string>;
+    
+            /** The list field. */
+            field?: SP.IFieldChoice | SP.IFieldMultiChoice;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    }
+    
+    /**
+        * List Form Date Field Information
+        */
+    export interface IListFormDateFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldDateTime;
+    
+            /** Flag determining if we are displaying time */
+            showTime?: boolean;
+    }
+    
+    /**
+        * List Form Lookup Field Information
+        */
+    export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldLookup;
+    
+            /** The lookup field */
+            lookupField?: string;
+    
+            /** The lookup list id */
+            lookupListId?: string;
+    
+            /** The lookup web id */
+            lookupWebId?: string;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    }
+    
+    /**
+        * List Form MMS Field Information
+        */
+    export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldManagedMetadata;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    
+            /** The term id */
+            termId?: string;
+    
+            /** The term set id */
+            termSetId?: string;
+    
+            /** The term store id */
+            termStoreId?: string;
+    
+            /** The value field */
+            valueField?: SP.IFieldNote;
+    }
+    
+    /**
+        * List Form Number Field Information
+        */
+    export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+            /** The number of decimals. */
+            decimals?: number;
+    
+            /** The list field. */
+            field?: SP.IFieldNumber | SP.IFieldCurrency;
+    
+            /** The maximum value */
+            maxValue?: number;
+    
+            /** The minimum value */
+            minValue?: number;
+    
+            /** Flag determining if we are displaying the value as a percentage */
+            showAsPercentage?: boolean;
+    }
+    
+    /**
+        * List Form Text Field Information
+        */
+    export interface IListFormTextFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldText | SP.IFieldNote;
+    
+            /** Flag determining if this is a note field */
+            multiline?: boolean;
+    
+            /** Flag determining if this field value is html encoded */
+            richText?: boolean;
+    
+            /** The number of rows to display */
+            rows?: number;
+    }
+    
+    /**
+        * List Form URL Field Information
+        */
+    export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldUrl;
+    }
+    
+    /**
+        * List Form User Field Information
+        */
+    export interface IListFormUserFieldInfo extends IListFormFieldInfo {
+            /** Flag to determine if groups are allowed */
+            allowGroups?: boolean;
+    
+            /** The list field. */
+            field?: SP.IFieldUser;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    }
+    
+    /**
+        * List Form Field
+        */
+    export interface IListFormField {
+            /**
+                * Creates an instance of the list form field
+                * @param props - The list form field properties
+                */
+            create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+    
+            /** Method to load the lookup data */
+            loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQueryResult>>;
+    
+            /** Method to load the mms data */
+            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
+    
+            /** Method to load the mms value field */
+            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<SP.IFieldNote>;
+    }
+}
+
+declare module 'gd-sprest/helper/types/loader' {
+    /**
+        * Loader
+        */
+    export interface ILoader {
+            // Internal flag to determine if the SP core libraries have been loaded
+            loaded: boolean;
+    
+            /**
+                * Waits for the SharePoint core libraries to be loaded.
+                * @param callback - The callback function.
+                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
+                * @param loadLibraries - Flag to load the core libraries manually.
+                */
+            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean);
+    }
+}
+
+declare module 'gd-sprest/helper/types/methods' {
+    /**
+      * Request
+      */
+    export interface IRequest {
+        /** The data to pass in the request. */
+        data?: any;
+    
+        /** The request headers. */
+        headers?: { [key: string]: string };
+    
+        /** The request method. */
+        method?: string;
+    
+        /** The request url. */
+        url: string;
+    }
+}
+
+declare module 'gd-sprest/helper/types/sp' {
+    
+    /**
+        * Dialog Options
+        */
+    export interface IDialogOptions {
+            /** A Boolean value that specifies whether the dialog can be maximized. true if the Maximize button is shown; otherwise, false. */
+            allowMaximize?: boolean;
+    
+            /** An object that contains data that are passed to the dialog. */
+            args?: any;
+    
+            /** A Boolean value that specifies whether the dialog platform handles dialog sizing. */
+            autoSize?: boolean;
+    
+            /** A function pointer that specifies the return callback function. The function takes two parameters, a dialogResult of type SP.UI.DialogResult Enumeration and a returnValue of type object that contains any data returned by the dialog. */
+            dialogReturnValueCallback?: (dialogResult?: number, returnVal?: any) => void;
+    
+            /** An integer value that specifies the height of the dialog. If height is not specified, the height of the dialog is autosized by default. If autosize is false, the dialog height is set to 576 pixels. */
+            height?: number;
+    
+            /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
+            html?: HTMLElement;
+    
+            /** A Boolean value that specifies whether the Close button appears on the dialog. */
+            showClose?: boolean;
+    
+            /** A Boolean value that specifies whether the dialog opens in a maximized state. true the dialog opens maximized. Otherwise, the dialog is opened at the requested sized if specified; otherwise, the default size, if specified; otherwise, the autosized size. */
+            showMaximized?: boolean;
+    
+            /** A string that contains the title of the dialog. */
+            title?: string;
+    
+            /** A string that contains the URL of the page that appears in the dialog. If both url and html are specified, url takes precedence. Either url or html must be specified. */
+            url?: string;
+    
+            /** An integer value that specifies the width of the dialog. If width is not specified, the width of the dialog is autosized by default. If autosize is false, the width of the dialog is set to 768 pixels. */
+            width?: number;
+    
+            /** An integer value that specifies the x-offset of the dialog. This value works like the CSS left value. */
+            x?: number;
+    
+            /** An integer value that specifies the y-offset of the dialog. This value works like the CSS top value. */
+            y?: number;
+    }
+    
+    /**
+        * Modal Dialog
+        */
+    export interface IModalDialog {
+            /**
+                * Closes the most recently opened modal dialog with the specified dialog result.
+                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
+                */
+            close(dialogResult?: number);
+    
+            /**
+                * Closes the most recently opened modal dialog with the specified dialog result and return value.
+                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
+                * @param returnVal - The return value of the modal dialog.
+                */
+            commonModalDialogClose(dialogResult?: number, returnVal?: any);
+    
+            /**
+                * Displays a modal dialog with the specified URL, options, callback function, and arguments.
+                * @param url - The URL of the page to be shown in the modal dialog.
+                * @param options - The options to create the modal dialog.
+                * @param callback - The callback function that runs when the modal dialog is closed.
+                * @param args - The arguments to the modal dialog.
+                */
+            commonModalDialogOpen(url: string, options?: IDialogOptions, callback?: (dialogResult?: number, returnVal?: any) => void, args?: any);
+    
+            /**
+                * Method to ensure the core script is loaded
+                */
+            load(): PromiseLike<void>;
+    
+            /**
+                * Displays a modal dialog with the specified URL, callback function, width, and height.
+                * @param url - The URL of the page to be shown in the modal dialog.
+                * @param callback - The callback function that runs when the modal dialog is closed.
+                * @param width - The width of the modal dialog.
+                * @param height - The height of the modal dialog.
+                */
+            OpenPopUpPage(url: string, callback?: (dialogResult?: number, returnVal?: any) => void, width?: number, height?: number);
+    
+            /**
+                * Refreshes the parent page of the modal dialog when the dialog is closed by clicking OK.
+                * @param dialogResult - The result of the modal dialog.
+                */
+            RefreshPage(dialogResult?: number);
+    
+            /**
+                * Displays a modal dialog with specified dialog options.
+                * @param options - The options to create the modal dialog.
+                */
+            showModalDialog(options: IDialogOptions);
+    
+            /**
+                * Displays a modal dialog using the page at the specified URL.
+                * @param url - The URL of the page to be shown in the modal dialog.
+                */
+            ShowPopupDialog(url: string);
+    
+            /**
+                * Displays a wait screen dialog that has a Cancel button using the specified parameters.
+                * @param title - The title of the wait screen dialog.
+                * @param message - The message that is shown in the wait screen dialog.
+                * @param callback - The callback function that runs when the wait screen dialog is closed.
+                * @param height - The height of the wait screen dialog.
+                * @param width - The width of the wait screen dialog.
+                */
+            showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number);
+    
+            /**
+                * Displays a wait screen dialog that does not have a Cancel button using the specified parameters.
+                * @param title - The title of the wait screen dialog.
+                * @param message - The message that is shown in the wait screen dialog.
+                * @param height - The height of the wait screen dialog.
+                * @param width - The width of the wait screen dialog.
+                */
+            showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number);
+    }
+    
+    /**
+        * Notify
+        */
+    export interface INotify {
+            /**
+                * Adds a notification to the page. By default, notifications appear for five seconds.
+                * @param html - The message inside the notification.
+                * @param sticky - Specifies whether the notification stays on the page until removed.
+                * @returns A promise containing the ID of the notification that was added to the page.
+                */
+            addNotification(html: string, sticky?: boolean): PromiseLike<string>;
+    
+            /**
+                * Method to ensure the core script is loaded
+                */
+            load(): PromiseLike<void>;
+    
+            /**
+                * Removes the specified notification from the page.
+                * @param id - The notification to remove from the page.
+                */
+            removeNotification(id: string);
+    }
+    
+    /**
+        * Status
+        */
+    export interface IStatus {
+            /**
+                * Adds a status message to the page.
+                * @param title - The title of the status message.
+                * @param html - The contents of the status message.
+                * @param prepend - Specifies whether the status message will appear at the beginning of the list.
+                */
+            addStatus(title: string, html?: string, prepend?: boolean): PromiseLike<string>;
+    
+            /**
+                * Appends text to an existing status message.
+                * @param id - The ID of the status message to remove.
+                * @param title - The title of the status message.
+                * @param html - The contents of the status message.
+                */
+            appendStatus(id: string, title: string, html: string): PromiseLike<string>;
+    
+            /**
+                * Method to ensure the core script is loaded
+                */
+            load(): PromiseLike<void>;
+    
+            /**
+                * Removes all status messages from the page.
+                * @param hide - Specifies that the status messages should be hidden.
+                */
+            removeAllStatus(hide?: boolean);
+    
+            /**
+                * Removes the specified status message.
+                * @param id - The ID of the status message to remove.
+                */
+            removeStatus(id: string);
+    
+            /**
+                * Sets the priority color of the specified status message.
+                * @param id - The ID of the status message to remove.
+                * @param color - The color to set for the status message. The following table lists the values and their priority.
+                */
+            setStatusPriColor(id: string, color: string);
+    
+            /**
+                * Updates the specified status message.
+                * @param id - The ID of the status message to remove.
+                * @param html - The contents of the status message.
+                */
+            updateStatus(id: string, html: string);
+    }
+}
+
+declare module 'gd-sprest/helper/types/spCfg' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/mapper/types";
+    
+    /**
+        * Field Information
+        */
+    export interface IFieldInfo {
+            /** The default value of the field. */
+            defaultValue?: string;
+    
+            /** The group name. */
+            group?: string;
+    
+            /** True for hidden fields. */
+            hidden?: boolean;
+    
+            /** The JSLink value for the field. */
+            jslink?: string;
+    
+            /** The internal name of the field. */
+            name: string;
+    
+            /** Flag to determine if the field is readonly. */
+            readOnly?: boolean;
+    
+            /** Flag to determine if the field is required. */
+            required?: boolean;
+    
+            /** The schema definition of the field. */
+            schemaXml?: string;
+    
+            /** Flag to make this field visible in the display form. */
+            showInDisplayForm?: boolean;
+    
+            /** Flag to make this field visible in the edit form. */
+            showInEditForm?: boolean;
+    
+            /** Flag to make this field visible in the list settings. */
+            showInListSettings?: boolean;
+    
+            /** Flag to make this field visible in the new form. */
+            showInNewForm?: boolean;
+    
+            /** Flag to make this field visible in the list views. */
+            showInViewForms?: boolean;
+    
+            /** The field title */
+            title?: string;
+    
+            /** The field type */
+            type?: number;
+    }
+    
+    /**
+        * Calculated Field Information
+        */
+    export interface IFieldInfoCalculated extends IFieldInfo {
+            /** The field references */
+            fieldRefs?: Array<string>;
+    
+            /** The date/time format */
+            format?: number;
+    
+            /** The formula */
+            formula?: string;
+    
+            /** The result type */
+            resultType?: string;
+    }
+    
+    /**
+        * Choice Field Information
+        */
+    export interface IFieldInfoChoice extends IFieldInfo {
+            /** The choices */
+            choices?: string[];
+    
+            /** Allow multiple choices */
+            multi?: boolean;
+    }
+    
+    /**
+        * Currency Field Information
+        */
+    export interface IFieldInfoCurrency extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+    
+            /** The country/region whose currency format is being used. */
+            lcid?: number;
+    
+            /** The maximum value */
+            max?: number;
+    
+            /** The minimum value */
+            min?: number;
+    }
+    
+    /**
+        * Date Field Information
+        */
+    export interface IFieldInfoDate extends IFieldInfo {
+            /** The date/time format */
+            format?: number;
+    }
+    
+    /**
+        * Lookup Field Information
+        */
+    export interface IFieldInfoLookup extends IFieldInfo {
+            /** The field reference (Required for associated lookup fields) */
+            fieldRef?: string;
+    
+            /** Allow multiple lookup values */
+            multi?: boolean;
+    
+            /** The list id */
+            listId?: string;
+    
+            /** The list name */
+            listName?: string;
+    
+            /** The lookup field to show */
+            showField?: string;
+    
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    
+    /**
+        * Managed Metadata
+        */
+    export interface IFieldInfoMMS extends IFieldInfo {
+            /** The locale value */
+            locale?: number;
+    }
+    
+    /**
+        * Note
+        */
+    export interface IFieldInfoNote extends IFieldInfo {
+            /** Flag to append the comments. (This requires versioning to be enabled) */
+            appendFl?: boolean;
+    
+            /** The note field type */
+            noteType?: number;
+    
+            /** The number of lines */
+            numberOfLines?: number;
+    }
+    
+    /**
+        * Number
+        */
+    export interface IFieldInfoNumber extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+    
+            /** The maximum value */
+            max?: number;
+    
+            /** The minimum value */
+            min?: number;
+    
+            /** The number field type */
+            numberType?: number;
+    }
+    
+    /**
+        * User
+        */
+    export interface IFieldInfoUser extends IFieldInfo {
+            /** Allow multiple choices */
+            multi?: boolean;
+    
+            /** The user selection mode */
+            selectionMode?: number;
+    
+            /** The user selection scope */
+            selectionScope?: number;
+    }
+    /**
+        * SharePoint Configuration - Content Type Information
+        */
+    export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation {
+            /**
+                * The content type. (This value is set internally.)
+                */
+            ContentType?: Types.IContentTypeResult;
+    
+            /**
+                * The field references.
+                */
+            FieldRefs?: Array<string>;
+    
+            /**
+                * The JSLink property.
+                */
+            JSLink?: string;
+    
+            /**
+                * The parent content type name, required if different then the name.
+                */
+            ParentName?: string;
+    
+            /**
+                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+                */
+            ParentWebUrl?: string;
+    
+            /**
+                * Event triggered after the content type is created.
+                */
+            onCreated?: (ct: Types.IContentTypeResult) => void;
+    
+            /**
+                * Event triggered after the content type is updated.
+                */
+            onUpdated?: (ct: Types.IContentTypeResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - Custom Action Information
+        */
+    export interface ISPCfgCustomActionInfo {
+            /**
+                * Custom actions to be created at the site collection level.
+                */
+            Site?: Array<SP.UserCustomAction>,
+    
+            /**
+                * Custom actions to be created at the web level.
+                */
+            Web?: Array<SP.UserCustomAction>
+    }
+    
+    /**
+        * SharePoint Configuration - Field Information
+        */
+    export interface ISPCfgFieldInfo extends IFieldInfo {
+            /**
+                * Event triggered after the field is created.
+                */
+            onCreated?: (field: Types.IFieldResult) => void;
+    
+            /**
+                * Event triggered after the field is updated.
+                */
+            onUpdated?: (field: Types.IFieldResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - List Information
+        */
+    export interface ISPCfgListInfo {
+            /** The content Types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+    
+            /** The custom list fields. */
+            CustomFields?: Array<ISPCfgFieldInfo>;
+    
+            /** The list creation information. */
+            ListInformation: SP.ListCreationInformation;
+    
+            /** The title display name. */
+            TitleFieldDisplayName?: string;
+    
+            /** The user custom actions. */
+            UserCustomActions?: Array<SP.UserCustomAction>;
+    
+            /** The view information. */
+            ViewInformation?: Array<ISPCfgViewInfo>;
+    
+            /**
+                * Event triggered after the list is created or updated.
+                */
+            onCreated?: (list: Types.IListResult) => void;
+    
+            /**
+                * Event triggered after the list is updated.
+                */
+            onUpdated?: (list: Types.IListQueryResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - View Information
+        */
+    export interface ISPCfgViewInfo {
+            /** The JSLink property. */
+            JSLink?: string;
+    
+            /** The view fields. */
+            ViewFields?: Array<string>;
+    
+            /** The view name. */
+            ViewName: string;
+    
+            /** The view query. */
+            ViewQuery?: string;
+    
+            /**
+                * Event triggered after the view is created or updated.
+                */
+            onCreated?: (view: Types.IViewResult) => void;
+    
+            /**
+                * Event triggered after the view is updated.
+                */
+            onUpdated?: (view: Types.IView) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - WebPart Information
+        */
+    export interface ISPCfgWebPartInfo {
+            /** The file name of the webpart. */
+            FileName: string;
+    
+            /** The webpart group. */
+            Group?: string;
+    
+            /** The webpart xml */
+            XML: string;
+    
+            /**
+                * Event triggered after the webpart file is created.
+                */
+            onCreated?: (file: Types.IFileResult) => void;
+    
+            /**
+                * Event triggered after the webpart file is updated.
+                */
+            onUpdated?: (file: Types.IFileResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration Methods
+        */
+    export interface ISPConfig {
+            /** The configuration. */
+            _configuration: ISPConfigProps;
+    
+            /**
+                * Method to install the configuration
+                */
+            install(): PromiseLike<void>;
+    
+            /**
+                * Method to install the configuration
+                */
+            uninstall(): PromiseLike<void>;
+    }
+    
+    /**
+        * SharePoint Configuration - Properties
+        */
+    export interface ISPConfigProps {
+            /** The content Types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+    
+            /** The custom action configuration. */
+            CustomActionCfg?: ISPCfgCustomActionInfo;
+    
+            /** The site column configuration. */
+            Fields?: Array<ISPCfgFieldInfo>;
+    
+            /** The list configuration. */
+            ListCfg?: Array<ISPCfgListInfo>;
+    
+            /** The web part configuration. */
+            WebPartCfg?: Array<ISPCfgWebPartInfo>;
+    }
+    
+    /**
+        * SharePoint Configuration - Types
+        */
+    export interface ISPConfigTypes {
+            /** Fields */
+            Fields: number;
+    
+            /** Content Types */
+            ContentTypes: number;
+    
+            /** Lists */
+            Lists: number;
+    
+            /** Site User Custom Actions */
+            SiteUserCustomActions: number;
+    
+            /** Web User Custom Actions */
+            WebUserCustomActions: number;
+    }
+}
+
+declare module 'gd-sprest/helper/types/spCfgTypes' {
+    /** The field types */
+    export type ISPCfgFieldType = {
+        Boolean: number;
+        Calculated: number;
+        Choice: number;
+        Currency: number;
+        Date: number;
+        Geolocation: number;
+        Lookup: number;
+        MMS: number;
+        Note: number;
+        Number: number;
+        Text: number;
+        Url: number;
+        User: number;
+    }
+    
+    /** The configuration types */
+    export type ISPCfgType = {
+        Fields: number;
+        ContentTypes: number;
+        Lists: number;
+        SiteUserCustomActions: number;
+        WebParts: number;
+        WebUserCustomActions: number;
+    }
+}
+
+declare module 'gd-sprest/helper/types/taxonomy' {
+    /**
+     * Taxonomy Helper
+     */
+    export interface ITaxonomy {
+            /**
+                * Method to find a term by id
+                * @param term - The term
+                * @param termId - The term id to search for
+                */
+            findById(term: ITerm, termId: string): ITerm;
+    
+            /**
+                * Method to find a term by name
+                * @param term - The term
+                * @param termName - The term name to search for
+                */
+            findByName(term: ITerm, termName: string): ITerm;
+    
+            /**
+                * Method to get the term group
+                * @param groupName - The group name.
+                */
+            getTermGroup(groupName?: string): PromiseLike<{ context: any, termGroup: any }>;
+    
+            /**
+                * Method to get the term groups
+                */
+            getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
+    
+            /**
+                * Method to get the term sets for a group
+                * @param groupName - The group name.
+                */
+            getTermSets(groupName: string): PromiseLike<Array<ITermSetInfo>>;
+    
+            /**
+                * Method to get the term sets for the site collection
+                */
+            getTermSetsFromDefaultSC(): PromiseLike<Array<ITermSetInfo>>;
+    
+            /**
+                * Method to get the terms
+                * @param termSet - The term set.
+                * @param termSetTerms - The term set terms.
+                */
+            getTerms(termSet, termSetTerms): Array<ITermInfo>;
+    
+            /**
+                * Method to get the terms by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermsById(termStoreId: string, termSetId: string): PromiseLike<Array<ITermInfo>>;
+    
+            /**
+                * Method to get the term set by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermSetById(termStoreId: string, termSetId: string): PromiseLike<ITerm>;
+    
+            /**
+                * Method to get the terms from the default site collection
+                * @param termSetName - The term set name
+                */
+            getTermsFromDefaultSC(termSetName: string): PromiseLike<Array<ITermInfo>>;
+    
+            /**
+                * Method to get the term set from the default site collection
+                */
+            getTermSetFromDefaultSC(termSetName: string): PromiseLike<ITerm>;
+    
+            /**
+                * Method to get a terms from a specified group
+                */
+            getTermsByGroupName(termSetName: string, groupName: string): PromiseLike<Array<ITermInfo>>;
+    
+            /**
+                * Method to get the term set from the default site collection
+                */
+            getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
+    
+            /**
+                * Method to ensure the taxonomy script references are loaded.
+                */
+            loadScripts(): PromiseLike<void>;
+    
+            /**
+                * Method to convert a term set into an array of terms
+                * @param term - The term
+                */
+            toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
+    
+            /**
+                * Method to convert a term to a field value
+                * @param term - The term
+                */
+            toFieldValue(term: ITerm | ITermInfo): any;
+    
+            /**
+                * Method to convert a collection of terms to a field value
+                * @param terms - The terms
+                */
+            toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
+    
+            /**
+                * Method to convert an array of terms into a term set
+                * @param terms - The terms
+                */
+            toObject(terms: Array<ITermInfo>): ITerm;
+    }
+    
+    
+    /**
+        * Taxonomy Term
+        */
+    export interface ITerm {
+            /** The root term information */
+            info: ITermInfo;
+    
+            /** The parent term */
+            parent?: ITerm;
+    }
+    
+    /**
+        * Taxonomy Term Group Information
+        */
+    export interface ITermGroupInfo {
+            /** The term description */
+            description: string;
+    
+            /** The term id */
+            id: string;
+    
+            /** The term name */
+            name: string;
+    }
+    
+    /**
+        * Taxonomy Term Information
+        */
+    export interface ITermInfo {
+            /** The term description */
+            description: string;
+    
+            /** The term id */
+            id: string;
+    
+            /** The term name */
+            name: string;
+    
+            /** The parent term */
+            parent?: ITerm;
+    
+            /** The term path */
+            path: Array<string>;
+    
+            /** The term path as a string */
+            pathAsString: string;
+    
+            /** The term custom properties */
+            props: { [key: string]: string; };
+    }
+    
+    /**
+        * Taxonomy Term Set Information
+        */
+    export interface ITermSetInfo {
+            /** The term description */
+            description: string;
+    
+            /** The term id */
+            id: string;
+    
+            /** The term name */
+            name: string;
+    
+            /** The term custom properties */
+            props: { [key: string]: string; };
+    }
+}
+
+declare module 'gd-sprest/helper/types/webpart' {
+    /**
+        * Web Part
+        */
+    export interface IWebPart {
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            new(props: IWebPartProps);
+    
+            /**
+                * Adds a script editor webpart to a page.
+                * @param url - The relative url of the page.
+                * @param wpProps - The webpart properties.
+                */
+            addWebPartToPage(url: string, wpProps: IWebPartScriptEditor): PromiseLike<void>;
+    
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            create(props: IWebPartProps);
+    
+            /**
+                * Determines if the page is being edited.
+                */
+            isEditMode(): boolean;
+    }
+    
+    /**
+        * The webpart configuration
+        */
+    export interface IWebPartCfg {
+            /** The webpart id */
+            WebPartId?: string;
+    }
+    
+    /**
+        * The webpart information
+        */
+    export interface IWebPartInfo {
+            /** The configuration */
+            cfg: IWebPartCfg;
+    
+            /** The element to render the webpart to */
+            el: HTMLElement;
+    
+            /** The webpart id */
+            wpId: string;
+    }
+    
+    /**
+        * The webpart properties
+        */
+    export interface IWebPartProps {
+            /** The optional configuration element id */
+            cfgElementId?: string;
+    
+            /** The optional help link properties */
+            helpProps?: {
+                    /** The link title */
+                    title?: string;
+    
+                    /** The link url */
+                    url: string;
+            };
+    
+            /** The post render event */
+            onPostRender?: (wp: IWebPartInfo) => void;
+    
+            /** The render event triggered when the page is in 'Display' mode */
+            onRenderDisplay?: (wp: IWebPartInfo) => any;
+    
+            /** The render event triggered when the page is in 'Edit' mode */
+            onRenderEdit?: (wp: IWebPartInfo) => any;
+    
+            /** The target element id to render the webpart to */
+            elementId: string;
+    }
+    
+    /**
+        * The script editor webpart properties
+        */
+    export interface IWebPartScriptEditor {
+            /** The webpart description. */
+            description?: string;
+    
+            /** The webpart content. */
+            content: string;
+    
+            /** The webpart index. */
+            index?: number;
+    
+            /** The webpart title. */
+            title?: string;
+    
+            /** The webpart zone. */
+            zone?: string;
+    }
 }
 
 declare module 'gd-sprest/utils/types/base' {

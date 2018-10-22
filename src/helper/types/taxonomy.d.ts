@@ -1,6 +1,6 @@
 /**
- * Taxonomy Helper Class
- */
+* Taxonomy Helper
+*/
 export interface ITaxonomy {
     /**
      * Method to find a term by id

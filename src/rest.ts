@@ -1,13 +1,13 @@
 import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
-import { IREST } from "./index.d";
+import { IREST } from "./rest.d";
 
 /**
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.31,
+    __ver: 4.32,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

@@ -13,6 +13,7 @@ The SharePoint REST Framework was designed for SharePoint 2013, but works in bot
 
 - [gd-sprest](api) - An easy way to execute requests against the SharePoint 2013/Online REST api
 - [gd-sprest-bs](extras/bs) - Extends the [Bootstrap Framework](https://getbootstrap.com) with components designed for SharePoint 2013/Online.
+- [gd-sprest-def](https://github.com/gunjandatta/sprest-def) - Generates TypeScript definition files from the $metadata SharePoint REST endpoint. This allows any project to reference the intellisense in any JavaScript/TypeScript project.
 - [gd-sprest-react](extras/react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
 
 ## Core Library
