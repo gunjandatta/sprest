@@ -212,21 +212,21 @@ var BaseRequest = /** @class */ (function (_super) {
             targetInfo.requestType = _1.RequestType.GraphGet;
         }
         // Clear the target information properties from any previous requests
-        targetInfo.props.data = null;
-        targetInfo.props.method = null;
+        targetInfo.data = null;
+        targetInfo.method = null;
         // See if the metadata is defined for the base object
         var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
-            targetInfo.props.url = metadata.uri;
+            targetInfo.url = metadata.uri;
             // Update the metadata uri
             this.updateMetadataUri(metadata, targetInfo);
             // Set the endpoint
-            targetInfo.props.endpoint = propertyName;
+            targetInfo.endpoint = propertyName;
         }
         else {
             // Append the property name to the endpoint
-            targetInfo.props.endpoint += "/" + propertyName;
+            targetInfo.endpoint += "/" + propertyName;
         }
         // Create a new object
         var obj = new _1.Base(targetInfo);

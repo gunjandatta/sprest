@@ -169,7 +169,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     // Method to return a collection
     getCollection(method: string, args?: any) {
         // Copy the target information
-        let targetInfo = Object.create(this.targetInfo);
+        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
 
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
@@ -209,7 +209,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     // Method to get the next set of results
     getNextSetOfResults() {
         // Create the target information to query the next set of results
-        let targetInfo = Object.create(this.targetInfo);
+        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
         targetInfo.endpoint = "";
         targetInfo.url = this["d"].__next;
 
@@ -227,7 +227,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     // Method to return a property of the base object
     getProperty(propertyName: string, requestType?: string) {
         // Copy the target information
-        let targetInfo: ITargetInfo = Object.create(this.targetInfo);
+        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
 
         // See if this is a graph request
         if (requestType.startsWith("graph")) {
@@ -236,24 +236,24 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         }
 
         // Clear the target information properties from any previous requests
-        targetInfo.props.data = null;
-        targetInfo.props.method = null;
+        targetInfo.data = null;
+        targetInfo.method = null;
 
         // See if the metadata is defined for the base object
         let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
-            targetInfo.props.url = metadata.uri;
+            targetInfo.url = metadata.uri;
 
             // Update the metadata uri
             this.updateMetadataUri(metadata, targetInfo);
 
             // Set the endpoint
-            targetInfo.props.endpoint = propertyName;
+            targetInfo.endpoint = propertyName;
         }
         else {
             // Append the property name to the endpoint
-            targetInfo.props.endpoint += "/" + propertyName;
+            targetInfo.endpoint += "/" + propertyName;
         }
 
         // Create a new object
