@@ -1,14 +1,8 @@
 import {
-    Base,
-    BaseHelper,
-    Batch,
-    MethodInfo,
-    RequestType,
-    TargetInfo,
-    Types,
-    XHRRequest
+    Base, BaseHelper, Batch, MethodInfo,
+    RequestType, TargetInfo, XHRRequest
 } from ".";
-import { ITargetInfo } from "./types";
+import * as Types from "./types";
 
 /**
  * Base Request

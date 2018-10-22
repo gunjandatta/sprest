@@ -1,6 +1,5 @@
-import {
-    BaseExecution, Batch, TargetInfo, Types
-} from ".";
+import * as Types from "./types";
+import { BaseExecution, TargetInfo } from ".";
 
 /*********************************************************************************************************************************/
 // Base

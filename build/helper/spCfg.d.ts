@@ -1,5 +1,5 @@
 export * from "./spCfgTypes";
-import { Types } from "..";
+import * as Types from "../types";
 /**
  * SharePoint Configuration
  */

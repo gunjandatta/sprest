@@ -1,5 +1,5 @@
 import { ContextInfo, Web } from "../lib";
-import { Types } from "..";
+import * as Types from "../types";
 import { IApp } from "./types";
 
 /**
@@ -140,7 +140,7 @@ export const App: IApp = {
     },
 
     // Method to create sub-folders
-    createSubFolders: (folder:Types.SP.IFolder, subFolderUrl): PromiseLike<Types.SP.IFolderResult> => {
+    createSubFolders: (folder: Types.SP.IFolder, subFolderUrl): PromiseLike<Types.SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (resolve) => {
@@ -181,7 +181,7 @@ export const App: IApp = {
     },
 
     // Method to get a folder
-    getFolder: (web:Types.SP.IWebResult, folderUrl, createFl): PromiseLike<Types.SP.IFolderResult> => {
+    getFolder: (web: Types.SP.IWebResult, folderUrl, createFl): PromiseLike<Types.SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;

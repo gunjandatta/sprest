@@ -1,4 +1,4 @@
-import { Types } from "../..";
+import * as Types from "../../types";
 import { IBaseExecution, IRequestInfo } from ".";
 
 /**

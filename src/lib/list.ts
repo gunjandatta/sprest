@@ -1,12 +1,13 @@
 import { SP } from "gd-sprest-def";
-import { Base, Types } from "../utils";
+import { Base } from "../utils";
+import { ITargetInfo } from "../utils/types";
 import { IList } from "./types";
 import { Web } from "./web";
 
 /**
  * List
  */
-export const List: IList = ((listName: string, targetInfo?: Types.ITargetInfo) => {
+export const List: IList = ((listName: string, targetInfo?: ITargetInfo) => {
     let list = new Base(targetInfo);
 
     // Default the properties

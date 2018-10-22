@@ -15,6 +15,3 @@ export * from "./webpart";
 
 import * as SP from "./sp";
 export { SP };
-
-import * as Types from "./types";
-export { Types }

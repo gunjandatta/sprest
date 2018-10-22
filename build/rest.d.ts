@@ -1,8 +1,8 @@
 import { SP } from "gd-sprest-def";
-import * as Helper from "./helper";
+import * as HelperTypes from "./helper/types";
 import * as LibTypes from "./lib/types";
 import * as MapperTypes from "./mapper/types";
-import * as Util from "./utils";
+import * as UtilTypes from "./utils/types";
 /**
  * Helper
  */
@@ -10,11 +10,11 @@ export interface IHelper {
     /**
      * Helper classes for the app web
      */
-    App: Helper.Types.IApp;
+    App: HelperTypes.IApp;
     /**
      * Helper class to load the required SP scripts
      */
-    Dependencies: Helper.Types.IDependencies;
+    Dependencies: HelperTypes.IDependencies;
     /**
      * Method to create a document set item.
      */
@@ -26,71 +26,71 @@ export interface IHelper {
     /**
      * Helper class for generating a field schema xml
      */
-    FieldSchemaXML: (fieldInfo: Helper.Types.IFieldInfo) => PromiseLike<string>;
+    FieldSchemaXML: (fieldInfo: HelperTypes.IFieldInfo) => PromiseLike<string>;
     /**
      * Helper class for implementing JSLink solutions
      */
-    JSLink: Helper.Types.IJSLink;
+    JSLink: HelperTypes.IJSLink;
     /**
      * Helper class for implementing custom list forms
      */
-    ListForm: Helper.Types.IListForm;
+    ListForm: HelperTypes.IListForm;
     /**
      * Helper class for implementing custom list forms
      */
-    ListFormField: Helper.Types.IListFormField;
+    ListFormField: HelperTypes.IListFormField;
     /**
      * Helper class for waiting until the core SP scripts are loaded
      */
-    Loader: Helper.Types.ILoader;
+    Loader: HelperTypes.ILoader;
     /**
      * Helper method to convert a json string to a base object
      * This will require you to use the stringify method of the base object.
      */
-    parse<T = Util.Types.IBase>(jsonString: string): T;
+    parse<T = UtilTypes.IBase>(jsonString: string): T;
     /**
      * Helper method to execute an XMLHttpRequest
      */
-    request(props: Helper.Types.IRequest): PromiseLike<any>;
+    request(props: HelperTypes.IRequest): PromiseLike<any>;
     /**
      * Helper class for adding links to the top ribbon bar
      */
-    RibbonLink: (props: Helper.Types.ILinkInfo) => HTMLAnchorElement;
+    RibbonLink: (props: HelperTypes.ILinkInfo) => HTMLAnchorElement;
     /**
      * SharePoint Core Library Reference
      */
     SP: {
         /** Modal Dialog */
-        ModalDialog: Helper.Types.IModalDialog;
+        ModalDialog: HelperTypes.IModalDialog;
         /** Notify */
-        Notify: Helper.Types.INotify;
+        Notify: HelperTypes.INotify;
         /** Status */
-        Status: Helper.Types.IStatus;
+        Status: HelperTypes.IStatus;
     };
     /**
      * The field configuration types
      */
-    SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+    SPCfgFieldType: HelperTypes.ISPCfgFieldType;
     /**
      * The configuration types
      */
-    SPCfgType: Helper.Types.ISPCfgType;
+    SPCfgType: HelperTypes.ISPCfgType;
     /**
      * Helper class for automating SharePoint assets
      */
-    SPConfig: (cfg: Helper.Types.ISPConfigProps, webUrl?: string) => Helper.Types.ISPConfig;
+    SPConfig: (cfg: HelperTypes.ISPConfigProps, webUrl?: string) => HelperTypes.ISPConfig;
     /**
      * Helper class for adding links to the suite bar
      */
-    SuiteBarLink: (props: Helper.Types.ILinkInfo) => HTMLAnchorElement;
+    SuiteBarLink: (props: HelperTypes.ILinkInfo) => HTMLAnchorElement;
     /**
      * Helper class for getting information from the taxonomy term store
      */
-    Taxonomy: Helper.Types.ITaxonomy;
+    Taxonomy: HelperTypes.ITaxonomy;
     /**
      * Helper class for creating modern webparts in SharePoint 2013+ environments
      */
-    WebPart: Helper.Types.IWebPart;
+    WebPart: HelperTypes.IWebPart;
 }
 /**
  * SharePoint REST Library
@@ -103,7 +103,7 @@ export interface IREST {
     /**
      * Use this api to get the app context information of a site.
      */
-    AppContext: (siteUrl: string) => Util.Types.IBase;
+    AppContext: (siteUrl: string) => UtilTypes.IBase;
     /**
      * A reference to the _spPageContextInfo global variable.
      */
@@ -129,13 +129,13 @@ export interface IREST {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    ListByEntityName(entityTypeName: string, callback: (IList: any) => void, targetInfo?: any): Util.Types.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
+    ListByEntityName(entityTypeName: string, callback: (IList: any) => void, targetInfo?: any): UtilTypes.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
     /**
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Util.Types.IBase<MapperTypes.IListDataStream>;
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => UtilTypes.IBase<MapperTypes.IListDataStream>;
     /**
      * Use this api to interact with SharePoint navigation.
      */
@@ -159,7 +159,7 @@ export interface IREST {
      * Use this api to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    RemoteWeb: (requestUrl?: string) => Util.Types.IBase<SP.RemoteWeb>;
+    RemoteWeb: (requestUrl?: string) => UtilTypes.IBase<SP.RemoteWeb>;
     /**
      * Use this api to interact with the SharePoint search service.
      * @param url - The optional url to execute the search against.
@@ -174,12 +174,12 @@ export interface IREST {
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    SiteExists: (url: string) => Util.Types.IBase<MapperTypes.ISiteExists>;
+    SiteExists: (url: string) => UtilTypes.IBase<MapperTypes.ISiteExists>;
     /**
      * Use this api to get the url of a site, by its id.
      * @param id - The site id.
      */
-    SiteUrl: (id: string) => Util.Types.IBase<MapperTypes.ISiteUrl>;
+    SiteUrl: (id: string) => UtilTypes.IBase<MapperTypes.ISiteUrl>;
     /**
      * Use this api to interact with the current user's social profile.
      */

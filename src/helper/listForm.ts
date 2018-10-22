@@ -1,5 +1,6 @@
 import { SP } from "gd-sprest-def";
-import { Helper, SPTypes, Types, Web } from "..";
+import * as Types from "../types";
+import { Helper, SPTypes, Web } from "..";
 import { ODataQuery } from "../mapper/types"
 import {
     IListForm, IListFormAttachmentInfo,

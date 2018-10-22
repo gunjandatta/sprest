@@ -1,5 +1,5 @@
+import * as Types from "../../types";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { Types } from "../..";
 import { ITenantApp, ITenantApps } from ".";
 
 /**

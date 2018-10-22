@@ -1,7 +1,8 @@
-import { Helper, Site, SPTypes, Types, Web } from "..";
+import * as Types from "../types";
+import { Helper, Site, SPTypes, Web } from "..";
 import {
     IListFormField, IListFormFieldInfo, IListFormLookupFieldInfo,
-    IListFormMMSFieldInfo, IListFormUrlFieldInfo, IListFormDateFieldInfo,
+    IListFormMMSFieldInfo, IListFormDateFieldInfo,
     IListFormTextFieldInfo, IListFormUserFieldInfo, IListFormChoiceFieldInfo,
     IListFormNumberFieldInfo
 } from "./types";
@@ -177,7 +178,7 @@ export const ListFormField: IListFormField = {
     },
 
     // Method to load the mms data
-    loadMMSData: (info: IListFormMMSFieldInfo): PromiseLike<Array<Helper.Types.ITermInfo>> => {
+    loadMMSData: (info: IListFormMMSFieldInfo): PromiseLike<Array<Types.Helper.ITermInfo>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the term set

@@ -1,7 +1,8 @@
 import { SP } from "gd-sprest-def";
 export * from "./spCfgTypes";
 import { ContextInfo, Site, Web } from "../lib";
-import { SPTypes, Types } from "..";
+import * as Types from "../types";
+import { SPTypes } from "..";
 import {
     ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
     ISPConfig, ISPConfigProps

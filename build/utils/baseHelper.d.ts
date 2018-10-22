@@ -1,4 +1,5 @@
-import { Base, Types } from ".";
+import * as Types from "./types";
+import { Base } from ".";
 /**
  * Request Helper
  */

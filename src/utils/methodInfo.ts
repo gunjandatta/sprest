@@ -1,4 +1,5 @@
-import { OData, RequestType, Types } from ".";
+import * as Types from "./types";
+import { OData, RequestType } from ".";
 
 /*********************************************************************************************************************************/
 // Method Information

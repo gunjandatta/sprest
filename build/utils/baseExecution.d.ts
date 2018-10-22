@@ -1,4 +1,5 @@
-import { BaseRequest, TargetInfo, Types } from ".";
+import * as Types from "./types";
+import { BaseRequest, TargetInfo } from ".";
 /**
  * Base Execution
  */

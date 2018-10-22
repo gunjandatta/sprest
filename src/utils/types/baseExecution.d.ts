@@ -1,5 +1,5 @@
 import { BaseExecution, TargetInfo } from "..";
-import { IBaseExecution, IBaseRequest, IRequestInfo } from ".";
+import { IBaseExecution, IBaseRequest } from ".";
 
 /**
  * Base Execution

@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
+import * as Types from "../../types";
 import { IBase } from "../../utils/types";
-import { Types } from "../..";
 import { IFieldResult, IFields, IFieldLinks, IListResult } from ".";
 
 /**

@@ -1,4 +1,5 @@
-import { Base, BaseHelper, Types, XHRRequest } from ".";
+import { Base, BaseHelper, XHRRequest } from ".";
+import * as Types from "./types";
 /**
  * Base Request
  */
