@@ -1,12 +1,12 @@
 import * as Types from "../mapper/types";
 import { Base, RequestType } from "../utils";
 import { ISocialFeed } from "./types";
-import { ITargetInfo } from "../utils/types";
+import { ITargetInfoProps } from "../utils/types";
 
 /**
  * Social Feed
  */
-export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfo) => {
+export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfoProps) => {
     let socialFeed = new Base(targetInfo) as any as Types.ISocialFeed;
 
     // Default the properties

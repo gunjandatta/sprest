@@ -1,16 +1,17 @@
-import * as Types from "./types";
+import { IBase } from "./types/base";
+import { IRequestInfo, ITargetInfoProps } from "./types";
 import { BaseExecution, TargetInfo } from ".";
 
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {
+export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
-    constructor(targetInfo: Types.ITargetInfo) {
+    constructor(targetInfo: ITargetInfoProps) {
         super();
 
         // Default the properties
@@ -24,7 +25,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
     existsFl;
 
     // Method to wait for the requests to complete
-    done<T=Types.IBase>(resolve: (value?: T) => void) {
+    done<T=IBase>(resolve: (value?: T) => void) {
         // Ensure the base is set
         this.base = this.base ? this.base : this;
 
@@ -47,7 +48,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
     }
 
     // Method to get the request information
-    getInfo(): Types.IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
+    getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
 
     // Method to stringify the object
     stringify(): string {

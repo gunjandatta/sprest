@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as UtilTypes from "../../utils/types";
+import { IBase } from "../../utils/types/base";
 
 /**
  * Context Information
@@ -354,7 +354,7 @@ export interface IContextInformation {
      * Method to get the web context information.
      * @param url - The relative url of the web.
      */
-    getWeb(url: string): UtilTypes.IBase<{ GetContextWebInformation: SP.ContextWebInformation }>;
+    getWeb(url: string): IBase<{ GetContextWebInformation: SP.ContextWebInformation }>;
 
     /** The page context object from an SPFX project. */
     setPageContext(spfxPageContext: any);

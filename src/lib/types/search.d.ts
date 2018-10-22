@@ -1,6 +1,7 @@
 import { Microsoft } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types/base";
+import { ITargetInfoProps } from "../../utils/types";
 
 /**
  * Search
@@ -11,7 +12,7 @@ export interface ISearch {
      * @param url - The optional url to execute the search against.
      * @param targetInfo - The target information.
      */
-    (url?: string, targetInfo?: ITargetInfo): Types.ISearch;
+    (url?: string, targetInfo?: ITargetInfoProps): Types.ISearch;
 
     /**
      * Method to get the app context information.

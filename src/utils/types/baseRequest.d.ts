@@ -1,5 +1,6 @@
 import { XHRRequest } from "..";
-import { IBaseHelper, IMethodInfo, ITargetInfo } from ".";
+import { IBaseHelper } from "./baseHelper";
+import { IMethodInfo, ITargetInfoProps } from ".";
 
 /**
  * Base Request
@@ -12,7 +13,7 @@ export interface IBaseRequest extends IBaseHelper {
     nextFl: boolean;
 
     /** The target information. */
-    targetInfo: ITargetInfo;
+    targetInfo: ITargetInfoProps;
 
     /** The request. */
     xhr: XHRRequest;
@@ -33,7 +34,7 @@ export interface IBaseRequest extends IBaseHelper {
     getProperty(propertyName: string, requestType?: string);
 
     /** Updates the metdata uri. */
-    updateMetadataUri(metadata, targetInfo: ITargetInfo);
+    updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
 
     /** Validates the data collection results. */
     validateDataCollectionResults(): PromiseLike<void>;

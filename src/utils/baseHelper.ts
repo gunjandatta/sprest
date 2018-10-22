@@ -1,12 +1,12 @@
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
-import * as Types from "./types";
+import { IBaseHelper } from "./types/baseHelper";
 import { Base, RequestType } from ".";
 
 /**
  * Request Helper
  */
-export class BaseHelper implements Types.IBaseHelper {
+export class BaseHelper implements IBaseHelper {
     base: Base;
     requestType: number;
     response: string;

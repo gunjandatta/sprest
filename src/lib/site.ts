@@ -1,11 +1,11 @@
 import { Base } from "../utils";
-import { ITargetInfo } from "../utils/types";
+import { ITargetInfoProps } from "../utils/types";
 import { ISite } from "./types";
 
 /**
  * Site
  */
-export const Site: ISite = ((url?: string, targetInfo?: ITargetInfo) => {
+export const Site: ISite = ((url?: string, targetInfo?: ITargetInfoProps) => {
     let site = new Base(targetInfo);
 
     // Default the properties

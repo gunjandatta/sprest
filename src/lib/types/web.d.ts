@@ -1,6 +1,7 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types/base";
+import { ITargetInfoProps } from "../../utils/types";
 
 /**
  * Web
@@ -11,7 +12,7 @@ export interface IWeb {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfo): Types.IWeb;
+    (url?: string, targetInfo?: ITargetInfoProps): Types.IWeb;
 
     /**
      * Method to get a remote web.

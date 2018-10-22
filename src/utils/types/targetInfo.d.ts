@@ -1,4 +1,9 @@
 /**
+ * Target Information
+ */
+export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
+
+/**
  * Request Information
  */
 export interface IRequestInfo {
@@ -16,6 +21,38 @@ export interface IRequestInfo {
  * Target Information
  */
 export interface ITargetInfo {
+    // The target information properties
+    props: ITargetInfoProps;
+
+    // Flag to determine if this is a batch request
+    isBatchRequest: boolean;
+
+    // Flag to determine if this is a graph request
+    isGraph: boolean;
+
+    // The request data
+    requestData: any;
+
+    // The request information
+    requestInfo: IRequestInfo;
+
+    // The request header
+    requestHeaders: object;
+
+    // The request method
+    requestMethod: string;
+
+    // The request type
+    requestType: number;
+
+    // The request url
+    requestUrl: string;
+}
+
+/**
+ * Target Information Properties
+ */
+export interface ITargetInfoProps {
     /** The access token for the graph api request. */
     accessToken?: string;
 

@@ -1,4 +1,4 @@
-import { IBase } from "../../utils/types";
+import { IBase } from "../../utils/types/base";
 
 /**
  * Methods

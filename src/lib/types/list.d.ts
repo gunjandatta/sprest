@@ -1,5 +1,6 @@
 import * as Types from "../../mapper/types";
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types/base";
+import { ITargetInfoProps } from "../../utils/types";
 
 /**
  * List
@@ -10,7 +11,7 @@ export interface IList {
      * @param listName - The name of the list.
      * @param targetInfo - (Optional) The target information.
      */
-    (listName: string, targetInfo?: ITargetInfo): Types.IList;
+    (listName: string, targetInfo?: ITargetInfoProps): Types.IList;
 
     /**
      * A static method to get the list by the entity name.

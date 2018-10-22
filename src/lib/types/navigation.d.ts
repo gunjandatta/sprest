@@ -1,5 +1,5 @@
 import * as Types from "../../mapper/types";
-import { ITargetInfo } from "../../utils/types";
+import { ITargetInfoProps } from "../../utils/types";
 
 /**
  * Navigation
@@ -10,5 +10,5 @@ export interface INavigation {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfo): Types.INavigationServiceREST;
+    (url?: string, targetInfo?: ITargetInfoProps): Types.INavigationServiceREST;
 }

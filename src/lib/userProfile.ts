@@ -1,11 +1,11 @@
 import { Base } from "../utils";
 import { IUserProfile } from "./types";
-import { ITargetInfo } from "../utils/types";
+import { ITargetInfoProps } from "../utils/types";
 
 /**
  * User Profile
  */
-export const UserProfile: IUserProfile = ((targetInfo?: ITargetInfo) => {
+export const UserProfile: IUserProfile = ((targetInfo?: ITargetInfoProps) => {
     let userProfile = new Base(targetInfo);
 
     // Default the properties

@@ -1,7 +1,7 @@
 import { SP } from "gd-sprest-def";
 import { Helper, SPTypes, Web } from "..";
 import { IContentTypeQueryResult, IFieldLookup, IFieldResults, ODataQuery } from "../mapper/types"
-import { IBaseCollection } from "../utils/types";
+import { IBaseCollection } from "../utils/types/base";
 import {
     IListForm, IListFormAttachmentInfo,
     IListFormCache, IListFormResult, IListFormProps

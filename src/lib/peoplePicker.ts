@@ -1,11 +1,11 @@
 import { Base } from "../utils";
 import { IPeoplePicker } from "./types";
-import { ITargetInfo } from "../utils/types";
+import { ITargetInfoProps } from "../utils/types";
 
 /**
  * People Picker
  */
-export const PeoplePicker: IPeoplePicker = ((targetInfo?: ITargetInfo) => {
+export const PeoplePicker: IPeoplePicker = ((targetInfo?: ITargetInfoProps) => {
     let peoplePicker = new Base(targetInfo);
 
     // Default the properties

@@ -1,5 +1,5 @@
 import * as Types from "../../mapper/types";
-import { ITargetInfo } from "../../utils/types";
+import { ITargetInfoProps } from "../../utils/types";
 
 /**
  * Utility
@@ -10,5 +10,5 @@ export interface IUtility {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfo): Types.IUtility;
+    (url?: string, targetInfo?: ITargetInfoProps): Types.IUtility;
 }

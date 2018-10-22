@@ -1,5 +1,6 @@
 import * as Types from "../../mapper/types";
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types/base";
+import { ITargetInfoProps } from "../../utils/types";
 
 /**
  * Site
@@ -10,7 +11,7 @@ export interface ISite {
      * @param url - (Optional) The site url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfo): Types.ISite;
+    (url?: string, targetInfo?: ITargetInfoProps): Types.ISite;
 
     /**
      * Method to check if a site collection exists.

@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection } from "../../utils/types";
+import { IBase, IBaseCollection } from "../../utils/types/base";
 import {
     IFolder, IFolderQueryResult, IFolderResult
 } from ".";

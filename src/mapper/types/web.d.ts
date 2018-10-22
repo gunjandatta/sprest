@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/types";
+import { IBase } from "../../utils/types/base";
 import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
 
 /**

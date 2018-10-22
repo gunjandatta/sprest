@@ -11,7 +11,7 @@ var XHRRequest = /** @class */ (function () {
     function XHRRequest(asyncFl, targetInfo, callback) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.onRequestCompleted = callback || targetInfo.request.callback;
+        this.onRequestCompleted = callback || targetInfo.props.callback;
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
         // Execute the request
@@ -113,7 +113,7 @@ var XHRRequest = /** @class */ (function () {
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
             // Set the authorization
-            this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.request.accessToken);
+            this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken);
         }
         else {
             // See if custom headers were not defined
@@ -134,14 +134,14 @@ var XHRRequest = /** @class */ (function () {
     XHRRequest.prototype.execute = function () {
         var _this = this;
         // Set the request digest
-        var requestDigest = this.targetInfo.request.requestDigest || "";
+        var requestDigest = this.targetInfo.props.requestDigest || "";
         if (requestDigest == "") {
             // Get the request digest
             requestDigest = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
             requestDigest = requestDigest ? requestDigest.value : "";
         }
         // See if we are targeting the context endpoint
-        if (this.targetInfo.request.endpoint == "contextinfo") {
+        if (this.targetInfo.props.endpoint == "contextinfo") {
             // Execute the request
             this.executeRequest(requestDigest);
         }
@@ -154,7 +154,7 @@ var XHRRequest = /** @class */ (function () {
             }
             else {
                 // Get the context information
-                lib_1.ContextInfo.getWeb(this.targetInfo.request.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(function (contextInfo) {
+                lib_1.ContextInfo.getWeb(this.targetInfo.props.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(function (contextInfo) {
                     // Execute the request
                     _this.executeRequest(contextInfo.GetContextWebInformation.FormDigestValue);
                 });
@@ -187,7 +187,7 @@ var XHRRequest = /** @class */ (function () {
         }
         // See if we the response type is an array buffer
         // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-        if (this.targetInfo.request.bufferFl && this.asyncFl) {
+        if (this.targetInfo.props.bufferFl && this.asyncFl) {
             // Set the response type
             this.xhr.responseType = "arraybuffer";
         }
@@ -201,7 +201,7 @@ var XHRRequest = /** @class */ (function () {
             }
         }
         // Execute the request
-        this.targetInfo.request.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
     };
     return XHRRequest;
 }());
