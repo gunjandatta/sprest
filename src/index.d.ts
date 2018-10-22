@@ -2,7 +2,6 @@ import { SP } from "gd-sprest-def";
 import * as HelperTypes from "./helper/types";
 import * as LibTypes from "./lib/types";
 import * as MapperTypes from "./mapper/types";
-import { IBase } from "./utils/types/base";
 import * as UtilTypes from "./utils/types";
 
 export {
@@ -63,7 +62,7 @@ export interface IHelper {
      * Helper method to convert a json string to a base object
      * This will require you to use the stringify method of the base object.
      */
-    parse<T = IBase>(jsonString: string): T;
+    parse<T = UtilTypes.IBase>(jsonString: string): T;
 
     /**
      * Helper method to execute an XMLHttpRequest
@@ -132,7 +131,7 @@ export interface IREST {
     /**
      * Use this api to get the app context information of a site.
      */
-    AppContext: (siteUrl: string) => IBase;
+    AppContext: (siteUrl: string) => UtilTypes.IBase;
 
     /**
      * A reference to the _spPageContextInfo global variable.
@@ -164,14 +163,14 @@ export interface IREST {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
+    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): UtilTypes.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
 
     /**
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => IBase<MapperTypes.IListDataStream>
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => UtilTypes.IBase<MapperTypes.IListDataStream>
 
     /**
      * Use this api to interact with SharePoint navigation.
@@ -200,7 +199,7 @@ export interface IREST {
      * Use this api to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    RemoteWeb: (requestUrl?: string) => IBase<SP.RemoteWeb>;
+    RemoteWeb: (requestUrl?: string) => UtilTypes.IBase<SP.RemoteWeb>;
 
     /**
      * Use this api to interact with the SharePoint search service.
@@ -218,13 +217,13 @@ export interface IREST {
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    SiteExists: (url: string) => IBase<MapperTypes.ISiteExists>;
+    SiteExists: (url: string) => UtilTypes.IBase<MapperTypes.ISiteExists>;
 
     /**
      * Use this api to get the url of a site, by its id.
      * @param id - The site id.
      */
-    SiteUrl: (id: string) => IBase<MapperTypes.ISiteUrl>;
+    SiteUrl: (id: string) => UtilTypes.IBase<MapperTypes.ISiteUrl>;
 
     /**
      * Use this api to interact with the current user's social profile.

@@ -1,7 +1,5 @@
 import { IBase, IBaseCollection } from "../../utils/types/base";
-import {
-    IFile, IFileQueryResult, IFileResult,
-} from ".";
+import { IFile, IFileQueryResult, IFileResult } from ".";
 
 /**
  * Methods

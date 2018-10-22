@@ -1,4 +1,3 @@
-import { BaseExecution } from "..";
 import { IBaseRequest } from "./baseRequest";
 import { ITargetInfo } from "./targetInfo";
 
@@ -7,16 +6,16 @@ import { ITargetInfo } from "./targetInfo";
  */
 export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
     /** The batch requests. */
-    batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: ITargetInfo }>>;
+    batchRequests: Array<Array<{ callback?: any, response?: IBaseExecution, targetInfo: ITargetInfo }>>;
 
     /** The parent. */
-    parent: BaseExecution;
+    parent: IBaseExecution;
 
     /** The index of this object in the responses array. */
     responseIndex: number;
 
     /** The responses. */
-    responses: Array<BaseExecution>;
+    responses: Array<IBaseExecution>;
 
     /** The wait flags. */
     waitFlags: Array<boolean>;

@@ -1,7 +1,5 @@
 import { IBase, IBaseCollection } from "../../utils/types/base";
-import {
-    IFileVersion, IFileVersionQueryResult, IFileVersionResult
-} from ".";
+import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from ".";
 
 /**
  * File Versions

@@ -1,8 +1,6 @@
 import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types/base";
-import {
-    IField, IFieldQueryResult, IFieldResult
-} from ".";
+import { IField, IFieldQueryResult, IFieldResult } from ".";
 
 /**
  * Methods

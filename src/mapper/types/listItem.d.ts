@@ -1,10 +1,7 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types/base";
-import {
-    IContentType, IContentTypeResult,
-    IList, IListResult,
-} from ".";
+import { IContentType, IContentTypeResult, IList, IListResult } from ".";
 
 /**
  * List Item Methods

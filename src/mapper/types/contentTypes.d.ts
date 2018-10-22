@@ -1,8 +1,6 @@
 import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types/base";
-import {
-    IContentType, IContentTypeQueryResult, IContentTypeResult
-} from ".";
+import { IContentType, IContentTypeQueryResult, IContentTypeResult } from ".";
 
 /**
  * Methods

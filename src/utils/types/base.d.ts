@@ -1,6 +1,6 @@
 import { ODataQuery } from "../../mapper/types";
 import { IBaseExecution } from "./baseExecution";
-import { IRequestInfo } from ".";
+import { IRequestInfo, ITargetInfoProps } from "./targetInfo";
 
 /**
  * Base

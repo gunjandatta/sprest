@@ -1,11 +1,11 @@
-import { Base } from "..";
+import { IBase } from "./base";
 
 /**
  * Request Helper Methods
  */
 export interface IBaseHelper {
     /** The base object. */
-    base: Base;
+    base: IBase;
 
     /** The request type */
     requestType: number;
@@ -20,13 +20,13 @@ export interface IBaseHelper {
     xml: string | XMLDocument;
 
     /** Adds methods based on the object type. */
-    addMethods(base: Base, data: any);
+    addMethods(base: IBase, data: any);
 
     /** Adds properties based on the object type. */
-    addProperties(base: Base, data: any);
+    addProperties(base: IBase, data: any);
 
     /** Updates the data collection objects. */
-    updateDataCollection(obj: Base, results: Array<Base>);
+    updateDataCollection(obj: IBase, results: Array<IBase>);
 
     /** Updates the data object. */
     updateDataObject(isBatchRequest: boolean);

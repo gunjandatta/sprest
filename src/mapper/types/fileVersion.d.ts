@@ -1,9 +1,7 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types/base";
-import {
-    IFileVersion, IFileVersionQueryResult, IFileVersionResult
-} from ".";
+import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from ".";
 
 /**
  * File Version Methods
