@@ -1,6 +1,7 @@
-import { XHRRequest } from "..";
 import { IBaseHelper } from "./baseHelper";
-import { IMethodInfo, ITargetInfoProps } from ".";
+import { IMethodInfo } from "./methodInfo";
+import { ITargetInfoProps } from "./targetInfo";
+import { IXHRRequest } from "./xhrRequest";
 
 /**
  * Base Request
@@ -16,7 +17,7 @@ export interface IBaseRequest extends IBaseHelper {
     targetInfo: ITargetInfoProps;
 
     /** The request. */
-    xhr: XHRRequest;
+    xhr: IXHRRequest;
 
     /** Method to execute the request. */
     executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);

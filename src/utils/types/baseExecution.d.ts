@@ -1,12 +1,13 @@
-import { BaseExecution, TargetInfo } from "..";
+import { BaseExecution } from "..";
 import { IBaseRequest } from "./baseRequest";
+import { ITargetInfo } from "./targetInfo";
 
 /**
  * Base Execution
  */
 export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
     /** The batch requests. */
-    batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: TargetInfo }>>;
+    batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: ITargetInfo }>>;
 
     /** The parent. */
     parent: BaseExecution;
