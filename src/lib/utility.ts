@@ -1,4 +1,4 @@
-import { Types } from "../mapper";
+import * as Types from "../mapper/types";
 import { Base, RequestType } from "../utils";
 import { IUtility } from "./types";
 

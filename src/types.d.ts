@@ -1,5 +1,5 @@
 import { Types as Helper } from "./helper";
-import { Types as SP } from "./mapper";
+import * as SP from "./mapper/types";
 import { Types as Util } from "./utils"
 export {
     Helper,

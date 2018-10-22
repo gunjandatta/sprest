@@ -2,6 +2,7 @@ import { SP } from "gd-sprest-def";
 import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
+import * as Types from "./mapper/types";
 import * as Util from "./utils";
 
 /**
@@ -21,7 +22,7 @@ export interface IHelper {
     /**
      * Method to create a document set item.
      */
-    createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<Mapper.Types.IListItemResult>;
+    createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<Types.IListItemResult>;
 
     /**
      * Executor
@@ -158,14 +159,14 @@ export interface IREST {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
+    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): Util.Types.IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Util.Types.IBase<Types.IListDataStream>
 
     /**
      * Use this api to interact with SharePoint navigation.
@@ -212,13 +213,13 @@ export interface IREST {
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
+    SiteExists: (url: string) => Util.Types.IBase<Types.ISiteExists>;
 
     /**
      * Use this api to get the url of a site, by its id.
      * @param id - The site id.
      */
-    SiteUrl: (id: string) => Util.Types.IBase<Mapper.Types.ISiteUrl>;
+    SiteUrl: (id: string) => Util.Types.IBase<Types.ISiteUrl>;
 
     /**
      * Use this api to interact with the current user's social profile.

@@ -1,4 +1,4 @@
-import { Types } from "../../mapper";
+import * as Types from "../../mapper/types";
 import { ITargetInfo } from "../../utils/types";
 /**
  * Navigation

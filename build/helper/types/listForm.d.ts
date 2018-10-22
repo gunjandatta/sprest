@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { Types } from "../../mapper";
+import * as Types from "../../mapper/types";
 /**
  * List Form
  */

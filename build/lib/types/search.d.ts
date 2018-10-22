@@ -1,5 +1,5 @@
 import { Microsoft } from "gd-sprest-def";
-import { Types } from "../../mapper";
+import * as Types from "../../mapper/types";
 import { IBase, ITargetInfo } from "../../utils/types";
 /**
  * Search

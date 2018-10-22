@@ -42,7 +42,6 @@ import * as SPTypes from "./sptypes";
 export * from "./tenantApp";
 export * from "./tenantAppCatalog";
 export * from "./tenantApps";
-//export * from "./types";
 export * from "./user";
 export * from "./userCustomAction";
 export * from "./userCustomActions";
