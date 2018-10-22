@@ -6,6 +6,11 @@ import { ITargetInfoProps } from "../../utils/types";
 /**
  * Web
  */
+export const Web: IWeb;
+
+/**
+ * Web
+ */
 export interface IWeb {
     /**
      * Creates an instance of the web library.

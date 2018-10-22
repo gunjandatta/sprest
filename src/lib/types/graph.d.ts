@@ -4,6 +4,11 @@ import { ITargetInfo } from "../../utils/types";
 /**
  * Graph
  */
+export const Graph: IGraph;
+
+/**
+ * Graph
+ */
 export interface IGraph {
     /**
      * Creates an instance of the graph library.

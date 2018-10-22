@@ -179,11 +179,6 @@ export interface IListQueryProps {
     Forms(id: string): IBase;
 
     /**
-     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-     */
-    HasUniqueRoleAssignments(): IBase;
-
-    /**
      * Gets a value that specifies the information rights management settings.
     */
     InformationRightsManagementSettings(): IBase;

@@ -4,6 +4,11 @@ import { ITargetInfoProps } from "../../utils/types";
 /**
  * Utility
  */
+export const Utility: IUtility;
+
+/**
+ * Utility
+ */
 export interface IUtility {
     /**
      * Creates an instance of the utility library.

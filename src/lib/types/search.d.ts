@@ -6,6 +6,11 @@ import { ITargetInfoProps } from "../../utils/types";
 /**
  * Search
  */
+export const Search: ISearch;
+
+/**
+ * Search
+ */
 export interface ISearch {
     /**
      * Creates an instance of the search library.

@@ -1,6 +1,7 @@
 /**
  * Base Permission Types
  */
+export const BasePermissionType: IBasePermissionType;
 export type IBasePermissionType = {
     AddAndCustomizePages: number,
     AddDelPrivateWebParts: number,
@@ -42,6 +43,7 @@ export type IBasePermissionType = {
 /**
  * Calendar Types
  */
+export const CalendarType: ICalendarType;
 export type ICalendarType = {
     /** Gregorian (localized) */
     Gregorian: number,
@@ -89,6 +91,7 @@ export type ICalendarType = {
 /**
  * Check Out Types
  */
+export const CheckOutType: ICheckOutType;
 export type ICheckOutType = {
     /** Online */
     Online: number,
@@ -103,6 +106,7 @@ export type ICheckOutType = {
 /**
  * Choice Format Types
  */
+export const ChoiceFormatType: IChoiceFormatType;
 export type IChoiceFormatType = {
     /** Dropdown */
     Dropdown: number,
@@ -114,6 +118,7 @@ export type IChoiceFormatType = {
 /**
  * Client Template Utility
  */
+export const ClientTemplateUtility: IClientTemplateUtility;
 export type IClientTemplateUtility = {
     /** User Lookup Delimiter */
     UserLookupDelimitString: string,
@@ -125,6 +130,7 @@ export type IClientTemplateUtility = {
 /**
  * Control Modes
  */
+export const ControlMode: IControlMode;
 export type IControlMode = {
     /** A placeholder value in the export typeeration indicating that it has no valid display mode from one of the other export typeeration values. */
     Invalid: number,
@@ -145,6 +151,7 @@ export type IControlMode = {
 /**
  * Date Format
  */
+export const DateFormat: IDateFormat;
 export type IDateFormat = {
     /** Displays only the date. */
     DateOnly: number,
@@ -156,6 +163,7 @@ export type IDateFormat = {
 /**
  * Draft Visibility Types
  */
+export const DraftVisibilityType: IDraftVisibilityType;
 export type IDraftVisibilityType = {
     /** export typeeration whose values specify that the minimum permission is approver. */
     Approver: number,
@@ -170,6 +178,7 @@ export type IDraftVisibilityType = {
 /**
  * Event Receiver Types
  */
+export const EventReceiverType: IEventReceiverType;
 export type IEventReceiverType = {
     /** Event that occurs before an item has been added. */
     ItemAdding: number,
@@ -400,6 +409,7 @@ export type IEventReceiverType = {
 /**
  * Event Receiver Synchronization Types
  */
+export const EventReceiverSynchronizationType: IEventReceiverSynchronizationType;
 export type IEventReceiverSynchronizationType = {
     /** Event to be triggered asynchronously. */
     Asynchronous: number,
@@ -411,6 +421,7 @@ export type IEventReceiverSynchronizationType = {
 /**
  * Field Note Types
  */
+export const FieldNoteType: IFieldNoteType;
 export type IFieldNoteType = {
     /** Enhance Rich Text */
     EnhancedRichText: number,
@@ -425,6 +436,7 @@ export type IFieldNoteType = {
 /**
  * Field Number Type
  */
+export const FieldNumberType: IFieldNumberType;
 export type IFieldNumberType = {
     /** Decimal */
     Decimal: number,
@@ -439,6 +451,7 @@ export type IFieldNumberType = {
 /**
  * Field Result Types
  */
+export const FieldResultType: IFieldResultType;
 export type IFieldResultType = {
     /** Boolean */
     Boolean: string,
@@ -462,6 +475,7 @@ export type IFieldResultType = {
 /**
  * Field Types
  */
+export const FieldType: IFieldType;
 export type IFieldType = {
     /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
     AllDayEvent: number,
@@ -566,6 +580,7 @@ export type IFieldType = {
 /**
  * Field User Selection Types
  */
+export const FieldUserSelectionType: IFieldUserSelectionType;
 export type IFieldUserSelectionType = {
     /** People only. */
     PeopleOnly: number,
@@ -577,6 +592,7 @@ export type IFieldUserSelectionType = {
 /**
  * File Template Types
 */
+export const FileTemplateType: IFileTemplateType;
 export type IFileTemplateType = {
     /** export typeeration whose value specifies default form template. */
     FormPage: number,
@@ -591,6 +607,7 @@ export type IFileTemplateType = {
 /**
  * Friendly Date Format
  */
+export const FriendlyDateFormat: IFriendlyDateFormat;
 export type IFriendlyDateFormat = {
     /** Unspecified */
     Unspecified: number,
@@ -605,6 +622,7 @@ export type IFriendlyDateFormat = {
 /**
  * List Template Types
 */
+export const ListTemplateType: IListTemplateType;
 export type IListTemplateType = {
     /** Access Request List */
     AccessRequest: number,
@@ -784,6 +802,7 @@ export type IListTemplateType = {
 /**
  * Locale LCID Types
  */
+export const LocaleLCIDType: ILocaleLCIDType;
 export type ILocaleLCIDType = {
     Afrikaans: number,
     Albanian: number,
@@ -923,6 +942,7 @@ export type ILocaleLCIDType = {
 /**
  * Node Types
  */
+export const NodeType: INodeType;
 export type INodeType = {
     /** Specifies no node types. */
     None: number;
@@ -973,6 +993,7 @@ export type INodeType = {
 /**
  * Page Types
  */
+export const PageType: IPageType;
 export type IPageType = {
     /** export typeeration whose values specify a page that is the default view for a list. */
     DefaultView: number,
@@ -1038,6 +1059,7 @@ PageLayoutType = {
 /**
  * Personal Site Capabilities
  */
+export const PersonalSiteCapabilities: IPersonalSiteCapabilities;
 export type IPersonalSiteCapabilities = {
     Education: number,
     Guest: number,
@@ -1051,6 +1073,7 @@ export type IPersonalSiteCapabilities = {
 /**
  * Principal Sources
  */
+export const PrincipalSources: IPrincipalSources;
 export type IPrincipalSources = {
     /** Search all principal sources. */
     All: number,
@@ -1074,6 +1097,7 @@ export type IPrincipalSources = {
 /**
  * Principal Types
  */
+export const PrincipalTypes: IPrincipalTypes;
 export type IPrincipalTypes = {
     /** Return all entity types. */
     All: number,
@@ -1097,6 +1121,7 @@ export type IPrincipalTypes = {
 /**
  * Relationship Delete Behavior Types
  */
+export const RelationshipDeleteBehaviorType: IRelationshipDeleteBehaviorType;
 export type IRelationshipDeleteBehaviorType = {
     /** No relationship behavior is applied. */
     None: number,
@@ -1111,7 +1136,8 @@ export type IRelationshipDeleteBehaviorType = {
 /**
  * Render List Data Options
  */
-export type RenderListDataOptions = {
+export const RenderListDataOptions: IRenderListDataOptions;
+export type IRenderListDataOptions = {
     None: number,
     ContextInfo: number,
     ListData: number,
@@ -1134,6 +1160,7 @@ export type RenderListDataOptions = {
 /**
  * Reordering Rule Match Types
  */
+export const ReorderingRuleMatchType: IReorderingRuleMatchType;
 export type IReorderingRuleMatchType = {
     ResultContainsKeyword: number,
     TitleContainsKeyword: number,
@@ -1149,6 +1176,7 @@ export type IReorderingRuleMatchType = {
 /**
  * Role Types
  */
+export const RoleType: IRoleType;
 export type IRoleType = {
     /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
     Administrator: number,
@@ -1175,6 +1203,7 @@ export type IRoleType = {
 /**
  * Status Pri Color
  */
+export const StatusPriColor: IStatusPriColor;
 export interface IStatusPriColor {
     /** Information */
     Blue: string,
@@ -1192,6 +1221,7 @@ export interface IStatusPriColor {
 /**
  * URL Format Types
  */
+export const UrlFormatType: IUrlFormatType;
 export type IUrlFormatType = {
     /** Hyperlink */
     Hyperlink: number,
@@ -1203,6 +1233,7 @@ export type IUrlFormatType = {
 /**
  * URL Zones
  */
+export const URLZones: IURLZones;
 export type IURLZones = {
     /** Search the custom zone. */
     Custom: number,
@@ -1223,6 +1254,7 @@ export type IURLZones = {
 /**
  * User Custom Action Registration Types
  */
+export const UserCustomActionRegistrationType: IUserCustomActionRegistrationType;
 export type IUserCustomActionRegistrationType = {
     /** export typeeration whose values specify that the object association is not specified. */
     None: number,
@@ -1243,6 +1275,7 @@ export type IUserCustomActionRegistrationType = {
 /**
  * View Types
  */
+export const ViewType: IViewType;
 export type IViewType = {
     /** export typeeration whose values specify a calendar list view type. */
     Calendar: number,
@@ -1267,7 +1300,8 @@ export type IViewType = {
 /**
  * Web Template Types
  */
-export type WebTemplateType = {
+export const WebTemplateType: IWebTemplateType;
+export type IWebTemplateType = {
     AcademicLibrary: string,
     App: string,
     AppCatalog: string,

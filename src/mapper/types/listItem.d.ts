@@ -102,11 +102,6 @@ export interface IListItemQueryProps {
     GetDlpPolicyTip(): IBase;
 
     /**
-     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-     */
-    HasUniqueRoleAssignments(): IBase<string>;
-
-    /**
      * Gets the parent list that contains the list item.
      */
     ParentList(): IList;

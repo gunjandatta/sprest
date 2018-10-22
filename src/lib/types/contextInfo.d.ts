@@ -4,6 +4,11 @@ import { IBase } from "../../utils/types/base";
 /**
  * Context Information
  */
+export const ContextInfo: IContextInformation;
+
+/**
+ * Context Information
+ */
 export interface IContextInformation {
     /**
      * Properties

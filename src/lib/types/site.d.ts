@@ -5,6 +5,11 @@ import { ITargetInfoProps } from "../../utils/types";
 /**
  * Site
  */
+export const Site: ISite;
+
+/**
+ * Site
+ */
 export interface ISite {
     /**
      * Creates an instance of the site library.

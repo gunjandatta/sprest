@@ -4,6 +4,11 @@ import { ITargetInfoProps } from "../../utils/types";
 /**
  * People Manager
  */
+export const PeopleManager: IPeopleManager;
+
+/**
+ * People Manager
+ */
 export interface IPeopleManager {
     /**
      * Creates an instance of the people manager library.

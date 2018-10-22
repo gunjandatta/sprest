@@ -5,6 +5,11 @@ import { ITargetInfoProps } from "../../utils/types";
 /**
  * List
  */
+export const List: IList;
+
+/**
+ * List
+ */
 export interface IList {
     /**
      * Creates an instance of the library.
