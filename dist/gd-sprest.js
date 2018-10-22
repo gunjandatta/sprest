@@ -346,7 +346,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nfunction __export(m) {\n    for (var p in m) {\n        if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n    }\n}\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__export(__webpack_require__(/*! ./contextInfo */ \"./build/lib/contextInfo.js\"));\n__export(__webpack_require__(/*! ./graph */ \"./build/lib/graph.js\"));\n__export(__webpack_require__(/*! ./list */ \"./build/lib/list.js\"));\n__export(__webpack_require__(/*! ./navigation */ \"./build/lib/navigation.js\"));\n__export(__webpack_require__(/*! ./peopleManager */ \"./build/lib/peopleManager.js\"));\n__export(__webpack_require__(/*! ./peoplePicker */ \"./build/lib/peoplePicker.js\"));\n__export(__webpack_require__(/*! ./profileLoader */ \"./build/lib/profileLoader.js\"));\n__export(__webpack_require__(/*! ./search */ \"./build/lib/search.js\"));\n__export(__webpack_require__(/*! ./site */ \"./build/lib/site.js\"));\n__export(__webpack_require__(/*! ./socialFeed */ \"./build/lib/socialFeed.js\"));\n__export(__webpack_require__(/*! ./userProfile */ \"./build/lib/userProfile.js\"));\n__export(__webpack_require__(/*! ./utility */ \"./build/lib/utility.js\"));\n__export(__webpack_require__(/*! ./web */ \"./build/lib/web.js\"));\nvar Types = __webpack_require__(/*! ./types */ \"./build/lib/types/index.js\");\nexports.Types = Types;\n\n//# sourceURL=webpack:///./build/lib/index.js?");
+eval("\n\nfunction __export(m) {\n    for (var p in m) {\n        if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n    }\n}\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__export(__webpack_require__(/*! ./contextInfo */ \"./build/lib/contextInfo.js\"));\n__export(__webpack_require__(/*! ./graph */ \"./build/lib/graph.js\"));\n__export(__webpack_require__(/*! ./list */ \"./build/lib/list.js\"));\n__export(__webpack_require__(/*! ./navigation */ \"./build/lib/navigation.js\"));\n__export(__webpack_require__(/*! ./peopleManager */ \"./build/lib/peopleManager.js\"));\n__export(__webpack_require__(/*! ./peoplePicker */ \"./build/lib/peoplePicker.js\"));\n__export(__webpack_require__(/*! ./profileLoader */ \"./build/lib/profileLoader.js\"));\n__export(__webpack_require__(/*! ./search */ \"./build/lib/search.js\"));\n__export(__webpack_require__(/*! ./site */ \"./build/lib/site.js\"));\n__export(__webpack_require__(/*! ./socialFeed */ \"./build/lib/socialFeed.js\"));\n__export(__webpack_require__(/*! ./userProfile */ \"./build/lib/userProfile.js\"));\n__export(__webpack_require__(/*! ./utility */ \"./build/lib/utility.js\"));\n__export(__webpack_require__(/*! ./web */ \"./build/lib/web.js\"));\n\n//# sourceURL=webpack:///./build/lib/index.js?");
 
 /***/ }),
 
@@ -443,18 +443,6 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar 
 
 "use strict";
 eval("\n\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar utils_1 = __webpack_require__(/*! ../utils */ \"./build/utils/index.js\");\n/**\r\n * Social Feed\r\n */\nexports.SocialFeed = function (targetInfo) {\n    var socialFeed = new utils_1.Base(targetInfo);\n    // Default the properties\n    socialFeed.targetInfo.defaultToWebFl = true;\n    socialFeed.targetInfo.endpoint = \"social.feed\";\n    // Add the methods\n    socialFeed.addMethods(socialFeed, { __metadata: { type: \"socialfeed\" } });\n    // Method to post to another user's feed\n    socialFeed.postToFeed = function (accountName, creationData) {\n        var postInfo = { ID: null, creationData: creationData };\n        // Set the post metadata\n        postInfo[\"__metadata\"] = { type: \"SP.Social.SocialRestPostCreationData\" };\n        postInfo.creationData[\"__metadata\"] = { type: \"SP.Social.SocialPostCreationData\" };\n        return socialFeed.executeMethod(\"postToMyFeed\", {\n            argNames: [\"restCreationData\"],\n            name: \"actor(item=@v)/feed?@v='\" + encodeURIComponent(accountName) + \"'\",\n            requestType: utils_1.RequestType.PostWithArgsInBody\n        }, [postInfo]);\n    };\n    // Method to post to the current user's feed\n    socialFeed.postToMyFeed = function (creationData) {\n        var postInfo = { ID: null, creationData: creationData };\n        // Set the post metadata\n        postInfo[\"__metadata\"] = { type: \"SP.Social.SocialRestPostCreationData\" };\n        postInfo.creationData[\"__metadata\"] = { type: \"SP.Social.SocialPostCreationData\" };\n        return socialFeed.executeMethod(\"postToMyFeed\", {\n            argNames: [\"restCreationData\"],\n            name: \"my/feed/post\",\n            requestType: utils_1.RequestType.PostWithArgsInBody\n        }, [postInfo]);\n    };\n    // Return the social feed\n    return socialFeed;\n};\n\n//# sourceURL=webpack:///./build/lib/socialFeed.js?");
-
-/***/ }),
-
-/***/ "./build/lib/types/index.js":
-/*!**********************************!*\
-  !*** ./build/lib/types/index.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", { value: true });\n\n//# sourceURL=webpack:///./build/lib/types/index.js?");
 
 /***/ }),
 

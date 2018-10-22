@@ -1,8 +1,9 @@
 import { SP } from "gd-sprest-def";
 import * as Helper from "./helper";
 import * as Lib from "./lib";
+import * as LibTypes from "./lib/types";
 import * as Mapper from "./mapper";
-import * as Types from "./mapper/types";
+import * as MapperTypes from "./mapper/types";
 import * as Util from "./utils";
 
 /**
@@ -22,7 +23,7 @@ export interface IHelper {
     /**
      * Method to create a document set item.
      */
-    createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<Types.IListItemResult>;
+    createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<MapperTypes.IListItemResult>;
 
     /**
      * Executor
@@ -132,7 +133,7 @@ export interface IREST {
     /**
      * A reference to the _spPageContextInfo global variable.
      */
-    ContextInfo: Lib.Types.IContextInformation;
+    ContextInfo: LibTypes.IContextInformation;
 
     /**
      * False by default.
@@ -142,7 +143,7 @@ export interface IREST {
     /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
-    Graph: Lib.Types.IGraph;
+    Graph: LibTypes.IGraph;
 
     /**
      * Helper methods.
@@ -152,44 +153,44 @@ export interface IREST {
     /**
      * Use this api to interact with SharePoint lists and libraries.
      */
-    List: Lib.Types.IList;
+    List: LibTypes.IList;
 
     /**
      * Use this api to get the list name by its entity name.
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): Util.Types.IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): Util.Types.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
 
     /**
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Util.Types.IBase<Types.IListDataStream>
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Util.Types.IBase<MapperTypes.IListDataStream>
 
     /**
      * Use this api to interact with SharePoint navigation.
      */
-    Navigation: Lib.Types.INavigation;
+    Navigation: LibTypes.INavigation;
 
     /**
      * Use this api to interact with SharePoint user profiles.
      * @param targetInfo - (Optional) The target information.
      */
-    PeopleManager: Lib.Types.IPeopleManager;
+    PeopleManager: LibTypes.IPeopleManager;
 
     /**
      * Use this api to search for users.
      * @param settings - The search settings.
      */
-    PeoplePicker: Lib.Types.IPeoplePicker;
+    PeoplePicker: LibTypes.IPeoplePicker;
 
     /**
      * Use this api to interact with the user profile loader.
      * @param targetInfo - (Optional) The target information.
      */
-    ProfileLoader: Lib.Types.IProfileLoader;
+    ProfileLoader: LibTypes.IProfileLoader;
 
     /**
      * Use this api to get a remote web.
@@ -202,29 +203,29 @@ export interface IREST {
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.
      */
-    Search: Lib.Types.ISearch;
+    Search: LibTypes.ISearch;
 
     /**
      * Use this api to interact with a SharePoint site collection.
      */
-    Site: Lib.Types.ISite;
+    Site: LibTypes.ISite;
 
     /**
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    SiteExists: (url: string) => Util.Types.IBase<Types.ISiteExists>;
+    SiteExists: (url: string) => Util.Types.IBase<MapperTypes.ISiteExists>;
 
     /**
      * Use this api to get the url of a site, by its id.
      * @param id - The site id.
      */
-    SiteUrl: (id: string) => Util.Types.IBase<Types.ISiteUrl>;
+    SiteUrl: (id: string) => Util.Types.IBase<MapperTypes.ISiteUrl>;
 
     /**
      * Use this api to interact with the current user's social profile.
      */
-    SocialFeed: Lib.Types.ISocialFeed;
+    SocialFeed: LibTypes.ISocialFeed;
 
     /**
      * The SharePoint enumerator types.
@@ -234,17 +235,17 @@ export interface IREST {
     /**
      * Use this api to interact with the current user's profile.
      */
-    UserProfile: Lib.Types.IUserProfile;
+    UserProfile: LibTypes.IUserProfile;
 
     /**
      * Use this api to interact with the available utility methods.
      */
-    Utility: Lib.Types.IUtility;
+    Utility: LibTypes.IUtility;
 
     /**
      * Use this api to interact with a SharePoint web.
      */
-    Web: Lib.Types.IWeb;
+    Web: LibTypes.IWeb;
 }
 
 /**
