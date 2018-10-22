@@ -1,20 +1,20 @@
 import { ContextInfo } from "../lib";
-import { IRequestInfo, ITargetInfo } from "./types";
+import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./types";
 import { RequestType } from ".";
 
 /**
  * Target Information
  */
-export class TargetInfo {
+export class TargetInfo implements ITargetInfo {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(targetInfo: ITargetInfo) {
+    constructor(props: ITargetInfoProps) {
         // Default the properties
-        this.request = targetInfo || {};
-        this.requestData = this.request.data;
-        this.requestHeaders = this.request.requestHeader;
-        this.requestMethod = this.request.method ? this.request.method : "GET";
+        this.props = props || {};
+        this.requestData = this.props.data;
+        this.requestHeaders = this.props.requestHeader;
+        this.requestMethod = this.props.method ? this.props.method : "GET";
 
         // Set the request url
         this.isGraph ? this.setGraphRequestUrl() : this.setRESTRequestUrl();
@@ -24,14 +24,14 @@ export class TargetInfo {
     // Public Properties
     /*********************************************************************************************************************************/
 
-    // The target information
-    request: ITargetInfo;
+    // The target information properties
+    props: ITargetInfoProps;
 
     // Flag to determine if this is a batch request
-    get isBatchRequest(): boolean { return this.request.endpoint == "$batch"; }
+    get isBatchRequest(): boolean { return this.props.endpoint == "$batch"; }
 
     // Flag to determine if this is a graph request
-    get isGraph(): boolean { return this.request.requestType == RequestType.GraphGet || this.request.requestType == RequestType.GraphPost; }
+    get isGraph(): boolean { return this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost; }
 
     // The request data
     requestData: any;
@@ -110,31 +110,31 @@ export class TargetInfo {
     // Method to set the request url for the Graph API
     private setGraphRequestUrl() {
         // Return the request url
-        this.requestUrl = "https://graph.microsoft.com/" + this.request.endpoint;
+        this.requestUrl = "https://graph.microsoft.com/" + this.props.endpoint;
     }
 
     // Method to set the request url for the REST API
     private setRESTRequestUrl() {
-        let endpoint = this.request.endpoint ? "/" + this.request.endpoint : "";
+        let endpoint = this.props.endpoint ? "/" + this.props.endpoint : "";
         let hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         let qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
-        let template = "{{Url}}" + (this.request.endpoint ? "/_api/{{EndPoint}}{{TargetUrl}}" : "");
+        let template = "{{Url}}" + (this.props.endpoint ? "/_api/{{EndPoint}}{{TargetUrl}}" : "");
 
         // See if we are defaulting the url for the app web
-        if (ContextInfo.existsFl && ContextInfo.window.$REST && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
+        if (ContextInfo.existsFl && ContextInfo.window.$REST && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.props.overrideDefaultRequestToHostFl && this.props.url == null) {
             // Default the url to the host web
-            this.request.url = hostUrl;
+            this.props.url = hostUrl;
         }
 
         // Ensure the url exists
-        if (this.request.url == null) {
+        if (this.props.url == null) {
             // Default the url to the current site/web url
-            this.request.url = this.request.defaultToWebFl == false ? ContextInfo.siteAbsoluteUrl : ContextInfo.webAbsoluteUrl;
+            this.props.url = this.props.defaultToWebFl == false ? ContextInfo.siteAbsoluteUrl : ContextInfo.webAbsoluteUrl;
         }
         // Else, see if the url already contains the full request
-        else if (/\/_api\//.test(this.request.url)) {
+        else if (/\/_api\//.test(this.props.url)) {
             // Get the url
-            var url = this.request.url.toLowerCase().split("/_api/");
+            var url = this.props.url.toLowerCase().split("/_api/");
 
             // See if this is the app web and we are executing against a different web
             if (ContextInfo.isAppWeb && url[0] != ContextInfo.webAbsoluteUrl.toLowerCase()) {
@@ -144,29 +144,29 @@ export class TargetInfo {
             }
             else {
                 // Set the request url
-                this.requestUrl = this.request.url + (this.request.endpoint ? "/" + this.request.endpoint : "");
+                this.requestUrl = this.props.url + (this.props.endpoint ? "/" + this.props.endpoint : "");
             }
             return;
         }
 
         // See if this is a relative url
-        if (this.request.url.indexOf("http") != 0) {
+        if (this.props.url.indexOf("http") != 0) {
             // Add the domain
-            this.request.url = this.getDomainUrl() + this.request.url;
+            this.props.url = this.getDomainUrl() + this.props.url;
         }
 
         // See if this is the app web, and we are executing against a different web
-        if (ContextInfo.isAppWeb && this.request.url != ContextInfo.webAbsoluteUrl) {
+        if (ContextInfo.isAppWeb && this.props.url != ContextInfo.webAbsoluteUrl) {
             // Set the request url
             this.requestUrl = template
                 .replace(/{{Url}}/g, ContextInfo.webAbsoluteUrl)
                 .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)" + endpoint)
-                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.request.url));
+                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.props.url));
         } else {
             // Set the request url
             this.requestUrl = template
-                .replace(/{{Url}}/g, this.request.url)
-                .replace(/{{EndPoint}}/g, this.request.endpoint)
+                .replace(/{{Url}}/g, this.props.url)
+                .replace(/{{EndPoint}}/g, this.props.endpoint)
                 .replace(/{{TargetUrl}}/g, "");
         }
     }

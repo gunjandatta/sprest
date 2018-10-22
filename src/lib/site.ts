@@ -1,11 +1,11 @@
-import { IListDataParameters } from "../mapper/types";
-import { Base, Types } from "../utils";
+import { Base } from "../utils";
+import { ITargetInfoProps } from "../utils/types";
 import { ISite } from "./types";
 
 /**
  * Site
  */
-export const Site: ISite = ((url?: string, targetInfo?: Types.ITargetInfo) => {
+export const Site: ISite = ((url?: string, targetInfo?: ITargetInfoProps) => {
     let site = new Base(targetInfo);
 
     // Default the properties

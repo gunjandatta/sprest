@@ -1,10 +1,11 @@
 import { ContextInfo } from "../lib";
-import { BaseRequest, RequestType, TargetInfo, Types } from ".";
+import { IBaseExecution } from "./types/baseExecution";
+import { BaseRequest, RequestType, TargetInfo } from ".";
 
 /**
  * Base Execution
  */
-export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements Types.IBaseExecution {
+export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements IBaseExecution {
     batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: TargetInfo }>>;
     parent: BaseExecution;
     responseIndex: number;

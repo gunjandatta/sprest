@@ -1,5 +1,5 @@
 import { ContextInfo, Web } from "../lib";
-import { Types } from "..";
+import * as SP from "../mapper/types";
 import { IApp } from "./types";
 
 /**
@@ -8,7 +8,7 @@ import { IApp } from "./types";
  */
 export const App: IApp = {
     // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: Types.SP.IFileResult, folder: Types.SP.IFolderResult }> => {
+    copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }> => {
         let srcFile = null;
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
@@ -110,7 +110,7 @@ export const App: IApp = {
     },
 
     // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<Types.SP.IFileResult>, folders: Array<Types.SP.IFolderResult> }> => {
+    copyFilesToHostWeb: (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<SP.IFileResult>, folders: Array<SP.IFolderResult> }> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (files, folders, idx) => {
@@ -140,7 +140,7 @@ export const App: IApp = {
     },
 
     // Method to create sub-folders
-    createSubFolders: (folder:Types.SP.IFolder, subFolderUrl): PromiseLike<Types.SP.IFolderResult> => {
+    createSubFolders: (folder: SP.IFolder, subFolderUrl): PromiseLike<SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (resolve) => {
@@ -181,7 +181,7 @@ export const App: IApp = {
     },
 
     // Method to get a folder
-    getFolder: (web:Types.SP.IWebResult, folderUrl, createFl): PromiseLike<Types.SP.IFolderResult> => {
+    getFolder: (web: SP.IWebResult, folderUrl, createFl): PromiseLike<SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;

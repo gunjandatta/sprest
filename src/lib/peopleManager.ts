@@ -1,11 +1,11 @@
 import { Base } from "../utils";
 import { IPeopleManager } from "./types";
-import { ITargetInfo } from "../utils/types";
+import { ITargetInfoProps } from "../utils/types";
 
 /**
  * People Manager
  */
-export const PeopleManager: IPeopleManager = ((targetInfo?: ITargetInfo) => {
+export const PeopleManager: IPeopleManager = ((targetInfo?: ITargetInfoProps) => {
     let peopleManager = new Base(targetInfo);
 
     // Default the properties

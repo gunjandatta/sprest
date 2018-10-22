@@ -13,5 +13,3 @@ __export(require("./methodInfo"));
 __export(require("./oData"));
 __export(require("./targetInfo"));
 __export(require("./xhrRequest"));
-var Types = require("./types");
-exports.Types = Types;

@@ -1,28 +1,23 @@
 import {
-    Base,
-    BaseHelper,
-    Batch,
-    MethodInfo,
-    RequestType,
-    TargetInfo,
-    Types,
-    XHRRequest
+    Base, BaseHelper, Batch, MethodInfo,
+    RequestType, TargetInfo, XHRRequest
 } from ".";
-import { ITargetInfo } from "./types";
+import { IBaseRequest } from "./types/baseRequest";
+import { IMethodInfo, ITargetInfo, ITargetInfoProps } from "./types";
 
 /**
  * Base Request
  */
-export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
+export class BaseRequest extends BaseHelper implements IBaseRequest {
     getAllItemsFl: boolean;
     nextFl: boolean;
     requestType: number;
-    targetInfo: Types.ITargetInfo;
+    targetInfo: ITargetInfoProps;
     xhr: XHRRequest;
 
     // Method to execute a method
-    executeMethod(methodName: string, methodConfig: Types.IMethodInfo, args?: any) {
-        let targetInfo: Types.ITargetInfo = null;
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) {
+        let targetInfo: ITargetInfoProps = null;
 
         // See if the metadata is defined for the base object
         let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -174,7 +169,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     // Method to return a collection
     getCollection(method: string, args?: any) {
         // Copy the target information
-        let targetInfo = Object.create(this.targetInfo);
+        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
 
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
@@ -214,7 +209,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     // Method to get the next set of results
     getNextSetOfResults() {
         // Create the target information to query the next set of results
-        let targetInfo = Object.create(this.targetInfo);
+        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
         targetInfo.endpoint = "";
         targetInfo.url = this["d"].__next;
 
@@ -232,7 +227,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     // Method to return a property of the base object
     getProperty(propertyName: string, requestType?: string) {
         // Copy the target information
-        let targetInfo: Types.ITargetInfo = Object.create(this.targetInfo);
+        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
 
         // See if this is a graph request
         if (requestType.startsWith("graph")) {
@@ -276,7 +271,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     }
 
     // Method to update the metadata uri
-    updateMetadataUri(metadata, targetInfo: Types.ITargetInfo) {
+    updateMetadataUri(metadata, targetInfo: ITargetInfoProps) {
         // See if this is a field
         if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
             // Fix the url reference

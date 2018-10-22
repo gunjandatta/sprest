@@ -1,12 +1,13 @@
-import { IListDataParameters } from "../mapper/types";
-import { Base, Types } from "../utils";
+import { SP } from "gd-sprest-def";
+import { Base } from "../utils";
+import { ITargetInfoProps } from "../utils/types";
 import { IList } from "./types";
 import { Web } from "./web";
 
 /**
  * List
  */
-export const List: IList = ((listName: string, targetInfo?: Types.ITargetInfo) => {
+export const List: IList = ((listName: string, targetInfo?: ITargetInfoProps) => {
     let list = new Base(targetInfo);
 
     // Default the properties
@@ -47,7 +48,7 @@ List.getByEntityName = ((entityTypeName, callback, targetInfo?) => {
 }) as any;
 
 // Static method to get the list data from the SP.List.getListDataAsStream endpoint
-List.getDataAsStream = ((listFullUrl: string, parameters: IListDataParameters = {}) => {
+List.getDataAsStream = ((listFullUrl: string, parameters: SP.RenderListDataParameters = {}) => {
     let params = "?listFullUrl='" + listFullUrl + "'";
 
     // Parse the parameters

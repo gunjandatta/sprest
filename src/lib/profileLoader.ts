@@ -1,11 +1,11 @@
 import { Base } from "../utils";
 import { IProfileLoader } from "./types";
-import { ITargetInfo } from "../utils/types";
+import { ITargetInfoProps } from "../utils/types";
 
 /**
  * Profile Loader
  */
-export const ProfileLoader: IProfileLoader = ((targetInfo?: ITargetInfo) => {
+export const ProfileLoader: IProfileLoader = ((targetInfo?: ITargetInfoProps) => {
     let profileLoader = new Base(targetInfo);
 
     // Default the properties

@@ -1,7 +1,9 @@
-import { Helper, Site, SPTypes, Types, Web } from "..";
+import { ITermInfo } from "../helper/types";
+import * as SP from "../mapper/types";
+import { Helper, Site, SPTypes, Web } from "..";
 import {
     IListFormField, IListFormFieldInfo, IListFormLookupFieldInfo,
-    IListFormMMSFieldInfo, IListFormUrlFieldInfo, IListFormDateFieldInfo,
+    IListFormMMSFieldInfo, IListFormDateFieldInfo,
     IListFormTextFieldInfo, IListFormUserFieldInfo, IListFormChoiceFieldInfo,
     IListFormNumberFieldInfo
 } from "./types";
@@ -59,20 +61,20 @@ export const ListFormField: IListFormField = {
                 // Choice
                 case SPTypes.FieldType.Choice:
                 case SPTypes.FieldType.MultiChoice:
-                    let choices = (_fieldInfo.field as Types.SP.IFieldChoice).Choices;
+                    let choices = (_fieldInfo.field as SP.IFieldChoice).Choices;
                     (_fieldInfo as IListFormChoiceFieldInfo).choices = (choices ? choices.results : null) || [];
                     (_fieldInfo as IListFormChoiceFieldInfo).multi = _fieldInfo.type == SPTypes.FieldType.MultiChoice;
                     break;
 
                 // Date/Time
                 case SPTypes.FieldType.DateTime:
-                    let fldDate = _fieldInfo.field as Types.SP.IFieldDateTime;
+                    let fldDate = _fieldInfo.field as SP.IFieldDateTime;
                     (_fieldInfo as IListFormDateFieldInfo).showTime = fldDate.DisplayFormat == SPTypes.DateFormat.DateTime;
                     break;
 
                 // Lookup
                 case SPTypes.FieldType.Lookup:
-                    let fldLookup = _fieldInfo.field as Types.SP.IFieldLookup;
+                    let fldLookup = _fieldInfo.field as SP.IFieldLookup;
                     (_fieldInfo as IListFormLookupFieldInfo).lookupField = fldLookup.LookupField;
                     (_fieldInfo as IListFormLookupFieldInfo).lookupListId = fldLookup.LookupList;
                     (_fieldInfo as IListFormLookupFieldInfo).lookupWebId = fldLookup.LookupWebId;
@@ -81,7 +83,7 @@ export const ListFormField: IListFormField = {
 
                 // Number
                 case SPTypes.FieldType.Number:
-                    let fldNumber = _fieldInfo.field as Types.SP.IFieldNumber;
+                    let fldNumber = _fieldInfo.field as SP.IFieldNumber;
                     let startIdx = fldNumber.SchemaXml.indexOf('Decimals="') + 10;
                     (_fieldInfo as IListFormNumberFieldInfo).decimals = startIdx > 10 ? parseInt(fldNumber.SchemaXml.substr(startIdx, fldNumber.SchemaXml.substr(startIdx).indexOf('"'))) : 0;
                     (_fieldInfo as IListFormNumberFieldInfo).maxValue = fldNumber.MaximumValue;
@@ -91,7 +93,7 @@ export const ListFormField: IListFormField = {
 
                 // Note
                 case SPTypes.FieldType.Note:
-                    let fldNote = _fieldInfo.field as Types.SP.IFieldNote;
+                    let fldNote = _fieldInfo.field as SP.IFieldNote;
                     (_fieldInfo as IListFormTextFieldInfo).multiline = true;
                     (_fieldInfo as IListFormTextFieldInfo).richText = fldNote.RichText;
                     (_fieldInfo as IListFormTextFieldInfo).rows = fldNote.NumberOfLines;
@@ -106,7 +108,7 @@ export const ListFormField: IListFormField = {
 
                 // User
                 case SPTypes.FieldType.User:
-                    let fldUser = _fieldInfo.field as Types.SP.IFieldUser;
+                    let fldUser = _fieldInfo.field as SP.IFieldUser;
                     (_fieldInfo as IListFormUserFieldInfo).allowGroups = fldUser.SelectionMode == SPTypes.FieldUserSelectionType.PeopleAndGroups;
                     (_fieldInfo as IListFormUserFieldInfo).multi = fldUser.AllowMultipleValues;
                     break;
@@ -115,7 +117,7 @@ export const ListFormField: IListFormField = {
                 default:
                     // See if this is an MMS field
                     if (_fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
-                        let fldMMS = _fieldInfo.field as Types.SP.IFieldManagedMetadata;
+                        let fldMMS = _fieldInfo.field as SP.IFieldManagedMetadata;
                         (_fieldInfo as IListFormMMSFieldInfo).multi = fldMMS.AllowMultipleValues;
                         (_fieldInfo as IListFormMMSFieldInfo).termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                         (_fieldInfo as IListFormMMSFieldInfo).termSetId = fldMMS.TermSetId;
@@ -146,7 +148,7 @@ export const ListFormField: IListFormField = {
     },
 
     // Method to load the lookup data
-    loadLookupData: (info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>> => {
+    loadLookupData: (info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQueryResult>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the current site collection
@@ -177,7 +179,7 @@ export const ListFormField: IListFormField = {
     },
 
     // Method to load the mms data
-    loadMMSData: (info: IListFormMMSFieldInfo): PromiseLike<Array<Helper.Types.ITermInfo>> => {
+    loadMMSData: (info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the term set
@@ -198,7 +200,7 @@ export const ListFormField: IListFormField = {
     },
 
     // Method to load the mms value field
-    loadMMSValueField: (info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldNote> => {
+    loadMMSValueField: (info: IListFormMMSFieldInfo): PromiseLike<SP.IFieldNote> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the web

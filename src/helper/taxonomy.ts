@@ -1,6 +1,5 @@
-import { Types } from "..";
 import * as TaxonomyTypes from "./types";
-import { ITermGroupInfo, ITermInfo, ITermSetInfo } from "./types";
+import { ITermGroupInfo, ITermSetInfo } from "./types";
 declare var SP;
 
 /**

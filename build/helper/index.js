@@ -19,5 +19,3 @@ __export(require("./taxonomy"));
 __export(require("./webpart"));
 var SP = require("./sp");
 exports.SP = SP;
-var Types = require("./types");
-exports.Types = Types;

@@ -1,7 +1,7 @@
-import { Types } from "../mapper"
+import { Microsoft } from "gd-sprest-def";
+import * as Types from "../mapper/types";
 import { Base, RequestType } from "../utils";
 import { ISearch } from "./types";
-import { ITargetInfo } from "../utils/types";
 
 /**
  * Search
@@ -23,7 +23,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
     search.addMethods(search as any, { __metadata: { type: "search" } });
 
     /** The search query method */
-    search.searchquery = (settings: Types.ComplexTypes.SearchRequest) => {
+    search.searchquery = (settings: Microsoft.Office.Server.Search.REST.SearchRequest) => {
         // Execute the request
         return search.executeMethod("query", {
             argNames: ["query"],
@@ -33,7 +33,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
     }
 
     /** The search suggest method */
-    search.suggest = (settings: Types.ComplexTypes.SearchSuggestion) => {
+    search["suggest"] = (settings: Microsoft.Office.Server.Search.REST.SearchRequest/*SearchSuggestion*/) => {
         // Execute the request
         return search.executeMethod("query", {
             argNames: ["query"],
@@ -47,7 +47,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
 }) as any;
 
 // Static method to compute the query
-Search.getQuery = (parameters: Types.ComplexTypes.SearchRequest | Types.ComplexTypes.SearchSuggestion) => {
+Search.getQuery = (parameters: Microsoft.Office.Server.Search.REST.SearchRequest/* | Types.ComplexTypes.SearchSuggestion*/) => {
     let query = "";
 
     // Parse the parameters

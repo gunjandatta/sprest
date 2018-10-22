@@ -4,5 +4,3 @@ var Mapper = require("./mapper");
 exports.Mapper = Mapper;
 var SPTypes = require("./sptypes");
 exports.SPTypes = SPTypes;
-var Types = require("./types");
-exports.Types = Types;

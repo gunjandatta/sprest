@@ -1,16 +1,18 @@
 import {
     $REST,
     Helper
-} from "../build";
+} from "../dist/gd-sprest";
 
 $REST.Search().postquery({
     Querytext: "*",
-    Properties: {
-        Key: "GraphQuery",
-        Value: "ACTOR(ME,action:1013)",
-        ValueType: "string"
-    }
-})
+    Properties: [
+        {
+            Key: "GraphQuery",
+            Value: "ACTOR(ME,action:1013)",
+            ValueType: "string"
+        }
+    ]
+});
 
 $REST.Helper.SPConfig({
     ListCfg: [{
@@ -18,7 +20,7 @@ $REST.Helper.SPConfig({
             { name: "Location", title: "Location", type: $REST.Helper.SPCfgFieldType.Geolocation },
         ],
         ListInformation: {
-            BaseTemplate: 100,
+            TemplateType: 100,
             Title: "Map"
         }
     }]
