@@ -8864,7 +8864,7 @@ declare module 'gd-sprest/helper/types/spCfg' {
             CustomFields?: Array<ISPCfgFieldInfo>;
     
             /** The list creation information. */
-            ListInformation: SP.ListCreationInformation;
+            ListInformation: SP.List;
     
             /** The title display name. */
             TitleFieldDisplayName?: string;
