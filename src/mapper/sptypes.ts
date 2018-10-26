@@ -3,7 +3,7 @@ import { SPTypes } from "./types";
 /**
  * Base Permission Types
  */
-export const BasePermissionTypes: SPTypes.IBasePermissionType = {
+export const BasePermissionTypes: SPTypes.IBasePermissionTypes = {
     EmptyMask: 0,
     ViewListItems: 1,
     AddListItems: 2,
