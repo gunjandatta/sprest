@@ -4808,8 +4808,8 @@ declare module 'gd-sprest/mapper/types/sptypes' {
     /**
         * Base Permission Types
         */
-    export const BasePermissionType: IBasePermissionType;
-    export type IBasePermissionType = {
+    export const BasePermissionTypes: IBasePermissionTypes;
+    export type IBasePermissionTypes = {
             AddAndCustomizePages: number,
             AddDelPrivateWebParts: number,
             AddListItems: number,
@@ -8864,7 +8864,7 @@ declare module 'gd-sprest/helper/types/spCfg' {
             CustomFields?: Array<ISPCfgFieldInfo>;
     
             /** The list creation information. */
-            ListInformation: SP.ListCreationInformation;
+            ListInformation: SP.List;
     
             /** The title display name. */
             TitleFieldDisplayName?: string;

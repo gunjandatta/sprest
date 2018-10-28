@@ -260,7 +260,7 @@ export interface ISPCfgListInfo {
     CustomFields?: Array<ISPCfgFieldInfo>;
 
     /** The list creation information. */
-    ListInformation: SP.ListCreationInformation;
+    ListInformation: SP.List;
 
     /** The title display name. */
     TitleFieldDisplayName?: string;

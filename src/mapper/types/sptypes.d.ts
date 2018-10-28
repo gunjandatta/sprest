@@ -1,8 +1,8 @@
 /**
  * Base Permission Types
  */
-export const BasePermissionType: IBasePermissionType;
-export type IBasePermissionType = {
+export const BasePermissionTypes: IBasePermissionTypes;
+export type IBasePermissionTypes = {
     AddAndCustomizePages: number,
     AddDelPrivateWebParts: number,
     AddListItems: number,
