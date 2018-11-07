@@ -32,6 +32,7 @@ declare module 'gd-sprest' {
 }
 
 declare module 'gd-sprest/helper/types/helper' {
+    import { SP } from "gd-sprest-def";
     import * as HelperTypes from "gd-sprest/helper/types";
     import * as MapperTypes from "gd-sprest/mapper/types";
     import * as UtilTypes from "gd-sprest/utils/types";
@@ -69,6 +70,11 @@ declare module 'gd-sprest/helper/types/helper' {
                 * Helper class for generating a field schema xml
                 */
             FieldSchemaXML: (fieldInfo: HelperTypes.IFieldInfo) => PromiseLike<string>;
+    
+            /**
+                * Determines if the user has permissions, based on the permission kind value
+                */
+            hasPermissions(permissionMask: SP.BasePermissions, permissions: Array<number> | number): boolean;
     
             /**
                 * Helper class for implementing JSLink solutions
@@ -4805,6 +4811,8 @@ declare module 'gd-sprest/mapper/types/socialFeed' {
 }
 
 declare module 'gd-sprest/mapper/types/sptypes' {
+    import { SP } from "gd-sprest-def";
+    
     /**
         * Base Permission Types
         */
@@ -4813,6 +4821,8 @@ declare module 'gd-sprest/mapper/types/sptypes' {
             AddAndCustomizePages: number,
             AddDelPrivateWebParts: number,
             AddListItems: number,
+            AnonymousSearchAccessList: number,
+            AnonymousSearchAccessWebLists: number,
             ApplyStyleSheets: number,
             ApplyThemeAndBorder: number,
             ApproveItems: number,
@@ -4845,6 +4855,13 @@ declare module 'gd-sprest/mapper/types/sptypes' {
             ViewPages: number,
             ViewUsageData: number,
             ViewVersions: number
+    }
+    
+    /**
+        * Base Permission Result
+        */
+    export interface IGetUserEffectivePermissionsResult {
+            GetUserEffectivePermissions: SP.BasePermissions
     }
     
     /**

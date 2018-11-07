@@ -1,3 +1,5 @@
+import { SP } from "gd-sprest-def";
+
 /**
  * Base Permission Types
  */
@@ -40,6 +42,13 @@ export type IBasePermissionTypes = {
     ViewPages: number,
     ViewUsageData: number,
     ViewVersions: number
+}
+
+/**
+ * Base Permission Result
+ */
+export interface IGetUserEffectivePermissionsResult {
+    GetUserEffectivePermissions: SP.BasePermissions
 }
 
 /**
