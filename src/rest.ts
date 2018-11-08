@@ -7,7 +7,7 @@ import { IREST } from "./rest.d";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.35,
+    __ver: 4.36,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -18,6 +18,7 @@ export const $REST: IREST = {
         createDocSet: Helper.createDocSet,
         Executor: Helper.Executor,
         FieldSchemaXML: Helper.FieldSchemaXML,
+        hasPermissions: Helper.hasPermissions,
         JSLink: Helper.JSLink,
         ListForm: Helper.ListForm,
         ListFormField: Helper.ListFormField,

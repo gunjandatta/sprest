@@ -1,15 +1,19 @@
 import {
-    $REST,
-    Helper
-} from "../dist/gd-sprest";
+    $REST
+} from "../src";
+
+$REST.Web().getUserEffectivePermissions("").execute(r => {
+    let h = r.GetUserEffectivePermissions.High;
+});
+
+$REST.List("").execute(l => {l.EffectiveBasePermissions})
 
 $REST.Search().postquery({
     Querytext: "*",
     Properties: [
         {
-            Key: "GraphQuery",
-            Value: "ACTOR(ME,action:1013)",
-            ValueType: "string"
+            Name: "GraphQuery",
+            Value: { StrVal: "ACTOR(ME,action:1013)" }
         }
     ]
 });
@@ -20,7 +24,7 @@ $REST.Helper.SPConfig({
             { name: "Location", title: "Location", type: $REST.Helper.SPCfgFieldType.Geolocation },
         ],
         ListInformation: {
-            TemplateType: 100,
+            BaseTemplate: 100,
             Title: "Map"
         }
     }]

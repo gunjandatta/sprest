@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import * as HelperTypes from ".";
 import * as MapperTypes from "../../mapper/types";
 import * as UtilTypes from "../../utils/types";
@@ -35,6 +36,11 @@ export interface IHelper {
      * Helper class for generating a field schema xml
      */
     FieldSchemaXML: (fieldInfo: HelperTypes.IFieldInfo) => PromiseLike<string>;
+
+    /**
+     * Determines if the user has permissions, based on the permission kind value
+     */
+    hasPermissions(permissionMask: SP.BasePermissions, permissions: Array<number> | number): boolean;
 
     /**
      * Helper class for implementing JSLink solutions

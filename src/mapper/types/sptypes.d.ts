@@ -1,3 +1,5 @@
+import { SP } from "gd-sprest-def";
+
 /**
  * Base Permission Types
  */
@@ -6,6 +8,8 @@ export type IBasePermissionTypes = {
     AddAndCustomizePages: number,
     AddDelPrivateWebParts: number,
     AddListItems: number,
+    AnonymousSearchAccessList: number,
+    AnonymousSearchAccessWebLists: number,
     ApplyStyleSheets: number,
     ApplyThemeAndBorder: number,
     ApproveItems: number,
@@ -38,6 +42,13 @@ export type IBasePermissionTypes = {
     ViewPages: number,
     ViewUsageData: number,
     ViewVersions: number
+}
+
+/**
+ * Base Permission Result
+ */
+export interface IGetUserEffectivePermissionsResult {
+    GetUserEffectivePermissions: SP.BasePermissions
 }
 
 /**
