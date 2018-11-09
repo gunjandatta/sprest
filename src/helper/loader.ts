@@ -16,7 +16,7 @@ export const Loader: ILoader = {
         let maxLoops = timeout / 25;
 
         // See if the flag has already been set
-        if (this.loaded) {
+        if (Loader.loaded) {
             // Execute the callback
             callback ? callback() : null;
             return;
@@ -47,6 +47,9 @@ export const Loader: ILoader = {
 
             // See if the page context exists or if we have hit the max attempts
             if (ContextInfo.existsFl || maxLoopFl) {
+                // Set the flag
+                Loader.loaded = true;
+
                 // Stop the loop
                 clearInterval(intervalId);
 

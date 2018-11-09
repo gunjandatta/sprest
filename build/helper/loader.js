@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 /**
@@ -16,7 +15,7 @@ exports.Loader = {
         // Determine the number of iterations
         var maxLoops = timeout / 25;
         // See if the flag has already been set
-        if (_this.loaded) {
+        if (exports.Loader.loaded) {
             // Execute the callback
             callback ? callback() : null;
             return;
@@ -41,6 +40,8 @@ exports.Loader = {
             var maxLoopFl = ++counter > maxLoops;
             // See if the page context exists or if we have hit the max attempts
             if (lib_1.ContextInfo.existsFl || maxLoopFl) {
+                // Set the flag
+                exports.Loader.loaded = true;
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback
