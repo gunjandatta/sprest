@@ -50,10 +50,9 @@ export interface IREST {
 
     /**
      * Use this api to get the list name by its entity name.
-     * @param entityTypeName - The entity type name of the list.
-     * @param callback - The method to be executed after the request completes.
+     * @param props - The list entity request properties.
      */
-    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): UtilTypes.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
+    ListByEntityName(props: LibTypes.IListEntityProps): UtilTypes.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
 
     /**
      * Use this api to get the list data.

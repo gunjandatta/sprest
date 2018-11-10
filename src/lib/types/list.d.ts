@@ -20,10 +20,9 @@ export interface IList {
 
     /**
      * A static method to get the list by the entity name.
-     * @param entityTypeName - The entity type name of the list.
-     * @param callback - The method to be executed after the request completes.
+     * @param props - The list entity request properties.
      */
-    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    getByEntityName(props: IListEntityProps): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
@@ -31,4 +30,21 @@ export interface IList {
      * @param parameters - The optional list data parameters.
      */
     getDataAsStream(listFullUrl: string, parameters?: any): IBase<Types.IListDataStream>;
+}
+
+/**
+ * List Entity Properties
+ */
+export interface IListEntityProps {
+    /** The callback method. */
+    callback?: (list: Types.IListResult) => void;
+
+    /** The list entity name. */
+    name: string;
+
+    /** The target information to pass to the web request. */
+    targetInfo?: ITargetInfoProps;
+
+    /** The relative url of the web containing the list. */
+    url?: string;
 }

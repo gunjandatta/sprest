@@ -1,7 +1,7 @@
 import { SP } from "gd-sprest-def";
 import { Base } from "../utils";
 import { ITargetInfoProps } from "../utils/types";
-import { IList } from "./types";
+import { IList, IListEntityProps } from "./types";
 import { Web } from "./web";
 
 /**
@@ -22,19 +22,19 @@ export const List: IList = ((listName: string, targetInfo?: ITargetInfoProps) =>
 }) as any;
 
 // Static method to get the list by the entity name.
-List.getByEntityName = ((entityTypeName, callback, targetInfo?) => {
+List.getByEntityName = ((props: IListEntityProps) => {
     // Query for the list
-    let query = Web(targetInfo)
+    let query = Web(props.url, props.targetInfo)
         // Get the lists
         .Lists()
         // Set the query
         .query({
-            Filter: "EntityTypeName eq '" + entityTypeName + "'",
+            Filter: "EntityTypeName eq '" + props.name + "'",
             Top: 1
         });
 
     // See if the callback exists
-    if (typeof (callback) != "function") {
+    if (props.callback) {
         // Execute the request synchronously and return it
         let list = query.executeAndWait();
         return list.results ? list.results[0] : list;
@@ -43,7 +43,7 @@ List.getByEntityName = ((entityTypeName, callback, targetInfo?) => {
     // Execute the request asynchronously
     query.execute((lists) => {
         // Execute the callback method
-        callback(lists.results ? lists.results[0] : lists);
+        props.callback(lists.results ? lists.results[0] : null as any);
     });
 }) as any;
 
