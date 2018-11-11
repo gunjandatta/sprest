@@ -16,27 +16,29 @@ exports.List = (function (listName, targetInfo) {
     return list;
 });
 // Static method to get the list by the entity name.
-exports.List.getByEntityName = (function (entityTypeName, callback, targetInfo) {
+exports.List.getByEntityName = (function (props) {
     // Query for the list
-    var query = web_1.Web(targetInfo)
+    var query = web_1.Web(props.url, props.targetInfo)
         // Get the lists
         .Lists()
         // Set the query
         .query({
-        Filter: "EntityTypeName eq '" + entityTypeName + "'",
+        Filter: "EntityTypeName eq '" + props.name + "'",
         Top: 1
     });
     // See if the callback exists
-    if (typeof (callback) != "function") {
+    if (props.callback) {
+        // Execute the request asynchronously
+        query.execute(function (lists) {
+            // Execute the callback method
+            props.callback(lists.results ? lists.results[0] : null);
+        });
+    }
+    else {
         // Execute the request synchronously and return it
         var list = query.executeAndWait();
         return list.results ? list.results[0] : list;
     }
-    // Execute the request asynchronously
-    query.execute(function (lists) {
-        // Execute the callback method
-        callback(lists.results ? lists.results[0] : lists);
-    });
 });
 // Static method to get the list data from the SP.List.getListDataAsStream endpoint
 exports.List.getDataAsStream = (function (listFullUrl, parameters) {

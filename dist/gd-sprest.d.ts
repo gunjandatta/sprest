@@ -227,10 +227,9 @@ declare module 'gd-sprest/rest' {
     
             /**
                 * Use this api to get the list name by its entity name.
-                * @param entityTypeName - The entity type name of the list.
-                * @param callback - The method to be executed after the request completes.
+                * @param props - The list entity request properties.
                 */
-            ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): UtilTypes.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
+            ListByEntityName(props: LibTypes.IListEntityProps): UtilTypes.IBase<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
     
             /**
                 * Use this api to get the list data.
@@ -833,10 +832,9 @@ declare module 'gd-sprest/lib/types/list' {
     
             /**
                 * A static method to get the list by the entity name.
-                * @param entityTypeName - The entity type name of the list.
-                * @param callback - The method to be executed after the request completes.
+                * @param props - The list entity request properties.
                 */
-            getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+            getByEntityName(props: IListEntityProps): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
     
             /**
                 * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
@@ -844,6 +842,23 @@ declare module 'gd-sprest/lib/types/list' {
                 * @param parameters - The optional list data parameters.
                 */
             getDataAsStream(listFullUrl: string, parameters?: any): IBase<Types.IListDataStream>;
+    }
+    
+    /**
+        * List Entity Properties
+        */
+    export interface IListEntityProps {
+            /** The callback method. */
+            callback?: (list: Types.IListResult) => void;
+    
+            /** The list entity name. */
+            name: string;
+    
+            /** The target information to pass to the web request. */
+            targetInfo?: ITargetInfoProps;
+    
+            /** The relative url of the web containing the list. */
+            url?: string;
     }
 }
 
