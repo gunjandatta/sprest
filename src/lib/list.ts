@@ -35,16 +35,16 @@ List.getByEntityName = ((props: IListEntityProps) => {
 
     // See if the callback exists
     if (props.callback) {
+        // Execute the request asynchronously
+        query.execute((lists) => {
+            // Execute the callback method
+            props.callback(lists.results ? lists.results[0] : null as any);
+        });
+    } else {
         // Execute the request synchronously and return it
         let list = query.executeAndWait();
         return list.results ? list.results[0] : list;
     }
-
-    // Execute the request asynchronously
-    query.execute((lists) => {
-        // Execute the callback method
-        props.callback(lists.results ? lists.results[0] : null as any);
-    });
 }) as any;
 
 // Static method to get the list data from the SP.List.getListDataAsStream endpoint

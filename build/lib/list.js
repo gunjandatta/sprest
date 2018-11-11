@@ -28,15 +28,17 @@ exports.List.getByEntityName = (function (props) {
     });
     // See if the callback exists
     if (props.callback) {
+        // Execute the request asynchronously
+        query.execute(function (lists) {
+            // Execute the callback method
+            props.callback(lists.results ? lists.results[0] : null);
+        });
+    }
+    else {
         // Execute the request synchronously and return it
         var list = query.executeAndWait();
         return list.results ? list.results[0] : list;
     }
-    // Execute the request asynchronously
-    query.execute(function (lists) {
-        // Execute the callback method
-        props.callback(lists.results ? lists.results[0] : null);
-    });
 });
 // Static method to get the list data from the SP.List.getListDataAsStream endpoint
 exports.List.getDataAsStream = (function (listFullUrl, parameters) {
