@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest",
-  "version": "4.3.7",
+  "version": "4.3.8",
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io)",
   "license": "<LICENSE>",
@@ -30,11 +30,10 @@
     "gd-sprest-def": "0.0.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "@types/core-js": "^0.9.46",
-    "babel": "^6.23.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
+    "babel-loader": "^8.0.4",
     "core-js": "^2.5.4",
     "dts-bundle": "^0.7.3",
     "webpack": "^4.17.0",

@@ -460,7 +460,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Add the view
                     views.add({
                         Title: cfgView.ViewName,
-                        Query: cfgView.ViewQuery
+                        ViewQuery: cfgView.ViewQuery
                     }).execute((view) => {
                         // Ensure it exists
                         if (view.existsFl) {

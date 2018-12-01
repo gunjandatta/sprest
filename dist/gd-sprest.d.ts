@@ -6994,7 +6994,7 @@ declare module 'gd-sprest/mapper/types/views' {
             /**
                 * Adds a list view to the view collection.
                 */
-            add(parameters: SP.ViewCreationInformation): IBase<IView, IViewResult>;
+            add(parameters: SP.View): IBase<IView, IViewResult>;
     
             /**
                 * Gets the list view with the specified ID.

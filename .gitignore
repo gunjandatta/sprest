@@ -1,4 +1,5 @@
 def/lib
 *.log
+*.yaml
 .vscode
 node_modules
