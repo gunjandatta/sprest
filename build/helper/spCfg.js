@@ -426,7 +426,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Add the view
                     views.add({
                         Title: cfgView.ViewName,
-                        Query: cfgView.ViewQuery
+                        ViewQuery: cfgView.ViewQuery
                     }).execute(function (view) {
                         // Ensure it exists
                         if (view.existsFl) {
