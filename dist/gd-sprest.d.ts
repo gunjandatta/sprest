@@ -6373,7 +6373,7 @@ declare module 'gd-sprest/mapper/types/user' {
     /**
         * User Query Result
         */
-    export interface IUserQueryResult extends IUserMethods, SP.ObjectSharingInformationUser {
+    export interface IUserQueryResult extends IUserMethods, SP.Data.UserInfoItem {
             /**
                 * Gets the groups of which the user is a member.
                 */
@@ -6383,7 +6383,7 @@ declare module 'gd-sprest/mapper/types/user' {
     /**
         * User Result
         */
-    export interface IUserResult extends IUserMethods, SP.ObjectSharingInformationUser, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> { }
+    export interface IUserResult extends IUserMethods, SP.Data.UserInfoItem, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> { }
     
     /**
         * User
