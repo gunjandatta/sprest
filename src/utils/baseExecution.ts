@@ -85,6 +85,9 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
         // Set the base responses
         this.base.responses = this.base.responses || [];
 
+        // Set the base wait flags
+        this.base.waitFlags = this.base.waitFlags || [];
+
         // Set the response index
         this.responseIndex = this.base.responses.length;
 

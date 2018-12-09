@@ -93,6 +93,8 @@ var BaseExecution = /** @class */ (function (_super) {
         this.base = this.base || this;
         // Set the base responses
         this.base.responses = this.base.responses || [];
+        // Set the base wait flags
+        this.base.waitFlags = this.base.waitFlags || [];
         // Set the response index
         this.responseIndex = this.base.responses.length;
         // Add this object to the responses
