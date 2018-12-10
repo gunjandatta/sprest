@@ -27,7 +27,7 @@
     "core-js": "^2.5.3"
   },
   "dependencies": {
-    "gd-sprest-def": "0.0.5"
+    "gd-sprest-def": "^0.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
