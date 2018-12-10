@@ -40,7 +40,7 @@ export interface IUserQueryProps {
 /**
  * User Query Result
  */
-export interface IUserQueryResult extends IUserMethods, SP.ObjectSharingInformationUser {
+export interface IUserQueryResult extends IUserMethods, SP.User {
     /**
      * Gets the groups of which the user is a member.
      */
@@ -50,7 +50,7 @@ export interface IUserQueryResult extends IUserMethods, SP.ObjectSharingInformat
 /**
  * User Result
  */
-export interface IUserResult extends IUserMethods, SP.ObjectSharingInformationUser, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> { }
+export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> { }
 
 /**
  * User
