@@ -191,6 +191,63 @@ export class BaseHelper implements IBaseHelper {
         }
     }
 
+    // Method to parse the xml
+    parseXML(xml: string) {
+        let objData = {};
+
+        // Parse the properties
+        do {
+            // Get the index of the property
+            let idxStart = xml.indexOf("<d:");
+            let idxEnd = xml.indexOf(">", idxStart);
+            if (idxEnd > idxStart && idxStart > -1) {
+                // Get the property
+                let propName = xml.substr(idxStart + 3, idxEnd - idxStart - 3);
+                propName = propName.split(' ')[0];
+
+                // Skip the "element" property
+                if (propName == "element") {
+                    // Skip this element
+                    idxEnd = xml.indexOf("</d:" + propName, idxStart);
+                    xml = xml.substr(idxEnd + propName.length + 4);
+                    continue;
+                }
+
+                // See if this is a null value
+                if (xml[idxEnd - 1] == "/") {
+                    // Set the value
+                    objData[propName] = null;
+
+                    // Clear this property
+                    xml = xml.substr(idxEnd + 1);
+                } else {
+                    // Get the value
+                    idxStart = idxEnd;
+                    idxEnd = xml.indexOf("</d:" + propName, idxStart);
+
+                    // Set the value
+                    let value = xml.substr(idxStart + 1, idxEnd - idxStart - 1);
+                    if (value.indexOf("<d:") == 0 && idxEnd > idxStart) {
+                        // Set the value
+                        objData[propName] = this.parseXML(value);
+                    } else {
+                        // Set the value
+                        objData[propName] = value;
+                    }
+
+                    // Clear this property
+                    idxEnd = xml.indexOf(">", idxStart + 1);
+                    xml = xml.substr(idxEnd + 1);
+                }
+            }
+            // Else, break from the loop
+            else { break; }
+        } while (xml.length > 0);
+
+        // Return the data
+        return objData;
+    }
+
     // Method to update a collection object
     updateDataCollection(obj, results) {
         // Ensure the base is a collection
@@ -237,6 +294,13 @@ export class BaseHelper implements IBaseHelper {
 
                 // Set the xml flag
                 let isXML = response.indexOf("<?xml") == 0;
+                if (isXML) {
+                    // Append the response while data exists
+                    while (responses[i + 1] && responses[i + 1].indexOf("--batchresponse") != 0) {
+                        // Append the response
+                        response += responses[++i];
+                    }
+                }
 
                 // Try to convert the response
                 try { data = isXML ? response : JSON.parse(response); }
@@ -250,11 +314,31 @@ export class BaseHelper implements IBaseHelper {
 
                 // See if this is xml
                 if (isXML) {
-                    // Create an XML object
-                    let parser = DOMParser ? new DOMParser() : null;
+                    let objData;
 
-                    // Set the xml
-                    this.xml = parser ? parser.parseFromString(data, "text/xml") : data;
+                    // Get the response properties
+                    let idxStart = data.indexOf("<m:properties>");
+                    let idxEnd = data.indexOf("</m:properties");
+                    let properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
+                    if (properties) {
+                        // Set the data object
+                        objData = this.parseXML(properties);
+
+                        // Update the metadata
+                        this.updateMetadata(obj, objData);
+
+                        // Update the base object's properties
+                        this.addProperties(obj, objData);
+
+                        // Add the methods
+                        this.addMethods(obj, objData, objData["@odata.context"]);
+
+                        // Update the data collection
+                        this.updateDataCollection(obj, objData["results"]);
+
+                        // Update the data object
+                        data = obj;
+                    }
                 }
                 // Else, see if the data properties exists
                 else if (data.d) {
@@ -293,7 +377,7 @@ export class BaseHelper implements IBaseHelper {
                     // Ensure the batch request exists
                     if (batchRequest) {
                         // Set the response object
-                        batchRequest.response = typeof (data) === "string" ? data : obj;
+                        batchRequest.response = data;
 
                         // Execute the callback if it exists
                         batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;

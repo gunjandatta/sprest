@@ -3,7 +3,7 @@ import {
     RequestType, TargetInfo, XHRRequest
 } from ".";
 import { IBaseRequest } from "./types/baseRequest";
-import { IMethodInfo, ITargetInfo, ITargetInfoProps } from "./types";
+import { IMethodInfo, ITargetInfoProps } from "./types";
 
 /**
  * Base Request

@@ -3564,7 +3564,7 @@ declare module 'gd-sprest/mapper/types/lists' {
                 * Adds a list to the list collection.
                 * @param parameters - The list creation information.
                 */
-            add(parameters: SP.ListCreationInformation): IBase<IList, IListResult>;
+            add(parameters: SP.List): IBase<IList, IListResult>;
     
             /**
                 * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
@@ -9450,6 +9450,14 @@ declare module 'gd-sprest/utils/types/baseExecution' {
                 * @param appendFl - Flag to execute the request as part of a change set.
                 */
             batch(appendFl?: boolean): Type;
+    
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param resolve - The method to be executed after the request completes.
+                * @param appendFl - Flag to execute the request as part of a change set.
+                */
+            batch(resolve: (value?: Result) => void, appendFl?: boolean): Type;
     
             /**
                 * Method to execute the request.

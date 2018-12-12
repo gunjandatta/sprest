@@ -13,17 +13,25 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
     waitFlags: Array<boolean>;
 
     // Method to execute this request as a batch request
-    batch(arg?) {
-        let callback = null;
+    batch(...args) {
         let appendFl = false;
+        let callback = null;
 
-        // See if the input is a boolean
-        if (typeof (arg) === "boolean") {
-            // Set the flag
-            appendFl = arg;
-        } else {
-            // Set the callback
-            callback = arg;
+        // Parse the arguments
+        for (let i = 0; i < args.length; i++) {
+            let arg = args[i];
+
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the append flag
+                    appendFl = arg;
+                    break;
+                case "function":
+                    // Set the callback method
+                    callback = arg;
+                    break;
+            }
         }
 
         // Set the base
@@ -33,6 +41,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
         if (appendFl && this.base.batchRequests) {
             // Append the request
             this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                callback,
                 targetInfo: new TargetInfo(this.targetInfo)
             });
         } else {
