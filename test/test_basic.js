@@ -51,6 +51,9 @@ function runTests() {
                 case "alm":
                     testALM();
                     break;
+                case "batch":
+                    testBatch();
+                    break;
                 case "file":
                     testFile();
                     break;
@@ -121,6 +124,105 @@ function testALM() {
             })
         });
     });
+}
+
+function testBatch() {
+    // Method to create the batch items
+    var createItems = function (list) {
+        // Ensure the list exists
+        if (list) {
+            var web = $REST.Web();
+
+            // Log
+            writeToLog("Create the Items.", LogType.SubHeader);
+
+            // Loop 10 times
+            let ctr = 0;
+            do {
+                // Add a new item
+                // Batch the new items as one request
+                web.Lists("BatchList").Items().add({
+                    Title: "Batch Item " + (++ctr)
+                }).batch(function(item) {
+                    // Log
+                    writeToLog("Item '" + item.Title + "' created.");
+                }, ctr > 1);
+            } while (ctr < 10);
+
+            // Get the list
+            web.Lists("BatchList").batch(function(list) {
+                // See if the list exists
+                if (list.existsFl) {
+                    // Log
+                    writeToLog("List items created.", LogType.Info);
+
+                    // Log
+                    writeToLog("List contains " + list.ItemCount + " items.", LogType.Info);
+                } else {
+                    // Log
+                    writeToLog("Error getting the list.", LogType.Error);
+                }
+            }, true);
+
+            // Delete the list
+            web.Lists("BatchList").delete().batch(function () {
+                // Log
+                writeToLog("List was deleted.", LogType.Info);
+            }, true);
+
+            // Execute the request
+            web.execute();
+        } else {
+            // Log
+            writeToLog("Error getting the list.", LogType.Error);
+        }
+    }
+
+    // Log
+    writeToLog("Batch", LogType.Header);
+
+    // Log
+    writeToLog("Get the List.", LogType.SubHeader);
+
+    // Get the list
+    var request = $REST.List("BatchList");
+
+    // Execute the request
+    request.execute(
+        // Exists
+        function (list) {
+            // Log
+            writeToLog("List already exists.", LogType.Info);
+
+            // Create the items
+            createItems(list);
+        },
+        // Doesn't Exist
+        function () {
+            // Log
+            writeToLog("Creating the list.", LogType.Info);
+
+            // Create the list
+            $REST.Web().Lists().add({
+                BaseTemplate: $REST.SPTypes.ListTemplateType.GenericList,
+                Title: "BatchList"
+            }).execute(
+                // Success
+                function (list) {
+                    // Log
+                    writeToLog("List was created.", LogType.Info);
+
+                    // Create the items
+                    createItems(list);
+                },
+                // Error
+                function () {
+                    // Log
+                    writeToLog("Failed to create the list.", LogType.Error);
+                }
+            );
+        }
+    );
 }
 
 function testContentType(list) {

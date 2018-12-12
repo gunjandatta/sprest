@@ -24,17 +24,27 @@ var BaseExecution = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     // Method to execute this request as a batch request
-    BaseExecution.prototype.batch = function (arg) {
-        var callback = null;
-        var appendFl = false;
-        // See if the input is a boolean
-        if (typeof (arg) === "boolean") {
-            // Set the flag
-            appendFl = arg;
+    BaseExecution.prototype.batch = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
         }
-        else {
-            // Set the callback
-            callback = arg;
+        var appendFl = false;
+        var callback = null;
+        // Parse the arguments
+        for (var i = 0; i < args.length; i++) {
+            var arg = args[i];
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the append flag
+                    appendFl = arg;
+                    break;
+                case "function":
+                    // Set the callback method
+                    callback = arg;
+                    break;
+            }
         }
         // Set the base
         this.base = this.base ? this.base : this;
@@ -42,6 +52,7 @@ var BaseExecution = /** @class */ (function (_super) {
         if (appendFl && this.base.batchRequests) {
             // Append the request
             this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                callback: callback,
                 targetInfo: new _1.TargetInfo(this.targetInfo)
             });
         }

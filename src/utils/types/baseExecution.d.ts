@@ -35,6 +35,14 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
     batch(appendFl?: boolean): Type;
 
     /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param resolve - The method to be executed after the request completes.
+     * @param appendFl - Flag to execute the request as part of a change set.
+     */
+    batch(resolve: (value?: Result) => void, appendFl?: boolean): Type;
+
+    /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
