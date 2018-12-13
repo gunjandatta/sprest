@@ -127,55 +127,54 @@ function testALM() {
 }
 
 function testBatch() {
+    var web = $REST.Web();
+
     // Method to create the batch items
     var createItems = function (list) {
-        // Ensure the list exists
-        if (list) {
-            var web = $REST.Web();
+        var web = $REST.Web();
 
-            // Log
-            writeToLog("Create the Items.", LogType.SubHeader);
+        // Log
+        writeToLog("Batch Create Items", LogType.SubHeader);
 
-            // Loop 10 times
-            let ctr = 0;
-            do {
-                // Add a new item
-                // Batch the new items as one request
-                web.Lists("BatchList").Items().add({
-                    Title: "Batch Item " + (++ctr)
-                }).batch(function(item) {
-                    // Log
-                    writeToLog("Item '" + item.Title + "' created.");
-                }, ctr > 1);
-            } while (ctr < 10);
-
-            // Get the list
-            web.Lists("BatchList").batch(function(list) {
-                // See if the list exists
-                if (list.existsFl) {
-                    // Log
-                    writeToLog("List items created.", LogType.Info);
-
-                    // Log
-                    writeToLog("List contains " + list.ItemCount + " items.", LogType.Info);
-                } else {
-                    // Log
-                    writeToLog("Error getting the list.", LogType.Error);
-                }
-            }, true);
-
-            // Delete the list
-            web.Lists("BatchList").delete().batch(function () {
+        // Loop 10 times
+        let ctr = 0;
+        do {
+            // Add a new item
+            // Batch the new items as one request
+            web.Lists("BatchList").Items().add({
+                Title: "Batch Item " + (++ctr)
+            }).batch(function (item) {
                 // Log
-                writeToLog("List was deleted.", LogType.Info);
-            }, true);
+                writeToLog("Item '" + item.Title + "' created.");
+            }, ctr > 1);
+        } while (ctr < 10);
 
-            // Execute the request
-            web.execute();
-        } else {
+        // Get the list
+        web.Lists("BatchList").batch(function (list) {
             // Log
-            writeToLog("Error getting the list.", LogType.Error);
-        }
+            writeToLog("Validation", LogType.SubHeader);
+
+            // See if the list exists
+            if (list.existsFl) {
+                // Log
+                writeToLog("List contains " + list.ItemCount + " items.", LogType.Info);
+            } else {
+                // Log
+                writeToLog("Error getting the list.", LogType.Error);
+            }
+        });
+
+        // Delete the list
+        web.Lists("BatchList").delete().batch(function () {
+            // Log
+            writeToLog("Clean Up", LogType.SubHeader);
+
+            // Log
+            writeToLog("List was deleted.", LogType.Info);
+        });
+
+        // Execute the requests
+        web.execute();
     }
 
     // Log
