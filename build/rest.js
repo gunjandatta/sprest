@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.43,
+    __ver: 4.45,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -63,6 +63,3 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
         Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
     }
 }
-exports.$REST.List("").ContentTypes().execute(function (cts) {
-    cts.results[0].Fields();
-});
