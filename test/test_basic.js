@@ -127,8 +127,13 @@ function testALM() {
 }
 
 function testBatch() {
+    var web = $REST.Web();
+
     // Method to create the batch items
     var createItems = function (list) {
+        // Log
+        writeToLog("Batch Create Items", LogType.SubHeader);
+
         // Ensure the list exists
         if (list) {
             var web = $REST.Web();
@@ -143,19 +148,19 @@ function testBatch() {
                 // Batch the new items as one request
                 web.Lists("BatchList").Items().add({
                     Title: "Batch Item " + (++ctr)
-                }).batch(function(item) {
+                }).batch(function (item) {
                     // Log
                     writeToLog("Item '" + item.Title + "' created.");
                 }, ctr > 1);
             } while (ctr < 10);
 
             // Get the list
-            web.Lists("BatchList").batch(function(list) {
+            web.Lists("BatchList").batch(function (list) {
+                // Log
+                writeToLog("Validation", LogType.SubHeader);
+
                 // See if the list exists
                 if (list.existsFl) {
-                    // Log
-                    writeToLog("List items created.", LogType.Info);
-
                     // Log
                     writeToLog("List contains " + list.ItemCount + " items.", LogType.Info);
                 } else {
@@ -167,10 +172,13 @@ function testBatch() {
             // Delete the list
             web.Lists("BatchList").delete().batch(function () {
                 // Log
+                writeToLog("Clean Up", LogType.SubHeader);
+
+                // Log
                 writeToLog("List was deleted.", LogType.Info);
             }, true);
 
-            // Execute the request
+            // Execute the requests
             web.execute();
         } else {
             // Log
