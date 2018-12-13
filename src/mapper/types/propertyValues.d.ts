@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { SP } from "@dattabase/sprest-def";
 import { IBase } from "../../utils/types/base";
 import { ODataQuery } from ".";
 

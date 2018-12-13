@@ -1,4 +1,4 @@
-import { Microsoft } from "gd-sprest-def";
+import { Microsoft } from "@dattabase/sprest-def";
 import * as Types from "../mapper/types";
 import { Base, RequestType } from "../utils";
 import { ISearch } from "./types";

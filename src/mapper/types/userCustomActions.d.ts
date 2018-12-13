@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { SP } from "@dattabase/sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types/base";
 import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from ".";
 

@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { SP } from "@dattabase/sprest-def";
 export * from "./spCfgTypes";
 import { ContextInfo, Site, Web } from "../lib";
 import * as Types from "../mapper/types";
