@@ -7,7 +7,7 @@ import { IREST } from "./rest.d";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.44,
+    __ver: 4.45,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -65,7 +65,3 @@ if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
         Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
     }
 }
-
-$REST.List("").ContentTypes().execute(cts => {
-    cts.results[0].Fields()
-})
