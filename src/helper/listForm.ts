@@ -1,4 +1,4 @@
-import { SP } from "@dattabase/sprest-def";
+import { SP } from "gd-sprest-def";
 import { Helper, SPTypes, Web } from "..";
 import { IContentTypeQueryResult, IFieldLookup, IFieldResults, ODataQuery } from "../mapper/types"
 import { IBaseCollection } from "../utils/types/base";

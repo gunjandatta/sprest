@@ -24,7 +24,7 @@
   },
   "homepage": "https://gunjandatta.github.io",
   "dependencies": {
-    "@dattabase/sprest-def": "^0.1.0",
+    "gd-sprest-def": "^0.1.0",
     "core-js": "^2.6.0"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { SP } from "@dattabase/sprest-def";
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types/base";
 import { IField, IFieldQueryResult, IFieldResult } from ".";
 

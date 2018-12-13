@@ -1,4 +1,4 @@
-import { Microsoft } from "@dattabase/sprest-def";
+import { Microsoft } from "gd-sprest-def";
 import { IBase } from "../../utils/types/base";
 
 /**

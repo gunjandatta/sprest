@@ -1,4 +1,4 @@
-import { SP } from "@dattabase/sprest-def";
+import { SP } from "gd-sprest-def";
 import * as HelperTypes from ".";
 import * as MapperTypes from "../../mapper/types";
 import * as UtilTypes from "../../utils/types";

@@ -1,4 +1,4 @@
-import { SP } from "@dattabase/sprest-def";
+import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types/base";
 import { IContentType, IContentTypeResult, IList, IListResult } from ".";

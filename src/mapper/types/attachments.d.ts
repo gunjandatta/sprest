@@ -1,4 +1,4 @@
-import { SP } from "@dattabase/sprest-def";
+import { SP } from "gd-sprest-def";
 import { IBaseCollection } from "../../utils/types/base";
 import { IAttachmentFiles, IAttachmentFilesMethods } from ".";
 

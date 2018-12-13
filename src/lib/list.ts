@@ -1,4 +1,4 @@
-import { SP } from "@dattabase/sprest-def";
+import { SP } from "gd-sprest-def";
 import { Base } from "../utils";
 import { ITargetInfoProps } from "../utils/types";
 import { IList, IListEntityProps } from "./types";
