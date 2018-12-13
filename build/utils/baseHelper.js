@@ -298,8 +298,10 @@ var BaseHelper = /** @class */ (function () {
                         this.addMethods(obj, objData, objData["@odata.context"]);
                         // Update the data collection
                         this.updateDataCollection(obj, objData["results"]);
-                        // Update the data object
-                        data = obj;
+                    }
+                    else {
+                        // Update the object to the raw data
+                        obj = data;
                     }
                 }
                 // Else, see if the data properties exists
@@ -333,7 +335,7 @@ var BaseHelper = /** @class */ (function () {
                     // Ensure the batch request exists
                     if (batchRequest) {
                         // Set the response object
-                        batchRequest.response = data;
+                        batchRequest.response = obj;
                         // Execute the callback if it exists
                         batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
                     }
