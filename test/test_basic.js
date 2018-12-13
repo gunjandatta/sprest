@@ -131,15 +131,12 @@ function testBatch() {
 
     // Method to create the batch items
     var createItems = function (list) {
-        // Log
-        writeToLog("Batch Create Items", LogType.SubHeader);
-
         // Ensure the list exists
         if (list) {
             var web = $REST.Web();
 
             // Log
-            writeToLog("Create the Items.", LogType.SubHeader);
+            writeToLog("Batch Create Items", LogType.SubHeader);
 
             // Loop 10 times
             let ctr = 0;
