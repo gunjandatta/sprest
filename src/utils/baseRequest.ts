@@ -1,10 +1,5 @@
-import { Base } from "./base";
-import { Batch } from "./batch";
+import { Base, Batch, MethodInfo, RequestType, TargetInfo, XHRRequest } from ".";
 import { Helper } from "./helper";
-import { MethodInfo } from "./methodInfo";
-import { RequestType } from "./requestType";
-import { TargetInfo } from "./targetInfo";
-import { XHRRequest } from "./xhrRequest";
 
 import { IBaseRequest } from "./types/baseRequest";
 import { IMethodInfo } from "./types/methodInfo";
