@@ -1,14 +1,18 @@
-import {
-    Base, BaseHelper, Batch, MethodInfo,
-    RequestType, TargetInfo, XHRRequest
-} from ".";
-import { IBaseRequest } from "./types/baseRequest";
-import { IMethodInfo, ITargetInfoProps } from "./types";
+import { Base } from "./base";
+import { Helper } from "./helper"
+import { Batch } from "../batch";
+import { MethodInfo } from "../methodInfo";
+import { RequestType } from "../requestType";
+import { TargetInfo } from "../targetInfo";
+import { XHRRequest } from "../xhrRequest";
+import { IRequest } from "./types/request";
+import { IMethodInfo } from "../types/methodInfo";
+import { ITargetInfoProps } from "../types/targetInfo";
 
 /**
  * Base Request
  */
-export class BaseRequest extends BaseHelper implements IBaseRequest {
+export class Request extends Helper implements IRequest {
     getAllItemsFl: boolean;
     nextFl: boolean;
     requestType: number;

@@ -1,12 +1,12 @@
-import { IBaseHelper } from "./baseHelper";
-import { IMethodInfo } from "./methodInfo";
-import { ITargetInfoProps } from "./targetInfo";
-import { IXHRRequest } from "./xhrRequest";
+import { IHelper } from "./helper";
+import { IMethodInfo } from "../../types/methodInfo";
+import { ITargetInfoProps } from "../../types/targetInfo";
+import { IXHRRequest } from "../../types/xhrRequest";
 
 /**
  * Base Request
  */
-export interface IBaseRequest extends IBaseHelper {
+export interface IRequest extends IHelper {
     /** Flag to get all items. */
     getAllItemsFl: boolean;
 

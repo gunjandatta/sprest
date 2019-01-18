@@ -1,11 +1,11 @@
-import { ODataQuery } from "../../mapper/types";
-import { IBaseExecution } from "./baseExecution";
-import { IRequestInfo, ITargetInfoProps } from "./targetInfo";
+import { ODataQuery } from "../../../mapper/types/oData";
+import { IRequestInfo, ITargetInfoProps } from "../../types/targetInfo";
+import { IExecution } from "./execution";
 
 /**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IExecution<Type, Result> {
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
 

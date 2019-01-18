@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase } from "../../utils/types/base";
+import { IBase } from "../../utils/base/types";
 
 /**
  * Limited Web Part Manager

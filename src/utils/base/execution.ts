@@ -1,15 +1,17 @@
-import { ContextInfo } from "../lib";
-import { IBaseExecution } from "./types/baseExecution";
-import { BaseRequest, RequestType, TargetInfo } from ".";
+import { ContextInfo } from "../../lib";
+import { IExecution } from "./types/execution";
+import { RequestType } from "../requestType";
+import { TargetInfo } from "../targetInfo";
+import { Request } from "./request";
 
 /**
- * Base Execution
+ * Execution Methods
  */
-export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements IBaseExecution {
-    batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: TargetInfo }>>;
-    parent: BaseExecution;
+export class Execution<Type = any, Result = Type> extends Request implements IExecution {
+    batchRequests: Array<Array<{ callback?: any, response?: Execution, targetInfo: TargetInfo }>>;
+    parent: Execution;
     responseIndex: number;
-    responses: Array<BaseExecution>;
+    responses: Array<Execution>;
     waitFlags: Array<boolean>;
 
     // Method to execute this request as a batch request

@@ -1,5 +1,5 @@
 import * as SP from "../../mapper/types";
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBase, IBaseCollection } from "../../utils/base/types";
 import { ITenantApp, ITenantApps } from ".";
 
 /**

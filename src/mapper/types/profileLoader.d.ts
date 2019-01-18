@@ -1,4 +1,4 @@
-import { IBase } from "../../utils/types/base";
+import { IBase } from "../../utils/base/types";
 import { IUserProfile } from ".";
 
 /**

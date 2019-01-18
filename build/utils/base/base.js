@@ -1,57 +1,61 @@
-import { IBase } from "./types/base";
-import { IRequestInfo, ITargetInfoProps } from "./types";
-import { BaseExecution, TargetInfo } from ".";
-
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var targetInfo_1 = require("../targetInfo");
+var execution_1 = require("./execution");
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
+var Base = /** @class */ (function (_super) {
+    __extends(Base, _super);
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
-    constructor(targetInfo: ITargetInfoProps) {
-        super();
-
+    function Base(targetInfo) {
+        var _this = _super.call(this) || this;
         // Default the properties
-        this.targetInfo = Object.create(targetInfo || {});
-        this.responses = [];
-        this.requestType = 0;
-        this.waitFlags = [];
+        _this.targetInfo = Object.create(targetInfo || {});
+        _this.responses = [];
+        _this.requestType = 0;
+        _this.waitFlags = [];
+        return _this;
     }
-
-    // Flag to determine if the requested object exists
-    existsFl;
-
     // Method to wait for the requests to complete
-    done<T=IBase>(resolve: (value?: T) => void) {
+    Base.prototype.done = function (resolve) {
+        var _this = this;
         // Ensure the base is set
         this.base = this.base ? this.base : this;
-
         // Ensure the response index is set
         this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
-
         // Wait for the responses to execute
-        this.waitForRequestsToComplete(() => {
-            let responses = this.base.responses;
-
+        this.waitForRequestsToComplete(function () {
+            var responses = _this.base.responses;
             // Clear the responses
-            this.base.responses = [];
-
+            _this.base.responses = [];
             // Clear the wait flags
-            this.base.waitFlags = [];
-
+            _this.base.waitFlags = [];
             // Resolve the request
-            resolve ? resolve.apply(this, responses) : null;
+            resolve ? resolve.apply(_this, responses) : null;
         });
-    }
-
+    };
     // Method to get the request information
-    getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
-
+    Base.prototype.getInfo = function () { return (new targetInfo_1.TargetInfo(this.targetInfo)).requestInfo; };
     // Method to stringify the object
-    stringify(): string {
+    Base.prototype.stringify = function () {
         // Stringify the object
         return JSON.stringify({
             response: this.response,
@@ -70,5 +74,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
                 url: this.targetInfo.url
             }
         });
-    }
-}
+    };
+    return Base;
+}(execution_1.Execution));
+exports.Base = Base;

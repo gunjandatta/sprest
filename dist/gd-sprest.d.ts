@@ -409,10 +409,10 @@ declare module 'gd-sprest/helper/types' {
 }
 
 declare module 'gd-sprest/utils/types' {
-    export * from "gd-sprest/utils/types/base";
-    export * from "gd-sprest/utils/types/baseExecution";
-    export * from "gd-sprest/utils/types/baseHelper";
-    export * from "gd-sprest/utils/types/baseRequest";
+    export * from "gd-sprest/utils/base/types";
+    export * from "gd-sprest/utils/base/typesExecution";
+    export * from "gd-sprest/utils/base/typesHelper";
+    export * from "gd-sprest/utils/base/typesRequest";
     export * from "gd-sprest/utils/types/methodInfo";
     export * from "gd-sprest/utils/types/requestType";
     export * from "gd-sprest/utils/types/targetInfo";
@@ -421,7 +421,7 @@ declare module 'gd-sprest/utils/types' {
 
 declare module 'gd-sprest/lib/types/contextInfo' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Context Information
@@ -811,7 +811,7 @@ declare module 'gd-sprest/lib/types/graph' {
 
 declare module 'gd-sprest/lib/types/list' {
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -950,7 +950,7 @@ declare module 'gd-sprest/lib/types/profileLoader' {
 declare module 'gd-sprest/lib/types/search' {
     import { Microsoft } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -991,7 +991,7 @@ declare module 'gd-sprest/lib/types/search' {
 
 declare module 'gd-sprest/lib/types/site' {
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -1097,7 +1097,7 @@ declare module 'gd-sprest/lib/types/utility' {
 declare module 'gd-sprest/lib/types/web' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -1153,7 +1153,7 @@ declare module 'gd-sprest/mapper/types/appTiles' {
 
 declare module 'gd-sprest/mapper/types/attachment' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IAttachmentFiles } from "gd-sprest/mapper/types";
     
     /**
@@ -1176,7 +1176,7 @@ declare module 'gd-sprest/mapper/types/attachment' {
 
 declare module 'gd-sprest/mapper/types/attachments' {
     import { SP } from "gd-sprest-def";
-    import { IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseCollection } from "gd-sprest/utils/base/types";
     import { IAttachmentFiles, IAttachmentFilesMethods } from "gd-sprest/mapper/types";
     
     /**
@@ -1188,7 +1188,7 @@ declare module 'gd-sprest/mapper/types/attachments' {
 declare module 'gd-sprest/mapper/types/contentType' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IFieldResult, IFields, IFieldLinks, IListResult } from "gd-sprest/mapper/types";
     
     /**
@@ -1286,7 +1286,7 @@ declare module 'gd-sprest/mapper/types/contentType' {
 
 declare module 'gd-sprest/mapper/types/contentTypes' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IContentType, IContentTypeQueryResult, IContentTypeResult } from "gd-sprest/mapper/types";
     
     /**
@@ -1367,7 +1367,7 @@ declare module 'gd-sprest/mapper/types/entityData' {
 
 declare module 'gd-sprest/mapper/types/eventReceiver' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Event Receiver Methods
@@ -1408,7 +1408,7 @@ declare module 'gd-sprest/mapper/types/eventReceiver' {
 
 declare module 'gd-sprest/mapper/types/eventReceivers' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult } from "gd-sprest/mapper/types/eventReceiver";
     
     /**
@@ -1445,7 +1445,7 @@ declare module 'gd-sprest/mapper/types/eventReceivers' {
 }
 
 declare module 'gd-sprest/mapper/types/features' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     
     /**
         * Feature
@@ -1494,7 +1494,7 @@ declare module 'gd-sprest/mapper/types/features' {
 
 declare module 'gd-sprest/mapper/types/field' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Field Methods
@@ -1884,7 +1884,7 @@ declare module 'gd-sprest/mapper/types/field' {
 
 declare module 'gd-sprest/mapper/types/fieldLinks' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     
     /**
         * Field Links
@@ -1911,7 +1911,7 @@ declare module 'gd-sprest/mapper/types/fieldLinks' {
 
 declare module 'gd-sprest/mapper/types/fields' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IField, IFieldQueryResult, IFieldResult } from "gd-sprest/mapper/types";
     
     /**
@@ -1983,7 +1983,7 @@ declare module 'gd-sprest/mapper/types/fields' {
 declare module 'gd-sprest/mapper/types/file' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IFileVersionResult, IFileVersions } from "gd-sprest/mapper/types";
     
     /**
@@ -2224,7 +2224,7 @@ declare module 'gd-sprest/mapper/types/file' {
 }
 
 declare module 'gd-sprest/mapper/types/files' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IFile, IFileQueryResult, IFileResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2273,7 +2273,7 @@ declare module 'gd-sprest/mapper/types/files' {
 declare module 'gd-sprest/mapper/types/fileVersion' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2318,7 +2318,7 @@ declare module 'gd-sprest/mapper/types/fileVersion' {
 }
 
 declare module 'gd-sprest/mapper/types/fileVersions' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2335,7 +2335,7 @@ declare module 'gd-sprest/mapper/types/fileVersions' {
 declare module 'gd-sprest/mapper/types/folder' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from "gd-sprest/mapper/types";
     
     /**
@@ -2453,7 +2453,7 @@ declare module 'gd-sprest/mapper/types/folder' {
 }
 
 declare module 'gd-sprest/mapper/types/folders' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IFolder, IFolderQueryResult, IFolderResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2490,7 +2490,7 @@ declare module 'gd-sprest/mapper/types/folders' {
 }
 
 declare module 'gd-sprest/mapper/types/graph' {
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Graph Collection
@@ -2838,7 +2838,7 @@ declare module 'gd-sprest/mapper/types/graph' {
 
 declare module 'gd-sprest/mapper/types/group' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/mapper/types";
     
     /**
@@ -2895,7 +2895,7 @@ declare module 'gd-sprest/mapper/types/group' {
 
 declare module 'gd-sprest/mapper/types/groups' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IGroup, IGroupQueryResult, IGroupResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2950,7 +2950,7 @@ declare module 'gd-sprest/mapper/types/groups' {
 }
 
 declare module 'gd-sprest/mapper/types/items' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IListItem, IListItemQueryResult, IListItemResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2988,7 +2988,7 @@ declare module 'gd-sprest/mapper/types/items' {
 
 declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Limited Web Part Manager
@@ -3005,7 +3005,7 @@ declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
 declare module 'gd-sprest/mapper/types/list' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
     
     /**
@@ -3350,7 +3350,7 @@ declare module 'gd-sprest/mapper/types/list' {
 declare module 'gd-sprest/mapper/types/listItem' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IContentType, IContentTypeResult, IList, IListResult } from "gd-sprest/mapper/types";
     
     /**
@@ -3553,7 +3553,7 @@ declare module 'gd-sprest/mapper/types/listItem' {
 
 declare module 'gd-sprest/mapper/types/lists' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IList, IListQueryResult, IListResult } from "gd-sprest/mapper/types";
     
     /**
@@ -3607,7 +3607,7 @@ declare module 'gd-sprest/mapper/types/lists' {
 
 declare module 'gd-sprest/mapper/types/navigation' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Navigation Methods
@@ -3679,7 +3679,7 @@ declare module 'gd-sprest/mapper/types/odata' {
 
 declare module 'gd-sprest/mapper/types/peopleManager' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IResults } from "gd-sprest/mapper/types/results";
     
     /**
@@ -3886,7 +3886,7 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
 }
 
 declare module 'gd-sprest/mapper/types/peoplePicker' {
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IEntityData } from "gd-sprest/mapper/types/entityData";
     
     /**
@@ -4004,7 +4004,7 @@ declare module 'gd-sprest/mapper/types/peoplePicker' {
 }
 
 declare module 'gd-sprest/mapper/types/profileLoader' {
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IUserProfile } from "gd-sprest/mapper/types";
     
     /**
@@ -4031,7 +4031,7 @@ declare module 'gd-sprest/mapper/types/profileLoader' {
 
 declare module 'gd-sprest/mapper/types/propertyValues' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { ODataQuery } from "gd-sprest/mapper/types";
     
     /**
@@ -4270,7 +4270,7 @@ declare module 'gd-sprest/mapper/types/results' {
 declare module 'gd-sprest/mapper/types/roleAssignment' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IRoleDefinition, IRoleDefinitions } from "gd-sprest/mapper/types";
     
     /**
@@ -4326,7 +4326,7 @@ declare module 'gd-sprest/mapper/types/roleAssignment' {
 }
 
 declare module 'gd-sprest/mapper/types/roleAssignments' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "gd-sprest/mapper/types";
     
     /**
@@ -4372,7 +4372,7 @@ declare module 'gd-sprest/mapper/types/roleAssignments' {
 
 declare module 'gd-sprest/mapper/types/roleDefinition' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Role Definition Methods
@@ -4406,7 +4406,7 @@ declare module 'gd-sprest/mapper/types/roleDefinition' {
 }
 
 declare module 'gd-sprest/mapper/types/roleDefinitions' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from "gd-sprest/mapper/types";
     
     /**
@@ -4450,7 +4450,7 @@ declare module 'gd-sprest/mapper/types/roleDefinitions' {
 
 declare module 'gd-sprest/mapper/types/search' {
     import { Microsoft } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Search
@@ -4476,7 +4476,7 @@ declare module 'gd-sprest/mapper/types/search' {
 declare module 'gd-sprest/mapper/types/site' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     
     /**
@@ -4694,7 +4694,7 @@ declare module 'gd-sprest/mapper/types/site' {
 
 declare module 'gd-sprest/mapper/types/socialFeed' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Social Feed
@@ -6156,7 +6156,7 @@ declare module 'gd-sprest/mapper/types/sptypes' {
 }
 
 declare module 'gd-sprest/mapper/types/tenantApp' {
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Methods
@@ -6241,7 +6241,7 @@ declare module 'gd-sprest/mapper/types/tenantApp' {
 
 declare module 'gd-sprest/mapper/types/tenantAppCatalog' {
     import * as SP from "gd-sprest/mapper/types";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { ITenantApp, ITenantApps } from "gd-sprest/mapper/types";
     
     /**
@@ -6309,7 +6309,7 @@ declare module 'gd-sprest/mapper/types/tenantAppCatalog' {
 }
 
 declare module 'gd-sprest/mapper/types/tenantApps' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { ITenantApp } from "gd-sprest/mapper/types";
     
     /**
@@ -6332,7 +6332,7 @@ declare module 'gd-sprest/mapper/types/tenantApps' {
 
 declare module 'gd-sprest/mapper/types/user' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from "gd-sprest/mapper/types";
     
     /**
@@ -6393,7 +6393,7 @@ declare module 'gd-sprest/mapper/types/user' {
 
 declare module 'gd-sprest/mapper/types/userCustomAction' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IUserCustomActionMethods, } from "gd-sprest/mapper/types";
     
     /**
@@ -6429,7 +6429,7 @@ declare module 'gd-sprest/mapper/types/userCustomAction' {
 
 declare module 'gd-sprest/mapper/types/userCustomActions' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from "gd-sprest/mapper/types";
     
     /**
@@ -6472,7 +6472,7 @@ declare module 'gd-sprest/mapper/types/userCustomActions' {
 }
 
 declare module 'gd-sprest/mapper/types/userProfile' {
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IWeb } from "gd-sprest/mapper/types";
     
     /**
@@ -6585,7 +6585,7 @@ declare module 'gd-sprest/mapper/types/userProfile' {
 
 declare module 'gd-sprest/mapper/types/users' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IUser, IUserQueryResult, IUserResult } from "gd-sprest/mapper/types";
     
     /**
@@ -6648,7 +6648,7 @@ declare module 'gd-sprest/mapper/types/users' {
 declare module 'gd-sprest/mapper/types/utility' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * Email
@@ -6838,7 +6838,7 @@ declare module 'gd-sprest/mapper/types/utility' {
 
 declare module 'gd-sprest/mapper/types/versions' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     
     /**
         * Versions
@@ -6882,7 +6882,7 @@ declare module 'gd-sprest/mapper/types/versions' {
 
 declare module 'gd-sprest/mapper/types/view' {
     import { SP } from "gd-sprest-def";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IViewFields } from "gd-sprest/mapper/types";
     
     /**
@@ -6934,7 +6934,7 @@ declare module 'gd-sprest/mapper/types/view' {
 }
 
 declare module 'gd-sprest/mapper/types/viewFieldCollection' {
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
         * View Fields
@@ -6984,7 +6984,7 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
 
 declare module 'gd-sprest/mapper/types/views' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IView, IViewQueryResult, IViewResult } from "gd-sprest/mapper/types";
     
     /**
@@ -7028,7 +7028,7 @@ declare module 'gd-sprest/mapper/types/views' {
 declare module 'gd-sprest/mapper/types/web' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBase } from "gd-sprest/utils/types/base";
+    import { IBase } from "gd-sprest/utils/base/types";
     import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
     
     /**
@@ -7705,7 +7705,7 @@ declare module 'gd-sprest/mapper/types/web' {
 
 declare module 'gd-sprest/mapper/types/webs' {
     import { SP } from "gd-sprest-def";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBase, IBaseCollection } from "gd-sprest/utils/base/types";
     import { IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     
     /**
@@ -9342,9 +9342,9 @@ declare module 'gd-sprest/helper/types/webpart' {
     }
 }
 
-declare module 'gd-sprest/utils/types/base' {
+declare module 'gd-sprest/utils/base/types' {
     import { ODataQuery } from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/baseExecution";
+    import { IBaseExecution } from "gd-sprest/utils/base/typesExecution";
     import { IRequestInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -9414,8 +9414,8 @@ declare module 'gd-sprest/utils/types/base' {
     }
 }
 
-declare module 'gd-sprest/utils/types/baseExecution' {
-    import { IBaseRequest } from "gd-sprest/utils/types/baseRequest";
+declare module 'gd-sprest/utils/base/typesExecution' {
+    import { IBaseRequest } from "gd-sprest/utils/base/typesRequest";
     import { ITargetInfo } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -9494,8 +9494,8 @@ declare module 'gd-sprest/utils/types/baseExecution' {
     }
 }
 
-declare module 'gd-sprest/utils/types/baseHelper' {
-    import { IBase } from "gd-sprest/utils/types/base";
+declare module 'gd-sprest/utils/base/typesHelper' {
+    import { IBase } from "gd-sprest/utils/base/types";
     
     /**
       * Request Helper Methods
@@ -9533,8 +9533,8 @@ declare module 'gd-sprest/utils/types/baseHelper' {
     }
 }
 
-declare module 'gd-sprest/utils/types/baseRequest' {
-    import { IBaseHelper } from "gd-sprest/utils/types/baseHelper";
+declare module 'gd-sprest/utils/base/typesRequest' {
+    import { IBaseHelper } from "gd-sprest/utils/base/typesHelper";
     import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
