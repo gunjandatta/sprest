@@ -1,5 +1,5 @@
 import * as Types from "../mapper/types";
-import { Base, RequestType } from "../utils";
+import { Base, Helper, RequestType } from "../utils";
 import { IUtility } from "./types";
 
 /**
@@ -19,7 +19,7 @@ export const Utility: IUtility = ((url?, targetInfo?) => {
     }
 
     // Add the methods
-    utility.addMethods(utility as any, { __metadata: { type: "utility" } });
+    Helper.addMethods(utility as any, { __metadata: { type: "utility" } });
 
     // Method to create a wiki page
     utility.createWikiPage = (listUrl: string, content: string = "") => {

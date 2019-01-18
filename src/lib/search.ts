@@ -1,6 +1,6 @@
 import { Microsoft } from "gd-sprest-def";
 import * as Types from "../mapper/types";
-import { Base, RequestType } from "../utils";
+import { Base, Helper, RequestType } from "../utils";
 import { ISearch } from "./types";
 
 /**
@@ -20,7 +20,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
     }
 
     // Add the methods
-    search.addMethods(search as any, { __metadata: { type: "search" } });
+    Helper.addMethods(search as any, { __metadata: { type: "search" } });
 
     /** The search query method */
     search.searchquery = (settings: Microsoft.Office.Server.Search.REST.SearchRequest) => {

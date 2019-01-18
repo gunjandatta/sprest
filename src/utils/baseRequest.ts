@@ -1,14 +1,20 @@
 import {
-    Base, BaseHelper, Batch, MethodInfo,
+    Base, Batch, MethodInfo,
     RequestType, TargetInfo, XHRRequest
 } from ".";
+import { Helper } from "./helper";
 import { IBaseRequest } from "./types/baseRequest";
 import { IMethodInfo, ITargetInfoProps } from "./types";
 
 /**
  * Base Request
  */
-export class BaseRequest extends BaseHelper implements IBaseRequest {
+export class BaseRequest implements IBaseRequest {
+    base: Base;
+    response: string;
+    status: number;
+    xml: string | XMLDocument;
+
     getAllItemsFl: boolean;
     nextFl: boolean;
     requestType: number;
@@ -84,7 +90,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         // Ensure the return type exists
         if (methodConfig.returnType) {
             // Add the methods
-            this.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
+            Helper.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
         }
 
         // Return the object
@@ -265,7 +271,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         obj.parent = this as any;
 
         // Add the methods
-        requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
+        requestType ? Helper.addMethods(obj, { __metadata: { type: requestType } }) : null;
 
         // Return the object
         return obj;
@@ -287,6 +293,122 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
+        }
+    }
+
+    // Method to convert the input arguments into an object
+    updateDataObject(isBatchRequest: boolean = false) {
+        // Ensure the request was successful
+        if (this.status >= 200 && this.status < 300) {
+            // Return if we are expecting a buffer
+            if (this.requestType == RequestType.GetBuffer) { return; }
+
+            // Parse the responses
+            let batchIdx = 0;
+            let batchRequestIdx = 0;
+            let responses = isBatchRequest ? this.response.split("\n") : [this.response];
+            for (let i = 0; i < responses.length; i++) {
+                let data = null;
+
+                // Set the response
+                let response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+
+                // Set the xml flag
+                let isXML = response.indexOf("<?xml") == 0;
+                if (isXML) {
+                    // Append the response while data exists
+                    while (responses[i + 1] && responses[i + 1].indexOf("--batchresponse") != 0) {
+                        // Append the response
+                        response += responses[++i];
+                    }
+                }
+
+                // Try to convert the response
+                try { data = isXML ? response : JSON.parse(response); }
+                catch (ex) { continue; }
+
+                // Set the object based on the request type
+                let obj = isBatchRequest ? Object.create(this) : this;
+
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+
+                // See if this is xml
+                if (isXML) {
+                    let objData;
+
+                    // Get the response properties
+                    let idxStart = data.indexOf("<m:properties>");
+                    let idxEnd = data.indexOf("</m:properties");
+                    let properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
+                    if (properties) {
+                        // Set the data object
+                        objData = Helper.parseXML(properties);
+
+                        // Update the metadata
+                        Helper.updateMetadata(obj, objData);
+
+                        // Update the base object's properties
+                        Helper.addProperties(obj, objData);
+
+                        // Add the methods
+                        Helper.addMethods(obj, objData, objData["@odata.context"]);
+
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, objData["results"]);
+                    } else {
+                        // Update the object to the raw data
+                        obj = data;
+                    }
+                }
+                // Else, see if the data properties exists
+                else if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+
+                    // Update the metadata
+                    Helper.updateMetadata(obj, data.d);
+
+                    // Update the base object's properties
+                    Helper.addProperties(obj, data.d);
+
+                    // Add the methods
+                    Helper.addMethods(obj, data.d, data["@odata.context"]);
+
+                    // Update the data collection
+                    Helper.updateDataCollection(obj, data.d.results);
+                } else {
+                    // Update the base object's properties
+                    Helper.addProperties(obj, data);
+                }
+
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+
+                        // Update the batch request
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = obj;
+
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
+            }
+
+            // Clear the batch requests
+            if (isBatchRequest) { this.base.batchRequests = null; }
         }
     }
 
@@ -319,7 +441,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                                 let data = JSON.parse(xhr.response);
                                 if (data.d) {
                                     // Update the data collection
-                                    this.updateDataCollection(this, data.d.results);
+                                    Helper.updateDataCollection(this as any, data.d.results);
 
                                     // Append the raw data results
                                     this["d"].results = this["d"].results.concat(data.d.results);

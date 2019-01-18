@@ -1,4 +1,4 @@
-import { IBaseHelper } from "./baseHelper";
+import { IBase } from "./base";
 import { IMethodInfo } from "./methodInfo";
 import { ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
@@ -6,7 +6,27 @@ import { IXHRRequest } from "./xhrRequest";
 /**
  * Base Request
  */
-export interface IBaseRequest extends IBaseHelper {
+export interface IBaseRequest {
+    /** The base object. */
+    base: IBase;
+
+    /** The request type */
+    requestType: number;
+
+    /** The request's raw response. */
+    response: string;
+
+    /** The request's status. */
+    status: number;
+
+    /** The xml object. */
+    xml: string | XMLDocument;
+
+    /** Updates the data object. */
+    updateDataObject(isBatchRequest: boolean);
+
+
+
     /** Flag to get all items. */
     getAllItemsFl: boolean;
 

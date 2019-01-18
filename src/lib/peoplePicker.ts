@@ -1,4 +1,4 @@
-import { Base } from "../utils";
+import { Base, Helper } from "../utils";
 import { IPeoplePicker } from "./types";
 import { ITargetInfoProps } from "../utils/types";
 
@@ -14,7 +14,7 @@ export const PeoplePicker: IPeoplePicker = ((targetInfo?: ITargetInfoProps) => {
     peoplePicker.targetInfo.overrideDefaultRequestToHostFl = true;
 
     // Add the methods
-    peoplePicker.addMethods(peoplePicker, { __metadata: { type: "peoplepicker" } });
+    Helper.addMethods(peoplePicker, { __metadata: { type: "peoplepicker" } });
 
     // Return the people picker
     return peoplePicker;
