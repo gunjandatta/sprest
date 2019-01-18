@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase, IBaseCollection } from "../../utils/base/types";
+import { IBase, IBaseCollection } from "../../utils/types/base";
 import { IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult } from "./eventReceiver";
 
 /**

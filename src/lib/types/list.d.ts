@@ -1,5 +1,5 @@
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/base/types";
+import { IBase } from "../../utils/types/base";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**

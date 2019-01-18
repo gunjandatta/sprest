@@ -3,7 +3,7 @@ import { IBase } from "./base";
 /**
  * Request Helper Methods
  */
-export interface IHelper {
+export interface IBaseHelper {
     /** The base object. */
     base: IBase;
 

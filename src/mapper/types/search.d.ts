@@ -1,5 +1,5 @@
 import { Microsoft } from "gd-sprest-def";
-import { IBase } from "../../utils/base/types";
+import { IBase } from "../../utils/types/base";
 
 /**
  * Search

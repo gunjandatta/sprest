@@ -1,13 +1,12 @@
-import { ContextInfo } from "../../lib";
-import { Mapper } from "../../mapper";
-import { IHelper } from "./types/helper";
-import { Base } from "./base";
-import { RequestType } from "../requestType";
+import { ContextInfo } from "../lib";
+import { Mapper } from "../mapper";
+import { IBaseHelper } from "./types/baseHelper";
+import { Base, RequestType } from ".";
 
 /**
- * Helper Methods
+ * Request Helper
  */
-export class Helper implements IHelper {
+export class BaseHelper implements IBaseHelper {
     base: Base;
     requestType: number;
     response: string;

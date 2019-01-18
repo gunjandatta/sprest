@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseCollection } from "../../utils/base/types";
+import { IBaseCollection } from "../../utils/types/base";
 import { IAttachmentFiles, IAttachmentFilesMethods } from ".";
 
 /**

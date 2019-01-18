@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection } from "../../utils/base/types";
+import { IBase, IBaseCollection } from "../../utils/types/base";
 
 /**
  * Feature

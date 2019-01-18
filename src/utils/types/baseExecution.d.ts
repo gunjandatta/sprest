@@ -1,21 +1,21 @@
-import { ITargetInfo } from "../../types/targetInfo";
-import { IRequest } from "./request";
+import { IBaseRequest } from "./baseRequest";
+import { ITargetInfo } from "./targetInfo";
 
 /**
  * Base Execution
  */
-export interface IExecution<Type = any, Result = Type> extends IRequest {
+export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
     /** The batch requests. */
-    batchRequests: Array<Array<{ callback?: any, response?: IExecution, targetInfo: ITargetInfo }>>;
+    batchRequests: Array<Array<{ callback?: any, response?: IBaseExecution, targetInfo: ITargetInfo }>>;
 
     /** The parent. */
-    parent: IExecution;
+    parent: IBaseExecution;
 
     /** The index of this object in the responses array. */
     responseIndex: number;
 
     /** The responses. */
-    responses: Array<IExecution>;
+    responses: Array<IBaseExecution>;
 
     /** The wait flags. */
     waitFlags: Array<boolean>;

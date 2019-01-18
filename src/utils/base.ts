@@ -1,13 +1,12 @@
 import { IBase } from "./types/base";
-import { IRequestInfo, ITargetInfoProps } from "../types/targetInfo";
-import { TargetInfo } from "../targetInfo";
-import { Execution } from "./execution";
+import { IRequestInfo, ITargetInfoProps } from "./types";
+import { BaseExecution, TargetInfo } from ".";
 
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-export class Base<Type = any, Result = Type, QueryResult = Result> extends Execution<Type, Result> implements IBase {
+export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
