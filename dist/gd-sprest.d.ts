@@ -411,7 +411,7 @@ declare module 'gd-sprest/helper/types' {
 declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/base";
     export * from "gd-sprest/utils/types/baseExecution";
-    export * from "gd-sprest/utils/types/baseHelper";
+    export * from "gd-sprest/utils/types/helper";
     export * from "gd-sprest/utils/types/baseRequest";
     export * from "gd-sprest/utils/types/methodInfo";
     export * from "gd-sprest/utils/types/requestType";
@@ -9494,13 +9494,43 @@ declare module 'gd-sprest/utils/types/baseExecution' {
     }
 }
 
-declare module 'gd-sprest/utils/types/baseHelper' {
+declare module 'gd-sprest/utils/types/helper' {
     import { IBase } from "gd-sprest/utils/types/base";
     
     /**
       * Request Helper Methods
       */
     export interface IBaseHelper {
+        /** Adds the base methods. */
+        addBaseReferences(base: IBase, obj: any);
+    
+        /** Adds methods based on the object type. */
+        addMethods(base: IBase, data: any, context?: any);
+    
+        /** Adds properties based on the object type. */
+        addProperties(base: IBase, data: any);
+    
+        /** Parses the xml string and creates a base object. */
+        parseXML(xml: string): IBase;
+    
+        /** Updates the data collection objects. */
+        updateDataCollection(obj: IBase, results: Array<IBase>);
+    
+        /** Updates the metadata. */
+        updateMetadata(base, data);
+    }
+}
+
+declare module 'gd-sprest/utils/types/baseRequest' {
+    import { IBase } from "gd-sprest/utils/types/base";
+    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
+    import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
+    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
+    
+    /**
+      * Base Request
+      */
+    export interface IBaseRequest {
         /** The base object. */
         base: IBase;
     
@@ -9516,33 +9546,11 @@ declare module 'gd-sprest/utils/types/baseHelper' {
         /** The xml object. */
         xml: string | XMLDocument;
     
-        /** Adds methods based on the object type. */
-        addMethods(base: IBase, data: any);
-    
-        /** Adds properties based on the object type. */
-        addProperties(base: IBase, data: any);
-    
-        /** Updates the data collection objects. */
-        updateDataCollection(obj: IBase, results: Array<IBase>);
-    
         /** Updates the data object. */
         updateDataObject(isBatchRequest: boolean);
     
-        /** Updates the metadata. */
-        updateMetadata(base, data);
-    }
-}
-
-declare module 'gd-sprest/utils/types/baseRequest' {
-    import { IBaseHelper } from "gd-sprest/utils/types/baseHelper";
-    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
-    import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
-    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
     
-    /**
-      * Base Request
-      */
-    export interface IBaseRequest extends IBaseHelper {
+    
         /** Flag to get all items. */
         getAllItemsFl: boolean;
     

@@ -1,5 +1,5 @@
 import { IGraphToken } from "../mapper/types";
-import { Base, RequestType } from "../utils";
+import { Base, Helper, RequestType } from "../utils";
 import { IGraph } from "./types";
 
 /**
@@ -13,7 +13,7 @@ export const Graph: IGraph = ((accessToken: string, version?: string) => {
     graph.targetInfo.requestType = RequestType.GraphGet;
 
     // Add the methods
-    graph.addMethods(graph, { __metadata: { type: "graph" } });
+    Helper.addMethods(graph, { __metadata: { type: "graph" } });
 
     // Return the graph
     return graph;

@@ -1,26 +1,12 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
+var helper_1 = require("./helper");
 /**
  * Base Request
  */
-var BaseRequest = /** @class */ (function (_super) {
-    __extends(BaseRequest, _super);
+var BaseRequest = /** @class */ (function () {
     function BaseRequest() {
-        return _super !== null && _super.apply(this, arguments) || this;
     }
     // Method to execute a method
     BaseRequest.prototype.executeMethod = function (methodName, methodConfig, args) {
@@ -80,7 +66,7 @@ var BaseRequest = /** @class */ (function (_super) {
         // Ensure the return type exists
         if (methodConfig.returnType) {
             // Add the methods
-            this.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
+            helper_1.Helper.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
         }
         // Return the object
         return obj;
@@ -235,7 +221,7 @@ var BaseRequest = /** @class */ (function (_super) {
         obj.base = this.base ? this.base : this;
         obj.parent = this;
         // Add the methods
-        requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
+        requestType ? helper_1.Helper.addMethods(obj, { __metadata: { type: requestType } }) : null;
         // Return the object
         return obj;
     };
@@ -255,6 +241,111 @@ var BaseRequest = /** @class */ (function (_super) {
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
+        }
+    };
+    // Method to convert the input arguments into an object
+    BaseRequest.prototype.updateDataObject = function (isBatchRequest) {
+        if (isBatchRequest === void 0) { isBatchRequest = false; }
+        // Ensure the request was successful
+        if (this.status >= 200 && this.status < 300) {
+            // Return if we are expecting a buffer
+            if (this.requestType == _1.RequestType.GetBuffer) {
+                return;
+            }
+            // Parse the responses
+            var batchIdx = 0;
+            var batchRequestIdx = 0;
+            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
+            for (var i = 0; i < responses.length; i++) {
+                var data = null;
+                // Set the response
+                var response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                // Set the xml flag
+                var isXML = response.indexOf("<?xml") == 0;
+                if (isXML) {
+                    // Append the response while data exists
+                    while (responses[i + 1] && responses[i + 1].indexOf("--batchresponse") != 0) {
+                        // Append the response
+                        response += responses[++i];
+                    }
+                }
+                // Try to convert the response
+                try {
+                    data = isXML ? response : JSON.parse(response);
+                }
+                catch (ex) {
+                    continue;
+                }
+                // Set the object based on the request type
+                var obj = isBatchRequest ? Object.create(this) : this;
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                // See if this is xml
+                if (isXML) {
+                    var objData = void 0;
+                    // Get the response properties
+                    var idxStart = data.indexOf("<m:properties>");
+                    var idxEnd = data.indexOf("</m:properties");
+                    var properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
+                    if (properties) {
+                        // Set the data object
+                        objData = helper_1.Helper.parseXML(properties);
+                        // Update the metadata
+                        helper_1.Helper.updateMetadata(obj, objData);
+                        // Update the base object's properties
+                        helper_1.Helper.addProperties(obj, objData);
+                        // Add the methods
+                        helper_1.Helper.addMethods(obj, objData, objData["@odata.context"]);
+                        // Update the data collection
+                        helper_1.Helper.updateDataCollection(obj, objData["results"]);
+                    }
+                    else {
+                        // Update the object to the raw data
+                        obj = data;
+                    }
+                }
+                // Else, see if the data properties exists
+                else if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+                    // Update the metadata
+                    helper_1.Helper.updateMetadata(obj, data.d);
+                    // Update the base object's properties
+                    helper_1.Helper.addProperties(obj, data.d);
+                    // Add the methods
+                    helper_1.Helper.addMethods(obj, data.d, data["@odata.context"]);
+                    // Update the data collection
+                    helper_1.Helper.updateDataCollection(obj, data.d.results);
+                }
+                else {
+                    // Update the base object's properties
+                    helper_1.Helper.addProperties(obj, data);
+                }
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+                        // Update the batch request
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = obj;
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
+            }
+            // Clear the batch requests
+            if (isBatchRequest) {
+                this.base.batchRequests = null;
+            }
         }
     };
     // Method to validate the data collection results
@@ -284,7 +375,7 @@ var BaseRequest = /** @class */ (function (_super) {
                                 var data = JSON.parse(xhr.response);
                                 if (data.d) {
                                     // Update the data collection
-                                    _this.updateDataCollection(_this, data.d.results);
+                                    helper_1.Helper.updateDataCollection(_this, data.d.results);
                                     // Append the raw data results
                                     _this["d"].results = _this["d"].results.concat(data.d.results);
                                     // Validate the data collection
@@ -318,5 +409,5 @@ var BaseRequest = /** @class */ (function (_super) {
         });
     };
     return BaseRequest;
-}(_1.BaseHelper));
+}());
 exports.BaseRequest = BaseRequest;

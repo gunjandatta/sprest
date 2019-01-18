@@ -15,7 +15,7 @@ exports.Navigation = (function (url, targetInfo) {
         navigation.targetInfo.url = url;
     }
     // Add the methods
-    navigation.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
+    utils_1.Helper.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
     // Return the navigation
     return navigation;
 });

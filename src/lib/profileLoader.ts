@@ -1,4 +1,4 @@
-import { Base } from "../utils";
+import { Base, Helper } from "../utils";
 import { IProfileLoader } from "./types";
 import { ITargetInfoProps } from "../utils/types";
 
@@ -14,7 +14,7 @@ export const ProfileLoader: IProfileLoader = ((targetInfo?: ITargetInfoProps) =>
     profileLoader.targetInfo.method = "POST";
 
     // Add the methods
-    profileLoader.addMethods(profileLoader, { __metadata: { type: "profileloader" } });
+    Helper.addMethods(profileLoader, { __metadata: { type: "profileloader" } });
 
     // Return the profile loader
     return profileLoader;
