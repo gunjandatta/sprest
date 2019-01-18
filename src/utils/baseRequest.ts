@@ -1,24 +1,27 @@
-import {
-    Base, Batch, MethodInfo,
-    RequestType, TargetInfo, XHRRequest
-} from ".";
+import { Base } from "./base";
+import { Batch } from "./batch";
 import { Helper } from "./helper";
+import { MethodInfo } from "./methodInfo";
+import { RequestType } from "./requestType";
+import { TargetInfo } from "./targetInfo";
+import { XHRRequest } from "./xhrRequest";
+
 import { IBaseRequest } from "./types/baseRequest";
-import { IMethodInfo, ITargetInfoProps } from "./types";
+import { IMethodInfo } from "./types/methodInfo";
+import { ITargetInfoProps } from "./types/targetInfo";
 
 /**
  * Base Request
  */
 export class BaseRequest implements IBaseRequest {
     base: Base;
-    response: string;
-    status: number;
-    xml: string | XMLDocument;
-
     getAllItemsFl: boolean;
     nextFl: boolean;
     requestType: number;
+    response: string;
+    status: number;
     targetInfo: ITargetInfoProps;
+    xml: string | XMLDocument;
     xhr: XHRRequest;
 
     // Method to execute a method
