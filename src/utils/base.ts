@@ -47,30 +47,23 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
         });
     }
 
+    // Method to execute a method
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) { return Helper.executeMethod(this, methodName, methodConfig, args); }
+
+    // Method to return a collection
+    getCollection(method: string, args?: any) { return Helper.getCollection(this, method, args); }
+
     // Method to get the request information
     getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
 
+    // Method to return a property of the base object
+    getProperty(propertyName: string, requestType?: string) { return Helper.getProperty(this, propertyName, requestType); }
+
     // Method to stringify the object
-    stringify(): string {
-        // Stringify the object
-        return JSON.stringify({
-            response: this.response,
-            status: this.status,
-            targetInfo: {
-                accessToken: this.targetInfo.accessToken,
-                bufferFl: this.targetInfo.bufferFl,
-                defaultToWebFl: this.targetInfo.defaultToWebFl,
-                endpoint: this.targetInfo.endpoint,
-                method: this.targetInfo.method,
-                overrideDefaultRequestToHostFl: this.targetInfo.overrideDefaultRequestToHostFl,
-                requestDigest: this.targetInfo.requestDigest,
-                requestHeader: this.targetInfo.requestHeader,
-                requestInfo: this.targetInfo.requestInfo,
-                requestType: this.targetInfo.requestType,
-                url: this.targetInfo.url
-            }
-        });
-    }
+    stringify(): string { return Helper.stringify(this); }
+
+    // Method to update the metadata uri
+    updateMetadataUri(metadata, targetInfo: ITargetInfoProps) { return Helper.updateMetadataUri(this, metadata, targetInfo); }
 
     /**
      * Execution
@@ -295,82 +288,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     xml: string | XMLDocument;
     xhr: XHRRequest;
 
-    // Method to execute a method
-    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) {
-        let targetInfo: ITargetInfoProps = null;
-
-        // See if the metadata is defined for the base object
-        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
-        if (metadata && metadata.uri) {
-            // Create the target information and use the url defined for the base object
-            targetInfo = {
-                url: metadata.uri
-            };
-
-            // See if we are inheriting the metadata type
-            if (methodConfig.inheritMetadataType && metadata.type) {
-                // Copy the metadata type
-                methodConfig.metadataType = metadata.type;
-            }
-
-            // Update the metadata uri
-            this.updateMetadataUri(metadata, targetInfo);
-        }
-        else {
-            // Copy the target information
-            targetInfo = Object.create(this.targetInfo);
-        }
-
-        // Get the method information
-        var methodInfo = new MethodInfo(methodName, methodConfig, args);
-
-        // Update the target information
-        targetInfo.bufferFl = methodConfig.requestType == RequestType.GetBuffer;
-        targetInfo.data = methodInfo.body;
-        targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && this.base ? this.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
-        targetInfo.method = methodInfo.requestMethod;
-        targetInfo.requestDigest = typeof (targetInfo.requestDigest) === "undefined" && this.base && this.base.targetInfo.requestDigest ? this.base.targetInfo.requestDigest : targetInfo.requestDigest;
-        targetInfo.requestType = methodConfig.requestType;
-
-        // See if we are replacing the endpoint
-        if (methodInfo.replaceEndpointFl) {
-            // Replace the endpoint
-            targetInfo.endpoint = methodInfo.url;
-        }
-        // Else, ensure the method url exists
-        else if (methodInfo.url && methodInfo.url.length > 0) {
-            // Ensure the end point exists
-            targetInfo.endpoint = targetInfo.endpoint ? targetInfo.endpoint : "";
-
-            // See if the endpoint exists, and the method is not a query string
-            if (targetInfo.endpoint && methodInfo.url && methodInfo.url.indexOf("?") != 0) {
-                // Add a "/" separator to the url
-                targetInfo.endpoint += "/";
-            }
-
-            // Append the url
-            targetInfo.endpoint += methodInfo.url;
-        }
-
-        // Create a new object
-        let obj = new Base(targetInfo);
-
-        // Set the properties
-        obj.base = this.base ? this.base : this as any;
-        obj.getAllItemsFl = methodInfo.getAllItemsFl;
-        obj.parent = this as any;
-        obj.requestType = methodConfig.requestType;
-
-        // Ensure the return type exists
-        if (methodConfig.returnType) {
-            // Add the methods
-            Helper.addMethods(obj as any, { __metadata: { type: methodConfig.returnType } });
-        }
-
-        // Return the object
-        return obj;
-    }
-
     // Method to execute the request
     executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void) {
         let isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
@@ -447,46 +364,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
         }
     }
 
-    // Method to return a collection
-    getCollection(method: string, args?: any) {
-        // Copy the target information
-        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
-
-        // Clear the target information properties from any previous requests
-        targetInfo.data = null;
-        targetInfo.method = null;
-
-        // See if the metadata is defined for the base object
-        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
-        if (metadata && metadata.uri) {
-            // Update the url of the target information
-            targetInfo.url = metadata.uri;
-
-            // Update the metadata uri
-            this.updateMetadataUri(metadata, targetInfo);
-
-            // Set the endpoint
-            targetInfo.endpoint = method;
-        }
-        else {
-            // Append the method to the endpoint
-            targetInfo.endpoint += "/" + method;
-        }
-
-        // Update the callback
-        targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
-
-        // Create a new object
-        let obj = new Base(targetInfo);
-
-        // Set the properties
-        obj.base = this.base ? this.base : this as any;
-        obj.parent = this as any;
-
-        // Return the object
-        return obj;
-    }
-
     // Method to get the next set of results
     getNextSetOfResults() {
         // Create the target information to query the next set of results
@@ -503,71 +380,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
 
         // Return the object
         return obj;
-    }
-
-    // Method to return a property of the base object
-    getProperty(propertyName: string, requestType?: string) {
-        // Copy the target information
-        let targetInfo: ITargetInfoProps = Object.create(this.targetInfo);
-
-        // See if this is a graph request
-        if (requestType.startsWith("graph")) {
-            // Default the request type
-            targetInfo.requestType = RequestType.GraphGet;
-        }
-
-        // Clear the target information properties from any previous requests
-        targetInfo.data = null;
-        targetInfo.method = null;
-
-        // See if the metadata is defined for the base object
-        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
-        if (metadata && metadata.uri) {
-            // Update the url of the target information
-            targetInfo.url = metadata.uri;
-
-            // Update the metadata uri
-            this.updateMetadataUri(metadata, targetInfo);
-
-            // Set the endpoint
-            targetInfo.endpoint = propertyName;
-        }
-        else {
-            // Append the property name to the endpoint
-            targetInfo.endpoint += "/" + propertyName;
-        }
-
-        // Create a new object
-        let obj = new Base(targetInfo);
-
-        // Set the properties
-        obj.base = this.base ? this.base : this as any;
-        obj.parent = this as any;
-
-        // Add the methods
-        requestType ? Helper.addMethods(obj as any, { __metadata: { type: requestType } }) : null;
-
-        // Return the object
-        return obj;
-    }
-
-    // Method to update the metadata uri
-    updateMetadataUri(metadata, targetInfo: ITargetInfoProps) {
-        // See if this is a field
-        if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-            // Fix the url reference
-            targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
-        }
-        // Else, see if this is an event receiver
-        else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
-            // Fix the url reference
-            targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
-        }
-        // Else, see if this is a tenant app
-        else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
-            // Fix the url reference
-            targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
-        }
     }
 
     // Method to convert the input arguments into an object

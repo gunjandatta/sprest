@@ -36,29 +36,18 @@ var Base = /** @class */ (function () {
             resolve ? resolve.apply(_this, responses) : null;
         });
     };
+    // Method to execute a method
+    Base.prototype.executeMethod = function (methodName, methodConfig, args) { return _1.Helper.executeMethod(this, methodName, methodConfig, args); };
+    // Method to return a collection
+    Base.prototype.getCollection = function (method, args) { return _1.Helper.getCollection(this, method, args); };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to return a property of the base object
+    Base.prototype.getProperty = function (propertyName, requestType) { return _1.Helper.getProperty(this, propertyName, requestType); };
     // Method to stringify the object
-    Base.prototype.stringify = function () {
-        // Stringify the object
-        return JSON.stringify({
-            response: this.response,
-            status: this.status,
-            targetInfo: {
-                accessToken: this.targetInfo.accessToken,
-                bufferFl: this.targetInfo.bufferFl,
-                defaultToWebFl: this.targetInfo.defaultToWebFl,
-                endpoint: this.targetInfo.endpoint,
-                method: this.targetInfo.method,
-                overrideDefaultRequestToHostFl: this.targetInfo.overrideDefaultRequestToHostFl,
-                requestDigest: this.targetInfo.requestDigest,
-                requestHeader: this.targetInfo.requestHeader,
-                requestInfo: this.targetInfo.requestInfo,
-                requestType: this.targetInfo.requestType,
-                url: this.targetInfo.url
-            }
-        });
-    };
+    Base.prototype.stringify = function () { return _1.Helper.stringify(this); };
+    // Method to update the metadata uri
+    Base.prototype.updateMetadataUri = function (metadata, targetInfo) { return _1.Helper.updateMetadataUri(this, metadata, targetInfo); };
     // Method to execute this request as a batch request
     Base.prototype.batch = function () {
         var args = [];
@@ -248,69 +237,6 @@ var Base = /** @class */ (function () {
             callback();
         }, 10);
     };
-    // Method to execute a method
-    Base.prototype.executeMethod = function (methodName, methodConfig, args) {
-        var targetInfo = null;
-        // See if the metadata is defined for the base object
-        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
-        if (metadata && metadata.uri) {
-            // Create the target information and use the url defined for the base object
-            targetInfo = {
-                url: metadata.uri
-            };
-            // See if we are inheriting the metadata type
-            if (methodConfig.inheritMetadataType && metadata.type) {
-                // Copy the metadata type
-                methodConfig.metadataType = metadata.type;
-            }
-            // Update the metadata uri
-            this.updateMetadataUri(metadata, targetInfo);
-        }
-        else {
-            // Copy the target information
-            targetInfo = Object.create(this.targetInfo);
-        }
-        // Get the method information
-        var methodInfo = new _1.MethodInfo(methodName, methodConfig, args);
-        // Update the target information
-        targetInfo.bufferFl = methodConfig.requestType == _1.RequestType.GetBuffer;
-        targetInfo.data = methodInfo.body;
-        targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && this.base ? this.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
-        targetInfo.method = methodInfo.requestMethod;
-        targetInfo.requestDigest = typeof (targetInfo.requestDigest) === "undefined" && this.base && this.base.targetInfo.requestDigest ? this.base.targetInfo.requestDigest : targetInfo.requestDigest;
-        targetInfo.requestType = methodConfig.requestType;
-        // See if we are replacing the endpoint
-        if (methodInfo.replaceEndpointFl) {
-            // Replace the endpoint
-            targetInfo.endpoint = methodInfo.url;
-        }
-        // Else, ensure the method url exists
-        else if (methodInfo.url && methodInfo.url.length > 0) {
-            // Ensure the end point exists
-            targetInfo.endpoint = targetInfo.endpoint ? targetInfo.endpoint : "";
-            // See if the endpoint exists, and the method is not a query string
-            if (targetInfo.endpoint && methodInfo.url && methodInfo.url.indexOf("?") != 0) {
-                // Add a "/" separator to the url
-                targetInfo.endpoint += "/";
-            }
-            // Append the url
-            targetInfo.endpoint += methodInfo.url;
-        }
-        // Create a new object
-        var obj = new Base(targetInfo);
-        // Set the properties
-        obj.base = this.base ? this.base : this;
-        obj.getAllItemsFl = methodInfo.getAllItemsFl;
-        obj.parent = this;
-        obj.requestType = methodConfig.requestType;
-        // Ensure the return type exists
-        if (methodConfig.returnType) {
-            // Add the methods
-            _1.Helper.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
-        }
-        // Return the object
-        return obj;
-    };
     // Method to execute the request
     Base.prototype.executeRequest = function (asyncFl, callback) {
         var _this = this;
@@ -384,37 +310,6 @@ var Base = /** @class */ (function () {
             return this;
         }
     };
-    // Method to return a collection
-    Base.prototype.getCollection = function (method, args) {
-        // Copy the target information
-        var targetInfo = Object.create(this.targetInfo);
-        // Clear the target information properties from any previous requests
-        targetInfo.data = null;
-        targetInfo.method = null;
-        // See if the metadata is defined for the base object
-        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
-        if (metadata && metadata.uri) {
-            // Update the url of the target information
-            targetInfo.url = metadata.uri;
-            // Update the metadata uri
-            this.updateMetadataUri(metadata, targetInfo);
-            // Set the endpoint
-            targetInfo.endpoint = method;
-        }
-        else {
-            // Append the method to the endpoint
-            targetInfo.endpoint += "/" + method;
-        }
-        // Update the callback
-        targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
-        // Create a new object
-        var obj = new Base(targetInfo);
-        // Set the properties
-        obj.base = this.base ? this.base : this;
-        obj.parent = this;
-        // Return the object
-        return obj;
-    };
     // Method to get the next set of results
     Base.prototype.getNextSetOfResults = function () {
         // Create the target information to query the next set of results
@@ -428,60 +323,6 @@ var Base = /** @class */ (function () {
         obj.parent = this;
         // Return the object
         return obj;
-    };
-    // Method to return a property of the base object
-    Base.prototype.getProperty = function (propertyName, requestType) {
-        // Copy the target information
-        var targetInfo = Object.create(this.targetInfo);
-        // See if this is a graph request
-        if (requestType.startsWith("graph")) {
-            // Default the request type
-            targetInfo.requestType = _1.RequestType.GraphGet;
-        }
-        // Clear the target information properties from any previous requests
-        targetInfo.data = null;
-        targetInfo.method = null;
-        // See if the metadata is defined for the base object
-        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
-        if (metadata && metadata.uri) {
-            // Update the url of the target information
-            targetInfo.url = metadata.uri;
-            // Update the metadata uri
-            this.updateMetadataUri(metadata, targetInfo);
-            // Set the endpoint
-            targetInfo.endpoint = propertyName;
-        }
-        else {
-            // Append the property name to the endpoint
-            targetInfo.endpoint += "/" + propertyName;
-        }
-        // Create a new object
-        var obj = new Base(targetInfo);
-        // Set the properties
-        obj.base = this.base ? this.base : this;
-        obj.parent = this;
-        // Add the methods
-        requestType ? _1.Helper.addMethods(obj, { __metadata: { type: requestType } }) : null;
-        // Return the object
-        return obj;
-    };
-    // Method to update the metadata uri
-    Base.prototype.updateMetadataUri = function (metadata, targetInfo) {
-        // See if this is a field
-        if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-            // Fix the url reference
-            targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
-        }
-        // Else, see if this is an event receiver
-        else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
-            // Fix the url reference
-            targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
-        }
-        // Else, see if this is a tenant app
-        else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
-            // Fix the url reference
-            targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
-        }
     };
     // Method to convert the input arguments into an object
     Base.prototype.updateDataObject = function (isBatchRequest) {
