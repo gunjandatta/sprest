@@ -410,9 +410,7 @@ declare module 'gd-sprest/helper/types' {
 
 declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/base";
-    export * from "gd-sprest/utils/types/baseExecution";
     export * from "gd-sprest/utils/types/helper";
-    export * from "gd-sprest/utils/types/baseRequest";
     export * from "gd-sprest/utils/types/methodInfo";
     export * from "gd-sprest/utils/types/requestType";
     export * from "gd-sprest/utils/types/targetInfo";
@@ -9344,13 +9342,14 @@ declare module 'gd-sprest/helper/types/webpart' {
 
 declare module 'gd-sprest/utils/types/base' {
     import { ODataQuery } from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/baseExecution";
-    import { IRequestInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
+    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
+    import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
+    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
     
     /**
         * Base
         */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> {
             /** True, if the object exists, false otherwise. */
             existsFl: boolean;
     
@@ -9381,58 +9380,16 @@ declare module 'gd-sprest/utils/types/base' {
                 * Method to stringify the object.
                 */
             stringify(): string;
-    }
     
-    /**
-        * Base Collection Results
-        */
-    export interface IBaseCollectionResult<Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
     
-            /** Returns the next set of results, if paging exists. */
-            next(): IBaseCollection<Result>;
-    
-            /** True, if more items exist. */
-            nextFl: boolean;
-    
-            /** The raw string response. */
-            response: string;
-    
-            /** The results. */
-            results: Array<Result>;
-    
-            /** Method to stringify the object. */
-            stringify(): string;
-    }
-    
-    /**
-        * Base Collection
-        */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
-            results: Array<Type>
-    }
-}
-
-declare module 'gd-sprest/utils/types/baseExecution' {
-    import { IBaseRequest } from "gd-sprest/utils/types/baseRequest";
-    import { ITargetInfo } from "gd-sprest/utils/types/targetInfo";
-    
-    /**
-        * Base Execution
-        */
-    export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
             /** The batch requests. */
-            batchRequests: Array<Array<{ callback?: any, response?: IBaseExecution, targetInfo: ITargetInfo }>>;
-    
-            /** The parent. */
-            parent: IBaseExecution;
+            batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
     
             /** The index of this object in the responses array. */
             responseIndex: number;
     
             /** The responses. */
-            responses: Array<IBaseExecution>;
+            responses: Array<IBase>;
     
             /** The wait flags. */
             waitFlags: Array<boolean>;
@@ -9491,98 +9448,148 @@ declare module 'gd-sprest/utils/types/baseExecution' {
                 * @param requestIdx - The request index.
                 */
             waitForRequestsToComplete(callback: () => void, requestIdx?: number);
+    
+    
+            /** The base object. */
+            base: IBase;
+    
+            /** The request type */
+            requestType: number;
+    
+            /** The request's status. */
+            status: number;
+    
+            /** The xml object. */
+            xml: string | XMLDocument;
+    
+    
+    
+            /** Flag to get all items. */
+            getAllItemsFl: boolean;
+    
+            /** Flag determining if more items exist. */
+            nextFl: boolean;
+    
+            /** The target information. */
+            targetInfo: ITargetInfoProps;
+    
+            /** The request. */
+            xhr: IXHRRequest;
+    
+            /** Method to execute the request. */
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
+    
+            /** Gets the property as a collection. */
+            getCollection(method: string, args?: any);
+    
+            /** Gets the next set of results. */
+            getNextSetOfResults();
+    
+            /** Gets the property. */
+            getProperty(propertyName: string, requestType?: string);
+    
+            /** Updates the metdata uri. */
+            updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
+    }
+    
+    /**
+        * Base Collection Results
+        */
+    export interface IBaseCollectionResult<Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+    
+            /** Returns the next set of results, if paging exists. */
+            next(): IBaseCollection<Result>;
+    
+            /** True, if more items exist. */
+            nextFl: boolean;
+    
+            /** The raw string response. */
+            response: string;
+    
+            /** The results. */
+            results: Array<Result>;
+    
+            /** Method to stringify the object. */
+            stringify(): string;
+    }
+    
+    /**
+        * Base Collection
+        */
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+            results: Array<Type>
     }
 }
 
 declare module 'gd-sprest/utils/types/helper' {
     import { IBase } from "gd-sprest/utils/types/base";
-    
-    /**
-      * Request Helper Methods
-      */
-    export interface IBaseHelper {
-        /** Adds the base methods. */
-        addBaseReferences(base: IBase, obj: any);
-    
-        /** Adds methods based on the object type. */
-        addMethods(base: IBase, data: any, context?: any);
-    
-        /** Adds properties based on the object type. */
-        addProperties(base: IBase, data: any);
-    
-        /** Parses the xml string and creates a base object. */
-        parseXML(xml: string): IBase;
-    
-        /** Updates the data collection objects. */
-        updateDataCollection(obj: IBase, results: Array<IBase>);
-    
-        /** Updates the metadata. */
-        updateMetadata(base, data);
-    }
-}
-
-declare module 'gd-sprest/utils/types/baseRequest' {
-    import { IBase } from "gd-sprest/utils/types/base";
     import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
-    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
     
     /**
-      * Base Request
-      */
-    export interface IBaseRequest {
-        /** The base object. */
-        base: IBase;
+        * Request Helper Methods
+        */
+    export interface IBaseHelper {
+            /** Adds the base methods. */
+            addBaseMethods(base: IBase, obj: any);
     
-        /** The request type */
-        requestType: number;
+            /** Adds methods based on the object type. */
+            addMethods(base: IBase, data: any, context?: any);
     
-        /** The request's raw response. */
-        response: string;
+            /** Adds properties based on the object type. */
+            addProperties(base: IBase, data: any);
     
-        /** The request's status. */
-        status: number;
+            /** Method to wait for the requests to complete. */
+            done(base: IBase, resolve: (value?: any) => void);
     
-        /** The xml object. */
-        xml: string | XMLDocument;
+            /** Method to execute the request. */
+            execute(base: IBase, args: Array<any>): IBase;
     
-        /** Updates the data object. */
-        updateDataObject(isBatchRequest: boolean);
+            /** Method to execute the request. */
+            executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
     
+            /** Method to execute the request. */
+            executeRequest(base: IBase, asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void);
     
+            /** Gets the property as a collection. */
+            getCollection(base: IBase, method: string, args?: any): IBase;
     
-        /** Flag to get all items. */
-        getAllItemsFl: boolean;
+            /** Gets the next set of results. */
+            getNextSetOfResults(base: IBase): IBase;
     
-        /** Flag determining if more items exist. */
-        nextFl: boolean;
+            /** Gets the property. */
+            getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
     
-        /** The target information. */
-        targetInfo: ITargetInfoProps;
+            /** Parses the xml string and creates a base object. */
+            parseXML(xml: string): IBase;
     
-        /** The request. */
-        xhr: IXHRRequest;
+            /** Converts the base object to a JSON string. */
+            stringify(base: IBase): string;
     
-        /** Method to execute the request. */
-        executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
+            /** Updates the data collection objects. */
+            updateDataCollection(base: IBase, results: Array<IBase>);
     
-        /** Method to execute the request. */
-        executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void);
+            /** Updates the data object. */
+            updateDataObject(base: IBase, isBatchRequest: boolean);
     
-        /** Gets the property as a collection. */
-        getCollection(method: string, args?: any);
+            /** Updates the metadata. */
+            updateMetadata(base, data);
     
-        /** Gets the next set of results. */
-        getNextSetOfResults();
+            /** Updates the metdata uri. */
+            updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
     
-        /** Gets the property. */
-        getProperty(propertyName: string, requestType?: string);
+            /** Validates the data collection results. */
+            validateDataCollectionResults(base: IBase): PromiseLike<void>;
     
-        /** Updates the metdata uri. */
-        updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
-    
-        /** Validates the data collection results. */
-        validateDataCollectionResults(): PromiseLike<void>;
+            /**
+                * Method to wait for the parent requests to complete
+                * @param base - The base object.
+                * @param callback - The callback method.
+                * @param requestIdx - The request index.
+                */
+            waitForRequestsToComplete(base: IBase, callback: () => void, requestIdx?: number);
     }
 }
 

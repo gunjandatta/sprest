@@ -97,7 +97,7 @@ exports.parse = function (jsonString) {
         base.status = obj.status;
         base.targetInfo = obj.targetInfo;
         // Update the object
-        base.updateDataObject(false);
+        utils_1.Helper.updateDataObject(base, false);
         // Return the base object
         return base;
     }

@@ -8,9 +8,47 @@ var _1 = require(".");
 var Batch = /** @class */ (function () {
     function Batch() {
     }
-    /**
-     * Methods
-     */
+    // Method to execute a batch request
+    Batch.execute = function (base, args) {
+        var appendFl = false;
+        var callback = null;
+        // Parse the arguments
+        for (var i = 0; i < args.length; i++) {
+            var arg = args[i];
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the append flag
+                    appendFl = arg;
+                    break;
+                case "function":
+                    // Set the callback method
+                    callback = arg;
+                    break;
+            }
+        }
+        // Set the base
+        base.base = base.base ? base.base : base;
+        // See if we are appending this request
+        if (appendFl && base.base.batchRequests) {
+            // Append the request
+            base.base.batchRequests[base.base.batchRequests.length - 1].push({
+                callback: callback,
+                targetInfo: new _1.TargetInfo(base.targetInfo)
+            });
+        }
+        else {
+            // Ensure the batch requests exist
+            base.base.batchRequests = base.base.batchRequests || [];
+            // Create the request
+            base.base.batchRequests.push([{
+                    callback: callback,
+                    targetInfo: new _1.TargetInfo(base.targetInfo)
+                }]);
+        }
+        // Return this object
+        return base;
+    };
     // Method to generate a batch request
     Batch.getTargetInfo = function (requests) {
         var batchId = "batch_" + lib_1.ContextInfo.generateGUID();
@@ -18,7 +56,7 @@ var Batch = /** @class */ (function () {
         // Parse the requests
         for (var i = 0; i < requests.length; i++) {
             // Create the batch request
-            batchRequests.push(this.createBatch(batchId, requests[i]));
+            batchRequests.push(Batch.createBatch(batchId, requests[i]));
         }
         // End the batch request
         batchRequests.push("--" + batchId + "--");

@@ -125,9 +125,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /** The xml object. */
     xml: string | XMLDocument;
 
-    /** Updates the data object. */
-    updateDataObject(isBatchRequest: boolean);
-
 
 
     /** Flag to get all items. */
@@ -145,9 +142,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /** Method to execute the request. */
     executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
 
-    /** Method to execute the request. */
-    executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void);
-
     /** Gets the property as a collection. */
     getCollection(method: string, args?: any);
 
@@ -159,9 +153,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
 
     /** Updates the metdata uri. */
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
-
-    /** Validates the data collection results. */
-    validateDataCollectionResults(): PromiseLike<void>;
 }
 
 /**

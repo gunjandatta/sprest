@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
@@ -9,7 +8,7 @@ var _1 = require(".");
  */
 exports.Helper = {
     // Method to add the base references
-    addBaseReferences: function (base, obj) {
+    addBaseMethods: function (base, obj) {
         // Add the base references
         obj["addMethods"] = exports.Helper.addMethods;
         obj["base"] = base.base;
@@ -22,7 +21,7 @@ exports.Helper = {
         obj["getProperty"] = base.getProperty;
         obj["parent"] = base;
         obj["targetInfo"] = base.targetInfo;
-        obj["updateMetadataUri"] = _this.updateMetadataUri;
+        obj["updateMetadataUri"] = base.updateMetadataUri;
         obj["waitForRequestsToComplete"] = base.waitForRequestsToComplete;
     },
     // Method to add the methods to base object
@@ -167,6 +166,132 @@ exports.Helper = {
             }
         }
     },
+    // Method to wait for all requests to complete, before resolving the request
+    done: function (base, resolve) {
+        // Ensure the base is set
+        base.base = base.base ? base.base : base;
+        // Ensure the response index is set
+        base.responseIndex = base.responseIndex >= 0 ? base.responseIndex : 0;
+        // Wait for the responses to execute
+        exports.Helper.waitForRequestsToComplete(base, function () {
+            var responses = base.base.responses;
+            // Clear the responses
+            base.base.responses = [];
+            // Clear the wait flags
+            base.base.waitFlags = [];
+            // Resolve the request
+            resolve ? resolve.apply(base, responses) : null;
+        });
+    },
+    // Method to execute the request
+    execute: function (base, args) {
+        var reject = null;
+        var resolve = null;
+        var waitFl = false;
+        // Parse the arguments
+        for (var i = 0; i < args.length; i++) {
+            var arg = args[i];
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the wait flag
+                    waitFl = arg;
+                    break;
+                case "function":
+                    // See if the resolve method exists
+                    if (resolve) {
+                        // Set the reject method
+                        reject = arg;
+                    }
+                    else {
+                        // Set the resolve method
+                        resolve = arg;
+                    }
+                    break;
+            }
+        }
+        // Set the base
+        base.base = base.base || base;
+        // Set the base responses
+        base.base.responses = base.base.responses || [];
+        // Set the base wait flags
+        base.base.waitFlags = base.base.waitFlags || [];
+        // Set the response index
+        base.responseIndex = base.base.responses.length;
+        // Add this object to the responses
+        base.base.responses.push(base);
+        // See if we are waiting for the responses to complete
+        if (waitFl) {
+            // Wait for the responses to execute
+            exports.Helper.waitForRequestsToComplete(base, function () {
+                // Execute this request
+                exports.Helper.executeRequest(base, true, function (response, errorFl) {
+                    // See if there was an error
+                    if (errorFl) {
+                        // Reject the request
+                        reject ? reject(response) : null;
+                    }
+                    // Else, see if there is a resolve method
+                    else if (resolve) {
+                        // Set the base to this object, and clear requests
+                        // This will ensure requests from this object do not conflict w/ this request
+                        base.base = base;
+                        base.base.responses = [];
+                        // Execute the callback and see if it returns a promise
+                        var returnVal = resolve(response);
+                        var waitFunc = returnVal ? returnVal.done || returnVal.then : null;
+                        if (waitFunc && typeof (waitFunc) === "function") {
+                            // Wait for the promise to complete
+                            waitFunc(function () {
+                                // Reset the base
+                                base.base = base.parent.base || base.base;
+                                // Set the wait flag
+                                base.base.waitFlags[base.responseIndex] = true;
+                            });
+                            // Wait for the promise to complete
+                            return;
+                        }
+                        // Reset the base
+                        base.base = base.parent.base || base.base;
+                    }
+                    // Set the wait flag
+                    base.base.waitFlags[base.responseIndex] = true;
+                });
+            }, base.responseIndex);
+        }
+        else {
+            // Execute this request
+            exports.Helper.executeRequest(base, true, function (response, errorFl) {
+                // See if there was an error
+                if (errorFl) {
+                    // Reject the request
+                    reject ? reject(response) : null;
+                }
+                else {
+                    // Execute the resolve and see if it returns a promise
+                    var returnVal = resolve ? resolve(response) : null;
+                    if (returnVal && typeof (returnVal.done) === "function") {
+                        // Wait for the promise to complete
+                        returnVal.done(function () {
+                            // Set the wait flag
+                            base.base.waitFlags[base.responseIndex] = true;
+                        });
+                    }
+                    else {
+                        // Set the wait flag
+                        base.base.waitFlags[base.responseIndex] = true;
+                    }
+                }
+            });
+        }
+        // See if this is a query request
+        if (base.targetInfo.requestType == _1.RequestType.OData) {
+            // Return the parent for chaining purposes
+            return base.parent;
+        }
+        // Return this object
+        return base;
+    },
     // Method to execute a method
     executeMethod: function (base, methodName, methodConfig, args) {
         var targetInfo = null;
@@ -230,6 +355,78 @@ exports.Helper = {
         // Return the object
         return obj;
     },
+    // Method to execute the request
+    executeRequest: function (base, asyncFl, callback) {
+        var isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
+        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(base.base.batchRequests) : new _1.TargetInfo(base.targetInfo);
+        // See if this is an asynchronous request
+        if (asyncFl) {
+            // See if the not a batch request, and it already exists
+            if (base.xhr && !isBatchRequest) {
+                // Execute the callback
+                callback ? callback(base, false) : null;
+            }
+            else {
+                // Create the request
+                base.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
+                    // Update the response and status
+                    base.response = base.xhr.response;
+                    base.status = base.xhr.status;
+                    var errorFl = !(base.status >= 200 && base.status < 300);
+                    // See if we are returning a file buffer
+                    if (base.requestType == _1.RequestType.GetBuffer) {
+                        // Execute the callback
+                        callback ? callback(base.response, errorFl) : null;
+                    }
+                    else {
+                        // Update the data object
+                        exports.Helper.updateDataObject(base, isBatchRequest);
+                        // Ensure this isn't a batch request
+                        if (!isBatchRequest) {
+                            // See if this is an xml response
+                            if (base.xml) {
+                                // Execute the callback
+                                callback ? callback(base, errorFl) : null;
+                            }
+                            else {
+                                // Validate the data collection
+                                exports.Helper.validateDataCollectionResults(base).then(function () {
+                                    // Execute the callback
+                                    callback ? callback(base, errorFl) : null;
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        // Else, see if we already executed this request
+        else if (base.xhr) {
+            return base;
+        }
+        // Else, we haven't executed this request
+        else {
+            // Create the request
+            base.xhr = new _1.XHRRequest(asyncFl, targetInfo);
+            // Update the response and status
+            base.response = base.xhr.response;
+            base.status = base.xhr.status;
+            // See if we are returning a file buffer
+            if (base.requestType == _1.RequestType.GetBuffer) {
+                // Return the response
+                return base.response;
+            }
+            // Update the base object
+            exports.Helper.updateDataObject(base, isBatchRequest);
+            // See if the base is a collection and has more results
+            if (base["d"] && base["d"].__next) {
+                // Add the "next" method to get the next set of results
+                base["next"] = new Function("return this.getNextSetOfResults();");
+            }
+            // Return the base object
+            return base;
+        }
+    },
     // Method to return a collection
     getCollection: function (base, method, args) {
         // Copy the target information
@@ -253,6 +450,20 @@ exports.Helper = {
         }
         // Update the callback
         targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
+        // Create a new object
+        var obj = new _1.Base(targetInfo);
+        // Set the properties
+        obj.base = base.base ? base.base : base;
+        obj.parent = base;
+        // Return the object
+        return obj;
+    },
+    // Method to get the next set of results
+    getNextSetOfResults: function (base) {
+        // Create the target information to query the next set of results
+        var targetInfo = Object.create(base.targetInfo);
+        targetInfo.endpoint = "";
+        targetInfo.url = base["d"].__next;
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
@@ -383,13 +594,118 @@ exports.Helper = {
                 // Parse the results
                 for (var _i = 0, results_1 = results_2; _i < results_1.length; _i++) {
                     var result = results_1[_i];
-                    // Add the base references
-                    exports.Helper.addBaseReferences(obj, result);
+                    // Add the base methods
+                    exports.Helper.addBaseMethods(obj, result);
                     // Update the metadata
                     exports.Helper.updateMetadata(obj, result);
                     // Add the methods
                     exports.Helper.addMethods(result, result);
                 }
+            }
+        }
+    },
+    // Method to convert the input arguments into an object
+    updateDataObject: function (base, isBatchRequest) {
+        if (isBatchRequest === void 0) { isBatchRequest = false; }
+        // Ensure the request was successful
+        if (base.status >= 200 && base.status < 300) {
+            // Return if we are expecting a buffer
+            if (base.requestType == _1.RequestType.GetBuffer) {
+                return;
+            }
+            // Parse the responses
+            var batchIdx = 0;
+            var batchRequestIdx = 0;
+            var responses = isBatchRequest ? base.response.split("\n") : [base.response];
+            for (var i = 0; i < responses.length; i++) {
+                var data = null;
+                // Set the response
+                var response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                // Set the xml flag
+                var isXML = response.indexOf("<?xml") == 0;
+                if (isXML) {
+                    // Append the response while data exists
+                    while (responses[i + 1] && responses[i + 1].indexOf("--batchresponse") != 0) {
+                        // Append the response
+                        response += responses[++i];
+                    }
+                }
+                // Try to convert the response
+                try {
+                    data = isXML ? response : JSON.parse(response);
+                }
+                catch (ex) {
+                    continue;
+                }
+                // Set the object based on the request type
+                var obj = isBatchRequest ? Object.create(base) : base;
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                // See if this is xml
+                if (isXML) {
+                    var objData = void 0;
+                    // Get the response properties
+                    var idxStart = data.indexOf("<m:properties>");
+                    var idxEnd = data.indexOf("</m:properties");
+                    var properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
+                    if (properties) {
+                        // Set the data object
+                        objData = exports.Helper.parseXML(properties);
+                        // Update the metadata
+                        exports.Helper.updateMetadata(obj, objData);
+                        // Update the base object's properties
+                        exports.Helper.addProperties(obj, objData);
+                        // Add the methods
+                        exports.Helper.addMethods(obj, objData, objData["@odata.context"]);
+                        // Update the data collection
+                        exports.Helper.updateDataCollection(obj, objData["results"]);
+                    }
+                    else {
+                        // Update the object to the raw data
+                        obj = data;
+                    }
+                }
+                // Else, see if the data properties exists
+                else if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+                    // Update the metadata
+                    exports.Helper.updateMetadata(obj, data.d);
+                    // Update the base object's properties
+                    exports.Helper.addProperties(obj, data.d);
+                    // Add the methods
+                    exports.Helper.addMethods(obj, data.d, data["@odata.context"]);
+                    // Update the data collection
+                    exports.Helper.updateDataCollection(obj, data.d.results);
+                }
+                else {
+                    // Update the base object's properties
+                    exports.Helper.addProperties(obj, data);
+                }
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    var batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+                        // Update the batch request
+                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = obj;
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
+            }
+            // Clear the batch requests
+            if (isBatchRequest) {
+                base.base.batchRequests = null;
             }
         }
     },
@@ -430,6 +746,95 @@ exports.Helper = {
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + base["ID"] + "')";
+        }
+    },
+    // Method to validate the data collection results
+    validateDataCollectionResults: function (base) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Method to validate the request
+            var request = function (xhr, resolve) {
+                // Validate the response
+                if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
+                    // Convert the response and ensure the data property exists
+                    var data = JSON.parse(xhr.response);
+                    // Set the next item flag
+                    base.nextFl = data.d && data.d.__next;
+                    // See if there are more items to get
+                    if (base.nextFl) {
+                        // See if we are getting all items in the base request
+                        if (base.getAllItemsFl) {
+                            // Create the target information to query the next set of results
+                            var targetInfo = Object.create(base.targetInfo);
+                            targetInfo.endpoint = "";
+                            targetInfo.url = data.d.__next;
+                            // Create a new object
+                            new _1.XHRRequest(true, new _1.TargetInfo(targetInfo), function (xhr) {
+                                // Convert the response and ensure the data property exists
+                                var data = JSON.parse(xhr.response);
+                                if (data.d) {
+                                    // Update the data collection
+                                    exports.Helper.updateDataCollection(base, data.d.results);
+                                    // Append the raw data results
+                                    base["d"].results = base["d"].results.concat(data.d.results);
+                                    // Validate the data collection
+                                    request(xhr, resolve);
+                                }
+                                else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+                        else {
+                            // Add a method to get the next set of results
+                            base["next"] = new Function("return this.getNextSetOfResults();");
+                            // Resolve the promise
+                            resolve();
+                        }
+                    }
+                    else {
+                        // Resolve the promise
+                        resolve();
+                    }
+                }
+                else {
+                    // Resolve the promise
+                    resolve();
+                }
+            };
+            // Execute the request
+            request(base.xhr, resolve);
+        });
+    },
+    // Method to wait for the parent requests to complete
+    waitForRequestsToComplete: function (base, callback, requestIdx) {
+        // Ensure a callback exists and is a function
+        if (typeof (callback) === "function") {
+            // Loop until the requests have completed
+            var intervalId_1 = lib_1.ContextInfo.window.setInterval(function () {
+                var counter = 0;
+                // Parse the responses to the requests
+                for (var i = 0; i < base.base.responses.length; i++) {
+                    var response = base.base.responses[i];
+                    // See if we are waiting until a specified index
+                    if (requestIdx == counter++) {
+                        break;
+                    }
+                    // Return if the request hasn't completed
+                    if (response.xhr == null || !response.xhr.completedFl) {
+                        return;
+                    }
+                    // Ensure the wait flag is set for the previous request
+                    if (counter > 0 && base.base.waitFlags[counter - 1] != true) {
+                        return;
+                    }
+                }
+                // Clear the interval
+                lib_1.ContextInfo.window.clearInterval(intervalId_1);
+                // Execute the callback
+                callback();
+            }, 10);
         }
     }
 };
