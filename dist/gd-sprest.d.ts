@@ -412,6 +412,7 @@ declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/base";
     export * from "gd-sprest/utils/types/helper";
     export * from "gd-sprest/utils/types/methodInfo";
+    export * from "gd-sprest/utils/types/request";
     export * from "gd-sprest/utils/types/requestType";
     export * from "gd-sprest/utils/types/targetInfo";
     export * from "gd-sprest/utils/types/xhrRequest";
@@ -9476,6 +9477,9 @@ declare module 'gd-sprest/utils/types/base' {
             /** The request. */
             xhr: IXHRRequest;
     
+            /** Adds methods based on the object type. */
+            addMethods(data: any, context?: any);
+    
             /** Method to execute the request. */
             executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
     
@@ -9529,67 +9533,38 @@ declare module 'gd-sprest/utils/types/helper' {
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
-        * Request Helper Methods
-        */
+      * Request Helper Methods
+      */
     export interface IBaseHelper {
-            /** Adds the base methods. */
-            addBaseMethods(base: IBase, obj: any);
+        /** Adds the base methods. */
+        addBaseMethods(base: IBase, obj: any);
     
-            /** Adds methods based on the object type. */
-            addMethods(base: IBase, data: any, context?: any);
+        /** Method to wait for the requests to complete. */
+        done(base: IBase, resolve: (value?: any) => void);
     
-            /** Adds properties based on the object type. */
-            addProperties(base: IBase, data: any);
+        /** Method to execute the request. */
+        executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
     
-            /** Method to wait for the requests to complete. */
-            done(base: IBase, resolve: (value?: any) => void);
+        /** Gets the property as a collection. */
+        getCollection(base: IBase, method: string, args?: any): IBase;
     
-            /** Method to execute the request. */
-            execute(base: IBase, args: Array<any>): IBase;
+        /** Gets the next set of results. */
+        getNextSetOfResults(base: IBase): IBase;
     
-            /** Method to execute the request. */
-            executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
+        /** Gets the property. */
+        getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
     
-            /** Method to execute the request. */
-            executeRequest(base: IBase, asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void);
+        /** Converts the base object to a JSON string. */
+        stringify(base: IBase): string;
     
-            /** Gets the property as a collection. */
-            getCollection(base: IBase, method: string, args?: any): IBase;
+        /** Updates the data collection objects. */
+        updateDataCollection(base: IBase, results: Array<IBase>);
     
-            /** Gets the next set of results. */
-            getNextSetOfResults(base: IBase): IBase;
+        /** Updates the metadata. */
+        updateMetadata(base, data);
     
-            /** Gets the property. */
-            getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
-    
-            /** Parses the xml string and creates a base object. */
-            parseXML(xml: string): IBase;
-    
-            /** Converts the base object to a JSON string. */
-            stringify(base: IBase): string;
-    
-            /** Updates the data collection objects. */
-            updateDataCollection(base: IBase, results: Array<IBase>);
-    
-            /** Updates the data object. */
-            updateDataObject(base: IBase, isBatchRequest: boolean);
-    
-            /** Updates the metadata. */
-            updateMetadata(base, data);
-    
-            /** Updates the metdata uri. */
-            updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
-    
-            /** Validates the data collection results. */
-            validateDataCollectionResults(base: IBase): PromiseLike<void>;
-    
-            /**
-                * Method to wait for the parent requests to complete
-                * @param base - The base object.
-                * @param callback - The callback method.
-                * @param requestIdx - The request index.
-                */
-            waitForRequestsToComplete(base: IBase, callback: () => void, requestIdx?: number);
+        /** Updates the metdata uri. */
+        updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
     }
 }
 
@@ -9609,6 +9584,39 @@ declare module 'gd-sprest/utils/types/methodInfo' {
         requestMethod?: string;
         requestType?: number;
         returnType?: string;
+    }
+}
+
+declare module 'gd-sprest/utils/types/request' {
+    import { IBase } from "gd-sprest/utils/types/base";
+    
+    /**
+      * Request
+      */
+    export interface IRequest {
+        /** Adds methods based on the object type. */
+        addMethods(base: IBase, data: any, context?: any);
+    
+        /** Adds properties based on the object type. */
+        addProperties(base: IBase, data: any);
+    
+        /** Method to execute the request. */
+        execute(base: IBase, args: Array<any>): IBase;
+    
+        /** Method to execute the request. */
+        executeRequest(base: IBase, asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void);
+    
+        /** Parses the xml string and creates a base object. */
+        parseXML(xml: string): IBase;
+    
+        /** Updates the data object. */
+        updateDataObject(base: IBase, isBatchRequest: boolean);
+    
+        /** Validates the data collection results. */
+        validateDataCollectionResults(base: IBase): PromiseLike<void>;
+    
+        /** Method to wait for the parent requests to complete */
+        waitForRequestsToComplete(base: IBase, callback: () => void, requestIdx?: number);
     }
 }
 
