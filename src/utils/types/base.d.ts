@@ -6,7 +6,7 @@ import { IXHRRequest } from "./xhrRequest";
 /**
  * Base Library
  */
-export interface IBaseLib<Type = any, Result = Type, QueryResult = Result> {
+export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
 
@@ -87,7 +87,7 @@ export interface IBaseLib<Type = any, Result = Type, QueryResult = Result> {
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query?(query: ODataQuery): IBaseLib<Result, QueryResult>;
+    query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
 
     /**
      * Method to stringify the object.
@@ -105,7 +105,7 @@ export interface IBaseLib<Type = any, Result = Type, QueryResult = Result> {
 /**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseLib<Type, Result, QueryResult> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
     /**
      * Base Properties
      */
@@ -200,6 +200,6 @@ export interface IBaseCollectionResult<Result> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseLib<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
     results: Array<Type>
 }

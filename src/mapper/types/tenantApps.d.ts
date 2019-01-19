@@ -1,4 +1,4 @@
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 import { ITenantApp } from ".";
 
 /**
@@ -10,7 +10,7 @@ export interface ITenantAppsMethods {
      * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
      * @param guid - The app id.
      */
-    getById(guid: string): IBaseLib<ITenantApp>;
+    getById(guid: string): IBaseExecution<ITenantApp>;
 }
 
 /**

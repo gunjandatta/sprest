@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 import { IView, IViewQueryResult, IViewResult } from ".";
 
 /**
@@ -9,24 +9,24 @@ export interface IViewsMethods {
     /**
      * Adds a list view to the view collection.
      */
-    add(parameters: SP.View): IBaseLib<IView, IViewResult>;
+    add(parameters: SP.View): IBaseExecution<IView, IViewResult>;
 
     /**
      * Gets the list view with the specified ID.
      * @param id - The ID of the view.
      */
-    getById(id): IView & IBaseLib<IView, IViewResult, IViewQueryResult>;
+    getById(id): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
 
     /**
      * Gets the list view with the specified title.
      * @param title - The case-sensitive title of the view.
      */
-    getByTitle(title): IView & IBaseLib<IView, IViewResult, IViewQueryResult>;
+    getByTitle(title): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBaseLib<IViews>;
+    next(): IBaseExecution<IViews>;
 }
 
 /**

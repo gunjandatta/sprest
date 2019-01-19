@@ -66,7 +66,7 @@ export interface IHelper {
      * Helper method to convert a json string to a base object
      * This will require you to use the stringify method of the base object.
      */
-    parse<T = UtilTypes.IBaseLib>(jsonString: string): T;
+    parse<T = UtilTypes.IBaseExecution>(jsonString: string): T;
 
     /**
      * Helper method to execute an XMLHttpRequest

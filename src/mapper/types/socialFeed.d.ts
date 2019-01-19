@@ -1,79 +1,79 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 
 /**
  * Social Feed
  */
-export interface ISocialFeed extends IBaseLib<ISocialFeed> {
+export interface ISocialFeed extends IBaseExecution<ISocialFeed> {
     /**
      * Gets information about the specified user and the current user.
      * @param accountName - The login name of the user.
      */
-    actor(accountName: string): IBaseLib<ISocialRestActor>;
+    actor(accountName: string): IBaseExecution<ISocialRestActor>;
 
     /**
      * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
      * @param accountName - The login name of the user.
      */
-    actorFeed(accountName: string): IBaseLib<ISocialRestThread>;
+    actorFeed(accountName: string): IBaseExecution<ISocialRestThread>;
 
     /**
      * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
      */
-    clearMyUnreadMentionCount(): IBaseLib;
+    clearMyUnreadMentionCount(): IBaseExecution;
 
     /**
      * Gets information about the current user.
      */
-    my(): IBaseLib<ISocialRestActor>;
+    my(): IBaseExecution<ISocialRestActor>;
 
     /**
      * Gets the feed of activity by the current user (Personal feed type).
      */
-    myFeed(): IBaseLib<ISocialRestFeed>;
+    myFeed(): IBaseExecution<ISocialRestFeed>;
 
     /**
      * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread Types.SP. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
      */
-    myLikes(): IBaseLib<ISocialRestFeed>;
+    myLikes(): IBaseExecution<ISocialRestFeed>;
 
     /**
      * Gets the feed of microblog posts that mention the current user.
      */
-    myMentionFeed(): IBaseLib<ISocialRestFeed>;
+    myMentionFeed(): IBaseExecution<ISocialRestFeed>;
 
     /**
      * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
      */
-    myNews(): IBaseLib<ISocialRestFeed>;
+    myNews(): IBaseExecution<ISocialRestFeed>;
 
     /**
      * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
      */
-    myTimelineFeed(): IBaseLib<ISocialRestFeed>;
+    myTimelineFeed(): IBaseExecution<ISocialRestFeed>;
 
     /**
      * Gets the count of unread mentions for the current user.
      */
-    myUnreadMentionCount(): IBaseLib<ISocialRestFeed>;
+    myUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
 
     /**
      * Creates a root post in the specified site feed.
      * @param accountName - The login name of the user.
      */
-    postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseLib<ISocialRestThread>;
+    postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
 
     /**
      * Creates a root post in the current user's feed.
      * @param creationData - The post creation data.
      */
-    postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBaseLib<ISocialRestThread>;
+    postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
 }
 
 /**
  * Social Rest Actor
  */
-export interface ISocialRestActor extends IBaseLib<ISocialRestActor> {
+export interface ISocialRestActor extends IBaseExecution<ISocialRestActor> {
     /**
      * Properties
      */
@@ -88,13 +88,13 @@ export interface ISocialRestActor extends IBaseLib<ISocialRestActor> {
      * Methods
      */
 
-    clearUnreadMentionCount(): IBaseLib<ISocialRestFeed>;
+    clearUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
 }
 
 /**
  * Social Rest Feed
  */
-export interface ISocialRestFeed extends IBaseLib<ISocialRestFeed> {
+export interface ISocialRestFeed extends IBaseExecution<ISocialRestFeed> {
     /**
      * Properties
      */
@@ -114,7 +114,7 @@ export interface ISocialRestFeed extends IBaseLib<ISocialRestFeed> {
 /**
  * Social Rest Thread
  */
-export interface ISocialRestThread extends IBaseLib<ISocialRestThread> {
+export interface ISocialRestThread extends IBaseExecution<ISocialRestThread> {
     /**
      * Properties
      */
@@ -127,7 +127,7 @@ export interface ISocialRestThread extends IBaseLib<ISocialRestThread> {
      * Methods
      */
 
-    delete(): IBaseLib<ISocialRestThread>;
+    delete(): IBaseExecution<ISocialRestThread>;
 
-    reply(restCreationData: SP.Social.SocialPostCreationData): IBaseLib<ISocialRestThread>;
+    reply(restCreationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
 }

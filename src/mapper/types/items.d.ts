@@ -1,4 +1,4 @@
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 import { IListItem, IListItemQueryResult, IListItemResult } from ".";
 
 /**
@@ -9,18 +9,18 @@ export interface IListItemsMethods {
      * Adds an item to the list item collection.
      * @param data - The item properties.
      */
-    add(data): IBaseLib<IListItem, IListItemResult>;
+    add(data): IBaseExecution<IListItem, IListItemResult>;
 
     /**
      * Gets an item by the specified id.
      * @param id - The item id.
      */
-    getById(id): IListItem & IBaseLib<IListItem, IListItemResult, IListItemQueryResult>;
+    getById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBaseLib<IListItems, IListItemResults>;
+    next(): IBaseExecution<IListItems, IListItemResults>;
 }
 
 /**

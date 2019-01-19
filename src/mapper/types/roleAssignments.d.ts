@@ -1,4 +1,4 @@
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from ".";
 
 /**
@@ -10,25 +10,25 @@ export interface IRoleAssignmentsMethods {
      * @param principalId - The ID of the user or group to assign permissions to.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
-    addRoleAssignment(principalId, roleDefId): IBaseLib<IRoleAssignment, IRoleAssignmentResult>;
+    addRoleAssignment(principalId, roleDefId): IBaseExecution<IRoleAssignment, IRoleAssignmentResult>;
 
     /**
      * Gets the role assignment associated with the specified principal ID from the collection.
      * @param principalId - The ID of the user or group to assign permissions to.
      */
-    getByPrincipalId(principalId): IRoleAssignment & IBaseLib<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult>;
+    getByPrincipalId(principalId): IRoleAssignment & IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult>;
 
     /**
      * Gets the role definition with the specified role type.
      * @param principalId - The ID of the user or group to assign permissions to.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
-    removeRoleAssignment(principalId, roleDefId): IBaseLib;
+    removeRoleAssignment(principalId, roleDefId): IBaseExecution;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBaseLib<IRoleAssignments, IRoleAssignmentResults>;
+    next(): IBaseExecution<IRoleAssignments, IRoleAssignmentResults>;
 }
 
 /**

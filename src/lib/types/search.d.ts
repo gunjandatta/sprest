@@ -1,6 +1,6 @@
 import { Microsoft } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -23,7 +23,7 @@ export interface ISearch {
      * Method to get the app context information.
      * @param siteUrl - The absolute url of the site.
      */
-    getAppContext(siteUrl: string): IBaseLib;
+    getAppContext(siteUrl: string): IBaseExecution;
 
     /**
      * Method to get the query from the search parameters.
@@ -35,5 +35,5 @@ export interface ISearch {
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBaseLib<Types.ISiteUrl>;
+    getUrlById(id: string): IBaseExecution<Types.ISiteUrl>;
 }

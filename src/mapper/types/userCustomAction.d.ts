@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { IUserCustomActionMethods, } from ".";
 
 /**
@@ -9,7 +9,7 @@ export interface IUserCustomActionMethods {
     /**
      * Deletes the user custom action.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 }
 
 /**
@@ -25,9 +25,9 @@ export interface IUserCustomActionQueryResult extends IUserCustomActionMethods, 
 /**
  * User Custom Action Result
  */
-export interface IUserCustomActionResult extends IUserCustomActionMethods, SP.UserCustomAction, IUserCustomActionQueryProps, IBaseLib<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+export interface IUserCustomActionResult extends IUserCustomActionMethods, SP.UserCustomAction, IUserCustomActionQueryProps, IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
 
 /**
  * User Custom Action
  */
-export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseLib<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }

@@ -1,4 +1,4 @@
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 import { IFolder, IFolderQueryResult, IFolderResult } from ".";
 
 /**
@@ -9,18 +9,18 @@ export interface IFoldersMethods {
      * Adds the folder that is located at the specified URL to the collection.
      * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
      */
-    add(url): IBaseLib<IFolder, IFolderResult>;
+    add(url): IBaseExecution<IFolder, IFolderResult>;
 
     /**
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
-    getbyurl(serverRelativeUrl): IFolder & IBaseLib<IFolder, IFolderResult, IFolderQueryResult>;
+    getbyurl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBaseLib<IFolders, IFolderResults>;
+    next(): IBaseExecution<IFolders, IFolderResults>;
 }
 
 /**

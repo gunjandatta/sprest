@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { IContentType, IContentTypeResult, IList, IListResult } from ".";
 
 /**
@@ -12,34 +12,34 @@ export interface IListItemMethods {
      * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
      * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
      */
-    breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBaseLib;
+    breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBaseExecution;
 
     /**
      * Deletes the list item.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Gets the effective permissions that a specified user has on the list item.
      * @param loginName - The login name.
      */
-    getUserEffectivePermissions(loginName): IBaseLib;
+    getUserEffectivePermissions(loginName): IBaseExecution;
 
     /**
      * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
-    recycle(): IBaseLib;
+    recycle(): IBaseExecution;
 
     /**
      * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
      */
-    resetRoleInheritance(): IBaseLib;
+    resetRoleInheritance(): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The list properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 
     /**
      * Validates and sets the values of the specified collection of fields for the list item.
@@ -62,7 +62,7 @@ export interface IListItemQueryProps {
      * Gets the specified attachment file.
      * @param fileName - The filename of the attachment.
      */
-    AttachmentFiles(fileName: string): IBaseLib<SP.Attachment>;
+    AttachmentFiles(fileName: string): IBaseExecution<SP.Attachment>;
 
     /**
      * Gets a value that specifies the content type of the list item.
@@ -72,17 +72,17 @@ export interface IListItemQueryProps {
     /**
      * Gets the values for the list item as HTML.
      */
-    FieldValuesAsHtml(): IBaseLib;
+    FieldValuesAsHtml(): IBaseExecution;
 
     /**
      * Gets the list item's field values as a collection of string values.
      */
-    FieldValuesAsText(): IBaseLib;
+    FieldValuesAsText(): IBaseExecution;
 
     /**
      * Gets the formatted values to be displayed in an edit form.
      */
-    FieldValuesForEdit(): IBaseLib;
+    FieldValuesForEdit(): IBaseExecution;
 
     /**
      * Gets the file that is represented by the item from a document library.
@@ -92,14 +92,14 @@ export interface IListItemQueryProps {
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject(): IBaseLib<string>;
+    FirstUniqueAncestorSecurableObject(): IBaseExecution<string>;
 
     /**
      * Gets a folder object that is associated with a folder item.
      */
     Folder(): Types.IFolder;
 
-    GetDlpPolicyTip(): IBaseLib;
+    GetDlpPolicyTip(): IBaseExecution;
 
     /**
      * Gets the parent list that contains the list item.
@@ -109,7 +109,7 @@ export interface IListItemQueryProps {
     /**
      * Property Bag
      */
-    Properties(): IBaseLib<Types.IPropertyValues>;
+    Properties(): IBaseExecution<Types.IPropertyValues>;
 
     /**
      * Gets the role assignments for the securable object.
@@ -167,7 +167,7 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
      */
     Folder: Types.IFolderResult;
 
-    GetDlpPolicyTip(): IBaseLib;
+    GetDlpPolicyTip(): IBaseExecution;
 
     /**
      * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
@@ -193,9 +193,9 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
 /**
  * List Item Result
  */
-export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseLib<IListItem, IListItemResult, IListItemQueryResult> { }
+export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseExecution<IListItem, IListItemResult, IListItemQueryResult> { }
 
 /**
  * List Item
  */
-export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseLib<IListItem, IListItemResult, IListItemQueryResult> { }
+export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseExecution<IListItem, IListItemResult, IListItemQueryResult> { }

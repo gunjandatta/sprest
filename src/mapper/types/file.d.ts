@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { IFileVersionResult, IFileVersions } from ".";
 
 /**
@@ -11,7 +11,7 @@ export interface IFileMethods {
      * Approves the file submitted for content approval with the specified comment.
      * @param comment - The comment for the approval. It's length must be <= 1023.
      */
-    approve(comment): IBaseLib;
+    approve(comment): IBaseExecution;
 
     /**
      * Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
@@ -19,24 +19,24 @@ export interface IFileMethods {
      * This method is currently available only on Office 365.
      * @param uploadId - The unique id of the upload session.
      */
-    cancelupload(uploadId): IBaseLib;
+    cancelupload(uploadId): IBaseExecution;
 
     /**
      * Checks the file in to a document library based on the check-in type.
      * @param comment - The comment for the check-in. Its length must be <= 1023.
      * @param checkInType - The check-in type: MinorCheckIn - 0; MajorCheckIn - 1; OverwriteCheckIn - 2
      */
-    checkin(comment, checkInType): IBaseLib;
+    checkin(comment, checkInType): IBaseExecution;
 
     /**
      * Checks out the file from a document library based on the check-out type.
      */
-    checkout(): IBaseLib;
+    checkout(): IBaseExecution;
 
     /**
      * Returns the file content.
      */
-    content(): IBaseLib;
+    content(): IBaseExecution;
 
     /**
      * Continues the chunk upload session with an additional fragment. The current file content is not changed.
@@ -45,26 +45,26 @@ export interface IFileMethods {
      * @param uploadId - The unique id of the upload session.
      * @param fileOffset - The size of the offset into the file where the fragment starts.
      */
-    continueUpload(uploadId, fileOffset): IBaseLib;
+    continueUpload(uploadId, fileOffset): IBaseExecution;
 
     /**
      * Copies the file to the destination URL.
      * @param strNewUrl - The absolute URL or server relative URL of the destination file path to copy to.
      * @param bOverWrite - True to overwrite a file with the same name in the location.
      */
-    copyTo(strNewUrl, bOverWrite): IBaseLib;
+    copyTo(strNewUrl, bOverWrite): IBaseExecution;
 
     /**
      * Deletes the File.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Denies approval for a file that was submitted for content approval.
      * Only documents in lists that are enabled for content approval can be denied.
      * @param comment - The comment for the denial. It's length must be <= 1023.
      */
-    deny(comment): IBaseLib;
+    deny(comment): IBaseExecution;
 
     /**
      * Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
@@ -73,43 +73,43 @@ export interface IFileMethods {
      * @param uploadId - The unique id of the upload session.
      * @param fileOffset - The size of the offset into the file where the fragment starts.
      */
-    finishUpload(uploadId, fileOffset): IBaseLib;
+    finishUpload(uploadId, fileOffset): IBaseExecution;
 
     /**
      * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
      * An exception is thrown if the file is not an ASPX page.
      * @param scope - The webpart personalization scope: User - 0; Shared - 1
      */
-    getlimitedwebpartmanager(scope): IBaseLib;
+    getlimitedwebpartmanager(scope): IBaseExecution;
 
     /**
      * Moves the file to the specified destination URL.
      * @param newUrl - The absolute url or server relative url of the destination file path to move to.
      * @param flags - The move operation: Overwrite - 1; AllowBrokenThickets (Move even if supporting files are separated from the file) - 8;
      */
-    moveTo(newUrl, flags): IBaseLib;
+    moveTo(newUrl, flags): IBaseExecution;
 
     /**
      * Opens the file as a stream.
      */
-    openBinaryStream(): IBaseLib;
+    openBinaryStream(): IBaseExecution;
 
     /**
      * Submits the file for content approval with the specified comment.
      * @param comment - The comment for the published file. It's length must be <= 1023.
      */
-    publish(comment): IBaseLib;
+    publish(comment): IBaseExecution;
 
     /**
      * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
-    recycle(): IBaseLib;
+    recycle(): IBaseExecution;
 
     /**
      * Saves the file as a stream.
      * @param stream - The binary stream of the file.
      */
-    saveBinaryStream(stream): IBaseLib;
+    saveBinaryStream(stream): IBaseExecution;
 
     /**
      * Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
@@ -117,24 +117,24 @@ export interface IFileMethods {
      * The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
      * @param uploadId - The unique id of the upload session.
      */
-    startUpload(uploadId): IBaseLib;
+    startUpload(uploadId): IBaseExecution;
 
     /**
      * Reverts an existing checkout for the file.
      */
-    undoCheckOut(): IBaseLib;
+    undoCheckOut(): IBaseExecution;
 
     /**
      * Removes the file from content approval or unpublish a major version.
      * @param comment - The comment for the unpublish operation. Its length must be <= 1023.
      */
-    unpublish(comment): IBaseLib;
+    unpublish(comment): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The file properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -151,14 +151,14 @@ export interface IFileQueryProps {
      */
     CheckedOutByUser(): Types.IUser;
 
-    EffectiveInformationRightsManagementSettings(): IBaseLib;
+    EffectiveInformationRightsManagementSettings(): IBaseExecution;
 
-    InformationRightsManagementSettings(): IBaseLib;
+    InformationRightsManagementSettings(): IBaseExecution;
 
     /**
      * Gets a value that specifies the list item field values for the list item corresponding to the file.
      */
-    ListItemAllFields(): IBaseLib;
+    ListItemAllFields(): IBaseExecution;
 
     /**
      * Gets a value that returns the user that owns the current lock on the file.
@@ -173,14 +173,14 @@ export interface IFileQueryProps {
     /**
      * Property Bag
      */
-    Properties(): IBaseLib<Types.IPropertyValues>;
+    Properties(): IBaseExecution<Types.IPropertyValues>;
 
-    VersionEvents(): IBaseLib;
+    VersionEvents(): IBaseExecution;
 
     /**
      * Gets a value that returns a collection of file version objects that represent the versions of the file.
      */
-    Versions(): IBaseLib<IFileVersions>;
+    Versions(): IBaseExecution<IFileVersions>;
 }
 
 /**
@@ -197,7 +197,7 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
      */
     CheckedOutByUser: Types.IUserResult;
 
-    EffectiveInformationRightsManagementSettings: IBaseLib;
+    EffectiveInformationRightsManagementSettings: IBaseExecution;
 
     InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
 
@@ -232,9 +232,9 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
 /**
  * File Result
  */
-export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseLib<IFile, IFileResult, IFileQueryResult> { }
+export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseExecution<IFile, IFileResult, IFileQueryResult> { }
 
 /**
  * File
  */
-export interface IFile extends IFileMethods, IFileQueryProps, IBaseLib<IFile, IFileResult, IFileQueryResult> { }
+export interface IFile extends IFileMethods, IFileQueryProps, IBaseExecution<IFile, IFileResult, IFileQueryResult> { }

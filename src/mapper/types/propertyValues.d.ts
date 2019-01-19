@@ -1,11 +1,11 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { ODataQuery } from ".";
 
 /**
  * Property Values
  */
-export interface IPropertyValues extends IBaseLib, SP.KeyValue {
+export interface IPropertyValues extends IBaseExecution, SP.KeyValue {
     /**
      * Queries the collection.
      * @param oData - The OData information.

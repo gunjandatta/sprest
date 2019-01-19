@@ -1,11 +1,11 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { IResults } from "./results";
 
 /**
  * Person Properties
  */
-export interface IPersonProperties extends IBaseLib<IPersonProperties> {
+export interface IPersonProperties extends IBaseExecution<IPersonProperties> {
     /**
      * The user's account name.
      */
@@ -80,7 +80,7 @@ export interface IPersonProperties extends IBaseLib<IPersonProperties> {
 /**
  * People Manager
  */
-export interface IPeopleManager extends IBaseLib<IPeopleManager> {
+export interface IPeopleManager extends IBaseExecution<IPeopleManager> {
     /**
      * Properties
      */
@@ -102,110 +102,110 @@ export interface IPeopleManager extends IBaseLib<IPeopleManager> {
     /** Checks whether the specified user is following the current user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
     */
-    amIFollowedBy(accountName: string): IBaseLib;
+    amIFollowedBy(accountName: string): IBaseExecution;
 
     /**
      * Checks whether the current user is following the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    amIFollowing(accountName: string): IBaseLib;
+    amIFollowing(accountName: string): IBaseExecution;
 
     /**
      * Adds the specified user to the current user's list of followed users.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    follow(accountName: string): IBaseLib;
+    follow(accountName: string): IBaseExecution;
 
     /**
      * Adds the specified tag to the current user's list of followed tags.
      * @param id - The ID of the tag to start following.
      */
-    followTag(id: string): IBaseLib;
+    followTag(id: string): IBaseExecution;
 
     /**
      * Gets tags that the user is following.
      * @param maxCount - The maximum number of tags to get.
      */
-    getFollowedTags(maxCount: number): IBaseLib;
+    getFollowedTags(maxCount: number): IBaseExecution;
 
     /**
      * Gets the people who are following the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getFollowersFor(accountName: string): IBaseLib<IPersonProperties>;
+    getFollowersFor(accountName: string): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets the people who are following the current user.
      */
-    getMyFollowers(): IBaseLib<IPersonProperties>;
+    getMyFollowers(): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets user properties for the current user.
      */
-    getMyProperties(): IBaseLib<IPersonProperties>;
+    getMyProperties(): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets suggestions for who the current user might want to follow.
      */
-    getMySuggestions(): IBaseLib<IPersonProperties>;
+    getMySuggestions(): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets the people who the specified user is following.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getPeopleFollowedBy(accountName: string): IBaseLib<IPersonProperties>;
+    getPeopleFollowedBy(accountName: string): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets the people who the current user is following.
      */
-    getPeopleFollowedByMe(): IBaseLib<IPersonProperties>;
+    getPeopleFollowedByMe(): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets user properties for the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getPropertiesFor(accountName: string): IBaseLib<IPersonProperties>;
+    getPropertiesFor(accountName: string): IBaseExecution<IPersonProperties>;
 
     /**
      * Gets the most popular tags.
      */
-    getTrendingTags(): IBaseLib;
+    getTrendingTags(): IBaseExecution;
 
     /**
      * Gets the specified user profile property for the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      * @param propertyName - The case-sensitive name of the property to get.
      */
-    getUserProfilePropertyFor(accountName: string, propertyName: string): IBaseLib<IPersonProperties>;
+    getUserProfilePropertyFor(accountName: string, propertyName: string): IBaseExecution<IPersonProperties>;
 
     /**
      * Removes the specified user from the user's list of suggested people to follow.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    hideSuggestion(accountName: string): IBaseLib;
+    hideSuggestion(accountName: string): IBaseExecution;
 
     /**
      * Checks whether the first user is following the second user.
      * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
      * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
      */
-    isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBaseLib;
+    isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBaseExecution;
 
     /**
      * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
      * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
      */
-    setMyProfilePicture(stream: any): IBaseLib;
+    setMyProfilePicture(stream: any): IBaseExecution;
 
     /**
      * Remove the specified user from the current user's list of followed users.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    stopFollowing(accountName: string): IBaseLib;
+    stopFollowing(accountName: string): IBaseExecution;
 
     /**
      * Remove the specified tag from the current user's list of followed tags.
      * @param id - The ID of the tag to stop following.
      */
-    stopFollowingTag(id: string): IBaseLib;
+    stopFollowingTag(id: string): IBaseExecution;
 }
