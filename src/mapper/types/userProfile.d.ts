@@ -1,10 +1,10 @@
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { IWeb } from ".";
 
 /**
  * User Profile
  */
-export interface IUserProfile extends IBase<IUserProfile> {
+export interface IUserProfile extends IBaseLib<IUserProfile> {
     /**
      * Properties
      */
@@ -12,7 +12,7 @@ export interface IUserProfile extends IBase<IUserProfile> {
     /**
      * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
      */
-    FollowedContent(): IBase<any>;
+    FollowedContent(): IBaseLib<any>;
 
     /**
      * The account name of the user. (SharePoint Online only)
@@ -46,7 +46,7 @@ export interface IUserProfile extends IBase<IUserProfile> {
     /**
      * The personal site of the user.
      */
-    PersonalSite(): IBase<IWeb>;
+    PersonalSite(): IBaseLib<IWeb>;
 
     /**
      * The capabilities of the user's personal site.
@@ -105,11 +105,11 @@ export interface IUserProfile extends IBase<IUserProfile> {
      * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
      * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
      */
-    createPersonalSiteEnque(interactiveFl: boolean): IBase;
+    createPersonalSiteEnque(interactiveFl: boolean): IBaseLib;
 
     /**
      * Sets the privacy settings for this profile.
      * @param publicFl - true to make all social data public; false to make all social data private.
      */
-    shareAllSocialData(publicFl: boolean): IBase;
+    shareAllSocialData(publicFl: boolean): IBaseLib;
 }

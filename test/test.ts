@@ -6,8 +6,6 @@ $REST.Web().getUserEffectivePermissions("").execute(r => {
     let h = r.GetUserEffectivePermissions.High;
 });
 
-$REST.List("").execute(l => {l.EffectiveBasePermissions})
-
 $REST.Search().postquery({
     Querytext: "*",
     Properties: [

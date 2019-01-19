@@ -4,55 +4,17 @@ import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
 
 /**
- * Base
+ * Base Library
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> {
+export interface IBaseLib<Type = any, Result = Type, QueryResult = Result> {
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
-
-    /** The parent object, which created this object. */
-    parent: any;
 
     /** The response */
     response: string;
 
-    /**
-     * Method to wait for the requests to complete.
-     * @param resolve - The method to be executed after the request completes.
-     */
-    done<T=IBase>(resolve: (value?: T) => void);
-
-    /**
-     * Method to get the request information.
-     */
-    getInfo(): IRequestInfo;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query?(query: ODataQuery): IBase<Result, QueryResult>;
-
-    /**
-     * Method to stringify the object.
-     */
-    stringify(): string;
-
-    /**
-     * Execution
-     */
-
-    /** The batch requests. */
-    batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
-
-    /** The index of this object in the responses array. */
-    responseIndex: number;
-
-    /** The responses. */
-    responses: Array<IBase>;
-
-    /** The wait flags. */
-    waitFlags: Array<boolean>;
+    /** The target information. */
+    targetInfo: ITargetInfoProps;
 
     /**
      * Method to execute the request as a batch.
@@ -98,9 +60,39 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
 
     /**
+     * Method to execute the request. (This is an internal method)
+     * @param methodName - The method name to execute.
+     * @param methodConfig - The configuration to pass with the request.
+     * @param args - The optional arguments for the request.
+     */
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
+
+    /**
      * Method to execute the request synchronously.
      */
     executeAndWait(): Result;
+
+    /**
+     * Method to wait for the requests to complete.
+     * @param resolve - The method to be executed after the request completes.
+     */
+    done<T=IBase>(resolve: (value?: T) => void);
+
+    /**
+     * Method to get the request information.
+     */
+    getInfo(): IRequestInfo;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query?(query: ODataQuery): IBaseLib<Result, QueryResult>;
+
+    /**
+     * Method to stringify the object.
+     */
+    stringify(): string;
 
     /**
      * Method to wait for the parent requests to complete
@@ -108,9 +100,37 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * @param requestIdx - The request index.
      */
     waitForRequestsToComplete(callback: () => void, requestIdx?: number);
+}
+
+/**
+ * Base
+ */
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseLib<Type, Result, QueryResult> {
+    /**
+     * Base Properties
+     */
+
+    /** The parent object, which created this object. */
+    parent: any;
 
     /**
-     * Request
+     * Execution Properties
+     */
+
+    /** The batch requests. */
+    batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
+
+    /** The index of this object in the responses array. */
+    responseIndex: number;
+
+    /** The responses. */
+    responses: Array<IBase>;
+
+    /** The wait flags. */
+    waitFlags: Array<boolean>;
+
+    /**
+     * Request Properties
      */
 
     /** The base object. */
@@ -125,7 +145,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /** The xml object. */
     xml: string | XMLDocument;
 
-
+    /**
+     * Request Helper Properties & Methods
+     */
 
     /** Flag to get all items. */
     getAllItemsFl: boolean;
@@ -133,17 +155,11 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /** Flag determining if more items exist. */
     nextFl: boolean;
 
-    /** The target information. */
-    targetInfo: ITargetInfoProps;
-
     /** The request. */
     xhr: IXHRRequest;
 
     /** Adds methods based on the object type. */
     addMethods(data: any, context?: any);
-
-    /** Method to execute the request. */
-    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
 
     /** Gets the property as a collection. */
     getCollection(method: string, args?: any);

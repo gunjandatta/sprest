@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBaseLib, IBaseCollection } from "../../utils/types/base";
 import { IList, IListQueryResult, IListResult } from ".";
 
 /**
@@ -10,34 +10,34 @@ export interface IListsMethods {
      * Adds a list to the list collection.
      * @param parameters - The list creation information.
      */
-    add(parameters: SP.List): IBase<IList, IListResult>;
+    add(parameters: SP.List): IBaseLib<IList, IListResult>;
 
     /**
      * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
      */
-    ensureSiteAssetsLibrary(): IBase<IList, IListResult, IListQueryResult>;
+    ensureSiteAssetsLibrary(): IBaseLib<IList, IListResult, IListQueryResult>;
 
     /**
      * Gets a list that is the default location for wiki pages.
      */
-    ensureSitePagesLibrary(): IBase<IList, IListResult, IListQueryResult>;
+    ensureSitePagesLibrary(): IBaseLib<IList, IListResult, IListQueryResult>;
 
     /**
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id): IList & IBase<IList, IListResult, IListQueryResult>;
+    getById(id): IList & IBaseLib<IList, IListResult, IListQueryResult>;
 
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title): IList & IBase<IList, IListResult, IListQueryResult>;
+    getByTitle(title): IList & IBaseLib<IList, IListResult, IListQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<ILists, IListResults>;
+    next(): IBaseLib<ILists, IListResults>;
 }
 
 /**

@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 
 /**
@@ -32,65 +32,65 @@ export interface IListMethods {
     /**
      * Deletes the list.
      */
-    delete(): IBase;
+    delete(): IBaseLib;
 
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
      * @param query - The change query.
      */
-    getChanges(query): IBase;
+    getChanges(query): IBaseLib;
 
     /**
      * Returns the list item with the specified list item identifier.
      * @param id - The list item id.
      */
-    getItemById(id): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
+    getItemById(id): IListItem & IBaseLib<IListItem, IListItemResult, IListItemQueryResult>;
 
     /**
      * Returns a collection of items from the list based on the view xml.
      * @param viewXml - The view xml CAML query.
      */
-    getItems(viewXml): IBase<IListItems, IListItemResults>;
+    getItems(viewXml): IBaseLib<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @camlQuery - The caml query.
      */
-    getItemsByQuery(camlQuery): IBase<IListItems, IListItemResults>;
+    getItemsByQuery(camlQuery): IBaseLib<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
+    getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBaseLib<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
      */
-    getRelatedFields(): IBase;
+    getRelatedFields(): IBaseLib;
 
     /**
      * Gets the effective user permissions for the current user.
      * @param loginName - The user login name.
      */
-    getUserEffectivePermissions(loginName): IBase;
+    getUserEffectivePermissions(loginName): IBaseLib;
 
     /**
      * Returns the list view with the specified view identifier.
      * @param viewId - The view id.
      */
-    getViewById(viewId): IView & IBase<IView, IViewResult, IViewQueryResult>;
+    getViewById(viewId): IView & IBaseLib<IView, IViewResult, IViewQueryResult>;
 
     /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
-    recycle(): IBase;
+    recycle(): IBaseLib;
 
     /**
      * Renders the list data.
      * @param viewXml - A CAML query that defines the items and fields that you want returned.
      */
-    renderListData(viewXml): IBase;
+    renderListData(viewXml): IBaseLib;
 
     /**
      * Renders the list form data.
@@ -99,23 +99,23 @@ export interface IListMethods {
      * @param mode - The SP.ControlMode of the control used to display the item.
      * Types of modes: 1 - Display, 2 - Edit, 3 - New
      */
-    renderListFormData(itemId, formId, mode: number): IBase;
+    renderListFormData(itemId, formId, mode: number): IBaseLib;
 
     /**
      * Reserves a list item ID for idempotent list item creation.
      */
-    reserveListItemId(): IBase;
+    reserveListItemId(): IBaseLib;
 
     /**
      * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
      */
-    resetRoleInheritance(): IBase;
+    resetRoleInheritance(): IBaseLib;
 
     /**
      * Updates it's properties.
      * @param data - The list properties to update.
      */
-    update(data): IBase;
+    update(data): IBaseLib;
 }
 
 /**
@@ -138,7 +138,7 @@ export interface IListQueryProps {
     */
     DefaultView(): IView;
 
-    DescriptionResouce(): IBase<SP.ResourcePath>;
+    DescriptionResouce(): IBaseLib<SP.ResourcePath>;
 
     /**
      * Gets the event receivers associated with the list.
@@ -165,23 +165,23 @@ export interface IListQueryProps {
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject(): IBase<string>;
+    FirstUniqueAncestorSecurableObject(): IBaseLib<string>;
 
     /**
      * Gets the list forms in the list.
      */
-    Forms(): IBase;
+    Forms(): IBaseLib;
 
     /**
      * Gets the list form in the list.
      * @param id - The id of the form.
      */
-    Forms(id: string): IBase;
+    Forms(id: string): IBaseLib;
 
     /**
      * Gets a value that specifies the information rights management settings.
     */
-    InformationRightsManagementSettings(): IBase;
+    InformationRightsManagementSettings(): IBaseLib;
 
     /**
      * Gets the list items in the list.
@@ -197,7 +197,7 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb(): IBase<Types.IWeb>;
+    ParentWeb(): IBaseLib<Types.IWeb>;
 
     /**
      * Gets the role assignments for the securable object.
@@ -221,9 +221,9 @@ export interface IListQueryProps {
      */
     RootFolder(url: string): Types.IFile;
 
-    Subscriptions(): IBase<IBase>;
+    Subscriptions(): IBaseLib<IBaseLib>;
 
-    TitleResource(): IBase<SP.ResourcePath>;
+    TitleResource(): IBaseLib<SP.ResourcePath>;
 
     /**
      * Gets the user custom actions for the list.
@@ -334,9 +334,9 @@ export interface IListQueryResult extends IListMethods, SP.List {
 /**
  * List Result
  */
-export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBase<IList, IListResult, IListQueryResult> { }
+export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseLib<IList, IListResult, IListQueryResult> { }
 
 /**
  * List
  */
-export interface IList extends IListMethods, IListQueryProps, IBase<IList, IListResult, IListQueryResult> { }
+export interface IList extends IListMethods, IListQueryProps, IBaseLib<IList, IListResult, IListQueryResult> { }

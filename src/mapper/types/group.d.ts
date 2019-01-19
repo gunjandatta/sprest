@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { IUser, IUserResult, IUserResults, IUsers } from ".";
 
 /**
@@ -46,9 +46,9 @@ export interface IGroupQueryResult extends IGroupMethods, SP.Group {
 /**
  * Group Result
  */
-export interface IGroupResult extends IGroupMethods, SP.Group, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> { }
+export interface IGroupResult extends IGroupMethods, SP.Group, IGroupQueryProps, IBaseLib<IGroup, IGroupResult, IGroupQueryResult> { }
 
 /**
  * Group
  */
-export interface IGroup extends IGroupMethods, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> { }
+export interface IGroup extends IGroupMethods, IGroupQueryProps, IBaseLib<IGroup, IGroupResult, IGroupQueryResult> { }

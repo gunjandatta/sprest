@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBaseLib, IBaseCollection } from "../../utils/types/base";
 import { IWeb, IWebQueryResult, IWebResult } from ".";
 
 /**
@@ -10,12 +10,12 @@ export interface IWebsMethods {
      * Adds a site to the site collection.
      * @param parameters - The web creation information.
      */
-    add(parameters: SP.WebCreationInformation): IBase<IWeb, IWebResult>;
+    add(parameters: SP.WebCreationInformation): IBaseLib<IWeb, IWebResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IWebs & IBase<IWebs, IWebResults>;
+    next(): IWebs & IBaseLib<IWebs, IWebResults>;
 }
 
 /**

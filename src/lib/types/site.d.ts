@@ -1,5 +1,5 @@
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -22,17 +22,17 @@ export interface ISite {
      * Method to check if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    exists(url: string): IBase<Types.ISiteExists>;
+    exists(url: string): IBaseLib<Types.ISiteExists>;
 
     /**
      * Method to get the app context information.
      * @param siteUrl - The absolute url of the site.
      */
-    getAppContext(siteUrl: string): IBase;
+    getAppContext(siteUrl: string): IBaseLib;
 
     /**
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBase<Types.ISiteUrl>;
+    getUrlById(id: string): IBaseLib<Types.ISiteUrl>;
 }

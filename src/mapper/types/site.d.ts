@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from ".";
 
 /**
@@ -20,61 +20,61 @@ export interface ISiteMethods {
      * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
      * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
      */
-    createPreviewSPSite(upgrade, sendEmail): IBase;
+    createPreviewSPSite(upgrade, sendEmail): IBaseLib;
 
     /**
      * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
      */
-    extendUpgradeReminderDate(): IBase;
+    extendUpgradeReminderDate(): IBaseLib;
 
     /**
      * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
      * @param typeCatalog - Specifies the list template type for the gallery.
      */
-    getCatalog(typeCatalog): IBase;
+    getCatalog(typeCatalog): IBaseLib;
 
     /**
      * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
      * @param query - The change query.
      */
-    getChanges(query): IBase;
+    getChanges(query): IBaseLib;
 
     /**
      * Specifies the collection of custom list templates for a given site.
      * @param web - Specifies the site that contains the custom list templates to be returned.
      */
-    getCustomListTemplates(web): IBase;
+    getCustomListTemplates(web): IBaseLib;
 
     /**
      * Returns the collection of site definitions that are available for creating Web sites within the site collection.
      * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
      * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
      */
-    getWebTemplates(LCID, overrideCompatLevel): IBase;
+    getWebTemplates(LCID, overrideCompatLevel): IBaseLib;
 
     /**
      * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
      */
-    invalidate(): IBase;
+    invalidate(): IBaseLib;
 
     /**
      * Returns true if the object needs to be upgraded; otherwise, false.
      * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
      * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
      */
-    needsUpgradeByType(versionUpgrade, recursive): IBase;
+    needsUpgradeByType(versionUpgrade, recursive): IBaseLib;
 
     /**
      * Returns the site at the specified URL.
      * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
      */
-    openWeb(strUrl): IBase<IWeb, IWebResult, IWebQueryResult>;
+    openWeb(strUrl): IBaseLib<IWeb, IWebResult, IWebQueryResult>;
 
     /**
      * Returns the site with the specified GUID.
      * @param gWebId - A GUID that specifies which site to return.
      */
-    openWebById(gWebId): IBase<IWeb, IWebResult, IWebQueryResult>;
+    openWebById(gWebId): IBaseLib<IWeb, IWebResult, IWebQueryResult>;
 
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
@@ -82,7 +82,7 @@ export interface ISiteMethods {
      * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
      * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
      */
-    runHealthCheck(ruleId, bRepair, bRunAlways): IBase;
+    runHealthCheck(ruleId, bRepair, bRunAlways): IBaseLib;
 
     /**
      * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
@@ -90,26 +90,26 @@ export interface ISiteMethods {
      * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
      * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
      */
-    runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): IBase;
+    runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): IBaseLib;
 
     /**
      * Updates it's properties.
      * @param data - The list properties to update.
      */
-    update(data): IBase;
+    update(data): IBaseLib;
 
     /**
      * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
      * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
      */
-    updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): IBase;
+    updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): IBaseLib;
 }
 
 /**
  * Site Query Properties
  */
 export interface ISiteQueryProps {
-    Audit(): IBase<SP.Audit>;
+    Audit(): IBaseLib<SP.Audit>;
 
     /**
      * Gets the event receivers associated with the site.
@@ -131,7 +131,7 @@ export interface ISiteQueryProps {
      * Gets the site features.
      * @param id - The id of the feature.
      */
-    Features(id: string): IBase<Types.IFeature>;
+    Features(id: string): IBaseLib<Types.IFeature>;
 
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
@@ -139,14 +139,14 @@ export interface ISiteQueryProps {
     Owner(): Types.IUser;
 
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin(): IBase<Types.Results.IResults<SP.RecycleBinItem>>;
+    RecycleBin(): IBaseLib<Types.Results.IResults<SP.RecycleBinItem>>;
 
     /**
      * Gets a value that returns the top-level site of the site collection.
      */
     RootWeb(): IWeb;
 
-    SecondaryContact(): IBase;
+    SecondaryContact(): IBaseLib;
 
     /**
      * Gets the user custom action for the list.
@@ -200,7 +200,7 @@ export interface ISiteQueryResult extends ISiteMethods, SP.Site {
 /**
  * Site Result
  */
-export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> { }
+export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseLib<ISite, ISiteResult, ISiteQueryResult> { }
 
 /**
  * Site Url
@@ -213,4 +213,4 @@ export interface ISiteUrl {
 /**
  * Site
  */
-export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> { }
+export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseLib<ISite, ISiteResult, ISiteQueryResult> { }
