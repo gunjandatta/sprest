@@ -200,6 +200,6 @@ export interface IBaseCollectionResult<Result> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseLib<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
     results: Array<Type>
 }
