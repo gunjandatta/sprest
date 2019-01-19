@@ -1,23 +1,67 @@
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
+import { IBase, ITargetInfo } from "./types";
 
 /**
  * Batch Requests
  */
 export class Batch {
-    /**
-     * Methods
-     */
+    // Method to execute a batch request
+    static execute(base: IBase, args) {
+        let appendFl = false;
+        let callback = null;
+
+        // Parse the arguments
+        for (let i = 0; i < args.length; i++) {
+            let arg = args[i];
+
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the append flag
+                    appendFl = arg;
+                    break;
+                case "function":
+                    // Set the callback method
+                    callback = arg;
+                    break;
+            }
+        }
+
+        // Set the base
+        base.base = base.base ? base.base : base;
+
+        // See if we are appending this request
+        if (appendFl && base.base.batchRequests) {
+            // Append the request
+            base.base.batchRequests[base.base.batchRequests.length - 1].push({
+                callback,
+                targetInfo: new TargetInfo(base.targetInfo)
+            });
+        } else {
+            // Ensure the batch requests exist
+            base.base.batchRequests = base.base.batchRequests || [];
+
+            // Create the request
+            base.base.batchRequests.push([{
+                callback,
+                targetInfo: new TargetInfo(base.targetInfo)
+            }]);
+        }
+
+        // Return this object
+        return base;
+    }
 
     // Method to generate a batch request
-    static getTargetInfo(requests: Array<Array<{ callback?: any, targetInfo: TargetInfo }>>): TargetInfo {
+    static getTargetInfo(requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
         // Parse the requests
         for (let i = 0; i < requests.length; i++) {
             // Create the batch request
-            batchRequests.push(this.createBatch(batchId, requests[i]));
+            batchRequests.push(Batch.createBatch(batchId, requests[i]));
         }
 
         // End the batch request
@@ -35,7 +79,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    private static createBatch(batchId: string, requests: Array<{ callback?: any, targetInfo: TargetInfo }>) {
+    private static createBatch(batchId: string, requests: Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>) {
         // Create the batch request
         let batch = ["--" + batchId];
 

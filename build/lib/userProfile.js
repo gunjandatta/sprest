@@ -11,7 +11,7 @@ exports.UserProfile = (function (targetInfo) {
     userProfile.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
     userProfile.targetInfo.method = "POST";
     // Add the methods
-    utils_1.Helper.addMethods(userProfile, { __metadata: { type: "userprofile" } });
+    utils_1.Request.addMethods(userProfile, { __metadata: { type: "userprofile" } });
     // Return the user profile
     return userProfile;
 });

@@ -15,7 +15,7 @@ exports.Search = (function (url, targetInfo) {
         search.targetInfo.url = url;
     }
     // Add the methods
-    utils_1.Helper.addMethods(search, { __metadata: { type: "search" } });
+    utils_1.Request.addMethods(search, { __metadata: { type: "search" } });
     /** The search query method */
     search.searchquery = function (settings) {
         // Execute the request

@@ -5,11 +5,10 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./requestType"));
 __export(require("./helper"));
-__export(require("./baseRequest"));
-__export(require("./baseExecution"));
 __export(require("./base"));
 __export(require("./batch"));
 __export(require("./methodInfo"));
 __export(require("./oData"));
+__export(require("./request"));
 __export(require("./targetInfo"));
 __export(require("./xhrRequest"));

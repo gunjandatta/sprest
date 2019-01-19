@@ -10,7 +10,7 @@ exports.SocialFeed = (function (targetInfo) {
     socialFeed.targetInfo.defaultToWebFl = true;
     socialFeed.targetInfo.endpoint = "social.feed";
     // Add the methods
-    utils_1.Helper.addMethods(socialFeed, { __metadata: { type: "socialfeed" } });
+    utils_1.Request.addMethods(socialFeed, { __metadata: { type: "socialfeed" } });
     // Method to post to another user's feed
     socialFeed.postToFeed = function (accountName, creationData) {
         var postInfo = { ID: null, creationData: creationData };

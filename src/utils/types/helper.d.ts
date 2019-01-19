@@ -1,24 +1,38 @@
 import { IBase } from "./base";
+import { IMethodInfo } from "./methodInfo";
+import { ITargetInfoProps } from "./targetInfo";
 
 /**
  * Request Helper Methods
  */
 export interface IBaseHelper {
     /** Adds the base methods. */
-    addBaseReferences(base: IBase, obj: any);
+    addBaseMethods(base: IBase, obj: any);
 
-    /** Adds methods based on the object type. */
-    addMethods(base: IBase, data: any, context?: any);
+    /** Method to wait for the requests to complete. */
+    done(base: IBase, resolve: (value?: any) => void);
 
-    /** Adds properties based on the object type. */
-    addProperties(base: IBase, data: any);
+    /** Method to execute the request. */
+    executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
 
-    /** Parses the xml string and creates a base object. */
-    parseXML(xml: string): IBase;
+    /** Gets the property as a collection. */
+    getCollection(base: IBase, method: string, args?: any): IBase;
+
+    /** Gets the next set of results. */
+    getNextSetOfResults(base: IBase): IBase;
+
+    /** Gets the property. */
+    getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
+
+    /** Converts the base object to a JSON string. */
+    stringify(base: IBase): string;
 
     /** Updates the data collection objects. */
-    updateDataCollection(obj: IBase, results: Array<IBase>);
+    updateDataCollection(base: IBase, results: Array<IBase>);
 
     /** Updates the metadata. */
     updateMetadata(base, data);
+
+    /** Updates the metdata uri. */
+    updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
 }

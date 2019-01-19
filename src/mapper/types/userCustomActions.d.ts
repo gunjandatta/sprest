@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBaseLib, IBaseCollection } from "../../utils/types/base";
 import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from ".";
 
 /**
@@ -10,23 +10,23 @@ export interface IUserCustomActionsMethods {
      * Adds a custom actino to the user custom action collection. 
      * @param parameters - The user custom action information.
      */
-    add(parameters: SP.UserCustomAction): IBase<IUserCustomAction, IUserCustomActionResult>;
+    add(parameters: SP.UserCustomAction): IBaseLib<IUserCustomAction, IUserCustomActionResult>;
 
     /**
      * Deletes all custom actions in the collection.
      */
-    clear(): IBase;
+    clear(): IBaseLib;
 
     /**
      * Returns the custom action with the specified identifier.
      * @param id - The ID of the user custom action to get.
      */
-    getById(id): IUserCustomAction & IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
+    getById(id): IUserCustomAction & IBaseLib<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IUserCustomActions, IUserCustomActionResults>;
+    next(): IBaseLib<IUserCustomActions, IUserCustomActionResults>;
 }
 
 /**

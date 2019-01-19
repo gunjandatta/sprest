@@ -10,7 +10,7 @@ exports.PeopleManager = (function (targetInfo) {
     peopleManager.targetInfo.defaultToWebFl = true;
     peopleManager.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
     // Add the methods
-    utils_1.Helper.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
+    utils_1.Request.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
     // Return the people manager
     return peopleManager;
 });

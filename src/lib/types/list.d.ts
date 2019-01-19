@@ -1,5 +1,5 @@
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -22,14 +22,14 @@ export interface IList {
      * A static method to get the list by the entity name.
      * @param props - The list entity request properties.
      */
-    getByEntityName(props: IListEntityProps): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    getByEntityName(props: IListEntityProps): IBaseLib<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    getDataAsStream(listFullUrl: string, parameters?: any): IBase<Types.IListDataStream>;
+    getDataAsStream(listFullUrl: string, parameters?: any): IBaseLib<Types.IListDataStream>;
 }
 
 /**

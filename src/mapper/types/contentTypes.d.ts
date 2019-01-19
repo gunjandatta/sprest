@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBaseLib, IBaseCollection } from "../../utils/types/base";
 import { IContentType, IContentTypeQueryResult, IContentTypeResult } from ".";
 
 /**
@@ -10,24 +10,24 @@ export interface IContentTypesMethods {
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
      */
-    add(parameters: SP.ContentTypeCreationInformation): IBase<IContentType, IContentTypeResult>;
+    add(parameters: SP.ContentTypeCreationInformation): IBaseLib<IContentType, IContentTypeResult>;
 
     /**
      * Adds an existing content type to this collection.
      * @param contentTypeId - The content type id to add.
      */
-    addAvailableContentType(contentTypeId): IBase<IContentType, IContentTypeResult>;
+    addAvailableContentType(contentTypeId): IBaseLib<IContentType, IContentTypeResult>;
 
     /**
      * Gets a content type by id.
      * @param id - The content type id.
      */
-    getById(id): IContentType & IBase<IContentType, IContentTypeResult, IContentTypeQueryResult>;
+    getById(id): IContentType & IBaseLib<IContentType, IContentTypeResult, IContentTypeQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IContentTypes, IContentTypeResults>;
+    next(): IBaseLib<IContentTypes, IContentTypeResults>;
 }
 
 /**

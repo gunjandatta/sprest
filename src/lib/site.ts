@@ -1,4 +1,4 @@
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { ITargetInfoProps } from "../utils/types";
 import { ISite } from "./types";
 
@@ -19,7 +19,7 @@ export const Site: ISite = ((url?: string, targetInfo?: ITargetInfoProps) => {
     }
 
     // Add the methods
-    Helper.addMethods(site, { __metadata: { type: "site" } });
+    Request.addMethods(site, { __metadata: { type: "site" } });
 
     // Return the site
     return site;

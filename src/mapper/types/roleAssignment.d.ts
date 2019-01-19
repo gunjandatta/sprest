@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { IRoleDefinition, IRoleDefinitions } from ".";
 
 /**
@@ -10,7 +10,7 @@ export interface IRoleAssignmentMethods {
     /**
      * Deletes the role assignment.
      */
-    delete(): IBase;
+    delete(): IBaseLib;
 }
 
 /**
@@ -20,7 +20,7 @@ export interface IRoleAssignmentQueryProps {
     /**
      * Gets the user or group that corresponds to the Role Assignment.
      */
-    Member(): IBase<Types.IGroup | Types.IUser>;
+    Member(): IBaseLib<Types.IGroup | Types.IUser>;
 
     /**
      * Gets the collection of role definition bindings for the role assignment.
@@ -46,10 +46,10 @@ export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.R
 /**
  * Role Assignment Result
  */
-export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseLib<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
 
 /**
  * Role Assignment
  */
-export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseLib<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
 }

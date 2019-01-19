@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBaseLib, IBaseCollection } from "../../utils/types/base";
 import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from ".";
 
 /**
@@ -8,5 +8,5 @@ export interface IFileVersions extends IBaseCollection<IFileVersion, IFileVersio
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IFileVersions>;
+    next(): IBaseLib<IFileVersions>;
 }

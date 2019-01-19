@@ -1,4 +1,4 @@
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { IUserProfile } from "./types";
 import { ITargetInfoProps } from "../utils/types";
 
@@ -14,7 +14,7 @@ export const UserProfile: IUserProfile = ((targetInfo?: ITargetInfoProps) => {
     userProfile.targetInfo.method = "POST";
 
     // Add the methods
-    Helper.addMethods(userProfile, { __metadata: { type: "userprofile" } });
+    Request.addMethods(userProfile, { __metadata: { type: "userprofile" } });
 
     // Return the user profile
     return userProfile;

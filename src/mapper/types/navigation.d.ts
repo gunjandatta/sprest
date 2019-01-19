@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 
 /**
  * Navigation Methods
@@ -12,7 +12,7 @@ export interface INavigationServiceRESTMethods {
      * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
      * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
      */
-    getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<SP.MenuState>;
+    getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBaseLib<SP.MenuState>;
 }
 
 /**
@@ -25,11 +25,11 @@ export interface INavigationServiceRESTProps {
  * Navigation Queryable Properties
  */
 export interface INavigationServiceRESTQueryProps {
-    MenuState(): IBase<SP.MenuState>;
-    MenuState(key: number): IBase<SP.MenuState>;
+    MenuState(): IBaseLib<SP.MenuState>;
+    MenuState(key: number): IBaseLib<SP.MenuState>;
 }
 
 /**
  * Navigation
  */
-export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> { }
+export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBaseLib<INavigationServiceREST> { }

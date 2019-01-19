@@ -1,4 +1,4 @@
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 
 /**
  * Graph Collection
@@ -19,37 +19,37 @@ export interface IGraphQueryProps {
     /**
      * Represents a collection of OneDrives and Document Libraries.
      */
-    drives(): IBase<IGraphCollection<IGraphDrive>>;
+    drives(): IBaseLib<IGraphCollection<IGraphDrive>>;
 
     /**
      * Represents a OneDrive or Document Library.
      * @param id - The drive id.
      */
-    drives(id: string): IBase<IGraphDrive>;
+    drives(id: string): IBaseLib<IGraphDrive>;
 
     /**
      * Represents a collection of Azure Active Directory (Azure AD) groups.
      * Types: Office 365 Group, Dynamic Group or Security Group
      */
-    groups(): IBase<IGraphCollection<IGraphGroup>>;
+    groups(): IBaseLib<IGraphCollection<IGraphGroup>>;
 
     /**
      * Represents an Azure Active Directory (Azure AD) group.
      * Types: Office 365 Group, Dynamic Group or Security Group
      * @param id - The group id.
      */
-    groups(id: string): IBase<IGraphGroup>;
+    groups(id: string): IBaseLib<IGraphGroup>;
 
     /**
      * Represents a collection of Azure AD user accounts.
      */
-    users(): IBase<IGraphCollection<IGraphUser>>;
+    users(): IBaseLib<IGraphCollection<IGraphUser>>;
 
     /**
      * Represents a collection of Azure AD user accounts.
      * @param id - The user id.
      */
-    users(id: string): IBase<IGraphUser>;
+    users(id: string): IBaseLib<IGraphUser>;
 }
 
 /**
@@ -82,7 +82,7 @@ export interface IGraphDrive {
     id?: string;
 
     // The drive items
-    items?: () => IBase<IGraphCollection<IGraphDriveItem>>;
+    items?: () => IBaseLib<IGraphCollection<IGraphDriveItem>>;
 
     // Identity of the user, device, and application which last modified the item.
     lastModifiedBy?: { user: IGraphUser };
@@ -100,10 +100,10 @@ export interface IGraphDrive {
     quota?: IGraphDriveQuota;
 
     // Reference to the root folder.
-    root?: () => IBase<IGraphDriveItem>;
+    root?: () => IBaseLib<IGraphDriveItem>;
 
     // Collection of common folders available in OneDrive.
-    specials?: () => IBase<IGraphCollection<IGraphDriveItem>>;
+    specials?: () => IBaseLib<IGraphCollection<IGraphDriveItem>>;
 
     // Returns identifiers useful for SharePoint REST compatibility.
     sharepointIds?: IGraphSharePointIds;
@@ -146,7 +146,7 @@ export interface IGraphToken {
 /**
  * Graph
  */
-export interface IGraph extends IGraphMethods, IGraphQueryProps, IBase<IGraph, IGraphResult, IGraphQueryResult> { }
+export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseLib<IGraph, IGraphResult, IGraphQueryResult> { }
 
 /**
  * Graph Group

@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 import { IAttachmentFiles } from ".";
 
 /**
@@ -11,10 +11,10 @@ export interface IAttachmentFilesMethods {
      * @param fileName - The filename of the attachment.
      * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
      */
-    add(fileName, content): IBase<SP.Attachment>;
+    add(fileName, content): IBaseLib<SP.Attachment>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IAttachmentFiles>;
+    next(): IBaseLib<IAttachmentFiles>;
 }

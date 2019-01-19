@@ -1,79 +1,60 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-var Base = /** @class */ (function (_super) {
-    __extends(Base, _super);
+var Base = /** @class */ (function () {
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
     function Base(targetInfo) {
-        var _this = _super.call(this) || this;
         // Default the properties
-        _this.targetInfo = Object.create(targetInfo || {});
-        _this.responses = [];
-        _this.requestType = 0;
-        _this.waitFlags = [];
-        return _this;
+        this.targetInfo = Object.create(targetInfo || {});
+        this.responses = [];
+        this.requestType = 0;
+        this.waitFlags = [];
     }
-    // Method to wait for the requests to complete
-    Base.prototype.done = function (resolve) {
-        var _this = this;
-        // Ensure the base is set
-        this.base = this.base ? this.base : this;
-        // Ensure the response index is set
-        this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
-        // Wait for the responses to execute
-        this.waitForRequestsToComplete(function () {
-            var responses = _this.base.responses;
-            // Clear the responses
-            _this.base.responses = [];
-            // Clear the wait flags
-            _this.base.waitFlags = [];
-            // Resolve the request
-            resolve ? resolve.apply(_this, responses) : null;
-        });
+    // Method to update the object functions, based on the type
+    Base.prototype.addMethods = function (data, context) { return _1.Request.addMethods(this, data, context); };
+    // Method to execute this request as a batch request
+    Base.prototype.batch = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return _1.Batch.execute(this, args);
     };
+    // Method to wait for the requests to complete
+    Base.prototype.done = function (resolve) { return _1.Helper.done(this, resolve); };
+    // Method to execute the request
+    Base.prototype.execute = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return _1.Request.execute(this, args);
+    };
+    // Method to execute a method
+    Base.prototype.executeMethod = function (methodName, methodConfig, args) { return _1.Helper.executeMethod(this, methodName, methodConfig, args); };
+    // Method to execute the request synchronously
+    Base.prototype.executeAndWait = function () { return _1.Request.executeRequest(this, false); };
+    // Method to return a collection
+    Base.prototype.getCollection = function (method, args) { return _1.Helper.getCollection(this, method, args); };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to get the next set of results
+    Base.prototype.getNextSetOfResults = function () { return _1.Helper.getNextSetOfResults(this); };
+    // Method to return a property of the base object
+    Base.prototype.getProperty = function (propertyName, requestType) { return _1.Helper.getProperty(this, propertyName, requestType); };
     // Method to stringify the object
-    Base.prototype.stringify = function () {
-        // Stringify the object
-        return JSON.stringify({
-            response: this.response,
-            status: this.status,
-            targetInfo: {
-                accessToken: this.targetInfo.accessToken,
-                bufferFl: this.targetInfo.bufferFl,
-                defaultToWebFl: this.targetInfo.defaultToWebFl,
-                endpoint: this.targetInfo.endpoint,
-                method: this.targetInfo.method,
-                overrideDefaultRequestToHostFl: this.targetInfo.overrideDefaultRequestToHostFl,
-                requestDigest: this.targetInfo.requestDigest,
-                requestHeader: this.targetInfo.requestHeader,
-                requestInfo: this.targetInfo.requestInfo,
-                requestType: this.targetInfo.requestType,
-                url: this.targetInfo.url
-            }
-        });
-    };
+    Base.prototype.stringify = function () { return _1.Helper.stringify(this); };
+    // Method to update the metadata uri
+    Base.prototype.updateMetadataUri = function (metadata, targetInfo) { return _1.Helper.updateMetadataUri(this, metadata, targetInfo); };
+    // Method to wait for the parent requests to complete
+    Base.prototype.waitForRequestsToComplete = function (callback, requestIdx) { _1.Request.waitForRequestsToComplete(this, callback, requestIdx); };
     return Base;
-}(_1.BaseExecution));
+}());
 exports.Base = Base;

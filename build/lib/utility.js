@@ -15,7 +15,7 @@ exports.Utility = (function (url, targetInfo) {
         utility.targetInfo.url = url;
     }
     // Add the methods
-    utils_1.Helper.addMethods(utility, { __metadata: { type: "utility" } });
+    utils_1.Request.addMethods(utility, { __metadata: { type: "utility" } });
     // Method to create a wiki page
     utility.createWikiPage = function (listUrl, content) {
         if (content === void 0) { content = ""; }

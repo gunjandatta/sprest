@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection } from "../../utils/types/base";
+import { IBaseLib, IBaseCollection } from "../../utils/types/base";
 
 /**
  * Feature
@@ -18,25 +18,25 @@ export interface IFeaturesMethods {
      * Activates a feature.
      * @param id - The feature id.
      */
-    add(id: string): IBase<IFeature>;
+    add(id: string): IBaseLib<IFeature>;
 
     /**
      * Gets a feature by id.
      * @param id - The feature id.
      */
-    getById(id: string): IBase<IFeature>;
+    getById(id: string): IBaseLib<IFeature>;
 
     /**
      * Gets a feature by name.
      * @param name - The feature internal name.
      */
-    getByName(name: string): IBase<IFeatures>;
+    getByName(name: string): IBaseLib<IFeatures>;
 
     /**
      * Deactivates a feature.
      * @param id - The feature id.
      */
-    remove(id: string): IBase;
+    remove(id: string): IBaseLib;
 }
 
 /**

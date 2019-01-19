@@ -1,9 +1,9 @@
-import { IBase } from "../../utils/types/base";
+import { IBaseLib } from "../../utils/types/base";
 
 /**
  * View Fields
  */
-export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields> {
+export interface IViewFields extends IBaseLib<IViewFields, IViewFields, IViewFields> {
     /**
      * Properties
      */
@@ -25,28 +25,28 @@ export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields
      * Adds the field with the specified field internal name or display name to the collection.
      * @param fieldName - The case-sensitive internal name or display name of the field to add.
      */
-    addViewField(fieldName): IBase;
+    addViewField(fieldName): IBaseLib;
 
     /**
      * Moves the field with the specified field internal name to the specified position in the collection.
      * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
      * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
      */
-    moveViewFieldTo(field, index): IBase;
+    moveViewFieldTo(field, index): IBaseLib;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IViewFields>;
+    next(): IBaseLib<IViewFields>;
 
     /**
      * Removes all the fields from the collection.
      */
-    removeAllViewFields(): IBase;
+    removeAllViewFields(): IBaseLib;
 
     /**
      * Removes the field with the specified field internal name from the collection.
      * @param fieldName - The case-sensitive internal name or display name of the field to add.
      */
-    removeViewField(fieldName): IBase;
+    removeViewField(fieldName): IBaseLib;
 }
