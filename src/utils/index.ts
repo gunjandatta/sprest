@@ -4,5 +4,6 @@ export * from "./base";
 export * from "./batch";
 export * from "./methodInfo";
 export * from "./oData";
+export * from "./request";
 export * from "./targetInfo";
 export * from "./xhrRequest";

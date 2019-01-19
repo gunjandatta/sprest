@@ -1,4 +1,4 @@
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { INavigation } from "./types";
 
 /**
@@ -18,7 +18,7 @@ export const Navigation: INavigation = ((url?: string, targetInfo?) => {
     }
 
     // Add the methods
-    Helper.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
+    Request.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
 
     // Return the navigation
     return navigation;

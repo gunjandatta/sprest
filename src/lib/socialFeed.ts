@@ -1,5 +1,5 @@
 import * as Types from "../mapper/types";
-import { Base, Helper, RequestType } from "../utils";
+import { Base, Request, RequestType } from "../utils";
 import { ISocialFeed } from "./types";
 import { ITargetInfoProps } from "../utils/types";
 
@@ -14,7 +14,7 @@ export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfoProps) => {
     socialFeed.targetInfo.endpoint = "social.feed";
 
     // Add the methods
-    Helper.addMethods(socialFeed as any, { __metadata: { type: "socialfeed" } });
+    Request.addMethods(socialFeed as any, { __metadata: { type: "socialfeed" } });
 
     // Method to post to another user's feed
     socialFeed.postToFeed = (accountName, creationData) => {

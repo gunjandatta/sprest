@@ -1,4 +1,4 @@
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { IWeb } from "./types";
 
 export const Web: IWeb = ((url?, targetInfo?) => {
@@ -15,7 +15,7 @@ export const Web: IWeb = ((url?, targetInfo?) => {
     }
 
     // Add the methods
-    Helper.addMethods(web, { __metadata: { type: "web" } });
+    Request.addMethods(web, { __metadata: { type: "web" } });
 
     // Return the web
     return web;

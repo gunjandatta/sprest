@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { ITargetInfoProps } from "../utils/types";
 import { IList, IListEntityProps } from "./types";
 import { Web } from "./web";
@@ -15,7 +15,7 @@ export const List: IList = ((listName: string, targetInfo?: ITargetInfoProps) =>
     list.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
 
     // Add the methods
-    Helper.addMethods(list, { __metadata: { type: "list" } });
+    Request.addMethods(list, { __metadata: { type: "list" } });
 
     // Return the list
     return list;

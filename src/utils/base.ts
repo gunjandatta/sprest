@@ -1,7 +1,7 @@
 import { IBase } from "./types/base";
 import { IMethodInfo } from "./types/methodInfo";
 import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./types/targetInfo";
-import { Batch, Helper, TargetInfo, XHRRequest } from ".";
+import { Batch, Helper, Request, TargetInfo, XHRRequest } from ".";
 
 /*********************************************************************************************************************************/
 // Base
@@ -45,6 +45,9 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     xml: string | XMLDocument;
     xhr: XHRRequest;
 
+    // Method to update the object functions, based on the type
+    addMethods(data: any, context?: any) { return Request.addMethods(this, data, context); }
+
     // Method to execute this request as a batch request
     batch(...args) { return Batch.execute(this, args); }
 
@@ -52,13 +55,13 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     done<T=IBase>(resolve: (value?: T) => void) { return Helper.done(this, resolve); }
 
     // Method to execute the request
-    execute(...args) { return Helper.execute(this, args); }
+    execute(...args) { return Request.execute(this, args); }
 
     // Method to execute a method
     executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) { return Helper.executeMethod(this, methodName, methodConfig, args); }
 
     // Method to execute the request synchronously
-    executeAndWait() { return Helper.executeRequest(this, false); }
+    executeAndWait() { return Request.executeRequest(this, false); }
 
     // Method to return a collection
     getCollection(method: string, args?: any) { return Helper.getCollection(this, method, args); }
@@ -79,5 +82,5 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps) { return Helper.updateMetadataUri(this, metadata, targetInfo); }
 
     // Method to wait for the parent requests to complete
-    waitForRequestsToComplete(callback: () => void, requestIdx?: number) { Helper.waitForRequestsToComplete(this, callback, requestIdx); }
+    waitForRequestsToComplete(callback: () => void, requestIdx?: number) { Request.waitForRequestsToComplete(this, callback, requestIdx); }
 }

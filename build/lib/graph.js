@@ -10,7 +10,7 @@ exports.Graph = (function (accessToken, version) {
     graph.targetInfo.endpoint = version || "v1.0";
     graph.targetInfo.requestType = utils_1.RequestType.GraphGet;
     // Add the methods
-    utils_1.Helper.addMethods(graph, { __metadata: { type: "graph" } });
+    utils_1.Request.addMethods(graph, { __metadata: { type: "graph" } });
     // Return the graph
     return graph;
 });

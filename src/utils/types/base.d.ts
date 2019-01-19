@@ -139,6 +139,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /** The request. */
     xhr: IXHRRequest;
 
+    /** Adds methods based on the object type. */
+    addMethods(data: any, context?: any);
+
     /** Method to execute the request. */
     executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
 

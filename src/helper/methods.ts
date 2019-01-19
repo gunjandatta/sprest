@@ -1,6 +1,6 @@
 import { Web } from "../lib";
 import { IListItemResult } from "../mapper/types";
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { IRequest } from "./types";
 declare var SP;
 
@@ -107,7 +107,7 @@ export const parse = <T = Base>(jsonString: string): T => {
         base.targetInfo = obj.targetInfo;
 
         // Update the object
-        Helper.updateDataObject(base, false);
+        Request.updateDataObject(base, false);
 
         // Return the base object
         return base as any;

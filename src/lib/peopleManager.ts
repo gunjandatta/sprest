@@ -1,4 +1,4 @@
-import { Base, Helper } from "../utils";
+import { Base, Request } from "../utils";
 import { IPeopleManager } from "./types";
 import { ITargetInfoProps } from "../utils/types";
 
@@ -13,7 +13,7 @@ export const PeopleManager: IPeopleManager = ((targetInfo?: ITargetInfoProps) =>
     peopleManager.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 
     // Add the methods
-    Helper.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
+    Request.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
 
     // Return the people manager
     return peopleManager;
