@@ -1,5 +1,6 @@
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
+import { IBase, ITargetInfo } from "./types";
 
 /**
  * Batch Requests
@@ -10,7 +11,7 @@ export class Batch {
      */
 
     // Method to generate a batch request
-    static getTargetInfo(requests: Array<Array<{ callback?: any, targetInfo: TargetInfo }>>): TargetInfo {
+    static getTargetInfo(requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
@@ -35,7 +36,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    private static createBatch(batchId: string, requests: Array<{ callback?: any, targetInfo: TargetInfo }>) {
+    private static createBatch(batchId: string, requests: Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>) {
         // Create the batch request
         let batch = ["--" + batchId];
 

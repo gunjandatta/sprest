@@ -1,7 +1,5 @@
 export * from "./requestType";
 export * from "./helper";
-export * from "./baseRequest";
-export * from "./baseExecution";
 export * from "./base";
 export * from "./batch";
 export * from "./methodInfo";
