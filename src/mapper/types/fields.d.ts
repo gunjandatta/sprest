@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IField, IFieldQueryResult, IFieldResult } from ".";
 
 /**
@@ -50,11 +50,6 @@ export interface IFieldsMethods {
      * @param title - The title of the field.
      */
     getByTitle(title): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IFields, IFieldResults>;
 }
 
 /**
@@ -65,4 +60,4 @@ export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldR
 /**
  * Field Results
  */
-export interface IFieldResults extends IFieldsMethods, IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> { }
+export interface IFieldResults extends IFieldsMethods, IBaseCollectionResult<IFieldResult> { }

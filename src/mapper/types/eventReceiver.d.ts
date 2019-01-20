@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 
 /**
  * Event Receiver Methods
@@ -30,9 +30,9 @@ export interface IEventReceiverQueryResult extends IEventReceiverMethods, SP.Eve
 /**
  * Event Receiver Result
  */
-export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseResult<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
 
 /**
  * Event Receiver
  */
-export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseQueryExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }

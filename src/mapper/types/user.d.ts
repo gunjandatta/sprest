@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from ".";
 
 /**
@@ -50,9 +50,9 @@ export interface IUserQueryResult extends IUserMethods, SP.User {
 /**
  * User Result
  */
-export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBaseExecution<IUser, IUserResult, IUserQueryResult> { }
+export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBaseResult<IUser, IUserResult, IUserQueryResult> { }
 
 /**
  * User
  */
-export interface IUser extends IUserMethods, IUserQueryProps, IBaseExecution<IUser, IUserResult, IUserQueryResult> { }
+export interface IUser extends IUserMethods, IUserQueryProps, IBaseQueryExecution<IUser, IUserResult, IUserQueryResult> { }

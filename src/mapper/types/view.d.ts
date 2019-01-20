@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IViewFields } from ".";
 
 /**
@@ -42,9 +42,9 @@ export interface IViewQueryResult extends IViewMethods, SP.View {
 /**
  * View Result
  */
-export interface IViewResult extends IViewMethods, SP.View, IViewQueryProps, IBaseExecution<IView, IViewResult, IViewQueryResult> { }
+export interface IViewResult extends IViewMethods, SP.View, IViewQueryProps, IBaseResult<IView, IViewResult, IViewQueryResult> { }
 
 /**
  * View
  */
-export interface IView extends IViewMethods, IViewQueryProps, IBaseExecution<IView, IViewResult, IViewQueryResult> { }
+export interface IView extends IViewMethods, IViewQueryProps, IBaseQueryExecution<IView, IViewResult, IViewQueryResult> { }

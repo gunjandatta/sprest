@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IContentType, IContentTypeResult, IList, IListResult } from ".";
 
 /**
@@ -193,9 +193,9 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
 /**
  * List Item Result
  */
-export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseExecution<IListItem, IListItemResult, IListItemQueryResult> { }
+export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseResult<IListItem, IListItemResult, IListItemQueryResult> { }
 
 /**
  * List Item
  */
-export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseExecution<IListItem, IListItemResult, IListItemQueryResult> { }
+export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseQueryExecution<IListItem, IListItemResult, IListItemQueryResult> { }

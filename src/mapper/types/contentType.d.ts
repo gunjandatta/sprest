@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IFieldResult, IFields, IFieldLinks, IListResult } from ".";
 
 /**
@@ -88,9 +88,9 @@ export interface IContentTypeQueryResult extends IContentTypeMethods, SP.Content
 /**
  * Content Type Result
  */
-export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseResult<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
 
 /**
  * Content Type
  */
-export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseQueryExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }

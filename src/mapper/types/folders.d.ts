@@ -1,4 +1,4 @@
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IFolder, IFolderQueryResult, IFolderResult } from ".";
 
 /**
@@ -16,11 +16,6 @@ export interface IFoldersMethods {
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
     getbyurl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IFolders, IFolderResults>;
 }
 
 /**
@@ -31,4 +26,4 @@ export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFol
 /**
  * Folder Results
  */
-export interface IFolderResults extends IFoldersMethods, IBaseCollection<IFolderResult, IFolderResult, IFolderQueryResult> { }
+export interface IFolderResults extends IFoldersMethods, IBaseCollectionResult<IFolderResult> { }

@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IRoleDefinition, IRoleDefinitions } from ".";
 
 /**
@@ -46,10 +46,10 @@ export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.R
 /**
  * Role Assignment Result
  */
-export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseResult<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
 
 /**
  * Role Assignment
  */
-export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseQueryExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
 }

@@ -1,4 +1,4 @@
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from ".";
 
 /**
@@ -24,11 +24,6 @@ export interface IRoleAssignmentsMethods {
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
     removeRoleAssignment(principalId, roleDefId): IBaseExecution;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IRoleAssignments, IRoleAssignmentResults>;
 }
 
 /**
@@ -39,4 +34,4 @@ export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollecti
 /**
  * Role Assignment Results
  */
-export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignmentResult, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentResult> { }

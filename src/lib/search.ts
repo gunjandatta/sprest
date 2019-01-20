@@ -7,16 +7,17 @@ import { ISearch } from "./types";
  * Search
  */
 export const Search: ISearch = ((url?, targetInfo?) => {
-    let search = new Base(targetInfo) as any as Types.ISearch;
+    let base = new Base(targetInfo);
+    let search = base as any as Types.ISearch;
 
     // Default the properties
-    search.targetInfo.defaultToWebFl = true;
-    search.targetInfo.endpoint = "search";
+    base.targetInfo.defaultToWebFl = true;
+    base.targetInfo.endpoint = "search";
 
     // See if the web url exists
     if (url) {
         // Set the settings
-        search.targetInfo.url = url;
+        base.targetInfo.url = url;
     }
 
     // Add the methods

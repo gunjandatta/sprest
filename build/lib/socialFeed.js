@@ -5,10 +5,11 @@ var utils_1 = require("../utils");
  * Social Feed
  */
 exports.SocialFeed = (function (targetInfo) {
-    var socialFeed = new utils_1.Base(targetInfo);
+    var base = new utils_1.Base(targetInfo);
+    var socialFeed = base;
     // Default the properties
-    socialFeed.targetInfo.defaultToWebFl = true;
-    socialFeed.targetInfo.endpoint = "social.feed";
+    base.targetInfo.defaultToWebFl = true;
+    base.targetInfo.endpoint = "social.feed";
     // Add the methods
     utils_1.Request.addMethods(socialFeed, { __metadata: { type: "socialfeed" } });
     // Method to post to another user's feed

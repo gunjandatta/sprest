@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 
 /**
  * Field Methods
@@ -147,12 +147,12 @@ export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
 /**
  * Field Result
  */
-export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseExecution<IField, IFieldResult, IFieldQueryResult> { }
+export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseResult<IField, IFieldResult, IFieldQueryResult> { }
 
 /**
  * Field
  */
-export interface IField extends IFieldMethods, IFieldQueryProps, IBaseExecution<IField, IFieldResult, IFieldQueryResult> { }
+export interface IField extends IFieldMethods, IFieldQueryProps, IBaseQueryExecution<IField, IFieldResult, IFieldQueryResult> { }
 
 /**
  * Base Choice Field

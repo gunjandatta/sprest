@@ -181,7 +181,7 @@ export const App: IApp = {
     },
 
     // Method to get a folder
-    getFolder: (web: SP.IWebResult, folderUrl, createFl): PromiseLike<SP.IFolderResult> => {
+    getFolder: (web: SP.IWeb & SP.IWebResult, folderUrl, createFl): PromiseLike<SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;
@@ -233,7 +233,7 @@ export const App: IApp = {
     },
 
     // Method to remove empty folders
-    removeEmptyFolders: (web, folderUrls): PromiseLike<void> => {
+    removeEmptyFolders: (web: SP.IWeb & SP.IWebResult, folderUrls): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure folder urls exist

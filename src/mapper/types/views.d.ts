@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IView, IViewQueryResult, IViewResult } from ".";
 
 /**
@@ -22,11 +22,6 @@ export interface IViewsMethods {
      * @param title - The case-sensitive title of the view.
      */
     getByTitle(title): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IViews>;
 }
 
 /**
@@ -37,4 +32,4 @@ export interface IViews extends IViewsMethods, IBaseCollection<IView, IViewResul
 /**
  * View Results
  */
-export interface IViewResults extends IViewsMethods, IBaseCollection<IViewResult, IViewResult, IViewQueryResult> { }
+export interface IViewResults extends IViewsMethods, IBaseCollectionResult<IViewResult> { }

@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IWeb, IWebQueryResult, IWebResult } from ".";
 
 /**
@@ -11,11 +11,6 @@ export interface IWebsMethods {
      * @param parameters - The web creation information.
      */
     add(parameters: SP.WebCreationInformation): IBaseExecution<IWeb, IWebResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IWebs & IBaseExecution<IWebs, IWebResults>;
 }
 
 /**
@@ -26,4 +21,4 @@ export interface IWebs extends IWebsMethods, IBaseCollection<IWeb, IWebResult, I
 /**
  * Web Results
  */
-export interface IWebResults extends IWebsMethods, IBaseCollection<IWebResult, IWebResult, IWebQueryResult> { }
+export interface IWebResults extends IWebsMethods, IBaseCollectionResult<IWebResult> { }

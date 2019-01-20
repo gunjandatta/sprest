@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IContentType, IContentTypeQueryResult, IContentTypeResult } from ".";
 
 /**
@@ -23,11 +23,6 @@ export interface IContentTypesMethods {
      * @param id - The content type id.
      */
     getById(id): IContentType & IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IContentTypes, IContentTypeResults>;
 }
 
 /**
@@ -38,4 +33,4 @@ export interface IContentTypes extends IContentTypesMethods, IBaseCollection<ICo
 /**
  * Content Type Results
  */
-export interface IContentTypeResults extends IContentTypesMethods, IBaseCollection<IContentTypeResult, IContentTypeResult, IContentTypeQueryResult> { }
+export interface IContentTypeResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeResult> { }

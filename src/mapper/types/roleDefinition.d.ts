@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 
 /**
  * Role Definition Methods
@@ -24,9 +24,9 @@ export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, SP.R
 /**
  * Role Definition Result
  */
-export interface IRoleDefinitionResult extends IRoleDefinitionMethods, SP.RoleDefinition, IRoleDefinitionQueryProps, IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+export interface IRoleDefinitionResult extends IRoleDefinitionMethods, SP.RoleDefinition, IRoleDefinitionQueryProps, IBaseResult<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
 
 /**
  * Role Definition
  */
-export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBaseQueryExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }

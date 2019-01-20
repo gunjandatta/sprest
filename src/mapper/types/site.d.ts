@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from ".";
 
 /**
@@ -200,7 +200,7 @@ export interface ISiteQueryResult extends ISiteMethods, SP.Site {
 /**
  * Site Result
  */
-export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseExecution<ISite, ISiteResult, ISiteQueryResult> { }
+export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseResult<ISite, ISiteResult, ISiteQueryResult> { }
 
 /**
  * Site Url
@@ -213,4 +213,4 @@ export interface ISiteUrl {
 /**
  * Site
  */
-export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseExecution<ISite, ISiteResult, ISiteQueryResult> { }
+export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseQueryExecution<ISite, ISiteResult, ISiteQueryResult> { }

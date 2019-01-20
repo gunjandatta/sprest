@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IFileVersionResult, IFileVersions } from ".";
 
 /**
@@ -232,9 +232,9 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
 /**
  * File Result
  */
-export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseExecution<IFile, IFileResult, IFileQueryResult> { }
+export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseResult<IFile, IFileResult, IFileQueryResult> { }
 
 /**
  * File
  */
-export interface IFile extends IFileMethods, IFileQueryProps, IBaseExecution<IFile, IFileResult, IFileQueryResult> { }
+export interface IFile extends IFileMethods, IFileQueryProps, IBaseQueryExecution<IFile, IFileResult, IFileQueryResult> { }

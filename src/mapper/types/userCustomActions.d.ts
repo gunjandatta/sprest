@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from ".";
 
 /**
@@ -22,11 +22,6 @@ export interface IUserCustomActionsMethods {
      * @param id - The ID of the user custom action to get.
      */
     getById(id): IUserCustomAction & IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IUserCustomActions, IUserCustomActionResults>;
 }
 
 /**
@@ -38,4 +33,4 @@ export interface IUserCustomActions extends IUserCustomActionsMethods, IBaseColl
 /**
  * User Custom Action Results
  */
-export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionResult> { }

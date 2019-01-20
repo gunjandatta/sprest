@@ -4,18 +4,9 @@ import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
 
 /**
- * Base Library
+ * Base Execution
  */
 export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
-    /** True, if the object exists, false otherwise. */
-    existsFl: boolean;
-
-    /** The response */
-    response: string;
-
-    /** The target information. */
-    targetInfo: ITargetInfoProps;
-
     /**
      * Method to execute the request as a batch.
      * Currently available in SharePoint Online only.
@@ -60,7 +51,7 @@ export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result>
     execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
 
     /**
-     * Method to execute the request. (This is an internal method)
+     * Method to execute the request. (This is an internal method, but can be used for dev purposes.)
      * @param methodName - The method name to execute.
      * @param methodConfig - The configuration to pass with the request.
      * @param args - The optional arguments for the request.
@@ -84,17 +75,6 @@ export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result>
     getInfo(): IRequestInfo;
 
     /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
-
-    /**
-     * Method to stringify the object.
-     */
-    stringify(): string;
-
-    /**
      * Method to wait for the parent requests to complete
      * @param callback - The callback method.
      * @param requestIdx - The request index.
@@ -103,9 +83,39 @@ export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result>
 }
 
 /**
+ * Base Result
+ */
+export interface IBaseResult<Type = any, Result = Type, QueryResult = Result> {
+    /** True, if the object exists, false otherwise. */
+    existsFl: boolean;
+
+    /** The response */
+    response: string;
+
+    /** The target information. */
+    targetInfo: ITargetInfoProps;
+
+    /**
+     * Method to stringify the object.
+     */
+    stringify(): string;
+}
+
+/**
+ * Base Execution w/ Query
+ */
+export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
+}
+
+/**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult>, IBaseResult<Type, Result, QueryResult> {
     /**
      * Base Properties
      */
@@ -178,6 +188,12 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
  * Base Collection Results
  */
 export interface IBaseCollectionResult<Result> {
+    /**
+     * Method to wait for the requests to complete.
+     * @param resolve - The method to be executed after the request completes.
+     */
+    done<T=IBase>(resolve: (value?: T) => void);
+
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
 
@@ -200,6 +216,7 @@ export interface IBaseCollectionResult<Result> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+    /** The collection results. */
     results: Array<Type>
 }

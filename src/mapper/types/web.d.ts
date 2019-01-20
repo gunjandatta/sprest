@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
 
 /**
@@ -667,9 +667,9 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
 /**
  * Web Result
  */
-export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBaseExecution<IWeb, IWebResult, IWebQueryResult> { }
+export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBaseResult<IWeb, IWebResult, IWebQueryResult> { }
 
 /**
  * Web
  */
-export interface IWeb extends IWebMethods, IWebQueryProps, IBaseExecution<IWeb, IWebResult, IWebQueryResult> { }
+export interface IWeb extends IWebMethods, IWebQueryProps, IBaseQueryExecution<IWeb, IWebResult, IWebQueryResult> { }

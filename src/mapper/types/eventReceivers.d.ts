@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult } from "./eventReceiver";
 
 /**
@@ -17,11 +17,6 @@ export interface IEventReceiversMethods {
      * @param id - The id of the event receiver.
      */
     getById(id: string): IEventReceiver & IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IEventReceivers, IEventReceiverResults>;
 }
 
 /**
@@ -32,4 +27,4 @@ export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection
 /**
  * Event Receiver Results
  */
-export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> { }
+export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverResult> { }

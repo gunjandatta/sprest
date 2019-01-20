@@ -1187,7 +1187,7 @@ declare module 'gd-sprest/mapper/types/attachments' {
 declare module 'gd-sprest/mapper/types/contentType' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IFieldResult, IFields, IFieldLinks, IListResult } from "gd-sprest/mapper/types";
     
     /**
@@ -1275,17 +1275,17 @@ declare module 'gd-sprest/mapper/types/contentType' {
     /**
         * Content Type Result
         */
-    export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+    export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseResult<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
     
     /**
         * Content Type
         */
-    export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+    export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseQueryExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/contentTypes' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IContentType, IContentTypeQueryResult, IContentTypeResult } from "gd-sprest/mapper/types";
     
     /**
@@ -1309,11 +1309,6 @@ declare module 'gd-sprest/mapper/types/contentTypes' {
                 * @param id - The content type id.
                 */
             getById(id): IContentType & IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IContentTypes, IContentTypeResults>;
     }
     
     /**
@@ -1324,7 +1319,7 @@ declare module 'gd-sprest/mapper/types/contentTypes' {
     /**
         * Content Type Results
         */
-    export interface IContentTypeResults extends IContentTypesMethods, IBaseCollection<IContentTypeResult, IContentTypeResult, IContentTypeQueryResult> { }
+    export interface IContentTypeResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/entityData' {
@@ -1366,7 +1361,7 @@ declare module 'gd-sprest/mapper/types/entityData' {
 
 declare module 'gd-sprest/mapper/types/eventReceiver' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     
     /**
         * Event Receiver Methods
@@ -1397,17 +1392,17 @@ declare module 'gd-sprest/mapper/types/eventReceiver' {
     /**
         * Event Receiver Result
         */
-    export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+    export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseResult<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
     
     /**
         * Event Receiver
         */
-    export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+    export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseQueryExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/eventReceivers' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult } from "gd-sprest/mapper/types/eventReceiver";
     
     /**
@@ -1425,11 +1420,6 @@ declare module 'gd-sprest/mapper/types/eventReceivers' {
                 * @param id - The id of the event receiver.
                 */
             getById(id: string): IEventReceiver & IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IEventReceivers, IEventReceiverResults>;
     }
     
     /**
@@ -1440,7 +1430,7 @@ declare module 'gd-sprest/mapper/types/eventReceivers' {
     /**
         * Event Receiver Results
         */
-    export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> { }
+    export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/features' {
@@ -1493,7 +1483,7 @@ declare module 'gd-sprest/mapper/types/features' {
 
 declare module 'gd-sprest/mapper/types/field' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     
     /**
         * Field Methods
@@ -1641,12 +1631,12 @@ declare module 'gd-sprest/mapper/types/field' {
     /**
         * Field Result
         */
-    export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseExecution<IField, IFieldResult, IFieldQueryResult> { }
+    export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseResult<IField, IFieldResult, IFieldQueryResult> { }
     
     /**
         * Field
         */
-    export interface IField extends IFieldMethods, IFieldQueryProps, IBaseExecution<IField, IFieldResult, IFieldQueryResult> { }
+    export interface IField extends IFieldMethods, IFieldQueryProps, IBaseQueryExecution<IField, IFieldResult, IFieldQueryResult> { }
     
     /**
         * Base Choice Field
@@ -1910,7 +1900,7 @@ declare module 'gd-sprest/mapper/types/fieldLinks' {
 
 declare module 'gd-sprest/mapper/types/fields' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IField, IFieldQueryResult, IFieldResult } from "gd-sprest/mapper/types";
     
     /**
@@ -1961,11 +1951,6 @@ declare module 'gd-sprest/mapper/types/fields' {
                 * @param title - The title of the field.
                 */
             getByTitle(title): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IFields, IFieldResults>;
     }
     
     /**
@@ -1976,13 +1961,13 @@ declare module 'gd-sprest/mapper/types/fields' {
     /**
         * Field Results
         */
-    export interface IFieldResults extends IFieldsMethods, IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> { }
+    export interface IFieldResults extends IFieldsMethods, IBaseCollectionResult<IFieldResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/file' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IFileVersionResult, IFileVersions } from "gd-sprest/mapper/types";
     
     /**
@@ -2214,16 +2199,16 @@ declare module 'gd-sprest/mapper/types/file' {
     /**
         * File Result
         */
-    export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseExecution<IFile, IFileResult, IFileQueryResult> { }
+    export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseResult<IFile, IFileResult, IFileQueryResult> { }
     
     /**
         * File
         */
-    export interface IFile extends IFileMethods, IFileQueryProps, IBaseExecution<IFile, IFileResult, IFileQueryResult> { }
+    export interface IFile extends IFileMethods, IFileQueryProps, IBaseQueryExecution<IFile, IFileResult, IFileQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/files' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IFile, IFileQueryResult, IFileResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2251,11 +2236,6 @@ declare module 'gd-sprest/mapper/types/files' {
                 * @param serverRelativeUrl - The name or server relative url of the file.
                 */
             getByUrl(serverRelativeUrl): IFile & IBaseExecution<IFile, IFileResult, IFileQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IFiles>;
     }
     
     /**
@@ -2266,13 +2246,13 @@ declare module 'gd-sprest/mapper/types/files' {
     /**
         * File Results
         */
-    export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> { }
+    export interface IFileResults extends IFilesMethods, IBaseCollectionResult<IFileResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/fileVersion' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2308,12 +2288,12 @@ declare module 'gd-sprest/mapper/types/fileVersion' {
     /**
         * File Version Result
         */
-    export interface IFileVersionResult extends IFileVersionMethods, SP.FileVersion, IFileVersionQueryProps, IBaseExecution<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
+    export interface IFileVersionResult extends IFileVersionMethods, SP.FileVersion, IFileVersionQueryProps, IBaseResult<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
     
     /**
         * File Version
         */
-    export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBaseExecution<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
+    export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBaseQueryExecution<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/fileVersions' {
@@ -2334,7 +2314,7 @@ declare module 'gd-sprest/mapper/types/fileVersions' {
 declare module 'gd-sprest/mapper/types/folder' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from "gd-sprest/mapper/types";
     
     /**
@@ -2443,16 +2423,16 @@ declare module 'gd-sprest/mapper/types/folder' {
     /**
         * Folder Result
         */
-    export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseExecution<IFolder, IFolderResult, IFolderQueryResult> { }
+    export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseResult<IFolder, IFolderResult, IFolderQueryResult> { }
     
     /**
         * Folder
         */
-    export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseExecution<IFolder, IFolderResult, IFolderQueryResult> { }
+    export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseQueryExecution<IFolder, IFolderResult, IFolderQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/folders' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IFolder, IFolderQueryResult, IFolderResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2470,11 +2450,6 @@ declare module 'gd-sprest/mapper/types/folders' {
                 * @param serverRelativeUrl - The server-relative URL of the folder.
                 */
             getbyurl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IFolders, IFolderResults>;
     }
     
     /**
@@ -2485,7 +2460,7 @@ declare module 'gd-sprest/mapper/types/folders' {
     /**
         * Folder Results
         */
-    export interface IFolderResults extends IFoldersMethods, IBaseCollection<IFolderResult, IFolderResult, IFolderQueryResult> { }
+    export interface IFolderResults extends IFoldersMethods, IBaseCollectionResult<IFolderResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/graph' {
@@ -2837,7 +2812,7 @@ declare module 'gd-sprest/mapper/types/graph' {
 
 declare module 'gd-sprest/mapper/types/group' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/mapper/types";
     
     /**
@@ -2884,17 +2859,17 @@ declare module 'gd-sprest/mapper/types/group' {
     /**
         * Group Result
         */
-    export interface IGroupResult extends IGroupMethods, SP.Group, IGroupQueryProps, IBaseExecution<IGroup, IGroupResult, IGroupQueryResult> { }
+    export interface IGroupResult extends IGroupMethods, SP.Group, IGroupQueryProps, IBaseResult<IGroup, IGroupResult, IGroupQueryResult> { }
     
     /**
         * Group
         */
-    export interface IGroup extends IGroupMethods, IGroupQueryProps, IBaseExecution<IGroup, IGroupResult, IGroupQueryResult> { }
+    export interface IGroup extends IGroupMethods, IGroupQueryProps, IBaseQueryExecution<IGroup, IGroupResult, IGroupQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/groups' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IGroup, IGroupQueryResult, IGroupResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2920,11 +2895,6 @@ declare module 'gd-sprest/mapper/types/groups' {
             getByName(name): IGroup & IBaseExecution<IGroup, IGroupResult, IGroupQueryResult>;
     
             /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<ISiteGroups, ISiteGroupResults>;
-    
-            /**
                 * Removes the group with the specified member ID from the collection.
                 * @param id - The ID of the group to remove.
                 */
@@ -2945,11 +2915,11 @@ declare module 'gd-sprest/mapper/types/groups' {
     /**
         * Site Group Results
         */
-    export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollection<IGroupResult, IGroupResult, IGroupQueryResult> { }
+    export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/items' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IListItem, IListItemQueryResult, IListItemResult } from "gd-sprest/mapper/types";
     
     /**
@@ -2967,11 +2937,6 @@ declare module 'gd-sprest/mapper/types/items' {
                 * @param id - The item id.
                 */
             getById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IListItems, IListItemResults>;
     }
     
     /**
@@ -2982,7 +2947,7 @@ declare module 'gd-sprest/mapper/types/items' {
     /**
         * List Item Results
         */
-    export interface IListItemResults extends IListItemsMethods, IBaseCollection<IListItemResult, IListItemResult, IListItemQueryResult> { }
+    export interface IListItemResults extends IListItemsMethods, IBaseCollectionResult<IListItemResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
@@ -3004,7 +2969,7 @@ declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
 declare module 'gd-sprest/mapper/types/list' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
     
     /**
@@ -3338,18 +3303,18 @@ declare module 'gd-sprest/mapper/types/list' {
     /**
         * List Result
         */
-    export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseExecution<IList, IListResult, IListQueryResult> { }
+    export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseResult<IList, IListResult, IListQueryResult> { }
     
     /**
         * List
         */
-    export interface IList extends IListMethods, IListQueryProps, IBaseExecution<IList, IListResult, IListQueryResult> { }
+    export interface IList extends IListMethods, IListQueryProps, IBaseQueryExecution<IList, IListResult, IListQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/listItem' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IContentType, IContentTypeResult, IList, IListResult } from "gd-sprest/mapper/types";
     
     /**
@@ -3542,17 +3507,17 @@ declare module 'gd-sprest/mapper/types/listItem' {
     /**
         * List Item Result
         */
-    export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseExecution<IListItem, IListItemResult, IListItemQueryResult> { }
+    export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseResult<IListItem, IListItemResult, IListItemQueryResult> { }
     
     /**
         * List Item
         */
-    export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseExecution<IListItem, IListItemResult, IListItemQueryResult> { }
+    export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseQueryExecution<IListItem, IListItemResult, IListItemQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/lists' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IList, IListQueryResult, IListResult } from "gd-sprest/mapper/types";
     
     /**
@@ -3586,11 +3551,6 @@ declare module 'gd-sprest/mapper/types/lists' {
                 * @param title - The list title.
                 */
             getByTitle(title): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<ILists, IListResults>;
     }
     
     /**
@@ -3601,7 +3561,7 @@ declare module 'gd-sprest/mapper/types/lists' {
     /**
         * List Results
         */
-    export interface IListResults extends IListsMethods, IBaseCollection<IListResult, IListResult, IListQueryResult> { }
+    export interface IListResults extends IListsMethods, IBaseCollectionResult<IListResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/navigation' {
@@ -4269,7 +4229,7 @@ declare module 'gd-sprest/mapper/types/results' {
 declare module 'gd-sprest/mapper/types/roleAssignment' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IRoleDefinition, IRoleDefinitions } from "gd-sprest/mapper/types";
     
     /**
@@ -4315,17 +4275,17 @@ declare module 'gd-sprest/mapper/types/roleAssignment' {
     /**
         * Role Assignment Result
         */
-    export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+    export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseResult<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
     
     /**
         * Role Assignment
         */
-    export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+    export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseQueryExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
     }
 }
 
 declare module 'gd-sprest/mapper/types/roleAssignments' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "gd-sprest/mapper/types";
     
     /**
@@ -4351,11 +4311,6 @@ declare module 'gd-sprest/mapper/types/roleAssignments' {
                 * @param roleDefId - The ID of the role definition that defines the permissions to assign.
                 */
             removeRoleAssignment(principalId, roleDefId): IBaseExecution;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IRoleAssignments, IRoleAssignmentResults>;
     }
     
     /**
@@ -4366,12 +4321,12 @@ declare module 'gd-sprest/mapper/types/roleAssignments' {
     /**
         * Role Assignment Results
         */
-    export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignmentResult, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+    export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/roleDefinition' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     
     /**
         * Role Definition Methods
@@ -4396,16 +4351,16 @@ declare module 'gd-sprest/mapper/types/roleDefinition' {
     /**
         * Role Definition Result
         */
-    export interface IRoleDefinitionResult extends IRoleDefinitionMethods, SP.RoleDefinition, IRoleDefinitionQueryProps, IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+    export interface IRoleDefinitionResult extends IRoleDefinitionMethods, SP.RoleDefinition, IRoleDefinitionQueryProps, IBaseResult<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
     
     /**
         * Role Definition
         */
-    export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+    export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBaseQueryExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/roleDefinitions' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from "gd-sprest/mapper/types";
     
     /**
@@ -4429,11 +4384,6 @@ declare module 'gd-sprest/mapper/types/roleDefinitions' {
                 * @param roleType - The RoleTypeKind of the role definition.
                 */
             getByType(roleType: number): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IRoleDefinitions, IRoleDefinitionResults>;
     }
     
     /**
@@ -4444,7 +4394,7 @@ declare module 'gd-sprest/mapper/types/roleDefinitions' {
     /**
         * Role Definition Results
         */
-    export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinitionResult, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+    export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/search' {
@@ -4475,7 +4425,7 @@ declare module 'gd-sprest/mapper/types/search' {
 declare module 'gd-sprest/mapper/types/site' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     
     /**
@@ -4675,7 +4625,7 @@ declare module 'gd-sprest/mapper/types/site' {
     /**
         * Site Result
         */
-    export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseExecution<ISite, ISiteResult, ISiteQueryResult> { }
+    export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseResult<ISite, ISiteResult, ISiteQueryResult> { }
     
     /**
         * Site Url
@@ -4688,7 +4638,7 @@ declare module 'gd-sprest/mapper/types/site' {
     /**
         * Site
         */
-    export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseExecution<ISite, ISiteResult, ISiteQueryResult> { }
+    export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseQueryExecution<ISite, ISiteResult, ISiteQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/socialFeed' {
@@ -6331,7 +6281,7 @@ declare module 'gd-sprest/mapper/types/tenantApps' {
 
 declare module 'gd-sprest/mapper/types/user' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from "gd-sprest/mapper/types";
     
     /**
@@ -6382,17 +6332,17 @@ declare module 'gd-sprest/mapper/types/user' {
     /**
         * User Result
         */
-    export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBaseExecution<IUser, IUserResult, IUserQueryResult> { }
+    export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBaseResult<IUser, IUserResult, IUserQueryResult> { }
     
     /**
         * User
         */
-    export interface IUser extends IUserMethods, IUserQueryProps, IBaseExecution<IUser, IUserResult, IUserQueryResult> { }
+    export interface IUser extends IUserMethods, IUserQueryProps, IBaseQueryExecution<IUser, IUserResult, IUserQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/userCustomAction' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IUserCustomActionMethods, } from "gd-sprest/mapper/types";
     
     /**
@@ -6418,17 +6368,17 @@ declare module 'gd-sprest/mapper/types/userCustomAction' {
     /**
         * User Custom Action Result
         */
-    export interface IUserCustomActionResult extends IUserCustomActionMethods, SP.UserCustomAction, IUserCustomActionQueryProps, IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+    export interface IUserCustomActionResult extends IUserCustomActionMethods, SP.UserCustomAction, IUserCustomActionQueryProps, IBaseResult<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
     
     /**
         * User Custom Action
         */
-    export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+    export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseQueryExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/userCustomActions' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from "gd-sprest/mapper/types";
     
     /**
@@ -6451,11 +6401,6 @@ declare module 'gd-sprest/mapper/types/userCustomActions' {
                 * @param id - The ID of the user custom action to get.
                 */
             getById(id): IUserCustomAction & IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IUserCustomActions, IUserCustomActionResults>;
     }
     
     /**
@@ -6467,7 +6412,7 @@ declare module 'gd-sprest/mapper/types/userCustomActions' {
     /**
         * User Custom Action Results
         */
-    export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+    export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/userProfile' {
@@ -6881,7 +6826,7 @@ declare module 'gd-sprest/mapper/types/versions' {
 
 declare module 'gd-sprest/mapper/types/view' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IViewFields } from "gd-sprest/mapper/types";
     
     /**
@@ -6924,12 +6869,12 @@ declare module 'gd-sprest/mapper/types/view' {
     /**
         * View Result
         */
-    export interface IViewResult extends IViewMethods, SP.View, IViewQueryProps, IBaseExecution<IView, IViewResult, IViewQueryResult> { }
+    export interface IViewResult extends IViewMethods, SP.View, IViewQueryProps, IBaseResult<IView, IViewResult, IViewQueryResult> { }
     
     /**
         * View
         */
-    export interface IView extends IViewMethods, IViewQueryProps, IBaseExecution<IView, IViewResult, IViewQueryResult> { }
+    export interface IView extends IViewMethods, IViewQueryProps, IBaseQueryExecution<IView, IViewResult, IViewQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/viewFieldCollection' {
@@ -6983,7 +6928,7 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
 
 declare module 'gd-sprest/mapper/types/views' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IView, IViewQueryResult, IViewResult } from "gd-sprest/mapper/types";
     
     /**
@@ -7006,11 +6951,6 @@ declare module 'gd-sprest/mapper/types/views' {
                 * @param title - The case-sensitive title of the view.
                 */
             getByTitle(title): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IViews>;
     }
     
     /**
@@ -7021,13 +6961,13 @@ declare module 'gd-sprest/mapper/types/views' {
     /**
         * View Results
         */
-    export interface IViewResults extends IViewsMethods, IBaseCollection<IViewResult, IViewResult, IViewQueryResult> { }
+    export interface IViewResults extends IViewsMethods, IBaseCollectionResult<IViewResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/web' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
     import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
     
     /**
@@ -7694,17 +7634,17 @@ declare module 'gd-sprest/mapper/types/web' {
     /**
         * Web Result
         */
-    export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBaseExecution<IWeb, IWebResult, IWebQueryResult> { }
+    export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBaseResult<IWeb, IWebResult, IWebQueryResult> { }
     
     /**
         * Web
         */
-    export interface IWeb extends IWebMethods, IWebQueryProps, IBaseExecution<IWeb, IWebResult, IWebQueryResult> { }
+    export interface IWeb extends IWebMethods, IWebQueryProps, IBaseQueryExecution<IWeb, IWebResult, IWebQueryResult> { }
 }
 
 declare module 'gd-sprest/mapper/types/webs' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     
     /**
@@ -7716,11 +7656,6 @@ declare module 'gd-sprest/mapper/types/webs' {
                 * @param parameters - The web creation information.
                 */
             add(parameters: SP.WebCreationInformation): IBaseExecution<IWeb, IWebResult>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IWebs & IBaseExecution<IWebs, IWebResults>;
     }
     
     /**
@@ -7731,7 +7666,7 @@ declare module 'gd-sprest/mapper/types/webs' {
     /**
         * Web Results
         */
-    export interface IWebResults extends IWebsMethods, IBaseCollection<IWebResult, IWebResult, IWebQueryResult> { }
+    export interface IWebResults extends IWebsMethods, IBaseCollectionResult<IWebResult> { }
 }
 
 declare module 'gd-sprest/helper/types/app' {
@@ -9348,18 +9283,9 @@ declare module 'gd-sprest/utils/types/base' {
     import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
     
     /**
-        * Base Library
+        * Base Execution
         */
     export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-    
-            /** The response */
-            response: string;
-    
-            /** The target information. */
-            targetInfo: ITargetInfoProps;
-    
             /**
                 * Method to execute the request as a batch.
                 * Currently available in SharePoint Online only.
@@ -9404,7 +9330,7 @@ declare module 'gd-sprest/utils/types/base' {
             execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
     
             /**
-                * Method to execute the request. (This is an internal method)
+                * Method to execute the request. (This is an internal method, but can be used for dev purposes.)
                 * @param methodName - The method name to execute.
                 * @param methodConfig - The configuration to pass with the request.
                 * @param args - The optional arguments for the request.
@@ -9428,17 +9354,6 @@ declare module 'gd-sprest/utils/types/base' {
             getInfo(): IRequestInfo;
     
             /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
-    
-            /**
-                * Method to stringify the object.
-                */
-            stringify(): string;
-    
-            /**
                 * Method to wait for the parent requests to complete
                 * @param callback - The callback method.
                 * @param requestIdx - The request index.
@@ -9447,9 +9362,39 @@ declare module 'gd-sprest/utils/types/base' {
     }
     
     /**
+        * Base Result
+        */
+    export interface IBaseResult<Type = any, Result = Type, QueryResult = Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+    
+            /** The response */
+            response: string;
+    
+            /** The target information. */
+            targetInfo: ITargetInfoProps;
+    
+            /**
+                * Method to stringify the object.
+                */
+            stringify(): string;
+    }
+    
+    /**
+        * Base Execution w/ Query
+        */
+    export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
+            /**
+                * Queries the collection.
+                * @param oData - The OData information.
+                */
+            query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
+    }
+    
+    /**
         * Base
         */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult>, IBaseResult<Type, Result, QueryResult> {
     
             /** The parent object, which created this object. */
             parent: any;
@@ -9510,6 +9455,12 @@ declare module 'gd-sprest/utils/types/base' {
         * Base Collection Results
         */
     export interface IBaseCollectionResult<Result> {
+            /**
+                * Method to wait for the requests to complete.
+                * @param resolve - The method to be executed after the request completes.
+                */
+            done<T=IBase>(resolve: (value?: T) => void);
+    
             /** True, if the object exists, false otherwise. */
             existsFl: boolean;
     
@@ -9532,7 +9483,8 @@ declare module 'gd-sprest/utils/types/base' {
     /**
         * Base Collection
         */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+            /** The collection results. */
             results: Array<Type>
     }
 }

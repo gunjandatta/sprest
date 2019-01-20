@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from ".";
 
 /**
@@ -109,9 +109,9 @@ export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
 /**
  * Folder Result
  */
-export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseExecution<IFolder, IFolderResult, IFolderQueryResult> { }
+export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseResult<IFolder, IFolderResult, IFolderQueryResult> { }
 
 /**
  * Folder
  */
-export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseExecution<IFolder, IFolderResult, IFolderQueryResult> { }
+export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseQueryExecution<IFolder, IFolderResult, IFolderQueryResult> { }

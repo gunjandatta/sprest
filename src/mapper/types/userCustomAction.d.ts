@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IUserCustomActionMethods, } from ".";
 
 /**
@@ -25,9 +25,9 @@ export interface IUserCustomActionQueryResult extends IUserCustomActionMethods, 
 /**
  * User Custom Action Result
  */
-export interface IUserCustomActionResult extends IUserCustomActionMethods, SP.UserCustomAction, IUserCustomActionQueryProps, IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+export interface IUserCustomActionResult extends IUserCustomActionMethods, SP.UserCustomAction, IUserCustomActionQueryProps, IBaseResult<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
 
 /**
  * User Custom Action
  */
-export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
+export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseQueryExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }

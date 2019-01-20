@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IList, IListQueryResult, IListResult } from ".";
 
 /**
@@ -33,11 +33,6 @@ export interface IListsMethods {
      * @param title - The list title.
      */
     getByTitle(title): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<ILists, IListResults>;
 }
 
 /**
@@ -48,4 +43,4 @@ export interface ILists extends IListsMethods, IBaseCollection<IList, IListResul
 /**
  * List Results
  */
-export interface IListResults extends IListsMethods, IBaseCollection<IListResult, IListResult, IListQueryResult> { }
+export interface IListResults extends IListsMethods, IBaseCollectionResult<IListResult> { }

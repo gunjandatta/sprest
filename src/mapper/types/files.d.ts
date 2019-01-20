@@ -1,4 +1,4 @@
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IFile, IFileQueryResult, IFileResult } from ".";
 
 /**
@@ -29,11 +29,6 @@ export interface IFilesMethods {
      * @param serverRelativeUrl - The name or server relative url of the file.
      */
     getByUrl(serverRelativeUrl): IFile & IBaseExecution<IFile, IFileResult, IFileQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IFiles>;
 }
 
 /**
@@ -44,4 +39,4 @@ export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResul
 /**
  * File Results
  */
-export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> { }
+export interface IFileResults extends IFilesMethods, IBaseCollectionResult<IFileResult> { }

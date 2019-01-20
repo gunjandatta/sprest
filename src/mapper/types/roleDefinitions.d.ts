@@ -1,4 +1,4 @@
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from ".";
 
 /**
@@ -22,11 +22,6 @@ export interface IRoleDefinitionsMethods {
      * @param roleType - The RoleTypeKind of the role definition.
      */
     getByType(roleType: number): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IRoleDefinitions, IRoleDefinitionResults>;
 }
 
 /**
@@ -37,4 +32,4 @@ export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollecti
 /**
  * Role Definition Results
  */
-export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinitionResult, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionResult> { }

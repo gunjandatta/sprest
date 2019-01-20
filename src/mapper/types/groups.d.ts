@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IGroup, IGroupQueryResult, IGroupResult } from ".";
 
 /**
@@ -25,11 +25,6 @@ export interface ISiteGroupsMethods {
     getByName(name): IGroup & IBaseExecution<IGroup, IGroupResult, IGroupQueryResult>;
 
     /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<ISiteGroups, ISiteGroupResults>;
-
-    /**
      * Removes the group with the specified member ID from the collection.
      * @param id - The ID of the group to remove.
      */
@@ -50,4 +45,4 @@ export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup,
 /**
  * Site Group Results
  */
-export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollection<IGroupResult, IGroupResult, IGroupQueryResult> { }
+export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupResult> { }
