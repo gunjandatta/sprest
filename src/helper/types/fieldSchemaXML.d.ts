@@ -1,4 +1,12 @@
+/**
+ * Field Schema XML
+ */
 import { IFieldInfo } from ".";
+
+/**
+ * Field Schema XML
+ */
+export const FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
 
 /**
  * Field Schema XML

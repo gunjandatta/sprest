@@ -4,6 +4,11 @@ import * as Types from "../../intellisense";
 /**
  * List Form
  */
+export const ListForm: IListForm;
+
+/**
+ * List Form
+ */
 export interface IListForm {
     /**
      * Creates an instance of the list form

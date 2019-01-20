@@ -2,6 +2,11 @@ import { SP } from "gd-sprest-def";
 import * as Types from "../../intellisense";
 
 /**
+ * SharePoint Configuration
+ */
+export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
+
+/**
  * Field Information
  */
 export interface IFieldInfo {

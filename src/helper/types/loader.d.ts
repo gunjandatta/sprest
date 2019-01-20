@@ -1,6 +1,11 @@
 /**
  * Loader
  */
+export const Loader: ILoader;
+
+/**
+ * Loader
+ */
 export interface ILoader {
     // Internal flag to determine if the SP core libraries have been loaded
     loaded: boolean;

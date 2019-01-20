@@ -67,7 +67,7 @@ declare module 'gd-sprest/lib/types' {
 
 declare module 'gd-sprest/rest' {
     import { SP } from "gd-sprest-def";
-    import { IHelper } from "gd-sprest/helper/types/helper";
+    import * as Helper from "gd-sprest/helper/types";
     import * as LibTypes from "gd-sprest/lib/types";
     import * as MapperTypes from "gd-sprest/intellisense";
     import * as UtilTypes from "gd-sprest/utils/types";
@@ -109,7 +109,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Helper methods.
                 */
-            Helper: IHelper;
+            Helper;
     
             /**
                 * Use this api to interact with SharePoint lists and libraries.
@@ -278,6 +278,9 @@ declare module 'gd-sprest/intellisense' {
 declare module 'gd-sprest/helper/types/app' {
     import * as SP from "gd-sprest/intellisense";
     
+    /** App */
+    export const App: IApp;
+    
     /**
         * App Helper Methods
         */
@@ -350,6 +353,11 @@ declare module 'gd-sprest/helper/types/dependencies' {
     /**
         * Dependencies
         */
+    export const Dependencies: IDependencies;
+    
+    /**
+        * Dependencies
+        */
     export interface IDependencies {
             /**
                 * Constructor
@@ -379,18 +387,31 @@ declare module 'gd-sprest/helper/types/dependencies' {
 }
 
 declare module 'gd-sprest/helper/types/fieldSchemaXML' {
+    /**
+        * Field Schema XML
+        */
     import { IFieldInfo } from "gd-sprest/helper/types";
     
     /**
-      * Field Schema XML
-      */
+        * Field Schema XML
+        */
+    export const FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
+    
+    /**
+        * Field Schema XML
+        */
     export interface IFieldSchemaXML {
-        /** Creates the suitebar link */
-        new(fieldInfo: IFieldInfo): PromiseLike<string>;
+            /** Creates the suitebar link */
+            new(fieldInfo: IFieldInfo): PromiseLike<string>;
     }
 }
 
 declare module 'gd-sprest/helper/types/jslink' {
+    /**
+        * JSLink
+        */
+    export const JSLink: IJSLink;
+    
     /**
         * JSLink
         */
@@ -518,8 +539,18 @@ declare module 'gd-sprest/helper/types/jslink' {
 
 declare module 'gd-sprest/helper/types/linkInfo' {
     /**
-        * Link Information
+        * Ribbon Link
         */
+    export const RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+    
+    /**
+        * Suitebar Link
+        */
+    export const SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+    
+    /**
+     * Link Information
+     */
     export interface ILinkInfo {
             /** True to append the link at the end of the list. */
             appendFl?: boolean;
@@ -560,6 +591,11 @@ declare module 'gd-sprest/helper/types/linkInfo' {
 declare module 'gd-sprest/helper/types/listForm' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/intellisense";
+    
+    /**
+        * List Form
+        */
+    export const ListForm: IListForm;
     
     /**
         * List Form
@@ -753,6 +789,11 @@ declare module 'gd-sprest/helper/types/listFormField' {
     import * as SP from "gd-sprest/intellisense";
     
     /**
+        * List Form Field
+        */
+    export const ListFormField: IListFormField;
+    
+    /**
         * List Form Field Information
         */
     export interface IListFormFieldInfo {
@@ -939,6 +980,11 @@ declare module 'gd-sprest/helper/types/loader' {
     /**
         * Loader
         */
+    export const Loader: ILoader;
+    
+    /**
+        * Loader
+        */
     export interface ILoader {
             // Internal flag to determine if the SP core libraries have been loaded
             loaded: boolean;
@@ -954,25 +1000,66 @@ declare module 'gd-sprest/helper/types/loader' {
 }
 
 declare module 'gd-sprest/helper/types/methods' {
+    import { IBase } from "gd-sprest/utils/types/base";
+    import { IListItemResult } from "gd-sprest/intellisense";
+    
     /**
-      * Request
-      */
+        * Creates a document set item.
+        * @param name - The name of the document set folder to create.
+        * @param listName - The name of the document set library.
+        * @param webUrl - The url of the web containing the document set library.
+        */
+    export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<IListItemResult>;
+    
+    /**
+        * Determines if the user has permissions, based on the permission kind value
+        */
+    export const hasPermissions: (permissionMask: any, permissions: Array<number> | number) => boolean;
+    
+    /**
+        * Convert a JSON string to a base object
+        */
+    export function parse<T = IBase>(jsonString: string): T;
+    
+    
+    /**
+        * XML HTTP Request
+        */
+    export const request: (props: IRequest) => PromiseLike<any>;
+    
+    /**
+        * Request
+        */
     export interface IRequest {
-        /** The data to pass in the request. */
-        data?: any;
+            /** The data to pass in the request. */
+            data?: any;
     
-        /** The request headers. */
-        headers?: { [key: string]: string };
+            /** The request headers. */
+            headers?: { [key: string]: string };
     
-        /** The request method. */
-        method?: string;
+            /** The request method. */
+            method?: string;
     
-        /** The request url. */
-        url: string;
+            /** The request url. */
+            url: string;
     }
 }
 
 declare module 'gd-sprest/helper/types/sp' {
+    /**
+        * Modal Dialog
+        */
+    export const ModalDialog: IModalDialog;
+    
+    /**
+        * Notification
+        */
+    export const Notify: INotify;
+    
+    /**
+        * Status
+        */
+    export const Status: IStatus;
     
     /**
         * Dialog Options
@@ -1176,6 +1263,11 @@ declare module 'gd-sprest/helper/types/sp' {
 declare module 'gd-sprest/helper/types/spCfg' {
     import { SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/intellisense";
+    
+    /**
+        * SharePoint Configuration
+        */
+    export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
     
     /**
         * Field Information
@@ -1569,35 +1661,52 @@ declare module 'gd-sprest/helper/types/spCfg' {
 }
 
 declare module 'gd-sprest/helper/types/spCfgTypes' {
+    /**
+        * SharePoint Configuration Field Types
+        */
+    export const SPCfgFieldType: ISPCfgFieldType;
+    
+    /**
+        * SharePoint Configuration Types
+        * The value determines the order to install the object type.
+        */
+    export const SPCfgType: ISPCfgType;
+    
     /** The field types */
     export type ISPCfgFieldType = {
-        Boolean: number;
-        Calculated: number;
-        Choice: number;
-        Currency: number;
-        Date: number;
-        Geolocation: number;
-        Lookup: number;
-        MMS: number;
-        Note: number;
-        Number: number;
-        Text: number;
-        Url: number;
-        User: number;
+            Boolean: number;
+            Calculated: number;
+            Choice: number;
+            Currency: number;
+            Date: number;
+            Geolocation: number;
+            Lookup: number;
+            MMS: number;
+            Note: number;
+            Number: number;
+            Text: number;
+            Url: number;
+            User: number;
     }
     
     /** The configuration types */
     export type ISPCfgType = {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
+            Fields: number;
+            ContentTypes: number;
+            Lists: number;
+            SiteUserCustomActions: number;
+            WebParts: number;
+            WebUserCustomActions: number;
     }
 }
 
 declare module 'gd-sprest/helper/types/taxonomy' {
+    
+    /**
+        * Taxonomy Helper Class
+        */
+    export const Taxonomy: ITaxonomy;
+    
     /**
      * Taxonomy Helper
      */
@@ -1781,6 +1890,11 @@ declare module 'gd-sprest/helper/types/taxonomy' {
 }
 
 declare module 'gd-sprest/helper/types/webpart' {
+    /**
+        * Web Part
+        */
+    export const WebPart: IWebPart;
+    
     /**
         * Web Part
         */
@@ -2584,133 +2698,6 @@ declare module 'gd-sprest/lib/types/web' {
                 * @param requestUrl - The absolute url of the remote web.
                 */
             getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/helper' {
-    import { SP } from "gd-sprest-def";
-    import * as HelperTypes from "gd-sprest/helper/types";
-    import * as MapperTypes from "gd-sprest/intellisense";
-    import * as UtilTypes from "gd-sprest/utils/types";
-    
-    /**
-        * Helper
-        */
-    export const Helper: IHelper;
-    
-    /**
-        * Helper
-        */
-    export interface IHelper {
-            /**
-                * Helper classes for the app web
-                */
-            App: HelperTypes.IApp;
-    
-            /**
-                * Helper class to load the required SP scripts
-                */
-            Dependencies: HelperTypes.IDependencies;
-    
-            /**
-                * Method to create a document set item.
-                */
-            createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<MapperTypes.IListItemResult>;
-    
-            /**
-                * Executor
-                */
-            Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
-    
-            /**
-                * Helper class for generating a field schema xml
-                */
-            FieldSchemaXML: (fieldInfo: HelperTypes.IFieldInfo) => PromiseLike<string>;
-    
-            /**
-                * Determines if the user has permissions, based on the permission kind value
-                */
-            hasPermissions(permissionMask: SP.BasePermissions, permissions: Array<number> | number): boolean;
-    
-            /**
-                * Helper class for implementing JSLink solutions
-                */
-            JSLink: HelperTypes.IJSLink;
-    
-            /**
-                * Helper class for implementing custom list forms
-                */
-            ListForm: HelperTypes.IListForm;
-    
-            /**
-                * Helper class for implementing custom list forms
-                */
-            ListFormField: HelperTypes.IListFormField;
-    
-            /**
-                * Helper class for waiting until the core SP scripts are loaded
-                */
-            Loader: HelperTypes.ILoader;
-    
-            /**
-                * Helper method to convert a json string to a base object
-                * This will require you to use the stringify method of the base object.
-                */
-            parse<T = UtilTypes.IBaseExecution>(jsonString: string): T;
-    
-            /**
-                * Helper method to execute an XMLHttpRequest
-                */
-            request(props: HelperTypes.IRequest): PromiseLike<any>;
-    
-            /**
-                * Helper class for adding links to the top ribbon bar
-                */
-            RibbonLink: (props: HelperTypes.ILinkInfo) => HTMLAnchorElement;
-    
-            /**
-                * SharePoint Core Library Reference
-                */
-            SP: {
-                    /** Modal Dialog */
-                    ModalDialog: HelperTypes.IModalDialog,
-    
-                    /** Notify */
-                    Notify: HelperTypes.INotify,
-    
-                    /** Status */
-                    Status: HelperTypes.IStatus
-            };
-    
-            /**
-                * The field configuration types
-                */
-            SPCfgFieldType: HelperTypes.ISPCfgFieldType;
-    
-            /**
-                * The configuration types
-                */
-            SPCfgType: HelperTypes.ISPCfgType;
-    
-            /**
-                * Helper class for automating SharePoint assets
-                */
-            SPConfig: (cfg: HelperTypes.ISPConfigProps, webUrl?: string) => HelperTypes.ISPConfig;
-    
-            /**
-                * Helper class for adding links to the suite bar
-                */
-            SuiteBarLink: (props: HelperTypes.ILinkInfo) => HTMLAnchorElement;
-    
-            /**
-                * Helper class for getting information from the taxonomy term store
-                */
-            Taxonomy: HelperTypes.ITaxonomy;
-    
-            /**
-                * Helper class for creating modern webparts in SharePoint 2013+ environments
-                */
-            WebPart: HelperTypes.IWebPart;
     }
 }
 

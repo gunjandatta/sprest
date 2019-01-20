@@ -7,7 +7,7 @@ import { IREST } from "./rest.d";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.49,
+    __ver: 4.50,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -62,6 +62,7 @@ if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     // Ensure the SP lib exists
     if (Lib.ContextInfo.window.SP) {
         // Alert other scripts this library is loaded
+        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest");
         Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
     }
 }

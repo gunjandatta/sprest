@@ -1,5 +1,5 @@
 import {
-    $REST
+    $REST, Helper
 } from "../src";
 
 $REST.List("").execute(l => {

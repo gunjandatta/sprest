@@ -1,5 +1,8 @@
 import * as SP from "../../intellisense";
 
+/** App */
+export const App: IApp;
+
 /**
  * App Helper Methods
  */
