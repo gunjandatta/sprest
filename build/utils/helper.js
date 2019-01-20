@@ -218,9 +218,9 @@ exports.Helper = {
                 for (var _i = 0, results_1 = results_2; _i < results_1.length; _i++) {
                     var result = results_1[_i];
                     // Add the base methods
-                    exports.Helper.addBaseMethods(result, result);
+                    exports.Helper.addBaseMethods(obj, result);
                     // Update the metadata
-                    exports.Helper.updateMetadata(result, result);
+                    exports.Helper.updateMetadata(obj, result);
                     // Add the methods
                     _1.Request.addMethods(result, result);
                 }
