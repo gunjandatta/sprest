@@ -1,4 +1,4 @@
-import { RequestType } from "../utils";
+import { RequestType } from "../../utils";
 
 /**
  * Graph v1.0

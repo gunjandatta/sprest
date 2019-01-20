@@ -1,9 +1,9 @@
-import { RequestType } from "../utils";
+import { RequestType } from "../../utils";
 
 /**
- * Property Values
+ * Audit
  */
-export const propertyvalues = {
+export const audit = {
     // Queries the collection
     query: {
         argNames: ["oData"],
