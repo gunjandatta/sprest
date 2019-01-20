@@ -266,13 +266,13 @@ export const Helper: IBaseHelper = {
                 // Parse the results
                 for (let result of results) {
                     // Add the base methods
-                    Helper.addBaseMethods(obj, result);
+                    Helper.addBaseMethods(result, result);
 
                     // Update the metadata
-                    Helper.updateMetadata(obj, result);
+                    Helper.updateMetadata(result, result);
 
                     // Add the methods
-                    Request.addMethods(obj, result, result);
+                    Request.addMethods(result, result);
                 }
             }
         }

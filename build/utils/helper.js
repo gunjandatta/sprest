@@ -218,11 +218,11 @@ exports.Helper = {
                 for (var _i = 0, results_1 = results_2; _i < results_1.length; _i++) {
                     var result = results_1[_i];
                     // Add the base methods
-                    exports.Helper.addBaseMethods(obj, result);
+                    exports.Helper.addBaseMethods(result, result);
                     // Update the metadata
-                    exports.Helper.updateMetadata(obj, result);
+                    exports.Helper.updateMetadata(result, result);
                     // Add the methods
-                    _1.Request.addMethods(obj, result, result);
+                    _1.Request.addMethods(result, result);
                 }
             }
         }
