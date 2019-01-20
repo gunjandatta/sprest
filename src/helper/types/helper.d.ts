@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as HelperTypes from ".";
-import * as MapperTypes from "../../mapper/types";
+import * as MapperTypes from "../../intellisense";
 import * as UtilTypes from "../../utils/types";
 
 /**

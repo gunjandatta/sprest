@@ -1,8 +1,8 @@
 import { SP } from "gd-sprest-def";
 import { Base, Request } from "../utils";
-import { ITargetInfoProps } from "../utils/types";
-import { IList, IListEntityProps } from "./types";
+import { ITargetInfoProps } from "../utils/types/targetInfo";
 import { Web } from "./web";
+import { IList, IListEntityProps } from "./types/list";
 
 /**
  * List

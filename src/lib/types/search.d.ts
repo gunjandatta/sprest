@@ -1,7 +1,7 @@
 import { Microsoft } from "gd-sprest-def";
-import * as Types from "../../mapper/types";
+import * as Types from "../../intellisense";
 import { IBaseExecution } from "../../utils/types/base";
-import { ITargetInfoProps } from "../../utils/types";
+import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
  * Search

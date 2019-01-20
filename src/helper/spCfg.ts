@@ -1,7 +1,7 @@
 import { SP } from "gd-sprest-def";
 export * from "./spCfgTypes";
 import { ContextInfo, Site, Web } from "../lib";
-import * as Types from "../mapper/types";
+import * as Types from "../intellisense";
 import { SPTypes } from "..";
 import {
     ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,

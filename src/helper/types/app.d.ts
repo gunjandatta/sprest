@@ -1,4 +1,4 @@
-import * as SP from "../../mapper/types";
+import * as SP from "../../intellisense";
 
 /**
  * App Helper Methods

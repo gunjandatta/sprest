@@ -1,6 +1,6 @@
 import { Base, Request } from "../utils";
-import { IPeopleManager } from "./types";
-import { ITargetInfoProps } from "../utils/types";
+import { IPeopleManager } from "./types/peopleManager";
+import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * People Manager

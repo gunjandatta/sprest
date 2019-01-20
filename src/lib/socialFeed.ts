@@ -1,14 +1,13 @@
-import * as Types from "../mapper/types";
 import { Base, Request, RequestType } from "../utils";
-import { ISocialFeed } from "./types";
-import { ITargetInfoProps } from "../utils/types";
+import { ISocialFeed } from "../intellisense";
+import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Social Feed
  */
 export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfoProps) => {
     let base = new Base(targetInfo);
-    let socialFeed = base as any as Types.ISocialFeed;
+    let socialFeed = base as any as ISocialFeed;
 
     // Default the properties
     base.targetInfo.defaultToWebFl = true;

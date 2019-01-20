@@ -1,5 +1,5 @@
 import { Base, Request } from "../utils";
-import { INavigation } from "./types";
+import { INavigation } from "./types/navigation";
 
 /**
  * Navigation

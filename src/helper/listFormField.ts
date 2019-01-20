@@ -1,5 +1,5 @@
 import { ITermInfo } from "../helper/types";
-import * as SP from "../mapper/types";
+import * as SP from "../intellisense";
 import { Helper, Site, SPTypes, Web } from "..";
 import {
     IListFormField, IListFormFieldInfo, IListFormLookupFieldInfo,

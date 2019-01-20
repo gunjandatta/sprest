@@ -1,6 +1,6 @@
 import { Base, Request } from "../utils";
-import { IUserProfile } from "./types";
-import { ITargetInfoProps } from "../utils/types";
+import { IUserProfile } from "./types/userProfile";
+import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * User Profile

@@ -1,4 +1,4 @@
-import * as Types from "../../mapper/types";
+import * as Types from "../../intellisense";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
