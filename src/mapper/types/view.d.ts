@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IViewFields } from ".";
 
 /**
@@ -9,18 +9,18 @@ export interface IViewMethods {
     /**
      * Deletes the view.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Returns the list view as HTML.
      */
-    renderAsHtml(): IBaseLib;
+    renderAsHtml(): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The list properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface IViewQueryResult extends IViewMethods, SP.View {
 /**
  * View Result
  */
-export interface IViewResult extends IViewMethods, SP.View, IViewQueryProps, IBaseLib<IView, IViewResult, IViewQueryResult> { }
+export interface IViewResult extends IViewMethods, SP.View, IViewQueryProps, IBaseResult<IView, IViewResult, IViewQueryResult> { }
 
 /**
  * View
  */
-export interface IView extends IViewMethods, IViewQueryProps, IBaseLib<IView, IViewResult, IViewQueryResult> { }
+export interface IView extends IViewMethods, IViewQueryProps, IBaseQueryExecution<IView, IViewResult, IViewQueryResult> { }

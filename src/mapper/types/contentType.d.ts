@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IFieldResult, IFields, IFieldLinks, IListResult } from ".";
 
 /**
@@ -10,20 +10,20 @@ export interface IContentTypeMethods {
     /**
      * Deletes the content type.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The content type properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
  * Content Type Query Properties
  */
 export interface IContentTypeQueryProps {
-    DescriptionResource(): IBaseLib;
+    DescriptionResource(): IBaseExecution;
 
     /**
      * Gets the column (also known as field) references in the content type.
@@ -34,7 +34,7 @@ export interface IContentTypeQueryProps {
      * Gets the column (also known as field) reference in the content type.
      * @param guid - The guid of the field link.
      */
-    FieldLinks(guid: string): IBaseLib<SP.FieldLink>;
+    FieldLinks(guid: string): IBaseExecution<SP.FieldLink>;
 
     /**
      * Gets the fields for the content type.
@@ -47,7 +47,7 @@ export interface IContentTypeQueryProps {
      */
     Fields(internalNameOrTitle: string): IFields;
 
-    NameResource(): IBaseLib;
+    NameResource(): IBaseExecution;
 
     /** Gets the parent content type of the content type. */
     Parent(): IContentTypeMethods;
@@ -55,7 +55,7 @@ export interface IContentTypeQueryProps {
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
-    WorkflowAssociations(): IBaseLib;
+    WorkflowAssociations(): IBaseExecution;
 }
 
 /**
@@ -88,9 +88,9 @@ export interface IContentTypeQueryResult extends IContentTypeMethods, SP.Content
 /**
  * Content Type Result
  */
-export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseLib<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseResult<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
 
 /**
  * Content Type
  */
-export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseLib<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseQueryExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }

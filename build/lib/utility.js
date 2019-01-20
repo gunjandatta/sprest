@@ -5,14 +5,15 @@ var utils_1 = require("../utils");
  * Utility
  */
 exports.Utility = (function (url, targetInfo) {
-    var utility = new utils_1.Base(targetInfo);
+    var base = new utils_1.Base(targetInfo);
+    var utility = base;
     // Default the properties
-    utility.targetInfo.defaultToWebFl = true;
-    utility.targetInfo.endpoint = "SP.Utilities.Utility";
+    base.targetInfo.defaultToWebFl = true;
+    base.targetInfo.endpoint = "SP.Utilities.Utility";
     // See if the web url exists
     if (url) {
         // Set the settings
-        utility.targetInfo.url = url;
+        base.targetInfo.url = url;
     }
     // Add the methods
     utils_1.Request.addMethods(utility, { __metadata: { type: "utility" } });

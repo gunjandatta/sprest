@@ -5,14 +5,15 @@ var utils_1 = require("../utils");
  * Search
  */
 exports.Search = (function (url, targetInfo) {
-    var search = new utils_1.Base(targetInfo);
+    var base = new utils_1.Base(targetInfo);
+    var search = base;
     // Default the properties
-    search.targetInfo.defaultToWebFl = true;
-    search.targetInfo.endpoint = "search";
+    base.targetInfo.defaultToWebFl = true;
+    base.targetInfo.endpoint = "search";
     // See if the web url exists
     if (url) {
         // Set the settings
-        search.targetInfo.url = url;
+        base.targetInfo.url = url;
     }
     // Add the methods
     utils_1.Request.addMethods(search, { __metadata: { type: "search" } });

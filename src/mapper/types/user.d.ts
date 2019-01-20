@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from ".";
 
 /**
@@ -18,7 +18,7 @@ export interface IUserMethods {
     /**
      * Deletes the user custom action.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 }
 
 /**
@@ -34,7 +34,7 @@ export interface IUserQueryProps {
      * Gets the group of which the user is a member.
      * @param id - The group id.
      */
-    Groups(id: number): IBaseLib<IGroup>;
+    Groups(id: number): IBaseExecution<IGroup>;
 }
 
 /**
@@ -50,9 +50,9 @@ export interface IUserQueryResult extends IUserMethods, SP.User {
 /**
  * User Result
  */
-export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBaseLib<IUser, IUserResult, IUserQueryResult> { }
+export interface IUserResult extends IUserMethods, SP.User, IUserQueryProps, IBaseResult<IUser, IUserResult, IUserQueryResult> { }
 
 /**
  * User
  */
-export interface IUser extends IUserMethods, IUserQueryProps, IBaseLib<IUser, IUserResult, IUserQueryResult> { }
+export interface IUser extends IUserMethods, IUserQueryProps, IBaseQueryExecution<IUser, IUserResult, IUserQueryResult> { }

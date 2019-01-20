@@ -1,4 +1,4 @@
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from ".";
 
 /**
@@ -9,24 +9,19 @@ export interface IRoleDefinitionsMethods {
      * Gets the role definition with the specified ID from the collection.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
-    getById(roleDefId): IRoleDefinition & IBaseLib<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+    getById(roleDefId): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
 
     /**
      * Gets the role definition with the specified name.
      * @param name -
      */
-    getByName(name): IRoleDefinition & IBaseLib<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+    getByName(name): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
 
     /**
      * Gets the role definition with the specified role type.
      * @param roleType - The RoleTypeKind of the role definition.
      */
-    getByType(roleType: number): IRoleDefinition & IBaseLib<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseLib<IRoleDefinitions, IRoleDefinitionResults>;
+    getByType(roleType: number): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
 }
 
 /**
@@ -37,4 +32,4 @@ export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollecti
 /**
  * Role Definition Results
  */
-export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinitionResult, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionResult> { }

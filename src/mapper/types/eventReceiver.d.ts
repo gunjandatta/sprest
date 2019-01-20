@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 
 /**
  * Event Receiver Methods
@@ -8,13 +8,13 @@ export interface IEventReceiverMethods {
     /**
      * Deletes the event receiver.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The field properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -30,9 +30,9 @@ export interface IEventReceiverQueryResult extends IEventReceiverMethods, SP.Eve
 /**
  * Event Receiver Result
  */
-export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseLib<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseResult<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
 
 /**
  * Event Receiver
  */
-export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseLib<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseQueryExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }

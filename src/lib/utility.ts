@@ -6,16 +6,17 @@ import { IUtility } from "./types";
  * Utility
  */
 export const Utility: IUtility = ((url?, targetInfo?) => {
-    let utility = new Base(targetInfo) as any as Types.IUtility;
+    let base = new Base(targetInfo);
+    let utility = base as any as Types.IUtility;
 
     // Default the properties
-    utility.targetInfo.defaultToWebFl = true;
-    utility.targetInfo.endpoint = "SP.Utilities.Utility";
+    base.targetInfo.defaultToWebFl = true;
+    base.targetInfo.endpoint = "SP.Utilities.Utility";
 
     // See if the web url exists
     if (url) {
         // Set the settings
-        utility.targetInfo.url = url;
+        base.targetInfo.url = url;
     }
 
     // Add the methods

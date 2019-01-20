@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 
 /**
  * Field Methods
@@ -8,31 +8,31 @@ export interface IFieldMethods {
     /**
      * Deletes the field.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Sets the value of the ShowInDisplayForm property for this field.
      * @param showInForm - Flag to show the field in the display form.
      */
-    setShowInDisplayForm(showInForm): IBaseLib;
+    setShowInDisplayForm(showInForm): IBaseExecution;
 
     /**
      * Sets the value of the ShowInEditForm property for this field.
      * @param showInForm - Flag to show the field in the display form.
      */
-    setShowInEditForm(showInForm): IBaseLib;
+    setShowInEditForm(showInForm): IBaseExecution;
 
     /**
      * Sets the value of the ShowInNewForm property for this field.
      * @param showInForm - Flag to show the field in the display form.
      */
-    setShowInNewForm(showInForm): IBaseLib;
+    setShowInNewForm(showInForm): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The field properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -130,9 +130,9 @@ export interface IFieldProps {
  * Field Query Properties
  */
 export interface IFieldQueryProps {
-    DescriptionResource(): IBaseLib<SP.ResourcePath>;
+    DescriptionResource(): IBaseExecution<SP.ResourcePath>;
 
-    TitleResource(): IBaseLib<SP.ResourcePath>;
+    TitleResource(): IBaseExecution<SP.ResourcePath>;
 }
 
 /**
@@ -147,12 +147,12 @@ export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
 /**
  * Field Result
  */
-export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseLib<IField, IFieldResult, IFieldQueryResult> { }
+export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseResult<IField, IFieldResult, IFieldQueryResult> { }
 
 /**
  * Field
  */
-export interface IField extends IFieldMethods, IFieldQueryProps, IBaseLib<IField, IFieldResult, IFieldQueryResult> { }
+export interface IField extends IFieldMethods, IFieldQueryProps, IBaseQueryExecution<IField, IFieldResult, IFieldQueryResult> { }
 
 /**
  * Base Choice Field

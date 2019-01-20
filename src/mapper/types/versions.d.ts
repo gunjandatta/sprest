@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 
 /**
  * Versions
@@ -8,34 +8,34 @@ export interface IVersions extends IBaseCollection<SP.FileVersion> {
     /**
      * Deletes all versions in the collection.
      */
-    deleteAll(): IBaseLib;
+    deleteAll(): IBaseExecution;
 
     /**
      * Deletes a version, by the specified id.
      * @param id - The version id to delete.
      */
-    deleteById(id): IBaseLib;
+    deleteById(id): IBaseExecution;
 
     /**
      * Deletes a version, by the specified label.
      * @param label - The version label to delete.
      */
-    deleteByLabel(label): IBaseLib;
+    deleteByLabel(label): IBaseExecution;
 
     /**
      * Gets the version with the specified ID.
      * @param id - The version id to get.
      */
-    getById(id): IBaseLib<SP.FileVersion>;
+    getById(id): IBaseExecution<SP.FileVersion>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBaseLib<IVersions>;
+    next(): IBaseExecution<IVersions>;
 
     /**
      * Restores a version, by the specified label.
      * @param label - The version label to restore.
      */
-    restoreByLabel(label): IBaseLib<SP.FileVersion>;
+    restoreByLabel(label): IBaseExecution<SP.FileVersion>;
 }

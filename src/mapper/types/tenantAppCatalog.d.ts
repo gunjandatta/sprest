@@ -1,5 +1,5 @@
 import * as SP from "../../mapper/types";
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection } from "../../utils/types/base";
 import { ITenantApp, ITenantApps } from ".";
 
 /**
@@ -12,7 +12,7 @@ export interface ITenantAppCatalogMethods {
      * @param overwrite - Flag to overwrite the solution.
      * @param url - The file name of the solution.
      */
-    add(overwrite?: boolean, url?: string): IBaseLib<SP.IFile, SP.IFileResult>;
+    add(overwrite?: boolean, url?: string): IBaseExecution<SP.IFile, SP.IFileResult>;
 
     /**
      * Deploy solution package in tenant app catalog
@@ -57,10 +57,10 @@ export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, 
 /**
  * Tenant App Catalog Result
  */
-export interface ITenantAppCatalogResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, ITenantAppCatalogQueryProps, IBaseLib<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+export interface ITenantAppCatalogResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, ITenantAppCatalogQueryProps, IBaseExecution<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
 }
 
 /**
  * Tenant App Catalog
  */
-export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBaseLib<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> { }
+export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBaseExecution<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> { }

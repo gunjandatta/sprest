@@ -1,4 +1,4 @@
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 import { IEntityData } from "./entityData";
 
 /**
@@ -102,14 +102,14 @@ export interface IPeoplePickerUser {
 /**
  * People Picker
  */
-export interface IPeoplePicker extends IBaseLib {
+export interface IPeoplePicker extends IBaseExecution {
     /** Method to resolve users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBaseLib<IPeoplePickerResolveUser>;
+    clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerResolveUser>;
 
     /** Method to search for users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBaseLib<IPeoplePickerSearchUser>;
+    clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerSearchUser>;
 }

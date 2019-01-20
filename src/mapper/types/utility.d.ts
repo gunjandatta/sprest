@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution } from "../../utils/types/base";
 
 /**
  * Email
@@ -89,14 +89,14 @@ export interface ISearchPrincipal {
 /**
  * Utility Results
  */
-export interface ICreateEmailBodyForInvitationResult extends IBaseLib { CreateEmailBodyForInvitation: string; }
-export interface IGetCurrentUserEmailAddressesResult extends IBaseLib { GetCurrentUserEmailAddresses: string; }
-export interface IGetAppLicenseDeploymentIdResult extends IBaseLib { GetAppLicenseDeploymentId: string; }
-export interface IGetAppLicenseInformationResult extends IBaseLib { GetAppLicenseInformation: string; }
-export interface IGetLowerCaseStringResult extends IBaseLib { GetLowerCaseString: string; }
-export interface IResolvePrincipalResult extends IBaseLib { ResolvePrincipalInCurrentContext: IPrincipalResult; }
-export interface ISearchPrincipalsResult extends IBaseLib { results: Array<IPrincipalResult>; SearchPrincipalsUsingContextWeb: { results: Array<IPrincipalResult>; }; }
-export interface ISendEmailResult extends IBaseLib { SendEmail: string; }
+export interface ICreateEmailBodyForInvitationResult extends IBaseExecution { CreateEmailBodyForInvitation: string; }
+export interface IGetCurrentUserEmailAddressesResult extends IBaseExecution { GetCurrentUserEmailAddresses: string; }
+export interface IGetAppLicenseDeploymentIdResult extends IBaseExecution { GetAppLicenseDeploymentId: string; }
+export interface IGetAppLicenseInformationResult extends IBaseExecution { GetAppLicenseInformation: string; }
+export interface IGetLowerCaseStringResult extends IBaseExecution { GetLowerCaseString: string; }
+export interface IResolvePrincipalResult extends IBaseExecution { ResolvePrincipalInCurrentContext: IPrincipalResult; }
+export interface ISearchPrincipalsResult extends IBaseExecution { results: Array<IPrincipalResult>; SearchPrincipalsUsingContextWeb: { results: Array<IPrincipalResult>; }; }
+export interface ISendEmailResult extends IBaseExecution { SendEmail: string; }
 
 /**
  * Utility Methods
@@ -106,83 +106,83 @@ export interface IUtilityMethods {
      * Gets the external (outside the firewall) URL to a document or resource in a site.
      * pageAddress - The URL for the document or resource.
      */
-    createEmailBodyForInvitation(pageAddress: string): IBaseLib<IBaseLib, ICreateEmailBodyForInvitationResult>;
+    createEmailBodyForInvitation(pageAddress: string): IBaseExecution<IBaseExecution, ICreateEmailBodyForInvitationResult>;
 
     /**
      * Gets the app license deployment id.
      */
-    getAppLicenseDeploymentId(): IBaseLib<IBaseLib, IGetAppLicenseDeploymentIdResult>;
+    getAppLicenseDeploymentId(): IBaseExecution<IBaseExecution, IGetAppLicenseDeploymentIdResult>;
 
     /**
      * Gets the app license information.
      */
-    getAppLicenseInformation(): IBaseLib<IBaseLib, IGetAppLicenseInformationResult>;
+    getAppLicenseInformation(): IBaseExecution<IBaseExecution, IGetAppLicenseInformationResult>;
 
     /**
      * Returns the current user's email address.
      */
-    getCurrentUserEmailAddresses(): IBaseLib<IBaseLib, IGetCurrentUserEmailAddressesResult>;
+    getCurrentUserEmailAddresses(): IBaseExecution<IBaseExecution, IGetCurrentUserEmailAddressesResult>;
 
     /**
      * Converts the text to a localized string.
      */
-    getLocalizedString(sourceValue: string): IBaseLib;
+    getLocalizedString(sourceValue: string): IBaseExecution;
 
     /**
      * Converts the text to be lower case.
      */
-    getLowerCaseString(sourceValue: string, lcid: number): IBaseLib<IBaseLib, IGetLowerCaseStringResult>;
+    getLowerCaseString(sourceValue: string, lcid: number): IBaseExecution<IBaseExecution, IGetLowerCaseStringResult>;
 
     /**
      * Need to research
      */
-    importAppLicense(url: string): IBaseLib;
+    importAppLicense(url: string): IBaseExecution;
 
     /**
      * Need to research
      */
-    isUserLicensedForEntityInContext(url: string): IBaseLib;
+    isUserLicensedForEntityInContext(url: string): IBaseExecution;
 
     /**
      * Need to research
      */
-    localizeWebPartGallery(url: string): IBaseLib;
+    localizeWebPartGallery(url: string): IBaseExecution;
 
     /**
      * Need to research
      */
-    markDiscussionAsFeatured(url: string): IBaseLib;
+    markDiscussionAsFeatured(url: string): IBaseExecution;
 
     /**
      * Gets information about a principal that matches the specified Search criteria.
      */
-    resolvePrincipal(principal: IResolvePrincipal): IBaseLib<IBaseLib, IResolvePrincipalResult>;
+    resolvePrincipal(principal: IResolvePrincipal): IBaseExecution<IBaseExecution, IResolvePrincipalResult>;
 
     /**
      * Gets information about the principals that match the specified Search criteria.
      */
-    searchPrincipals(principal: ISearchPrincipal): IBaseLib<IBaseLib, ISearchPrincipalsResult>;
+    searchPrincipals(principal: ISearchPrincipal): IBaseExecution<IBaseExecution, ISearchPrincipalsResult>;
 
     /**
      * Need to research
      */
-    unmarkDiscussionAsFeatured(url: string): IBaseLib;
+    unmarkDiscussionAsFeatured(url: string): IBaseExecution;
 }
 
 /**
  * Utility
  */
-export interface IUtility extends IUtilityMethods, IBaseLib<IUtility> {
+export interface IUtility extends IUtilityMethods, IBaseExecution<IUtility> {
     /**
      * Creates a wiki page.
      * @param listUrl - The relative url to the library.
      * @param content - The html content.
      */
-    createWikiPage(pageUrl: string, content?: string): IBaseLib<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+    createWikiPage(pageUrl: string, content?: string): IBaseExecution<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
 
     /**
      * Method to send an email.
      * @param email - The email properties.
      */
-    sendEmail(email: IEmail): IBaseLib<IBaseLib, ISendEmailResult>;
+    sendEmail(email: IEmail): IBaseExecution<IBaseExecution, ISendEmailResult>;
 }

@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from ".";
 
 /**
@@ -10,24 +10,24 @@ export interface IFolderMethods {
     /**
      * Deletes the folder.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Get the folder at the specified URL.
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
-    getByUrl(serverRelativeUrl): IFolder & IBaseLib<IFolder, IFolderResult, IFolderQueryResult>;
+    getByUrl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
 
     /**
      * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
-    recycle(): IBaseLib;
+    recycle(): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The file properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -59,7 +59,7 @@ export interface IFolderQueryProps {
     /**
      * Specifies the list item field (2) values for the list item corresponding to the file.
      */
-    ListItemAllFields(): IBaseLib<Types.IListItem>;
+    ListItemAllFields(): IBaseExecution<Types.IListItem>;
 
     /**
      * Gets the parent list folder of the folder.
@@ -69,9 +69,9 @@ export interface IFolderQueryProps {
     /**
      * Property Bag
      */
-    Properties(): IBaseLib<Types.IPropertyValues>;
+    Properties(): IBaseExecution<Types.IPropertyValues>;
 
-    StorageMetrics(): IBaseLib;
+    StorageMetrics(): IBaseExecution;
 }
 
 /**
@@ -109,9 +109,9 @@ export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
 /**
  * Folder Result
  */
-export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseLib<IFolder, IFolderResult, IFolderQueryResult> { }
+export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseResult<IFolder, IFolderResult, IFolderQueryResult> { }
 
 /**
  * Folder
  */
-export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseLib<IFolder, IFolderResult, IFolderQueryResult> { }
+export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseQueryExecution<IFolder, IFolderResult, IFolderQueryResult> { }

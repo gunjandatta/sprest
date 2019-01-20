@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseLib, IBaseCollection } from "../../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../../utils/types/base";
 import { IList, IListQueryResult, IListResult } from ".";
 
 /**
@@ -10,34 +10,29 @@ export interface IListsMethods {
      * Adds a list to the list collection.
      * @param parameters - The list creation information.
      */
-    add(parameters: SP.List): IBaseLib<IList, IListResult>;
+    add(parameters: SP.List): IBaseExecution<IList, IListResult>;
 
     /**
      * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
      */
-    ensureSiteAssetsLibrary(): IBaseLib<IList, IListResult, IListQueryResult>;
+    ensureSiteAssetsLibrary(): IBaseExecution<IList, IListResult, IListQueryResult>;
 
     /**
      * Gets a list that is the default location for wiki pages.
      */
-    ensureSitePagesLibrary(): IBaseLib<IList, IListResult, IListQueryResult>;
+    ensureSitePagesLibrary(): IBaseExecution<IList, IListResult, IListQueryResult>;
 
     /**
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id): IList & IBaseLib<IList, IListResult, IListQueryResult>;
+    getById(id): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
 
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title): IList & IBaseLib<IList, IListResult, IListQueryResult>;
-
-    /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseLib<ILists, IListResults>;
+    getByTitle(title): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
 }
 
 /**
@@ -48,4 +43,4 @@ export interface ILists extends IListsMethods, IBaseCollection<IList, IListResul
 /**
  * List Results
  */
-export interface IListResults extends IListsMethods, IBaseCollection<IListResult, IListResult, IListQueryResult> { }
+export interface IListResults extends IListsMethods, IBaseCollectionResult<IListResult> { }

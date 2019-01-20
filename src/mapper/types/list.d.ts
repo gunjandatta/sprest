@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 
 /**
@@ -32,65 +32,65 @@ export interface IListMethods {
     /**
      * Deletes the list.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
      * @param query - The change query.
      */
-    getChanges(query): IBaseLib;
+    getChanges(query): IBaseExecution;
 
     /**
      * Returns the list item with the specified list item identifier.
      * @param id - The list item id.
      */
-    getItemById(id): IListItem & IBaseLib<IListItem, IListItemResult, IListItemQueryResult>;
+    getItemById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
 
     /**
      * Returns a collection of items from the list based on the view xml.
      * @param viewXml - The view xml CAML query.
      */
-    getItems(viewXml): IBaseLib<IListItems, IListItemResults>;
+    getItems(viewXml): IBaseExecution<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @camlQuery - The caml query.
      */
-    getItemsByQuery(camlQuery): IBaseLib<IListItems, IListItemResults>;
+    getItemsByQuery(camlQuery): IBaseExecution<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBaseLib<IListItems, IListItemResults>;
+    getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBaseExecution<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
      */
-    getRelatedFields(): IBaseLib;
+    getRelatedFields(): IBaseExecution;
 
     /**
      * Gets the effective user permissions for the current user.
      * @param loginName - The user login name.
      */
-    getUserEffectivePermissions(loginName): IBaseLib;
+    getUserEffectivePermissions(loginName): IBaseExecution;
 
     /**
      * Returns the list view with the specified view identifier.
      * @param viewId - The view id.
      */
-    getViewById(viewId): IView & IBaseLib<IView, IViewResult, IViewQueryResult>;
+    getViewById(viewId): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
 
     /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
-    recycle(): IBaseLib;
+    recycle(): IBaseExecution;
 
     /**
      * Renders the list data.
      * @param viewXml - A CAML query that defines the items and fields that you want returned.
      */
-    renderListData(viewXml): IBaseLib;
+    renderListData(viewXml): IBaseExecution;
 
     /**
      * Renders the list form data.
@@ -99,23 +99,23 @@ export interface IListMethods {
      * @param mode - The SP.ControlMode of the control used to display the item.
      * Types of modes: 1 - Display, 2 - Edit, 3 - New
      */
-    renderListFormData(itemId, formId, mode: number): IBaseLib;
+    renderListFormData(itemId, formId, mode: number): IBaseExecution;
 
     /**
      * Reserves a list item ID for idempotent list item creation.
      */
-    reserveListItemId(): IBaseLib;
+    reserveListItemId(): IBaseExecution;
 
     /**
      * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
      */
-    resetRoleInheritance(): IBaseLib;
+    resetRoleInheritance(): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The list properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -138,7 +138,7 @@ export interface IListQueryProps {
     */
     DefaultView(): IView;
 
-    DescriptionResouce(): IBaseLib<SP.ResourcePath>;
+    DescriptionResouce(): IBaseExecution<SP.ResourcePath>;
 
     /**
      * Gets the event receivers associated with the list.
@@ -165,23 +165,23 @@ export interface IListQueryProps {
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject(): IBaseLib<string>;
+    FirstUniqueAncestorSecurableObject(): IBaseExecution<string>;
 
     /**
      * Gets the list forms in the list.
      */
-    Forms(): IBaseLib;
+    Forms(): IBaseExecution;
 
     /**
      * Gets the list form in the list.
      * @param id - The id of the form.
      */
-    Forms(id: string): IBaseLib;
+    Forms(id: string): IBaseExecution;
 
     /**
      * Gets a value that specifies the information rights management settings.
     */
-    InformationRightsManagementSettings(): IBaseLib;
+    InformationRightsManagementSettings(): IBaseExecution;
 
     /**
      * Gets the list items in the list.
@@ -197,7 +197,7 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb(): IBaseLib<Types.IWeb>;
+    ParentWeb(): IBaseExecution<Types.IWeb>;
 
     /**
      * Gets the role assignments for the securable object.
@@ -221,9 +221,9 @@ export interface IListQueryProps {
      */
     RootFolder(url: string): Types.IFile;
 
-    Subscriptions(): IBaseLib<IBaseLib>;
+    Subscriptions(): IBaseExecution<IBaseExecution>;
 
-    TitleResource(): IBaseLib<SP.ResourcePath>;
+    TitleResource(): IBaseExecution<SP.ResourcePath>;
 
     /**
      * Gets the user custom actions for the list.
@@ -334,9 +334,9 @@ export interface IListQueryResult extends IListMethods, SP.List {
 /**
  * List Result
  */
-export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseLib<IList, IListResult, IListQueryResult> { }
+export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseResult<IList, IListResult, IListQueryResult> { }
 
 /**
  * List
  */
-export interface IList extends IListMethods, IListQueryProps, IBaseLib<IList, IListResult, IListQueryResult> { }
+export interface IList extends IListMethods, IListQueryProps, IBaseQueryExecution<IList, IListResult, IListQueryResult> { }

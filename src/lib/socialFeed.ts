@@ -7,11 +7,12 @@ import { ITargetInfoProps } from "../utils/types";
  * Social Feed
  */
 export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfoProps) => {
-    let socialFeed = new Base(targetInfo) as any as Types.ISocialFeed;
+    let base = new Base(targetInfo);
+    let socialFeed = base as any as Types.ISocialFeed;
 
     // Default the properties
-    socialFeed.targetInfo.defaultToWebFl = true;
-    socialFeed.targetInfo.endpoint = "social.feed";
+    base.targetInfo.defaultToWebFl = true;
+    base.targetInfo.endpoint = "social.feed";
 
     // Add the methods
     Request.addMethods(socialFeed as any, { __metadata: { type: "socialfeed" } });

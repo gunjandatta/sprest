@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Types from "../../mapper/types";
-import { IBaseLib } from "../../utils/types/base";
+import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "../../utils/types/base";
 import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
 
 /**
@@ -14,169 +14,169 @@ export interface IWebMethods {
      * @param backgroundimageurl - The server-relative URL of the background image.
      * @param sharegenerated - True to store the generated theme files in the root site, or false to store them in this site.
      */
-    applyTheme(colorpaletteurl, fontschemeurl, backgroundimageurl, sharegenerated): IBaseLib;
+    applyTheme(colorpaletteurl, fontschemeurl, backgroundimageurl, sharegenerated): IBaseExecution;
 
     /**
      * Applies the specified site definition or site template to the Web site that has no template applied to it.
      * @param name - The site definition or web template name to apply.
      */
-    applyWebTemplate(name): IBaseLib;
+    applyWebTemplate(name): IBaseExecution;
 
     /**
      * Creates unique role assignments for the securable object.
      * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
      * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
      */
-    breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBaseLib;
+    breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBaseExecution;
 
     /**
      * Deletes the web.
      */
-    delete(): IBaseLib;
+    delete(): IBaseExecution;
 
     /**
      * Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
      * @param id - The ID of the device app instance.
      */
-    doesPushNotificationSubscriberExist(id): IBaseLib;
+    doesPushNotificationSubscriberExist(id): IBaseExecution;
 
     /**
      * Returns whether the current user has the given set of permissions.
      * @param high - The highest permission range value.
      * @param low - The lowest permission range value.
      */
-    doesUserHavePermissions(high, low): IBaseLib;
+    doesUserHavePermissions(high, low): IBaseExecution;
 
     /**
      * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, it will add the user to the site.
      */
-    ensureUser(loginName: string): IBaseLib<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
+    ensureUser(loginName: string): IBaseExecution<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
 
     /**
      * Sends data to an OData service.
      * @param inputStream - The OData input object. Used for create or update operations only.
      */
-    executeRemoteLOB(inputStream): IBaseLib;
+    executeRemoteLOB(inputStream): IBaseExecution;
 
     /**
      * The app BDC catalog.
      */
-    getAppBdcCatalog(): IBaseLib;
+    getAppBdcCatalog(): IBaseExecution;
 
     /**
      * The app BDC catalog for the specified app instance.
      * @param id - The ID of the app instance.
      */
-    getAppBdcCatalogForAppInstance(id): IBaseLib;
+    getAppBdcCatalogForAppInstance(id): IBaseExecution;
 
     /**
      * Retrieves an AppInstance installed on this Site.
      * @param id - The ID of the app instance.
      */
-    getAppInstanceById(id): IBaseLib;
+    getAppInstanceById(id): IBaseExecution;
 
     /**
      * Retrieves all AppInstances installed on this site that are instances of the specified App.
      * @param id - The product ID of the app.
      */
-    getAppInstancesByProductId(id): IBaseLib;
+    getAppInstancesByProductId(id): IBaseExecution;
 
     /**
      * Returns a collection of site templates available for the site.
      * @param lcid - The LCID of the site templates to get.
      * @param doIncludeCrossLanguage - True to include language-neutral site templates; otherwise false.
      */
-    getAvailableWebTemplates(lcid, doIncludeCrossLanguage): IBaseLib;
+    getAvailableWebTemplates(lcid, doIncludeCrossLanguage): IBaseExecution;
 
     /**
      * Returns the list gallery on the site.
      * @param galleryType - The gallery type. Represents a ListTemplateType value such as WebTemplateCatalog = 111, WebPartCatalog = 113 ListTemplateCatalog = 114, MasterPageCatalog = 116, SolutionCatalog = 121, ThemeCatalog = 123, DesignCatalog = 124, AppDataCatalog = 125.
      */
-    getCatalog(galleryType): Types.IList & IBaseLib<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    getCatalog(galleryType): Types.IList & IBaseExecution<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
      * @param query - The change query.
      */
-    getChanges(query): IBaseLib;
+    getChanges(query): IBaseExecution;
 
     /**
      * The context information for the site. Static method.
      */
-    getContextWebInformation(): IBaseLib;
+    getContextWebInformation(): IBaseExecution;
 
     /**
      * The custom list templates for the site.
      */
-    getCustomListTemplates(): IBaseLib;
+    getCustomListTemplates(): IBaseExecution;
 
     /**
      * The document libraries on a site. Static method. (SharePoint Online only)
      * @param url - The full URL of the site.
      */
-    getDocumentLibraries(url): IBaseLib;
+    getDocumentLibraries(url): IBaseExecution;
 
     /**
      * The specified external content type in a line-of-business (LOB) system application.
      * @param namespace - The namespace of the external content type.
      * @param name - The name of the external content type.
      */
-    getEntity(namespace, name): IBaseLib;
+    getEntity(namespace, name): IBaseExecution;
 
     /**
      * Returns the file object located at the specified server-relative URL.
      * @param url - The server relative url of the file.
      */
-    getFileByServerRelativeUrl(url): Types.IFile & IBaseLib<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+    getFileByServerRelativeUrl(url): Types.IFile & IBaseExecution<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
 
     /**
      * Returns the folder object located at the specified server-relative URL.
      * @param url - The server relative url of the folder.
      */
-    getFolderByServerRelativeUrl(url): Types.IFolder & IBaseLib<Types.IFolder, Types.IFolderResult, Types.IFolderQueryResult>;
+    getFolderByServerRelativeUrl(url): Types.IFolder & IBaseExecution<Types.IFolder, Types.IFolderResult, Types.IFolderQueryResult>;
 
     /**
      * The list at the specified site-relative URL.
      * @param url - The server relative url of the list.
      */
-    getList(url): Types.IList & IBaseLib<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    getList(url): Types.IList & IBaseExecution<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * The push notification subscriber over the site for the specified device application instance ID.
      * @param id - The ID of the device app instance.
      */
-    getPushNotificationSubscriber(id): IBaseLib;
+    getPushNotificationSubscriber(id): IBaseExecution;
 
     /**
      * Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
      * @param args - Arguments to filter the results. Passed arguments are compared to the subscribers' custom arguments in the store. Pass null or empty arguments to return unfiltered results.
      */
-    getPushNotificationSubscribersByArgs(args): IBaseLib;
+    getPushNotificationSubscribersByArgs(args): IBaseExecution;
 
     /**
      * Queries for the push notification subscribers over the site for the specified user.
      * @param loginName - The login name of the user.
      */
-    getPushNotificationSubscribersByUser(loginName): IBaseLib;
+    getPushNotificationSubscribersByUser(loginName): IBaseExecution;
 
     /**
      * Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
      * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
      * @param nConfigurationFilter - The ID of the site template used to provision the sites.
      */
-    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBaseLib<Types.Results.IResults<SP.WebInformation>>;
+    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBaseExecution<Types.Results.IResults<SP.WebInformation>>;
 
     /**
      * Returns the user corresponding to the specified member identifier for the current site.
      * @param id - The user id.
      */
-    getUserById(id): Types.IUser & IBaseLib<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
+    getUserById(id): Types.IUser & IBaseExecution<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
 
     /**
      * The effective permissions that the specified user has within the current application scope.
      * @param loginName - The user login name.
      */
-    getUserEffectivePermissions(loginName): IBaseLib;
+    getUserEffectivePermissions(loginName): IBaseExecution;
 
     /**
      * The site URL from a page URL. Static method.
@@ -188,21 +188,21 @@ export interface IWebMethods {
      * Uploads and installs an app package to this site.
      * @param appPackageStream - The app package stream.
      */
-    loadAndInstallApp(appPackageStream): IBaseLib;
+    loadAndInstallApp(appPackageStream): IBaseExecution;
 
     /**
      * Uploads and installs an App package on the site in a specified locale.
      * @param appPackageStream - The app package stream.
      * @param installationLocaleLCID - The LCID of the locale to use to create the app instance.
      */
-    loadAndInstallAppInSpecifiedLocale(appPackageStream, installationLocaleLCID): IBaseLib;
+    loadAndInstallAppInSpecifiedLocale(appPackageStream, installationLocaleLCID): IBaseExecution;
 
     /**
      * Uploads an App package and creates an instance from it.
      * @param appPackageStream - The app package stream.
      * @param installationLocaleLCID - The LCID of the locale to use to create the app instance.
      */
-    loadApp(appPackageStream, installationLocaleLCID): IBaseLib;
+    loadApp(appPackageStream, installationLocaleLCID): IBaseExecution;
 
     /**
      * Returns the name of the image file for the icon that is used to represent the specified file.
@@ -210,37 +210,37 @@ export interface IWebMethods {
      * @param progid - The ProgID of the application that was used to create the file, in the form OLEServerName.ObjectName (for example, Excel.Sheet or PowerPoint.Slide). This is the ID used by the Windows registry to uniquely identify an object.
      * @param size - The size of the icon: 16x16 pixels = 0, 32x32 pixels = 1.
      */
-    mapToIcon(filename, progid, size): IBaseLib;
+    mapToIcon(filename, progid, size): IBaseExecution;
 
     /**
      * Processes a notification from an external system.
      * @param stream - The notification message from the external system.
      */
-    processExternalNotification(stream): IBaseLib;
+    processExternalNotification(stream): IBaseExecution;
 
     /**
      * Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
      * @param deviceAppInstanceId - The ID of the device app instance.
      * @param serviceToken - The token provided by the notification service to the device to receive notifications.
      */
-    registerPushNotificationSubscriber(deviceAppInstanceId, serviceToken): IBaseLib;
+    registerPushNotificationSubscriber(deviceAppInstanceId, serviceToken): IBaseExecution;
 
     /**
      * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
      */
-    resetRoleInheritance(): IBaseLib;
+    resetRoleInheritance(): IBaseExecution;
 
     /**
      * Unregisters the subscriber for push notifications from the site.
      * @param id - The ID of the device app instance.
      */
-    unregisterPushNotificationSubscriber(id): IBaseLib;
+    unregisterPushNotificationSubscriber(id): IBaseExecution;
 
     /**
      * Updates it's properties.
      * @param data - The list properties to update.
      */
-    update(data): IBaseLib;
+    update(data): IBaseExecution;
 }
 
 /**
@@ -250,12 +250,12 @@ export interface IWebQueryProps {
     /**
      * Property Bag
      */
-    AllProperties(): IBaseLib<Types.IPropertyValues>;
+    AllProperties(): IBaseExecution<Types.IPropertyValues>;
 
     /**
      * Gets a collection of metadata for the Web site.
      */
-    AllProperties(): IBaseLib;
+    AllProperties(): IBaseExecution;
 
     AppTiles(): IAppTiles;
 
@@ -279,14 +279,14 @@ export interface IWebQueryProps {
     /**
      * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
      */
-    AvailableContentTypes(): IBaseLib<Types.IContentTypes>;
+    AvailableContentTypes(): IBaseExecution<Types.IContentTypes>;
 
     /**
      * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
      */
-    AvailableFields(): IBaseLib<Types.IFields>;
+    AvailableFields(): IBaseExecution<Types.IFields>;
 
-    ClientWebParts(): IBaseLib;
+    ClientWebParts(): IBaseExecution;
 
     /**
      * Gets the content types that are associated with the web.
@@ -304,9 +304,9 @@ export interface IWebQueryProps {
      */
     CurrentUser(): Types.IUser;
 
-    DataLeakagePreventionStatusInfo(): IBaseLib;
+    DataLeakagePreventionStatusInfo(): IBaseExecution;
 
-    DescriptionResource(): IBaseLib<SP.ResourcePath>;
+    DescriptionResource(): IBaseExecution<SP.ResourcePath>;
 
     /**
      * Gets the event receivers associated with the web.
@@ -328,7 +328,7 @@ export interface IWebQueryProps {
      * Gets the site features.
      * @param id - The id of the feature.
      */
-    Features(id: string): IBaseLib<Types.IFeature>;
+    Features(id: string): IBaseExecution<Types.IFeature>;
 
     /**
      * Gets the fields in the web.
@@ -366,18 +366,18 @@ export interface IWebQueryProps {
     /**
      * Gets the list definitions and list templates available for creating lists on the site.
      */
-    ListTemplates(): IBaseLib;
+    ListTemplates(): IBaseExecution;
 
     /**
      * Gets the list definition or list template available for creating lists on the site.
      * @param name - The list template form name.
      */
-    ListTemplates(name: string): IBaseLib;
+    ListTemplates(name: string): IBaseExecution;
 
     /**
      * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
      */
-    Navigation(): IBaseLib<SP.Navigation>;
+    Navigation(): IBaseExecution<SP.Navigation>;
 
     /**
      * Gets the parent website of the specified website.
@@ -387,17 +387,17 @@ export interface IWebQueryProps {
     /**
      * Gets the collection of push notification subscribers over the site.
      */
-    PushNotificationSubscribers(): IBaseLib;
+    PushNotificationSubscribers(): IBaseExecution;
 
     /**
      * Specifies the collection of recycle bin items of the recycle bin of the site.
      */
-    RecycleBin(): IBaseLib;
+    RecycleBin(): IBaseExecution;
 
     /**
      * Gets the regional settings that are currently implemented on the website.
      */
-    RegionalSettings(): IBaseLib;
+    RegionalSettings(): IBaseExecution;
 
     /**
      * Gets the role definitions for the web.
@@ -435,7 +435,7 @@ export interface IWebQueryProps {
     /**
      * Gets the UserInfo list of the site collection that contains the Web site.
      */
-    SiteUserInfoList(): IBaseLib;
+    SiteUserInfoList(): IBaseExecution;
 
     /**
      * Gets the collection of all users that belong to the site collection.
@@ -454,9 +454,9 @@ export interface IWebQueryProps {
     /**
      * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
      */
-    ThemeInfo(): IBaseLib;
+    ThemeInfo(): IBaseExecution;
 
-    TitleResource(): IBaseLib<SP.ResourcePath>;
+    TitleResource(): IBaseExecution<SP.ResourcePath>;
 
     /**
      * Gets the user custom actions for the web.
@@ -472,7 +472,7 @@ export interface IWebQueryProps {
     /**
      * Represents key properties of the subsites of a site.
      */
-    WebInfos(): IBaseLib;
+    WebInfos(): IBaseExecution;
 
     /**
      * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
@@ -482,12 +482,12 @@ export interface IWebQueryProps {
     /**
      * Gets a value that specifies the collection of all workflow associations for the site.
      */
-    WorkflowAssociations(): IBaseLib;
+    WorkflowAssociations(): IBaseExecution;
 
     /**
      * Gets a value that specifies the collection of workflow templates associated with the site.
      */
-    WorkflowTemplates(): IBaseLib;
+    WorkflowTemplates(): IBaseExecution;
 }
 
 /**
@@ -529,7 +529,7 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
      */
     AvailableFields: Types.Results.IResults<Types.IFieldResult>;
 
-    ClientWebParts: IBaseLib;
+    ClientWebParts: IBaseExecution;
 
     /**
      * Gets the content types that are associated with the web.
@@ -591,7 +591,7 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Gets the collection of push notification subscribers over the site.
      */
-    PushNotificationSubscribers(): IBaseLib;
+    PushNotificationSubscribers(): IBaseExecution;
 
     /**
      * Specifies the collection of recycle bin items of the recycle bin of the site.
@@ -667,9 +667,9 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
 /**
  * Web Result
  */
-export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBaseLib<IWeb, IWebResult, IWebQueryResult> { }
+export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBaseResult<IWeb, IWebResult, IWebQueryResult> { }
 
 /**
  * Web
  */
-export interface IWeb extends IWebMethods, IWebQueryProps, IBaseLib<IWeb, IWebResult, IWebQueryResult> { }
+export interface IWeb extends IWebMethods, IWebQueryProps, IBaseQueryExecution<IWeb, IWebResult, IWebQueryResult> { }
