@@ -2,6 +2,12 @@ import {
     $REST
 } from "../src";
 
+$REST.List("").execute(l => {
+    l.getItemById(3).execute(item => {
+        let file = item.File;
+    });
+})
+
 $REST.Web().getUserEffectivePermissions("").execute(r => {
     let h = r.GetUserEffectivePermissions.High;
 });

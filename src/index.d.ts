@@ -1,7 +1,8 @@
 /**
  * Helper Class
  */
-export * from "./helper/types/helper";
+import * as Helper from "./helper/types";
+export { Helper }
 
 /**
  * Library Components
@@ -20,7 +21,7 @@ import { SPTypes } from "./mapper/types";
 export { SPTypes }
 
 /**
- * Library Types
+ * SharePoint Intellisense
  */
-import * as Types from "./types";
-export { Types }
+import * as SP from "./intellisense";
+export { SP }
