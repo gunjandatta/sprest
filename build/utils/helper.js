@@ -222,7 +222,7 @@ exports.Helper = {
                     // Update the metadata
                     exports.Helper.updateMetadata(obj, result);
                     // Add the methods
-                    _1.Request.addMethods(obj, result, result);
+                    _1.Request.addMethods(result, result);
                 }
             }
         }

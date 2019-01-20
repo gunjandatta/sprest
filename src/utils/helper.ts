@@ -272,7 +272,7 @@ export const Helper: IBaseHelper = {
                     Helper.updateMetadata(obj, result);
 
                     // Add the methods
-                    Request.addMethods(obj, result, result);
+                    Request.addMethods(result, result);
                 }
             }
         }
