@@ -1058,19 +1058,24 @@ declare module 'gd-sprest/helper/types/methods' {
 
 declare module 'gd-sprest/helper/types/sp' {
     /**
-        * Modal Dialog
+        * SharePoint Components
         */
-    export const ModalDialog: IModalDialog;
+    export const SP: {
+            /**
+                * Modal Dialog
+                */
+            ModalDialog: IModalDialog,
     
-    /**
-        * Notification
-        */
-    export const Notify: INotify;
+            /**
+                * Notification
+                */
+            Notify: INotify,
     
-    /**
-        * Status
-        */
-    export const Status: IStatus;
+            /**
+                * Status
+                */
+            Status: IStatus
+    }
     
     /**
         * Dialog Options

@@ -2,6 +2,8 @@ import {
     $REST, Helper
 } from "../src";
 
+Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");
+
 $REST.List("").execute(l => {
     l.getItemById(3).execute(item => {
         let file = item.File;

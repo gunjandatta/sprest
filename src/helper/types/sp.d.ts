@@ -1,17 +1,22 @@
 /**
- * Modal Dialog
+ * SharePoint Components
  */
-export const ModalDialog: IModalDialog;
+export const SP: {
+    /**
+     * Modal Dialog
+     */
+    ModalDialog: IModalDialog,
 
-/**
- * Notification
- */
-export const Notify: INotify;
+    /**
+     * Notification
+     */
+    Notify: INotify,
 
-/**
- * Status
- */
-export const Status: IStatus;
+    /**
+     * Status
+     */
+    Status: IStatus
+}
 
 /**
  * Dialog Options
