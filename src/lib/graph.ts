@@ -1,4 +1,4 @@
-import { IGraphToken } from "../mapper/types";
+import { IGraphToken } from "../intellisense";
 import { Base, Request, RequestType } from "../utils";
 import { IGraph } from "./types";
 

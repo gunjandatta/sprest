@@ -1,5 +1,5 @@
 import { Web } from "../lib";
-import { IListItemResult } from "../mapper/types";
+import { IListItemResult } from "../intellisense";
 import { Base, Request } from "../utils";
 import { IRequest } from "./types";
 declare var SP;

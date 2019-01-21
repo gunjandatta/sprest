@@ -1,6 +1,11 @@
 /**
  * JSLink
  */
+export const JSLink: IJSLink;
+
+/**
+ * JSLink
+ */
 export interface IJSLink {
     /**
      * Internal field to method mapper

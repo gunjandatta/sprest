@@ -1,3 +1,14 @@
+/**
+ * SharePoint Configuration Field Types
+ */
+export const SPCfgFieldType: ISPCfgFieldType;
+
+/**
+ * SharePoint Configuration Types
+ * The value determines the order to install the object type.
+ */
+export const SPCfgType: ISPCfgType;
+
 /** The field types */
 export type ISPCfgFieldType = {
     Boolean: number;

@@ -1,3 +1,9 @@
+
+/**
+ * Taxonomy Helper Class
+ */
+export const Taxonomy: ITaxonomy;
+
 /**
 * Taxonomy Helper
 */

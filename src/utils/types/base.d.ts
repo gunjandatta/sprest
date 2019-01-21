@@ -1,4 +1,4 @@
-import { ODataQuery } from "../../mapper/types";
+import { ODataQuery } from "../../intellisense";
 import { IMethodInfo } from "./methodInfo";
 import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";

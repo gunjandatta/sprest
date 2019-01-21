@@ -1,6 +1,16 @@
 /**
- * Link Information
+ * Ribbon Link
  */
+export const RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+
+/**
+ * Suitebar Link
+ */
+export const SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+
+/**
+* Link Information
+*/
 export interface ILinkInfo {
     /** True to append the link at the end of the list. */
     appendFl?: boolean;

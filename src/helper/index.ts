@@ -9,9 +9,7 @@ export * from "./loader";
 export * from "./methods";
 export * from "./ribbonLink";
 export * from "./sbLink";
+export * from "./sp";
 export * from "./spCfg";
 export * from "./taxonomy";
 export * from "./webpart";
-
-import * as SP from "./sp";
-export { SP };

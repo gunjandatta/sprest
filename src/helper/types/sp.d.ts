@@ -1,6 +1,22 @@
-/******************************************
- * SharePoint Core Scripts
- ******************************************/
+/**
+ * SharePoint Components
+ */
+export const SP: {
+    /**
+     * Modal Dialog
+     */
+    ModalDialog: IModalDialog,
+
+    /**
+     * Notification
+     */
+    Notify: INotify,
+
+    /**
+     * Status
+     */
+    Status: IStatus
+}
 
 /**
  * Dialog Options

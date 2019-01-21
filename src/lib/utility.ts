@@ -1,6 +1,6 @@
-import * as Types from "../mapper/types";
+import * as Types from "../intellisense";
 import { Base, Request, RequestType } from "../utils";
-import { IUtility } from "./types";
+import { IUtility } from "./types/utility";
 
 /**
  * Utility

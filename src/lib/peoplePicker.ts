@@ -1,6 +1,6 @@
 import { Base, Request } from "../utils";
-import { IPeoplePicker } from "./types";
-import { ITargetInfoProps } from "../utils/types";
+import { IPeoplePicker } from "./types/peoplePicker";
+import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * People Picker

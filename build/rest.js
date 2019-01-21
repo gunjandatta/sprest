@@ -7,33 +7,12 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.48,
+    __ver: 4.52,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
-    Helper: {
-        App: Helper.App,
-        Dependencies: Helper.Dependencies,
-        createDocSet: Helper.createDocSet,
-        Executor: Helper.Executor,
-        FieldSchemaXML: Helper.FieldSchemaXML,
-        hasPermissions: Helper.hasPermissions,
-        JSLink: Helper.JSLink,
-        ListForm: Helper.ListForm,
-        ListFormField: Helper.ListFormField,
-        Loader: Helper.Loader,
-        parse: Helper.parse,
-        request: Helper.request,
-        RibbonLink: Helper.RibbonLink,
-        SP: Helper.SP,
-        SPCfgFieldType: Helper.SPCfgFieldType,
-        SPCfgType: Helper.SPCfgType,
-        SPConfig: Helper.SPConfig,
-        SuiteBarLink: Helper.SuiteBarLink,
-        Taxonomy: Helper.Taxonomy,
-        WebPart: Helper.WebPart
-    },
+    Helper: Helper,
     List: Lib.List,
     ListByEntityName: Lib.List.getByEntityName,
     ListDataAsStream: Lib.List.getDataAsStream,
@@ -60,6 +39,7 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
     // Ensure the SP lib exists
     if (Lib.ContextInfo.window.SP) {
         // Alert other scripts this library is loaded
+        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest");
         Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
     }
 }

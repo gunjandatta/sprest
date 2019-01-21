@@ -1,5 +1,5 @@
 import { ContextInfo, Web } from "../lib";
-import * as SP from "../mapper/types";
+import * as SP from "../intellisense";
 import { IApp } from "./types";
 
 /**

@@ -1,6 +1,11 @@
 /**
  * Web Part
  */
+export const WebPart: IWebPart;
+
+/**
+ * Web Part
+ */
 export interface IWebPart {
     /**
      * Creates an instance of a webpart.

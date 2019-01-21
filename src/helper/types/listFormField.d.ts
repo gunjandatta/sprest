@@ -1,5 +1,10 @@
 import { ITermInfo } from "../../helper/types";
-import * as SP from "../../mapper/types";
+import * as SP from "../../intellisense";
+
+/**
+ * List Form Field
+ */
+export const ListFormField: IListFormField;
 
 /**
  * List Form Field Information

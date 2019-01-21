@@ -1,6 +1,11 @@
 /**
  * Dependencies
  */
+export const Dependencies: IDependencies;
+
+/**
+ * Dependencies
+ */
 export interface IDependencies {
     /**
      * Constructor

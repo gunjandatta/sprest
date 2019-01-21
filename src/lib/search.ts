@@ -1,7 +1,7 @@
 import { Microsoft } from "gd-sprest-def";
-import * as Types from "../mapper/types";
+import * as Types from "../intellisense";
 import { Base, Request, RequestType } from "../utils";
-import { ISearch } from "./types";
+import { ISearch } from "./types/search";
 
 /**
  * Search

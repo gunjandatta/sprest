@@ -1,5 +1,6 @@
 export * from "./app";
 export * from "./dependencies";
+export * from "./executor";
 export * from "./fieldSchemaXML";
 export * from "./jslink";
 export * from "./linkInfo";

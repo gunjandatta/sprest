@@ -6,7 +6,8 @@ declare module 'gd-sprest' {
     /**
         * Helper Class
         */
-    export * from "gd-sprest/helper/types/helper";
+    import * as Helper from "gd-sprest/helper/types";
+    export { Helper }
     
     /**
         * Library Components
@@ -25,137 +26,28 @@ declare module 'gd-sprest' {
     export { SPTypes }
     
     /**
-        * Library Types
+        * SharePoint Intellisense
         */
-    import * as Types from "gd-sprest/types";
-    export { Types }
+    import * as SP from "gd-sprest/intellisense";
+    export { SP }
 }
 
-declare module 'gd-sprest/helper/types/helper' {
-    import { SP } from "gd-sprest-def";
-    import * as HelperTypes from "gd-sprest/helper/types";
-    import * as MapperTypes from "gd-sprest/mapper/types";
-    import * as UtilTypes from "gd-sprest/utils/types";
-    
-    /**
-        * Helper
-        */
-    export const Helper: IHelper;
-    
-    /**
-        * Helper
-        */
-    export interface IHelper {
-            /**
-                * Helper classes for the app web
-                */
-            App: HelperTypes.IApp;
-    
-            /**
-                * Helper class to load the required SP scripts
-                */
-            Dependencies: HelperTypes.IDependencies;
-    
-            /**
-                * Method to create a document set item.
-                */
-            createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<MapperTypes.IListItemResult>;
-    
-            /**
-                * Executor
-                */
-            Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
-    
-            /**
-                * Helper class for generating a field schema xml
-                */
-            FieldSchemaXML: (fieldInfo: HelperTypes.IFieldInfo) => PromiseLike<string>;
-    
-            /**
-                * Determines if the user has permissions, based on the permission kind value
-                */
-            hasPermissions(permissionMask: SP.BasePermissions, permissions: Array<number> | number): boolean;
-    
-            /**
-                * Helper class for implementing JSLink solutions
-                */
-            JSLink: HelperTypes.IJSLink;
-    
-            /**
-                * Helper class for implementing custom list forms
-                */
-            ListForm: HelperTypes.IListForm;
-    
-            /**
-                * Helper class for implementing custom list forms
-                */
-            ListFormField: HelperTypes.IListFormField;
-    
-            /**
-                * Helper class for waiting until the core SP scripts are loaded
-                */
-            Loader: HelperTypes.ILoader;
-    
-            /**
-                * Helper method to convert a json string to a base object
-                * This will require you to use the stringify method of the base object.
-                */
-            parse<T = UtilTypes.IBaseExecution>(jsonString: string): T;
-    
-            /**
-                * Helper method to execute an XMLHttpRequest
-                */
-            request(props: HelperTypes.IRequest): PromiseLike<any>;
-    
-            /**
-                * Helper class for adding links to the top ribbon bar
-                */
-            RibbonLink: (props: HelperTypes.ILinkInfo) => HTMLAnchorElement;
-    
-            /**
-                * SharePoint Core Library Reference
-                */
-            SP: {
-                    /** Modal Dialog */
-                    ModalDialog: HelperTypes.IModalDialog,
-    
-                    /** Notify */
-                    Notify: HelperTypes.INotify,
-    
-                    /** Status */
-                    Status: HelperTypes.IStatus
-            };
-    
-            /**
-                * The field configuration types
-                */
-            SPCfgFieldType: HelperTypes.ISPCfgFieldType;
-    
-            /**
-                * The configuration types
-                */
-            SPCfgType: HelperTypes.ISPCfgType;
-    
-            /**
-                * Helper class for automating SharePoint assets
-                */
-            SPConfig: (cfg: HelperTypes.ISPConfigProps, webUrl?: string) => HelperTypes.ISPConfig;
-    
-            /**
-                * Helper class for adding links to the suite bar
-                */
-            SuiteBarLink: (props: HelperTypes.ILinkInfo) => HTMLAnchorElement;
-    
-            /**
-                * Helper class for getting information from the taxonomy term store
-                */
-            Taxonomy: HelperTypes.ITaxonomy;
-    
-            /**
-                * Helper class for creating modern webparts in SharePoint 2013+ environments
-                */
-            WebPart: HelperTypes.IWebPart;
-    }
+declare module 'gd-sprest/helper/types' {
+    export * from "gd-sprest/helper/types/app";
+    export * from "gd-sprest/helper/types/dependencies";
+    export * from "gd-sprest/helper/types/executor";
+    export * from "gd-sprest/helper/types/fieldSchemaXML";
+    export * from "gd-sprest/helper/types/jslink";
+    export * from "gd-sprest/helper/types/linkInfo";
+    export * from "gd-sprest/helper/types/listForm";
+    export * from "gd-sprest/helper/types/listFormField";
+    export * from "gd-sprest/helper/types/loader";
+    export * from "gd-sprest/helper/types/methods";
+    export * from "gd-sprest/helper/types/sp";
+    export * from "gd-sprest/helper/types/spCfg";
+    export * from "gd-sprest/helper/types/spCfgTypes";
+    export * from "gd-sprest/helper/types/taxonomy";
+    export * from "gd-sprest/helper/types/webpart";
 }
 
 declare module 'gd-sprest/lib/types' {
@@ -176,9 +68,9 @@ declare module 'gd-sprest/lib/types' {
 
 declare module 'gd-sprest/rest' {
     import { SP } from "gd-sprest-def";
-    import { IHelper } from "gd-sprest/helper/types/helper";
+    import * as Helper from "gd-sprest/helper/types";
     import * as LibTypes from "gd-sprest/lib/types";
-    import * as MapperTypes from "gd-sprest/mapper/types";
+    import * as MapperTypes from "gd-sprest/intellisense";
     import * as UtilTypes from "gd-sprest/utils/types";
     
     /**
@@ -218,7 +110,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Helper methods.
                 */
-            Helper: IHelper;
+            Helper;
     
             /**
                 * Use this api to interact with SharePoint lists and libraries.
@@ -294,7 +186,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to interact with the current user's social profile.
                 */
-            SocialFeed: LibTypes.ISocialFeed;
+            SocialFeed: MapperTypes.ISocialFeed;
     
             /**
                 * The SharePoint enumerator types.
@@ -319,103 +211,1805 @@ declare module 'gd-sprest/rest' {
 }
 
 declare module 'gd-sprest/mapper/types' {
-    export * from "gd-sprest/mapper/types/appTiles";
-    export * from "gd-sprest/mapper/types/attachment";
-    export * from "gd-sprest/mapper/types/attachments";
-    export * from "gd-sprest/mapper/types/contentType";
-    export * from "gd-sprest/mapper/types/contentTypes";
-    export * from "gd-sprest/mapper/types/entityData";
-    export * from "gd-sprest/mapper/types/eventReceiver";
-    export * from "gd-sprest/mapper/types/eventReceivers";
-    export * from "gd-sprest/mapper/types/features";
-    export * from "gd-sprest/mapper/types/field";
-    export * from "gd-sprest/mapper/types/fieldLinks";
-    export * from "gd-sprest/mapper/types/fields";
-    export * from "gd-sprest/mapper/types/file";
-    export * from "gd-sprest/mapper/types/files";
-    export * from "gd-sprest/mapper/types/fileVersion";
-    export * from "gd-sprest/mapper/types/fileVersions";
-    export * from "gd-sprest/mapper/types/folder";
-    export * from "gd-sprest/mapper/types/folders";
-    export * from "gd-sprest/mapper/types/graph";
-    export * from "gd-sprest/mapper/types/group";
-    export * from "gd-sprest/mapper/types/groups";
-    export * from "gd-sprest/mapper/types/items";
-    export * from "gd-sprest/mapper/types/limitedWebPartManager";
-    export * from "gd-sprest/mapper/types/list";
-    export * from "gd-sprest/mapper/types/listItem";
-    export * from "gd-sprest/mapper/types/lists";
-    export * from "gd-sprest/mapper/types/navigation";
-    export * from "gd-sprest/mapper/types/odata";
-    export * from "gd-sprest/mapper/types/peopleManager";
-    export * from "gd-sprest/mapper/types/peoplePicker";
-    export * from "gd-sprest/mapper/types/profileLoader";
-    export * from "gd-sprest/mapper/types/propertyValues";
-    import * as Results from "gd-sprest/mapper/types/results";
-    export * from "gd-sprest/mapper/types/roleAssignment";
-    export * from "gd-sprest/mapper/types/roleAssignments";
-    export * from "gd-sprest/mapper/types/roleDefinition";
-    export * from "gd-sprest/mapper/types/roleDefinitions";
-    export * from "gd-sprest/mapper/types/search";
-    export * from "gd-sprest/mapper/types/site";
-    export * from "gd-sprest/mapper/types/socialFeed";
     import * as SPTypes from "gd-sprest/mapper/types/sptypes";
-    export * from "gd-sprest/mapper/types/tenantApp";
-    export * from "gd-sprest/mapper/types/tenantAppCatalog";
-    export * from "gd-sprest/mapper/types/tenantApps";
-    export * from "gd-sprest/mapper/types/user";
-    export * from "gd-sprest/mapper/types/userCustomAction";
-    export * from "gd-sprest/mapper/types/userCustomActions";
-    export * from "gd-sprest/mapper/types/userProfile";
-    export * from "gd-sprest/mapper/types/users";
-    export * from "gd-sprest/mapper/types/utility";
-    export * from "gd-sprest/mapper/types/versions";
-    export * from "gd-sprest/mapper/types/view";
-    export * from "gd-sprest/mapper/types/viewFieldCollection";
-    export * from "gd-sprest/mapper/types/views";
-    export * from "gd-sprest/mapper/types/web";
-    export * from "gd-sprest/mapper/types/webs";
-    export { Results, SPTypes }
-}
-
-declare module 'gd-sprest/types' {
-    import * as HelperTypes from "gd-sprest/helper/types";
-    import * as MapperTypes from "gd-sprest/mapper/types";
-    
-    /**
-      * Types
-      */
     export {
-        HelperTypes as Helper,
-        MapperTypes as SP
+        SPTypes
     }
 }
 
-declare module 'gd-sprest/helper/types' {
-    export * from "gd-sprest/helper/types/app";
-    export * from "gd-sprest/helper/types/dependencies";
-    export * from "gd-sprest/helper/types/fieldSchemaXML";
-    export * from "gd-sprest/helper/types/jslink";
-    export * from "gd-sprest/helper/types/linkInfo";
-    export * from "gd-sprest/helper/types/listForm";
-    export * from "gd-sprest/helper/types/listFormField";
-    export * from "gd-sprest/helper/types/loader";
-    export * from "gd-sprest/helper/types/methods";
-    export * from "gd-sprest/helper/types/sp";
-    export * from "gd-sprest/helper/types/spCfg";
-    export * from "gd-sprest/helper/types/spCfgTypes";
-    export * from "gd-sprest/helper/types/taxonomy";
-    export * from "gd-sprest/helper/types/webpart";
+declare module 'gd-sprest/intellisense' {
+    export * from "gd-sprest/intellisense/appTiles";
+    export * from "gd-sprest/intellisense/attachment";
+    export * from "gd-sprest/intellisense/attachments";
+    export * from "gd-sprest/intellisense/contentType";
+    export * from "gd-sprest/intellisense/contentTypes";
+    export * from "gd-sprest/intellisense/entityData";
+    export * from "gd-sprest/intellisense/eventReceiver";
+    export * from "gd-sprest/intellisense/eventReceivers";
+    export * from "gd-sprest/intellisense/features";
+    export * from "gd-sprest/intellisense/field";
+    export * from "gd-sprest/intellisense/fieldLinks";
+    export * from "gd-sprest/intellisense/fields";
+    export * from "gd-sprest/intellisense/file";
+    export * from "gd-sprest/intellisense/files";
+    export * from "gd-sprest/intellisense/fileVersion";
+    export * from "gd-sprest/intellisense/fileVersions";
+    export * from "gd-sprest/intellisense/folder";
+    export * from "gd-sprest/intellisense/folders";
+    export * from "gd-sprest/intellisense/graph";
+    export * from "gd-sprest/intellisense/group";
+    export * from "gd-sprest/intellisense/groups";
+    export * from "gd-sprest/intellisense/items";
+    export * from "gd-sprest/intellisense/limitedWebPartManager";
+    export * from "gd-sprest/intellisense/list";
+    export * from "gd-sprest/intellisense/listItem";
+    export * from "gd-sprest/intellisense/lists";
+    export * from "gd-sprest/intellisense/navigation";
+    export * from "gd-sprest/intellisense/odata";
+    export * from "gd-sprest/intellisense/peopleManager";
+    export * from "gd-sprest/intellisense/peoplePicker";
+    export * from "gd-sprest/intellisense/profileLoader";
+    export * from "gd-sprest/intellisense/propertyValues";
+    import * as Results from "gd-sprest/intellisense/results";
+    export * from "gd-sprest/intellisense/roleAssignment";
+    export * from "gd-sprest/intellisense/roleAssignments";
+    export * from "gd-sprest/intellisense/roleDefinition";
+    export * from "gd-sprest/intellisense/roleDefinitions";
+    export * from "gd-sprest/intellisense/search";
+    export * from "gd-sprest/intellisense/site";
+    export * from "gd-sprest/intellisense/socialFeed";
+    export * from "gd-sprest/intellisense/tenantApp";
+    export * from "gd-sprest/intellisense/tenantAppCatalog";
+    export * from "gd-sprest/intellisense/tenantApps";
+    export * from "gd-sprest/intellisense/user";
+    export * from "gd-sprest/intellisense/userCustomAction";
+    export * from "gd-sprest/intellisense/userCustomActions";
+    export * from "gd-sprest/intellisense/userProfile";
+    export * from "gd-sprest/intellisense/users";
+    export * from "gd-sprest/intellisense/utility";
+    export * from "gd-sprest/intellisense/versions";
+    export * from "gd-sprest/intellisense/view";
+    export * from "gd-sprest/intellisense/viewFieldCollection";
+    export * from "gd-sprest/intellisense/views";
+    export * from "gd-sprest/intellisense/web";
+    export * from "gd-sprest/intellisense/webs";
+    export { Results }
 }
 
-declare module 'gd-sprest/utils/types' {
-    export * from "gd-sprest/utils/types/base";
-    export * from "gd-sprest/utils/types/helper";
-    export * from "gd-sprest/utils/types/methodInfo";
-    export * from "gd-sprest/utils/types/request";
-    export * from "gd-sprest/utils/types/requestType";
-    export * from "gd-sprest/utils/types/targetInfo";
-    export * from "gd-sprest/utils/types/xhrRequest";
+declare module 'gd-sprest/helper/types/app' {
+    import * as SP from "gd-sprest/intellisense";
+    
+    /** App */
+    export const App: IApp;
+    
+    /**
+        * App Helper Methods
+        */
+    export interface IApp {
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolder - The destination folder.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolder: SP.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
+    
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolderUrl - The destination folder url, relative to the host web.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
+    
+            /**
+                * Method to copy a file from the app web to the host web
+                * @param fileUrls - An array of source file urls, relative to the app web.
+                * @param folderUrls - An array of destination folder urls, relative to the host web.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ files: Array<SP.IFileResult>, folders: Array<SP.IFolderResult> }>;
+    
+            /**
+                * Method to create sub-folders.
+                * @param folder - The app web relative url to the source file.
+                * @param subFolderUrl - The host web relative url of the destination folder.
+                */
+            createSubFolders(folder: SP.IFolder, subFolderUrl: string): PromiseLike<SP.IFolderResult>;
+    
+            /**
+                * Method to get the file content.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                * @param createFl - Flag to create the folder, if it doesn't exist.
+                */
+            getFolder(web: SP.IWeb | SP.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<SP.IFolderResult>;
+    
+            /**
+                * Method to remove empty folders
+                * @param web - The web containing the files.
+                * @param folderUrls - An array of folder urls, relative to the web.
+                */
+            removeEmptyFolders(web: SP.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
+    
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrl - The file url, relative to the web.
+                */
+            removeFile(web: SP.IWebResult, fileUrl: string): PromiseLike<void>;
+    
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                */
+            removeFiles(web: SP.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/types/dependencies' {
+    /**
+        * Dependencies
+        */
+    export const Dependencies: IDependencies;
+    
+    /**
+        * Dependencies
+        */
+    export interface IDependencies {
+            /**
+                * Constructor
+                * @param callback - The method to execute after the dependencies are loaded.
+                */
+            constructor(callback: (...args) => void);
+    
+            /** The maximum amount of time to wait for the scripts to be loaded. */
+            MAX_WAIT: number;
+    
+            /** Flag to determine if the page context information exists */
+            pageContextExistsFl: boolean;
+    
+            /** The script file names to load. */
+            SCRIPTS: Array<string>;
+    
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies();
+    
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext();
+    }
+}
+
+declare module 'gd-sprest/helper/types/executor' {
+    /**
+      * Executor
+      * @param methodParams - An array of parameters to execute in order synchronously.
+      * @param method - The method to execute for each method parameter provided.
+      * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
+      */
+    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
+}
+
+declare module 'gd-sprest/helper/types/fieldSchemaXML' {
+    /**
+        * Field Schema XML
+        */
+    import { IFieldInfo } from "gd-sprest/helper/types";
+    
+    /**
+        * Field Schema XML
+        */
+    export const FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
+    
+    /**
+        * Field Schema XML
+        */
+    export interface IFieldSchemaXML {
+            /** Creates the suitebar link */
+            new(fieldInfo: IFieldInfo): PromiseLike<string>;
+    }
+}
+
+declare module 'gd-sprest/helper/types/jslink' {
+    /**
+        * JSLink
+        */
+    export const JSLink: IJSLink;
+    
+    /**
+        * JSLink
+        */
+    export interface IJSLink {
+            /**
+                * Internal field to method mapper
+                */
+            _fieldToMethodMapper: any;
+    
+            /**
+                * Internal field used by the hideField method.
+                */
+            _hideEventFl: boolean;
+    
+            /**
+                * Disables edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                * @param requireValueFl - Flag to only disable the field, if a value exists.
+                */
+            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
+    
+            /**
+                * Disable quick edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                */
+            disableQuickEdit(ctx: any, field: any);
+    
+            /**
+                * Returns the list view.
+                * @param ctx - The client context.
+                */
+            getListView(ctx: any);
+    
+            /**
+                * Returns the list view items.
+                * @param ctx - The client context.
+                */
+            getListViewItems(ctx: any);
+    
+            /**
+                * Returns the selected list view items
+                */
+            getListViewSelectedItems();
+    
+            /**
+                * Returns the webpart containing the JSLink field/form/view.
+                * @param ctx - The client context.
+                */
+            getWebPart(ctx);
+    
+            /**
+                * Hides the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to hide.
+                */
+            hideField(ctx: any, field: any);
+    
+            /**
+                * Registers the JSLink configuration.
+                * @param cfg - The JSLink configuration.
+                */
+            register(cfg: IJSLinkCfg);
+    
+            /**
+                * Removes the field and html from the page.
+                * @param ctx - The client context.
+                * @param field - The field to remove.
+                */
+            removeField(ctx: any, field: any);
+    
+            /**
+                * Method to render the default html for a field.
+                * @param ctx - The client context.
+                * @param field - The form field.
+                * @param formType - The form type. (Display, Edit, New or View)
+                */
+            renderField(ctx, field, formType?: number);
+    }
+    
+    /**
+        * JSLink Configuration
+        */
+    export interface IJSLinkCfg {
+            /** The base view id. */
+            BaseViewID?: number | string;
+    
+            /** The list template type. */
+            ListTemplateType?: number;
+    
+            /** The post render event. */
+            OnPostRender?: any;
+    
+            /** The pre render event. */
+            OnPreRender?: any;
+    
+            /** The JSLink template overrides. */
+            Templates?: IJSLinkCfgTemplate;
+    }
+    /**
+        * JSLink Field Configuration
+        */
+    export interface IJSLinkCfgField {
+            DisplayForm?: any;
+            EditForm?: any;
+            NewForm?: any;
+            View?: any;
+    }
+    
+    /**
+        * JSLink Templates
+        */
+    export interface IJSLinkCfgTemplate {
+            Body?: any;
+            Footer?: any;
+            Fields?: { [key: string]: IJSLinkCfgField };
+            Group?: any;
+            Header?: any;
+            Item?: any;
+            OnPostRender?: any;
+            OnPreRender?: any;
+    }
+}
+
+declare module 'gd-sprest/helper/types/linkInfo' {
+    /**
+        * Ribbon Link
+        */
+    export const RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+    
+    /**
+        * Suitebar Link
+        */
+    export const SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+    
+    /**
+     * Link Information
+     */
+    export interface ILinkInfo {
+            /** True to append the link at the end of the list. */
+            appendFl?: boolean;
+    
+            /** The link class name */
+            className?: string;
+    
+            /** The link url */
+            href?: string;
+    
+            /** The link id */
+            id: string;
+    
+            /** The link click event */
+            onClick?: (ev?: MouseEvent) => void;
+    
+            /** The link title */
+            title: string;
+    }
+    
+    /**
+        * Ribbon Link
+        */
+    export interface IRibbonLink {
+            /** Creates the ribbon link */
+            new(props: ILinkInfo): HTMLAnchorElement;
+    }
+    
+    /**
+        * Suitebar Link
+        */
+    export interface ISuiteBarLink {
+            /** Creates the suitebar link */
+            new(props: ILinkInfo): HTMLAnchorElement;
+    }
+}
+
+declare module 'gd-sprest/helper/types/listForm' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    
+    /**
+        * List Form
+        */
+    export const ListForm: IListForm;
+    
+    /**
+        * List Form
+        */
+    export interface IListForm {
+            /**
+                * Creates an instance of the list form
+                * @param props - The list form properties.
+                */
+            create(props: IListFormProps): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to generate the odata query for the list item.
+                */
+            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
+    
+            /**
+                * Method to load the item attachments
+                * @param info - The list form information.
+             */
+            loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>
+    
+            /**
+                * Method to refresh the item.
+                * @param info - The list form information.
+                */
+            refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to remove attachment from an item.
+                */
+            removeAttachment(info: IListFormResult, fileName: string): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to save attachments to the item.
+                * @param info - The list form information.
+                * @param attachmentInfo - The attachment files to add.
+                */
+            saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
+    
+            /**
+                * Method to save the item.
+                * @param info - The list form information.
+                * @param itemValues - The list item values.
+                */
+            saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
+    
+            /**
+                * Method to show the file dialog.
+                * @param info - The list form information.
+                * @param onSave - The save event triggered when a file is uploaded to the item.
+                */
+            showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
+    
+            /**
+                * Method to show the file dialog.
+                * @param info - The list form information.
+                * @param onSave - The save event triggered when a file is uploaded to the item.
+                */
+            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
+    }
+    
+    /**
+        * List Form Attachment Information
+        */
+    export interface IListFormAttachmentInfo {
+            /** The file content */
+            data: any;
+    
+            /** The name of the file */
+            name: string;
+    }
+    
+    /**
+        * List Form Cache
+        */
+    export interface IListFormCache {
+            ct: string;
+            fields: string;
+            list: string;
+    }
+    
+    /**
+        * List Form Display
+        */
+    export interface IListFormDisplay {
+            /**
+                * Method to get the fields
+                */
+            getFields(): Array<HTMLDivElement>;
+    }
+    
+    /**
+        * List Form Display Properties
+        */
+    export interface IListFormDisplayProps {
+            /** The element to render the form to. */
+            el: Element;
+    
+            /** The fields to exclude from the form. */
+            excludeFields?: Array<string>;
+    
+            /** The fields to include in the form. */
+            includeFields?: Array<string>;
+    
+            /** The list form information. */
+            info: IListFormResult;
+    }
+    
+    /**
+        * List Form Edit
+        */
+    export interface IListFormEdit {
+            /**
+                * Method to get the fields
+                */
+            getFields<T = any>(): Array<T>;
+    
+            /**
+                * Method to get the form values
+                */
+            getValues<T = any>(): PromiseLike<T>;
+    }
+    
+    /**
+        * List Form Edit Properties
+        */
+    export interface IListFormEditProps extends IListFormDisplayProps {
+            /** The form mode (New/Edit) */
+            controlMode?: number;
+    }
+    
+    /**
+        * List Form Properties
+        */
+    export interface IListFormProps {
+            /** If defined, the data will be cached to the session storage. */
+            cacheKey?: string;
+    
+            /** The form fields to exclude. */
+            excludeFields?: Array<string>;
+    
+            /** The form fields */
+            fields?: Array<string>;
+    
+            /** The list item */
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
+    
+            /** The item id */
+            itemId?: number;
+    
+            /** The list name */
+            listName: string;
+    
+            /** Flag to deteremine if we are loading attachments */
+            loadAttachments?: boolean;
+    
+            /** OData query used when loading an item */
+            query?: Types.ODataQuery;
+    
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    
+    /**
+        * List Form Result
+        */
+    export interface IListFormResult {
+            /** The item attachments. */
+            attachments?: Array<SP.Attachment>;
+    
+            /** The form fields. */
+            fields: { [key: string]: Types.IFieldResult };
+    
+            /** The list item. */
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
+    
+            /** The item query. */
+            query?: Types.ODataQuery;
+    
+            /** The list. */
+            list: Types.IListResult;
+    
+            /** The relative web url containing the list. */
+            webUrl?: string;
+    }
+}
+
+declare module 'gd-sprest/helper/types/listFormField' {
+    import { ITermInfo } from "gd-sprest/helper/types";
+    import * as SP from "gd-sprest/intellisense";
+    
+    /**
+        * List Form Field
+        */
+    export const ListFormField: IListFormField;
+    
+    /**
+        * List Form Field Information
+        */
+    export interface IListFormFieldInfo {
+            /** The default value. */
+            defaultValue?: any;
+    
+            /** The list field. */
+            field?: SP.IFieldResult | SP.IFieldQueryResult;
+    
+            /** The list name. */
+            listName: string;
+    
+            /** The internal name of the field. */
+            name: string;
+    
+            /** Flag indicating if the field is read-only. */
+            readOnly?: boolean;
+    
+            /** True indicates a required field type. */
+            required?: boolean;
+    
+            /** The display name of the field. */
+            title?: string;
+    
+            /** The field type. */
+            type?: number;
+    
+            /** The field type as a string. */
+            typeAsString?: string;
+    
+            /** The relative web url containing the list. */
+            webUrl?: string;
+    }
+    
+    /**
+        * List Form Choice Field Information
+        */
+    export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
+            /** The choices. */
+            choices?: Array<string>;
+    
+            /** The list field. */
+            field?: SP.IFieldChoice | SP.IFieldMultiChoice;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    }
+    
+    /**
+        * List Form Date Field Information
+        */
+    export interface IListFormDateFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldDateTime;
+    
+            /** Flag determining if we are displaying time */
+            showTime?: boolean;
+    }
+    
+    /**
+        * List Form Lookup Field Information
+        */
+    export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldLookup;
+    
+            /** The lookup field */
+            lookupField?: string;
+    
+            /** The lookup list id */
+            lookupListId?: string;
+    
+            /** The lookup web id */
+            lookupWebId?: string;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    }
+    
+    /**
+        * List Form MMS Field Information
+        */
+    export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldManagedMetadata;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    
+            /** The term id */
+            termId?: string;
+    
+            /** The term set id */
+            termSetId?: string;
+    
+            /** The term store id */
+            termStoreId?: string;
+    
+            /** The value field */
+            valueField?: SP.IFieldNote;
+    }
+    
+    /**
+        * List Form Number Field Information
+        */
+    export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+            /** The number of decimals. */
+            decimals?: number;
+    
+            /** The list field. */
+            field?: SP.IFieldNumber | SP.IFieldCurrency;
+    
+            /** The maximum value */
+            maxValue?: number;
+    
+            /** The minimum value */
+            minValue?: number;
+    
+            /** Flag determining if we are displaying the value as a percentage */
+            showAsPercentage?: boolean;
+    }
+    
+    /**
+        * List Form Text Field Information
+        */
+    export interface IListFormTextFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldText | SP.IFieldNote;
+    
+            /** Flag determining if this is a note field */
+            multiline?: boolean;
+    
+            /** Flag determining if this field value is html encoded */
+            richText?: boolean;
+    
+            /** The number of rows to display */
+            rows?: number;
+    }
+    
+    /**
+        * List Form URL Field Information
+        */
+    export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: SP.IFieldUrl;
+    }
+    
+    /**
+        * List Form User Field Information
+        */
+    export interface IListFormUserFieldInfo extends IListFormFieldInfo {
+            /** Flag to determine if groups are allowed */
+            allowGroups?: boolean;
+    
+            /** The list field. */
+            field?: SP.IFieldUser;
+    
+            /** Flag to determine if multiple values exist */
+            multi?: boolean;
+    }
+    
+    /**
+        * List Form Field
+        */
+    export interface IListFormField {
+            /**
+                * Creates an instance of the list form field
+                * @param props - The list form field properties
+                */
+            create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+    
+            /** Method to load the lookup data */
+            loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQueryResult>>;
+    
+            /** Method to load the mms data */
+            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
+    
+            /** Method to load the mms value field */
+            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<SP.IFieldNote>;
+    }
+}
+
+declare module 'gd-sprest/helper/types/loader' {
+    /**
+        * Loader
+        */
+    export const Loader: ILoader;
+    
+    /**
+        * Loader
+        */
+    export interface ILoader {
+            // Internal flag to determine if the SP core libraries have been loaded
+            loaded: boolean;
+    
+            /**
+                * Waits for the SharePoint core libraries to be loaded.
+                * @param callback - The callback function.
+                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
+                * @param loadLibraries - Flag to load the core libraries manually.
+                */
+            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean);
+    }
+}
+
+declare module 'gd-sprest/helper/types/methods' {
+    import { IBase } from "gd-sprest/utils/types/base";
+    import { IListItemResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Creates a document set item.
+        * @param name - The name of the document set folder to create.
+        * @param listName - The name of the document set library.
+        * @param webUrl - The url of the web containing the document set library.
+        */
+    export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<IListItemResult>;
+    
+    /**
+        * Determines if the user has permissions, based on the permission kind value
+        */
+    export const hasPermissions: (permissionMask: any, permissions: Array<number> | number) => boolean;
+    
+    /**
+        * Convert a JSON string to a base object
+        */
+    export function parse<T = IBase>(jsonString: string): T;
+    
+    
+    /**
+        * XML HTTP Request
+        */
+    export const request: (props: IRequest) => PromiseLike<any>;
+    
+    /**
+        * Request
+        */
+    export interface IRequest {
+            /** The data to pass in the request. */
+            data?: any;
+    
+            /** The request headers. */
+            headers?: { [key: string]: string };
+    
+            /** The request method. */
+            method?: string;
+    
+            /** The request url. */
+            url: string;
+    }
+}
+
+declare module 'gd-sprest/helper/types/sp' {
+    /**
+        * SharePoint Components
+        */
+    export const SP: {
+            /**
+                * Modal Dialog
+                */
+            ModalDialog: IModalDialog,
+    
+            /**
+                * Notification
+                */
+            Notify: INotify,
+    
+            /**
+                * Status
+                */
+            Status: IStatus
+    }
+    
+    /**
+        * Dialog Options
+        */
+    export interface IDialogOptions {
+            /** A Boolean value that specifies whether the dialog can be maximized. true if the Maximize button is shown; otherwise, false. */
+            allowMaximize?: boolean;
+    
+            /** An object that contains data that are passed to the dialog. */
+            args?: any;
+    
+            /** A Boolean value that specifies whether the dialog platform handles dialog sizing. */
+            autoSize?: boolean;
+    
+            /** A function pointer that specifies the return callback function. The function takes two parameters, a dialogResult of type SP.UI.DialogResult Enumeration and a returnValue of type object that contains any data returned by the dialog. */
+            dialogReturnValueCallback?: (dialogResult?: number, returnVal?: any) => void;
+    
+            /** An integer value that specifies the height of the dialog. If height is not specified, the height of the dialog is autosized by default. If autosize is false, the dialog height is set to 576 pixels. */
+            height?: number;
+    
+            /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
+            html?: HTMLElement;
+    
+            /** A Boolean value that specifies whether the Close button appears on the dialog. */
+            showClose?: boolean;
+    
+            /** A Boolean value that specifies whether the dialog opens in a maximized state. true the dialog opens maximized. Otherwise, the dialog is opened at the requested sized if specified; otherwise, the default size, if specified; otherwise, the autosized size. */
+            showMaximized?: boolean;
+    
+            /** A string that contains the title of the dialog. */
+            title?: string;
+    
+            /** A string that contains the URL of the page that appears in the dialog. If both url and html are specified, url takes precedence. Either url or html must be specified. */
+            url?: string;
+    
+            /** An integer value that specifies the width of the dialog. If width is not specified, the width of the dialog is autosized by default. If autosize is false, the width of the dialog is set to 768 pixels. */
+            width?: number;
+    
+            /** An integer value that specifies the x-offset of the dialog. This value works like the CSS left value. */
+            x?: number;
+    
+            /** An integer value that specifies the y-offset of the dialog. This value works like the CSS top value. */
+            y?: number;
+    }
+    
+    /**
+        * Modal Dialog
+        */
+    export interface IModalDialog {
+            /**
+                * Closes the most recently opened modal dialog with the specified dialog result.
+                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
+                */
+            close(dialogResult?: number);
+    
+            /**
+                * Closes the most recently opened modal dialog with the specified dialog result and return value.
+                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
+                * @param returnVal - The return value of the modal dialog.
+                */
+            commonModalDialogClose(dialogResult?: number, returnVal?: any);
+    
+            /**
+                * Displays a modal dialog with the specified URL, options, callback function, and arguments.
+                * @param url - The URL of the page to be shown in the modal dialog.
+                * @param options - The options to create the modal dialog.
+                * @param callback - The callback function that runs when the modal dialog is closed.
+                * @param args - The arguments to the modal dialog.
+                */
+            commonModalDialogOpen(url: string, options?: IDialogOptions, callback?: (dialogResult?: number, returnVal?: any) => void, args?: any);
+    
+            /**
+                * Method to ensure the core script is loaded
+                */
+            load(): PromiseLike<void>;
+    
+            /**
+                * Displays a modal dialog with the specified URL, callback function, width, and height.
+                * @param url - The URL of the page to be shown in the modal dialog.
+                * @param callback - The callback function that runs when the modal dialog is closed.
+                * @param width - The width of the modal dialog.
+                * @param height - The height of the modal dialog.
+                */
+            OpenPopUpPage(url: string, callback?: (dialogResult?: number, returnVal?: any) => void, width?: number, height?: number);
+    
+            /**
+                * Refreshes the parent page of the modal dialog when the dialog is closed by clicking OK.
+                * @param dialogResult - The result of the modal dialog.
+                */
+            RefreshPage(dialogResult?: number);
+    
+            /**
+                * Displays a modal dialog with specified dialog options.
+                * @param options - The options to create the modal dialog.
+                */
+            showModalDialog(options: IDialogOptions);
+    
+            /**
+                * Displays a modal dialog using the page at the specified URL.
+                * @param url - The URL of the page to be shown in the modal dialog.
+                */
+            ShowPopupDialog(url: string);
+    
+            /**
+                * Displays a wait screen dialog that has a Cancel button using the specified parameters.
+                * @param title - The title of the wait screen dialog.
+                * @param message - The message that is shown in the wait screen dialog.
+                * @param callback - The callback function that runs when the wait screen dialog is closed.
+                * @param height - The height of the wait screen dialog.
+                * @param width - The width of the wait screen dialog.
+                */
+            showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number);
+    
+            /**
+                * Displays a wait screen dialog that does not have a Cancel button using the specified parameters.
+                * @param title - The title of the wait screen dialog.
+                * @param message - The message that is shown in the wait screen dialog.
+                * @param height - The height of the wait screen dialog.
+                * @param width - The width of the wait screen dialog.
+                */
+            showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number);
+    }
+    
+    /**
+        * Notify
+        */
+    export interface INotify {
+            /**
+                * Adds a notification to the page. By default, notifications appear for five seconds.
+                * @param html - The message inside the notification.
+                * @param sticky - Specifies whether the notification stays on the page until removed.
+                * @returns A promise containing the ID of the notification that was added to the page.
+                */
+            addNotification(html: string, sticky?: boolean): PromiseLike<string>;
+    
+            /**
+                * Method to ensure the core script is loaded
+                */
+            load(): PromiseLike<void>;
+    
+            /**
+                * Removes the specified notification from the page.
+                * @param id - The notification to remove from the page.
+                */
+            removeNotification(id: string);
+    }
+    
+    /**
+        * Status
+        */
+    export interface IStatus {
+            /**
+                * Adds a status message to the page.
+                * @param title - The title of the status message.
+                * @param html - The contents of the status message.
+                * @param prepend - Specifies whether the status message will appear at the beginning of the list.
+                */
+            addStatus(title: string, html?: string, prepend?: boolean): PromiseLike<string>;
+    
+            /**
+                * Appends text to an existing status message.
+                * @param id - The ID of the status message to remove.
+                * @param title - The title of the status message.
+                * @param html - The contents of the status message.
+                */
+            appendStatus(id: string, title: string, html: string): PromiseLike<string>;
+    
+            /**
+                * Method to ensure the core script is loaded
+                */
+            load(): PromiseLike<void>;
+    
+            /**
+                * Removes all status messages from the page.
+                * @param hide - Specifies that the status messages should be hidden.
+                */
+            removeAllStatus(hide?: boolean);
+    
+            /**
+                * Removes the specified status message.
+                * @param id - The ID of the status message to remove.
+                */
+            removeStatus(id: string);
+    
+            /**
+                * Sets the priority color of the specified status message.
+                * @param id - The ID of the status message to remove.
+                * @param color - The color to set for the status message. The following table lists the values and their priority.
+                */
+            setStatusPriColor(id: string, color: string);
+    
+            /**
+                * Updates the specified status message.
+                * @param id - The ID of the status message to remove.
+                * @param html - The contents of the status message.
+                */
+            updateStatus(id: string, html: string);
+    }
+}
+
+declare module 'gd-sprest/helper/types/spCfg' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    
+    /**
+        * SharePoint Configuration
+        */
+    export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
+    
+    /**
+        * Field Information
+        */
+    export interface IFieldInfo {
+            /** The default value of the field. */
+            defaultValue?: string;
+    
+            /** The group name. */
+            group?: string;
+    
+            /** True for hidden fields. */
+            hidden?: boolean;
+    
+            /** The JSLink value for the field. */
+            jslink?: string;
+    
+            /** The internal name of the field. */
+            name: string;
+    
+            /** Flag to determine if the field is readonly. */
+            readOnly?: boolean;
+    
+            /** Flag to determine if the field is required. */
+            required?: boolean;
+    
+            /** The schema definition of the field. */
+            schemaXml?: string;
+    
+            /** Flag to make this field visible in the display form. */
+            showInDisplayForm?: boolean;
+    
+            /** Flag to make this field visible in the edit form. */
+            showInEditForm?: boolean;
+    
+            /** Flag to make this field visible in the list settings. */
+            showInListSettings?: boolean;
+    
+            /** Flag to make this field visible in the new form. */
+            showInNewForm?: boolean;
+    
+            /** Flag to make this field visible in the list views. */
+            showInViewForms?: boolean;
+    
+            /** The field title */
+            title?: string;
+    
+            /** The field type */
+            type?: number;
+    }
+    
+    /**
+        * Calculated Field Information
+        */
+    export interface IFieldInfoCalculated extends IFieldInfo {
+            /** The field references */
+            fieldRefs?: Array<string>;
+    
+            /** The date/time format */
+            format?: number;
+    
+            /** The formula */
+            formula?: string;
+    
+            /** The result type */
+            resultType?: string;
+    }
+    
+    /**
+        * Choice Field Information
+        */
+    export interface IFieldInfoChoice extends IFieldInfo {
+            /** The choices */
+            choices?: string[];
+    
+            /** Allow multiple choices */
+            multi?: boolean;
+    }
+    
+    /**
+        * Currency Field Information
+        */
+    export interface IFieldInfoCurrency extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+    
+            /** The country/region whose currency format is being used. */
+            lcid?: number;
+    
+            /** The maximum value */
+            max?: number;
+    
+            /** The minimum value */
+            min?: number;
+    }
+    
+    /**
+        * Date Field Information
+        */
+    export interface IFieldInfoDate extends IFieldInfo {
+            /** The date/time format */
+            format?: number;
+    }
+    
+    /**
+        * Lookup Field Information
+        */
+    export interface IFieldInfoLookup extends IFieldInfo {
+            /** The field reference (Required for associated lookup fields) */
+            fieldRef?: string;
+    
+            /** Allow multiple lookup values */
+            multi?: boolean;
+    
+            /** The list id */
+            listId?: string;
+    
+            /** The list name */
+            listName?: string;
+    
+            /** The lookup field to show */
+            showField?: string;
+    
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    
+    /**
+        * Managed Metadata
+        */
+    export interface IFieldInfoMMS extends IFieldInfo {
+            /** The locale value */
+            locale?: number;
+    }
+    
+    /**
+        * Note
+        */
+    export interface IFieldInfoNote extends IFieldInfo {
+            /** Flag to append the comments. (This requires versioning to be enabled) */
+            appendFl?: boolean;
+    
+            /** The note field type */
+            noteType?: number;
+    
+            /** The number of lines */
+            numberOfLines?: number;
+    }
+    
+    /**
+        * Number
+        */
+    export interface IFieldInfoNumber extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+    
+            /** The maximum value */
+            max?: number;
+    
+            /** The minimum value */
+            min?: number;
+    
+            /** The number field type */
+            numberType?: number;
+    }
+    
+    /**
+        * User
+        */
+    export interface IFieldInfoUser extends IFieldInfo {
+            /** Allow multiple choices */
+            multi?: boolean;
+    
+            /** The user selection mode */
+            selectionMode?: number;
+    
+            /** The user selection scope */
+            selectionScope?: number;
+    }
+    /**
+        * SharePoint Configuration - Content Type Information
+        */
+    export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation {
+            /**
+                * The content type. (This value is set internally.)
+                */
+            ContentType?: Types.IContentTypeResult;
+    
+            /**
+                * The field references.
+                */
+            FieldRefs?: Array<string>;
+    
+            /**
+                * The JSLink property.
+                */
+            JSLink?: string;
+    
+            /**
+                * The parent content type name, required if different then the name.
+                */
+            ParentName?: string;
+    
+            /**
+                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+                */
+            ParentWebUrl?: string;
+    
+            /**
+                * Event triggered after the content type is created.
+                */
+            onCreated?: (ct: Types.IContentTypeResult) => void;
+    
+            /**
+                * Event triggered after the content type is updated.
+                */
+            onUpdated?: (ct: Types.IContentTypeResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - Custom Action Information
+        */
+    export interface ISPCfgCustomActionInfo {
+            /**
+                * Custom actions to be created at the site collection level.
+                */
+            Site?: Array<SP.UserCustomAction>,
+    
+            /**
+                * Custom actions to be created at the web level.
+                */
+            Web?: Array<SP.UserCustomAction>
+    }
+    
+    /**
+        * SharePoint Configuration - Field Information
+        */
+    export interface ISPCfgFieldInfo extends IFieldInfo {
+            /**
+                * Event triggered after the field is created.
+                */
+            onCreated?: (field: Types.IFieldResult) => void;
+    
+            /**
+                * Event triggered after the field is updated.
+                */
+            onUpdated?: (field: Types.IFieldResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - List Information
+        */
+    export interface ISPCfgListInfo {
+            /** The content Types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+    
+            /** The custom list fields. */
+            CustomFields?: Array<ISPCfgFieldInfo>;
+    
+            /** The list creation information. */
+            ListInformation: SP.List;
+    
+            /** The title display name. */
+            TitleFieldDisplayName?: string;
+    
+            /** The user custom actions. */
+            UserCustomActions?: Array<SP.UserCustomAction>;
+    
+            /** The view information. */
+            ViewInformation?: Array<ISPCfgViewInfo>;
+    
+            /**
+                * Event triggered after the list is created or updated.
+                */
+            onCreated?: (list: Types.IListResult) => void;
+    
+            /**
+                * Event triggered after the list is updated.
+                */
+            onUpdated?: (list: Types.IListQueryResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - View Information
+        */
+    export interface ISPCfgViewInfo {
+            /** The JSLink property. */
+            JSLink?: string;
+    
+            /** The view fields. */
+            ViewFields?: Array<string>;
+    
+            /** The view name. */
+            ViewName: string;
+    
+            /** The view query. */
+            ViewQuery?: string;
+    
+            /**
+                * Event triggered after the view is created or updated.
+                */
+            onCreated?: (view: Types.IViewResult) => void;
+    
+            /**
+                * Event triggered after the view is updated.
+                */
+            onUpdated?: (view: Types.IView) => void;
+    }
+    
+    /**
+        * SharePoint Configuration - WebPart Information
+        */
+    export interface ISPCfgWebPartInfo {
+            /** The file name of the webpart. */
+            FileName: string;
+    
+            /** The webpart group. */
+            Group?: string;
+    
+            /** The webpart xml */
+            XML: string;
+    
+            /**
+                * Event triggered after the webpart file is created.
+                */
+            onCreated?: (file: Types.IFileResult) => void;
+    
+            /**
+                * Event triggered after the webpart file is updated.
+                */
+            onUpdated?: (file: Types.IFileResult) => void;
+    }
+    
+    /**
+        * SharePoint Configuration Methods
+        */
+    export interface ISPConfig {
+            /** The configuration. */
+            _configuration: ISPConfigProps;
+    
+            /**
+                * Method to install the configuration
+                */
+            install(): PromiseLike<void>;
+    
+            /**
+                * Method to install the configuration
+                */
+            uninstall(): PromiseLike<void>;
+    }
+    
+    /**
+        * SharePoint Configuration - Properties
+        */
+    export interface ISPConfigProps {
+            /** The content Types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+    
+            /** The custom action configuration. */
+            CustomActionCfg?: ISPCfgCustomActionInfo;
+    
+            /** The site column configuration. */
+            Fields?: Array<ISPCfgFieldInfo>;
+    
+            /** The list configuration. */
+            ListCfg?: Array<ISPCfgListInfo>;
+    
+            /** The web part configuration. */
+            WebPartCfg?: Array<ISPCfgWebPartInfo>;
+    }
+    
+    /**
+        * SharePoint Configuration - Types
+        */
+    export interface ISPConfigTypes {
+            /** Fields */
+            Fields: number;
+    
+            /** Content Types */
+            ContentTypes: number;
+    
+            /** Lists */
+            Lists: number;
+    
+            /** Site User Custom Actions */
+            SiteUserCustomActions: number;
+    
+            /** Web User Custom Actions */
+            WebUserCustomActions: number;
+    }
+}
+
+declare module 'gd-sprest/helper/types/spCfgTypes' {
+    /**
+        * SharePoint Configuration Field Types
+        */
+    export const SPCfgFieldType: ISPCfgFieldType;
+    
+    /**
+        * SharePoint Configuration Types
+        * The value determines the order to install the object type.
+        */
+    export const SPCfgType: ISPCfgType;
+    
+    /** The field types */
+    export type ISPCfgFieldType = {
+            Boolean: number;
+            Calculated: number;
+            Choice: number;
+            Currency: number;
+            Date: number;
+            Geolocation: number;
+            Lookup: number;
+            MMS: number;
+            Note: number;
+            Number: number;
+            Text: number;
+            Url: number;
+            User: number;
+    }
+    
+    /** The configuration types */
+    export type ISPCfgType = {
+            Fields: number;
+            ContentTypes: number;
+            Lists: number;
+            SiteUserCustomActions: number;
+            WebParts: number;
+            WebUserCustomActions: number;
+    }
+}
+
+declare module 'gd-sprest/helper/types/taxonomy' {
+    
+    /**
+        * Taxonomy Helper Class
+        */
+    export const Taxonomy: ITaxonomy;
+    
+    /**
+     * Taxonomy Helper
+     */
+    export interface ITaxonomy {
+            /**
+                * Method to find a term by id
+                * @param term - The term
+                * @param termId - The term id to search for
+                */
+            findById(term: ITerm, termId: string): ITerm;
+    
+            /**
+                * Method to find a term by name
+                * @param term - The term
+                * @param termName - The term name to search for
+                */
+            findByName(term: ITerm, termName: string): ITerm;
+    
+            /**
+                * Method to get the term group
+                * @param groupName - The group name.
+                */
+            getTermGroup(groupName?: string): PromiseLike<{ context: any, termGroup: any }>;
+    
+            /**
+                * Method to get the term groups
+                */
+            getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
+    
+            /**
+                * Method to get the term sets for a group
+                * @param groupName - The group name.
+                */
+            getTermSets(groupName: string): PromiseLike<Array<ITermSetInfo>>;
+    
+            /**
+                * Method to get the term sets for the site collection
+                */
+            getTermSetsFromDefaultSC(): PromiseLike<Array<ITermSetInfo>>;
+    
+            /**
+                * Method to get the terms
+                * @param termSet - The term set.
+                * @param termSetTerms - The term set terms.
+                */
+            getTerms(termSet, termSetTerms): Array<ITermInfo>;
+    
+            /**
+                * Method to get the terms by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermsById(termStoreId: string, termSetId: string): PromiseLike<Array<ITermInfo>>;
+    
+            /**
+                * Method to get the term set by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermSetById(termStoreId: string, termSetId: string): PromiseLike<ITerm>;
+    
+            /**
+                * Method to get the terms from the default site collection
+                * @param termSetName - The term set name
+                */
+            getTermsFromDefaultSC(termSetName: string): PromiseLike<Array<ITermInfo>>;
+    
+            /**
+                * Method to get the term set from the default site collection
+                */
+            getTermSetFromDefaultSC(termSetName: string): PromiseLike<ITerm>;
+    
+            /**
+                * Method to get a terms from a specified group
+                */
+            getTermsByGroupName(termSetName: string, groupName: string): PromiseLike<Array<ITermInfo>>;
+    
+            /**
+                * Method to get the term set from the default site collection
+                */
+            getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
+    
+            /**
+                * Method to ensure the taxonomy script references are loaded.
+                */
+            loadScripts(): PromiseLike<void>;
+    
+            /**
+                * Method to convert a term set into an array of terms
+                * @param term - The term
+                */
+            toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
+    
+            /**
+                * Method to convert a term to a field value
+                * @param term - The term
+                */
+            toFieldValue(term: ITerm | ITermInfo): any;
+    
+            /**
+                * Method to convert a collection of terms to a field value
+                * @param terms - The terms
+                */
+            toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
+    
+            /**
+                * Method to convert an array of terms into a term set
+                * @param terms - The terms
+                */
+            toObject(terms: Array<ITermInfo>): ITerm;
+    }
+    
+    
+    /**
+        * Taxonomy Term
+        */
+    export interface ITerm {
+            /** The root term information */
+            info: ITermInfo;
+    
+            /** The parent term */
+            parent?: ITerm;
+    }
+    
+    /**
+        * Taxonomy Term Group Information
+        */
+    export interface ITermGroupInfo {
+            /** The term description */
+            description: string;
+    
+            /** The term id */
+            id: string;
+    
+            /** The term name */
+            name: string;
+    }
+    
+    /**
+        * Taxonomy Term Information
+        */
+    export interface ITermInfo {
+            /** The term description */
+            description: string;
+    
+            /** The term id */
+            id: string;
+    
+            /** The term name */
+            name: string;
+    
+            /** The parent term */
+            parent?: ITerm;
+    
+            /** The term path */
+            path: Array<string>;
+    
+            /** The term path as a string */
+            pathAsString: string;
+    
+            /** The term custom properties */
+            props: { [key: string]: string; };
+    }
+    
+    /**
+        * Taxonomy Term Set Information
+        */
+    export interface ITermSetInfo {
+            /** The term description */
+            description: string;
+    
+            /** The term id */
+            id: string;
+    
+            /** The term name */
+            name: string;
+    
+            /** The term custom properties */
+            props: { [key: string]: string; };
+    }
+}
+
+declare module 'gd-sprest/helper/types/webpart' {
+    /**
+        * Web Part
+        */
+    export const WebPart: IWebPart;
+    
+    /**
+        * Web Part
+        */
+    export interface IWebPart {
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            new(props: IWebPartProps);
+    
+            /**
+                * Adds a script editor webpart to a page.
+                * @param url - The relative url of the page.
+                * @param wpProps - The webpart properties.
+                */
+            addWebPartToPage(url: string, wpProps: IWebPartScriptEditor): PromiseLike<void>;
+    
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            create(props: IWebPartProps);
+    
+            /**
+                * Determines if the page is being edited.
+                */
+            isEditMode(): boolean;
+    }
+    
+    /**
+        * The webpart configuration
+        */
+    export interface IWebPartCfg {
+            /** The webpart id */
+            WebPartId?: string;
+    }
+    
+    /**
+        * The webpart information
+        */
+    export interface IWebPartInfo {
+            /** The configuration */
+            cfg: IWebPartCfg;
+    
+            /** The element to render the webpart to */
+            el: HTMLElement;
+    
+            /** The webpart id */
+            wpId: string;
+    }
+    
+    /**
+        * The webpart properties
+        */
+    export interface IWebPartProps {
+            /** The optional configuration element id */
+            cfgElementId?: string;
+    
+            /** The optional help link properties */
+            helpProps?: {
+                    /** The link title */
+                    title?: string;
+    
+                    /** The link url */
+                    url: string;
+            };
+    
+            /** The post render event */
+            onPostRender?: (wp: IWebPartInfo) => void;
+    
+            /** The render event triggered when the page is in 'Display' mode */
+            onRenderDisplay?: (wp: IWebPartInfo) => any;
+    
+            /** The render event triggered when the page is in 'Edit' mode */
+            onRenderEdit?: (wp: IWebPartInfo) => any;
+    
+            /** The target element id to render the webpart to */
+            elementId: string;
+    }
+    
+    /**
+        * The script editor webpart properties
+        */
+    export interface IWebPartScriptEditor {
+            /** The webpart description. */
+            description?: string;
+    
+            /** The webpart content. */
+            content: string;
+    
+            /** The webpart index. */
+            index?: number;
+    
+            /** The webpart title. */
+            title?: string;
+    
+            /** The webpart zone. */
+            zone?: string;
+    }
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
@@ -782,7 +2376,7 @@ declare module 'gd-sprest/lib/types/contextInfo' {
 }
 
 declare module 'gd-sprest/lib/types/graph' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfo } from "gd-sprest/utils/types";
     
     /**
@@ -809,9 +2403,9 @@ declare module 'gd-sprest/lib/types/graph' {
 }
 
 declare module 'gd-sprest/lib/types/list' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
         * List
@@ -862,7 +2456,7 @@ declare module 'gd-sprest/lib/types/list' {
 }
 
 declare module 'gd-sprest/lib/types/navigation' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -884,7 +2478,7 @@ declare module 'gd-sprest/lib/types/navigation' {
 }
 
 declare module 'gd-sprest/lib/types/peopleManager' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -905,7 +2499,7 @@ declare module 'gd-sprest/lib/types/peopleManager' {
 }
 
 declare module 'gd-sprest/lib/types/peoplePicker' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -926,7 +2520,7 @@ declare module 'gd-sprest/lib/types/peoplePicker' {
 }
 
 declare module 'gd-sprest/lib/types/profileLoader' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -948,9 +2542,9 @@ declare module 'gd-sprest/lib/types/profileLoader' {
 
 declare module 'gd-sprest/lib/types/search' {
     import { Microsoft } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
         * Search
@@ -989,9 +2583,9 @@ declare module 'gd-sprest/lib/types/search' {
 }
 
 declare module 'gd-sprest/lib/types/site' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
         * Site
@@ -1030,7 +2624,7 @@ declare module 'gd-sprest/lib/types/site' {
 }
 
 declare module 'gd-sprest/lib/types/socialFeed' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -1051,7 +2645,7 @@ declare module 'gd-sprest/lib/types/socialFeed' {
 }
 
 declare module 'gd-sprest/lib/types/userProfile' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -1072,7 +2666,7 @@ declare module 'gd-sprest/lib/types/userProfile' {
 }
 
 declare module 'gd-sprest/lib/types/utility' {
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -1095,9 +2689,9 @@ declare module 'gd-sprest/lib/types/utility' {
 
 declare module 'gd-sprest/lib/types/web' {
     import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
         * Web
@@ -1123,3655 +2717,14 @@ declare module 'gd-sprest/lib/types/web' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/appTiles' {
-    /**
-      * App Tiles
-      */
-    export interface IAppTiles {
-        AppId: string;
-        AppPrincipalId: string;
-        AppSource: number;
-        AppStatus: number;
-        AppType: number;
-        AssetId: string;
-        BaseTemplate: number;
-        ChildCount: number;
-        ContentMarket: string;
-        CustomSettingsUrl: string;
-        Description: string;
-        IsCorporateCatalogSite: boolean;
-        LastModified: string;
-        LastModifiedDate: string;
-        ProductId: string;
-        Target: string;
-        Thumbnail: string;
-        Title: string;
-        Version: number;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/attachment' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IAttachmentFiles } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IAttachmentFilesMethods {
-            /**
-                * Adds the attachment that is represented by the specified file name and byte array to the list item.
-                * @param fileName - The filename of the attachment.
-                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-                */
-            add(fileName, content): IBaseExecution<SP.Attachment>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IAttachmentFiles>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/attachments' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseCollection } from "gd-sprest/utils/types/base";
-    import { IAttachmentFiles, IAttachmentFilesMethods } from "gd-sprest/mapper/types";
-    
-    /**
-      * Attachment Files
-      */
-    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<SP.Attachment> { }
-}
-
-declare module 'gd-sprest/mapper/types/contentType' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IFieldResult, IFields, IFieldLinks, IListResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Content Type Methods
-        */
-    export interface IContentTypeMethods {
-            /**
-                * Deletes the content type.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The content type properties to update.
-                */
-            update(data): IBaseExecution;
-    }
-    
-    /**
-        * Content Type Query Properties
-        */
-    export interface IContentTypeQueryProps {
-            DescriptionResource(): IBaseExecution;
-    
-            /**
-                * Gets the column (also known as field) references in the content type.
-                */
-            FieldLinks(): IFieldLinks;
-    
-            /**
-                * Gets the column (also known as field) reference in the content type.
-                * @param guid - The guid of the field link.
-                */
-            FieldLinks(guid: string): IBaseExecution<SP.FieldLink>;
-    
-            /**
-                * Gets the fields for the content type.
-                */
-            Fields(): IFields;
-    
-            /**
-                * Gets the field for the content type.
-                * @param internalNameOrTitle - The internal name or title of the field.
-                */
-            Fields(internalNameOrTitle: string): IFields;
-    
-            NameResource(): IBaseExecution;
-    
-            /** Gets the parent content type of the content type. */
-            Parent(): IContentTypeMethods;
-    
-            /**
-                * Gets a value that specifies the collection of workflow associations for the content type.
-                */
-            WorkflowAssociations(): IBaseExecution;
-    }
-    
-    /**
-        * Content Type Query Result
-        */
-    export interface IContentTypeQueryResult extends IContentTypeMethods, SP.ContentType {
-            DescriptionResource: SP.ResourcePath;
-    
-            /**
-                * Gets the column (also known as field) references in the content type.
-                */
-            FieldLinks: Types.Results.IResults<SP.FieldLink>;
-    
-            /**
-                * Gets the fields for the content type.
-                */
-            Fields: Types.Results.IResults<IFieldResult>;
-    
-            NameResource: SP.ResourcePath;
-    
-            /** Gets the parent content type of the content type. */
-            Parent: IListResult | Types.IWebResult;
-    
-            /**
-                * Gets a value that specifies the collection of workflow associations for the content type.
-                */
-            WorkflowAssociations: Types.Results.IResults<any>;
-    }
-    
-    /**
-        * Content Type Result
-        */
-    export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseResult<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
-    
-    /**
-        * Content Type
-        */
-    export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseQueryExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/contentTypes' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IContentType, IContentTypeQueryResult, IContentTypeResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IContentTypesMethods {
-            /**
-                * Adds a content type to the collection.
-                * @param parameters - The content type creation information.
-                */
-            add(parameters: SP.ContentTypeCreationInformation): IBaseExecution<IContentType, IContentTypeResult>;
-    
-            /**
-                * Adds an existing content type to this collection.
-                * @param contentTypeId - The content type id to add.
-                */
-            addAvailableContentType(contentTypeId): IBaseExecution<IContentType, IContentTypeResult>;
-    
-            /**
-                * Gets a content type by id.
-                * @param id - The content type id.
-                */
-            getById(id): IContentType & IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult>;
-    }
-    
-    /**
-        * Content Types
-        */
-    export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
-    
-    /**
-        * Content Type Results
-        */
-    export interface IContentTypeResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/entityData' {
-    /**
-      * Entity Data
-      */
-    export interface IEntityData {
-        /** Account Name */
-        AccountName?: string;
-    
-        /** Department. */
-        Department?: string;
-    
-        /** EMail */
-        Email?: string;
-    
-        /** */
-        IsAltSecIdPresent?: boolean;
-    
-        /** Mobile Phone */
-        MobilePhone?: string;
-    
-        /** Object ID */
-        ObjectId?: string;
-    
-        /** Principal Type */
-        PrincipalType?: string;
-    
-        /** SharePoint Group ID */
-        SPGroupID?: string;
-    
-        /** SharePoint User ID */
-        SPUserID?: string;
-    
-        /** Title */
-        Title?: string;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/eventReceiver' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Event Receiver Methods
-        */
-    export interface IEventReceiverMethods {
-            /**
-                * Deletes the event receiver.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The field properties to update.
-                */
-            update(data): IBaseExecution;
-    }
-    
-    /**
-        * Event Receiver Query Properties
-        */
-    export interface IEventReceiverQueryProps { }
-    
-    /**
-        * Event Receiver Query Result
-        */
-    export interface IEventReceiverQueryResult extends IEventReceiverMethods, SP.EventReceiverDefinition { }
-    
-    /**
-        * Event Receiver Result
-        */
-    export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseResult<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
-    
-    /**
-        * Event Receiver
-        */
-    export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseQueryExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/eventReceivers' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult } from "gd-sprest/mapper/types/eventReceiver";
-    
-    /**
-        * Methods
-        */
-    export interface IEventReceiversMethods {
-            /**
-                * Adds an event receiver to the collection.
-                * @param parameters - The event receiver definition creation information.
-                */
-            add(parameters: SP.EventReceiverDefinitionCreationInformation): IBaseExecution<IEventReceiver, IEventReceiverResult>;
-    
-            /**
-                * Gets an event receiver in the collection.
-                * @param id - The id of the event receiver.
-                */
-            getById(id: string): IEventReceiver & IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
-    }
-    
-    /**
-        * Event Receivers
-        */
-    export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
-    
-    /**
-        * Event Receiver Results
-        */
-    export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/features' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Feature
-        */
-    export interface IFeature {
-            /** The feature definition id. */
-            DefinitionId: string;
-    
-            /** The feature definition name. (This property is not returned by default, and must be queried for.) */
-            DisplayName?: string;
-    }
-    /**
-        * Features Methods
-        */
-    export interface IFeaturesMethods {
-            /**
-                * Activates a feature.
-                * @param id - The feature id.
-                */
-            add(id: string): IBaseExecution<IFeature>;
-    
-            /**
-                * Gets a feature by id.
-                * @param id - The feature id.
-                */
-            getById(id: string): IBaseExecution<IFeature>;
-    
-            /**
-                * Gets a feature by name.
-                * @param name - The feature internal name.
-                */
-            getByName(name: string): IBaseExecution<IFeatures>;
-    
-            /**
-                * Deactivates a feature.
-                * @param id - The feature id.
-                */
-            remove(id: string): IBaseExecution;
-    }
-    
-    /**
-        * Features
-        */
-    export interface IFeatures extends IFeaturesMethods, IBaseCollection<IFeature> { }
-}
-
-declare module 'gd-sprest/mapper/types/field' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Field Methods
-        */
-    export interface IFieldMethods {
-            /**
-                * Deletes the field.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Sets the value of the ShowInDisplayForm property for this field.
-                * @param showInForm - Flag to show the field in the display form.
-                */
-            setShowInDisplayForm(showInForm): IBaseExecution;
-    
-            /**
-                * Sets the value of the ShowInEditForm property for this field.
-                * @param showInForm - Flag to show the field in the display form.
-                */
-            setShowInEditForm(showInForm): IBaseExecution;
-    
-            /**
-                * Sets the value of the ShowInNewForm property for this field.
-                * @param showInForm - Flag to show the field in the display form.
-                */
-            setShowInNewForm(showInForm): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The field properties to update.
-                */
-            update(data): IBaseExecution;
-    }
-    
-    /**
-        * Field Properties
-        */
-    export interface IFieldProps {
-            AutoIndexed: boolean;
-    
-            /** Gets a value that specifies whether the field can be deleted. */
-            CanBeDeleted: boolean;
-    
-            /** Gets or sets a value that specifies the default value for the field. */
-            DefaultValue: string;
-    
-            /** Gets or sets a value that specifies the description of the field. */
-            Description: string;
-    
-            /** Gets or sets a value that specifies the reading order of the field. */
-            Direction: string;
-    
-            /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
-            EnforceUniqueValues: boolean;
-    
-            /** Gets the name of the entity property for the list item entity that uses this field. */
-            EntityPropertyName: string;
-    
-            /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-            FieldTypeKind: number;
-    
-            /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
-            Filterable: boolean;
-    
-            /** Gets a Boolean value that indicates whether the field derives from a base field type. */
-            FromBaseType: boolean;
-    
-            /** Gets or sets a value that specifies the field group. */
-            Group: string;
-    
-            /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
-            Hidden: boolean;
-    
-            /** Gets a value that specifies the field identifier. */
-            Id: string;
-    
-            /** Gets or sets a Boolean value that specifies whether the field is indexed. */
-            Indexed: boolean;
-    
-            /** Gets a value that specifies the field internal name. */
-            InternalName: string;
-    
-            /** Gets or sets the name of an external JS file containing any client rendering logic for fields of this type. */
-            JSLink: string;
-    
-            /** Gets or sets a value that specifies whether the value of the field is read-only. */
-            ReadOnlyField: boolean;
-    
-            /** Gets or sets a value that specifies whether the field requires a value. */
-            Required: boolean;
-    
-            /** Gets or sets a value that specifies the XML schema that defines the field. */
-            SchemaXml: string;
-    
-            /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
-            Scope: string;
-    
-            /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
-            Sealed: boolean;
-    
-            /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
-            Sortable: boolean;
-    
-            /** Gets or sets a value that specifies a customizable identifier of the field. */
-            StaticName: string;
-    
-            /** Gets or sets value that specifies the display name of the field. */
-            Title: string;
-    
-            /** Gets or sets a value that specifies the type of the field. */
-            TypeAsString: string;
-    
-            /** Gets a value that specifies the display name for the type of the field. */
-            TypeDisplayName: string;
-    
-            /** Gets a value that specifies the description for the type of the field. */
-            TypeShortDescription: string;
-    
-            /** Gets or sets a value that specifies the data validation criteria for the value of the field. */
-            ValidationFormula: string;
-    
-            /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
-            ValidationMessage: string;
-    }
-    
-    /**
-        * Field Query Properties
-        */
-    export interface IFieldQueryProps {
-            DescriptionResource(): IBaseExecution<SP.ResourcePath>;
-    
-            TitleResource(): IBaseExecution<SP.ResourcePath>;
-    }
-    
-    /**
-        * Field Query Result
-        */
-    export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
-            DescriptionResource: SP.ResourcePath;
-    
-            TitleResource: SP.ResourcePath;
-    }
-    
-    /**
-        * Field Result
-        */
-    export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseResult<IField, IFieldResult, IFieldQueryResult> { }
-    
-    /**
-        * Field
-        */
-    export interface IField extends IFieldMethods, IFieldQueryProps, IBaseQueryExecution<IField, IFieldResult, IFieldQueryResult> { }
-    
-    /**
-        * Base Choice Field
-        */
-    export interface IFieldBaseChoice extends IFieldResult {
-            /** A value that specifies values that are available for selection in the field. */
-            Choices: { results: Array<string> };
-    
-            /** A value that specifies whether the field can accept values other than those specified by the Choices property. */
-            FillInChoice: boolean;
-    
-            /** A value that specifies the internal values corresponding to Choices. */
-            Mappings: string;
-    }
-    
-    /**
-        * Calculated Field
-        */
-    export interface IFieldCalculated extends IFieldResult {
-            /** The date and time format that is displayed in the field. */
-            DateFormat: number;
-    
-            /** A value that specifies the formula for the field. */
-            Formula: string;
-    
-            /** A value that specifies the output format for the field. */
-            OutputType: number;
-    }
-    
-    /**
-        * Choice Field
-        */
-    export interface IFieldChoice extends IFieldBaseChoice {
-            /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
-            EditFormat: number;
-    }
-    
-    /**
-        * Computed Field
-        */
-    export interface IFieldComputed extends IFieldResult {
-            /** A value that specifies whether a lookup field can reference the field. */
-            EnableLookup: boolean;
-    }
-    
-    /**
-        * Currency Field
-        */
-    export interface IFieldCurrency extends IFieldNumber {
-            /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
-            CurrencyLocaleId: number;
-    }
-    
-    /**
-        * Date/Time Field
-        */
-    export interface IFieldDateTime extends IFieldResult {
-            /** A value that specifies the calendar type of the field. */
-            DateTimeCalendarType: number;
-    
-            /** The format of the date and time that is displayed in the field. */
-            DisplayFormat: number;
-    
-            /** Represents a date and time friendly format. */
-            FriendlyDisplayFormat: number;
-    }
-    
-    /**
-        * Lookup Field
-        */
-    export interface IFieldLookup extends IFieldResult {
-            /** A value that specifies whether the lookup field allows multiple values. You cannot set a deletion constraint on a lookup field that allows multiple values. */
-            AllowMultipleValues: boolean;
-    
-            /** Flag to determine if this is a dependent lookup field. */
-            IsDependentLookup: boolean;
-    
-            /** A value that specifies whether this lookup field is returned by SP.List.getRelatedFields from the list being looked up to. Always returns false if the field represents a secondary column in a multiple-column lookup. Secondary columns are not discoverable from the source list. */
-            IsRelationship: boolean;
-    
-            /** A value that specifies the internal field name of the field used as the lookup values. */
-            LookupField: string;
-    
-            /** A value that specifies the list identifier of the list that contains the field to use as the lookup values. */
-            LookupList: string;
-    
-            /** The ID of the Web site that contains the list that is the source of this field's value. */
-            LookupWebId: string;
-    
-            /** A value that specifies the primary lookup field identifier if this is a dependent lookup field. Otherwise, it is an empty string. */
-            PrimaryFieldId: string;
-    
-            /** A value that specifies the delete behavior of the lookup field. */
-            RelationshipDeleteBehavior: number;
-    }
-    
-    /**
-        * Managed Metadata Field
-        */
-    export interface IFieldManagedMetadata extends IFieldLookup {
-            /** The root term */
-            AnchorId: string;
-    
-            /** Flag to determine if the anchor is valid. */
-            IsAnchorValid: boolean;
-    
-            /** Flag to determine if this is a keyword. */
-            IsKeyword: boolean;
-    
-            /** Flag to determine if the path is rendered. */
-            IsPathRendered: boolean;
-    
-            /** Flag to determine if the term set is valid. */
-            IsTermSetValid: boolean;
-    
-            /** A valid that specifies if the term is pinned to filters pane. */
-            PinnedToFiltersPane: boolean;
-    
-            /** A value that specifies if the term is shown in the filters pane. */
-            ShowInFiltersPane: number;
-    
-            /** The term store id. */
-            SspId: string;
-    
-            /** The term set id. */
-            TermSetId: string;
-    
-            /** Flag to determine if the field was created by the user. */
-            UserCreated: boolean;
-    }
-    
-    /**
-        * Multi-Choice Field
-        */
-    export interface IFieldMultiChoice extends IFieldBaseChoice {
-    }
-    
-    /**
-        * Note Field
-        */
-    export interface IFieldNote extends IFieldResult {
-            /** A value that specifies whether a hyperlink is allowed as a value of the field. */
-            AllowHyperlink: boolean;
-    
-            /** A value that specifies whether all changes to the value of the field are displayed in list forms. */
-            AppendOnly: boolean;
-    
-            /** A value that specifies the number of lines of text to display for the field. */
-            NumberOfLines: number;
-    
-            /** A value that specifies whether the field supports a subset of rich formatting. */
-            RestrictedMode: boolean;
-    
-            /** A value that specifies whether the field supports rich formatting. */
-            RichText: boolean;
-    
-            /** A value that specifies whether an implementation specific mechanism for linking wiki pages is supported. */
-            WikiLinking: boolean;
-    }
-    
-    /**
-        * Number Field
-        */
-    export interface IFieldNumber extends IFieldResult {
-            /** A value that specifies the minimum allowed value for the field. */
-            MaximumValue: number;
-    
-            /** A value that specifies the minimum allowed value for the field. */
-            MinimumValue: number;
-    
-            /** Flag to determine if the number is displayed as a percentage. */
-            ShowAsPercentage?: boolean;
-    }
-    
-    /**
-        * Rating Scale Field
-        */
-    export interface IFieldRatingScale extends IFieldBaseChoice {
-            /** A value that specifies the end number for the rating scale. */
-            GridEndNumber: number;
-    
-            /** A value that specifies the display text corresponding to the choice in the rating scale that indicates the non-applicable option. */
-            GridNAOptionText: string;
-    
-            /** A value that specifies the start number for the rating scale. */
-            GridStartNumber: number;
-    
-            /** A value that specifies the display text corresponding to the average of the rating scale. */
-            GridTextRangeAverage: string;
-    
-            /** A value that specifies the display text corresponding to the maximum of the rating scale. */
-            GridTextRangeHigh: string;
-    
-            /** A value that specifies the display text corresponding to the minimum of the rating scale. */
-            GridTextRangeLow: string;
-    
-            /** A value that specifies the number of options in the rating scale. */
-            RangeCount: number;
-    }
-    
-    /**
-        * Text Field
-        */
-    export interface IFieldText extends IFieldResult {
-            /** A value that specifies the maximum number of characters allowed in the value of the field. */
-            MaxLength: number;
-    }
-    
-    /**
-        * URL Field
-        */
-    export interface IFieldUrl extends IFieldResult {
-            /** A value that specifies the display format for the value in the field. */
-            DisplayFormat: number;
-    }
-    
-    /**
-        * User Field
-        */
-    export interface IFieldUser extends IFieldLookup {
-            /** A value that specifies whether to display the name of the user in a survey list. */
-            AllowDisplay: boolean;
-    
-            /** A value that specifies whether presence is enabled on the field. */
-            Presence: boolean;
-    
-            /** A value that specifies the identifier of the SharePoint group whose members can be selected as values of the field. */
-            SelectionGroup: number;
-    
-            /** A value that specifies whether users and groups or only users can be selected. */
-            SelectionMode: number;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/fieldLinks' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Field Links
-        */
-    export interface IFieldLinks extends IBaseCollection<SP.FieldLink> {
-            /**
-                * Adds a content type to the collection.
-                * @param data - The field link properties.
-                */
-            add(data): IBaseExecution<SP.FieldLink>;
-    
-            /**
-                * Gets the field link by its id.
-                * @param id - The id of the field.
-                */
-            getById(id): SP.FieldLink & IBaseExecution<SP.FieldLink>;
-    
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IFieldLinks>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/fields' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IField, IFieldQueryResult, IFieldResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IFieldsMethods {
-            /**
-                * Adds a field to the field collection.
-                * @param parameters - The field properties.
-                */
-            add(parameters: IField): IBaseExecution<IField, IFieldResult>;
-    
-            /**
-                * Adds a field to the field collection.
-                * @param parameters - The field creation information.
-                */
-            addField(parameters: SP.FieldCreationInformation): IBaseExecution<IField, IFieldResult>;
-    
-            /**
-                * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-                * @param displayName - The title of the new field.
-                * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
-                * @param showField - The name of the field from the target list to include data from.
-                */
-            addDependentLookupField(displayName, primaryLookupField, showField): IBaseExecution<IField, IFieldResult>;
-    
-            /**
-                * Creates a field based on the specified schema, Boolean value, and field options.
-                * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-                * @param schemaXml - The schema XML definition of the field.
-                */
-            createFieldAsXml(schemaXml): IBaseExecution<IField, IFieldResult>;
-    
-            /**
-                * Gets the field with the specified ID.
-                * @param id - The field id.
-                */
-            getById(id): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
-    
-            /**
-                * Returns the first Field object with the specified internal name or title from the collection.
-                * @param internalNameOrTitle - The internal name or title of the field.
-                */
-            getByInternalNameOrTitle(internalNameOrTitle): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
-    
-            /**
-                * Returns the first field object in the collection based on the title of the specified field.
-                * @param title - The title of the field.
-                */
-            getByTitle(title): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
-    }
-    
-    /**
-        * Fields
-        */
-    export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
-    
-    /**
-        * Field Results
-        */
-    export interface IFieldResults extends IFieldsMethods, IBaseCollectionResult<IFieldResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/file' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IFileVersionResult, IFileVersions } from "gd-sprest/mapper/types";
-    
-    /**
-        * File Methods
-        */
-    export interface IFileMethods {
-            /**
-                * Approves the file submitted for content approval with the specified comment.
-                * @param comment - The comment for the approval. It's length must be <= 1023.
-                */
-            approve(comment): IBaseExecution;
-    
-            /**
-                * Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
-                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
-                * This method is currently available only on Office 365.
-                * @param uploadId - The unique id of the upload session.
-                */
-            cancelupload(uploadId): IBaseExecution;
-    
-            /**
-                * Checks the file in to a document library based on the check-in type.
-                * @param comment - The comment for the check-in. Its length must be <= 1023.
-                * @param checkInType - The check-in type: MinorCheckIn - 0; MajorCheckIn - 1; OverwriteCheckIn - 2
-                */
-            checkin(comment, checkInType): IBaseExecution;
-    
-            /**
-                * Checks out the file from a document library based on the check-out type.
-                */
-            checkout(): IBaseExecution;
-    
-            /**
-                * Returns the file content.
-                */
-            content(): IBaseExecution;
-    
-            /**
-                * Continues the chunk upload session with an additional fragment. The current file content is not changed.
-                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
-                * This method is currently available only on Office 365.
-                * @param uploadId - The unique id of the upload session.
-                * @param fileOffset - The size of the offset into the file where the fragment starts.
-                */
-            continueUpload(uploadId, fileOffset): IBaseExecution;
-    
-            /**
-                * Copies the file to the destination URL.
-                * @param strNewUrl - The absolute URL or server relative URL of the destination file path to copy to.
-                * @param bOverWrite - True to overwrite a file with the same name in the location.
-                */
-            copyTo(strNewUrl, bOverWrite): IBaseExecution;
-    
-            /**
-                * Deletes the File.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Denies approval for a file that was submitted for content approval.
-                * Only documents in lists that are enabled for content approval can be denied.
-                * @param comment - The comment for the denial. It's length must be <= 1023.
-                */
-            deny(comment): IBaseExecution;
-    
-            /**
-                * Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
-                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
-                * This method is currently available only on Office 365.
-                * @param uploadId - The unique id of the upload session.
-                * @param fileOffset - The size of the offset into the file where the fragment starts.
-                */
-            finishUpload(uploadId, fileOffset): IBaseExecution;
-    
-            /**
-                * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
-                * An exception is thrown if the file is not an ASPX page.
-                * @param scope - The webpart personalization scope: User - 0; Shared - 1
-                */
-            getlimitedwebpartmanager(scope): IBaseExecution;
-    
-            /**
-                * Moves the file to the specified destination URL.
-                * @param newUrl - The absolute url or server relative url of the destination file path to move to.
-                * @param flags - The move operation: Overwrite - 1; AllowBrokenThickets (Move even if supporting files are separated from the file) - 8;
-                */
-            moveTo(newUrl, flags): IBaseExecution;
-    
-            /**
-                * Opens the file as a stream.
-                */
-            openBinaryStream(): IBaseExecution;
-    
-            /**
-                * Submits the file for content approval with the specified comment.
-                * @param comment - The comment for the published file. It's length must be <= 1023.
-                */
-            publish(comment): IBaseExecution;
-    
-            /**
-                * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBaseExecution;
-    
-            /**
-                * Saves the file as a stream.
-                * @param stream - The binary stream of the file.
-                */
-            saveBinaryStream(stream): IBaseExecution;
-    
-            /**
-                * Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
-                * The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
-                * The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
-                * @param uploadId - The unique id of the upload session.
-                */
-            startUpload(uploadId): IBaseExecution;
-    
-            /**
-                * Reverts an existing checkout for the file.
-                */
-            undoCheckOut(): IBaseExecution;
-    
-            /**
-                * Removes the file from content approval or unpublish a major version.
-                * @param comment - The comment for the unpublish operation. Its length must be <= 1023.
-                */
-            unpublish(comment): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The file properties to update.
-                */
-            update(data): IBaseExecution;
-    }
-    
-    /**
-        * File Query Properties
-        */
-    export interface IFileQueryProps {
-            /**
-                * Gets a value that specifies the user who added the file.
-                */
-            Author(): Types.IUser;
-    
-            /**
-                * Gets a value that returns the user who has checked out the file.
-                */
-            CheckedOutByUser(): Types.IUser;
-    
-            EffectiveInformationRightsManagementSettings(): IBaseExecution;
-    
-            InformationRightsManagementSettings(): IBaseExecution;
-    
-            /**
-                * Gets a value that specifies the list item field values for the list item corresponding to the file.
-                */
-            ListItemAllFields(): IBaseExecution;
-    
-            /**
-                * Gets a value that returns the user that owns the current lock on the file.
-                */
-            LockedByUser(): Types.IUser;
-    
-            /**
-                * Gets a value that returns the user who last modified the file.
-                */
-            ModifiedBy(): Types.IUser;
-    
-            /**
-                * Property Bag
-                */
-            Properties(): IBaseExecution<Types.IPropertyValues>;
-    
-            VersionEvents(): IBaseExecution;
-    
-            /**
-                * Gets a value that returns a collection of file version objects that represent the versions of the file.
-                */
-            Versions(): IBaseExecution<IFileVersions>;
-    }
-    
-    /**
-        * File Query Result
-        */
-    export interface IFileQueryResult extends IFileMethods, SP.File {
-            /**
-                * Gets a value that specifies the user who added the file.
-                */
-            Author: Types.IUserResult;
-    
-            /**
-                * Gets a value that returns the user who has checked out the file.
-                */
-            CheckedOutByUser: Types.IUserResult;
-    
-            EffectiveInformationRightsManagementSettings: IBaseExecution;
-    
-            InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
-    
-            /**
-                * Gets a value that specifies the list item field values for the list item corresponding to the file.
-                */
-            ListItemAllFields: Types.IListItemResult;
-    
-            /**
-                * Gets a value that returns the user that owns the current lock on the file.
-                */
-            LockedByUser: Types.IUserResult;
-    
-            /**
-                * Gets a value that returns the user who last modified the file.
-                */
-            ModifiedBy: Types.IUserResult;
-    
-            /**
-                * Property Bag
-                */
-            Properties: Types.IPropertyValues;
-    
-            VersionEvents: Types.Results.IResults<any>;
-    
-            /**
-                * Gets a value that returns a collection of file version objects that represent the versions of the file.
-                */
-            Versions: Types.Results.IResults<IFileVersionResult>;
-    }
-    
-    /**
-        * File Result
-        */
-    export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseResult<IFile, IFileResult, IFileQueryResult> { }
-    
-    /**
-        * File
-        */
-    export interface IFile extends IFileMethods, IFileQueryProps, IBaseQueryExecution<IFile, IFileResult, IFileQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/files' {
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IFile, IFileQueryResult, IFileResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IFilesMethods {
-    
-            /**
-                * Adds a file to this collection.
-                * @param overwrite - true to overwrite the file if it already exists; otherwise false.
-                * @param url - The folder-relative URL of the file.
-                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-                */
-            add(overwrite, url, content): IBaseExecution<IFile, IFileResult>;
-    
-            /**
-                * Adds a ghosted file to an existing list or document library.
-                * @param urlOfFile - The server-relative URL where you want to save the file.
-                * @param templateFileType - The SP.TemplateFileType to use to create the file.
-                */
-            addTemplateFile(urlOfFile, templateFileType: number): IBaseExecution<IFile, IFileResult>;
-    
-            /**
-                * Get the file at the specified URL.
-                * @param serverRelativeUrl - The name or server relative url of the file.
-                */
-            getByUrl(serverRelativeUrl): IFile & IBaseExecution<IFile, IFileResult, IFileQueryResult>;
-    }
-    
-    /**
-        * Files
-        */
-    export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> { }
-    
-    /**
-        * File Results
-        */
-    export interface IFileResults extends IFilesMethods, IBaseCollectionResult<IFileResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/fileVersion' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * File Version Methods
-        */
-    export interface IFileVersionMethods {
-            /**
-                * Deletes the file version.
-                */
-            delete(): any;
-    }
-    
-    /**
-        * File Version Query Properties
-        */
-    export interface IFileVersionQueryProps {
-            /**
-                * Gets a value that specifies the user that represents the creator of the file version.
-                */
-            CreatedBy(): Types.IUser;
-    }
-    
-    /**
-        * File Version Query Result
-        */
-    export interface IFileVersionQueryResult extends IFileVersionMethods, SP.FileVersion {
-            /**
-                * A value that specifies the user that represents the creator of the file version.
-                */
-            CreatedBy: Types.IUserResult;
-    }
-    
-    /**
-        * File Version Result
-        */
-    export interface IFileVersionResult extends IFileVersionMethods, SP.FileVersion, IFileVersionQueryProps, IBaseResult<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
-    
-    /**
-        * File Version
-        */
-    export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBaseQueryExecution<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/fileVersions' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * File Versions
-        */
-    export interface IFileVersions extends IBaseCollection<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IFileVersions>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/folder' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from "gd-sprest/mapper/types";
-    
-    /**
-        * Folder Methods
-        */
-    export interface IFolderMethods {
-            /**
-                * Deletes the folder.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Get the folder at the specified URL.
-                * @param serverRelativeUrl - The server-relative URL of the folder.
-                */
-            getByUrl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
-    
-            /**
-                * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The file properties to update.
-                */
-            update(data): IBaseExecution;
-    }
-    
-    /**
-        * Folder Query Properties
-        */
-    export interface IFolderQueryProps {
-            /**
-                * Gets the files contained in the folder.
-                */
-            Files(): IFiles;
-    
-            /**
-                * Gets the file contained in the folder.
-                * @param url - The url of the file within the current folder.
-                */
-            Files(url: string): IFile;
-    
-            /**
-                * Gets the folders contained in the list folder.
-                */
-            Folders(): IFolders;
-    
-            /**
-                * Gets the folder contained in the list folder.
-                * @param url - The url of the sub-folder within the current folder.
-                */
-            Folders(url: string): IFolder;
-    
-            /**
-                * Specifies the list item field (2) values for the list item corresponding to the file.
-                */
-            ListItemAllFields(): IBaseExecution<Types.IListItem>;
-    
-            /**
-                * Gets the parent list folder of the folder.
-                */
-            ParentFolder(): IFolder;
-    
-            /**
-                * Property Bag
-                */
-            Properties(): IBaseExecution<Types.IPropertyValues>;
-    
-            StorageMetrics(): IBaseExecution;
-    }
-    
-    /**
-        * Folder Query Result
-        */
-    export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
-            /**
-                * Gets the files contained in the folder.
-                */
-            Files: IFileResults;
-    
-            /**
-                * Gets the folders contained in the list folder.
-                */
-            Folders: IFolderResults;
-    
-            /**
-                * Specifies the list item field (2) values for the list item corresponding to the file.
-                */
-            ListItemAllFields: Types.IListItemResults;
-    
-            /**
-                * Gets the parent list folder of the folder.
-                */
-            ParentFolder: IFolderResult;
-    
-            /**
-                * Property Bag
-                */
-            Properties: Types.IPropertyValues;
-    
-            StorageMetrics: any;
-    }
-    
-    /**
-        * Folder Result
-        */
-    export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseResult<IFolder, IFolderResult, IFolderQueryResult> { }
-    
-    /**
-        * Folder
-        */
-    export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseQueryExecution<IFolder, IFolderResult, IFolderQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/folders' {
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IFolder, IFolderQueryResult, IFolderResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IFoldersMethods {
-            /**
-                * Adds the folder that is located at the specified URL to the collection.
-                * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-                */
-            add(url): IBaseExecution<IFolder, IFolderResult>;
-    
-            /**
-                * Get the file at the specified URL.
-                * @param serverRelativeUrl - The server-relative URL of the folder.
-                */
-            getbyurl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
-    }
-    
-    /**
-        * Folders
-        */
-    export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> { }
-    
-    /**
-        * Folder Results
-        */
-    export interface IFolderResults extends IFoldersMethods, IBaseCollectionResult<IFolderResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/graph' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Graph Collection
-        */
-    export interface IGraphCollection<T> {
-            value: Array<T>;
-    }
-    
-    /**
-        * Graph Methods
-        */
-    export interface IGraphMethods { }
-    
-    /**
-        * Graph Query Properties
-        */
-    export interface IGraphQueryProps {
-            /**
-                * Represents a collection of OneDrives and Document Libraries.
-                */
-            drives(): IBaseExecution<IGraphCollection<IGraphDrive>>;
-    
-            /**
-                * Represents a OneDrive or Document Library.
-                * @param id - The drive id.
-                */
-            drives(id: string): IBaseExecution<IGraphDrive>;
-    
-            /**
-                * Represents a collection of Azure Active Directory (Azure AD) groups.
-                * Types: Office 365 Group, Dynamic Group or Security Group
-                */
-            groups(): IBaseExecution<IGraphCollection<IGraphGroup>>;
-    
-            /**
-                * Represents an Azure Active Directory (Azure AD) group.
-                * Types: Office 365 Group, Dynamic Group or Security Group
-                * @param id - The group id.
-                */
-            groups(id: string): IBaseExecution<IGraphGroup>;
-    
-            /**
-                * Represents a collection of Azure AD user accounts.
-                */
-            users(): IBaseExecution<IGraphCollection<IGraphUser>>;
-    
-            /**
-                * Represents a collection of Azure AD user accounts.
-                * @param id - The user id.
-                */
-            users(id: string): IBaseExecution<IGraphUser>;
-    }
-    
-    /**
-        * Graph Result
-        */
-    export interface IGraphResult { }
-    
-    /**
-        * Graph Query Result
-        */
-    export interface IGraphQueryResult { }
-    
-    /**
-        * Graph Drive
-        */
-    export interface IGraphDrive {
-            // Identity of the user, device, or application which created the item.
-            createdBy?: { user: IGraphUser };
-    
-            // Date and time of item creation.
-            createdDateTime?: string;
-    
-            // Provide a user-visible description of the drive.
-            description?: string;
-    
-            // Describes the type of drive represented by this resource. OneDrive personal drives will return personal. OneDrive for Business will return business. SharePoint document libraries will return documentLibrary.
-            driveType?: string;
-    
-            // The unique identifier of the drive.
-            id?: string;
-    
-            // The drive items
-            items?: () => IBaseExecution<IGraphCollection<IGraphDriveItem>>;
-    
-            // Identity of the user, device, and application which last modified the item.
-            lastModifiedBy?: { user: IGraphUser };
-    
-            // Date and time the item was last modified.
-            lastModifiedDateTime?: string;
-    
-            // The name of the item.
-            name?: string;
-    
-            // The user account that owns the drive.
-            owner?: { user: IGraphUser };
-    
-            // Information about the drive's storage space quota.
-            quota?: IGraphDriveQuota;
-    
-            // Reference to the root folder.
-            root?: () => IBaseExecution<IGraphDriveItem>;
-    
-            // Collection of common folders available in OneDrive.
-            specials?: () => IBaseExecution<IGraphCollection<IGraphDriveItem>>;
-    
-            // Returns identifiers useful for SharePoint REST compatibility.
-            sharepointIds?: IGraphSharePointIds;
-    
-            // If present, indicates that this is a system-managed drive.
-            systemFacet?: any;
-    
-            // URL that displays the resource in the browser.
-            webUrl?: string;
-    }
-    
-    /**
-        * Graph Drive Item
-        */
-    export interface IGraphDriveItem {
-    }
-    
-    /**
-        * Graph Drive Quota
-        */
-    export interface IGraphDriveQuota {
-            deleted?: number;
-            remaining?: number;
-            state?: string;
-            total?: number;
-            used?: number;
-    }
-    
-    /**
-        * Graph Token
-        */
-    export interface IGraphToken {
-            access_token: string;
-            expires_on: string;
-            resource: string;
-            scope: string;
-            token_type: string;
-    }
-    
-    /**
-        * Graph
-        */
-    export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseExecution<IGraph, IGraphResult, IGraphQueryResult> { }
-    
-    /**
-        * Graph Group
-        */
-    export interface IGraphGroup {
-            // Default is false. Indicates if people external to the organization can send messages to the group.
-            allowExternalSenders?: boolean;
-    
-            // Default is false. Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set this property in a PATCH request for the group; do not set it in the initial POST request that creates the group.
-            autoSubscribeNewMembers?: boolean;
-    
-            // Describes a classification for the group (such as low, medium or high business impact). Valid values for this property are defined by creating a ClassificationList setting value, based on the template definition.
-            classification?: string;
-    
-            // Timestamp of when the group was created. The value cannot be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only.
-            createdDateTime?: string;
-    
-            // An optional description for the group.
-            description?: string;
-    
-            // The display name for the group. This property is required when a group is created and it cannot be cleared during updates. Supports $filter and $orderby.
-            displayName?: string;
-    
-            // Specifies the type of group to create. Possible values are Unified to create an Office 365 group, or DynamicMembership for dynamic groups.  For all other group types, like security-enabled groups and email-enabled security groups, do not set this property. Supports $filter.
-            groupTypes?: Array<string>;
-    
-            // The unique identifier for the group. Inherited from directoryObject. Key. Not nullable. Read-only.
-            id?: string;
-    
-            // Default value is true. Indicates whether the current user is subscribed to receive email conversations.
-            isSubscribedByMail?: boolean;
-    
-            // The SMTP address for the group, for example, "serviceadmins@contoso.onmicrosoft.com". Read-only. Supports $filter.
-            mail?: string;
-    
-            // Specifies whether the group is mail-enabled. If the securityEnabled property is also true, the group is a mail-enabled security group; otherwise, the group is a Microsoft Exchange distribution group.
-            mailEnabled?: boolean;
-    
-            // The mail alias for the group, unique in the organization. This property must be specified when a group is created. Supports $filter.
-            mailNickname?: string;
-    
-            // Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only. Supports $filter.
-            onPremisesLastSyncDateTime?: string;
-    
-            // Contains the on-premises security identifier (SID) for the group that was synchronized from on-premises to the cloud. Read-only.
-            onPremisesSecurityIdentifier?: string;
-    
-            // true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only. Supports $filter.
-            onPremisesSyncEnabled?: boolean;
-    
-            // The any operator is required for filter expressions on multi-valued properties. Read-only. Not nullable. Supports $filter.
-            proxyAddresses?: Array<string>;
-    
-            // Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only.
-            renewedDateTime?: string;
-    
-            // Specifies whether the group is a security group. If the mailEnabled property is also true, the group is a mail-enabled security group; otherwise it is a security group. Must be false for Office 365 groups. Supports $filter.
-            securityEnabled?: boolean;
-    
-            // Count of posts that the current  user has not seen since his last visit.
-            unseenCount?: number;
-    
-            // Specifies the visibility of an Office 365 group. Possible values are: Private, Public, or empty (which is interpreted as Public).
-            visibility?: string;
-    }
-    
-    /**
-        * Graph SharePoint IDs
-        */
-    export interface IGraphSharePointIds {
-            // The unique identifier (guid) for the item's list in SharePoint.
-            listId?: string;
-    
-            // An integer identifier for the item within the containing list.
-            listItemId?: string;
-    
-            // The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site.
-            listItemUniqueId?: string;
-    
-            // The unique identifier (guid) for the item's site collection (SPSite).
-            siteId?: string;
-    
-            // The SharePoint URL for the site that contains the item.
-            siteUrl?: string;
-    
-            // The unique identifier (guid) for the item's site (SPWeb).
-            webId?: string;
-    }
-    
-    /**
-        * Graph User
-        */
-    export interface IGraphUser {
-            // A freeform text entry field for the user to describe themselves.
-            aboutMe?: string;
-    
-            // true if the account is enabled; otherwise, false. This property is required when a user is created. Supports $filter.
-            accountEnabled?: boolean;
-    
-            // The licenses that are assigned to the user.
-            assignedLicenses?: Array<string>;
-    
-            // The plans that are assigned to the user.
-            assignedPlans?: Array<string>;
-    
-            // The birthday of the user. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1,
-            birthday?: string;
-    
-            // The user's phone numbers.
-            businessPhones?: Array<string>;
-    
-            // The city in which the user is located.
-            city?: string;
-    
-            // The company name which the user is associated.
-            companyName?: string;
-    
-            // The country/region in which the user is located; for example, “US” or “UK”.
-            country?: string;
-    
-            // The name for the department in which the user works.
-            department?: string;
-    
-            // The name displayed in the address book for the user.
-            displayName?: string;
-    
-            // The first name of the user.
-            givenName?: string;
-    
-            // The hire date of the user. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time.
-            hireDate?: string;
-    
-            // The unique identifier for the user.
-            id?: string;
-    
-            // The instant message voice over IP (VOIP) session initiation protocol (SIP) addresses for the user.
-            imAddresses?: Array<string>;
-    
-            // A list for the user to describe their interests.
-            interests?: Array<string>;
-    
-            // The user's job title.
-            jobTitle?: string;
-    
-            // The user's email address.
-            mail?: string;
-    
-            // The mail alias for the user.
-            mailNickname?: string;
-    
-            // The user's cellphone number.
-            mobilePhone?: string;
-    
-            // The URL for the user's personal site.
-            mySite?: string;
-    
-            // The user's physical office location.
-            officeLocation?: string;
-    
-            // The postal code for the user's postal address. 
-            postalCode?: string;
-    
-            // The user's language of preference.
-            preferredLanguage?: string;
-    
-            // The preferred name for the user.
-            preferredName?: string;
-    
-            // A list for the user to enumerate their responsibilities.
-            responsibilities?: Array<string>;
-    
-            // A list for the user to enumerate the schools they have attended.
-            schools?: Array<string>;
-    
-            // A list for the user to enumerate their skills.
-            skills?: Array<string>;
-    
-            // The state or province in the user's address.
-            state?: string;
-    
-            // The street address of the user's place of business.
-            streetAddress?: string;
-    
-            // The last name of the user.
-            surname?: string;
-    
-            // A two letter country code (ISO standard 3166). Required for users that will be assigned licenses due to legal requirement to check for availability of services in countries.  Examples include: "US", "JP", and "GB".
-            usageLocation?: string;
-    
-            // The user's principal name.
-            userPrincipalName?: string;
-    
-            // A string value that can be used to classify user types in your directory, such as “Member” and “Guest”.
-            userType?: string;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/group' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/mapper/types";
-    
-    /**
-        * Group Methods
-        */
-    export interface IGroupMethods { }
-    
-    /**
-        * Group Query Properties
-        */
-    export interface IGroupQueryProps {
-            /**
-                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
-                */
-            Owner(): IUser;
-    
-            /**
-                * Gets a collection of user objects that represents all of the users in the group.
-                */
-            Users(): IUsers;
-    
-            /**
-                * Gets a collection of user objects that represents all of the users in the group.
-                * @param id - The user id.
-                */
-            Users(id): IUser;
-    }
-    
-    /**
-        * Group Query Result
-        */
-    export interface IGroupQueryResult extends IGroupMethods, SP.Group {
-            /**
-                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
-                */
-            Owner: IUserResult;
-    
-            /**
-                * Gets a collection of user objects that represents all of the users in the group.
-                */
-            Users: IUserResults;
-    }
-    
-    /**
-        * Group Result
-        */
-    export interface IGroupResult extends IGroupMethods, SP.Group, IGroupQueryProps, IBaseResult<IGroup, IGroupResult, IGroupQueryResult> { }
-    
-    /**
-        * Group
-        */
-    export interface IGroup extends IGroupMethods, IGroupQueryProps, IBaseQueryExecution<IGroup, IGroupResult, IGroupQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/groups' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IGroup, IGroupQueryResult, IGroupResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface ISiteGroupsMethods {
-            /**
-                * Adds a site to the site collection.
-                * @param groupInfo - The group creation information.
-                */
-            add(groupInfo: SP.GroupCreationInformation): IBaseExecution<IGroup, IGroupResult>;
-    
-            /**
-                * Returns a group from the collection based on the member ID of the group.
-                * @param id - The site group id.
-                */
-            getById(id): IGroup & IBaseExecution<IGroup, IGroupResult, IGroupQueryResult>;
-    
-            /**
-                * Returns a cross-site group from the collection based on the name of the group.
-                * @param name - The name of the group. The group name is specified in its LoginName property.
-                */
-            getByName(name): IGroup & IBaseExecution<IGroup, IGroupResult, IGroupQueryResult>;
-    
-            /**
-                * Removes the group with the specified member ID from the collection.
-                * @param id - The ID of the group to remove.
-                */
-            removeById(id): IBaseExecution;
-    
-            /**
-                * Removes the cross-site group with the specified name from the collection.
-                * @param name - The name of the group to remove. The group name is specified in its LoginName property.
-                */
-            removeByLoginName(name): IBaseExecution;
-    }
-    
-    /**
-        * Site Groups
-        */
-    export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> { }
-    
-    /**
-        * Site Group Results
-        */
-    export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/items' {
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IListItem, IListItemQueryResult, IListItemResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IListItemsMethods {
-            /**
-                * Adds an item to the list item collection.
-                * @param data - The item properties.
-                */
-            add(data): IBaseExecution<IListItem, IListItemResult>;
-    
-            /**
-                * Gets an item by the specified id.
-                * @param id - The item id.
-                */
-            getById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
-    }
-    
-    /**
-        * List Items
-        */
-    export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> { }
-    
-    /**
-        * List Item Results
-        */
-    export interface IListItemResults extends IListItemsMethods, IBaseCollectionResult<IListItemResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Limited Web Part Manager
-        */
-    export interface ILimitedWebPartManager extends SP.WebParts.LimitedWebPartManager, IBaseExecution<ILimitedWebPartManager, ILimitedWebPartManager> {
-            /**
-                * Gets a webpart by its id.
-                * @param id - The web part id.
-                */
-            WebParts(id): IBaseExecution;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/list' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
-    
-    /**
-        * List Data Stream
-        */
-    export interface IListDataStream<RowProps = SP.ListItem> {
-            FilterFields?: string;
-            FilterLink: string;
-            FirstRow: number;
-            FolderPermissions: string;
-            ForceNoHierarchy: string;
-            HierarchyHasIndention: string;
-            LastRow: number;
-            Row: Array<RowProps>;
-            RowLimit: number;
-    }
-    
-    /**
-        * List Methods
-        */
-    export interface IListMethods {
-            /**
-                * Creates unique role assignments for the securable object.
-                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
-                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
-                */
-            breakRoleInheritance(copyRoleAssignments, clearSubScopes);
-    
-            /**
-                * Deletes the list.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
-                * @param query - The change query.
-                */
-            getChanges(query): IBaseExecution;
-    
-            /**
-                * Returns the list item with the specified list item identifier.
-                * @param id - The list item id.
-                */
-            getItemById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
-    
-            /**
-                * Returns a collection of items from the list based on the view xml.
-                * @param viewXml - The view xml CAML query.
-                */
-            getItems(viewXml): IBaseExecution<IListItems, IListItemResults>;
-    
-            /**
-                * Returns a collection of items from the list based on the specified query.
-                * @camlQuery - The caml query.
-                */
-            getItemsByQuery(camlQuery): IBaseExecution<IListItems, IListItemResults>;
-    
-            /**
-                * Returns a collection of items from the list based on the specified query.
-                * @query - The query that contains the change token.
-                */
-            getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBaseExecution<IListItems, IListItemResults>;
-    
-            /**
-                * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
-                */
-            getRelatedFields(): IBaseExecution;
-    
-            /**
-                * Gets the effective user permissions for the current user.
-                * @param loginName - The user login name.
-                */
-            getUserEffectivePermissions(loginName): IBaseExecution;
-    
-            /**
-                * Returns the list view with the specified view identifier.
-                * @param viewId - The view id.
-                */
-            getViewById(viewId): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
-    
-            /**
-                * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBaseExecution;
-    
-            /**
-                * Renders the list data.
-                * @param viewXml - A CAML query that defines the items and fields that you want returned.
-                */
-            renderListData(viewXml): IBaseExecution;
-    
-            /**
-                * Renders the list form data.
-                * @param itemId - The item id.
-                * @param formId - The identifier of the form.
-                * @param mode - The SP.ControlMode of the control used to display the item.
-                * Types of modes: 1 - Display, 2 - Edit, 3 - New
-                */
-            renderListFormData(itemId, formId, mode: number): IBaseExecution;
-    
-            /**
-                * Reserves a list item ID for idempotent list item creation.
-                */
-            reserveListItemId(): IBaseExecution;
-    
-            /**
-                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-                */
-            resetRoleInheritance(): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data): IBaseExecution;
-    }
-    
-    /**
-        * List Query Properties
-        */
-    export interface IListQueryProps {
-            /**
-                * Gets the content types that are associated with the list.
-                */
-            ContentTypes(): IContentTypes;
-    
-            /**
-                * Gets the content types that are associated with the list.
-                * @param id - The id of the content type.
-                */
-            ContentTypes(id: string): IContentType;
-    
-            /**
-                * Gets the default list view.
-             */
-            DefaultView(): IView;
-    
-            DescriptionResouce(): IBaseExecution<SP.ResourcePath>;
-    
-            /**
-                * Gets the event receivers associated with the list.
-             */
-            EventReceivers(): Types.IEventReceivers;
-    
-            /**
-                * Gets the event receiver associated with the list.
-                * @param id - The id of the event receiver.
-             */
-            EventReceivers(id: string): Types.IEventReceiver;
-    
-            /**
-                * Gets the fields in the list.
-                */
-            Fields(): Types.IFields;
-    
-            /**
-                * Gets the field in the list.
-                * @param internalNameOrTitle - The internal name or title of the field.
-                */
-            Fields(internalNameOrTitle: string): Types.IField;
-    
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject(): IBaseExecution<string>;
-    
-            /**
-                * Gets the list forms in the list.
-                */
-            Forms(): IBaseExecution;
-    
-            /**
-                * Gets the list form in the list.
-                * @param id - The id of the form.
-                */
-            Forms(id: string): IBaseExecution;
-    
-            /**
-                * Gets a value that specifies the information rights management settings.
-             */
-            InformationRightsManagementSettings(): IBaseExecution;
-    
-            /**
-                * Gets the list items in the list.
-                */
-            Items(): IListItems;
-    
-            /**
-                * Gets the list item in the list.
-                * @param id - The id of the list item.
-                */
-            Items(id: number | string): IListItem;
-    
-            /**
-                * Gets a value that specifies the site that contains the list.
-                */
-            ParentWeb(): IBaseExecution<Types.IWeb>;
-    
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments(): Types.IRoleAssignments;
-    
-            /**
-                * Gets the role assignments for the securable object.
-                * @param id - The role assignment id.
-                */
-            RoleAssignments(id: string): Types.IRoleAssignment;
-    
-            /**
-                * Gets the root folder of the list.
-                */
-            RootFolder(): Types.IFolder;
-    
-            /**
-                * Gets the file in the root folder of the list.
-                * @param url - The url of the file within the root folder.
-                */
-            RootFolder(url: string): Types.IFile;
-    
-            Subscriptions(): IBaseExecution<IBaseExecution>;
-    
-            TitleResource(): IBaseExecution<SP.ResourcePath>;
-    
-            /**
-                * Gets the user custom actions for the list.
-                */
-            UserCustomActions(): Types.IUserCustomActions;
-    
-            /**
-                * Gets the user custom action(s) for the list.
-                * @param id - The id of the user custom action.
-                */
-            UserCustomActions(id: string): Types.IUserCustomAction;
-    
-            /**
-                * Gets the views in the list.
-                */
-            Views(): IViews;
-    
-            /**
-                * Gets the view in the list.
-                * @param id - The id of the view.
-                */
-            Views(id: string): IView;
-    }
-    
-    /**
-        * List Query Result
-        */
-    export interface IListQueryResult extends IListMethods, SP.List {
-            /**
-                * Gets the content types that are associated with the list.
-                */
-            ContentTypes: IContentTypeResults;
-    
-            /**
-                * Gets the default list view.
-             */
-            DefaultView: IViewResult;
-    
-            DescriptionResouce: SP.ResourcePath;
-    
-            /**
-                * Gets the event receivers associated with the list.
-             */
-            EventReceivers: Types.IEventReceiverResults;
-    
-            /**
-                * Gets the fields in the list.
-                */
-            Fields: Types.IFieldResults;
-    
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject: Types.IWebResult;
-    
-            /**
-                * Gets the list forms in the list.
-                */
-            Forms: Types.Results.IResults<SP.Form>;
-    
-            /**
-                * Gets a value that specifies the information rights management settings.
-             */
-            InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
-    
-            /**
-                * Gets the list items in the list.
-                */
-            Items: IListItemResults;
-    
-            /**
-                * Gets a value that specifies the site that contains the list.
-                */
-            ParentWeb: Types.IWebResult;
-    
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments: Types.IRoleAssignmentResults;
-    
-            /**
-                * Gets the root folder of the list.
-                */
-            RootFolder: Types.IFolderResult;
-    
-            Subscriptions: Types.Results.IResults<SP.WorkflowServices.WorkflowSubscription>;
-    
-            TitleResource: SP.ResourcePath;
-    
-            /**
-                * Gets the user custom actions for the list.
-                */
-            UserCustomActions: Types.IUserCustomActionResults;
-    
-            /**
-                * Gets the views in the list.
-                */
-            Views: IViewResults;
-    
-            /**
-                * Gets a value that specifies the collection of all workflow associations for the list.
-                */
-            WorkflowAssociations: Types.Results.IResults<string>;
-    
-            WriteSecurity: number;
-    }
-    
-    /**
-        * List Result
-        */
-    export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseResult<IList, IListResult, IListQueryResult> { }
-    
-    /**
-        * List
-        */
-    export interface IList extends IListMethods, IListQueryProps, IBaseQueryExecution<IList, IListResult, IListQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/listItem' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IContentType, IContentTypeResult, IList, IListResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * List Item Methods
-        */
-    export interface IListItemMethods {
-            /**
-                * Creates unique role assignments for the securable object.
-                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
-                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
-                */
-            breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBaseExecution;
-    
-            /**
-                * Deletes the list item.
-                */
-            delete(): IBaseExecution;
-    
-            /**
-                * Gets the effective permissions that a specified user has on the list item.
-                * @param loginName - The login name.
-                */
-            getUserEffectivePermissions(loginName): IBaseExecution;
-    
-            /**
-                * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBaseExecution;
-    
-            /**
-                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-                */
-            resetRoleInheritance(): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data): IBaseExecution;
-    
-            /**
-                * Validates and sets the values of the specified collection of fields for the list item.
-                * @param formValues - The fields to change and their new values. Pass this parameter in the request body, as shown in the request example.
-                * @param bNewDocumentUpdate - True if the list item is a document being updated after upload; otherwise false. Pass this parameter in the request body, as shown in the request example, or in the URI path.
-                */
-            validateUpdateListItem(formValues, bNewDocumentUpdate);
-    }
-    
-    /**
-        * List Item Query Properties
-        */
-    export interface IListItemQueryProps {
-            /**
-                * Get the attachment collection.
-                */
-            AttachmentFiles(): Types.IAttachmentFiles;
-    
-            /**
-                * Gets the specified attachment file.
-                * @param fileName - The filename of the attachment.
-                */
-            AttachmentFiles(fileName: string): IBaseExecution<SP.Attachment>;
-    
-            /**
-                * Gets a value that specifies the content type of the list item.
-                */
-            ContentType(): IContentType;
-    
-            /**
-                * Gets the values for the list item as HTML.
-                */
-            FieldValuesAsHtml(): IBaseExecution;
-    
-            /**
-                * Gets the list item's field values as a collection of string values.
-                */
-            FieldValuesAsText(): IBaseExecution;
-    
-            /**
-                * Gets the formatted values to be displayed in an edit form.
-                */
-            FieldValuesForEdit(): IBaseExecution;
-    
-            /**
-                * Gets the file that is represented by the item from a document library.
-                */
-            File(): Types.IFile;
-    
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject(): IBaseExecution<string>;
-    
-            /**
-                * Gets a folder object that is associated with a folder item.
-                */
-            Folder(): Types.IFolder;
-    
-            GetDlpPolicyTip(): IBaseExecution;
-    
-            /**
-                * Gets the parent list that contains the list item.
-                */
-            ParentList(): IList;
-    
-            /**
-                * Property Bag
-                */
-            Properties(): IBaseExecution<Types.IPropertyValues>;
-    
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments(): Types.IRoleAssignments;
-    
-            /**
-                * Gets the role assignment(s) for the securable object.
-                * @param id - The role assignment id.
-                */
-            RoleAssignments(id: string): Types.IRoleAssignment;
-    }
-    
-    /**
-        * List Item Query Result
-        */
-    export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
-            /**
-                * Get the attachment collection.
-                */
-            AttachmentFiles: Types.IAttachmentFilesMethods & Types.Results.IResults<SP.Attachment>;
-    
-            /**
-                * Gets a value that specifies the content type of the list item.
-                */
-            ContentType: IContentTypeResult;
-    
-            /**
-                * Gets the values for the list item as HTML.
-                */
-            FieldValuesAsHtml: Array<string>;
-    
-            /**
-                * Gets the list item's field values as a collection of string values.
-                */
-            FieldValuesAsText: Array<string>;
-    
-            /**
-                * Gets the formatted values to be displayed in an edit form.
-                */
-            FieldValuesForEdit: Array<string>;
-    
-            /**
-                * Gets the file that is represented by the item from a document library.
-                */
-            File: Types.IFileResult;
-    
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject: IListResult;
-    
-            /**
-                * Gets a folder object that is associated with a folder item.
-                */
-            Folder: Types.IFolderResult;
-    
-            GetDlpPolicyTip(): IBaseExecution;
-    
-            /**
-                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-                */
-            HasUniqueRoleAssignments: boolean;
-    
-            /**
-                * Gets the parent list that contains the list item.
-                */
-            ParentList: IListResult;
-    
-            /**
-                * Property Bag
-                */
-            Properties: Array<string>;
-    
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments: Types.IRoleAssignmentResults;
-    }
-    
-    /**
-        * List Item Result
-        */
-    export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseResult<IListItem, IListItemResult, IListItemQueryResult> { }
-    
-    /**
-        * List Item
-        */
-    export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseQueryExecution<IListItem, IListItemResult, IListItemQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/lists' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IList, IListQueryResult, IListResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IListsMethods {
-            /**
-                * Adds a list to the list collection.
-                * @param parameters - The list creation information.
-                */
-            add(parameters: SP.List): IBaseExecution<IList, IListResult>;
-    
-            /**
-                * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
-                */
-            ensureSiteAssetsLibrary(): IBaseExecution<IList, IListResult, IListQueryResult>;
-    
-            /**
-                * Gets a list that is the default location for wiki pages.
-                */
-            ensureSitePagesLibrary(): IBaseExecution<IList, IListResult, IListQueryResult>;
-    
-            /**
-                * Returns the list with the specified list identifier.
-                * @param id - The list id.
-                */
-            getById(id): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
-    
-            /**
-                * Returns the list with the specified title from the collection.
-                * @param title - The list title.
-                */
-            getByTitle(title): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
-    }
-    
-    /**
-        * Lists
-        */
-    export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> { }
-    
-    /**
-        * List Results
-        */
-    export interface IListResults extends IListsMethods, IBaseCollectionResult<IListResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/navigation' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Navigation Methods
-        */
-    export interface INavigationServiceRESTMethods {
-            /**
-                * Method to get the menu state.
-                * @param menuNodeKey - The key of the start node. If no key is provided, the root node is used.
-                * @param depth - The depth of the dump. Default is 10.
-                * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
-                * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
-                */
-            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBaseExecution<SP.MenuState>;
-    }
-    
-    /**
-        * Navigation Properties
-        */
-    export interface INavigationServiceRESTProps {
-    }
-    
-    /**
-        * Navigation Queryable Properties
-        */
-    export interface INavigationServiceRESTQueryProps {
-            MenuState(): IBaseExecution<SP.MenuState>;
-            MenuState(key: number): IBaseExecution<SP.MenuState>;
-    }
-    
-    /**
-        * Navigation
-        */
-    export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBaseExecution<INavigationServiceREST> { }
-}
-
-declare module 'gd-sprest/mapper/types/odata' {
-    /**
-        * OData Query
-        */
-    export interface ODataQuery {
-            /** An optional custom query string */
-            Custom?: string;
-    
-            /** The properties to expand. */
-            Expand?: Array<string>;
-    
-            /** The filters. */
-            Filter?: string;
-    
-            /**
-                * Flag to get all items.
-                * Use this flag to get past the 5000 limit.
-                */
-            GetAllItems?: boolean;
-    
-            /** The order by fields. */
-            OrderBy?: Array<string>;
-    
-            /** The fields to select. */
-            Select?: Array<string>;
-    
-            /** The number of results to skip. */
-            Skip?: number;
-    
-            /** The max number of results to return. */
-            Top?: number;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/peopleManager' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IResults } from "gd-sprest/mapper/types/results";
-    
-    /**
-        * Person Properties
-        */
-    export interface IPersonProperties extends IBaseExecution<IPersonProperties> {
-            /**
-                * The user's account name.
-                */
-            AccountName: string;
-    
-            /**
-                * The account names of the user's direct reports.
-                */
-            DirectReports: string
-    
-            /**
-                * The user's display name.
-                */
-            DisplayName: string;
-    
-            /**
-                * The user's email address.
-                */
-            Email: string;
-    
-            /**
-                * The account names of the user's manager hierarchy.
-                */
-            ExtendedManagers: IResults<string>;
-    
-            /**
-                * The account names of the user's extended reports.
-                */
-            ExtendedReports: IResults<string>;
-    
-            /**
-                * A Boolean value that indicates whether the user is being followed by the current user.
-                */
-            IsFollowed: boolean;
-    
-            /**
-                * The user's latest microblog post.
-                */
-            LatestPost: string;
-    
-            /**
-                * The account names of the user's peers.
-                */
-            Peers: IResults<string>;
-    
-            /**
-                * The absolute URL of the user's personal site.
-                */
-            PersonalUrl: string;
-    
-            /**
-                * The URL of the user's profile picture.
-                */
-            PictureUrl: string;
-    
-            /**
-                * The user's title.
-                */
-            Title: string;
-    
-            /**
-                * The user profile properties for the user.
-                */
-            UserProfileProperties: IResults<SP.KeyValue>;
-    
-            /**
-                * The URL of the user's profile page.
-                */
-            UserUrl: string;
-    }
-    
-    /**
-        * People Manager
-        */
-    export interface IPeopleManager extends IBaseExecution<IPeopleManager> {
-    
-            /**
-                * The URL of the edit profile page for the current user.
-                */
-            EditProfileLink: string;
-    
-            /**
-                * A Boolean value that indicates whether the current user's People I'm Following list is public.
-                */
-            IsMyPeopleListPublic: boolean;
-    
-    
-            /** Checks whether the specified user is following the current user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-             */
-            amIFollowedBy(accountName: string): IBaseExecution;
-    
-            /**
-                * Checks whether the current user is following the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            amIFollowing(accountName: string): IBaseExecution;
-    
-            /**
-                * Adds the specified user to the current user's list of followed users.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            follow(accountName: string): IBaseExecution;
-    
-            /**
-                * Adds the specified tag to the current user's list of followed tags.
-                * @param id - The ID of the tag to start following.
-                */
-            followTag(id: string): IBaseExecution;
-    
-            /**
-                * Gets tags that the user is following.
-                * @param maxCount - The maximum number of tags to get.
-                */
-            getFollowedTags(maxCount: number): IBaseExecution;
-    
-            /**
-                * Gets the people who are following the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getFollowersFor(accountName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the people who are following the current user.
-                */
-            getMyFollowers(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets user properties for the current user.
-                */
-            getMyProperties(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets suggestions for who the current user might want to follow.
-                */
-            getMySuggestions(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the people who the specified user is following.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getPeopleFollowedBy(accountName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the people who the current user is following.
-                */
-            getPeopleFollowedByMe(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets user properties for the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getPropertiesFor(accountName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the most popular tags.
-                */
-            getTrendingTags(): IBaseExecution;
-    
-            /**
-                * Gets the specified user profile property for the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                * @param propertyName - The case-sensitive name of the property to get.
-                */
-            getUserProfilePropertyFor(accountName: string, propertyName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Removes the specified user from the user's list of suggested people to follow.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            hideSuggestion(accountName: string): IBaseExecution;
-    
-            /**
-                * Checks whether the first user is following the second user.
-                * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
-                * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
-                */
-            isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBaseExecution;
-    
-            /**
-                * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
-                * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
-                */
-            setMyProfilePicture(stream: any): IBaseExecution;
-    
-            /**
-                * Remove the specified user from the current user's list of followed users.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            stopFollowing(accountName: string): IBaseExecution;
-    
-            /**
-                * Remove the specified tag from the current user's list of followed tags.
-                * @param id - The ID of the tag to stop following.
-                */
-            stopFollowingTag(id: string): IBaseExecution;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/peoplePicker' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IEntityData } from "gd-sprest/mapper/types/entityData";
-    
-    /**
-        * People Picker Query
-        */
-    export interface IPeoplePickerQuery {
-            /** True to allow the email address. */
-            AllowEmailAddresses?: boolean;
-    
-            /** True to allow multiple entities.  */
-            AllowMultipleEntities?: boolean;
-    
-            /** True to allow all url zones. */
-            AllUrlZones?: boolean;
-    
-            /** True to enable claim providers. */
-            EnabledClaimProviders?: boolean;
-    
-            /** True to force claims. */
-            ForceClaims?: boolean;
-    
-            /** Maximum entity suggestions. */
-            MaximumEntitySuggestions: number;
-    
-            /** The principal source. */
-            PrincipalSource?: number;
-    
-            /** The principal type. */
-            PrincipalType?: number;
-    
-            /** The query string. This value must be >= 3 characters. */
-            QueryString?: string;
-    
-            /** Required flag. */
-            Required?: boolean;
-    
-            /** The SharePoint group id. */
-            SharePointGroupID?: number;
-    
-            /** The url zone. */
-            UrlZone?: number;
-    
-            /** Url zone specified flag. */
-            UrlZoneSpecified?: boolean;
-    
-            /** The web. */
-            Web?: any;
-    
-            /** The web application id. */
-            WebApplicationID?: any;
-    }
-    
-    /**
-        * People Picker Resolve User
-        */
-    export interface IPeoplePickerResolveUser {
-            // The client people picker resolve user results
-            ClientPeoplePickerResolveUser: Array<IPeoplePickerUser>;
-    }
-    
-    /**
-        * People Picker Search User
-        */
-    export interface IPeoplePickerSearchUser {
-            // The client people picker search user results
-            ClientPeoplePickerSearchUser: Array<IPeoplePickerUser>;
-    }
-    
-    /**
-        * People Picker User
-        */
-    export interface IPeoplePickerUser {
-            /** Description */
-            Description?: string;
-    
-            /** Display Text */
-            DisplayText: string;
-    
-            /** The user entity data. */
-            EntityData?: IEntityData;
-    
-            /** Entity Type */
-            EntityType?: string;
-    
-            /** Flag to determine if the search user is resolved. */
-            IsResolved?: boolean;
-    
-            /** The search value. */
-            Key: string;
-    
-            /** An array of un-resolved user entities. */
-            MultipleMatches?: Array<IEntityData>;
-    
-            /** Provider Display Name */
-            ProviderDisplayName?: string;
-    
-            /** Provider Name */
-            ProviderName?: string;
-    }
-    
-    /**
-        * People Picker
-        */
-    export interface IPeoplePicker extends IBaseExecution {
-            /** Method to resolve users.
-                * @param query - The people picker query.
-             */
-            clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerResolveUser>;
-    
-            /** Method to search for users.
-                * @param query - The people picker query.
-             */
-            clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerSearchUser>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/profileLoader' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IUserProfile } from "gd-sprest/mapper/types";
-    
-    /**
-        * Profile Loader
-        */
-    export interface IProfileLoader extends IBaseExecution<IProfileLoader> {
-            /**
-                * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
-                * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
-                */
-            createPersonalSiteEnqueueBulk(emailIDs: Array<string>): IBaseExecution;
-    
-            /**
-                * Gets the user profile of the site owner.
-                */
-            getOwnerUserProfile(): IBaseExecution<IUserProfile>;
-    
-            /**
-                * Gets the user profile that corresponds to the current user.
-                */
-            getUserProfile(): IBaseExecution<IUserProfile>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/propertyValues' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { ODataQuery } from "gd-sprest/mapper/types";
-    
-    /**
-        * Property Values
-        */
-    export interface IPropertyValues extends IBaseExecution, SP.KeyValue {
-            /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query(query: ODataQuery): IPropertyValues;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/results' {
-    import { SP } from "gd-sprest-def";
-    
-    /**
-        * Results
-        */
-    export interface IResults<P> {
-            /** The collection data */
-            results: Array<P>;
-    }
-    
-    /**
-        * App License
-        */
-    export interface AppLicense {
-            /** The collection of app licenses. */
-            results: Array<SP.AppLicense>;
-    }
-    
-    /**
-        * Content Type Id
-        */
-    export interface ContentTypeId {
-            /** The collection of content type ids. */
-            results: Array<SP.ContentTypeId>;
-    }
-    
-    /**
-        * Creatable Item Information
-        */
-    export interface CreatableItemInfo {
-            /** The collection of creatable item information. */
-            results: Array<SP.CreatableItemInfoCollection>;
-    }
-    
-    /**
-        * Custom Action Element
-        */
-    export interface CustomActionElement {
-            /** The collection of custom action elements. */
-            results: Array<SP.CustomActionElement>;
-    }
-    
-    /**
-        * Custom Result
-        */
-    export interface CustomResult {
-            /** The collection of custom results. */
-            results: Array<CustomResult>;
-    }
-    
-    /**
-        * Data Row
-        */
-    export interface DataRow {
-            /** The collection of data rows. */
-            results: Array<SP.SimpleDataRow>;
-    }
-    
-    /**
-        * Key/Value
-        */
-    export interface KeyValue {
-            /** The collection of key-value pairs. */
-            results: Array<SP.KeyValue>;
-    }
-    
-    /**
-        * List Data Validation Failure
-        */
-    export interface ListDataValidationFailure {
-            /** The collection of list data validation failures. */
-            results: Array<SP.ListDataValidationFailure>;
-    }
-    
-    /**
-        * Menu Node
-        */
-    export interface MenuNode {
-            /** The collection of menu nodes. */
-            results: Array<SP.MenuNode>;
-    }
-    
-    /**
-        * Number
-        */
-    export interface Number {
-            /** The collection of numbers. */
-            results: Array<number>;
-    }
-    
-    /**
-        * Object
-        */
-    export interface Object {
-            /** A collection of objects. */
-            results: Array<object>;
-    }
-    
-    /**
-        * Parameter Information
-        */
-    export interface ParameterInformation {
-            /** The collection of parameter information. */
-            results: Array<SP.ParameterInformation>;
-    }
-    
-    /**
-        * Personal Result Suggestion
-        */
-    export interface PersonalResultSuggestion {
-            /** The collection of personal result suggestions. */
-            results: Array<PersonalResultSuggestion>;
-    }
-    
-    /**
-        * Query Result
-        */
-    export interface QueryResult {
-            /** The collection of custom results. */
-            results: Array<QueryResult>;
-    }
-    
-    /**
-        * Query Suggestion Query
-        */
-    export interface QuerySuggestionQuery {
-            /** The collection of query suggestion queries. */
-            results: Array<QuerySuggestionQuery>;
-    }
-    
-    /**
-        * Refiner
-        */
-    export interface Refiner {
-            /** The collection of refiners. */
-            results: Array<Refiner>;
-    }
-    
-    /**
-        * Refiner Entry
-        */
-    export interface RefinerEntry {
-            /** The collection of refiner entries. */
-            results: Array<RefinerEntry>;
-    }
-    
-    /**
-        * Shared User
-        */
-    export interface SharedWithUser {
-            /** The collection of shared users. */
-            results: Array<SP.SharedWithUser>
-    }
-    
-    /**
-        * Social Actor
-        */
-    export interface SocialActor {
-            /** The collection of social actors. */
-            results: Array<SocialActor>;
-    }
-    
-    /**
-        * Social Data Item
-        */
-    export interface SocialDataItem {
-            /** The collection of social data items. */
-            results: Array<SocialDataItem>;
-    }
-    
-    /**
-        * Social Data Overlay
-        */
-    export interface SocialDataOverlay {
-            /** The collection of social data overlays. */
-            results: Array<SocialDataOverlay>;
-    }
-    
-    
-    /**
-        * Social Post
-        */
-    export interface SocialPost {
-            /** The collection of social posts. */
-            results: Array<SocialPost>;
-    }
-    
-    /**
-        * Social Post Definition Data Item
-        */
-    export interface SocialPostDefinitionDataItem {
-            /** The collection of social post definition data items. */
-            results: Array<SocialPostDefinitionDataItem>;
-    }
-    
-    /**
-        * Social Thread
-        */
-    export interface SocialThread {
-            /** The collection of social threads. */
-            results: Array<SocialThread>;
-    }
-    
-    /**
-        * String Collection
-        */
-    export interface String {
-            /** The collection of strings. */
-            results: Array<string>;
-    }
-    
-    /**
-        * Visualization Field
-        */
-    export interface VisualizationField {
-            /** The collection of visualization fields. */
-            results: Array<SP.VisualizationField>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/roleAssignment' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IRoleDefinition, IRoleDefinitions } from "gd-sprest/mapper/types";
-    
-    /**
-        * Role Assignment Methods
-        */
-    export interface IRoleAssignmentMethods {
-            /**
-                * Deletes the role assignment.
-                */
-            delete(): IBaseExecution;
-    }
-    
-    /**
-        * Role Assignment Query Properties
-        */
-    export interface IRoleAssignmentQueryProps {
-            /**
-                * Gets the user or group that corresponds to the Role Assignment.
-                */
-            Member(): IBaseExecution<Types.IGroup | Types.IUser>;
-    
-            /**
-                * Gets the collection of role definition bindings for the role assignment.
-                */
-            RoleDefinitionBindings(): IRoleDefinitions;
-    }
-    
-    /**
-        * Role Assignment Query Result
-        */
-    export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.RoleAssignment {
-            /**
-                * Gets the user or group that corresponds to the Role Assignment.
-                */
-            Member: Types.IUser;
-    
-            /**
-                * Gets the collection of role definition bindings for the role assignment.
-                */
-            RoleDefinitionBindings: Types.Results.IResults<IRoleDefinition>;
-    }
-    
-    /**
-        * Role Assignment Result
-        */
-    export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseResult<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
-    
-    /**
-        * Role Assignment
-        */
-    export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseQueryExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/types/roleAssignments' {
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IRoleAssignmentsMethods {
-            /**
-                * Adds a new role assignment with the specified principal and role definitions to the collection.
-                * @param principalId - The ID of the user or group to assign permissions to.
-                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-                */
-            addRoleAssignment(principalId, roleDefId): IBaseExecution<IRoleAssignment, IRoleAssignmentResult>;
-    
-            /**
-                * Gets the role assignment associated with the specified principal ID from the collection.
-                * @param principalId - The ID of the user or group to assign permissions to.
-                */
-            getByPrincipalId(principalId): IRoleAssignment & IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult>;
-    
-            /**
-                * Gets the role definition with the specified role type.
-                * @param principalId - The ID of the user or group to assign permissions to.
-                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-                */
-            removeRoleAssignment(principalId, roleDefId): IBaseExecution;
-    }
-    
-    /**
-        * Role Assignments
-        */
-    export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
-    
-    /**
-        * Role Assignment Results
-        */
-    export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/roleDefinition' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Role Definition Methods
-        */
-    export interface IRoleDefinitionMethods {
-            /**
-                * Deletes the role definition.
-                */
-            delete(): IBaseExecution;
-    }
-    
-    /**
-        * Role Definition Query Properties
-        */
-    export interface IRoleDefinitionQueryProps { }
-    
-    /**
-        * Role Definition Query Result
-        */
-    export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, SP.RoleDefinition { }
-    
-    /**
-        * Role Definition Result
-        */
-    export interface IRoleDefinitionResult extends IRoleDefinitionMethods, SP.RoleDefinition, IRoleDefinitionQueryProps, IBaseResult<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
-    
-    /**
-        * Role Definition
-        */
-    export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBaseQueryExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/roleDefinitions' {
-    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from "gd-sprest/mapper/types";
-    
-    /**
-        * Methods
-        */
-    export interface IRoleDefinitionsMethods {
-            /**
-                * Gets the role definition with the specified ID from the collection.
-                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-                */
-            getById(roleDefId): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-    
-            /**
-                * Gets the role definition with the specified name.
-                * @param name -
-                */
-            getByName(name): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-    
-            /**
-                * Gets the role definition with the specified role type.
-                * @param roleType - The RoleTypeKind of the role definition.
-                */
-            getByType(roleType: number): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-    }
-    
-    /**
-        * Role Definitions
-        */
-    export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
-    
-    /**
-        * Role Definition Results
-        */
-    export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/search' {
-    import { Microsoft } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Search
-        */
-    export interface ISearch extends IBaseExecution<ISearch, Microsoft.Office.Server.Search.REST.SearchResult> {
-            /** Method to execute a search query.
-                * @param settings - The search request settings.
-             */
-            postquery(settings: Microsoft.Office.Server.Search.REST.SearchRequest): IBaseExecution<Microsoft.Office.Server.Search.REST.SearchResult>;
-    
-            /** Method to execute a search query.
-                * @param settings - The search request settings.
-             */
-            searchquery(settings: Microsoft.Office.Server.Search.REST.SearchRequest): IBaseExecution<Microsoft.Office.Server.Search.REST.SearchResult>;
-    
-            /** Method to execute a search suggestion.
-                * @param settings - The search suggest settings.
-             */
-            //suggest(settings: Microsoft.Office.Server.Search.REST.SearchSuggestion): IBaseExecution<Microsoft.Office.Server.Search.REST.QuerySuggestionResults>;
-    }
-}
-
-declare module 'gd-sprest/mapper/types/site' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
-    
-    /**
-        * Site Exists
-        */
-    export interface ISiteExists {
-            /** True if the site collection exists, false otherwise. */
-            Exists: boolean;
-    }
-    
-    /**
-        * Site Methods
-        */
-    export interface ISiteMethods {
-            /**
-                * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
-                * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
-                * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
-                */
-            createPreviewSPSite(upgrade, sendEmail): IBaseExecution;
-    
-            /**
-                * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
-                */
-            extendUpgradeReminderDate(): IBaseExecution;
-    
-            /**
-                * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
-                * @param typeCatalog - Specifies the list template type for the gallery.
-                */
-            getCatalog(typeCatalog): IBaseExecution;
-    
-            /**
-                * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
-                * @param query - The change query.
-                */
-            getChanges(query): IBaseExecution;
-    
-            /**
-                * Specifies the collection of custom list templates for a given site.
-                * @param web - Specifies the site that contains the custom list templates to be returned.
-                */
-            getCustomListTemplates(web): IBaseExecution;
-    
-            /**
-                * Returns the collection of site definitions that are available for creating Web sites within the site collection.
-                * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
-                * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
-                */
-            getWebTemplates(LCID, overrideCompatLevel): IBaseExecution;
-    
-            /**
-                * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
-                */
-            invalidate(): IBaseExecution;
-    
-            /**
-                * Returns true if the object needs to be upgraded; otherwise, false.
-                * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
-                * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
-                */
-            needsUpgradeByType(versionUpgrade, recursive): IBaseExecution;
-    
-            /**
-                * Returns the site at the specified URL.
-                * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
-                */
-            openWeb(strUrl): IBaseExecution<IWeb, IWebResult, IWebQueryResult>;
-    
-            /**
-                * Returns the site with the specified GUID.
-                * @param gWebId - A GUID that specifies which site to return.
-                */
-            openWebById(gWebId): IBaseExecution<IWeb, IWebResult, IWebQueryResult>;
-    
-            /**
-                * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
-                * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.
-                * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
-                * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
-                */
-            runHealthCheck(ruleId, bRepair, bRunAlways): IBaseExecution;
-    
-            /**
-                * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
-                * @param versionUpgrade - If true, specifies that a version-to-version upgrade will be performed. If false, specifies that a build-to-build upgrade will be performed.
-                * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
-                * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
-                */
-            runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): IBaseExecution;
-    
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data): IBaseExecution;
-    
-            /**
-                * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
-                * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
-                */
-            updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): IBaseExecution;
-    }
-    
-    /**
-        * Site Query Properties
-        */
-    export interface ISiteQueryProps {
-            Audit(): IBaseExecution<SP.Audit>;
-    
-            /**
-                * Gets the event receivers associated with the site.
-             */
-            EventReceivers(): Types.IEventReceivers;
-    
-            /**
-                * Gets the event receiver associated with the site.
-                * @param id - The id of the event receiver.
-             */
-            EventReceivers(id: string): Types.IEventReceiver;
-    
-            /**
-                * Gets the site collection features.
-                */
-            Features(): Types.IFeatures;
-    
-            /**
-                * Gets the site features.
-                * @param id - The id of the feature.
-                */
-            Features(id: string): IBaseExecution<Types.IFeature>;
-    
-            /**
-                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
-                */
-            Owner(): Types.IUser;
-    
-            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-            RecycleBin(): IBaseExecution<Types.Results.IResults<SP.RecycleBinItem>>;
-    
-            /**
-                * Gets a value that returns the top-level site of the site collection.
-                */
-            RootWeb(): IWeb;
-    
-            SecondaryContact(): IBaseExecution;
-    
-            /**
-                * Gets the user custom action for the list.
-                */
-            UserCustomActions(): Types.IUserCustomActions;
-    
-            /**
-                * Gets the user custom action(s) for the list.
-                * @param id - The id of the user custom action.
-                */
-            UserCustomActions(id: string): Types.IUserCustomAction;
-    }
-    
-    /**
-        * Site Query Result
-        */
-    export interface ISiteQueryResult extends ISiteMethods, SP.Site {
-            Audit: SP.Audit;
-    
-            /**
-                * Gets the event receivers associated with the site.
-             */
-            EventReceivers: Types.Results.IResults<Types.IEventReceiverResult>;
-    
-            /**
-                * Gets the site collection features.
-                */
-            Features: Types.Results.IResults<Types.IFeature>;
-    
-            /**
-                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
-                */
-            Owner: Types.IUserResult;
-    
-            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-            RecycleBin: Types.Results.IResults<SP.RecycleBinItem>;
-    
-            /**
-                * Gets a value that returns the top-level site of the site collection.
-                */
-            RootWeb: IWebResult;
-    
-            SecondaryContact: Types.IUserResult;
-    
-            /**
-                * Gets the user custom action for the list.
-                */
-            UserCustomActions: Types.IUserCustomActionResults;
-    }
-    
-    /**
-        * Site Result
-        */
-    export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseResult<ISite, ISiteResult, ISiteQueryResult> { }
-    
-    /**
-        * Site Url
-        */
-    export interface ISiteUrl {
-            /** The site url. */
-            GetUrlById: string;
-    }
-    
-    /**
-        * Site
-        */
-    export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseQueryExecution<ISite, ISiteResult, ISiteQueryResult> { }
-}
-
-declare module 'gd-sprest/mapper/types/socialFeed' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Social Feed
-        */
-    export interface ISocialFeed extends IBaseExecution<ISocialFeed> {
-            /**
-                * Gets information about the specified user and the current user.
-                * @param accountName - The login name of the user.
-                */
-            actor(accountName: string): IBaseExecution<ISocialRestActor>;
-    
-            /**
-                * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
-                * @param accountName - The login name of the user.
-                */
-            actorFeed(accountName: string): IBaseExecution<ISocialRestThread>;
-    
-            /**
-                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
-                */
-            clearMyUnreadMentionCount(): IBaseExecution;
-    
-            /**
-                * Gets information about the current user.
-                */
-            my(): IBaseExecution<ISocialRestActor>;
-    
-            /**
-                * Gets the feed of activity by the current user (Personal feed type).
-                */
-            myFeed(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread Types.SP. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
-                */
-            myLikes(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of microblog posts that mention the current user.
-                */
-            myMentionFeed(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
-                */
-            myNews(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
-                */
-            myTimelineFeed(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the count of unread mentions for the current user.
-                */
-            myUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Creates a root post in the specified site feed.
-                * @param accountName - The login name of the user.
-                */
-            postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
-    
-            /**
-                * Creates a root post in the current user's feed.
-                * @param creationData - The post creation data.
-                */
-            postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
-    }
-    
-    /**
-        * Social Rest Actor
-        */
-    export interface ISocialRestActor extends IBaseExecution<ISocialRestActor> {
-    
-            /**
-                * Properties
-                */
-            FollowableItem?: string;
-    
-            FollwableItemActor: SP.Social.SocialActor;
-    
-            Me: SP.Social.SocialActor;
-    
-    
-            /**
-                * Methods
-                */
-            clearUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
-    }
-    
-    /**
-        * Social Rest Feed
-        */
-    export interface ISocialRestFeed extends IBaseExecution<ISocialRestFeed> {
-    
-            /**
-                * Properties
-                */
-            SocialFeed: SP.Social.SocialFeed;
-    
-    
-            /**
-                * Creates a root post in the user's feed.
-                */
-            post(postInfo: SP.Social.SocialRestPostCreationData): ISocialRestThread;
-    }
-    
-    /**
-        * Social Rest Thread
-        */
-    export interface ISocialRestThread extends IBaseExecution<ISocialRestThread> {
-    
-            /**
-                * Properties
-                */
-            ID?: string;
-    
-            SocialThread: SP.Social.SocialThread;
-    
-    
-            /**
-                * Methods
-                */
-            delete(): IBaseExecution<ISocialRestThread>;
-    
-            reply(restCreationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
-    }
+declare module 'gd-sprest/utils/types' {
+    export * from "gd-sprest/utils/types/base";
+    export * from "gd-sprest/utils/types/helper";
+    export * from "gd-sprest/utils/types/methodInfo";
+    export * from "gd-sprest/utils/types/request";
+    export * from "gd-sprest/utils/types/requestType";
+    export * from "gd-sprest/utils/types/targetInfo";
+    export * from "gd-sprest/utils/types/xhrRequest";
 }
 
 declare module 'gd-sprest/mapper/types/sptypes' {
@@ -6104,7 +4057,3658 @@ declare module 'gd-sprest/mapper/types/sptypes' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/tenantApp' {
+declare module 'gd-sprest/intellisense/appTiles' {
+    /**
+      * App Tiles
+      */
+    export interface IAppTiles {
+        AppId: string;
+        AppPrincipalId: string;
+        AppSource: number;
+        AppStatus: number;
+        AppType: number;
+        AssetId: string;
+        BaseTemplate: number;
+        ChildCount: number;
+        ContentMarket: string;
+        CustomSettingsUrl: string;
+        Description: string;
+        IsCorporateCatalogSite: boolean;
+        LastModified: string;
+        LastModifiedDate: string;
+        ProductId: string;
+        Target: string;
+        Thumbnail: string;
+        Title: string;
+        Version: number;
+    }
+}
+
+declare module 'gd-sprest/intellisense/attachment' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IAttachmentFiles } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IAttachmentFilesMethods {
+            /**
+                * Adds the attachment that is represented by the specified file name and byte array to the list item.
+                * @param fileName - The filename of the attachment.
+                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+                */
+            add(fileName, content): IBaseExecution<SP.Attachment>;
+    
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBaseExecution<IAttachmentFiles>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/attachments' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IAttachmentFiles, IAttachmentFilesMethods } from "gd-sprest/intellisense";
+    
+    /**
+      * Attachment Files
+      */
+    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<SP.Attachment> { }
+}
+
+declare module 'gd-sprest/intellisense/contentType' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IFieldResult, IFields, IFieldLinks, IListResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Content Type Methods
+        */
+    export interface IContentTypeMethods {
+            /**
+                * Deletes the content type.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The content type properties to update.
+                */
+            update(data): IBaseExecution;
+    }
+    
+    /**
+        * Content Type Query Properties
+        */
+    export interface IContentTypeQueryProps {
+            DescriptionResource(): IBaseExecution;
+    
+            /**
+                * Gets the column (also known as field) references in the content type.
+                */
+            FieldLinks(): IFieldLinks;
+    
+            /**
+                * Gets the column (also known as field) reference in the content type.
+                * @param guid - The guid of the field link.
+                */
+            FieldLinks(guid: string): IBaseExecution<SP.FieldLink>;
+    
+            /**
+                * Gets the fields for the content type.
+                */
+            Fields(): IFields;
+    
+            /**
+                * Gets the field for the content type.
+                * @param internalNameOrTitle - The internal name or title of the field.
+                */
+            Fields(internalNameOrTitle: string): IFields;
+    
+            NameResource(): IBaseExecution;
+    
+            /** Gets the parent content type of the content type. */
+            Parent(): IContentTypeMethods;
+    
+            /**
+                * Gets a value that specifies the collection of workflow associations for the content type.
+                */
+            WorkflowAssociations(): IBaseExecution;
+    }
+    
+    /**
+        * Content Type Query Result
+        */
+    export interface IContentTypeQueryResult extends IContentTypeMethods, SP.ContentType {
+            DescriptionResource: SP.ResourcePath;
+    
+            /**
+                * Gets the column (also known as field) references in the content type.
+                */
+            FieldLinks: Types.Results.IResults<SP.FieldLink>;
+    
+            /**
+                * Gets the fields for the content type.
+                */
+            Fields: Types.Results.IResults<IFieldResult>;
+    
+            NameResource: SP.ResourcePath;
+    
+            /** Gets the parent content type of the content type. */
+            Parent: IListResult | Types.IWebResult;
+    
+            /**
+                * Gets a value that specifies the collection of workflow associations for the content type.
+                */
+            WorkflowAssociations: Types.Results.IResults<any>;
+    }
+    
+    /**
+        * Content Type Result
+        */
+    export interface IContentTypeResult extends IContentTypeMethods, SP.ContentType, IContentTypeQueryProps, IBaseResult<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+    
+    /**
+        * Content Type
+        */
+    export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBaseQueryExecution<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/contentTypes' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IContentType, IContentTypeQueryResult, IContentTypeResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IContentTypesMethods {
+            /**
+                * Adds a content type to the collection.
+                * @param parameters - The content type creation information.
+                */
+            add(parameters: SP.ContentTypeCreationInformation): IBaseExecution<IContentType, IContentTypeResult>;
+    
+            /**
+                * Adds an existing content type to this collection.
+                * @param contentTypeId - The content type id to add.
+                */
+            addAvailableContentType(contentTypeId): IBaseExecution<IContentType, IContentTypeResult>;
+    
+            /**
+                * Gets a content type by id.
+                * @param id - The content type id.
+                */
+            getById(id): IContentType & IBaseExecution<IContentType, IContentTypeResult, IContentTypeQueryResult>;
+    }
+    
+    /**
+        * Content Types
+        */
+    export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+    
+    /**
+        * Content Type Results
+        */
+    export interface IContentTypeResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeResult> { }
+}
+
+declare module 'gd-sprest/intellisense/entityData' {
+    /**
+      * Entity Data
+      */
+    export interface IEntityData {
+        /** Account Name */
+        AccountName?: string;
+    
+        /** Department. */
+        Department?: string;
+    
+        /** EMail */
+        Email?: string;
+    
+        /** */
+        IsAltSecIdPresent?: boolean;
+    
+        /** Mobile Phone */
+        MobilePhone?: string;
+    
+        /** Object ID */
+        ObjectId?: string;
+    
+        /** Principal Type */
+        PrincipalType?: string;
+    
+        /** SharePoint Group ID */
+        SPGroupID?: string;
+    
+        /** SharePoint User ID */
+        SPUserID?: string;
+    
+        /** Title */
+        Title?: string;
+    }
+}
+
+declare module 'gd-sprest/intellisense/eventReceiver' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Event Receiver Methods
+        */
+    export interface IEventReceiverMethods {
+            /**
+                * Deletes the event receiver.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The field properties to update.
+                */
+            update(data): IBaseExecution;
+    }
+    
+    /**
+        * Event Receiver Query Properties
+        */
+    export interface IEventReceiverQueryProps { }
+    
+    /**
+        * Event Receiver Query Result
+        */
+    export interface IEventReceiverQueryResult extends IEventReceiverMethods, SP.EventReceiverDefinition { }
+    
+    /**
+        * Event Receiver Result
+        */
+    export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBaseResult<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+    
+    /**
+        * Event Receiver
+        */
+    export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBaseQueryExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/eventReceivers' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult } from "gd-sprest/intellisense/eventReceiver";
+    
+    /**
+        * Methods
+        */
+    export interface IEventReceiversMethods {
+            /**
+                * Adds an event receiver to the collection.
+                * @param parameters - The event receiver definition creation information.
+                */
+            add(parameters: SP.EventReceiverDefinitionCreationInformation): IBaseExecution<IEventReceiver, IEventReceiverResult>;
+    
+            /**
+                * Gets an event receiver in the collection.
+                * @param id - The id of the event receiver.
+                */
+            getById(id: string): IEventReceiver & IBaseExecution<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
+    }
+    
+    /**
+        * Event Receivers
+        */
+    export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+    
+    /**
+        * Event Receiver Results
+        */
+    export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverResult> { }
+}
+
+declare module 'gd-sprest/intellisense/features' {
+    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Feature
+        */
+    export interface IFeature {
+            /** The feature definition id. */
+            DefinitionId: string;
+    
+            /** The feature definition name. (This property is not returned by default, and must be queried for.) */
+            DisplayName?: string;
+    }
+    /**
+        * Features Methods
+        */
+    export interface IFeaturesMethods {
+            /**
+                * Activates a feature.
+                * @param id - The feature id.
+                */
+            add(id: string): IBaseExecution<IFeature>;
+    
+            /**
+                * Gets a feature by id.
+                * @param id - The feature id.
+                */
+            getById(id: string): IBaseExecution<IFeature>;
+    
+            /**
+                * Gets a feature by name.
+                * @param name - The feature internal name.
+                */
+            getByName(name: string): IBaseExecution<IFeatures>;
+    
+            /**
+                * Deactivates a feature.
+                * @param id - The feature id.
+                */
+            remove(id: string): IBaseExecution;
+    }
+    
+    /**
+        * Features
+        */
+    export interface IFeatures extends IFeaturesMethods, IBaseCollection<IFeature> { }
+}
+
+declare module 'gd-sprest/intellisense/field' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Field Methods
+        */
+    export interface IFieldMethods {
+            /**
+                * Deletes the field.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Sets the value of the ShowInDisplayForm property for this field.
+                * @param showInForm - Flag to show the field in the display form.
+                */
+            setShowInDisplayForm(showInForm): IBaseExecution;
+    
+            /**
+                * Sets the value of the ShowInEditForm property for this field.
+                * @param showInForm - Flag to show the field in the display form.
+                */
+            setShowInEditForm(showInForm): IBaseExecution;
+    
+            /**
+                * Sets the value of the ShowInNewForm property for this field.
+                * @param showInForm - Flag to show the field in the display form.
+                */
+            setShowInNewForm(showInForm): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The field properties to update.
+                */
+            update(data): IBaseExecution;
+    }
+    
+    /**
+        * Field Properties
+        */
+    export interface IFieldProps {
+            AutoIndexed: boolean;
+    
+            /** Gets a value that specifies whether the field can be deleted. */
+            CanBeDeleted: boolean;
+    
+            /** Gets or sets a value that specifies the default value for the field. */
+            DefaultValue: string;
+    
+            /** Gets or sets a value that specifies the description of the field. */
+            Description: string;
+    
+            /** Gets or sets a value that specifies the reading order of the field. */
+            Direction: string;
+    
+            /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
+            EnforceUniqueValues: boolean;
+    
+            /** Gets the name of the entity property for the list item entity that uses this field. */
+            EntityPropertyName: string;
+    
+            /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
+            FieldTypeKind: number;
+    
+            /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
+            Filterable: boolean;
+    
+            /** Gets a Boolean value that indicates whether the field derives from a base field type. */
+            FromBaseType: boolean;
+    
+            /** Gets or sets a value that specifies the field group. */
+            Group: string;
+    
+            /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
+            Hidden: boolean;
+    
+            /** Gets a value that specifies the field identifier. */
+            Id: string;
+    
+            /** Gets or sets a Boolean value that specifies whether the field is indexed. */
+            Indexed: boolean;
+    
+            /** Gets a value that specifies the field internal name. */
+            InternalName: string;
+    
+            /** Gets or sets the name of an external JS file containing any client rendering logic for fields of this type. */
+            JSLink: string;
+    
+            /** Gets or sets a value that specifies whether the value of the field is read-only. */
+            ReadOnlyField: boolean;
+    
+            /** Gets or sets a value that specifies whether the field requires a value. */
+            Required: boolean;
+    
+            /** Gets or sets a value that specifies the XML schema that defines the field. */
+            SchemaXml: string;
+    
+            /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
+            Scope: string;
+    
+            /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
+            Sealed: boolean;
+    
+            /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
+            Sortable: boolean;
+    
+            /** Gets or sets a value that specifies a customizable identifier of the field. */
+            StaticName: string;
+    
+            /** Gets or sets value that specifies the display name of the field. */
+            Title: string;
+    
+            /** Gets or sets a value that specifies the type of the field. */
+            TypeAsString: string;
+    
+            /** Gets a value that specifies the display name for the type of the field. */
+            TypeDisplayName: string;
+    
+            /** Gets a value that specifies the description for the type of the field. */
+            TypeShortDescription: string;
+    
+            /** Gets or sets a value that specifies the data validation criteria for the value of the field. */
+            ValidationFormula: string;
+    
+            /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
+            ValidationMessage: string;
+    }
+    
+    /**
+        * Field Query Properties
+        */
+    export interface IFieldQueryProps {
+            DescriptionResource(): IBaseExecution<SP.ResourcePath>;
+    
+            TitleResource(): IBaseExecution<SP.ResourcePath>;
+    }
+    
+    /**
+        * Field Query Result
+        */
+    export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
+            DescriptionResource: SP.ResourcePath;
+    
+            TitleResource: SP.ResourcePath;
+    }
+    
+    /**
+        * Field Result
+        */
+    export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBaseResult<IField, IFieldResult, IFieldQueryResult> { }
+    
+    /**
+        * Field
+        */
+    export interface IField extends IFieldMethods, IFieldQueryProps, IBaseQueryExecution<IField, IFieldResult, IFieldQueryResult> { }
+    
+    /**
+        * Base Choice Field
+        */
+    export interface IFieldBaseChoice extends IFieldResult {
+            /** A value that specifies values that are available for selection in the field. */
+            Choices: { results: Array<string> };
+    
+            /** A value that specifies whether the field can accept values other than those specified by the Choices property. */
+            FillInChoice: boolean;
+    
+            /** A value that specifies the internal values corresponding to Choices. */
+            Mappings: string;
+    }
+    
+    /**
+        * Calculated Field
+        */
+    export interface IFieldCalculated extends IFieldResult {
+            /** The date and time format that is displayed in the field. */
+            DateFormat: number;
+    
+            /** A value that specifies the formula for the field. */
+            Formula: string;
+    
+            /** A value that specifies the output format for the field. */
+            OutputType: number;
+    }
+    
+    /**
+        * Choice Field
+        */
+    export interface IFieldChoice extends IFieldBaseChoice {
+            /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
+            EditFormat: number;
+    }
+    
+    /**
+        * Computed Field
+        */
+    export interface IFieldComputed extends IFieldResult {
+            /** A value that specifies whether a lookup field can reference the field. */
+            EnableLookup: boolean;
+    }
+    
+    /**
+        * Currency Field
+        */
+    export interface IFieldCurrency extends IFieldNumber {
+            /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
+            CurrencyLocaleId: number;
+    }
+    
+    /**
+        * Date/Time Field
+        */
+    export interface IFieldDateTime extends IFieldResult {
+            /** A value that specifies the calendar type of the field. */
+            DateTimeCalendarType: number;
+    
+            /** The format of the date and time that is displayed in the field. */
+            DisplayFormat: number;
+    
+            /** Represents a date and time friendly format. */
+            FriendlyDisplayFormat: number;
+    }
+    
+    /**
+        * Lookup Field
+        */
+    export interface IFieldLookup extends IFieldResult {
+            /** A value that specifies whether the lookup field allows multiple values. You cannot set a deletion constraint on a lookup field that allows multiple values. */
+            AllowMultipleValues: boolean;
+    
+            /** Flag to determine if this is a dependent lookup field. */
+            IsDependentLookup: boolean;
+    
+            /** A value that specifies whether this lookup field is returned by SP.List.getRelatedFields from the list being looked up to. Always returns false if the field represents a secondary column in a multiple-column lookup. Secondary columns are not discoverable from the source list. */
+            IsRelationship: boolean;
+    
+            /** A value that specifies the internal field name of the field used as the lookup values. */
+            LookupField: string;
+    
+            /** A value that specifies the list identifier of the list that contains the field to use as the lookup values. */
+            LookupList: string;
+    
+            /** The ID of the Web site that contains the list that is the source of this field's value. */
+            LookupWebId: string;
+    
+            /** A value that specifies the primary lookup field identifier if this is a dependent lookup field. Otherwise, it is an empty string. */
+            PrimaryFieldId: string;
+    
+            /** A value that specifies the delete behavior of the lookup field. */
+            RelationshipDeleteBehavior: number;
+    }
+    
+    /**
+        * Managed Metadata Field
+        */
+    export interface IFieldManagedMetadata extends IFieldLookup {
+            /** The root term */
+            AnchorId: string;
+    
+            /** Flag to determine if the anchor is valid. */
+            IsAnchorValid: boolean;
+    
+            /** Flag to determine if this is a keyword. */
+            IsKeyword: boolean;
+    
+            /** Flag to determine if the path is rendered. */
+            IsPathRendered: boolean;
+    
+            /** Flag to determine if the term set is valid. */
+            IsTermSetValid: boolean;
+    
+            /** A valid that specifies if the term is pinned to filters pane. */
+            PinnedToFiltersPane: boolean;
+    
+            /** A value that specifies if the term is shown in the filters pane. */
+            ShowInFiltersPane: number;
+    
+            /** The term store id. */
+            SspId: string;
+    
+            /** The term set id. */
+            TermSetId: string;
+    
+            /** Flag to determine if the field was created by the user. */
+            UserCreated: boolean;
+    }
+    
+    /**
+        * Multi-Choice Field
+        */
+    export interface IFieldMultiChoice extends IFieldBaseChoice {
+    }
+    
+    /**
+        * Note Field
+        */
+    export interface IFieldNote extends IFieldResult {
+            /** A value that specifies whether a hyperlink is allowed as a value of the field. */
+            AllowHyperlink: boolean;
+    
+            /** A value that specifies whether all changes to the value of the field are displayed in list forms. */
+            AppendOnly: boolean;
+    
+            /** A value that specifies the number of lines of text to display for the field. */
+            NumberOfLines: number;
+    
+            /** A value that specifies whether the field supports a subset of rich formatting. */
+            RestrictedMode: boolean;
+    
+            /** A value that specifies whether the field supports rich formatting. */
+            RichText: boolean;
+    
+            /** A value that specifies whether an implementation specific mechanism for linking wiki pages is supported. */
+            WikiLinking: boolean;
+    }
+    
+    /**
+        * Number Field
+        */
+    export interface IFieldNumber extends IFieldResult {
+            /** A value that specifies the minimum allowed value for the field. */
+            MaximumValue: number;
+    
+            /** A value that specifies the minimum allowed value for the field. */
+            MinimumValue: number;
+    
+            /** Flag to determine if the number is displayed as a percentage. */
+            ShowAsPercentage?: boolean;
+    }
+    
+    /**
+        * Rating Scale Field
+        */
+    export interface IFieldRatingScale extends IFieldBaseChoice {
+            /** A value that specifies the end number for the rating scale. */
+            GridEndNumber: number;
+    
+            /** A value that specifies the display text corresponding to the choice in the rating scale that indicates the non-applicable option. */
+            GridNAOptionText: string;
+    
+            /** A value that specifies the start number for the rating scale. */
+            GridStartNumber: number;
+    
+            /** A value that specifies the display text corresponding to the average of the rating scale. */
+            GridTextRangeAverage: string;
+    
+            /** A value that specifies the display text corresponding to the maximum of the rating scale. */
+            GridTextRangeHigh: string;
+    
+            /** A value that specifies the display text corresponding to the minimum of the rating scale. */
+            GridTextRangeLow: string;
+    
+            /** A value that specifies the number of options in the rating scale. */
+            RangeCount: number;
+    }
+    
+    /**
+        * Text Field
+        */
+    export interface IFieldText extends IFieldResult {
+            /** A value that specifies the maximum number of characters allowed in the value of the field. */
+            MaxLength: number;
+    }
+    
+    /**
+        * URL Field
+        */
+    export interface IFieldUrl extends IFieldResult {
+            /** A value that specifies the display format for the value in the field. */
+            DisplayFormat: number;
+    }
+    
+    /**
+        * User Field
+        */
+    export interface IFieldUser extends IFieldLookup {
+            /** A value that specifies whether to display the name of the user in a survey list. */
+            AllowDisplay: boolean;
+    
+            /** A value that specifies whether presence is enabled on the field. */
+            Presence: boolean;
+    
+            /** A value that specifies the identifier of the SharePoint group whose members can be selected as values of the field. */
+            SelectionGroup: number;
+    
+            /** A value that specifies whether users and groups or only users can be selected. */
+            SelectionMode: number;
+    }
+}
+
+declare module 'gd-sprest/intellisense/fieldLinks' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Field Links
+        */
+    export interface IFieldLinks extends IBaseCollection<SP.FieldLink> {
+            /**
+                * Adds a content type to the collection.
+                * @param data - The field link properties.
+                */
+            add(data): IBaseExecution<SP.FieldLink>;
+    
+            /**
+                * Gets the field link by its id.
+                * @param id - The id of the field.
+                */
+            getById(id): SP.FieldLink & IBaseExecution<SP.FieldLink>;
+    
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBaseExecution<IFieldLinks>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/fields' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IField, IFieldQueryResult, IFieldResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IFieldsMethods {
+            /**
+                * Adds a field to the field collection.
+                * @param parameters - The field properties.
+                */
+            add(parameters: IField): IBaseExecution<IField, IFieldResult>;
+    
+            /**
+                * Adds a field to the field collection.
+                * @param parameters - The field creation information.
+                */
+            addField(parameters: SP.FieldCreationInformation): IBaseExecution<IField, IFieldResult>;
+    
+            /**
+                * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
+                * @param displayName - The title of the new field.
+                * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
+                * @param showField - The name of the field from the target list to include data from.
+                */
+            addDependentLookupField(displayName, primaryLookupField, showField): IBaseExecution<IField, IFieldResult>;
+    
+            /**
+                * Creates a field based on the specified schema, Boolean value, and field options.
+                * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+                * @param schemaXml - The schema XML definition of the field.
+                */
+            createFieldAsXml(schemaXml): IBaseExecution<IField, IFieldResult>;
+    
+            /**
+                * Gets the field with the specified ID.
+                * @param id - The field id.
+                */
+            getById(id): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
+    
+            /**
+                * Returns the first Field object with the specified internal name or title from the collection.
+                * @param internalNameOrTitle - The internal name or title of the field.
+                */
+            getByInternalNameOrTitle(internalNameOrTitle): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
+    
+            /**
+                * Returns the first field object in the collection based on the title of the specified field.
+                * @param title - The title of the field.
+                */
+            getByTitle(title): IField & IBaseExecution<IField, IFieldResult, IFieldQueryResult>;
+    }
+    
+    /**
+        * Fields
+        */
+    export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
+    
+    /**
+        * Field Results
+        */
+    export interface IFieldResults extends IFieldsMethods, IBaseCollectionResult<IFieldResult> { }
+}
+
+declare module 'gd-sprest/intellisense/file' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IFileVersionResult, IFileVersions } from "gd-sprest/intellisense";
+    
+    /**
+        * File Methods
+        */
+    export interface IFileMethods {
+            /**
+                * Approves the file submitted for content approval with the specified comment.
+                * @param comment - The comment for the approval. It's length must be <= 1023.
+                */
+            approve(comment): IBaseExecution;
+    
+            /**
+                * Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
+                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
+                * This method is currently available only on Office 365.
+                * @param uploadId - The unique id of the upload session.
+                */
+            cancelupload(uploadId): IBaseExecution;
+    
+            /**
+                * Checks the file in to a document library based on the check-in type.
+                * @param comment - The comment for the check-in. Its length must be <= 1023.
+                * @param checkInType - The check-in type: MinorCheckIn - 0; MajorCheckIn - 1; OverwriteCheckIn - 2
+                */
+            checkin(comment, checkInType): IBaseExecution;
+    
+            /**
+                * Checks out the file from a document library based on the check-out type.
+                */
+            checkout(): IBaseExecution;
+    
+            /**
+                * Returns the file content.
+                */
+            content(): IBaseExecution;
+    
+            /**
+                * Continues the chunk upload session with an additional fragment. The current file content is not changed.
+                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
+                * This method is currently available only on Office 365.
+                * @param uploadId - The unique id of the upload session.
+                * @param fileOffset - The size of the offset into the file where the fragment starts.
+                */
+            continueUpload(uploadId, fileOffset): IBaseExecution;
+    
+            /**
+                * Copies the file to the destination URL.
+                * @param strNewUrl - The absolute URL or server relative URL of the destination file path to copy to.
+                * @param bOverWrite - True to overwrite a file with the same name in the location.
+                */
+            copyTo(strNewUrl, bOverWrite): IBaseExecution;
+    
+            /**
+                * Deletes the File.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Denies approval for a file that was submitted for content approval.
+                * Only documents in lists that are enabled for content approval can be denied.
+                * @param comment - The comment for the denial. It's length must be <= 1023.
+                */
+            deny(comment): IBaseExecution;
+    
+            /**
+                * Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
+                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
+                * This method is currently available only on Office 365.
+                * @param uploadId - The unique id of the upload session.
+                * @param fileOffset - The size of the offset into the file where the fragment starts.
+                */
+            finishUpload(uploadId, fileOffset): IBaseExecution;
+    
+            /**
+                * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
+                * An exception is thrown if the file is not an ASPX page.
+                * @param scope - The webpart personalization scope: User - 0; Shared - 1
+                */
+            getlimitedwebpartmanager(scope): IBaseExecution;
+    
+            /**
+                * Moves the file to the specified destination URL.
+                * @param newUrl - The absolute url or server relative url of the destination file path to move to.
+                * @param flags - The move operation: Overwrite - 1; AllowBrokenThickets (Move even if supporting files are separated from the file) - 8;
+                */
+            moveTo(newUrl, flags): IBaseExecution;
+    
+            /**
+                * Opens the file as a stream.
+                */
+            openBinaryStream(): IBaseExecution;
+    
+            /**
+                * Submits the file for content approval with the specified comment.
+                * @param comment - The comment for the published file. It's length must be <= 1023.
+                */
+            publish(comment): IBaseExecution;
+    
+            /**
+                * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBaseExecution;
+    
+            /**
+                * Saves the file as a stream.
+                * @param stream - The binary stream of the file.
+                */
+            saveBinaryStream(stream): IBaseExecution;
+    
+            /**
+                * Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
+                * The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
+                * The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
+                * @param uploadId - The unique id of the upload session.
+                */
+            startUpload(uploadId): IBaseExecution;
+    
+            /**
+                * Reverts an existing checkout for the file.
+                */
+            undoCheckOut(): IBaseExecution;
+    
+            /**
+                * Removes the file from content approval or unpublish a major version.
+                * @param comment - The comment for the unpublish operation. Its length must be <= 1023.
+                */
+            unpublish(comment): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The file properties to update.
+                */
+            update(data): IBaseExecution;
+    }
+    
+    /**
+        * File Query Properties
+        */
+    export interface IFileQueryProps {
+            /**
+                * Gets a value that specifies the user who added the file.
+                */
+            Author(): Types.IUser;
+    
+            /**
+                * Gets a value that returns the user who has checked out the file.
+                */
+            CheckedOutByUser(): Types.IUser;
+    
+            EffectiveInformationRightsManagementSettings(): IBaseExecution;
+    
+            InformationRightsManagementSettings(): IBaseExecution;
+    
+            /**
+                * Gets a value that specifies the list item field values for the list item corresponding to the file.
+                */
+            ListItemAllFields(): IBaseExecution;
+    
+            /**
+                * Gets a value that returns the user that owns the current lock on the file.
+                */
+            LockedByUser(): Types.IUser;
+    
+            /**
+                * Gets a value that returns the user who last modified the file.
+                */
+            ModifiedBy(): Types.IUser;
+    
+            /**
+                * Property Bag
+                */
+            Properties(): IBaseExecution<Types.IPropertyValues>;
+    
+            VersionEvents(): IBaseExecution;
+    
+            /**
+                * Gets a value that returns a collection of file version objects that represent the versions of the file.
+                */
+            Versions(): IBaseExecution<IFileVersions>;
+    }
+    
+    /**
+        * File Query Result
+        */
+    export interface IFileQueryResult extends IFileMethods, SP.File {
+            /**
+                * Gets a value that specifies the user who added the file.
+                */
+            Author: Types.IUserResult;
+    
+            /**
+                * Gets a value that returns the user who has checked out the file.
+                */
+            CheckedOutByUser: Types.IUserResult;
+    
+            EffectiveInformationRightsManagementSettings: IBaseExecution;
+    
+            InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
+    
+            /**
+                * Gets a value that specifies the list item field values for the list item corresponding to the file.
+                */
+            ListItemAllFields: Types.IListItemResult;
+    
+            /**
+                * Gets a value that returns the user that owns the current lock on the file.
+                */
+            LockedByUser: Types.IUserResult;
+    
+            /**
+                * Gets a value that returns the user who last modified the file.
+                */
+            ModifiedBy: Types.IUserResult;
+    
+            /**
+                * Property Bag
+                */
+            Properties: Types.IPropertyValues;
+    
+            VersionEvents: Types.Results.IResults<any>;
+    
+            /**
+                * Gets a value that returns a collection of file version objects that represent the versions of the file.
+                */
+            Versions: Types.Results.IResults<IFileVersionResult>;
+    }
+    
+    /**
+        * File Result
+        */
+    export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBaseResult<IFile, IFileResult, IFileQueryResult> { }
+    
+    /**
+        * File
+        */
+    export interface IFile extends IFileMethods, IFileQueryProps, IBaseQueryExecution<IFile, IFileResult, IFileQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/files' {
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IFile, IFileQueryResult, IFileResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IFilesMethods {
+    
+            /**
+                * Adds a file to this collection.
+                * @param overwrite - true to overwrite the file if it already exists; otherwise false.
+                * @param url - The folder-relative URL of the file.
+                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+                */
+            add(overwrite, url, content): IBaseExecution<IFile, IFileResult>;
+    
+            /**
+                * Adds a ghosted file to an existing list or document library.
+                * @param urlOfFile - The server-relative URL where you want to save the file.
+                * @param templateFileType - The SP.TemplateFileType to use to create the file.
+                */
+            addTemplateFile(urlOfFile, templateFileType: number): IBaseExecution<IFile, IFileResult>;
+    
+            /**
+                * Get the file at the specified URL.
+                * @param serverRelativeUrl - The name or server relative url of the file.
+                */
+            getByUrl(serverRelativeUrl): IFile & IBaseExecution<IFile, IFileResult, IFileQueryResult>;
+    }
+    
+    /**
+        * Files
+        */
+    export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> { }
+    
+    /**
+        * File Results
+        */
+    export interface IFileResults extends IFilesMethods, IBaseCollectionResult<IFileResult> { }
+}
+
+declare module 'gd-sprest/intellisense/fileVersion' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/intellisense";
+    
+    /**
+        * File Version Methods
+        */
+    export interface IFileVersionMethods {
+            /**
+                * Deletes the file version.
+                */
+            delete(): any;
+    }
+    
+    /**
+        * File Version Query Properties
+        */
+    export interface IFileVersionQueryProps {
+            /**
+                * Gets a value that specifies the user that represents the creator of the file version.
+                */
+            CreatedBy(): Types.IUser;
+    }
+    
+    /**
+        * File Version Query Result
+        */
+    export interface IFileVersionQueryResult extends IFileVersionMethods, SP.FileVersion {
+            /**
+                * A value that specifies the user that represents the creator of the file version.
+                */
+            CreatedBy: Types.IUserResult;
+    }
+    
+    /**
+        * File Version Result
+        */
+    export interface IFileVersionResult extends IFileVersionMethods, SP.FileVersion, IFileVersionQueryProps, IBaseResult<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
+    
+    /**
+        * File Version
+        */
+    export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBaseQueryExecution<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/fileVersions' {
+    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/intellisense";
+    
+    /**
+        * File Versions
+        */
+    export interface IFileVersions extends IBaseCollection<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBaseExecution<IFileVersions>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/folder' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from "gd-sprest/intellisense";
+    
+    /**
+        * Folder Methods
+        */
+    export interface IFolderMethods {
+            /**
+                * Deletes the folder.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Get the folder at the specified URL.
+                * @param serverRelativeUrl - The server-relative URL of the folder.
+                */
+            getByUrl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
+    
+            /**
+                * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The file properties to update.
+                */
+            update(data): IBaseExecution;
+    }
+    
+    /**
+        * Folder Query Properties
+        */
+    export interface IFolderQueryProps {
+            /**
+                * Gets the files contained in the folder.
+                */
+            Files(): IFiles;
+    
+            /**
+                * Gets the file contained in the folder.
+                * @param url - The url of the file within the current folder.
+                */
+            Files(url: string): IFile;
+    
+            /**
+                * Gets the folders contained in the list folder.
+                */
+            Folders(): IFolders;
+    
+            /**
+                * Gets the folder contained in the list folder.
+                * @param url - The url of the sub-folder within the current folder.
+                */
+            Folders(url: string): IFolder;
+    
+            /**
+                * Specifies the list item field (2) values for the list item corresponding to the file.
+                */
+            ListItemAllFields(): IBaseExecution<Types.IListItem>;
+    
+            /**
+                * Gets the parent list folder of the folder.
+                */
+            ParentFolder(): IFolder;
+    
+            /**
+                * Property Bag
+                */
+            Properties(): IBaseExecution<Types.IPropertyValues>;
+    
+            StorageMetrics(): IBaseExecution;
+    }
+    
+    /**
+        * Folder Query Result
+        */
+    export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
+            /**
+                * Gets the files contained in the folder.
+                */
+            Files: IFileResults;
+    
+            /**
+                * Gets the folders contained in the list folder.
+                */
+            Folders: IFolderResults;
+    
+            /**
+                * Specifies the list item field (2) values for the list item corresponding to the file.
+                */
+            ListItemAllFields: Types.IListItemResults;
+    
+            /**
+                * Gets the parent list folder of the folder.
+                */
+            ParentFolder: IFolderResult;
+    
+            /**
+                * Property Bag
+                */
+            Properties: Types.IPropertyValues;
+    
+            StorageMetrics: any;
+    }
+    
+    /**
+        * Folder Result
+        */
+    export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBaseResult<IFolder, IFolderResult, IFolderQueryResult> { }
+    
+    /**
+        * Folder
+        */
+    export interface IFolder extends IFolderMethods, IFolderQueryProps, IBaseQueryExecution<IFolder, IFolderResult, IFolderQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/folders' {
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IFolder, IFolderQueryResult, IFolderResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IFoldersMethods {
+            /**
+                * Adds the folder that is located at the specified URL to the collection.
+                * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
+                */
+            add(url): IBaseExecution<IFolder, IFolderResult>;
+    
+            /**
+                * Get the file at the specified URL.
+                * @param serverRelativeUrl - The server-relative URL of the folder.
+                */
+            getbyurl(serverRelativeUrl): IFolder & IBaseExecution<IFolder, IFolderResult, IFolderQueryResult>;
+    }
+    
+    /**
+        * Folders
+        */
+    export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> { }
+    
+    /**
+        * Folder Results
+        */
+    export interface IFolderResults extends IFoldersMethods, IBaseCollectionResult<IFolderResult> { }
+}
+
+declare module 'gd-sprest/intellisense/graph' {
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Graph Collection
+        */
+    export interface IGraphCollection<T> {
+            value: Array<T>;
+    }
+    
+    /**
+        * Graph Methods
+        */
+    export interface IGraphMethods { }
+    
+    /**
+        * Graph Query Properties
+        */
+    export interface IGraphQueryProps {
+            /**
+                * Represents a collection of OneDrives and Document Libraries.
+                */
+            drives(): IBaseExecution<IGraphCollection<IGraphDrive>>;
+    
+            /**
+                * Represents a OneDrive or Document Library.
+                * @param id - The drive id.
+                */
+            drives(id: string): IBaseExecution<IGraphDrive>;
+    
+            /**
+                * Represents a collection of Azure Active Directory (Azure AD) groups.
+                * Types: Office 365 Group, Dynamic Group or Security Group
+                */
+            groups(): IBaseExecution<IGraphCollection<IGraphGroup>>;
+    
+            /**
+                * Represents an Azure Active Directory (Azure AD) group.
+                * Types: Office 365 Group, Dynamic Group or Security Group
+                * @param id - The group id.
+                */
+            groups(id: string): IBaseExecution<IGraphGroup>;
+    
+            /**
+                * Represents a collection of Azure AD user accounts.
+                */
+            users(): IBaseExecution<IGraphCollection<IGraphUser>>;
+    
+            /**
+                * Represents a collection of Azure AD user accounts.
+                * @param id - The user id.
+                */
+            users(id: string): IBaseExecution<IGraphUser>;
+    }
+    
+    /**
+        * Graph Result
+        */
+    export interface IGraphResult { }
+    
+    /**
+        * Graph Query Result
+        */
+    export interface IGraphQueryResult { }
+    
+    /**
+        * Graph Drive
+        */
+    export interface IGraphDrive {
+            // Identity of the user, device, or application which created the item.
+            createdBy?: { user: IGraphUser };
+    
+            // Date and time of item creation.
+            createdDateTime?: string;
+    
+            // Provide a user-visible description of the drive.
+            description?: string;
+    
+            // Describes the type of drive represented by this resource. OneDrive personal drives will return personal. OneDrive for Business will return business. SharePoint document libraries will return documentLibrary.
+            driveType?: string;
+    
+            // The unique identifier of the drive.
+            id?: string;
+    
+            // The drive items
+            items?: () => IBaseExecution<IGraphCollection<IGraphDriveItem>>;
+    
+            // Identity of the user, device, and application which last modified the item.
+            lastModifiedBy?: { user: IGraphUser };
+    
+            // Date and time the item was last modified.
+            lastModifiedDateTime?: string;
+    
+            // The name of the item.
+            name?: string;
+    
+            // The user account that owns the drive.
+            owner?: { user: IGraphUser };
+    
+            // Information about the drive's storage space quota.
+            quota?: IGraphDriveQuota;
+    
+            // Reference to the root folder.
+            root?: () => IBaseExecution<IGraphDriveItem>;
+    
+            // Collection of common folders available in OneDrive.
+            specials?: () => IBaseExecution<IGraphCollection<IGraphDriveItem>>;
+    
+            // Returns identifiers useful for SharePoint REST compatibility.
+            sharepointIds?: IGraphSharePointIds;
+    
+            // If present, indicates that this is a system-managed drive.
+            systemFacet?: any;
+    
+            // URL that displays the resource in the browser.
+            webUrl?: string;
+    }
+    
+    /**
+        * Graph Drive Item
+        */
+    export interface IGraphDriveItem {
+    }
+    
+    /**
+        * Graph Drive Quota
+        */
+    export interface IGraphDriveQuota {
+            deleted?: number;
+            remaining?: number;
+            state?: string;
+            total?: number;
+            used?: number;
+    }
+    
+    /**
+        * Graph Token
+        */
+    export interface IGraphToken {
+            access_token: string;
+            expires_on: string;
+            resource: string;
+            scope: string;
+            token_type: string;
+    }
+    
+    /**
+        * Graph
+        */
+    export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseExecution<IGraph, IGraphResult, IGraphQueryResult> { }
+    
+    /**
+        * Graph Group
+        */
+    export interface IGraphGroup {
+            // Default is false. Indicates if people external to the organization can send messages to the group.
+            allowExternalSenders?: boolean;
+    
+            // Default is false. Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set this property in a PATCH request for the group; do not set it in the initial POST request that creates the group.
+            autoSubscribeNewMembers?: boolean;
+    
+            // Describes a classification for the group (such as low, medium or high business impact). Valid values for this property are defined by creating a ClassificationList setting value, based on the template definition.
+            classification?: string;
+    
+            // Timestamp of when the group was created. The value cannot be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only.
+            createdDateTime?: string;
+    
+            // An optional description for the group.
+            description?: string;
+    
+            // The display name for the group. This property is required when a group is created and it cannot be cleared during updates. Supports $filter and $orderby.
+            displayName?: string;
+    
+            // Specifies the type of group to create. Possible values are Unified to create an Office 365 group, or DynamicMembership for dynamic groups.  For all other group types, like security-enabled groups and email-enabled security groups, do not set this property. Supports $filter.
+            groupTypes?: Array<string>;
+    
+            // The unique identifier for the group. Inherited from directoryObject. Key. Not nullable. Read-only.
+            id?: string;
+    
+            // Default value is true. Indicates whether the current user is subscribed to receive email conversations.
+            isSubscribedByMail?: boolean;
+    
+            // The SMTP address for the group, for example, "serviceadmins@contoso.onmicrosoft.com". Read-only. Supports $filter.
+            mail?: string;
+    
+            // Specifies whether the group is mail-enabled. If the securityEnabled property is also true, the group is a mail-enabled security group; otherwise, the group is a Microsoft Exchange distribution group.
+            mailEnabled?: boolean;
+    
+            // The mail alias for the group, unique in the organization. This property must be specified when a group is created. Supports $filter.
+            mailNickname?: string;
+    
+            // Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only. Supports $filter.
+            onPremisesLastSyncDateTime?: string;
+    
+            // Contains the on-premises security identifier (SID) for the group that was synchronized from on-premises to the cloud. Read-only.
+            onPremisesSecurityIdentifier?: string;
+    
+            // true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only. Supports $filter.
+            onPremisesSyncEnabled?: boolean;
+    
+            // The any operator is required for filter expressions on multi-valued properties. Read-only. Not nullable. Supports $filter.
+            proxyAddresses?: Array<string>;
+    
+            // Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only.
+            renewedDateTime?: string;
+    
+            // Specifies whether the group is a security group. If the mailEnabled property is also true, the group is a mail-enabled security group; otherwise it is a security group. Must be false for Office 365 groups. Supports $filter.
+            securityEnabled?: boolean;
+    
+            // Count of posts that the current  user has not seen since his last visit.
+            unseenCount?: number;
+    
+            // Specifies the visibility of an Office 365 group. Possible values are: Private, Public, or empty (which is interpreted as Public).
+            visibility?: string;
+    }
+    
+    /**
+        * Graph SharePoint IDs
+        */
+    export interface IGraphSharePointIds {
+            // The unique identifier (guid) for the item's list in SharePoint.
+            listId?: string;
+    
+            // An integer identifier for the item within the containing list.
+            listItemId?: string;
+    
+            // The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site.
+            listItemUniqueId?: string;
+    
+            // The unique identifier (guid) for the item's site collection (SPSite).
+            siteId?: string;
+    
+            // The SharePoint URL for the site that contains the item.
+            siteUrl?: string;
+    
+            // The unique identifier (guid) for the item's site (SPWeb).
+            webId?: string;
+    }
+    
+    /**
+        * Graph User
+        */
+    export interface IGraphUser {
+            // A freeform text entry field for the user to describe themselves.
+            aboutMe?: string;
+    
+            // true if the account is enabled; otherwise, false. This property is required when a user is created. Supports $filter.
+            accountEnabled?: boolean;
+    
+            // The licenses that are assigned to the user.
+            assignedLicenses?: Array<string>;
+    
+            // The plans that are assigned to the user.
+            assignedPlans?: Array<string>;
+    
+            // The birthday of the user. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1,
+            birthday?: string;
+    
+            // The user's phone numbers.
+            businessPhones?: Array<string>;
+    
+            // The city in which the user is located.
+            city?: string;
+    
+            // The company name which the user is associated.
+            companyName?: string;
+    
+            // The country/region in which the user is located; for example, “US” or “UK”.
+            country?: string;
+    
+            // The name for the department in which the user works.
+            department?: string;
+    
+            // The name displayed in the address book for the user.
+            displayName?: string;
+    
+            // The first name of the user.
+            givenName?: string;
+    
+            // The hire date of the user. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time.
+            hireDate?: string;
+    
+            // The unique identifier for the user.
+            id?: string;
+    
+            // The instant message voice over IP (VOIP) session initiation protocol (SIP) addresses for the user.
+            imAddresses?: Array<string>;
+    
+            // A list for the user to describe their interests.
+            interests?: Array<string>;
+    
+            // The user's job title.
+            jobTitle?: string;
+    
+            // The user's email address.
+            mail?: string;
+    
+            // The mail alias for the user.
+            mailNickname?: string;
+    
+            // The user's cellphone number.
+            mobilePhone?: string;
+    
+            // The URL for the user's personal site.
+            mySite?: string;
+    
+            // The user's physical office location.
+            officeLocation?: string;
+    
+            // The postal code for the user's postal address. 
+            postalCode?: string;
+    
+            // The user's language of preference.
+            preferredLanguage?: string;
+    
+            // The preferred name for the user.
+            preferredName?: string;
+    
+            // A list for the user to enumerate their responsibilities.
+            responsibilities?: Array<string>;
+    
+            // A list for the user to enumerate the schools they have attended.
+            schools?: Array<string>;
+    
+            // A list for the user to enumerate their skills.
+            skills?: Array<string>;
+    
+            // The state or province in the user's address.
+            state?: string;
+    
+            // The street address of the user's place of business.
+            streetAddress?: string;
+    
+            // The last name of the user.
+            surname?: string;
+    
+            // A two letter country code (ISO standard 3166). Required for users that will be assigned licenses due to legal requirement to check for availability of services in countries.  Examples include: "US", "JP", and "GB".
+            usageLocation?: string;
+    
+            // The user's principal name.
+            userPrincipalName?: string;
+    
+            // A string value that can be used to classify user types in your directory, such as “Member” and “Guest”.
+            userType?: string;
+    }
+}
+
+declare module 'gd-sprest/intellisense/group' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/intellisense";
+    
+    /**
+        * Group Methods
+        */
+    export interface IGroupMethods { }
+    
+    /**
+        * Group Query Properties
+        */
+    export interface IGroupQueryProps {
+            /**
+                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
+                */
+            Owner(): IUser;
+    
+            /**
+                * Gets a collection of user objects that represents all of the users in the group.
+                */
+            Users(): IUsers;
+    
+            /**
+                * Gets a collection of user objects that represents all of the users in the group.
+                * @param id - The user id.
+                */
+            Users(id): IUser;
+    }
+    
+    /**
+        * Group Query Result
+        */
+    export interface IGroupQueryResult extends IGroupMethods, SP.Group {
+            /**
+                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
+                */
+            Owner: IUserResult;
+    
+            /**
+                * Gets a collection of user objects that represents all of the users in the group.
+                */
+            Users: IUserResults;
+    }
+    
+    /**
+        * Group Result
+        */
+    export interface IGroupResult extends IGroupMethods, SP.Group, IGroupQueryProps, IBaseResult<IGroup, IGroupResult, IGroupQueryResult> { }
+    
+    /**
+        * Group
+        */
+    export interface IGroup extends IGroupMethods, IGroupQueryProps, IBaseQueryExecution<IGroup, IGroupResult, IGroupQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/groups' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IGroup, IGroupQueryResult, IGroupResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface ISiteGroupsMethods {
+            /**
+                * Adds a site to the site collection.
+                * @param groupInfo - The group creation information.
+                */
+            add(groupInfo: SP.GroupCreationInformation): IBaseExecution<IGroup, IGroupResult>;
+    
+            /**
+                * Returns a group from the collection based on the member ID of the group.
+                * @param id - The site group id.
+                */
+            getById(id): IGroup & IBaseExecution<IGroup, IGroupResult, IGroupQueryResult>;
+    
+            /**
+                * Returns a cross-site group from the collection based on the name of the group.
+                * @param name - The name of the group. The group name is specified in its LoginName property.
+                */
+            getByName(name): IGroup & IBaseExecution<IGroup, IGroupResult, IGroupQueryResult>;
+    
+            /**
+                * Removes the group with the specified member ID from the collection.
+                * @param id - The ID of the group to remove.
+                */
+            removeById(id): IBaseExecution;
+    
+            /**
+                * Removes the cross-site group with the specified name from the collection.
+                * @param name - The name of the group to remove. The group name is specified in its LoginName property.
+                */
+            removeByLoginName(name): IBaseExecution;
+    }
+    
+    /**
+        * Site Groups
+        */
+    export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> { }
+    
+    /**
+        * Site Group Results
+        */
+    export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupResult> { }
+}
+
+declare module 'gd-sprest/intellisense/items' {
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IListItem, IListItemQueryResult, IListItemResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IListItemsMethods {
+            /**
+                * Adds an item to the list item collection.
+                * @param data - The item properties.
+                */
+            add(data): IBaseExecution<IListItem, IListItemResult>;
+    
+            /**
+                * Gets an item by the specified id.
+                * @param id - The item id.
+                */
+            getById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
+    }
+    
+    /**
+        * List Items
+        */
+    export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> { }
+    
+    /**
+        * List Item Results
+        */
+    export interface IListItemResults extends IListItemsMethods, IBaseCollectionResult<IListItemResult> { }
+}
+
+declare module 'gd-sprest/intellisense/limitedWebPartManager' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Limited Web Part Manager
+        */
+    export interface ILimitedWebPartManager extends SP.WebParts.LimitedWebPartManager, IBaseExecution<ILimitedWebPartManager, ILimitedWebPartManager> {
+            /**
+                * Gets a webpart by its id.
+                * @param id - The web part id.
+                */
+            WebParts(id): IBaseExecution;
+    }
+}
+
+declare module 'gd-sprest/intellisense/list' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/intellisense";
+    
+    /**
+        * List Data Stream
+        */
+    export interface IListDataStream<RowProps = SP.ListItem> {
+            FilterFields?: string;
+            FilterLink: string;
+            FirstRow: number;
+            FolderPermissions: string;
+            ForceNoHierarchy: string;
+            HierarchyHasIndention: string;
+            LastRow: number;
+            Row: Array<RowProps>;
+            RowLimit: number;
+    }
+    
+    /**
+        * List Methods
+        */
+    export interface IListMethods {
+            /**
+                * Creates unique role assignments for the securable object.
+                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+                */
+            breakRoleInheritance(copyRoleAssignments, clearSubScopes);
+    
+            /**
+                * Deletes the list.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
+                * @param query - The change query.
+                */
+            getChanges(query): IBaseExecution;
+    
+            /**
+                * Returns the list item with the specified list item identifier.
+                * @param id - The list item id.
+                */
+            getItemById(id): IListItem & IBaseExecution<IListItem, IListItemResult, IListItemQueryResult>;
+    
+            /**
+                * Returns a collection of items from the list based on the view xml.
+                * @param viewXml - The view xml CAML query.
+                */
+            getItems(viewXml): IBaseExecution<IListItems, IListItemResults>;
+    
+            /**
+                * Returns a collection of items from the list based on the specified query.
+                * @camlQuery - The caml query.
+                */
+            getItemsByQuery(camlQuery): IBaseExecution<IListItems, IListItemResults>;
+    
+            /**
+                * Returns a collection of items from the list based on the specified query.
+                * @query - The query that contains the change token.
+                */
+            getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBaseExecution<IListItems, IListItemResults>;
+    
+            /**
+                * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
+                */
+            getRelatedFields(): IBaseExecution;
+    
+            /**
+                * Gets the effective user permissions for the current user.
+                * @param loginName - The user login name.
+                */
+            getUserEffectivePermissions(loginName): IBaseExecution;
+    
+            /**
+                * Returns the list view with the specified view identifier.
+                * @param viewId - The view id.
+                */
+            getViewById(viewId): IView & IBaseExecution<IView, IViewResult, IViewQueryResult>;
+    
+            /**
+                * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBaseExecution;
+    
+            /**
+                * Renders the list data.
+                * @param viewXml - A CAML query that defines the items and fields that you want returned.
+                */
+            renderListData(viewXml): IBaseExecution;
+    
+            /**
+                * Renders the list form data.
+                * @param itemId - The item id.
+                * @param formId - The identifier of the form.
+                * @param mode - The SP.ControlMode of the control used to display the item.
+                * Types of modes: 1 - Display, 2 - Edit, 3 - New
+                */
+            renderListFormData(itemId, formId, mode: number): IBaseExecution;
+    
+            /**
+                * Reserves a list item ID for idempotent list item creation.
+                */
+            reserveListItemId(): IBaseExecution;
+    
+            /**
+                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+                */
+            resetRoleInheritance(): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data): IBaseExecution;
+    }
+    
+    /**
+        * List Query Properties
+        */
+    export interface IListQueryProps {
+            /**
+                * Gets the content types that are associated with the list.
+                */
+            ContentTypes(): IContentTypes;
+    
+            /**
+                * Gets the content types that are associated with the list.
+                * @param id - The id of the content type.
+                */
+            ContentTypes(id: string): IContentType;
+    
+            /**
+                * Gets the default list view.
+             */
+            DefaultView(): IView;
+    
+            DescriptionResouce(): IBaseExecution<SP.ResourcePath>;
+    
+            /**
+                * Gets the event receivers associated with the list.
+             */
+            EventReceivers(): Types.IEventReceivers;
+    
+            /**
+                * Gets the event receiver associated with the list.
+                * @param id - The id of the event receiver.
+             */
+            EventReceivers(id: string): Types.IEventReceiver;
+    
+            /**
+                * Gets the fields in the list.
+                */
+            Fields(): Types.IFields;
+    
+            /**
+                * Gets the field in the list.
+                * @param internalNameOrTitle - The internal name or title of the field.
+                */
+            Fields(internalNameOrTitle: string): Types.IField;
+    
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject(): IBaseExecution<string>;
+    
+            /**
+                * Gets the list forms in the list.
+                */
+            Forms(): IBaseExecution;
+    
+            /**
+                * Gets the list form in the list.
+                * @param id - The id of the form.
+                */
+            Forms(id: string): IBaseExecution;
+    
+            /**
+                * Gets a value that specifies the information rights management settings.
+             */
+            InformationRightsManagementSettings(): IBaseExecution;
+    
+            /**
+                * Gets the list items in the list.
+                */
+            Items(): IListItems;
+    
+            /**
+                * Gets the list item in the list.
+                * @param id - The id of the list item.
+                */
+            Items(id: number | string): IListItem;
+    
+            /**
+                * Gets a value that specifies the site that contains the list.
+                */
+            ParentWeb(): IBaseExecution<Types.IWeb>;
+    
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments(): Types.IRoleAssignments;
+    
+            /**
+                * Gets the role assignments for the securable object.
+                * @param id - The role assignment id.
+                */
+            RoleAssignments(id: string): Types.IRoleAssignment;
+    
+            /**
+                * Gets the root folder of the list.
+                */
+            RootFolder(): Types.IFolder;
+    
+            /**
+                * Gets the file in the root folder of the list.
+                * @param url - The url of the file within the root folder.
+                */
+            RootFolder(url: string): Types.IFile;
+    
+            Subscriptions(): IBaseExecution<IBaseExecution>;
+    
+            TitleResource(): IBaseExecution<SP.ResourcePath>;
+    
+            /**
+                * Gets the user custom actions for the list.
+                */
+            UserCustomActions(): Types.IUserCustomActions;
+    
+            /**
+                * Gets the user custom action(s) for the list.
+                * @param id - The id of the user custom action.
+                */
+            UserCustomActions(id: string): Types.IUserCustomAction;
+    
+            /**
+                * Gets the views in the list.
+                */
+            Views(): IViews;
+    
+            /**
+                * Gets the view in the list.
+                * @param id - The id of the view.
+                */
+            Views(id: string): IView;
+    }
+    
+    /**
+        * List Query Result
+        */
+    export interface IListQueryResult extends IListMethods, SP.List {
+            /**
+                * Gets the content types that are associated with the list.
+                */
+            ContentTypes: IContentTypeResults;
+    
+            /**
+                * Gets the default list view.
+             */
+            DefaultView: IViewResult;
+    
+            DescriptionResouce: SP.ResourcePath;
+    
+            /**
+                * Gets the event receivers associated with the list.
+             */
+            EventReceivers: Types.IEventReceiverResults;
+    
+            /**
+                * Gets the fields in the list.
+                */
+            Fields: Types.IFieldResults;
+    
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject: Types.IWebResult;
+    
+            /**
+                * Gets the list forms in the list.
+                */
+            Forms: Types.Results.IResults<SP.Form>;
+    
+            /**
+                * Gets a value that specifies the information rights management settings.
+             */
+            InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
+    
+            /**
+                * Gets the list items in the list.
+                */
+            Items: IListItemResults;
+    
+            /**
+                * Gets a value that specifies the site that contains the list.
+                */
+            ParentWeb: Types.IWebResult;
+    
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments: Types.IRoleAssignmentResults;
+    
+            /**
+                * Gets the root folder of the list.
+                */
+            RootFolder: Types.IFolderResult;
+    
+            Subscriptions: Types.Results.IResults<SP.WorkflowServices.WorkflowSubscription>;
+    
+            TitleResource: SP.ResourcePath;
+    
+            /**
+                * Gets the user custom actions for the list.
+                */
+            UserCustomActions: Types.IUserCustomActionResults;
+    
+            /**
+                * Gets the views in the list.
+                */
+            Views: IViewResults;
+    
+            /**
+                * Gets a value that specifies the collection of all workflow associations for the list.
+                */
+            WorkflowAssociations: Types.Results.IResults<string>;
+    
+            WriteSecurity: number;
+    }
+    
+    /**
+        * List Result
+        */
+    export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBaseResult<IList, IListResult, IListQueryResult> { }
+    
+    /**
+        * List
+        */
+    export interface IList extends IListMethods, IListQueryProps, IBaseQueryExecution<IList, IListResult, IListQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/listItem' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IContentType, IContentTypeResult, IList, IListResult } from "gd-sprest/intellisense";
+    
+    /**
+        * List Item Methods
+        */
+    export interface IListItemMethods {
+            /**
+                * Creates unique role assignments for the securable object.
+                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+                */
+            breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBaseExecution;
+    
+            /**
+                * Deletes the list item.
+                */
+            delete(): IBaseExecution;
+    
+            /**
+                * Gets the effective permissions that a specified user has on the list item.
+                * @param loginName - The login name.
+                */
+            getUserEffectivePermissions(loginName): IBaseExecution;
+    
+            /**
+                * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBaseExecution;
+    
+            /**
+                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+                */
+            resetRoleInheritance(): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data): IBaseExecution;
+    
+            /**
+                * Validates and sets the values of the specified collection of fields for the list item.
+                * @param formValues - The fields to change and their new values. Pass this parameter in the request body, as shown in the request example.
+                * @param bNewDocumentUpdate - True if the list item is a document being updated after upload; otherwise false. Pass this parameter in the request body, as shown in the request example, or in the URI path.
+                */
+            validateUpdateListItem(formValues, bNewDocumentUpdate);
+    }
+    
+    /**
+        * List Item Query Properties
+        */
+    export interface IListItemQueryProps {
+            /**
+                * Get the attachment collection.
+                */
+            AttachmentFiles(): Types.IAttachmentFiles;
+    
+            /**
+                * Gets the specified attachment file.
+                * @param fileName - The filename of the attachment.
+                */
+            AttachmentFiles(fileName: string): IBaseExecution<SP.Attachment>;
+    
+            /**
+                * Gets a value that specifies the content type of the list item.
+                */
+            ContentType(): IContentType;
+    
+            /**
+                * Gets the values for the list item as HTML.
+                */
+            FieldValuesAsHtml(): IBaseExecution;
+    
+            /**
+                * Gets the list item's field values as a collection of string values.
+                */
+            FieldValuesAsText(): IBaseExecution;
+    
+            /**
+                * Gets the formatted values to be displayed in an edit form.
+                */
+            FieldValuesForEdit(): IBaseExecution;
+    
+            /**
+                * Gets the file that is represented by the item from a document library.
+                */
+            File(): Types.IFile;
+    
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject(): IBaseExecution<string>;
+    
+            /**
+                * Gets a folder object that is associated with a folder item.
+                */
+            Folder(): Types.IFolder;
+    
+            GetDlpPolicyTip(): IBaseExecution;
+    
+            /**
+                * Gets the parent list that contains the list item.
+                */
+            ParentList(): IList;
+    
+            /**
+                * Property Bag
+                */
+            Properties(): IBaseExecution<Types.IPropertyValues>;
+    
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments(): Types.IRoleAssignments;
+    
+            /**
+                * Gets the role assignment(s) for the securable object.
+                * @param id - The role assignment id.
+                */
+            RoleAssignments(id: string): Types.IRoleAssignment;
+    }
+    
+    /**
+        * List Item Query Result
+        */
+    export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
+            /**
+                * Get the attachment collection.
+                */
+            AttachmentFiles: Types.IAttachmentFilesMethods & Types.Results.IResults<SP.Attachment>;
+    
+            /**
+                * Gets a value that specifies the content type of the list item.
+                */
+            ContentType: IContentTypeResult;
+    
+            /**
+                * Gets the values for the list item as HTML.
+                */
+            FieldValuesAsHtml: Array<string>;
+    
+            /**
+                * Gets the list item's field values as a collection of string values.
+                */
+            FieldValuesAsText: Array<string>;
+    
+            /**
+                * Gets the formatted values to be displayed in an edit form.
+                */
+            FieldValuesForEdit: Array<string>;
+    
+            /**
+                * Gets the file that is represented by the item from a document library.
+                */
+            File: Types.IFileResult;
+    
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject: IListResult;
+    
+            /**
+                * Gets a folder object that is associated with a folder item.
+                */
+            Folder: Types.IFolderResult;
+    
+            GetDlpPolicyTip(): IBaseExecution;
+    
+            /**
+                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+                */
+            HasUniqueRoleAssignments: boolean;
+    
+            /**
+                * Gets the parent list that contains the list item.
+                */
+            ParentList: IListResult;
+    
+            /**
+                * Property Bag
+                */
+            Properties: Array<string>;
+    
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments: Types.IRoleAssignmentResults;
+    }
+    
+    /**
+        * List Item Result
+        */
+    export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBaseResult<IListItem, IListItemResult, IListItemQueryResult> { }
+    
+    /**
+        * List Item
+        */
+    export interface IListItem extends IListItemMethods, IListItemQueryProps, IBaseQueryExecution<IListItem, IListItemResult, IListItemQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/lists' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IList, IListQueryResult, IListResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IListsMethods {
+            /**
+                * Adds a list to the list collection.
+                * @param parameters - The list creation information.
+                */
+            add(parameters: SP.List): IBaseExecution<IList, IListResult>;
+    
+            /**
+                * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+                */
+            ensureSiteAssetsLibrary(): IBaseExecution<IList, IListResult, IListQueryResult>;
+    
+            /**
+                * Gets a list that is the default location for wiki pages.
+                */
+            ensureSitePagesLibrary(): IBaseExecution<IList, IListResult, IListQueryResult>;
+    
+            /**
+                * Returns the list with the specified list identifier.
+                * @param id - The list id.
+                */
+            getById(id): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
+    
+            /**
+                * Returns the list with the specified title from the collection.
+                * @param title - The list title.
+                */
+            getByTitle(title): IList & IBaseExecution<IList, IListResult, IListQueryResult>;
+    }
+    
+    /**
+        * Lists
+        */
+    export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> { }
+    
+    /**
+        * List Results
+        */
+    export interface IListResults extends IListsMethods, IBaseCollectionResult<IListResult> { }
+}
+
+declare module 'gd-sprest/intellisense/navigation' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Navigation Methods
+        */
+    export interface INavigationServiceRESTMethods {
+            /**
+                * Method to get the menu state.
+                * @param menuNodeKey - The key of the start node. If no key is provided, the root node is used.
+                * @param depth - The depth of the dump. Default is 10.
+                * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
+                * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
+                */
+            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBaseExecution<SP.MenuState>;
+    }
+    
+    /**
+        * Navigation Properties
+        */
+    export interface INavigationServiceRESTProps {
+    }
+    
+    /**
+        * Navigation Queryable Properties
+        */
+    export interface INavigationServiceRESTQueryProps {
+            MenuState(): IBaseExecution<SP.MenuState>;
+            MenuState(key: number): IBaseExecution<SP.MenuState>;
+    }
+    
+    /**
+        * Navigation
+        */
+    export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBaseExecution<INavigationServiceREST> { }
+}
+
+declare module 'gd-sprest/intellisense/odata' {
+    /**
+        * OData Query
+        */
+    export interface ODataQuery {
+            /** An optional custom query string */
+            Custom?: string;
+    
+            /** The properties to expand. */
+            Expand?: Array<string>;
+    
+            /** The filters. */
+            Filter?: string;
+    
+            /**
+                * Flag to get all items.
+                * Use this flag to get past the 5000 limit.
+                */
+            GetAllItems?: boolean;
+    
+            /** The order by fields. */
+            OrderBy?: Array<string>;
+    
+            /** The fields to select. */
+            Select?: Array<string>;
+    
+            /** The number of results to skip. */
+            Skip?: number;
+    
+            /** The max number of results to return. */
+            Top?: number;
+    }
+}
+
+declare module 'gd-sprest/intellisense/peopleManager' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IResults } from "gd-sprest/intellisense/results";
+    
+    /**
+        * Person Properties
+        */
+    export interface IPersonProperties extends IBaseExecution<IPersonProperties> {
+            /**
+                * The user's account name.
+                */
+            AccountName: string;
+    
+            /**
+                * The account names of the user's direct reports.
+                */
+            DirectReports: string
+    
+            /**
+                * The user's display name.
+                */
+            DisplayName: string;
+    
+            /**
+                * The user's email address.
+                */
+            Email: string;
+    
+            /**
+                * The account names of the user's manager hierarchy.
+                */
+            ExtendedManagers: IResults<string>;
+    
+            /**
+                * The account names of the user's extended reports.
+                */
+            ExtendedReports: IResults<string>;
+    
+            /**
+                * A Boolean value that indicates whether the user is being followed by the current user.
+                */
+            IsFollowed: boolean;
+    
+            /**
+                * The user's latest microblog post.
+                */
+            LatestPost: string;
+    
+            /**
+                * The account names of the user's peers.
+                */
+            Peers: IResults<string>;
+    
+            /**
+                * The absolute URL of the user's personal site.
+                */
+            PersonalUrl: string;
+    
+            /**
+                * The URL of the user's profile picture.
+                */
+            PictureUrl: string;
+    
+            /**
+                * The user's title.
+                */
+            Title: string;
+    
+            /**
+                * The user profile properties for the user.
+                */
+            UserProfileProperties: IResults<SP.KeyValue>;
+    
+            /**
+                * The URL of the user's profile page.
+                */
+            UserUrl: string;
+    }
+    
+    /**
+        * People Manager
+        */
+    export interface IPeopleManager extends IBaseExecution<IPeopleManager> {
+    
+            /**
+                * The URL of the edit profile page for the current user.
+                */
+            EditProfileLink: string;
+    
+            /**
+                * A Boolean value that indicates whether the current user's People I'm Following list is public.
+                */
+            IsMyPeopleListPublic: boolean;
+    
+    
+            /** Checks whether the specified user is following the current user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+             */
+            amIFollowedBy(accountName: string): IBaseExecution;
+    
+            /**
+                * Checks whether the current user is following the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            amIFollowing(accountName: string): IBaseExecution;
+    
+            /**
+                * Adds the specified user to the current user's list of followed users.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            follow(accountName: string): IBaseExecution;
+    
+            /**
+                * Adds the specified tag to the current user's list of followed tags.
+                * @param id - The ID of the tag to start following.
+                */
+            followTag(id: string): IBaseExecution;
+    
+            /**
+                * Gets tags that the user is following.
+                * @param maxCount - The maximum number of tags to get.
+                */
+            getFollowedTags(maxCount: number): IBaseExecution;
+    
+            /**
+                * Gets the people who are following the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            getFollowersFor(accountName: string): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets the people who are following the current user.
+                */
+            getMyFollowers(): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets user properties for the current user.
+                */
+            getMyProperties(): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets suggestions for who the current user might want to follow.
+                */
+            getMySuggestions(): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets the people who the specified user is following.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            getPeopleFollowedBy(accountName: string): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets the people who the current user is following.
+                */
+            getPeopleFollowedByMe(): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets user properties for the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            getPropertiesFor(accountName: string): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Gets the most popular tags.
+                */
+            getTrendingTags(): IBaseExecution;
+    
+            /**
+                * Gets the specified user profile property for the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                * @param propertyName - The case-sensitive name of the property to get.
+                */
+            getUserProfilePropertyFor(accountName: string, propertyName: string): IBaseExecution<IPersonProperties>;
+    
+            /**
+                * Removes the specified user from the user's list of suggested people to follow.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            hideSuggestion(accountName: string): IBaseExecution;
+    
+            /**
+                * Checks whether the first user is following the second user.
+                * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
+                * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
+                */
+            isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBaseExecution;
+    
+            /**
+                * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
+                * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
+                */
+            setMyProfilePicture(stream: any): IBaseExecution;
+    
+            /**
+                * Remove the specified user from the current user's list of followed users.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            stopFollowing(accountName: string): IBaseExecution;
+    
+            /**
+                * Remove the specified tag from the current user's list of followed tags.
+                * @param id - The ID of the tag to stop following.
+                */
+            stopFollowingTag(id: string): IBaseExecution;
+    }
+}
+
+declare module 'gd-sprest/intellisense/peoplePicker' {
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IEntityData } from "gd-sprest/intellisense/entityData";
+    
+    /**
+        * People Picker Query
+        */
+    export interface IPeoplePickerQuery {
+            /** True to allow the email address. */
+            AllowEmailAddresses?: boolean;
+    
+            /** True to allow multiple entities.  */
+            AllowMultipleEntities?: boolean;
+    
+            /** True to allow all url zones. */
+            AllUrlZones?: boolean;
+    
+            /** True to enable claim providers. */
+            EnabledClaimProviders?: boolean;
+    
+            /** True to force claims. */
+            ForceClaims?: boolean;
+    
+            /** Maximum entity suggestions. */
+            MaximumEntitySuggestions: number;
+    
+            /** The principal source. */
+            PrincipalSource?: number;
+    
+            /** The principal type. */
+            PrincipalType?: number;
+    
+            /** The query string. This value must be >= 3 characters. */
+            QueryString?: string;
+    
+            /** Required flag. */
+            Required?: boolean;
+    
+            /** The SharePoint group id. */
+            SharePointGroupID?: number;
+    
+            /** The url zone. */
+            UrlZone?: number;
+    
+            /** Url zone specified flag. */
+            UrlZoneSpecified?: boolean;
+    
+            /** The web. */
+            Web?: any;
+    
+            /** The web application id. */
+            WebApplicationID?: any;
+    }
+    
+    /**
+        * People Picker Resolve User
+        */
+    export interface IPeoplePickerResolveUser {
+            // The client people picker resolve user results
+            ClientPeoplePickerResolveUser: Array<IPeoplePickerUser>;
+    }
+    
+    /**
+        * People Picker Search User
+        */
+    export interface IPeoplePickerSearchUser {
+            // The client people picker search user results
+            ClientPeoplePickerSearchUser: Array<IPeoplePickerUser>;
+    }
+    
+    /**
+        * People Picker User
+        */
+    export interface IPeoplePickerUser {
+            /** Description */
+            Description?: string;
+    
+            /** Display Text */
+            DisplayText: string;
+    
+            /** The user entity data. */
+            EntityData?: IEntityData;
+    
+            /** Entity Type */
+            EntityType?: string;
+    
+            /** Flag to determine if the search user is resolved. */
+            IsResolved?: boolean;
+    
+            /** The search value. */
+            Key: string;
+    
+            /** An array of un-resolved user entities. */
+            MultipleMatches?: Array<IEntityData>;
+    
+            /** Provider Display Name */
+            ProviderDisplayName?: string;
+    
+            /** Provider Name */
+            ProviderName?: string;
+    }
+    
+    /**
+        * People Picker
+        */
+    export interface IPeoplePicker extends IBaseExecution {
+            /** Method to resolve users.
+                * @param query - The people picker query.
+             */
+            clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerResolveUser>;
+    
+            /** Method to search for users.
+                * @param query - The people picker query.
+             */
+            clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerSearchUser>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/profileLoader' {
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IUserProfile } from "gd-sprest/intellisense";
+    
+    /**
+        * Profile Loader
+        */
+    export interface IProfileLoader extends IBaseExecution<IProfileLoader> {
+            /**
+                * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
+                * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
+                */
+            createPersonalSiteEnqueueBulk(emailIDs: Array<string>): IBaseExecution;
+    
+            /**
+                * Gets the user profile of the site owner.
+                */
+            getOwnerUserProfile(): IBaseExecution<IUserProfile>;
+    
+            /**
+                * Gets the user profile that corresponds to the current user.
+                */
+            getUserProfile(): IBaseExecution<IUserProfile>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/propertyValues' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { ODataQuery } from "gd-sprest/intellisense";
+    
+    /**
+        * Property Values
+        */
+    export interface IPropertyValues extends IBaseExecution, SP.KeyValue {
+            /**
+                * Queries the collection.
+                * @param oData - The OData information.
+                */
+            query(query: ODataQuery): IPropertyValues;
+    }
+}
+
+declare module 'gd-sprest/intellisense/results' {
+    import { SP } from "gd-sprest-def";
+    
+    /**
+        * Results
+        */
+    export interface IResults<P> {
+            /** The collection data */
+            results: Array<P>;
+    }
+    
+    /**
+        * App License
+        */
+    export interface AppLicense {
+            /** The collection of app licenses. */
+            results: Array<SP.AppLicense>;
+    }
+    
+    /**
+        * Content Type Id
+        */
+    export interface ContentTypeId {
+            /** The collection of content type ids. */
+            results: Array<SP.ContentTypeId>;
+    }
+    
+    /**
+        * Creatable Item Information
+        */
+    export interface CreatableItemInfo {
+            /** The collection of creatable item information. */
+            results: Array<SP.CreatableItemInfoCollection>;
+    }
+    
+    /**
+        * Custom Action Element
+        */
+    export interface CustomActionElement {
+            /** The collection of custom action elements. */
+            results: Array<SP.CustomActionElement>;
+    }
+    
+    /**
+        * Custom Result
+        */
+    export interface CustomResult {
+            /** The collection of custom results. */
+            results: Array<CustomResult>;
+    }
+    
+    /**
+        * Data Row
+        */
+    export interface DataRow {
+            /** The collection of data rows. */
+            results: Array<SP.SimpleDataRow>;
+    }
+    
+    /**
+        * Key/Value
+        */
+    export interface KeyValue {
+            /** The collection of key-value pairs. */
+            results: Array<SP.KeyValue>;
+    }
+    
+    /**
+        * List Data Validation Failure
+        */
+    export interface ListDataValidationFailure {
+            /** The collection of list data validation failures. */
+            results: Array<SP.ListDataValidationFailure>;
+    }
+    
+    /**
+        * Menu Node
+        */
+    export interface MenuNode {
+            /** The collection of menu nodes. */
+            results: Array<SP.MenuNode>;
+    }
+    
+    /**
+        * Number
+        */
+    export interface Number {
+            /** The collection of numbers. */
+            results: Array<number>;
+    }
+    
+    /**
+        * Object
+        */
+    export interface Object {
+            /** A collection of objects. */
+            results: Array<object>;
+    }
+    
+    /**
+        * Parameter Information
+        */
+    export interface ParameterInformation {
+            /** The collection of parameter information. */
+            results: Array<SP.ParameterInformation>;
+    }
+    
+    /**
+        * Personal Result Suggestion
+        */
+    export interface PersonalResultSuggestion {
+            /** The collection of personal result suggestions. */
+            results: Array<PersonalResultSuggestion>;
+    }
+    
+    /**
+        * Query Result
+        */
+    export interface QueryResult {
+            /** The collection of custom results. */
+            results: Array<QueryResult>;
+    }
+    
+    /**
+        * Query Suggestion Query
+        */
+    export interface QuerySuggestionQuery {
+            /** The collection of query suggestion queries. */
+            results: Array<QuerySuggestionQuery>;
+    }
+    
+    /**
+        * Refiner
+        */
+    export interface Refiner {
+            /** The collection of refiners. */
+            results: Array<Refiner>;
+    }
+    
+    /**
+        * Refiner Entry
+        */
+    export interface RefinerEntry {
+            /** The collection of refiner entries. */
+            results: Array<RefinerEntry>;
+    }
+    
+    /**
+        * Shared User
+        */
+    export interface SharedWithUser {
+            /** The collection of shared users. */
+            results: Array<SP.SharedWithUser>
+    }
+    
+    /**
+        * Social Actor
+        */
+    export interface SocialActor {
+            /** The collection of social actors. */
+            results: Array<SocialActor>;
+    }
+    
+    /**
+        * Social Data Item
+        */
+    export interface SocialDataItem {
+            /** The collection of social data items. */
+            results: Array<SocialDataItem>;
+    }
+    
+    /**
+        * Social Data Overlay
+        */
+    export interface SocialDataOverlay {
+            /** The collection of social data overlays. */
+            results: Array<SocialDataOverlay>;
+    }
+    
+    
+    /**
+        * Social Post
+        */
+    export interface SocialPost {
+            /** The collection of social posts. */
+            results: Array<SocialPost>;
+    }
+    
+    /**
+        * Social Post Definition Data Item
+        */
+    export interface SocialPostDefinitionDataItem {
+            /** The collection of social post definition data items. */
+            results: Array<SocialPostDefinitionDataItem>;
+    }
+    
+    /**
+        * Social Thread
+        */
+    export interface SocialThread {
+            /** The collection of social threads. */
+            results: Array<SocialThread>;
+    }
+    
+    /**
+        * String Collection
+        */
+    export interface String {
+            /** The collection of strings. */
+            results: Array<string>;
+    }
+    
+    /**
+        * Visualization Field
+        */
+    export interface VisualizationField {
+            /** The collection of visualization fields. */
+            results: Array<SP.VisualizationField>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/roleAssignment' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { IRoleDefinition, IRoleDefinitions } from "gd-sprest/intellisense";
+    
+    /**
+        * Role Assignment Methods
+        */
+    export interface IRoleAssignmentMethods {
+            /**
+                * Deletes the role assignment.
+                */
+            delete(): IBaseExecution;
+    }
+    
+    /**
+        * Role Assignment Query Properties
+        */
+    export interface IRoleAssignmentQueryProps {
+            /**
+                * Gets the user or group that corresponds to the Role Assignment.
+                */
+            Member(): IBaseExecution<Types.IGroup | Types.IUser>;
+    
+            /**
+                * Gets the collection of role definition bindings for the role assignment.
+                */
+            RoleDefinitionBindings(): IRoleDefinitions;
+    }
+    
+    /**
+        * Role Assignment Query Result
+        */
+    export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.RoleAssignment {
+            /**
+                * Gets the user or group that corresponds to the Role Assignment.
+                */
+            Member: Types.IUser;
+    
+            /**
+                * Gets the collection of role definition bindings for the role assignment.
+                */
+            RoleDefinitionBindings: Types.Results.IResults<IRoleDefinition>;
+    }
+    
+    /**
+        * Role Assignment Result
+        */
+    export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBaseResult<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+    
+    /**
+        * Role Assignment
+        */
+    export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBaseQueryExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/intellisense/roleAssignments' {
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IRoleAssignmentsMethods {
+            /**
+                * Adds a new role assignment with the specified principal and role definitions to the collection.
+                * @param principalId - The ID of the user or group to assign permissions to.
+                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+                */
+            addRoleAssignment(principalId, roleDefId): IBaseExecution<IRoleAssignment, IRoleAssignmentResult>;
+    
+            /**
+                * Gets the role assignment associated with the specified principal ID from the collection.
+                * @param principalId - The ID of the user or group to assign permissions to.
+                */
+            getByPrincipalId(principalId): IRoleAssignment & IBaseExecution<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult>;
+    
+            /**
+                * Gets the role definition with the specified role type.
+                * @param principalId - The ID of the user or group to assign permissions to.
+                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+                */
+            removeRoleAssignment(principalId, roleDefId): IBaseExecution;
+    }
+    
+    /**
+        * Role Assignments
+        */
+    export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+    
+    /**
+        * Role Assignment Results
+        */
+    export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentResult> { }
+}
+
+declare module 'gd-sprest/intellisense/roleDefinition' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Role Definition Methods
+        */
+    export interface IRoleDefinitionMethods {
+            /**
+                * Deletes the role definition.
+                */
+            delete(): IBaseExecution;
+    }
+    
+    /**
+        * Role Definition Query Properties
+        */
+    export interface IRoleDefinitionQueryProps { }
+    
+    /**
+        * Role Definition Query Result
+        */
+    export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, SP.RoleDefinition { }
+    
+    /**
+        * Role Definition Result
+        */
+    export interface IRoleDefinitionResult extends IRoleDefinitionMethods, SP.RoleDefinition, IRoleDefinitionQueryProps, IBaseResult<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+    
+    /**
+        * Role Definition
+        */
+    export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBaseQueryExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/roleDefinitions' {
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
+    import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from "gd-sprest/intellisense";
+    
+    /**
+        * Methods
+        */
+    export interface IRoleDefinitionsMethods {
+            /**
+                * Gets the role definition with the specified ID from the collection.
+                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+                */
+            getById(roleDefId): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+    
+            /**
+                * Gets the role definition with the specified name.
+                * @param name -
+                */
+            getByName(name): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+    
+            /**
+                * Gets the role definition with the specified role type.
+                * @param roleType - The RoleTypeKind of the role definition.
+                */
+            getByType(roleType: number): IRoleDefinition & IBaseExecution<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+    }
+    
+    /**
+        * Role Definitions
+        */
+    export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+    
+    /**
+        * Role Definition Results
+        */
+    export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionResult> { }
+}
+
+declare module 'gd-sprest/intellisense/search' {
+    import { Microsoft } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Search
+        */
+    export interface ISearch extends IBaseExecution<ISearch, Microsoft.Office.Server.Search.REST.SearchResult> {
+            /** Method to execute a search query.
+                * @param settings - The search request settings.
+             */
+            postquery(settings: Microsoft.Office.Server.Search.REST.SearchRequest): IBaseExecution<Microsoft.Office.Server.Search.REST.SearchResult>;
+    
+            /** Method to execute a search query.
+                * @param settings - The search request settings.
+             */
+            searchquery(settings: Microsoft.Office.Server.Search.REST.SearchRequest): IBaseExecution<Microsoft.Office.Server.Search.REST.SearchResult>;
+    
+            /** Method to execute a search suggestion.
+                * @param settings - The search suggest settings.
+             */
+            //suggest(settings: Microsoft.Office.Server.Search.REST.SearchSuggestion): IBaseExecution<Microsoft.Office.Server.Search.REST.QuerySuggestionResults>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/site' {
+    import { SP } from "gd-sprest-def";
+    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
+    import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/intellisense";
+    
+    /**
+        * Site Exists
+        */
+    export interface ISiteExists {
+            /** True if the site collection exists, false otherwise. */
+            Exists: boolean;
+    }
+    
+    /**
+        * Site Methods
+        */
+    export interface ISiteMethods {
+            /**
+                * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
+                * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
+                * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
+                */
+            createPreviewSPSite(upgrade, sendEmail): IBaseExecution;
+    
+            /**
+                * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
+                */
+            extendUpgradeReminderDate(): IBaseExecution;
+    
+            /**
+                * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
+                * @param typeCatalog - Specifies the list template type for the gallery.
+                */
+            getCatalog(typeCatalog): IBaseExecution;
+    
+            /**
+                * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
+                * @param query - The change query.
+                */
+            getChanges(query): IBaseExecution;
+    
+            /**
+                * Specifies the collection of custom list templates for a given site.
+                * @param web - Specifies the site that contains the custom list templates to be returned.
+                */
+            getCustomListTemplates(web): IBaseExecution;
+    
+            /**
+                * Returns the collection of site definitions that are available for creating Web sites within the site collection.
+                * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
+                * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
+                */
+            getWebTemplates(LCID, overrideCompatLevel): IBaseExecution;
+    
+            /**
+                * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
+                */
+            invalidate(): IBaseExecution;
+    
+            /**
+                * Returns true if the object needs to be upgraded; otherwise, false.
+                * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
+                * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
+                */
+            needsUpgradeByType(versionUpgrade, recursive): IBaseExecution;
+    
+            /**
+                * Returns the site at the specified URL.
+                * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
+                */
+            openWeb(strUrl): IBaseExecution<IWeb, IWebResult, IWebQueryResult>;
+    
+            /**
+                * Returns the site with the specified GUID.
+                * @param gWebId - A GUID that specifies which site to return.
+                */
+            openWebById(gWebId): IBaseExecution<IWeb, IWebResult, IWebQueryResult>;
+    
+            /**
+                * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
+                * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.
+                * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
+                * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
+                */
+            runHealthCheck(ruleId, bRepair, bRunAlways): IBaseExecution;
+    
+            /**
+                * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
+                * @param versionUpgrade - If true, specifies that a version-to-version upgrade will be performed. If false, specifies that a build-to-build upgrade will be performed.
+                * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
+                * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
+                */
+            runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): IBaseExecution;
+    
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data): IBaseExecution;
+    
+            /**
+                * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+                * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+                */
+            updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): IBaseExecution;
+    }
+    
+    /**
+        * Site Query Properties
+        */
+    export interface ISiteQueryProps {
+            Audit(): IBaseExecution<SP.Audit>;
+    
+            /**
+                * Gets the event receivers associated with the site.
+             */
+            EventReceivers(): Types.IEventReceivers;
+    
+            /**
+                * Gets the event receiver associated with the site.
+                * @param id - The id of the event receiver.
+             */
+            EventReceivers(id: string): Types.IEventReceiver;
+    
+            /**
+                * Gets the site collection features.
+                */
+            Features(): Types.IFeatures;
+    
+            /**
+                * Gets the site features.
+                * @param id - The id of the feature.
+                */
+            Features(id: string): IBaseExecution<Types.IFeature>;
+    
+            /**
+                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
+                */
+            Owner(): Types.IUser;
+    
+            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
+            RecycleBin(): IBaseExecution<Types.Results.IResults<SP.RecycleBinItem>>;
+    
+            /**
+                * Gets a value that returns the top-level site of the site collection.
+                */
+            RootWeb(): IWeb;
+    
+            SecondaryContact(): IBaseExecution;
+    
+            /**
+                * Gets the user custom action for the list.
+                */
+            UserCustomActions(): Types.IUserCustomActions;
+    
+            /**
+                * Gets the user custom action(s) for the list.
+                * @param id - The id of the user custom action.
+                */
+            UserCustomActions(id: string): Types.IUserCustomAction;
+    }
+    
+    /**
+        * Site Query Result
+        */
+    export interface ISiteQueryResult extends ISiteMethods, SP.Site {
+            Audit: SP.Audit;
+    
+            /**
+                * Gets the event receivers associated with the site.
+             */
+            EventReceivers: Types.Results.IResults<Types.IEventReceiverResult>;
+    
+            /**
+                * Gets the site collection features.
+                */
+            Features: Types.Results.IResults<Types.IFeature>;
+    
+            /**
+                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
+                */
+            Owner: Types.IUserResult;
+    
+            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
+            RecycleBin: Types.Results.IResults<SP.RecycleBinItem>;
+    
+            /**
+                * Gets a value that returns the top-level site of the site collection.
+                */
+            RootWeb: IWebResult;
+    
+            SecondaryContact: Types.IUserResult;
+    
+            /**
+                * Gets the user custom action for the list.
+                */
+            UserCustomActions: Types.IUserCustomActionResults;
+    }
+    
+    /**
+        * Site Result
+        */
+    export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBaseResult<ISite, ISiteResult, ISiteQueryResult> { }
+    
+    /**
+        * Site Url
+        */
+    export interface ISiteUrl {
+            /** The site url. */
+            GetUrlById: string;
+    }
+    
+    /**
+        * Site
+        */
+    export interface ISite extends ISiteMethods, ISiteQueryProps, IBaseQueryExecution<ISite, ISiteResult, ISiteQueryResult> { }
+}
+
+declare module 'gd-sprest/intellisense/socialFeed' {
+    import { SP } from "gd-sprest-def";
+    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    
+    /**
+        * Social Feed
+        */
+    export interface ISocialFeed extends IBaseExecution<ISocialFeed> {
+            /**
+                * Gets information about the specified user and the current user.
+                * @param accountName - The login name of the user.
+                */
+            actor(accountName: string): IBaseExecution<ISocialRestActor>;
+    
+            /**
+                * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
+                * @param accountName - The login name of the user.
+                */
+            actorFeed(accountName: string): IBaseExecution<ISocialRestThread>;
+    
+            /**
+                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
+                */
+            clearMyUnreadMentionCount(): IBaseExecution;
+    
+            /**
+                * Gets information about the current user.
+                */
+            my(): IBaseExecution<ISocialRestActor>;
+    
+            /**
+                * Gets the feed of activity by the current user (Personal feed type).
+                */
+            myFeed(): IBaseExecution<ISocialRestFeed>;
+    
+            /**
+                * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread Types.SP. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
+                */
+            myLikes(): IBaseExecution<ISocialRestFeed>;
+    
+            /**
+                * Gets the feed of microblog posts that mention the current user.
+                */
+            myMentionFeed(): IBaseExecution<ISocialRestFeed>;
+    
+            /**
+                * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
+                */
+            myNews(): IBaseExecution<ISocialRestFeed>;
+    
+            /**
+                * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
+                */
+            myTimelineFeed(): IBaseExecution<ISocialRestFeed>;
+    
+            /**
+                * Gets the count of unread mentions for the current user.
+                */
+            myUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
+    
+            /**
+                * Creates a root post in the specified site feed.
+                * @param accountName - The login name of the user.
+                */
+            postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
+    
+            /**
+                * Creates a root post in the current user's feed.
+                * @param creationData - The post creation data.
+                */
+            postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
+    }
+    
+    /**
+        * Social Rest Actor
+        */
+    export interface ISocialRestActor extends IBaseExecution<ISocialRestActor> {
+    
+            /**
+                * Properties
+                */
+            FollowableItem?: string;
+    
+            FollwableItemActor: SP.Social.SocialActor;
+    
+            Me: SP.Social.SocialActor;
+    
+    
+            /**
+                * Methods
+                */
+            clearUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
+    }
+    
+    /**
+        * Social Rest Feed
+        */
+    export interface ISocialRestFeed extends IBaseExecution<ISocialRestFeed> {
+    
+            /**
+                * Properties
+                */
+            SocialFeed: SP.Social.SocialFeed;
+    
+    
+            /**
+                * Creates a root post in the user's feed.
+                */
+            post(postInfo: SP.Social.SocialRestPostCreationData): ISocialRestThread;
+    }
+    
+    /**
+        * Social Rest Thread
+        */
+    export interface ISocialRestThread extends IBaseExecution<ISocialRestThread> {
+    
+            /**
+                * Properties
+                */
+            ID?: string;
+    
+            SocialThread: SP.Social.SocialThread;
+    
+    
+            /**
+                * Methods
+                */
+            delete(): IBaseExecution<ISocialRestThread>;
+    
+            reply(restCreationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
+    }
+}
+
+declare module 'gd-sprest/intellisense/tenantApp' {
     import { IBaseExecution } from "gd-sprest/utils/types/base";
     
     /**
@@ -6188,10 +7792,10 @@ declare module 'gd-sprest/mapper/types/tenantApp' {
     export interface ITenantApp extends ITenantAppMethods, IBaseExecution<ITenantApp, ITenantAppResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/tenantAppCatalog' {
-    import * as SP from "gd-sprest/mapper/types";
+declare module 'gd-sprest/intellisense/tenantAppCatalog' {
+    import * as SP from "gd-sprest/intellisense";
     import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    import { ITenantApp, ITenantApps } from "gd-sprest/mapper/types";
+    import { ITenantApp, ITenantApps } from "gd-sprest/intellisense";
     
     /**
         * Tenant App Catalog Methods
@@ -6257,9 +7861,9 @@ declare module 'gd-sprest/mapper/types/tenantAppCatalog' {
     export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBaseExecution<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/tenantApps' {
+declare module 'gd-sprest/intellisense/tenantApps' {
     import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    import { ITenantApp } from "gd-sprest/mapper/types";
+    import { ITenantApp } from "gd-sprest/intellisense";
     
     /**
         * Methods
@@ -6279,10 +7883,10 @@ declare module 'gd-sprest/mapper/types/tenantApps' {
     export interface ITenantApps extends ITenantAppsMethods, IBaseCollection<ITenantApp> { }
 }
 
-declare module 'gd-sprest/mapper/types/user' {
+declare module 'gd-sprest/intellisense/user' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from "gd-sprest/mapper/types";
+    import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from "gd-sprest/intellisense";
     
     /**
         * User Creation Information
@@ -6340,10 +7944,10 @@ declare module 'gd-sprest/mapper/types/user' {
     export interface IUser extends IUserMethods, IUserQueryProps, IBaseQueryExecution<IUser, IUserResult, IUserQueryResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/userCustomAction' {
+declare module 'gd-sprest/intellisense/userCustomAction' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IUserCustomActionMethods, } from "gd-sprest/mapper/types";
+    import { IUserCustomActionMethods, } from "gd-sprest/intellisense";
     
     /**
         * User Custom Action Methods
@@ -6376,10 +7980,10 @@ declare module 'gd-sprest/mapper/types/userCustomAction' {
     export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBaseQueryExecution<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/userCustomActions' {
+declare module 'gd-sprest/intellisense/userCustomActions' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from "gd-sprest/mapper/types";
+    import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from "gd-sprest/intellisense";
     
     /**
         * Methods
@@ -6415,9 +8019,9 @@ declare module 'gd-sprest/mapper/types/userCustomActions' {
     export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/userProfile' {
+declare module 'gd-sprest/intellisense/userProfile' {
     import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IWeb } from "gd-sprest/mapper/types";
+    import { IWeb } from "gd-sprest/intellisense";
     
     /**
         * User Profile
@@ -6527,10 +8131,10 @@ declare module 'gd-sprest/mapper/types/userProfile' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/users' {
+declare module 'gd-sprest/intellisense/users' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    import { IUser, IUserQueryResult, IUserResult } from "gd-sprest/mapper/types";
+    import { IUser, IUserQueryResult, IUserResult } from "gd-sprest/intellisense";
     
     /**
         * Methods
@@ -6589,9 +8193,9 @@ declare module 'gd-sprest/mapper/types/users' {
     export interface IUserResults extends IUsersMethods, IBaseCollection<IUserResult, IUserResult, IUserQueryResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/utility' {
+declare module 'gd-sprest/intellisense/utility' {
     import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { IBaseExecution } from "gd-sprest/utils/types/base";
     
     /**
@@ -6780,7 +8384,7 @@ declare module 'gd-sprest/mapper/types/utility' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/versions' {
+declare module 'gd-sprest/intellisense/versions' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
     
@@ -6824,10 +8428,10 @@ declare module 'gd-sprest/mapper/types/versions' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/view' {
+declare module 'gd-sprest/intellisense/view' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IViewFields } from "gd-sprest/mapper/types";
+    import { IViewFields } from "gd-sprest/intellisense";
     
     /**
         * View Methods
@@ -6877,7 +8481,7 @@ declare module 'gd-sprest/mapper/types/view' {
     export interface IView extends IViewMethods, IViewQueryProps, IBaseQueryExecution<IView, IViewResult, IViewQueryResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/viewFieldCollection' {
+declare module 'gd-sprest/intellisense/viewFieldCollection' {
     import { IBaseExecution } from "gd-sprest/utils/types/base";
     
     /**
@@ -6926,10 +8530,10 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/views' {
+declare module 'gd-sprest/intellisense/views' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IView, IViewQueryResult, IViewResult } from "gd-sprest/mapper/types";
+    import { IView, IViewQueryResult, IViewResult } from "gd-sprest/intellisense";
     
     /**
         * Methods
@@ -6964,11 +8568,11 @@ declare module 'gd-sprest/mapper/types/views' {
     export interface IViewResults extends IViewsMethods, IBaseCollectionResult<IViewResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/web' {
+declare module 'gd-sprest/intellisense/web' {
     import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
+    import * as Types from "gd-sprest/intellisense";
     import { IBaseExecution, IBaseQueryExecution, IBaseResult } from "gd-sprest/utils/types/base";
-    import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
+    import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from "gd-sprest/intellisense";
     
     /**
         * Web Methods
@@ -7642,10 +9246,10 @@ declare module 'gd-sprest/mapper/types/web' {
     export interface IWeb extends IWebMethods, IWebQueryProps, IBaseQueryExecution<IWeb, IWebResult, IWebQueryResult> { }
 }
 
-declare module 'gd-sprest/mapper/types/webs' {
+declare module 'gd-sprest/intellisense/webs' {
     import { SP } from "gd-sprest-def";
     import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
-    import { IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
+    import { IWeb, IWebQueryResult, IWebResult } from "gd-sprest/intellisense";
     
     /**
         * Methods
@@ -7669,1615 +9273,8 @@ declare module 'gd-sprest/mapper/types/webs' {
     export interface IWebResults extends IWebsMethods, IBaseCollectionResult<IWebResult> { }
 }
 
-declare module 'gd-sprest/helper/types/app' {
-    import * as SP from "gd-sprest/mapper/types";
-    
-    /**
-        * App Helper Methods
-        */
-    export interface IApp {
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolder - The destination folder.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolder: SP.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
-    
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolderUrl - The destination folder url, relative to the host web.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }>;
-    
-            /**
-                * Method to copy a file from the app web to the host web
-                * @param fileUrls - An array of source file urls, relative to the app web.
-                * @param folderUrls - An array of destination folder urls, relative to the host web.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ files: Array<SP.IFileResult>, folders: Array<SP.IFolderResult> }>;
-    
-            /**
-                * Method to create sub-folders.
-                * @param folder - The app web relative url to the source file.
-                * @param subFolderUrl - The host web relative url of the destination folder.
-                */
-            createSubFolders(folder: SP.IFolder, subFolderUrl: string): PromiseLike<SP.IFolderResult>;
-    
-            /**
-                * Method to get the file content.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                * @param createFl - Flag to create the folder, if it doesn't exist.
-                */
-            getFolder(web: SP.IWeb | SP.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<SP.IFolderResult>;
-    
-            /**
-                * Method to remove empty folders
-                * @param web - The web containing the files.
-                * @param folderUrls - An array of folder urls, relative to the web.
-                */
-            removeEmptyFolders(web: SP.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
-    
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrl - The file url, relative to the web.
-                */
-            removeFile(web: SP.IWebResult, fileUrl: string): PromiseLike<void>;
-    
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                */
-            removeFiles(web: SP.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/dependencies' {
-    /**
-        * Dependencies
-        */
-    export interface IDependencies {
-            /**
-                * Constructor
-                * @param callback - The method to execute after the dependencies are loaded.
-                */
-            constructor(callback: (...args) => void);
-    
-            /** The maximum amount of time to wait for the scripts to be loaded. */
-            MAX_WAIT: number;
-    
-            /** Flag to determine if the page context information exists */
-            pageContextExistsFl: boolean;
-    
-            /** The script file names to load. */
-            SCRIPTS: Array<string>;
-    
-            /**
-                * Method to ensure the SP classes are loaded
-                */
-            loadDependencies();
-    
-            /**
-                * Method to wait for the page context to be loaded
-                */
-            waitForPageContext();
-    }
-}
-
-declare module 'gd-sprest/helper/types/fieldSchemaXML' {
-    import { IFieldInfo } from "gd-sprest/helper/types";
-    
-    /**
-      * Field Schema XML
-      */
-    export interface IFieldSchemaXML {
-        /** Creates the suitebar link */
-        new(fieldInfo: IFieldInfo): PromiseLike<string>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/jslink' {
-    /**
-        * JSLink
-        */
-    export interface IJSLink {
-            /**
-                * Internal field to method mapper
-                */
-            _fieldToMethodMapper: any;
-    
-            /**
-                * Internal field used by the hideField method.
-                */
-            _hideEventFl: boolean;
-    
-            /**
-                * Disables edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                * @param requireValueFl - Flag to only disable the field, if a value exists.
-                */
-            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-    
-            /**
-                * Disable quick edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                */
-            disableQuickEdit(ctx: any, field: any);
-    
-            /**
-                * Returns the list view.
-                * @param ctx - The client context.
-                */
-            getListView(ctx: any);
-    
-            /**
-                * Returns the list view items.
-                * @param ctx - The client context.
-                */
-            getListViewItems(ctx: any);
-    
-            /**
-                * Returns the selected list view items
-                */
-            getListViewSelectedItems();
-    
-            /**
-                * Returns the webpart containing the JSLink field/form/view.
-                * @param ctx - The client context.
-                */
-            getWebPart(ctx);
-    
-            /**
-                * Hides the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to hide.
-                */
-            hideField(ctx: any, field: any);
-    
-            /**
-                * Registers the JSLink configuration.
-                * @param cfg - The JSLink configuration.
-                */
-            register(cfg: IJSLinkCfg);
-    
-            /**
-                * Removes the field and html from the page.
-                * @param ctx - The client context.
-                * @param field - The field to remove.
-                */
-            removeField(ctx: any, field: any);
-    
-            /**
-                * Method to render the default html for a field.
-                * @param ctx - The client context.
-                * @param field - The form field.
-                * @param formType - The form type. (Display, Edit, New or View)
-                */
-            renderField(ctx, field, formType?: number);
-    }
-    
-    /**
-        * JSLink Configuration
-        */
-    export interface IJSLinkCfg {
-            /** The base view id. */
-            BaseViewID?: number | string;
-    
-            /** The list template type. */
-            ListTemplateType?: number;
-    
-            /** The post render event. */
-            OnPostRender?: any;
-    
-            /** The pre render event. */
-            OnPreRender?: any;
-    
-            /** The JSLink template overrides. */
-            Templates?: IJSLinkCfgTemplate;
-    }
-    /**
-        * JSLink Field Configuration
-        */
-    export interface IJSLinkCfgField {
-            DisplayForm?: any;
-            EditForm?: any;
-            NewForm?: any;
-            View?: any;
-    }
-    
-    /**
-        * JSLink Templates
-        */
-    export interface IJSLinkCfgTemplate {
-            Body?: any;
-            Footer?: any;
-            Fields?: { [key: string]: IJSLinkCfgField };
-            Group?: any;
-            Header?: any;
-            Item?: any;
-            OnPostRender?: any;
-            OnPreRender?: any;
-    }
-}
-
-declare module 'gd-sprest/helper/types/linkInfo' {
-    /**
-        * Link Information
-        */
-    export interface ILinkInfo {
-            /** True to append the link at the end of the list. */
-            appendFl?: boolean;
-    
-            /** The link class name */
-            className?: string;
-    
-            /** The link url */
-            href?: string;
-    
-            /** The link id */
-            id: string;
-    
-            /** The link click event */
-            onClick?: (ev?: MouseEvent) => void;
-    
-            /** The link title */
-            title: string;
-    }
-    
-    /**
-        * Ribbon Link
-        */
-    export interface IRibbonLink {
-            /** Creates the ribbon link */
-            new(props: ILinkInfo): HTMLAnchorElement;
-    }
-    
-    /**
-        * Suitebar Link
-        */
-    export interface ISuiteBarLink {
-            /** Creates the suitebar link */
-            new(props: ILinkInfo): HTMLAnchorElement;
-    }
-}
-
-declare module 'gd-sprest/helper/types/listForm' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    
-    /**
-        * List Form
-        */
-    export interface IListForm {
-            /**
-                * Creates an instance of the list form
-                * @param props - The list form properties.
-                */
-            create(props: IListFormProps): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to generate the odata query for the list item.
-                */
-            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
-    
-            /**
-                * Method to load the item attachments
-                * @param info - The list form information.
-             */
-            loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>
-    
-            /**
-                * Method to refresh the item.
-                * @param info - The list form information.
-                */
-            refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to remove attachment from an item.
-                */
-            removeAttachment(info: IListFormResult, fileName: string): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to save attachments to the item.
-                * @param info - The list form information.
-                * @param attachmentInfo - The attachment files to add.
-                */
-            saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
-    
-            /**
-                * Method to save the item.
-                * @param info - The list form information.
-                * @param itemValues - The list item values.
-                */
-            saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
-    
-            /**
-                * Method to show the file dialog.
-                * @param info - The list form information.
-                * @param onSave - The save event triggered when a file is uploaded to the item.
-                */
-            showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
-    
-            /**
-                * Method to show the file dialog.
-                * @param info - The list form information.
-                * @param onSave - The save event triggered when a file is uploaded to the item.
-                */
-            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
-    }
-    
-    /**
-        * List Form Attachment Information
-        */
-    export interface IListFormAttachmentInfo {
-            /** The file content */
-            data: any;
-    
-            /** The name of the file */
-            name: string;
-    }
-    
-    /**
-        * List Form Cache
-        */
-    export interface IListFormCache {
-            ct: string;
-            fields: string;
-            list: string;
-    }
-    
-    /**
-        * List Form Display
-        */
-    export interface IListFormDisplay {
-            /**
-                * Method to get the fields
-                */
-            getFields(): Array<HTMLDivElement>;
-    }
-    
-    /**
-        * List Form Display Properties
-        */
-    export interface IListFormDisplayProps {
-            /** The element to render the form to. */
-            el: Element;
-    
-            /** The fields to exclude from the form. */
-            excludeFields?: Array<string>;
-    
-            /** The fields to include in the form. */
-            includeFields?: Array<string>;
-    
-            /** The list form information. */
-            info: IListFormResult;
-    }
-    
-    /**
-        * List Form Edit
-        */
-    export interface IListFormEdit {
-            /**
-                * Method to get the fields
-                */
-            getFields<T = any>(): Array<T>;
-    
-            /**
-                * Method to get the form values
-                */
-            getValues<T = any>(): PromiseLike<T>;
-    }
-    
-    /**
-        * List Form Edit Properties
-        */
-    export interface IListFormEditProps extends IListFormDisplayProps {
-            /** The form mode (New/Edit) */
-            controlMode?: number;
-    }
-    
-    /**
-        * List Form Properties
-        */
-    export interface IListFormProps {
-            /** If defined, the data will be cached to the session storage. */
-            cacheKey?: string;
-    
-            /** The form fields to exclude. */
-            excludeFields?: Array<string>;
-    
-            /** The form fields */
-            fields?: Array<string>;
-    
-            /** The list item */
-            item?: Types.IListItemQueryResult | Types.IListItemResult;
-    
-            /** The item id */
-            itemId?: number;
-    
-            /** The list name */
-            listName: string;
-    
-            /** Flag to deteremine if we are loading attachments */
-            loadAttachments?: boolean;
-    
-            /** OData query used when loading an item */
-            query?: Types.ODataQuery;
-    
-            /** The relative web url containing the list */
-            webUrl?: string;
-    }
-    
-    /**
-        * List Form Result
-        */
-    export interface IListFormResult {
-            /** The item attachments. */
-            attachments?: Array<SP.Attachment>;
-    
-            /** The form fields. */
-            fields: { [key: string]: Types.IFieldResult };
-    
-            /** The list item. */
-            item?: Types.IListItemQueryResult | Types.IListItemResult;
-    
-            /** The item query. */
-            query?: Types.ODataQuery;
-    
-            /** The list. */
-            list: Types.IListResult;
-    
-            /** The relative web url containing the list. */
-            webUrl?: string;
-    }
-}
-
-declare module 'gd-sprest/helper/types/listFormField' {
-    import { ITermInfo } from "gd-sprest/helper/types";
-    import * as SP from "gd-sprest/mapper/types";
-    
-    /**
-        * List Form Field Information
-        */
-    export interface IListFormFieldInfo {
-            /** The default value. */
-            defaultValue?: any;
-    
-            /** The list field. */
-            field?: SP.IFieldResult | SP.IFieldQueryResult;
-    
-            /** The list name. */
-            listName: string;
-    
-            /** The internal name of the field. */
-            name: string;
-    
-            /** Flag indicating if the field is read-only. */
-            readOnly?: boolean;
-    
-            /** True indicates a required field type. */
-            required?: boolean;
-    
-            /** The display name of the field. */
-            title?: string;
-    
-            /** The field type. */
-            type?: number;
-    
-            /** The field type as a string. */
-            typeAsString?: string;
-    
-            /** The relative web url containing the list. */
-            webUrl?: string;
-    }
-    
-    /**
-        * List Form Choice Field Information
-        */
-    export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
-            /** The choices. */
-            choices?: Array<string>;
-    
-            /** The list field. */
-            field?: SP.IFieldChoice | SP.IFieldMultiChoice;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    }
-    
-    /**
-        * List Form Date Field Information
-        */
-    export interface IListFormDateFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldDateTime;
-    
-            /** Flag determining if we are displaying time */
-            showTime?: boolean;
-    }
-    
-    /**
-        * List Form Lookup Field Information
-        */
-    export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldLookup;
-    
-            /** The lookup field */
-            lookupField?: string;
-    
-            /** The lookup list id */
-            lookupListId?: string;
-    
-            /** The lookup web id */
-            lookupWebId?: string;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    }
-    
-    /**
-        * List Form MMS Field Information
-        */
-    export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldManagedMetadata;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    
-            /** The term id */
-            termId?: string;
-    
-            /** The term set id */
-            termSetId?: string;
-    
-            /** The term store id */
-            termStoreId?: string;
-    
-            /** The value field */
-            valueField?: SP.IFieldNote;
-    }
-    
-    /**
-        * List Form Number Field Information
-        */
-    export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
-            /** The number of decimals. */
-            decimals?: number;
-    
-            /** The list field. */
-            field?: SP.IFieldNumber | SP.IFieldCurrency;
-    
-            /** The maximum value */
-            maxValue?: number;
-    
-            /** The minimum value */
-            minValue?: number;
-    
-            /** Flag determining if we are displaying the value as a percentage */
-            showAsPercentage?: boolean;
-    }
-    
-    /**
-        * List Form Text Field Information
-        */
-    export interface IListFormTextFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldText | SP.IFieldNote;
-    
-            /** Flag determining if this is a note field */
-            multiline?: boolean;
-    
-            /** Flag determining if this field value is html encoded */
-            richText?: boolean;
-    
-            /** The number of rows to display */
-            rows?: number;
-    }
-    
-    /**
-        * List Form URL Field Information
-        */
-    export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
-            /** The list field. */
-            field?: SP.IFieldUrl;
-    }
-    
-    /**
-        * List Form User Field Information
-        */
-    export interface IListFormUserFieldInfo extends IListFormFieldInfo {
-            /** Flag to determine if groups are allowed */
-            allowGroups?: boolean;
-    
-            /** The list field. */
-            field?: SP.IFieldUser;
-    
-            /** Flag to determine if multiple values exist */
-            multi?: boolean;
-    }
-    
-    /**
-        * List Form Field
-        */
-    export interface IListFormField {
-            /**
-                * Creates an instance of the list form field
-                * @param props - The list form field properties
-                */
-            create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-    
-            /** Method to load the lookup data */
-            loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQueryResult>>;
-    
-            /** Method to load the mms data */
-            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
-    
-            /** Method to load the mms value field */
-            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<SP.IFieldNote>;
-    }
-}
-
-declare module 'gd-sprest/helper/types/loader' {
-    /**
-        * Loader
-        */
-    export interface ILoader {
-            // Internal flag to determine if the SP core libraries have been loaded
-            loaded: boolean;
-    
-            /**
-                * Waits for the SharePoint core libraries to be loaded.
-                * @param callback - The callback function.
-                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
-                * @param loadLibraries - Flag to load the core libraries manually.
-                */
-            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean);
-    }
-}
-
-declare module 'gd-sprest/helper/types/methods' {
-    /**
-      * Request
-      */
-    export interface IRequest {
-        /** The data to pass in the request. */
-        data?: any;
-    
-        /** The request headers. */
-        headers?: { [key: string]: string };
-    
-        /** The request method. */
-        method?: string;
-    
-        /** The request url. */
-        url: string;
-    }
-}
-
-declare module 'gd-sprest/helper/types/sp' {
-    
-    /**
-        * Dialog Options
-        */
-    export interface IDialogOptions {
-            /** A Boolean value that specifies whether the dialog can be maximized. true if the Maximize button is shown; otherwise, false. */
-            allowMaximize?: boolean;
-    
-            /** An object that contains data that are passed to the dialog. */
-            args?: any;
-    
-            /** A Boolean value that specifies whether the dialog platform handles dialog sizing. */
-            autoSize?: boolean;
-    
-            /** A function pointer that specifies the return callback function. The function takes two parameters, a dialogResult of type SP.UI.DialogResult Enumeration and a returnValue of type object that contains any data returned by the dialog. */
-            dialogReturnValueCallback?: (dialogResult?: number, returnVal?: any) => void;
-    
-            /** An integer value that specifies the height of the dialog. If height is not specified, the height of the dialog is autosized by default. If autosize is false, the dialog height is set to 576 pixels. */
-            height?: number;
-    
-            /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
-            html?: HTMLElement;
-    
-            /** A Boolean value that specifies whether the Close button appears on the dialog. */
-            showClose?: boolean;
-    
-            /** A Boolean value that specifies whether the dialog opens in a maximized state. true the dialog opens maximized. Otherwise, the dialog is opened at the requested sized if specified; otherwise, the default size, if specified; otherwise, the autosized size. */
-            showMaximized?: boolean;
-    
-            /** A string that contains the title of the dialog. */
-            title?: string;
-    
-            /** A string that contains the URL of the page that appears in the dialog. If both url and html are specified, url takes precedence. Either url or html must be specified. */
-            url?: string;
-    
-            /** An integer value that specifies the width of the dialog. If width is not specified, the width of the dialog is autosized by default. If autosize is false, the width of the dialog is set to 768 pixels. */
-            width?: number;
-    
-            /** An integer value that specifies the x-offset of the dialog. This value works like the CSS left value. */
-            x?: number;
-    
-            /** An integer value that specifies the y-offset of the dialog. This value works like the CSS top value. */
-            y?: number;
-    }
-    
-    /**
-        * Modal Dialog
-        */
-    export interface IModalDialog {
-            /**
-                * Closes the most recently opened modal dialog with the specified dialog result.
-                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
-                */
-            close(dialogResult?: number);
-    
-            /**
-                * Closes the most recently opened modal dialog with the specified dialog result and return value.
-                * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
-                * @param returnVal - The return value of the modal dialog.
-                */
-            commonModalDialogClose(dialogResult?: number, returnVal?: any);
-    
-            /**
-                * Displays a modal dialog with the specified URL, options, callback function, and arguments.
-                * @param url - The URL of the page to be shown in the modal dialog.
-                * @param options - The options to create the modal dialog.
-                * @param callback - The callback function that runs when the modal dialog is closed.
-                * @param args - The arguments to the modal dialog.
-                */
-            commonModalDialogOpen(url: string, options?: IDialogOptions, callback?: (dialogResult?: number, returnVal?: any) => void, args?: any);
-    
-            /**
-                * Method to ensure the core script is loaded
-                */
-            load(): PromiseLike<void>;
-    
-            /**
-                * Displays a modal dialog with the specified URL, callback function, width, and height.
-                * @param url - The URL of the page to be shown in the modal dialog.
-                * @param callback - The callback function that runs when the modal dialog is closed.
-                * @param width - The width of the modal dialog.
-                * @param height - The height of the modal dialog.
-                */
-            OpenPopUpPage(url: string, callback?: (dialogResult?: number, returnVal?: any) => void, width?: number, height?: number);
-    
-            /**
-                * Refreshes the parent page of the modal dialog when the dialog is closed by clicking OK.
-                * @param dialogResult - The result of the modal dialog.
-                */
-            RefreshPage(dialogResult?: number);
-    
-            /**
-                * Displays a modal dialog with specified dialog options.
-                * @param options - The options to create the modal dialog.
-                */
-            showModalDialog(options: IDialogOptions);
-    
-            /**
-                * Displays a modal dialog using the page at the specified URL.
-                * @param url - The URL of the page to be shown in the modal dialog.
-                */
-            ShowPopupDialog(url: string);
-    
-            /**
-                * Displays a wait screen dialog that has a Cancel button using the specified parameters.
-                * @param title - The title of the wait screen dialog.
-                * @param message - The message that is shown in the wait screen dialog.
-                * @param callback - The callback function that runs when the wait screen dialog is closed.
-                * @param height - The height of the wait screen dialog.
-                * @param width - The width of the wait screen dialog.
-                */
-            showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number);
-    
-            /**
-                * Displays a wait screen dialog that does not have a Cancel button using the specified parameters.
-                * @param title - The title of the wait screen dialog.
-                * @param message - The message that is shown in the wait screen dialog.
-                * @param height - The height of the wait screen dialog.
-                * @param width - The width of the wait screen dialog.
-                */
-            showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number);
-    }
-    
-    /**
-        * Notify
-        */
-    export interface INotify {
-            /**
-                * Adds a notification to the page. By default, notifications appear for five seconds.
-                * @param html - The message inside the notification.
-                * @param sticky - Specifies whether the notification stays on the page until removed.
-                * @returns A promise containing the ID of the notification that was added to the page.
-                */
-            addNotification(html: string, sticky?: boolean): PromiseLike<string>;
-    
-            /**
-                * Method to ensure the core script is loaded
-                */
-            load(): PromiseLike<void>;
-    
-            /**
-                * Removes the specified notification from the page.
-                * @param id - The notification to remove from the page.
-                */
-            removeNotification(id: string);
-    }
-    
-    /**
-        * Status
-        */
-    export interface IStatus {
-            /**
-                * Adds a status message to the page.
-                * @param title - The title of the status message.
-                * @param html - The contents of the status message.
-                * @param prepend - Specifies whether the status message will appear at the beginning of the list.
-                */
-            addStatus(title: string, html?: string, prepend?: boolean): PromiseLike<string>;
-    
-            /**
-                * Appends text to an existing status message.
-                * @param id - The ID of the status message to remove.
-                * @param title - The title of the status message.
-                * @param html - The contents of the status message.
-                */
-            appendStatus(id: string, title: string, html: string): PromiseLike<string>;
-    
-            /**
-                * Method to ensure the core script is loaded
-                */
-            load(): PromiseLike<void>;
-    
-            /**
-                * Removes all status messages from the page.
-                * @param hide - Specifies that the status messages should be hidden.
-                */
-            removeAllStatus(hide?: boolean);
-    
-            /**
-                * Removes the specified status message.
-                * @param id - The ID of the status message to remove.
-                */
-            removeStatus(id: string);
-    
-            /**
-                * Sets the priority color of the specified status message.
-                * @param id - The ID of the status message to remove.
-                * @param color - The color to set for the status message. The following table lists the values and their priority.
-                */
-            setStatusPriColor(id: string, color: string);
-    
-            /**
-                * Updates the specified status message.
-                * @param id - The ID of the status message to remove.
-                * @param html - The contents of the status message.
-                */
-            updateStatus(id: string, html: string);
-    }
-}
-
-declare module 'gd-sprest/helper/types/spCfg' {
-    import { SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/mapper/types";
-    
-    /**
-        * Field Information
-        */
-    export interface IFieldInfo {
-            /** The default value of the field. */
-            defaultValue?: string;
-    
-            /** The group name. */
-            group?: string;
-    
-            /** True for hidden fields. */
-            hidden?: boolean;
-    
-            /** The JSLink value for the field. */
-            jslink?: string;
-    
-            /** The internal name of the field. */
-            name: string;
-    
-            /** Flag to determine if the field is readonly. */
-            readOnly?: boolean;
-    
-            /** Flag to determine if the field is required. */
-            required?: boolean;
-    
-            /** The schema definition of the field. */
-            schemaXml?: string;
-    
-            /** Flag to make this field visible in the display form. */
-            showInDisplayForm?: boolean;
-    
-            /** Flag to make this field visible in the edit form. */
-            showInEditForm?: boolean;
-    
-            /** Flag to make this field visible in the list settings. */
-            showInListSettings?: boolean;
-    
-            /** Flag to make this field visible in the new form. */
-            showInNewForm?: boolean;
-    
-            /** Flag to make this field visible in the list views. */
-            showInViewForms?: boolean;
-    
-            /** The field title */
-            title?: string;
-    
-            /** The field type */
-            type?: number;
-    }
-    
-    /**
-        * Calculated Field Information
-        */
-    export interface IFieldInfoCalculated extends IFieldInfo {
-            /** The field references */
-            fieldRefs?: Array<string>;
-    
-            /** The date/time format */
-            format?: number;
-    
-            /** The formula */
-            formula?: string;
-    
-            /** The result type */
-            resultType?: string;
-    }
-    
-    /**
-        * Choice Field Information
-        */
-    export interface IFieldInfoChoice extends IFieldInfo {
-            /** The choices */
-            choices?: string[];
-    
-            /** Allow multiple choices */
-            multi?: boolean;
-    }
-    
-    /**
-        * Currency Field Information
-        */
-    export interface IFieldInfoCurrency extends IFieldInfo {
-            /** The number of decimal places */
-            decimals?: number;
-    
-            /** The country/region whose currency format is being used. */
-            lcid?: number;
-    
-            /** The maximum value */
-            max?: number;
-    
-            /** The minimum value */
-            min?: number;
-    }
-    
-    /**
-        * Date Field Information
-        */
-    export interface IFieldInfoDate extends IFieldInfo {
-            /** The date/time format */
-            format?: number;
-    }
-    
-    /**
-        * Lookup Field Information
-        */
-    export interface IFieldInfoLookup extends IFieldInfo {
-            /** The field reference (Required for associated lookup fields) */
-            fieldRef?: string;
-    
-            /** Allow multiple lookup values */
-            multi?: boolean;
-    
-            /** The list id */
-            listId?: string;
-    
-            /** The list name */
-            listName?: string;
-    
-            /** The lookup field to show */
-            showField?: string;
-    
-            /** The relative web url containing the list */
-            webUrl?: string;
-    }
-    
-    /**
-        * Managed Metadata
-        */
-    export interface IFieldInfoMMS extends IFieldInfo {
-            /** The locale value */
-            locale?: number;
-    }
-    
-    /**
-        * Note
-        */
-    export interface IFieldInfoNote extends IFieldInfo {
-            /** Flag to append the comments. (This requires versioning to be enabled) */
-            appendFl?: boolean;
-    
-            /** The note field type */
-            noteType?: number;
-    
-            /** The number of lines */
-            numberOfLines?: number;
-    }
-    
-    /**
-        * Number
-        */
-    export interface IFieldInfoNumber extends IFieldInfo {
-            /** The number of decimal places */
-            decimals?: number;
-    
-            /** The maximum value */
-            max?: number;
-    
-            /** The minimum value */
-            min?: number;
-    
-            /** The number field type */
-            numberType?: number;
-    }
-    
-    /**
-        * User
-        */
-    export interface IFieldInfoUser extends IFieldInfo {
-            /** Allow multiple choices */
-            multi?: boolean;
-    
-            /** The user selection mode */
-            selectionMode?: number;
-    
-            /** The user selection scope */
-            selectionScope?: number;
-    }
-    /**
-        * SharePoint Configuration - Content Type Information
-        */
-    export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation {
-            /**
-                * The content type. (This value is set internally.)
-                */
-            ContentType?: Types.IContentTypeResult;
-    
-            /**
-                * The field references.
-                */
-            FieldRefs?: Array<string>;
-    
-            /**
-                * The JSLink property.
-                */
-            JSLink?: string;
-    
-            /**
-                * The parent content type name, required if different then the name.
-                */
-            ParentName?: string;
-    
-            /**
-                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
-                */
-            ParentWebUrl?: string;
-    
-            /**
-                * Event triggered after the content type is created.
-                */
-            onCreated?: (ct: Types.IContentTypeResult) => void;
-    
-            /**
-                * Event triggered after the content type is updated.
-                */
-            onUpdated?: (ct: Types.IContentTypeResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - Custom Action Information
-        */
-    export interface ISPCfgCustomActionInfo {
-            /**
-                * Custom actions to be created at the site collection level.
-                */
-            Site?: Array<SP.UserCustomAction>,
-    
-            /**
-                * Custom actions to be created at the web level.
-                */
-            Web?: Array<SP.UserCustomAction>
-    }
-    
-    /**
-        * SharePoint Configuration - Field Information
-        */
-    export interface ISPCfgFieldInfo extends IFieldInfo {
-            /**
-                * Event triggered after the field is created.
-                */
-            onCreated?: (field: Types.IFieldResult) => void;
-    
-            /**
-                * Event triggered after the field is updated.
-                */
-            onUpdated?: (field: Types.IFieldResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - List Information
-        */
-    export interface ISPCfgListInfo {
-            /** The content Types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-    
-            /** The custom list fields. */
-            CustomFields?: Array<ISPCfgFieldInfo>;
-    
-            /** The list creation information. */
-            ListInformation: SP.List;
-    
-            /** The title display name. */
-            TitleFieldDisplayName?: string;
-    
-            /** The user custom actions. */
-            UserCustomActions?: Array<SP.UserCustomAction>;
-    
-            /** The view information. */
-            ViewInformation?: Array<ISPCfgViewInfo>;
-    
-            /**
-                * Event triggered after the list is created or updated.
-                */
-            onCreated?: (list: Types.IListResult) => void;
-    
-            /**
-                * Event triggered after the list is updated.
-                */
-            onUpdated?: (list: Types.IListQueryResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - View Information
-        */
-    export interface ISPCfgViewInfo {
-            /** The JSLink property. */
-            JSLink?: string;
-    
-            /** The view fields. */
-            ViewFields?: Array<string>;
-    
-            /** The view name. */
-            ViewName: string;
-    
-            /** The view query. */
-            ViewQuery?: string;
-    
-            /**
-                * Event triggered after the view is created or updated.
-                */
-            onCreated?: (view: Types.IViewResult) => void;
-    
-            /**
-                * Event triggered after the view is updated.
-                */
-            onUpdated?: (view: Types.IView) => void;
-    }
-    
-    /**
-        * SharePoint Configuration - WebPart Information
-        */
-    export interface ISPCfgWebPartInfo {
-            /** The file name of the webpart. */
-            FileName: string;
-    
-            /** The webpart group. */
-            Group?: string;
-    
-            /** The webpart xml */
-            XML: string;
-    
-            /**
-                * Event triggered after the webpart file is created.
-                */
-            onCreated?: (file: Types.IFileResult) => void;
-    
-            /**
-                * Event triggered after the webpart file is updated.
-                */
-            onUpdated?: (file: Types.IFileResult) => void;
-    }
-    
-    /**
-        * SharePoint Configuration Methods
-        */
-    export interface ISPConfig {
-            /** The configuration. */
-            _configuration: ISPConfigProps;
-    
-            /**
-                * Method to install the configuration
-                */
-            install(): PromiseLike<void>;
-    
-            /**
-                * Method to install the configuration
-                */
-            uninstall(): PromiseLike<void>;
-    }
-    
-    /**
-        * SharePoint Configuration - Properties
-        */
-    export interface ISPConfigProps {
-            /** The content Types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-    
-            /** The custom action configuration. */
-            CustomActionCfg?: ISPCfgCustomActionInfo;
-    
-            /** The site column configuration. */
-            Fields?: Array<ISPCfgFieldInfo>;
-    
-            /** The list configuration. */
-            ListCfg?: Array<ISPCfgListInfo>;
-    
-            /** The web part configuration. */
-            WebPartCfg?: Array<ISPCfgWebPartInfo>;
-    }
-    
-    /**
-        * SharePoint Configuration - Types
-        */
-    export interface ISPConfigTypes {
-            /** Fields */
-            Fields: number;
-    
-            /** Content Types */
-            ContentTypes: number;
-    
-            /** Lists */
-            Lists: number;
-    
-            /** Site User Custom Actions */
-            SiteUserCustomActions: number;
-    
-            /** Web User Custom Actions */
-            WebUserCustomActions: number;
-    }
-}
-
-declare module 'gd-sprest/helper/types/spCfgTypes' {
-    /** The field types */
-    export type ISPCfgFieldType = {
-        Boolean: number;
-        Calculated: number;
-        Choice: number;
-        Currency: number;
-        Date: number;
-        Geolocation: number;
-        Lookup: number;
-        MMS: number;
-        Note: number;
-        Number: number;
-        Text: number;
-        Url: number;
-        User: number;
-    }
-    
-    /** The configuration types */
-    export type ISPCfgType = {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
-    }
-}
-
-declare module 'gd-sprest/helper/types/taxonomy' {
-    /**
-     * Taxonomy Helper
-     */
-    export interface ITaxonomy {
-            /**
-                * Method to find a term by id
-                * @param term - The term
-                * @param termId - The term id to search for
-                */
-            findById(term: ITerm, termId: string): ITerm;
-    
-            /**
-                * Method to find a term by name
-                * @param term - The term
-                * @param termName - The term name to search for
-                */
-            findByName(term: ITerm, termName: string): ITerm;
-    
-            /**
-                * Method to get the term group
-                * @param groupName - The group name.
-                */
-            getTermGroup(groupName?: string): PromiseLike<{ context: any, termGroup: any }>;
-    
-            /**
-                * Method to get the term groups
-                */
-            getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
-    
-            /**
-                * Method to get the term sets for a group
-                * @param groupName - The group name.
-                */
-            getTermSets(groupName: string): PromiseLike<Array<ITermSetInfo>>;
-    
-            /**
-                * Method to get the term sets for the site collection
-                */
-            getTermSetsFromDefaultSC(): PromiseLike<Array<ITermSetInfo>>;
-    
-            /**
-                * Method to get the terms
-                * @param termSet - The term set.
-                * @param termSetTerms - The term set terms.
-                */
-            getTerms(termSet, termSetTerms): Array<ITermInfo>;
-    
-            /**
-                * Method to get the terms by id
-                * @param termStoreId - The term store guid
-                * @param termSetId - The term set guid
-                */
-            getTermsById(termStoreId: string, termSetId: string): PromiseLike<Array<ITermInfo>>;
-    
-            /**
-                * Method to get the term set by id
-                * @param termStoreId - The term store guid
-                * @param termSetId - The term set guid
-                */
-            getTermSetById(termStoreId: string, termSetId: string): PromiseLike<ITerm>;
-    
-            /**
-                * Method to get the terms from the default site collection
-                * @param termSetName - The term set name
-                */
-            getTermsFromDefaultSC(termSetName: string): PromiseLike<Array<ITermInfo>>;
-    
-            /**
-                * Method to get the term set from the default site collection
-                */
-            getTermSetFromDefaultSC(termSetName: string): PromiseLike<ITerm>;
-    
-            /**
-                * Method to get a terms from a specified group
-                */
-            getTermsByGroupName(termSetName: string, groupName: string): PromiseLike<Array<ITermInfo>>;
-    
-            /**
-                * Method to get the term set from the default site collection
-                */
-            getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
-    
-            /**
-                * Method to ensure the taxonomy script references are loaded.
-                */
-            loadScripts(): PromiseLike<void>;
-    
-            /**
-                * Method to convert a term set into an array of terms
-                * @param term - The term
-                */
-            toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
-    
-            /**
-                * Method to convert a term to a field value
-                * @param term - The term
-                */
-            toFieldValue(term: ITerm | ITermInfo): any;
-    
-            /**
-                * Method to convert a collection of terms to a field value
-                * @param terms - The terms
-                */
-            toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
-    
-            /**
-                * Method to convert an array of terms into a term set
-                * @param terms - The terms
-                */
-            toObject(terms: Array<ITermInfo>): ITerm;
-    }
-    
-    
-    /**
-        * Taxonomy Term
-        */
-    export interface ITerm {
-            /** The root term information */
-            info: ITermInfo;
-    
-            /** The parent term */
-            parent?: ITerm;
-    }
-    
-    /**
-        * Taxonomy Term Group Information
-        */
-    export interface ITermGroupInfo {
-            /** The term description */
-            description: string;
-    
-            /** The term id */
-            id: string;
-    
-            /** The term name */
-            name: string;
-    }
-    
-    /**
-        * Taxonomy Term Information
-        */
-    export interface ITermInfo {
-            /** The term description */
-            description: string;
-    
-            /** The term id */
-            id: string;
-    
-            /** The term name */
-            name: string;
-    
-            /** The parent term */
-            parent?: ITerm;
-    
-            /** The term path */
-            path: Array<string>;
-    
-            /** The term path as a string */
-            pathAsString: string;
-    
-            /** The term custom properties */
-            props: { [key: string]: string; };
-    }
-    
-    /**
-        * Taxonomy Term Set Information
-        */
-    export interface ITermSetInfo {
-            /** The term description */
-            description: string;
-    
-            /** The term id */
-            id: string;
-    
-            /** The term name */
-            name: string;
-    
-            /** The term custom properties */
-            props: { [key: string]: string; };
-    }
-}
-
-declare module 'gd-sprest/helper/types/webpart' {
-    /**
-        * Web Part
-        */
-    export interface IWebPart {
-            /**
-                * Creates an instance of a webpart.
-                * @param props - The webpart properties.
-                */
-            new(props: IWebPartProps);
-    
-            /**
-                * Adds a script editor webpart to a page.
-                * @param url - The relative url of the page.
-                * @param wpProps - The webpart properties.
-                */
-            addWebPartToPage(url: string, wpProps: IWebPartScriptEditor): PromiseLike<void>;
-    
-            /**
-                * Creates an instance of a webpart.
-                * @param props - The webpart properties.
-                */
-            create(props: IWebPartProps);
-    
-            /**
-                * Determines if the page is being edited.
-                */
-            isEditMode(): boolean;
-    }
-    
-    /**
-        * The webpart configuration
-        */
-    export interface IWebPartCfg {
-            /** The webpart id */
-            WebPartId?: string;
-    }
-    
-    /**
-        * The webpart information
-        */
-    export interface IWebPartInfo {
-            /** The configuration */
-            cfg: IWebPartCfg;
-    
-            /** The element to render the webpart to */
-            el: HTMLElement;
-    
-            /** The webpart id */
-            wpId: string;
-    }
-    
-    /**
-        * The webpart properties
-        */
-    export interface IWebPartProps {
-            /** The optional configuration element id */
-            cfgElementId?: string;
-    
-            /** The optional help link properties */
-            helpProps?: {
-                    /** The link title */
-                    title?: string;
-    
-                    /** The link url */
-                    url: string;
-            };
-    
-            /** The post render event */
-            onPostRender?: (wp: IWebPartInfo) => void;
-    
-            /** The render event triggered when the page is in 'Display' mode */
-            onRenderDisplay?: (wp: IWebPartInfo) => any;
-    
-            /** The render event triggered when the page is in 'Edit' mode */
-            onRenderEdit?: (wp: IWebPartInfo) => any;
-    
-            /** The target element id to render the webpart to */
-            elementId: string;
-    }
-    
-    /**
-        * The script editor webpart properties
-        */
-    export interface IWebPartScriptEditor {
-            /** The webpart description. */
-            description?: string;
-    
-            /** The webpart content. */
-            content: string;
-    
-            /** The webpart index. */
-            index?: number;
-    
-            /** The webpart title. */
-            title?: string;
-    
-            /** The webpart zone. */
-            zone?: string;
-    }
-}
-
 declare module 'gd-sprest/utils/types/base' {
-    import { ODataQuery } from "gd-sprest/mapper/types";
+    import { ODataQuery } from "gd-sprest/intellisense";
     import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
     import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
@@ -9489,6 +9486,103 @@ declare module 'gd-sprest/utils/types/base' {
     }
 }
 
+declare module 'gd-sprest/utils/types/targetInfo' {
+    /**
+        * Target Information
+        */
+    export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
+    
+    /**
+        * Request Information
+        */
+    export interface IRequestInfo {
+            /** The data being sent in the body of the request. */
+            data?: object;
+    
+            /** The request method (GET/POST) */
+            method: string;
+    
+            /** The url of the request. */
+            url: string;
+    }
+    
+    /**
+        * Target Information
+        */
+    export interface ITargetInfo {
+            // The target information properties
+            props: ITargetInfoProps;
+    
+            // Flag to determine if this is a batch request
+            isBatchRequest: boolean;
+    
+            // Flag to determine if this is a graph request
+            isGraph: boolean;
+    
+            // The request data
+            requestData: any;
+    
+            // The request information
+            requestInfo: IRequestInfo;
+    
+            // The request header
+            requestHeaders: object;
+    
+            // The request method
+            requestMethod: string;
+    
+            // The request type
+            requestType: number;
+    
+            // The request url
+            requestUrl: string;
+    }
+    
+    /**
+        * Target Information Properties
+        */
+    export interface ITargetInfoProps {
+            /** The access token for the graph api request. */
+            accessToken?: string;
+    
+            /** True if the expected request returns an array buffer. */
+            bufferFl?: boolean;
+    
+            /** The method to execute after the asynchronous request executes. */
+            callback?: () => void;
+    
+            /** The data to be passed in the body of the request. */
+            data?: any;
+    
+            /** True to default the request to the web api, site api otherwise. */
+            defaultToWebFl?: boolean;
+    
+            /** The endpoint of the request. */
+            endpoint?: string;
+    
+            /** The method to execute. */
+            method?: string;
+    
+            /** True to override the default request to host flag. */
+            overrideDefaultRequestToHostFl?: boolean;
+    
+            /** The request digest to use for the request. */
+            requestDigest?: string;
+    
+            /** The request header. */
+            requestHeader?: object;
+    
+            /** The request information. */
+            requestInfo?: object;
+    
+            /** The request type. */
+            requestType?: number;
+    
+            /** The url of the site/web to execute the request against. */
+            url?: string;
+    }
+}
+
 declare module 'gd-sprest/utils/types/helper' {
     import { IBase } from "gd-sprest/utils/types/base";
     import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
@@ -9615,103 +9709,6 @@ declare module 'gd-sprest/utils/types/requestType' {
         PostWithArgsInQSAsVar: number;
         PostWithArgsValueOnly: number;
         PostReplace: number;
-    }
-}
-
-declare module 'gd-sprest/utils/types/targetInfo' {
-    /**
-        * Target Information
-        */
-    export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
-    
-    /**
-        * Request Information
-        */
-    export interface IRequestInfo {
-            /** The data being sent in the body of the request. */
-            data?: object;
-    
-            /** The request method (GET/POST) */
-            method: string;
-    
-            /** The url of the request. */
-            url: string;
-    }
-    
-    /**
-        * Target Information
-        */
-    export interface ITargetInfo {
-            // The target information properties
-            props: ITargetInfoProps;
-    
-            // Flag to determine if this is a batch request
-            isBatchRequest: boolean;
-    
-            // Flag to determine if this is a graph request
-            isGraph: boolean;
-    
-            // The request data
-            requestData: any;
-    
-            // The request information
-            requestInfo: IRequestInfo;
-    
-            // The request header
-            requestHeaders: object;
-    
-            // The request method
-            requestMethod: string;
-    
-            // The request type
-            requestType: number;
-    
-            // The request url
-            requestUrl: string;
-    }
-    
-    /**
-        * Target Information Properties
-        */
-    export interface ITargetInfoProps {
-            /** The access token for the graph api request. */
-            accessToken?: string;
-    
-            /** True if the expected request returns an array buffer. */
-            bufferFl?: boolean;
-    
-            /** The method to execute after the asynchronous request executes. */
-            callback?: () => void;
-    
-            /** The data to be passed in the body of the request. */
-            data?: any;
-    
-            /** True to default the request to the web api, site api otherwise. */
-            defaultToWebFl?: boolean;
-    
-            /** The endpoint of the request. */
-            endpoint?: string;
-    
-            /** The method to execute. */
-            method?: string;
-    
-            /** True to override the default request to host flag. */
-            overrideDefaultRequestToHostFl?: boolean;
-    
-            /** The request digest to use for the request. */
-            requestDigest?: string;
-    
-            /** The request header. */
-            requestHeader?: object;
-    
-            /** The request information. */
-            requestInfo?: object;
-    
-            /** The request type. */
-            requestType?: number;
-    
-            /** The url of the site/web to execute the request against. */
-            url?: string;
     }
 }
 

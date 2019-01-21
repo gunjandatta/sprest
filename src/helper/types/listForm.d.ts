@@ -1,5 +1,10 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../mapper/types";
+import * as Types from "../../intellisense";
+
+/**
+ * List Form
+ */
+export const ListForm: IListForm;
 
 /**
  * List Form

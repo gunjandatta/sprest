@@ -1,4 +1,4 @@
-import * as SP from "../mapper/types";
+import { ODataQuery } from "../intellisense";
 
 /**
  * OData
@@ -21,7 +21,7 @@ export class OData {
     /*********************************************************************************************************************************/
 
     // The class constructor
-    constructor(oData: SP.ODataQuery) {
+    constructor(oData: ODataQuery) {
         // Default the Variables
         this._custom = oData && oData.Custom ? oData.Custom : null;
         this._expand = oData && oData.Expand ? oData.Expand : [];

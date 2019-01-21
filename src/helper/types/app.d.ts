@@ -1,4 +1,7 @@
-import * as SP from "../../mapper/types";
+import * as SP from "../../intellisense";
+
+/** App */
+export const App: IApp;
 
 /**
  * App Helper Methods
