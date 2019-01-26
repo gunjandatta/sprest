@@ -73,13 +73,6 @@ export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result>
      * Method to get the request information.
      */
     getInfo(): IRequestInfo;
-
-    /**
-     * Method to wait for the parent requests to complete
-     * @param callback - The callback method.
-     * @param requestIdx - The request index.
-     */
-    waitForRequestsToComplete(callback: () => void, requestIdx?: number);
 }
 
 /**
@@ -182,6 +175,11 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 
     /** Updates the metdata uri. */
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
+
+    /**
+     * Method to wait for the parent requests to complete
+     */
+    waitForRequestsToComplete(callback: () => void, requestIdx?: number);
 }
 
 /**
