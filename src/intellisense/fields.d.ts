@@ -58,6 +58,11 @@ export interface IFieldsMethods {
 export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
 
 /**
+ * Field Query Results
+ */
+export interface IFieldQueryResults extends IFieldsMethods, IBaseCollectionResult<IFieldQueryResult> { }
+
+/**
  * Field Results
  */
 export interface IFieldResults extends IFieldsMethods, IBaseCollectionResult<IFieldResult> { }

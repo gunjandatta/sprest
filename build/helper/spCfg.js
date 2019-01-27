@@ -19,7 +19,8 @@ exports.SPConfig = function (cfg, webUrl) {
      * Methods
      */
     // Method to create the content types
-    var createContentTypes = function (contentTypes, cfgContentTypes) {
+    var createContentTypes = function (collection, cfgContentTypes) {
+        var contentTypes = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
@@ -31,7 +32,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_1 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // See if this content type already exists
-                var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                var ct = isInCollection("Name", cfgContentType.Name, collection.results);
                 if (ct) {
                     // Log
                     console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
@@ -210,7 +211,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the fields`
-    var createFields = function (fields, cfgFields) {
+    var createFields = function (collection, cfgFields) {
+        var fields = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
@@ -222,7 +224,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
-                var field = isInCollection("InternalName", cfgField.name, fields.results);
+                var field = isInCollection("InternalName", cfgField.name, collection.results);
                 if (field) {
                     // Log
                     console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
@@ -270,7 +272,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the lists
-    var createLists = function (lists, cfgLists) {
+    var createLists = function (collection, cfgLists) {
+        var lists = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             var _loop_4 = function (i) {
@@ -283,7 +286,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // See if this content type already exists
-                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                var list = isInCollection("Title", cfgList.ListInformation.Title, collection.results);
                 if (list) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
@@ -341,7 +344,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the user custom actions
-    var createUserCustomActions = function (customActions, cfgCustomActions) {
+    var createUserCustomActions = function (collection, cfgCustomActions) {
+        var customActions = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // See if the configuration type exists
@@ -372,7 +376,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // See if this custom action already exists
-                if (isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                if (isInCollection("Name", cfgCustomAction.Name, collection.results)) {
                     // Log
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 }
@@ -405,7 +409,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the list views
-    var createViews = function (views, cfgViews) {
+    var createViews = function (collection, cfgViews) {
+        var views = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the list views exist
@@ -417,7 +422,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_5 = function (i) {
                 var cfgView = cfgViews[i];
                 // See if this view exists
-                var view = isInCollection("Title", cfgView.ViewName, views.results);
+                var view = isInCollection("Title", cfgView.ViewName, collection.results);
                 if (view) {
                     // Log
                     console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
@@ -450,7 +455,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Wait for the requests to complete
             views.done(function () {
                 // Update the views
-                updateViews(views, cfgViews).then(function () {
+                updateViews(collection, cfgViews).then(function () {
                     // Resolve the promise
                     resolve();
                 });
@@ -566,7 +571,8 @@ exports.SPConfig = function (cfg, webUrl) {
         return false;
     };
     // Method to remove the content type
-    var removeContentTypes = function (contentTypes, cfgContentTypes) {
+    var removeContentTypes = function (collection, cfgContentTypes) {
+        var contentTypes = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the content types exist
@@ -578,7 +584,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_7 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // Get the field
-                var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                var ct = isInCollection("Name", cfgContentType.Name, collection.results);
                 if (ct) {
                     // Remove the field
                     ct.delete().execute(function () {
@@ -599,7 +605,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the fields
-    var removeFields = function (fields, cfgFields) {
+    var removeFields = function (collection, cfgFields) {
+        var fields = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the fields exist
@@ -611,7 +618,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_8 = function (i) {
                 var cfgField = cfgFields[i];
                 // Get the field
-                var field = isInCollection("InternalName", cfgField.name, fields.results);
+                var field = isInCollection("InternalName", cfgField.name, collection.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(function () {
@@ -632,7 +639,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the lists
-    var removeLists = function (lists, cfgLists) {
+    var removeLists = function (collection, cfgLists) {
+        var lists = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // See if the configuration type exists
@@ -660,7 +668,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // Get the list
-                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                var list = isInCollection("Title", cfgList.ListInformation.Title, collection.results);
                 if (list) {
                     // Remove the list
                     list.delete().execute(function () {
@@ -681,7 +689,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the user custom actions
-    var removeUserCustomActions = function (customActions, cfgCustomActions) {
+    var removeUserCustomActions = function (collection, cfgCustomActions) {
+        var customActions = collection;
         // Return a promise
         return new Promise(function (resolve, reject) {
             // See if the configuration type exists
@@ -710,7 +719,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // Get the custom action
-                var ca = isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                var ca = isInCollection("Name", cfgCustomAction.Name, collection.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(function () {

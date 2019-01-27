@@ -30,6 +30,11 @@ export interface IRoleDefinitionsMethods {
 export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
 
 /**
+ * Role Definition Query Results
+ */
+export interface IRoleDefinitionQueryResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionQueryResult> { }
+
+/**
  * Role Definition Results
  */
 export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionResult> { }

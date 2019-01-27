@@ -13,7 +13,7 @@ $REST.Web().Lists().execute(r => {
             n.results[0].Items().execute(i => {
                 i.results[0].File().execute(f => {
                     let name = f.Name;
-                })
+                });
             })
         });
     });

@@ -43,6 +43,11 @@ export interface ISiteGroupsMethods {
 export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> { }
 
 /**
+ * Site Group Query Results
+ */
+export interface ISiteGroupQueryResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupQueryResult> { }
+
+/**
  * Site Group Results
  */
 export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupResult> { }

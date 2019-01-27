@@ -24,6 +24,11 @@ export interface IFoldersMethods {
 export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> { }
 
 /**
+ * Folder Query Results
+ */
+export interface IFolderQueryResults extends IFoldersMethods, IBaseCollectionResult<IFolderQueryResult> { }
+
+/**
  * Folder Results
  */
 export interface IFolderResults extends IFoldersMethods, IBaseCollectionResult<IFolderResult> { }

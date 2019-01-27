@@ -26,7 +26,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
      */
 
     // Method to create the content types
-    let createContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    let createContentTypes = (collection: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+        let contentTypes = collection as any as Types.IContentTypes;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
@@ -41,7 +43,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let cfgContentType = cfgContentTypes[i];
 
                 // See if this content type already exists
-                let ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                let ct = isInCollection("Name", cfgContentType.Name, collection.results);
                 if (ct) {
                     // Log
                     console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
@@ -230,7 +232,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the fields`
-    let createFields = (fields: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+    let createFields = (collection: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+        let fields = collection as any as Types.IFields;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
@@ -245,7 +249,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let cfgField = cfgFields[i];
 
                 // See if this field already exists
-                let field = isInCollection("InternalName", cfgField.name, fields.results);
+                let field = isInCollection("InternalName", cfgField.name, collection.results);
                 if (field) {
                     // Log
                     console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
@@ -294,7 +298,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the lists
-    let createLists = (lists: Types.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+    let createLists = (collection: Types.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+        let lists = collection as any as Types.ILists;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // Parse the content types
@@ -311,7 +317,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
 
                 // See if this content type already exists
-                let list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                let list = isInCollection("Title", cfgList.ListInformation.Title, collection.results);
                 if (list) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
@@ -368,7 +374,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the user custom actions
-    let createUserCustomActions = (customActions: Types.IUserCustomActionResults, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
+    let createUserCustomActions = (collection: Types.IUserCustomActionResults, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
+        let customActions = collection as any as Types.IUserCustomActions;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -403,7 +411,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
 
                 // See if this custom action already exists
-                if (isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                if (isInCollection("Name", cfgCustomAction.Name, collection.results)) {
                     // Log
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 } else {
@@ -437,7 +445,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the list views
-    let createViews = (views: Types.IViewResults, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    let createViews = (collection: Types.IViewResults, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+        let views = collection as any as Types.IViews;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list views exist
@@ -452,7 +462,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let cfgView = cfgViews[i];
 
                 // See if this view exists
-                let view: Types.IViewResult = isInCollection("Title", cfgView.ViewName, views.results);
+                let view: Types.IViewResult = isInCollection("Title", cfgView.ViewName, collection.results);
                 if (view) {
                     // Log
                     console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
@@ -481,7 +491,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Wait for the requests to complete
             views.done(() => {
                 // Update the views
-                updateViews(views, cfgViews).then(() => {
+                updateViews(collection, cfgViews).then(() => {
                     // Resolve the promise
                     resolve();
                 });
@@ -612,7 +622,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to remove the content type
-    let removeContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    let removeContentTypes = (collection: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+        let contentTypes = collection as any as Types.IContentTypes;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -627,7 +639,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let cfgContentType = cfgContentTypes[i];
 
                 // Get the field
-                let ct: Types.IContentTypeResult = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                let ct: Types.IContentTypeResult = isInCollection("Name", cfgContentType.Name, collection.results);
                 if (ct) {
                     // Remove the field
                     ct.delete().execute(() => {
@@ -646,7 +658,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to remove the fields
-    let removeFields = (fields: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+    let removeFields = (collection: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+        let fields = collection as any as Types.IFields;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -661,7 +675,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let cfgField = cfgFields[i];
 
                 // Get the field
-                let field: Types.IFieldResult = isInCollection("InternalName", cfgField.name, fields.results);
+                let field: Types.IFieldResult = isInCollection("InternalName", cfgField.name, collection.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(() => {
@@ -680,7 +694,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to remove the lists
-    let removeLists = (lists: Types.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+    let removeLists = (collection: Types.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+        let lists = collection as any as Types.ILists;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -714,7 +730,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
 
                 // Get the list
-                let list: Types.IListResult = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                let list: Types.IListResult = isInCollection("Title", cfgList.ListInformation.Title, collection.results);
                 if (list) {
                     // Remove the list
                     list.delete().execute(() => {
@@ -732,7 +748,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         });
     }
     // Method to remove the user custom actions
-    let removeUserCustomActions = (customActions: Types.IUserCustomActionResults, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
+    let removeUserCustomActions = (collection: Types.IUserCustomActionResults, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
+        let customActions = collection as any as Types.IUserCustomActions;
+
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -767,7 +785,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
 
                 // Get the custom action
-                let ca: Types.IUserCustomActionResult = isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                let ca: Types.IUserCustomActionResult = isInCollection("Name", cfgCustomAction.Name, collection.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(() => {

@@ -30,6 +30,11 @@ export interface IViewsMethods {
 export interface IViews extends IViewsMethods, IBaseCollection<IView, IViewResult, IViewQueryResult> { }
 
 /**
+ * View Query Results
+ */
+export interface IViewQueryResults extends IViewsMethods, IBaseCollectionResult<IViewQueryResult> { }
+
+/**
  * View Results
  */
 export interface IViewResults extends IViewsMethods, IBaseCollectionResult<IViewResult> { }

@@ -25,6 +25,11 @@ export interface IEventReceiversMethods {
 export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
 
 /**
+ * Event Receiver Query Results
+ */
+export interface IEventReceiverQueryResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverQueryResult> { }
+
+/**
  * Event Receiver Results
  */
 export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverResult> { }

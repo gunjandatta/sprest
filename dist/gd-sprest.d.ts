@@ -4251,6 +4251,11 @@ declare module 'gd-sprest/intellisense/contentTypes' {
     export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
     
     /**
+        * Content Type Event ReceiverResults
+        */
+    export interface IContentTypeQueryResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeQueryResult> { }
+    
+    /**
         * Content Type Results
         */
     export interface IContentTypeResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeResult> { }
@@ -4360,6 +4365,11 @@ declare module 'gd-sprest/intellisense/eventReceivers' {
         * Event Receivers
         */
     export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+    
+    /**
+        * Event Receiver Query Results
+        */
+    export interface IEventReceiverQueryResults extends IEventReceiversMethods, IBaseCollectionResult<IEventReceiverQueryResult> { }
     
     /**
         * Event Receiver Results
@@ -4893,6 +4903,11 @@ declare module 'gd-sprest/intellisense/fields' {
     export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
     
     /**
+        * Field Query Results
+        */
+    export interface IFieldQueryResults extends IFieldsMethods, IBaseCollectionResult<IFieldQueryResult> { }
+    
+    /**
         * Field Results
         */
     export interface IFieldResults extends IFieldsMethods, IBaseCollectionResult<IFieldResult> { }
@@ -5178,6 +5193,11 @@ declare module 'gd-sprest/intellisense/files' {
     export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> { }
     
     /**
+        * File Query Results
+        */
+    export interface IFileQueryResults extends IFilesMethods, IBaseCollectionResult<IFileQueryResult> { }
+    
+    /**
         * File Results
         */
     export interface IFileResults extends IFilesMethods, IBaseCollectionResult<IFileResult> { }
@@ -5390,6 +5410,11 @@ declare module 'gd-sprest/intellisense/folders' {
         * Folders
         */
     export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> { }
+    
+    /**
+        * Folder Query Results
+        */
+    export interface IFolderQueryResults extends IFoldersMethods, IBaseCollectionResult<IFolderQueryResult> { }
     
     /**
         * Folder Results
@@ -5847,6 +5872,11 @@ declare module 'gd-sprest/intellisense/groups' {
     export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> { }
     
     /**
+        * Site Group Query Results
+        */
+    export interface ISiteGroupQueryResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupQueryResult> { }
+    
+    /**
         * Site Group Results
         */
     export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollectionResult<IGroupResult> { }
@@ -5877,6 +5907,11 @@ declare module 'gd-sprest/intellisense/items' {
         * List Items
         */
     export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> { }
+    
+    /**
+        * List Item Query Results
+        */
+    export interface IListItemQueryResults extends IListItemsMethods, IBaseCollectionResult<IListItemQueryResult> { }
     
     /**
         * List Item Results
@@ -6491,6 +6526,11 @@ declare module 'gd-sprest/intellisense/lists' {
         * Lists
         */
     export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> { }
+    
+    /**
+        * List Query Results
+        */
+    export interface IListQueryResults extends IListsMethods, IBaseCollectionResult<IListQueryResult> { }
     
     /**
         * List Results
@@ -7253,6 +7293,11 @@ declare module 'gd-sprest/intellisense/roleAssignments' {
     export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
     
     /**
+        * Role Assignment Query Results
+        */
+    export interface IRoleAssignmentQueryResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentQueryResult> { }
+    
+    /**
         * Role Assignment Results
         */
     export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentResult> { }
@@ -7324,6 +7369,11 @@ declare module 'gd-sprest/intellisense/roleDefinitions' {
         * Role Definitions
         */
     export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> { }
+    
+    /**
+        * Role Definition Query Results
+        */
+    export interface IRoleDefinitionQueryResults extends IRoleDefinitionsMethods, IBaseCollectionResult<IRoleDefinitionQueryResult> { }
     
     /**
         * Role Definition Results
@@ -8014,6 +8064,11 @@ declare module 'gd-sprest/intellisense/userCustomActions' {
     }
     
     /**
+        * User Custom Action Query Results
+        */
+    export interface IUserCustomActionQueryResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionQueryResult> { }
+    
+    /**
         * User Custom Action Results
         */
     export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionResult> { }
@@ -8133,7 +8188,7 @@ declare module 'gd-sprest/intellisense/userProfile' {
 
 declare module 'gd-sprest/intellisense/users' {
     import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "gd-sprest/utils/types/base";
     import { IUser, IUserQueryResult, IUserResult } from "gd-sprest/intellisense";
     
     /**
@@ -8165,11 +8220,6 @@ declare module 'gd-sprest/intellisense/users' {
             getByLoginName(loginName): IUser & IBaseExecution<IUser, IUserResult, IUserQueryResult>;
     
             /**
-                * Method to get the next set of results.
-                */
-            next(): IBaseExecution<IUsers, IUserResults>;
-    
-            /**
                 * Removes the user with the specified ID.
                 * @param id - The ID of the user to remove.
                 */
@@ -8186,6 +8236,11 @@ declare module 'gd-sprest/intellisense/users' {
         * Users
         */
     export interface IUsers extends IUsersMethods, IBaseCollection<IUser, IUserResult, IUserQueryResult> { }
+    
+    /**
+        * User Query Results
+        */
+    export interface IUserQueryResults extends IUsersMethods, IBaseCollectionResult<IUserQueryResult> { }
     
     /**
         * User Results
@@ -8561,6 +8616,11 @@ declare module 'gd-sprest/intellisense/views' {
         * Views
         */
     export interface IViews extends IViewsMethods, IBaseCollection<IView, IViewResult, IViewQueryResult> { }
+    
+    /**
+        * View Query Results
+        */
+    export interface IViewQueryResults extends IViewsMethods, IBaseCollectionResult<IViewQueryResult> { }
     
     /**
         * View Results
@@ -9268,6 +9328,11 @@ declare module 'gd-sprest/intellisense/webs' {
     export interface IWebs extends IWebsMethods, IBaseCollection<IWeb, IWebResult, IWebQueryResult> { }
     
     /**
+        * Web Query Results
+        */
+    export interface IWebQueryResults extends IWebsMethods, IBaseCollectionResult<IWebQueryResult> { }
+    
+    /**
         * Web Results
         */
     export interface IWebResults extends IWebsMethods, IBaseCollectionResult<IWebResult> { }
@@ -9349,13 +9414,6 @@ declare module 'gd-sprest/utils/types/base' {
                 * Method to get the request information.
                 */
             getInfo(): IRequestInfo;
-    
-            /**
-                * Method to wait for the parent requests to complete
-                * @param callback - The callback method.
-                * @param requestIdx - The request index.
-                */
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number);
     }
     
     /**
@@ -9385,7 +9443,44 @@ declare module 'gd-sprest/utils/types/base' {
                 * Queries the collection.
                 * @param oData - The OData information.
                 */
-            query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
+            query?(query: ODataQuery): IBaseExecution<QueryResult>;
+    }
+    
+    /**
+        * Base Execution Query Result
+        */
+    export interface IBaseQueryExecutionResult<Type = any> extends IBaseCollectionResult<Type> {
+            /** The collection results. */
+            results: Array<Type>
+    }
+    
+    /**
+        * Base Collection
+        */
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseQueryExecutionResult<QueryResult>> {
+    }
+    
+    /**
+        * Base Collection Results
+        */
+    export interface IBaseCollectionResult<Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+    
+            /** Returns the next set of results, if paging exists. */
+            next(): IBaseCollection<Result>;
+    
+            /** True, if more items exist. */
+            nextFl: boolean;
+    
+            /** The raw string response. */
+            response: string;
+    
+            /** The results. */
+            results: Array<Result>;
+    
+            /** Method to stringify the object. */
+            stringify(): string;
     }
     
     /**
@@ -9446,43 +9541,11 @@ declare module 'gd-sprest/utils/types/base' {
     
             /** Updates the metdata uri. */
             updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
-    }
     
-    /**
-        * Base Collection Results
-        */
-    export interface IBaseCollectionResult<Result> {
             /**
-                * Method to wait for the requests to complete.
-                * @param resolve - The method to be executed after the request completes.
+                * Method to wait for the parent requests to complete
                 */
-            done<T=IBase>(resolve: (value?: T) => void);
-    
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-    
-            /** Returns the next set of results, if paging exists. */
-            next(): IBaseCollection<Result>;
-    
-            /** True, if more items exist. */
-            nextFl: boolean;
-    
-            /** The raw string response. */
-            response: string;
-    
-            /** The results. */
-            results: Array<Result>;
-    
-            /** Method to stringify the object. */
-            stringify(): string;
-    }
-    
-    /**
-        * Base Collection
-        */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
-            /** The collection results. */
-            results: Array<Type>
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number);
     }
 }
 

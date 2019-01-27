@@ -37,6 +37,11 @@ export interface IFilesMethods {
 export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> { }
 
 /**
+ * File Query Results
+ */
+export interface IFileQueryResults extends IFilesMethods, IBaseCollectionResult<IFileQueryResult> { }
+
+/**
  * File Results
  */
 export interface IFileResults extends IFilesMethods, IBaseCollectionResult<IFileResult> { }

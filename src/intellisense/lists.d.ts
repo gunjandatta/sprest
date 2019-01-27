@@ -41,6 +41,11 @@ export interface IListsMethods {
 export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> { }
 
 /**
+ * List Query Results
+ */
+export interface IListQueryResults extends IListsMethods, IBaseCollectionResult<IListQueryResult> { }
+
+/**
  * List Results
  */
 export interface IListResults extends IListsMethods, IBaseCollectionResult<IListResult> { }

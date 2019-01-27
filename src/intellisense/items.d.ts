@@ -24,6 +24,11 @@ export interface IListItemsMethods {
 export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> { }
 
 /**
+ * List Item Query Results
+ */
+export interface IListItemQueryResults extends IListItemsMethods, IBaseCollectionResult<IListItemQueryResult> { }
+
+/**
  * List Item Results
  */
 export interface IListItemResults extends IListItemsMethods, IBaseCollectionResult<IListItemResult> { }

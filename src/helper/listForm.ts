@@ -1,7 +1,6 @@
 import { SP } from "gd-sprest-def";
 import { Helper, SPTypes, Web } from "..";
-import { IContentTypeQueryResult, IFieldLookup, IFieldResults, ODataQuery } from "../intellisense"
-import { IBaseCollection } from "../utils/types/base";
+import { IContentTypeQueryResult, IContentTypeQueryResults, IFieldLookup, IFieldResults, ODataQuery } from "../intellisense"
 import {
     IListForm, IListFormAttachmentInfo,
     IListFormCache, IListFormResult, IListFormProps
@@ -62,7 +61,7 @@ export const ListForm: IListForm = {
                 // Try to parse the data
                 try {
                     // Parse the content type
-                    let ct = Helper.parse(_cacheData.ct) as IBaseCollection<IContentTypeQueryResult>;
+                    let ct = Helper.parse(_cacheData.ct) as IContentTypeQueryResults;
 
                     // Load the default fields
                     loadDefaultFields(ct.results[0]);

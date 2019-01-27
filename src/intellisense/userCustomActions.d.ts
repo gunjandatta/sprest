@@ -31,6 +31,11 @@ export interface IUserCustomActions extends IUserCustomActionsMethods, IBaseColl
 }
 
 /**
+ * User Custom Action Query Results
+ */
+export interface IUserCustomActionQueryResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionQueryResult> { }
+
+/**
  * User Custom Action Results
  */
 export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollectionResult<IUserCustomActionResult> { }

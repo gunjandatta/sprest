@@ -19,6 +19,11 @@ export interface IWebsMethods {
 export interface IWebs extends IWebsMethods, IBaseCollection<IWeb, IWebResult, IWebQueryResult> { }
 
 /**
+ * Web Query Results
+ */
+export interface IWebQueryResults extends IWebsMethods, IBaseCollectionResult<IWebQueryResult> { }
+
+/**
  * Web Results
  */
 export interface IWebResults extends IWebsMethods, IBaseCollectionResult<IWebResult> { }

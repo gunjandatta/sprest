@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { IBaseExecution, IBaseCollection } from "../utils/types/base";
+import { IBaseExecution, IBaseCollection, IBaseCollectionResult } from "../utils/types/base";
 import { IUser, IUserQueryResult, IUserResult } from ".";
 
 /**
@@ -31,11 +31,6 @@ export interface IUsersMethods {
     getByLoginName(loginName): IUser & IBaseExecution<IUser, IUserResult, IUserQueryResult>;
 
     /**
-     * Method to get the next set of results.
-     */
-    next(): IBaseExecution<IUsers, IUserResults>;
-
-    /**
      * Removes the user with the specified ID.
      * @param id - The ID of the user to remove.
      */
@@ -52,6 +47,11 @@ export interface IUsersMethods {
  * Users
  */
 export interface IUsers extends IUsersMethods, IBaseCollection<IUser, IUserResult, IUserQueryResult> { }
+
+/**
+ * User Query Results
+ */
+export interface IUserQueryResults extends IUsersMethods, IBaseCollectionResult<IUserQueryResult> { }
 
 /**
  * User Results

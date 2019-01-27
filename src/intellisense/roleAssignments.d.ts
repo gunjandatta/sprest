@@ -32,6 +32,11 @@ export interface IRoleAssignmentsMethods {
 export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
 
 /**
+ * Role Assignment Query Results
+ */
+export interface IRoleAssignmentQueryResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentQueryResult> { }
+
+/**
  * Role Assignment Results
  */
 export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollectionResult<IRoleAssignmentResult> { }

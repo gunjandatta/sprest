@@ -31,6 +31,11 @@ export interface IContentTypesMethods {
 export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
 
 /**
+ * Content Type Event ReceiverResults
+ */
+export interface IContentTypeQueryResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeQueryResult> { }
+
+/**
  * Content Type Results
  */
 export interface IContentTypeResults extends IContentTypesMethods, IBaseCollectionResult<IContentTypeResult> { }
