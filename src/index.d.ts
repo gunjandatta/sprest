@@ -23,4 +23,6 @@ export { SPTypes }
 /**
  * Intellisense
  */
+import * as Types from "./intellisense";
+export { Types }
 export * from "gd-sprest-def";

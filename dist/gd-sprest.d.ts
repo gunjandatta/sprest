@@ -28,6 +28,8 @@ declare module 'gd-sprest' {
     /**
         * Intellisense
         */
+    import * as Types from "gd-sprest/intellisense";
+    export { Types }
     export * from "gd-sprest-def";
 }
 
@@ -214,6 +216,26 @@ declare module 'gd-sprest/mapper/types' {
     export {
         SPTypes
     }
+}
+
+declare module 'gd-sprest/intellisense' {
+    export * from "gd-sprest/intellisense/entityData";
+    export * from "gd-sprest/intellisense/graph";
+    export * from "gd-sprest/intellisense/navigation";
+    export * from "gd-sprest/intellisense/odata";
+    export * from "gd-sprest/intellisense/peopleManager";
+    export * from "gd-sprest/intellisense/peoplePicker";
+    export * from "gd-sprest/intellisense/profileLoader";
+    export * from "gd-sprest/intellisense/propertyValues";
+    import * as Results from "gd-sprest/intellisense/results";
+    export * from "gd-sprest/intellisense/search";
+    export * from "gd-sprest/intellisense/socialFeed";
+    export * from "gd-sprest/intellisense/tenantApp";
+    export * from "gd-sprest/intellisense/tenantAppCatalog";
+    export * from "gd-sprest/intellisense/tenantApps";
+    export * from "gd-sprest/intellisense/userProfile";
+    export * from "gd-sprest/intellisense/utility";
+    export { Results }
 }
 
 declare module 'gd-sprest/helper/types/app' {
@@ -2681,27 +2703,6 @@ declare module 'gd-sprest/lib/types/web' {
     }
 }
 
-declare module 'gd-sprest/intellisense' {
-    import { SP } from "gd-sprest-def";
-    export * from "gd-sprest/intellisense/entityData";
-    export * from "gd-sprest/intellisense/graph";
-    export * from "gd-sprest/intellisense/navigation";
-    export * from "gd-sprest/intellisense/odata";
-    export * from "gd-sprest/intellisense/peopleManager";
-    export * from "gd-sprest/intellisense/peoplePicker";
-    export * from "gd-sprest/intellisense/profileLoader";
-    export * from "gd-sprest/intellisense/propertyValues";
-    import * as Results from "gd-sprest/intellisense/results";
-    export * from "gd-sprest/intellisense/search";
-    export * from "gd-sprest/intellisense/socialFeed";
-    export * from "gd-sprest/intellisense/tenantApp";
-    export * from "gd-sprest/intellisense/tenantAppCatalog";
-    export * from "gd-sprest/intellisense/tenantApps";
-    export * from "gd-sprest/intellisense/userProfile";
-    export * from "gd-sprest/intellisense/utility";
-    export { SP, Results }
-}
-
 declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/base";
     export * from "gd-sprest/utils/types/helper";
@@ -4039,314 +4040,6 @@ declare module 'gd-sprest/mapper/types/sptypes' {
             TeamCollaborationSite: string,
             TenantAdmin: string,
             Wiki: string
-    }
-}
-
-declare module 'gd-sprest/utils/types/base' {
-    import { ODataQuery } from "gd-sprest/intellisense";
-    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
-    import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
-    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
-    
-    /**
-        * Base Execution
-        */
-    export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param resolve - The method to be executed after the request completes.
-                */
-            batch(resolve: (value?: Result) => void): Type;
-    
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param appendFl - Flag to execute the request as part of a change set.
-                */
-            batch(appendFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param resolve - The method to be executed after the request completes.
-                * @param appendFl - Flag to execute the request as part of a change set.
-                */
-            batch(resolve: (value?: Result) => void, appendFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(waitFl: boolean): Type;
-    
-            /**
-                * Method to execute the request.
-                * @param resolve - The method to be executed if the request is successful.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request.
-                * @param resolve - The method to be executed if the request is successful.
-                * @param reject - The method to be executed if the request fails.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request. (This is an internal method, but can be used for dev purposes.)
-                * @param methodName - The method name to execute.
-                * @param methodConfig - The configuration to pass with the request.
-                * @param args - The optional arguments for the request.
-                */
-            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
-    
-            /**
-                * Method to execute the request synchronously.
-                */
-            executeAndWait(): Result;
-    
-            /**
-                * Method to wait for the requests to complete.
-                * @param resolve - The method to be executed after the request completes.
-                */
-            done<T=IBase>(resolve: (value?: T) => void);
-    
-            /**
-                * Method to get the request information.
-                */
-            getInfo(): IRequestInfo;
-    }
-    
-    /**
-        * Base Result
-        */
-    export interface IBaseResult<Type = any, Result = Type, QueryResult = Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-    
-            /** The response */
-            response: string;
-    
-            /** The target information. */
-            targetInfo: ITargetInfoProps;
-    
-            /**
-                * Method to stringify the object.
-                */
-            stringify(): string;
-    }
-    
-    /**
-        * Base Execution w/ Query
-        */
-    export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
-            /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query?(query: ODataQuery): IBaseExecution<QueryResult>;
-    }
-    
-    /**
-        * Base Execution Query Result
-        */
-    export interface IBaseQueryExecutionResult<Type = any> extends IBaseCollectionResult<Type> {
-            /** The collection results. */
-            results: Array<Type>
-    }
-    
-    /**
-        * Base Collection
-        */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseQueryExecutionResult<QueryResult>> {
-    }
-    
-    /**
-        * Base Collection Results
-        */
-    export interface IBaseCollectionResult<Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-    
-            /** Returns the next set of results, if paging exists. */
-            next(): IBaseCollection<Result>;
-    
-            /** True, if more items exist. */
-            nextFl: boolean;
-    
-            /** The raw string response. */
-            response: string;
-    
-            /** The results. */
-            results: Array<Result>;
-    
-            /** Method to stringify the object. */
-            stringify(): string;
-    }
-    
-    /**
-        * Base
-        */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult>, IBaseResult<Type, Result, QueryResult> {
-    
-            /** The parent object, which created this object. */
-            parent: any;
-    
-    
-            /** The batch requests. */
-            batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
-    
-            /** The index of this object in the responses array. */
-            responseIndex: number;
-    
-            /** The responses. */
-            responses: Array<IBase>;
-    
-            /** The wait flags. */
-            waitFlags: Array<boolean>;
-    
-    
-            /** The base object. */
-            base: IBase;
-    
-            /** The request type */
-            requestType: number;
-    
-            /** The request's status. */
-            status: number;
-    
-            /** The xml object. */
-            xml: string | XMLDocument;
-    
-    
-            /** Flag to get all items. */
-            getAllItemsFl: boolean;
-    
-            /** Flag determining if more items exist. */
-            nextFl: boolean;
-    
-            /** The request. */
-            xhr: IXHRRequest;
-    
-            /** Adds methods based on the object type. */
-            addMethods(data: any, context?: any);
-    
-            /** Gets the property as a collection. */
-            getCollection(method: string, args?: any);
-    
-            /** Gets the next set of results. */
-            getNextSetOfResults();
-    
-            /** Gets the property. */
-            getProperty(propertyName: string, requestType?: string);
-    
-            /** Updates the metdata uri. */
-            updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
-    
-            /**
-                * Method to wait for the parent requests to complete
-                */
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number);
-    }
-}
-
-declare module 'gd-sprest/utils/types/targetInfo' {
-    /**
-        * Target Information
-        */
-    export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
-    
-    /**
-        * Request Information
-        */
-    export interface IRequestInfo {
-            /** The data being sent in the body of the request. */
-            data?: object;
-    
-            /** The request method (GET/POST) */
-            method: string;
-    
-            /** The url of the request. */
-            url: string;
-    }
-    
-    /**
-        * Target Information
-        */
-    export interface ITargetInfo {
-            // The target information properties
-            props: ITargetInfoProps;
-    
-            // Flag to determine if this is a batch request
-            isBatchRequest: boolean;
-    
-            // Flag to determine if this is a graph request
-            isGraph: boolean;
-    
-            // The request data
-            requestData: any;
-    
-            // The request information
-            requestInfo: IRequestInfo;
-    
-            // The request header
-            requestHeaders: object;
-    
-            // The request method
-            requestMethod: string;
-    
-            // The request type
-            requestType: number;
-    
-            // The request url
-            requestUrl: string;
-    }
-    
-    /**
-        * Target Information Properties
-        */
-    export interface ITargetInfoProps {
-            /** The access token for the graph api request. */
-            accessToken?: string;
-    
-            /** True if the expected request returns an array buffer. */
-            bufferFl?: boolean;
-    
-            /** The method to execute after the asynchronous request executes. */
-            callback?: () => void;
-    
-            /** The data to be passed in the body of the request. */
-            data?: any;
-    
-            /** True to default the request to the web api, site api otherwise. */
-            defaultToWebFl?: boolean;
-    
-            /** The endpoint of the request. */
-            endpoint?: string;
-    
-            /** The method to execute. */
-            method?: string;
-    
-            /** True to override the default request to host flag. */
-            overrideDefaultRequestToHostFl?: boolean;
-    
-            /** The request digest to use for the request. */
-            requestDigest?: string;
-    
-            /** The request header. */
-            requestHeader?: object;
-    
-            /** The request information. */
-            requestInfo?: object;
-    
-            /** The request type. */
-            requestType?: number;
-    
-            /** The url of the site/web to execute the request against. */
-            url?: string;
     }
 }
 
@@ -6026,6 +5719,314 @@ declare module 'gd-sprest/intellisense/utility' {
                 * @param email - The email properties.
                 */
             sendEmail(email: IEmail): IBaseExecution<IBaseExecution, ISendEmailResult>;
+    }
+}
+
+declare module 'gd-sprest/utils/types/base' {
+    import { ODataQuery } from "gd-sprest/intellisense";
+    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
+    import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
+    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
+    
+    /**
+        * Base Execution
+        */
+    export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param resolve - The method to be executed after the request completes.
+                */
+            batch(resolve: (value?: Result) => void): Type;
+    
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param appendFl - Flag to execute the request as part of a change set.
+                */
+            batch(appendFl?: boolean): Type;
+    
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param resolve - The method to be executed after the request completes.
+                * @param appendFl - Flag to execute the request as part of a change set.
+                */
+            batch(resolve: (value?: Result) => void, appendFl?: boolean): Type;
+    
+            /**
+                * Method to execute the request.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(waitFl: boolean): Type;
+    
+            /**
+                * Method to execute the request.
+                * @param resolve - The method to be executed if the request is successful.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
+    
+            /**
+                * Method to execute the request.
+                * @param resolve - The method to be executed if the request is successful.
+                * @param reject - The method to be executed if the request fails.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
+    
+            /**
+                * Method to execute the request. (This is an internal method, but can be used for dev purposes.)
+                * @param methodName - The method name to execute.
+                * @param methodConfig - The configuration to pass with the request.
+                * @param args - The optional arguments for the request.
+                */
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
+    
+            /**
+                * Method to execute the request synchronously.
+                */
+            executeAndWait(): Result;
+    
+            /**
+                * Method to wait for the requests to complete.
+                * @param resolve - The method to be executed after the request completes.
+                */
+            done<T=IBase>(resolve: (value?: T) => void);
+    
+            /**
+                * Method to get the request information.
+                */
+            getInfo(): IRequestInfo;
+    }
+    
+    /**
+        * Base Result
+        */
+    export interface IBaseResult<Type = any, Result = Type, QueryResult = Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+    
+            /** The response */
+            response: string;
+    
+            /** The target information. */
+            targetInfo: ITargetInfoProps;
+    
+            /**
+                * Method to stringify the object.
+                */
+            stringify(): string;
+    }
+    
+    /**
+        * Base Execution w/ Query
+        */
+    export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
+            /**
+                * Queries the collection.
+                * @param oData - The OData information.
+                */
+            query?(query: ODataQuery): IBaseExecution<QueryResult>;
+    }
+    
+    /**
+        * Base Execution Query Result
+        */
+    export interface IBaseQueryExecutionResult<Type = any> extends IBaseCollectionResult<Type> {
+            /** The collection results. */
+            results: Array<Type>
+    }
+    
+    /**
+        * Base Collection
+        */
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseQueryExecutionResult<QueryResult>> {
+    }
+    
+    /**
+        * Base Collection Results
+        */
+    export interface IBaseCollectionResult<Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+    
+            /** Returns the next set of results, if paging exists. */
+            next(): IBaseCollection<Result>;
+    
+            /** True, if more items exist. */
+            nextFl: boolean;
+    
+            /** The raw string response. */
+            response: string;
+    
+            /** The results. */
+            results: Array<Result>;
+    
+            /** Method to stringify the object. */
+            stringify(): string;
+    }
+    
+    /**
+        * Base
+        */
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult>, IBaseResult<Type, Result, QueryResult> {
+    
+            /** The parent object, which created this object. */
+            parent: any;
+    
+    
+            /** The batch requests. */
+            batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
+    
+            /** The index of this object in the responses array. */
+            responseIndex: number;
+    
+            /** The responses. */
+            responses: Array<IBase>;
+    
+            /** The wait flags. */
+            waitFlags: Array<boolean>;
+    
+    
+            /** The base object. */
+            base: IBase;
+    
+            /** The request type */
+            requestType: number;
+    
+            /** The request's status. */
+            status: number;
+    
+            /** The xml object. */
+            xml: string | XMLDocument;
+    
+    
+            /** Flag to get all items. */
+            getAllItemsFl: boolean;
+    
+            /** Flag determining if more items exist. */
+            nextFl: boolean;
+    
+            /** The request. */
+            xhr: IXHRRequest;
+    
+            /** Adds methods based on the object type. */
+            addMethods(data: any, context?: any);
+    
+            /** Gets the property as a collection. */
+            getCollection(method: string, args?: any);
+    
+            /** Gets the next set of results. */
+            getNextSetOfResults();
+    
+            /** Gets the property. */
+            getProperty(propertyName: string, requestType?: string);
+    
+            /** Updates the metdata uri. */
+            updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
+    
+            /**
+                * Method to wait for the parent requests to complete
+                */
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number);
+    }
+}
+
+declare module 'gd-sprest/utils/types/targetInfo' {
+    /**
+        * Target Information
+        */
+    export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
+    
+    /**
+        * Request Information
+        */
+    export interface IRequestInfo {
+            /** The data being sent in the body of the request. */
+            data?: object;
+    
+            /** The request method (GET/POST) */
+            method: string;
+    
+            /** The url of the request. */
+            url: string;
+    }
+    
+    /**
+        * Target Information
+        */
+    export interface ITargetInfo {
+            // The target information properties
+            props: ITargetInfoProps;
+    
+            // Flag to determine if this is a batch request
+            isBatchRequest: boolean;
+    
+            // Flag to determine if this is a graph request
+            isGraph: boolean;
+    
+            // The request data
+            requestData: any;
+    
+            // The request information
+            requestInfo: IRequestInfo;
+    
+            // The request header
+            requestHeaders: object;
+    
+            // The request method
+            requestMethod: string;
+    
+            // The request type
+            requestType: number;
+    
+            // The request url
+            requestUrl: string;
+    }
+    
+    /**
+        * Target Information Properties
+        */
+    export interface ITargetInfoProps {
+            /** The access token for the graph api request. */
+            accessToken?: string;
+    
+            /** True if the expected request returns an array buffer. */
+            bufferFl?: boolean;
+    
+            /** The method to execute after the asynchronous request executes. */
+            callback?: () => void;
+    
+            /** The data to be passed in the body of the request. */
+            data?: any;
+    
+            /** True to default the request to the web api, site api otherwise. */
+            defaultToWebFl?: boolean;
+    
+            /** The endpoint of the request. */
+            endpoint?: string;
+    
+            /** The method to execute. */
+            method?: string;
+    
+            /** True to override the default request to host flag. */
+            overrideDefaultRequestToHostFl?: boolean;
+    
+            /** The request digest to use for the request. */
+            requestDigest?: string;
+    
+            /** The request header. */
+            requestHeader?: object;
+    
+            /** The request information. */
+            requestInfo?: object;
+    
+            /** The request type. */
+            requestType?: number;
+    
+            /** The url of the site/web to execute the request against. */
+            url?: string;
     }
 }
 

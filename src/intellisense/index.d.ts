@@ -1,4 +1,3 @@
-import { SP } from "gd-sprest-def";
 export * from "./entityData";
 export * from "./graph";
 export * from "./navigation";
@@ -15,4 +14,4 @@ export * from "./tenantAppCatalog";
 export * from "./tenantApps";
 export * from "./userProfile";
 export * from "./utility";
-export { SP, Results }
+export { Results }
