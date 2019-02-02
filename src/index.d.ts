@@ -23,5 +23,5 @@ export { SPTypes }
 /**
  * SharePoint Intellisense
  */
-import * as SP from "./intellisense";
-export { SP }
+import * as Types from "gd-sprest-def";
+export { Types }

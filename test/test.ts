@@ -12,7 +12,9 @@ $REST.Web().Lists().execute(r => {
     r.next().execute(n => {
         let title = n.results[0].Title;
         n.next().execute(n => {
-            n.results[0].Items.results[0].Id;
+            n.results[0].Items().execute(i => {
+                i.results[0].File();
+            });
         });
     });
 })
@@ -24,7 +26,8 @@ $REST.List("").execute(l => {
 })
 
 $REST.Web().getUserEffectivePermissions("").execute(r => {
-    let h = r.GetUserEffectivePermissions.High;
+    let h = r.High;
+    let l = r.Low;
 });
 
 $REST.Search().postquery({

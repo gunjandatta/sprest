@@ -1,5 +1,5 @@
-import { ITermInfo } from "../../helper/types";
 import { SP } from "gd-sprest-def";
+import { ITermInfo } from "../../helper/types";
 
 /**
  * List Form Field
@@ -14,7 +14,7 @@ export interface IListFormFieldInfo {
     defaultValue?: any;
 
     /** The list field. */
-    field?: SP.Field | SP.FieldQuery | SP.Taxonomy.TaxonomyField;
+    field?: SP.Field | SP.FieldOData | SP.Taxonomy.TaxonomyField;
 
     /** The list name. */
     listName: string;

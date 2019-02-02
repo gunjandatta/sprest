@@ -52,7 +52,7 @@ exports.App = {
                         // See if the file exists
                         if (file.Exists) {
                             // Check out the file, and resolve the promise
-                            file.checkout().execute(resolve);
+                            file.checkOut().execute(resolve);
                         }
                         else {
                             // Resolve the promise

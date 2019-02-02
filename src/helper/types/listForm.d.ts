@@ -151,7 +151,7 @@ export interface IListFormProps {
     fields?: Array<string>;
 
     /** The list item */
-    item?: SP.IListItemQuery | SP.IListItem;
+    item?: SP.ListItemOData | SP.ListItem;
 
     /** The item id */
     itemId?: number;
@@ -177,16 +177,16 @@ export interface IListFormResult {
     attachments?: Array<SP.Attachment>;
 
     /** The form fields. */
-    fields: { [key: string]: SP.IField };
+    fields: { [key: string]: SP.Field };
 
     /** The list item. */
-    item?: SP.IListItemQuery | SP.IListItem;
+    item?: SP.ListItemOData | SP.ListItem;
 
     /** The item query. */
     query?: IODataQuery;
 
     /** The list. */
-    list: SP.IList;
+    list: SP.List;
 
     /** The relative web url containing the list. */
     webUrl?: string;

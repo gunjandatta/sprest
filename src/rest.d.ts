@@ -52,7 +52,7 @@ export interface IREST {
      * Use this api to get the list name by its entity name.
      * @param props - The list entity request properties.
      */
-    ListByEntityName(props: LibTypes.IListEntityProps): LibTypes.IList;
+    ListByEntityName(props: LibTypes.IListEntityProps): SP.IList;
 
     /**
      * Use this api to get the list data.

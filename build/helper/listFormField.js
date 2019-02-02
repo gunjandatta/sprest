@@ -51,7 +51,7 @@ exports.ListFormField = {
                 case __1.SPTypes.FieldType.Choice:
                 case __1.SPTypes.FieldType.MultiChoice:
                     var choices = _fieldInfo.field.Choices;
-                    _fieldInfo.choices = (choices ? choices.results : null) || [];
+                    _fieldInfo.choices = (choices ? choices["results"] : null) || [];
                     _fieldInfo.multi = _fieldInfo.type == __1.SPTypes.FieldType.MultiChoice;
                     break;
                 // Date/Time

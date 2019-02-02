@@ -3,10 +3,10 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./spCfgTypes"));
 var lib_1 = require("../lib");
-var mapper_1 = require("../mapper");
+var __1 = require("..");
 var _1 = require(".");
+__export(require("./spCfgTypes"));
 /**
  * SharePoint Configuration
  */
@@ -19,8 +19,7 @@ exports.SPConfig = function (cfg, webUrl) {
      * Methods
      */
     // Method to create the content types
-    var createContentTypes = function (collection, cfgContentTypes) {
-        var contentTypes = collection;
+    var createContentTypes = function (contentTypes, cfgContentTypes) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
@@ -32,7 +31,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_1 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // See if this content type already exists
-                var ct = isInCollection("Name", cfgContentType.Name, collection.results);
+                var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
                 if (ct) {
                     // Log
                     console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
@@ -56,38 +55,38 @@ exports.SPConfig = function (cfg, webUrl) {
                             // See if the parent exists
                             if (parent.results[0]) {
                                 // Add the available content type
-                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(
-                                // Success
-                                function (ct) {
-                                    // Update the name
-                                    (function () {
-                                        return new Promise(function (resolve, reject) {
-                                            // Ensure the name doesn't need to be updated
-                                            if (ct.Name != cfgContentType.Name) {
-                                                ct.update({ Name: cfgContentType.Name }).execute(function () {
+                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
+                                    // See if it was successful
+                                    if (ct.Name) {
+                                        // Update the name
+                                        (function () {
+                                            return new Promise(function (resolve, reject) {
+                                                // Ensure the name doesn't need to be updated
+                                                if (ct.Name != cfgContentType.Name) {
+                                                    ct.update({ Name: cfgContentType.Name }).execute(function () {
+                                                        // Resolve the promise
+                                                        resolve();
+                                                    });
+                                                }
+                                                else {
                                                     // Resolve the promise
                                                     resolve();
-                                                });
-                                            }
-                                            else {
-                                                // Resolve the promise
-                                                resolve();
-                                            }
+                                                }
+                                            });
+                                        })().then(function () {
+                                            // Log
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                            // Update the configuration
+                                            cfgContentType.ContentType = ct;
+                                            // Trigger the event
+                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
                                         });
-                                    })().then(function () {
+                                    }
+                                    else {
                                         // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                        // Update the configuration
-                                        cfgContentType.ContentType = ct;
-                                        // Trigger the event
-                                        cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                    });
-                                }, 
-                                // Error
-                                function (ct) {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                    console.error("[gd-sprest][Field] Error: " + ct["response"]);
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + ct.response);
+                                    }
                                 }, true);
                             }
                             else {
@@ -109,15 +108,21 @@ exports.SPConfig = function (cfg, webUrl) {
                             */
                             Id: cfgContentType.Id || "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
                             Name: cfgContentType.Name
-                        }).execute(
-                        // Success
-                        function (ct) {
-                            // Log
-                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                            // Update the configuration
-                            cfgContentType.ContentType = ct;
-                            // Trigger the event
-                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                        }).execute(function (ct) {
+                            // See if it was successful
+                            if (ct.Name) {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                // Update the configuration
+                                cfgContentType.ContentType = ct;
+                                // Trigger the event
+                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                console.error("[gd-sprest][Field] Error: " + ct.response);
+                            }
                         }, reject, true);
                     }
                 }
@@ -205,8 +210,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the fields`
-    var createFields = function (collection, cfgFields) {
-        var fields = collection;
+    var createFields = function (fields, cfgFields) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
@@ -218,7 +222,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
-                var field = isInCollection("InternalName", cfgField.name, collection.results);
+                var field = isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Log
                     console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
@@ -240,7 +244,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         else {
                             // Log
                             console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field["response"]);
+                            console.error("[gd-sprest][Field] Error: " + field.response);
                         }
                     };
                     // Compute the schema xml
@@ -266,8 +270,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the lists
-    var createLists = function (collection, cfgLists) {
-        var lists = collection;
+    var createLists = function (lists, cfgLists) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var _loop_4 = function (i) {
@@ -280,7 +283,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // See if this content type already exists
-                var list = isInCollection("Title", cfgList.ListInformation.Title, collection.results);
+                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                 if (list) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
@@ -298,20 +301,28 @@ exports.SPConfig = function (cfg, webUrl) {
                         .execute(function (list) {
                         // Restore the list name in the configuration
                         listInfo_1.Title = listName_1;
-                        // See if we need to update the list
-                        if (list.Title != listName_1) {
-                            // Update the list
-                            list.update({ Title: listName_1 }).execute(function () {
+                        // See if the request was successful
+                        if (list.Id) {
+                            // See if we need to update the list
+                            if (list.Title != listName_1) {
+                                // Update the list
+                                list.update({ Title: listName_1 }).execute(function () {
+                                    // Log
+                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                });
+                            }
+                            else {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                            });
+                            }
+                            // Trigger the event
+                            cfgList.onCreated ? cfgList.onCreated(list) : null;
                         }
                         else {
                             // Log
-                            console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                            console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
+                            console.log("[gd-sprest][List] Error: '" + list.response);
                         }
-                        // Trigger the event
-                        cfgList.onCreated ? cfgList.onCreated(list) : null;
                     }, reject);
                 }
             };
@@ -330,8 +341,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the user custom actions
-    var createUserCustomActions = function (collection, cfgCustomActions) {
-        var customActions = collection;
+    var createUserCustomActions = function (customActions, cfgCustomActions) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // See if the configuration type exists
@@ -362,7 +372,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // See if this custom action already exists
-                if (isInCollection("Name", cfgCustomAction.Name, collection.results)) {
+                if (isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
                     // Log
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 }
@@ -395,8 +405,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the list views
-    var createViews = function (collection, cfgViews) {
-        var views = collection;
+    var createViews = function (views, cfgViews) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the list views exist
@@ -408,7 +417,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_5 = function (i) {
                 var cfgView = cfgViews[i];
                 // See if this view exists
-                var view = isInCollection("Title", cfgView.ViewName, collection.results);
+                var view = isInCollection("Title", cfgView.ViewName, views.results);
                 if (view) {
                     // Log
                     console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
@@ -441,7 +450,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Wait for the requests to complete
             views.done(function () {
                 // Update the views
-                updateViews(collection, cfgViews).then(function () {
+                updateViews(views, cfgViews).then(function () {
                     // Resolve the promise
                     resolve();
                 });
@@ -458,7 +467,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Get the root web
             lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 // Get the web part catalog
-                .getCatalog(mapper_1.SPTypes.ListTemplateType.WebPartCatalog)
+                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files and items
@@ -511,7 +520,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 // Set the target to the root web
                                 lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                                     // Get the web part catalog
-                                    .getCatalog(mapper_1.SPTypes.ListTemplateType.WebPartCatalog)
+                                    .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                                     // Get the Items
                                     .Items()
                                     // Query for this webpart
@@ -557,8 +566,7 @@ exports.SPConfig = function (cfg, webUrl) {
         return false;
     };
     // Method to remove the content type
-    var removeContentTypes = function (collection, cfgContentTypes) {
-        var contentTypes = collection;
+    var removeContentTypes = function (contentTypes, cfgContentTypes) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the content types exist
@@ -570,7 +578,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_7 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // Get the field
-                var ct = isInCollection("Name", cfgContentType.Name, collection.results);
+                var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
                 if (ct) {
                     // Remove the field
                     ct.delete().execute(function () {
@@ -591,8 +599,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the fields
-    var removeFields = function (collection, cfgFields) {
-        var fields = collection;
+    var removeFields = function (fields, cfgFields) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the fields exist
@@ -604,7 +611,7 @@ exports.SPConfig = function (cfg, webUrl) {
             var _loop_8 = function (i) {
                 var cfgField = cfgFields[i];
                 // Get the field
-                var field = isInCollection("InternalName", cfgField.name, collection.results);
+                var field = isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(function () {
@@ -625,8 +632,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the lists
-    var removeLists = function (collection, cfgLists) {
-        var lists = collection;
+    var removeLists = function (lists, cfgLists) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // See if the configuration type exists
@@ -654,7 +660,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // Get the list
-                var list = isInCollection("Title", cfgList.ListInformation.Title, collection.results);
+                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                 if (list) {
                     // Remove the list
                     list.delete().execute(function () {
@@ -675,8 +681,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the user custom actions
-    var removeUserCustomActions = function (collection, cfgCustomActions) {
-        var customActions = collection;
+    var removeUserCustomActions = function (customActions, cfgCustomActions) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // See if the configuration type exists
@@ -705,7 +710,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     }
                 }
                 // Get the custom action
-                var ca = isInCollection("Name", cfgCustomAction.Name, collection.results);
+                var ca = isInCollection("Name", cfgCustomAction.Name, customActions.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(function () {
@@ -750,7 +755,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Get the root web
             lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 // Get the webpart gallery
-                .getCatalog(mapper_1.SPTypes.ListTemplateType.WebPartCatalog)
+                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
@@ -910,8 +915,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to update the views
-    var updateViews = function (collections, cfgViews) {
-        var views = collections;
+    var updateViews = function (views, cfgViews) {
         var counter = 0;
         // Return a promise
         return new Promise(function (resolve, reject) {

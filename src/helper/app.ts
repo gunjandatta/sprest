@@ -1,5 +1,5 @@
+import { SP } from "gd-sprest-def";
 import { ContextInfo, Web } from "../lib";
-import * as SP from "../intellisense";
 import { IApp } from "./types";
 
 /**
@@ -8,7 +8,7 @@ import { IApp } from "./types";
  */
 export const App: IApp = {
     // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: SP.IFileResult, folder: SP.IFolderResult }> => {
+    copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: SP.IFile, folder: SP.IFolder }> => {
         let srcFile = null;
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
@@ -54,7 +54,7 @@ export const App: IApp = {
                             // See if the file exists
                             if (file.Exists) {
                                 // Check out the file, and resolve the promise
-                                file.checkout().execute(resolve);
+                                file.checkOut().execute(resolve);
                             } else {
                                 // Resolve the promise
                                 resolve();
@@ -110,7 +110,7 @@ export const App: IApp = {
     },
 
     // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<SP.IFileResult>, folders: Array<SP.IFolderResult> }> => {
+    copyFilesToHostWeb: (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<SP.IFile>, folders: Array<SP.IFolder> }> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (files, folders, idx) => {
@@ -140,7 +140,7 @@ export const App: IApp = {
     },
 
     // Method to create sub-folders
-    createSubFolders: (folder: SP.IFolder, subFolderUrl): PromiseLike<SP.IFolderResult> => {
+    createSubFolders: (folder: SP.IFolder, subFolderUrl): PromiseLike<SP.IFolder> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (resolve) => {
@@ -181,7 +181,7 @@ export const App: IApp = {
     },
 
     // Method to get a folder
-    getFolder: (web: SP.IWeb & SP.IWebResult, folderUrl, createFl): PromiseLike<SP.IFolderResult> => {
+    getFolder: (web: SP.IWeb & SP.Web, folderUrl, createFl): PromiseLike<SP.IFolder> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;
@@ -212,7 +212,7 @@ export const App: IApp = {
                                 resolve();
                             } else {
                                 // Create the folder
-                                App.createSubFolders(web.RootFolder(), folderUrl).then((folder) => {
+                                App.createSubFolders(web.RootFolder() as any, folderUrl).then((folder) => {
                                     // Save a reference to the folder
                                     dstFolder = folder;
 
@@ -233,7 +233,7 @@ export const App: IApp = {
     },
 
     // Method to remove empty folders
-    removeEmptyFolders: (web: SP.IWeb & SP.IWebResult, folderUrls): PromiseLike<void> => {
+    removeEmptyFolders: (web: SP.IWeb & SP.Web, folderUrls): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure folder urls exist
