@@ -1,5 +1,4 @@
-import * as Types from "../../intellisense";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -16,20 +15,35 @@ export interface IList {
      * @param listName - The name of the list.
      * @param targetInfo - (Optional) The target information.
      */
-    (listName: string, targetInfo?: ITargetInfoProps): Types.IList;
+    (listName: string, targetInfo?: ITargetInfoProps): SP.IList;
 
     /**
      * A static method to get the list by the entity name.
      * @param props - The list entity request properties.
      */
-    getByEntityName(props: IListEntityProps): IBaseExecution<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    getByEntityName(props: IListEntityProps): SP.IList;
 
     /**
      * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    getDataAsStream(listFullUrl: string, parameters?: any): IBaseExecution<Types.IListDataStream>;
+    getDataAsStream(listFullUrl: string, parameters?: any): IBaseExecution<IListDataStream>;
+}
+
+/**
+ * List Data Stream
+ */
+export interface IListDataStream<RowProps = SP.ListItem> {
+    FilterFields?: string;
+    FilterLink: string;
+    FirstRow: number;
+    FolderPermissions: string;
+    ForceNoHierarchy: string;
+    HierarchyHasIndention: string;
+    LastRow: number;
+    Row: Array<RowProps>;
+    RowLimit: number;
 }
 
 /**
@@ -37,7 +51,7 @@ export interface IList {
  */
 export interface IListEntityProps {
     /** The callback method. */
-    callback?: (list: Types.IListResult) => void;
+    callback?: (list: SP.List) => void;
 
     /** The list entity name. */
     name: string;

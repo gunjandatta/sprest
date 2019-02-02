@@ -1,5 +1,5 @@
+import { ListItem } from "gd-sprest-def/lib/SP";
 import { Web } from "../lib";
-import { IListItemResult } from "../intellisense";
 import { Base, Request } from "../utils";
 import { IRequest } from "./types";
 declare var SP;
@@ -10,7 +10,7 @@ declare var SP;
  * @param listName - The name of the document set library.
  * @param webUrl - The url of the web containing the document set library.
  */
-export const createDocSet = (name: string, listName: string, webUrl?: string): PromiseLike<IListItemResult> => {
+export const createDocSet = (name: string, listName: string, webUrl?: string): PromiseLike<ListItem> => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the document set's root folder

@@ -1,6 +1,8 @@
 import {
-    $REST, Helper
+    $REST, List, Helper
 } from "../src";
+
+List("").Items().execute(i => { i.results[0].File().execute(f => { f.Name; })})
 
 Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");
 
@@ -10,11 +12,7 @@ $REST.Web().Lists().execute(r => {
     r.next().execute(n => {
         let title = n.results[0].Title;
         n.next().execute(n => {
-            n.results[0].Items().execute(i => {
-                i.results[0].File().execute(f => {
-                    let name = f.Name;
-                });
-            })
+            n.results[0].Items.results[0].Id;
         });
     });
 })

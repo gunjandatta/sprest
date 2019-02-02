@@ -5,7 +5,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./spCfgTypes"));
 var lib_1 = require("../lib");
-var __1 = require("..");
+var mapper_1 = require("../mapper");
 var _1 = require(".");
 /**
  * SharePoint Configuration
@@ -56,38 +56,38 @@ exports.SPConfig = function (cfg, webUrl) {
                             // See if the parent exists
                             if (parent.results[0]) {
                                 // Add the available content type
-                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
-                                    // See if it was successful
-                                    if (ct.existsFl) {
-                                        // Update the name
-                                        (function () {
-                                            return new Promise(function (resolve, reject) {
-                                                // Ensure the name doesn't need to be updated
-                                                if (ct.Name != cfgContentType.Name) {
-                                                    ct.update({ Name: cfgContentType.Name }).execute(function () {
-                                                        // Resolve the promise
-                                                        resolve();
-                                                    });
-                                                }
-                                                else {
+                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(
+                                // Success
+                                function (ct) {
+                                    // Update the name
+                                    (function () {
+                                        return new Promise(function (resolve, reject) {
+                                            // Ensure the name doesn't need to be updated
+                                            if (ct.Name != cfgContentType.Name) {
+                                                ct.update({ Name: cfgContentType.Name }).execute(function () {
                                                     // Resolve the promise
                                                     resolve();
-                                                }
-                                            });
-                                        })().then(function () {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                            // Update the configuration
-                                            cfgContentType.ContentType = ct;
-                                            // Trigger the event
-                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                                });
+                                            }
+                                            else {
+                                                // Resolve the promise
+                                                resolve();
+                                            }
                                         });
-                                    }
-                                    else {
+                                    })().then(function () {
                                         // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                        console.error("[gd-sprest][Field] Error: " + ct.response);
-                                    }
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                        // Update the configuration
+                                        cfgContentType.ContentType = ct;
+                                        // Trigger the event
+                                        cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                    });
+                                }, 
+                                // Error
+                                function (ct) {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                    console.error("[gd-sprest][Field] Error: " + ct["response"]);
                                 }, true);
                             }
                             else {
@@ -109,21 +109,15 @@ exports.SPConfig = function (cfg, webUrl) {
                             */
                             Id: cfgContentType.Id || "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
                             Name: cfgContentType.Name
-                        }).execute(function (ct) {
-                            // See if it was successful
-                            if (ct.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                // Update the configuration
-                                cfgContentType.ContentType = ct;
-                                // Trigger the event
-                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + ct.response);
-                            }
+                        }).execute(
+                        // Success
+                        function (ct) {
+                            // Log
+                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                            // Update the configuration
+                            cfgContentType.ContentType = ct;
+                            // Trigger the event
+                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
                         }, reject, true);
                     }
                 }
@@ -237,7 +231,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // The field created event
                     var onFieldCreated_1 = function (field) {
                         // See if it was successful
-                        if (field.existsFl) {
+                        if (field.InternalName) {
                             // Log
                             console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
                             // Trigger the event
@@ -246,7 +240,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         else {
                             // Log
                             console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
+                            console.error("[gd-sprest][Field] Error: " + field["response"]);
                         }
                     };
                     // Compute the schema xml
@@ -304,28 +298,20 @@ exports.SPConfig = function (cfg, webUrl) {
                         .execute(function (list) {
                         // Restore the list name in the configuration
                         listInfo_1.Title = listName_1;
-                        // See if the request was successful
-                        if (list.existsFl) {
-                            // See if we need to update the list
-                            if (list.existsFl && list.Title != listName_1) {
-                                // Update the list
-                                list.update({ Title: listName_1 }).execute(function () {
-                                    // Log
-                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                                });
-                            }
-                            else {
+                        // See if we need to update the list
+                        if (list.Title != listName_1) {
+                            // Update the list
+                            list.update({ Title: listName_1 }).execute(function () {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                            }
-                            // Trigger the event
-                            cfgList.onCreated ? cfgList.onCreated(list) : null;
+                            });
                         }
                         else {
                             // Log
-                            console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
-                            console.log("[gd-sprest][List] Error: '" + list.response);
+                            console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
                         }
+                        // Trigger the event
+                        cfgList.onCreated ? cfgList.onCreated(list) : null;
                     }, reject);
                 }
             };
@@ -472,7 +458,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Get the root web
             lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 // Get the web part catalog
-                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                .getCatalog(mapper_1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files and items
@@ -501,7 +487,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     };
                     // See if this webpart exists
                     var file = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
-                    if (file.existsFl) {
+                    if (file.Name) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
                         // Trigger the event
@@ -519,13 +505,13 @@ exports.SPConfig = function (cfg, webUrl) {
                             bufferView[j] = xml.charCodeAt(j);
                         }
                         // Create the webpart, but execute the requests one at a time
-                        folder.Files.add(true, cfgWebPart.FileName, buffer).execute(function (file) {
+                        folder.Files.add(cfgWebPart.FileName, true, buffer).execute(function (file) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
                                 lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                                     // Get the web part catalog
-                                    .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                                    .getCatalog(mapper_1.SPTypes.ListTemplateType.WebPartCatalog)
                                     // Get the Items
                                     .Items()
                                     // Query for this webpart
@@ -764,7 +750,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Get the root web
             lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 // Get the webpart gallery
-                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                .getCatalog(mapper_1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
@@ -924,7 +910,8 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to update the views
-    var updateViews = function (views, cfgViews) {
+    var updateViews = function (collections, cfgViews) {
+        var views = collections;
         var counter = 0;
         // Return a promise
         return new Promise(function (resolve, reject) {

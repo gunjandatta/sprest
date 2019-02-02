@@ -1,6 +1,4 @@
-import { SP } from "gd-sprest-def";
-import * as Types from ".";
-import { IBaseExecution } from "../utils/types/base";
+import { IBaseExecution, SP } from "gd-sprest-def";
 
 /**
  * Email
@@ -178,7 +176,7 @@ export interface IUtility extends IUtilityMethods, IBaseExecution<IUtility> {
      * @param listUrl - The relative url to the library.
      * @param content - The html content.
      */
-    createWikiPage(pageUrl: string, content?: string): IBaseExecution<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+    createWikiPage(pageUrl: string, content?: string): IBaseExecution<SP.File>;
 
     /**
      * Method to send an email.

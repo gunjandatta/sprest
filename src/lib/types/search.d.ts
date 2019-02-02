@@ -1,6 +1,5 @@
-import { Microsoft } from "gd-sprest-def";
+import { IBaseExecution, Microsoft, SP } from "gd-sprest-def";
 import * as Types from "../../intellisense";
-import { IBaseExecution } from "../../utils/types/base";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -35,5 +34,5 @@ export interface ISearch {
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBaseExecution<Types.ISiteUrl>;
+    getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
 }

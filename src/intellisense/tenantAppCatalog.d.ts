@@ -1,4 +1,4 @@
-import * as SP from "../intellisense";
+import { SP } from "gd-sprest-def";
 import { IBaseExecution, IBaseCollection } from "../utils/types/base";
 import { ITenantApp, ITenantApps } from ".";
 
@@ -12,7 +12,7 @@ export interface ITenantAppCatalogMethods {
      * @param overwrite - Flag to overwrite the solution.
      * @param url - The file name of the solution.
      */
-    add(overwrite?: boolean, url?: string): IBaseExecution<SP.IFile, SP.IFileResult>;
+    add(overwrite?: boolean, url?: string): IBaseExecution<SP.IFile>;
 
     /**
      * Deploy solution package in tenant app catalog

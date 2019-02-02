@@ -1,5 +1,4 @@
-import { IBaseExecution } from "../utils/types/base";
-import { IWeb } from ".";
+import { IBaseExecution, SP } from "gd-sprest-def";
 
 /**
  * User Profile
@@ -46,7 +45,7 @@ export interface IUserProfile extends IBaseExecution<IUserProfile> {
     /**
      * The personal site of the user.
      */
-    PersonalSite(): IBaseExecution<IWeb>;
+    PersonalSite(): IBaseExecution<SP.IWeb>;
 
     /**
      * The capabilities of the user's personal site.

@@ -52,14 +52,14 @@ export interface IREST {
      * Use this api to get the list name by its entity name.
      * @param props - The list entity request properties.
      */
-    ListByEntityName(props: LibTypes.IListEntityProps): UtilTypes.IBaseExecution<MapperTypes.IList, MapperTypes.IListResult, MapperTypes.IListQueryResult>;
+    ListByEntityName(props: LibTypes.IListEntityProps): LibTypes.IList;
 
     /**
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => UtilTypes.IBaseExecution<MapperTypes.IListDataStream>
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => UtilTypes.IBaseExecution<LibTypes.IListDataStream>
 
     /**
      * Use this api to interact with SharePoint navigation.
@@ -106,13 +106,13 @@ export interface IREST {
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    SiteExists: (url: string) => UtilTypes.IBaseExecution<MapperTypes.ISiteExists>;
+    SiteExists: (url: string) => UtilTypes.IBaseExecution<LibTypes.ISiteExists>;
 
     /**
      * Use this api to get the url of a site, by its id.
      * @param id - The site id.
      */
-    SiteUrl: (id: string) => UtilTypes.IBaseExecution<MapperTypes.ISiteUrl>;
+    SiteUrl: (id: string) => UtilTypes.IBaseExecution<LibTypes.ISiteUrl>;
 
     /**
      * Use this api to interact with the current user's social profile.
