@@ -367,7 +367,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the user custom actions
-    let createUserCustomActions = (customActions: SP.IUserCustomActionCollection, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
+    let createUserCustomActions = (customActions: SP.IUserCustomActionCollection, cfgCustomActions: Array<SP.UserCustomActionProps>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -731,7 +731,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         });
     }
     // Method to remove the user custom actions
-    let removeUserCustomActions = (customActions: SP.IUserCustomActionCollection, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
+    let removeUserCustomActions = (customActions: SP.IUserCustomActionCollection, cfgCustomActions: Array<SP.UserCustomActionProps>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists

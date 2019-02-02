@@ -230,12 +230,12 @@ export interface ISPCfgCustomActionInfo {
     /**
      * Custom actions to be created at the site collection level.
      */
-    Site?: Array<SP.UserCustomAction>,
+    Site?: Array<SP.UserCustomActionProps>,
 
     /**
      * Custom actions to be created at the web level.
      */
-    Web?: Array<SP.UserCustomAction>
+    Web?: Array<SP.UserCustomActionProps>
 }
 
 /**
@@ -264,13 +264,13 @@ export interface ISPCfgListInfo {
     CustomFields?: Array<ISPCfgFieldInfo>;
 
     /** The list creation information. */
-    ListInformation: SP.List;
+    ListInformation: SP.ListProps;
 
     /** The title display name. */
     TitleFieldDisplayName?: string;
 
     /** The user custom actions. */
-    UserCustomActions?: Array<SP.UserCustomAction>;
+    UserCustomActions?: Array<SP.UserCustomActionProps>;
 
     /** The view information. */
     ViewInformation?: Array<ISPCfgViewInfo>;
