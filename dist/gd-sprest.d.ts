@@ -26,10 +26,9 @@ declare module 'gd-sprest' {
     export { SPTypes }
     
     /**
-        * SharePoint Intellisense
+        * Intellisense
         */
-    import * as Types from "gd-sprest-def";
-    export { Types }
+    export * from "gd-sprest-def";
 }
 
 declare module 'gd-sprest/helper/types' {
