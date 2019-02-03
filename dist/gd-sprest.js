@@ -670,7 +670,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar Helper = __webpack_require__(/*! ./helper */ \"./build/helper/index.js\");\n\nvar Lib = __webpack_require__(/*! ./lib */ \"./build/lib/index.js\");\n\nvar Mapper = __webpack_require__(/*! ./mapper */ \"./build/mapper/index.js\");\n/**\r\n * SharePoint REST Library\r\n */\n\n\nexports.$REST = {\n  __ver: 4.59,\n  AppContext: function AppContext(siteUrl) {\n    return Lib.Site.getAppContext(siteUrl);\n  },\n  ContextInfo: Lib.ContextInfo,\n  DefaultRequestToHostFl: false,\n  Graph: Lib.Graph,\n  Helper: Helper,\n  List: Lib.List,\n  ListByEntityName: Lib.List.getByEntityName,\n  ListDataAsStream: Lib.List.getDataAsStream,\n  Navigation: Lib.Navigation,\n  PeopleManager: Lib.PeopleManager,\n  PeoplePicker: Lib.PeoplePicker,\n  ProfileLoader: Lib.ProfileLoader,\n  RemoteWeb: function RemoteWeb(requestUrl) {\n    return Lib.Web.getRemoteWeb(requestUrl);\n  },\n  Search: Lib.Search,\n  Site: Lib.Site,\n  SiteExists: function SiteExists(url) {\n    return Lib.Site.exists(url);\n  },\n  SiteUrl: function SiteUrl(id) {\n    return Lib.Site.getUrlById(id);\n  },\n  SPTypes: Mapper.SPTypes,\n  SocialFeed: Lib.SocialFeed,\n  UserProfile: Lib.UserProfile,\n  Utility: Lib.Utility,\n  Web: Lib.Web\n}; // See if the library doesn't exist, or is an older version\n\nvar global = Lib.ContextInfo.window.$REST;\n\nif (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {\n  // Set the global variable\n  Lib.ContextInfo.window.$REST = exports.$REST; // Ensure the SP lib exists\n\n  if (Lib.ContextInfo.window.SP) {\n    // Alert other scripts this library is loaded\n    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest\");\n    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest.js\");\n  }\n}\n\n//# sourceURL=webpack:///./build/rest.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar Helper = __webpack_require__(/*! ./helper */ \"./build/helper/index.js\");\n\nvar Lib = __webpack_require__(/*! ./lib */ \"./build/lib/index.js\");\n\nvar Mapper = __webpack_require__(/*! ./mapper */ \"./build/mapper/index.js\");\n/**\r\n * SharePoint REST Library\r\n */\n\n\nexports.$REST = {\n  __ver: 4.60,\n  AppContext: function AppContext(siteUrl) {\n    return Lib.Site.getAppContext(siteUrl);\n  },\n  ContextInfo: Lib.ContextInfo,\n  DefaultRequestToHostFl: false,\n  Graph: Lib.Graph,\n  Helper: Helper,\n  List: Lib.List,\n  ListByEntityName: Lib.List.getByEntityName,\n  ListDataAsStream: Lib.List.getDataAsStream,\n  Navigation: Lib.Navigation,\n  PeopleManager: Lib.PeopleManager,\n  PeoplePicker: Lib.PeoplePicker,\n  ProfileLoader: Lib.ProfileLoader,\n  RemoteWeb: function RemoteWeb(requestUrl) {\n    return Lib.Web.getRemoteWeb(requestUrl);\n  },\n  Search: Lib.Search,\n  Site: Lib.Site,\n  SiteExists: function SiteExists(url) {\n    return Lib.Site.exists(url);\n  },\n  SiteUrl: function SiteUrl(id) {\n    return Lib.Site.getUrlById(id);\n  },\n  SPTypes: Mapper.SPTypes,\n  SocialFeed: Lib.SocialFeed,\n  UserProfile: Lib.UserProfile,\n  Utility: Lib.Utility,\n  Web: Lib.Web\n}; // See if the library doesn't exist, or is an older version\n\nvar global = Lib.ContextInfo.window.$REST;\n\nif (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {\n  // Set the global variable\n  Lib.ContextInfo.window.$REST = exports.$REST; // Ensure the SP lib exists\n\n  if (Lib.ContextInfo.window.SP) {\n    // Alert other scripts this library is loaded\n    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest\");\n    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest.js\");\n  }\n}\n\n//# sourceURL=webpack:///./build/rest.js?");
 
 /***/ }),
 
@@ -1551,13 +1551,13 @@ eval("var $iterators = __webpack_require__(/*! ./es6.array.iterator */ \"./node_
 /***/ }),
 
 /***/ 0:
-/*!***************************************************!*\
-  !*** multi core-js/es6/promise/ ./build/index.js ***!
-  \***************************************************/
+/*!*****************************************************!*\
+  !*** multi core-js/es6/promise.js ./build/index.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! core-js/es6/promise/ */\"./node_modules/.registry.npmjs.org/core-js/2.6.0/node_modules/core-js/es6/promise.js\");\nmodule.exports = __webpack_require__(/*! ./build/index.js */\"./build/index.js\");\n\n\n//# sourceURL=webpack:///multi_core-js/es6/promise/_./build/index.js?");
+eval("__webpack_require__(/*! core-js/es6/promise.js */\"./node_modules/.registry.npmjs.org/core-js/2.6.0/node_modules/core-js/es6/promise.js\");\nmodule.exports = __webpack_require__(/*! ./build/index.js */\"./build/index.js\");\n\n\n//# sourceURL=webpack:///multi_core-js/es6/promise.js_./build/index.js?");
 
 /***/ })
 
