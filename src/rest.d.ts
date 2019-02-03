@@ -1,7 +1,6 @@
 import { SP } from "gd-sprest-def";
 import * as Helper from "./helper/types";
 import * as LibTypes from "./lib/types";
-import * as MapperTypes from "./intellisense";
 import * as UtilTypes from "./utils/types";
 
 /**
@@ -117,7 +116,7 @@ export interface IREST {
     /**
      * Use this api to interact with the current user's social profile.
      */
-    SocialFeed: MapperTypes.ISocialFeed;
+    SocialFeed: LibTypes.ISocialFeed;
 
     /**
      * The SharePoint enumerator types.

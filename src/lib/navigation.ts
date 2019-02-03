@@ -22,4 +22,4 @@ export const Navigation: INavigation = ((url?: string, targetInfo?) => {
 
     // Return the navigation
     return navigation;
-}) as any;
+}) as any as INavigation;

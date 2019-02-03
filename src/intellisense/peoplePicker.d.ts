@@ -1,54 +1,40 @@
+import { SP } from "gd-sprest-def";
 import { IBaseExecution } from "../utils/types/base";
-import { IEntityData } from "./entityData";
+import { SPTypes } from "../mapper";
 
 /**
- * People Picker Query
+ * Entity Data
  */
-export interface IPeoplePickerQuery {
-    /** True to allow the email address. */
-    AllowEmailAddresses?: boolean;
+export interface IEntityData {
+    /** Account Name */
+    AccountName?: string;
 
-    /** True to allow multiple entities.  */
-    AllowMultipleEntities?: boolean;
+    /** Department. */
+    Department?: string;
 
-    /** True to allow all url zones. */
-    AllUrlZones?: boolean;
+    /** EMail */
+    Email?: string;
 
-    /** True to enable claim providers. */
-    EnabledClaimProviders?: boolean;
+    /** */
+    IsAltSecIdPresent?: boolean;
 
-    /** True to force claims. */
-    ForceClaims?: boolean;
+    /** Mobile Phone */
+    MobilePhone?: string;
 
-    /** Maximum entity suggestions. */
-    MaximumEntitySuggestions: number;
+    /** Object ID */
+    ObjectId?: string;
 
-    /** The principal source. */
-    PrincipalSource?: number;
+    /** Principal Type */
+    PrincipalType?: string;
 
-    /** The principal type. */
-    PrincipalType?: number;
+    /** SharePoint Group ID */
+    SPGroupID?: string;
 
-    /** The query string. This value must be >= 3 characters. */
-    QueryString?: string;
+    /** SharePoint User ID */
+    SPUserID?: string;
 
-    /** Required flag. */
-    Required?: boolean;
-
-    /** The SharePoint group id. */
-    SharePointGroupID?: number;
-
-    /** The url zone. */
-    UrlZone?: number;
-
-    /** Url zone specified flag. */
-    UrlZoneSpecified?: boolean;
-
-    /** The web. */
-    Web?: any;
-
-    /** The web application id. */
-    WebApplicationID?: any;
+    /** Title */
+    Title?: string;
 }
 
 /**
@@ -106,10 +92,10 @@ export interface IPeoplePicker extends IBaseExecution {
     /** Method to resolve users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerResolveUser>;
+    clientPeoplePickerResolveUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerResolveUser>;
 
     /** Method to search for users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerSearchUser>;
+    clientPeoplePickerSearchUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerSearchUser>;
 }

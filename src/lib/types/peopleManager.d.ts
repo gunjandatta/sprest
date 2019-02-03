@@ -1,4 +1,4 @@
-import * as Types from "../../intellisense";
+import { SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -14,5 +14,5 @@ export interface IPeopleManager {
      * Creates an instance of the people manager library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Types.IPeopleManager;
+    (targetInfo?: ITargetInfoProps): SP.UserProfiles.IPeopleManager;
 }

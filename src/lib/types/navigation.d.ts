@@ -1,4 +1,4 @@
-import * as Types from "../../intellisense";
+import { Microsoft } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -15,5 +15,5 @@ export interface INavigation {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Types.INavigationServiceREST;
+    (url?: string, targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Navigation.REST.INavigationServiceRest;
 }

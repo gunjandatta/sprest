@@ -1,4 +1,4 @@
-import { ODataQuery } from "../../intellisense";
+import { IODataQuery } from "gd-sprest-def";
 import { IMethodInfo } from "./methodInfo";
 import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
@@ -102,7 +102,7 @@ export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Re
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query?(query: ODataQuery): IBaseExecution<QueryResult>;
+    query?(query: IODataQuery): IBaseExecution<QueryResult>;
 }
 
 /**

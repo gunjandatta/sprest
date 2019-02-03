@@ -1,5 +1,4 @@
 import { Microsoft } from "gd-sprest-def";
-import * as Types from "../intellisense";
 import { Base, Request, RequestType } from "../utils";
 import { ISearch } from "./types/search";
 
@@ -8,7 +7,7 @@ import { ISearch } from "./types/search";
  */
 export const Search: ISearch = ((url?, targetInfo?) => {
     let base = new Base(targetInfo);
-    let search = base as any as Types.ISearch;
+    let search = base as any as Microsoft.Office.Server.Search.REST.ISearchService;
 
     // Default the properties
     base.targetInfo.defaultToWebFl = true;
@@ -33,22 +32,12 @@ export const Search: ISearch = ((url?, targetInfo?) => {
         }, Search.getQuery(settings));
     }
 
-    /** The search suggest method */
-    search["suggest"] = (settings: Microsoft.Office.Server.Search.REST.SearchRequest/*SearchSuggestion*/) => {
-        // Execute the request
-        return search.executeMethod("query", {
-            argNames: ["query"],
-            name: "suggest?[[query]]",
-            requestType: RequestType.GetReplace
-        }, Search.getQuery(settings));
-    }
-
     // Return the search
     return search;
 }) as any;
 
 // Static method to compute the query
-Search.getQuery = (parameters: Microsoft.Office.Server.Search.REST.SearchRequest/* | Types.ComplexTypes.SearchSuggestion*/) => {
+Search.getQuery = (parameters: Microsoft.Office.Server.Search.REST.SearchRequest) => {
     let query = "";
 
     // Parse the parameters

@@ -1,5 +1,5 @@
+import { ISocialFeed } from "./types";
 import { Base, Request, RequestType } from "../utils";
-import { ISocialFeed } from "../intellisense";
 import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
@@ -16,36 +16,38 @@ export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfoProps) => {
     // Add the methods
     Request.addMethods(socialFeed as any, { __metadata: { type: "socialfeed" } });
 
-    // Method to post to another user's feed
-    socialFeed.postToFeed = (accountName, creationData) => {
-        let postInfo = { ID: null, creationData: creationData };
-
-        // Set the post metadata
-        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-
-        return socialFeed.executeMethod("postToMyFeed", {
-            argNames: ["restCreationData"],
-            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-            requestType: RequestType.PostWithArgsInBody
-        }, [postInfo]);
-    }
-
-    // Method to post to the current user's feed
-    socialFeed.postToMyFeed = (creationData) => {
-        let postInfo = { ID: null, creationData: creationData };
-
-        // Set the post metadata
-        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-
-        return socialFeed.executeMethod("postToMyFeed", {
-            argNames: ["restCreationData"],
-            name: "my/feed/post",
-            requestType: RequestType.PostWithArgsInBody
-        }, [postInfo]);
-    }
-
     // Return the social feed
     return socialFeed;
 }) as any;
+
+// Method to post to another user's feed
+SocialFeed.postToFeed = (accountName, creationData) => {
+    let postInfo = { ID: null, creationData: creationData };
+
+    // Set the post metadata
+    postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+    postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+
+    // Execute the request
+    return SocialFeed().executeMethod("postToMyFeed", {
+        argNames: ["restCreationData"],
+        name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
+        requestType: RequestType.PostWithArgsInBody
+    }, [postInfo]);
+}
+
+// Method to post to the current user's feed
+SocialFeed.postToMyFeed = (creationData) => {
+    let postInfo = { ID: null, creationData: creationData };
+
+    // Set the post metadata
+    postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+    postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+
+    // Execute the request
+    return SocialFeed().executeMethod("postToMyFeed", {
+        argNames: ["restCreationData"],
+        name: "my/feed/post",
+        requestType: RequestType.PostWithArgsInBody
+    }, [postInfo]);
+}

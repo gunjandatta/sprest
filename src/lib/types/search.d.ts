@@ -1,5 +1,4 @@
 import { IBaseExecution, Microsoft, SP } from "gd-sprest-def";
-import * as Types from "../../intellisense";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -16,7 +15,7 @@ export interface ISearch {
      * @param url - The optional url to execute the search against.
      * @param targetInfo - The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Types.ISearch;
+    (url?: string, targetInfo?: ITargetInfoProps): Microsoft.Office.Server.Search.REST.ISearchService;
 
     /**
      * Method to get the app context information.
