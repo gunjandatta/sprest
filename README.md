@@ -6,10 +6,10 @@ The SharePoint REST Framework was designed for SharePoint 2013, but works in bot
 
 ## References
 
-- [gd-sprest](https://gunjandatta.github.io/api) - An easy way to execute requests against the SharePoint 2013/Online REST api
-- [gd-sprest-bs](https://gunjandatta.github.io/extras/bs) - Extends the [Bootstrap Framework](https://getbootstrap.com) with components designed for SharePoint 2013/Online.
-- [gd-sprest-def](https://github.com/gunjandatta/sprest-def) - Generates TypeScript definition files from the $metadata SharePoint REST endpoint. This allows any project to reference the intellisense in any JavaScript/TypeScript project.
-- [gd-sprest-react](https://gunjandatta.github.io/extras/react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
+- [gd-sprest](api) - An easy way to execute requests against the SharePoint 2013/Online REST api
+- [gd-sprest-bs](extras/bs) - Extends the [Bootstrap Framework](https://getbootstrap.com) with components designed for SharePoint 2013/Online.
+- [gd-sprest-def](https://github.com/gunjandatta/sprest-def) - Generates TypeScript definition files from the $metadata SharePoint REST endpoint, for this library.
+- [gd-sprest-react](extras/react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
 
 ## Core Library
 
@@ -25,15 +25,17 @@ The gd-sprest library is similar to the pnp-js-core, with the main difference be
 
 [Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or if need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
 
-### [Caching](https://gunjandatta.github.io//topics/caching)
+### [Caching](/topics/caching)
 
 The library has been designed to create the SharePoint object based on the response from the SharePoint REST API. This will allow us to easily stringify the request's target information and the SharePoint REST API's response to the local or storage session. A built-in stringify and parse method has been included in the library. Based on this design, SharePoint object will also contain all of its built-in methods.
 
 ### Intellisense
 
-The intellisense for this library is included as part of the npm installation. It should work with both JavaScript/TypeScript.
+The SharePoint REST API has a $metadata endpoint which contains the intellisense for its objects. This library's intellisense is generated from this data to ensure the latest functions/methods are made available for OnPremise and Online.
 
-### [Helpers](https://gunjandatta.github.io//helpers)
+The intellisense for this library is included as part of the npm installation. It supports both JavaScript and TypeScript. The nuget installation includes the bundled definition file as part of the library.
+
+### [Helpers](/helpers)
 
 The library contains various helpers to help with the various ways to develop against SharePoint 2013/Online
 
@@ -41,19 +43,19 @@ The library contains various helpers to help with the various ways to develop ag
 
 One of the key reasons of creating this libray, was to give an easy way to develop using the modern web stack in SharePoint 2013 environments.
 
-#### [Bootstrap](https://gunjandatta.github.io/extras/bs)
+#### [Bootstrap](extras/bs)
 
-The [gd-sprest-bs](https://gunjandatta.github.io/extras/bs) library extends the [Bootstrap](https://getbootstrap.com) framework to create modern web components for SharePoint 2013/Online.
+The [gd-sprest-bs](extras/bs) library extends the [Bootstrap](https://getbootstrap.com) framework to create modern web components for SharePoint 2013/Online.
 
 ### User Adoption
 Since these components are designed using same framework creating the new Office 365 modern experience, this gives the ability to introduce the new Office 365 experience within SharePoint 2013. This will be an important part for the SharePoint 2013 user adoption to the new modern experience. Most SharePoint 2010/2013 environments are undergoing upgrades to 2016, Hybrid 2016/O365, O365 and private O365-Gov environments.
 
-### [Automation of SharePoint Assets](https://gunjandatta.github.io//topics/automation)
+### [Automation of SharePoint Assets](/topics/automation)
 The SharePoint Configuration automation feature allows the develoepr to easily create built-in scripts to install/uninstall SharePoint assets. This feature is designed to work in both SharePoint 2013 and Online.
 
 ### Conversions
 
-#### [Server-Side to Client-Side Conversion Guide](https://gunjandatta.github.io/development/serverside-conversion-guide)
+#### [Server-Side to Client-Side Conversion Guide](development/serverside-conversion-guide)
 
 The execution method was designed to give a server-side like experience, similar to SharePoint 2010/2013 solutions. This will help convert existing server-side solutions to client-side solutions.
 
