@@ -3,10 +3,10 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./spCfgTypes"));
 var lib_1 = require("../lib");
 var __1 = require("..");
 var _1 = require(".");
+__export(require("./spCfgTypes"));
 /**
  * SharePoint Configuration
  */
@@ -57,7 +57,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 // Add the available content type
                                 contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
                                     // See if it was successful
-                                    if (ct.existsFl) {
+                                    if (ct.Name) {
                                         // Update the name
                                         (function () {
                                             return new Promise(function (resolve, reject) {
@@ -110,7 +110,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             Name: cfgContentType.Name
                         }).execute(function (ct) {
                             // See if it was successful
-                            if (ct.existsFl) {
+                            if (ct.Name) {
                                 // Log
                                 console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
                                 // Update the configuration
@@ -235,7 +235,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // The field created event
                     var onFieldCreated_1 = function (field) {
                         // See if it was successful
-                        if (field.existsFl) {
+                        if (field.InternalName) {
                             // Log
                             console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
                             // Trigger the event
@@ -302,9 +302,9 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Restore the list name in the configuration
                         listInfo_1.Title = listName_1;
                         // See if the request was successful
-                        if (list.existsFl) {
+                        if (list.Id) {
                             // See if we need to update the list
-                            if (list.existsFl && list.Title != listName_1) {
+                            if (list.Title != listName_1) {
                                 // Update the list
                                 list.update({ Title: listName_1 }).execute(function () {
                                     // Log
@@ -496,7 +496,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     };
                     // See if this webpart exists
                     var file = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
-                    if (file.existsFl) {
+                    if (file.Name) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
                         // Trigger the event
@@ -514,7 +514,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             bufferView[j] = xml.charCodeAt(j);
                         }
                         // Create the webpart, but execute the requests one at a time
-                        folder.Files.add(true, cfgWebPart.FileName, buffer).execute(function (file) {
+                        folder.Files.add(cfgWebPart.FileName, true, buffer).execute(function (file) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web

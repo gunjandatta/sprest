@@ -1,5 +1,4 @@
-import * as Types from "../../intellisense";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -16,13 +15,13 @@ export interface ISite {
      * @param url - (Optional) The site url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Types.ISite;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.ISite;
 
     /**
      * Method to check if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    exists(url: string): IBaseExecution<Types.ISiteExists>;
+    exists(url: string): IBaseExecution<ISiteExists>;
 
     /**
      * Method to get the app context information.
@@ -34,5 +33,21 @@ export interface ISite {
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBaseExecution<Types.ISiteUrl>;
+    getUrlById(id: string): IBaseExecution<ISiteUrl>;
+}
+
+/**
+ * Site Exists
+ */
+export interface ISiteExists {
+    /** True if the site collection exists, false otherwise. */
+    Exists: boolean;
+}
+
+/**
+ * Site Url
+ */
+export interface ISiteUrl {
+    /** The site url. */
+    GetUrlById: string;
 }

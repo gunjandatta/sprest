@@ -1,5 +1,4 @@
-import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, SP } from "gd-sprest-def";
 
 /**
  * Context Information

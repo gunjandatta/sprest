@@ -1,6 +1,4 @@
-import { SP } from "gd-sprest-def";
-import * as Types from "../../intellisense";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -17,7 +15,7 @@ export interface IWeb {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Types.IWeb;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.IWeb;
 
     /**
      * Method to get a remote web.

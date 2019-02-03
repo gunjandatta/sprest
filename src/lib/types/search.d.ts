@@ -1,6 +1,4 @@
-import { Microsoft } from "gd-sprest-def";
-import * as Types from "../../intellisense";
-import { IBaseExecution } from "../../utils/types/base";
+import { IBaseExecution, Microsoft, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -17,7 +15,7 @@ export interface ISearch {
      * @param url - The optional url to execute the search against.
      * @param targetInfo - The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Types.ISearch;
+    (url?: string, targetInfo?: ITargetInfoProps): Microsoft.Office.Server.Search.REST.ISearchService;
 
     /**
      * Method to get the app context information.
@@ -35,5 +33,5 @@ export interface ISearch {
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBaseExecution<Types.ISiteUrl>;
+    getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
 }

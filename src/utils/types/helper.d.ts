@@ -1,5 +1,5 @@
+import { IMethodInfo } from "gd-sprest-def";
 import { IBase } from "./base";
-import { IMethodInfo } from "./methodInfo";
 import { ITargetInfoProps } from "./targetInfo";
 
 /**

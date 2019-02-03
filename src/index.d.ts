@@ -21,7 +21,8 @@ import { SPTypes } from "./mapper/types";
 export { SPTypes }
 
 /**
- * SharePoint Intellisense
+ * Intellisense
  */
-import * as SP from "./intellisense";
-export { SP }
+import * as Types from "./intellisense";
+export { Types }
+export * from "gd-sprest-def";

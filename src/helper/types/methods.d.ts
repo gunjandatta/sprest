@@ -1,5 +1,4 @@
-import { IBase } from "../../utils/types/base";
-import { IListItemResult } from "../../intellisense";
+import { SP } from "gd-sprest-def";
 
 /**
  * Creates a document set item.
@@ -7,7 +6,7 @@ import { IListItemResult } from "../../intellisense";
  * @param listName - The name of the document set library.
  * @param webUrl - The url of the web containing the document set library.
  */
-export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<IListItemResult>;
+export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<SP.ListItem>;
 
 /**
  * Determines if the user has permissions, based on the permission kind value
@@ -17,7 +16,7 @@ export const hasPermissions: (permissionMask: any, permissions: Array<number> | 
 /**
  * Convert a JSON string to a base object
  */
-export function parse<T = IBase>(jsonString: string): T;
+export function parse<T = any>(jsonString: string): T;
 
 
 /**

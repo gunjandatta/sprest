@@ -1,4 +1,4 @@
-import * as Types from "../../intellisense";
+import { SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -14,5 +14,5 @@ export interface IProfileLoader {
      * Creates an instance of the profile loader library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Types.IProfileLoader;
+    (targetInfo?: ITargetInfoProps): SP.UserProfiles.IProfileLoader;
 }

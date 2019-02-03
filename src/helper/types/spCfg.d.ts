@@ -1,5 +1,4 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../intellisense";
 
 /**
  * SharePoint Configuration
@@ -191,7 +190,7 @@ export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation
     /**
      * The content type. (This value is set internally.)
      */
-    ContentType?: Types.IContentTypeResult;
+    ContentType?: SP.ContentType;
 
     /**
      * The field references.
@@ -216,12 +215,12 @@ export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation
     /**
      * Event triggered after the content type is created.
      */
-    onCreated?: (ct: Types.IContentTypeResult) => void;
+    onCreated?: (ct: SP.ContentType) => void;
 
     /**
      * Event triggered after the content type is updated.
      */
-    onUpdated?: (ct: Types.IContentTypeResult) => void;
+    onUpdated?: (ct: SP.ContentType) => void;
 }
 
 /**
@@ -231,12 +230,12 @@ export interface ISPCfgCustomActionInfo {
     /**
      * Custom actions to be created at the site collection level.
      */
-    Site?: Array<SP.UserCustomAction>,
+    Site?: Array<SP.UserCustomActionProps>,
 
     /**
      * Custom actions to be created at the web level.
      */
-    Web?: Array<SP.UserCustomAction>
+    Web?: Array<SP.UserCustomActionProps>
 }
 
 /**
@@ -246,12 +245,12 @@ export interface ISPCfgFieldInfo extends IFieldInfo {
     /**
      * Event triggered after the field is created.
      */
-    onCreated?: (field: Types.IFieldResult) => void;
+    onCreated?: (field: SP.Field) => void;
 
     /**
      * Event triggered after the field is updated.
      */
-    onUpdated?: (field: Types.IFieldResult) => void;
+    onUpdated?: (field: SP.Field) => void;
 }
 
 /**
@@ -265,13 +264,13 @@ export interface ISPCfgListInfo {
     CustomFields?: Array<ISPCfgFieldInfo>;
 
     /** The list creation information. */
-    ListInformation: SP.List;
+    ListInformation: SP.ListProps;
 
     /** The title display name. */
     TitleFieldDisplayName?: string;
 
     /** The user custom actions. */
-    UserCustomActions?: Array<SP.UserCustomAction>;
+    UserCustomActions?: Array<SP.UserCustomActionProps>;
 
     /** The view information. */
     ViewInformation?: Array<ISPCfgViewInfo>;
@@ -279,12 +278,12 @@ export interface ISPCfgListInfo {
     /**
      * Event triggered after the list is created or updated.
      */
-    onCreated?: (list: Types.IListResult) => void;
+    onCreated?: (list: SP.List) => void;
 
     /**
      * Event triggered after the list is updated.
      */
-    onUpdated?: (list: Types.IListQueryResult) => void;
+    onUpdated?: (list: SP.List) => void;
 }
 
 /**
@@ -306,12 +305,12 @@ export interface ISPCfgViewInfo {
     /**
      * Event triggered after the view is created or updated.
      */
-    onCreated?: (view: Types.IViewResult) => void;
+    onCreated?: (view: SP.View) => void;
 
     /**
      * Event triggered after the view is updated.
      */
-    onUpdated?: (view: Types.IView) => void;
+    onUpdated?: (view: SP.View) => void;
 }
 
 /**
@@ -330,12 +329,12 @@ export interface ISPCfgWebPartInfo {
     /**
      * Event triggered after the webpart file is created.
      */
-    onCreated?: (file: Types.IFileResult) => void;
+    onCreated?: (file: SP.File) => void;
 
     /**
      * Event triggered after the webpart file is updated.
      */
-    onUpdated?: (file: Types.IFileResult) => void;
+    onUpdated?: (file: SP.File) => void;
 }
 
 /**

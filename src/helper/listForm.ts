@@ -1,7 +1,5 @@
-import { SP } from "gd-sprest-def";
+import { IODataQuery, SP } from "gd-sprest-def";
 import { Helper, SPTypes, Web } from "..";
-import { IContentTypeQueryResult, IFieldLookup, IFieldResults, ODataQuery } from "../intellisense"
-import { IBaseCollection } from "../utils/types/base";
 import {
     IListForm, IListFormAttachmentInfo,
     IListFormCache, IListFormResult, IListFormProps
@@ -62,7 +60,7 @@ export const ListForm: IListForm = {
                 // Try to parse the data
                 try {
                     // Parse the content type
-                    let ct = Helper.parse(_cacheData.ct) as IBaseCollection<IContentTypeQueryResult>;
+                    let ct = Helper.parse(_cacheData.ct) as SP.IContentTypeQueryCollection;
 
                     // Load the default fields
                     loadDefaultFields(ct.results[0]);
@@ -98,7 +96,7 @@ export const ListForm: IListForm = {
         }
 
         // Method to load the default fields
-        let loadDefaultFields = (ct: IContentTypeQueryResult) => {
+        let loadDefaultFields = (ct: SP.ContentTypeOData) => {
             let fields = ct ? ct.FieldLinks.results : [];
             let formFields = {};
 
@@ -128,7 +126,7 @@ export const ListForm: IListForm = {
         }
 
         // Method to load the field data
-        let loadFieldData = (fields: IFieldResults) => {
+        let loadFieldData = (fields: SP.IFieldCollection) => {
             // Clear the fields
             _info.fields = {};
 
@@ -384,8 +382,8 @@ export const ListForm: IListForm = {
     },
 
     // Method to generate the odata query
-    generateODataQuery: (info: IListFormResult, loadAttachments: boolean = false): ODataQuery => {
-        let query: ODataQuery = info.query || {};
+    generateODataQuery: (info: IListFormResult, loadAttachments: boolean = false): IODataQuery => {
+        let query: IODataQuery = info.query || {};
 
         // Default the select query to get all the fields by default
         query.Select = query.Select || ["*"];
@@ -414,7 +412,7 @@ export const ListForm: IListForm = {
 
                     // Select the fields
                     query.Select.push(field.InternalName + "/Id");
-                    query.Select.push(field.InternalName + "/" + (field as IFieldLookup).LookupField);
+                    query.Select.push(field.InternalName + "/" + (field as SP.FieldLookup).LookupField);
                     break;
 
                 // User Field

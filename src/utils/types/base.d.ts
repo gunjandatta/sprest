@@ -1,121 +1,11 @@
-import { ODataQuery } from "../../intellisense";
-import { IMethodInfo } from "./methodInfo";
-import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./targetInfo";
+import { IBaseExecution, IBaseResult, IODataQuery } from "gd-sprest-def";
+import { ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
-
-/**
- * Base Execution
- */
-export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
-    /**
-     * Method to execute the request as a batch.
-     * Currently available in SharePoint Online only.
-     * @param resolve - The method to be executed after the request completes.
-     */
-    batch(resolve: (value?: Result) => void): Type;
-
-    /**
-     * Method to execute the request as a batch.
-     * Currently available in SharePoint Online only.
-     * @param appendFl - Flag to execute the request as part of a change set.
-     */
-    batch(appendFl?: boolean): Type;
-
-    /**
-     * Method to execute the request as a batch.
-     * Currently available in SharePoint Online only.
-     * @param resolve - The method to be executed after the request completes.
-     * @param appendFl - Flag to execute the request as part of a change set.
-     */
-    batch(resolve: (value?: Result) => void, appendFl?: boolean): Type;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): Type;
-
-    /**
-     * Method to execute the request.
-     * @param resolve - The method to be executed if the request is successful.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
-
-    /**
-     * Method to execute the request.
-     * @param resolve - The method to be executed if the request is successful.
-     * @param reject - The method to be executed if the request fails.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
-
-    /**
-     * Method to execute the request. (This is an internal method, but can be used for dev purposes.)
-     * @param methodName - The method name to execute.
-     * @param methodConfig - The configuration to pass with the request.
-     * @param args - The optional arguments for the request.
-     */
-    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): Result;
-
-    /**
-     * Method to wait for the requests to complete.
-     * @param resolve - The method to be executed after the request completes.
-     */
-    done<T=IBase>(resolve: (value?: T) => void);
-
-    /**
-     * Method to get the request information.
-     */
-    getInfo(): IRequestInfo;
-
-    /**
-     * Method to wait for the parent requests to complete
-     * @param callback - The callback method.
-     * @param requestIdx - The request index.
-     */
-    waitForRequestsToComplete(callback: () => void, requestIdx?: number);
-}
-
-/**
- * Base Result
- */
-export interface IBaseResult<Type = any, Result = Type, QueryResult = Result> {
-    /** True, if the object exists, false otherwise. */
-    existsFl: boolean;
-
-    /** The response */
-    response: string;
-
-    /** The target information. */
-    targetInfo: ITargetInfoProps;
-
-    /**
-     * Method to stringify the object.
-     */
-    stringify(): string;
-}
-
-/**
- * Base Execution w/ Query
- */
-export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query?(query: ODataQuery): IBaseExecution<Result, QueryResult>;
-}
 
 /**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult>, IBaseResult<Type, Result, QueryResult> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Result, QueryResult>, IBaseResult {
     /**
      * Base Properties
      */
@@ -152,6 +42,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     /** The request's status. */
     status: number;
 
+    /** The target information. */
+    targetInfo: ITargetInfoProps;
+
     /** The xml object. */
     xml: string | XMLDocument;
 
@@ -182,41 +75,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 
     /** Updates the metdata uri. */
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
-}
 
-/**
- * Base Collection Results
- */
-export interface IBaseCollectionResult<Result> {
     /**
-     * Method to wait for the requests to complete.
-     * @param resolve - The method to be executed after the request completes.
+     * Method to wait for the parent requests to complete
      */
-    done<T=IBase>(resolve: (value?: T) => void);
-
-    /** True, if the object exists, false otherwise. */
-    existsFl: boolean;
-
-    /** Returns the next set of results, if paging exists. */
-    next(): IBaseCollection<Result>;
-
-    /** True, if more items exist. */
-    nextFl: boolean;
-
-    /** The raw string response. */
-    response: string;
-
-    /** The results. */
-    results: Array<Result>;
-
-    /** Method to stringify the object. */
-    stringify(): string;
-}
-
-/**
- * Base Collection
- */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
-    /** The collection results. */
-    results: Array<Type>
+    waitForRequestsToComplete(callback: () => void, requestIdx?: number);
 }

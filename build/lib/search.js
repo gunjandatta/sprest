@@ -26,20 +26,11 @@ exports.Search = (function (url, targetInfo) {
             requestType: utils_1.RequestType.GetReplace
         }, exports.Search.getQuery(settings));
     };
-    /** The search suggest method */
-    search["suggest"] = function (settings /*SearchSuggestion*/) {
-        // Execute the request
-        return search.executeMethod("query", {
-            argNames: ["query"],
-            name: "suggest?[[query]]",
-            requestType: utils_1.RequestType.GetReplace
-        }, exports.Search.getQuery(settings));
-    };
     // Return the search
     return search;
 });
 // Static method to compute the query
-exports.Search.getQuery = function (parameters /* | Types.ComplexTypes.SearchSuggestion*/) {
+exports.Search.getQuery = function (parameters) {
     var query = "";
     // Parse the parameters
     for (var key in parameters) {

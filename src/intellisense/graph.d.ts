@@ -1,4 +1,4 @@
-import { IBaseExecution } from "../utils/types/base";
+import { IBaseExecution, IBaseQuery } from "gd-sprest-def";
 
 /**
  * Graph Collection
@@ -146,7 +146,7 @@ export interface IGraphToken {
 /**
  * Graph
  */
-export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseExecution<IGraph, IGraphResult, IGraphQueryResult> { }
+export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseQuery<IGraphResult, IGraphQueryResult> { }
 
 /**
  * Graph Group

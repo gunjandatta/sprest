@@ -1,4 +1,4 @@
-import { ODataQuery } from "../intellisense";
+import { IODataQuery } from "gd-sprest-def";
 
 /**
  * OData
@@ -21,7 +21,7 @@ export class OData {
     /*********************************************************************************************************************************/
 
     // The class constructor
-    constructor(oData: ODataQuery) {
+    constructor(oData: IODataQuery) {
         // Default the Variables
         this._custom = oData && oData.Custom ? oData.Custom : null;
         this._expand = oData && oData.Expand ? oData.Expand : [];

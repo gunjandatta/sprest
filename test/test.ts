@@ -1,8 +1,23 @@
 import {
-    $REST, Helper
+    $REST, List, Helper
 } from "../src";
 
+List("").Items().execute(i => { i.results[0].File().execute(f => { f.Name; }) })
+
 Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");
+
+$REST.Web().Lists().execute(r => {
+    let title = r.results[0].Title;
+
+    r.next().execute(n => {
+        let title = n.results[0].Title;
+        n.next().execute(n => {
+            n.results[0].Items().execute(i => {
+                i.results[0].File();
+            });
+        });
+    });
+})
 
 $REST.List("").execute(l => {
     l.getItemById(3).execute(item => {
@@ -11,7 +26,8 @@ $REST.List("").execute(l => {
 })
 
 $REST.Web().getUserEffectivePermissions("").execute(r => {
-    let h = r.GetUserEffectivePermissions.High;
+    let h = r.High;
+    let l = r.Low;
 });
 
 $REST.Search().postquery({

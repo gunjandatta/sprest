@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { IODataQuery, SP } from "gd-sprest-def";
 import * as Types from "../../intellisense";
 
 /**
@@ -19,7 +19,7 @@ export interface IListForm {
     /**
      * Method to generate the odata query for the list item.
      */
-    generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
+    generateODataQuery(info: IListFormResult, loadAttachments?: boolean): IODataQuery;
 
     /**
      * Method to load the item attachments
@@ -151,7 +151,7 @@ export interface IListFormProps {
     fields?: Array<string>;
 
     /** The list item */
-    item?: Types.IListItemQueryResult | Types.IListItemResult;
+    item?: SP.ListItemOData | SP.ListItem;
 
     /** The item id */
     itemId?: number;
@@ -163,7 +163,7 @@ export interface IListFormProps {
     loadAttachments?: boolean;
 
     /** OData query used when loading an item */
-    query?: Types.ODataQuery;
+    query?: IODataQuery;
 
     /** The relative web url containing the list */
     webUrl?: string;
@@ -177,16 +177,16 @@ export interface IListFormResult {
     attachments?: Array<SP.Attachment>;
 
     /** The form fields. */
-    fields: { [key: string]: Types.IFieldResult };
+    fields: { [key: string]: SP.Field };
 
     /** The list item. */
-    item?: Types.IListItemQueryResult | Types.IListItemResult;
+    item?: SP.ListItemOData | SP.ListItem;
 
     /** The item query. */
-    query?: Types.ODataQuery;
+    query?: IODataQuery;
 
     /** The list. */
-    list: Types.IListResult;
+    list: SP.List;
 
     /** The relative web url containing the list. */
     webUrl?: string;
