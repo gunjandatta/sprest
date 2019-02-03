@@ -165,7 +165,7 @@ exports.file = {
 exports.files = {
     // Adds a file to this collection.
     add: {
-        argNames: ["overwrite", "url"],
+        argNames: ["url", "overwrite"],
         requestType: utils_1.RequestType.PostWithArgs
     },
     // Adds a ghosted file to an existing list or document library.

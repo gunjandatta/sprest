@@ -191,7 +191,7 @@ export const file = {
 export const files = {
     // Adds a file to this collection.
     add: {
-        argNames: ["overwrite", "url"],
+        argNames: ["url", "overwrite"],
         requestType: RequestType.PostWithArgs
     },
 
