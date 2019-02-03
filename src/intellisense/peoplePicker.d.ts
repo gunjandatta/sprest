@@ -1,6 +1,5 @@
-import { SP } from "gd-sprest-def";
-import { IBaseExecution } from "../utils/types/base";
-import { SPTypes } from "../mapper";
+import { IBaseExecution, SP } from "gd-sprest-def";
+import { SPTypes } from "../mapper/types";
 
 /**
  * Entity Data

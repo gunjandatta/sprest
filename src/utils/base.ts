@@ -1,6 +1,6 @@
+import { IMethodInfo, IRequestInfo } from "gd-sprest-def";
 import { IBase } from "./types/base";
-import { IMethodInfo } from "./types/methodInfo";
-import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./types/targetInfo";
+import { ITargetInfo, ITargetInfoProps } from "./types/targetInfo";
 import { Batch, Helper, Request, TargetInfo, XHRRequest } from ".";
 
 /*********************************************************************************************************************************/

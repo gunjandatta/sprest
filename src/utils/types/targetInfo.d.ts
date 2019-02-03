@@ -1,21 +1,9 @@
+import { IRequestInfo } from "gd-sprest-def";
+
 /**
  * Target Information
  */
 export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
-
-/**
- * Request Information
- */
-export interface IRequestInfo {
-    /** The data being sent in the body of the request. */
-    data?: object;
-
-    /** The request method (GET/POST) */
-    method: string;
-
-    /** The url of the request. */
-    url: string;
-}
 
 /**
  * Target Information

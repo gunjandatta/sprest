@@ -68,11 +68,9 @@ declare module 'gd-sprest/lib/types' {
 }
 
 declare module 'gd-sprest/rest' {
-    import { SP } from "gd-sprest-def";
+    import { IBaseExecution, SP } from "gd-sprest-def";
     import * as Helper from "gd-sprest/helper/types";
     import * as LibTypes from "gd-sprest/lib/types";
-    import * as MapperTypes from "gd-sprest/intellisense";
-    import * as UtilTypes from "gd-sprest/utils/types";
     
     /**
         * SharePoint REST Library
@@ -91,7 +89,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to get the app context information of a site.
                 */
-            AppContext: (siteUrl: string) => UtilTypes.IBaseExecution;
+            AppContext: (siteUrl: string) => IBaseExecution;
     
             /**
                 * A reference to the _spPageContextInfo global variable.
@@ -129,7 +127,7 @@ declare module 'gd-sprest/rest' {
                 * @param listFullUrl - The absolute url of the list.
                 * @param parameters - The optional list data parameters.
                 */
-            ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => UtilTypes.IBaseExecution<LibTypes.IListDataStream>
+            ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => IBaseExecution<LibTypes.IListDataStream>
     
             /**
                 * Use this api to interact with SharePoint navigation.
@@ -158,7 +156,7 @@ declare module 'gd-sprest/rest' {
                 * Use this api to get a remote web.
                 * @param requestUrl - The absolute url of the remote web.
                 */
-            RemoteWeb: (requestUrl?: string) => UtilTypes.IBaseExecution<SP.RemoteWeb>;
+            RemoteWeb: (requestUrl?: string) => IBaseExecution<SP.RemoteWeb>;
     
             /**
                 * Use this api to interact with the SharePoint search service.
@@ -176,18 +174,18 @@ declare module 'gd-sprest/rest' {
                 * Use this api to see if a site collection exists.
                 * @param url - The absolute url of the site collection.
                 */
-            SiteExists: (url: string) => UtilTypes.IBaseExecution<LibTypes.ISiteExists>;
+            SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
     
             /**
                 * Use this api to get the url of a site, by its id.
                 * @param id - The site id.
                 */
-            SiteUrl: (id: string) => UtilTypes.IBaseExecution<LibTypes.ISiteUrl>;
+            SiteUrl: (id: string) => IBaseExecution<LibTypes.ISiteUrl>;
     
             /**
                 * Use this api to interact with the current user's social profile.
                 */
-            SocialFeed: MapperTypes.ISocialFeed;
+            SocialFeed: LibTypes.ISocialFeed;
     
             /**
                 * The SharePoint enumerator types.
@@ -219,23 +217,9 @@ declare module 'gd-sprest/mapper/types' {
 }
 
 declare module 'gd-sprest/intellisense' {
-    export * from "gd-sprest/intellisense/entityData";
     export * from "gd-sprest/intellisense/graph";
-    export * from "gd-sprest/intellisense/navigation";
-    export * from "gd-sprest/intellisense/odata";
-    export * from "gd-sprest/intellisense/peopleManager";
     export * from "gd-sprest/intellisense/peoplePicker";
-    export * from "gd-sprest/intellisense/profileLoader";
-    export * from "gd-sprest/intellisense/propertyValues";
-    import * as Results from "gd-sprest/intellisense/results";
-    export * from "gd-sprest/intellisense/search";
-    export * from "gd-sprest/intellisense/socialFeed";
-    export * from "gd-sprest/intellisense/tenantApp";
-    export * from "gd-sprest/intellisense/tenantAppCatalog";
-    export * from "gd-sprest/intellisense/tenantApps";
-    export * from "gd-sprest/intellisense/userProfile";
     export * from "gd-sprest/intellisense/utility";
-    export { Results }
 }
 
 declare module 'gd-sprest/helper/types/app' {
@@ -1973,8 +1957,7 @@ declare module 'gd-sprest/helper/types/webpart' {
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, SP } from "gd-sprest-def";
     
     /**
         * Context Information
@@ -2430,7 +2413,7 @@ declare module 'gd-sprest/lib/types/list' {
 }
 
 declare module 'gd-sprest/lib/types/navigation' {
-    import * as Types from "gd-sprest/intellisense";
+    import { Microsoft } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -2447,12 +2430,12 @@ declare module 'gd-sprest/lib/types/navigation' {
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): Types.INavigationServiceREST;
+            (url?: string, targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Navigation.REST.INavigationServiceRest;
     }
 }
 
 declare module 'gd-sprest/lib/types/peopleManager' {
-    import * as Types from "gd-sprest/intellisense";
+    import { SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -2468,7 +2451,7 @@ declare module 'gd-sprest/lib/types/peopleManager' {
                 * Creates an instance of the people manager library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): Types.IPeopleManager;
+            (targetInfo?: ITargetInfoProps): SP.UserProfiles.IPeopleManager;
     }
 }
 
@@ -2494,7 +2477,7 @@ declare module 'gd-sprest/lib/types/peoplePicker' {
 }
 
 declare module 'gd-sprest/lib/types/profileLoader' {
-    import * as Types from "gd-sprest/intellisense";
+    import { SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -2510,13 +2493,12 @@ declare module 'gd-sprest/lib/types/profileLoader' {
                 * Creates an instance of the profile loader library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): Types.IProfileLoader;
+            (targetInfo?: ITargetInfoProps): SP.UserProfiles.IProfileLoader;
     }
 }
 
 declare module 'gd-sprest/lib/types/search' {
     import { IBaseExecution, Microsoft, SP } from "gd-sprest-def";
-    import * as Types from "gd-sprest/intellisense";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -2533,7 +2515,7 @@ declare module 'gd-sprest/lib/types/search' {
                 * @param url - The optional url to execute the search against.
                 * @param targetInfo - The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): Types.ISearch;
+            (url?: string, targetInfo?: ITargetInfoProps): Microsoft.Office.Server.Search.REST.ISearchService;
     
             /**
                 * Method to get the app context information.
@@ -2612,7 +2594,7 @@ declare module 'gd-sprest/lib/types/site' {
 }
 
 declare module 'gd-sprest/lib/types/socialFeed' {
-    import * as Types from "gd-sprest/intellisense";
+    import { IBaseExecution, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -2628,12 +2610,25 @@ declare module 'gd-sprest/lib/types/socialFeed' {
                 * Creates an instance of the social feed library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): Types.ISocialFeed;
+            (targetInfo?: ITargetInfoProps): SP.Social.ISocialRestThread;
+    
+            /**
+                * Posts to a feed.
+                * @param accountName - The account name to post to.
+                * @param postInfo - The post information.
+                */
+            postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<SP.Social.SocialRestThread>;
+    
+            /**
+                * Post to the current user's feed.
+                * @param postInfo - The post information.
+                */
+            postToMyFeed(postInfo: SP.Social.SocialPostCreationData): IBaseExecution<SP.Social.SocialRestThread>;
     }
 }
 
 declare module 'gd-sprest/lib/types/userProfile' {
-    import * as Types from "gd-sprest/intellisense";
+    import { SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -2649,7 +2644,7 @@ declare module 'gd-sprest/lib/types/userProfile' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): Types.IProfileLoader;
+            (targetInfo?: ITargetInfoProps): SP.UserProfiles.IProfileLoader;
     }
 }
 
@@ -2701,16 +2696,6 @@ declare module 'gd-sprest/lib/types/web' {
                 */
             getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
     }
-}
-
-declare module 'gd-sprest/utils/types' {
-    export * from "gd-sprest/utils/types/base";
-    export * from "gd-sprest/utils/types/helper";
-    export * from "gd-sprest/utils/types/methodInfo";
-    export * from "gd-sprest/utils/types/request";
-    export * from "gd-sprest/utils/types/requestType";
-    export * from "gd-sprest/utils/types/targetInfo";
-    export * from "gd-sprest/utils/types/xhrRequest";
 }
 
 declare module 'gd-sprest/mapper/types/sptypes' {
@@ -4043,45 +4028,8 @@ declare module 'gd-sprest/mapper/types/sptypes' {
     }
 }
 
-declare module 'gd-sprest/intellisense/entityData' {
-    /**
-      * Entity Data
-      */
-    export interface IEntityData {
-        /** Account Name */
-        AccountName?: string;
-    
-        /** Department. */
-        Department?: string;
-    
-        /** EMail */
-        Email?: string;
-    
-        /** */
-        IsAltSecIdPresent?: boolean;
-    
-        /** Mobile Phone */
-        MobilePhone?: string;
-    
-        /** Object ID */
-        ObjectId?: string;
-    
-        /** Principal Type */
-        PrincipalType?: string;
-    
-        /** SharePoint Group ID */
-        SPGroupID?: string;
-    
-        /** SharePoint User ID */
-        SPUserID?: string;
-    
-        /** Title */
-        Title?: string;
-    }
-}
-
 declare module 'gd-sprest/intellisense/graph' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
+    import { IBaseExecution, IBaseQuery } from "gd-sprest-def";
     
     /**
         * Graph Collection
@@ -4229,7 +4177,7 @@ declare module 'gd-sprest/intellisense/graph' {
     /**
         * Graph
         */
-    export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseExecution<IGraph, IGraphResult, IGraphQueryResult> { }
+    export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseQuery<IGraphResult, IGraphQueryResult> { }
     
     /**
         * Graph Group
@@ -4427,338 +4375,43 @@ declare module 'gd-sprest/intellisense/graph' {
     }
 }
 
-declare module 'gd-sprest/intellisense/navigation' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Navigation Methods
-        */
-    export interface INavigationServiceRESTMethods {
-            /**
-                * Method to get the menu state.
-                * @param menuNodeKey - The key of the start node. If no key is provided, the root node is used.
-                * @param depth - The depth of the dump. Default is 10.
-                * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
-                * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
-                */
-            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBaseExecution<SP.MenuState>;
-    }
-    
-    /**
-        * Navigation Properties
-        */
-    export interface INavigationServiceRESTProps {
-    }
-    
-    /**
-        * Navigation Queryable Properties
-        */
-    export interface INavigationServiceRESTQueryProps {
-            MenuState(): IBaseExecution<SP.MenuState>;
-            MenuState(key: number): IBaseExecution<SP.MenuState>;
-    }
-    
-    /**
-        * Navigation
-        */
-    export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBaseExecution<INavigationServiceREST> { }
-}
-
-declare module 'gd-sprest/intellisense/odata' {
-    /**
-        * OData Query
-        */
-    export interface ODataQuery {
-            /** An optional custom query string */
-            Custom?: string;
-    
-            /** The properties to expand. */
-            Expand?: Array<string>;
-    
-            /** The filters. */
-            Filter?: string;
-    
-            /**
-                * Flag to get all items.
-                * Use this flag to get past the 5000 limit.
-                */
-            GetAllItems?: boolean;
-    
-            /** The order by fields. */
-            OrderBy?: Array<string>;
-    
-            /** The fields to select. */
-            Select?: Array<string>;
-    
-            /** The number of results to skip. */
-            Skip?: number;
-    
-            /** The max number of results to return. */
-            Top?: number;
-    }
-}
-
-declare module 'gd-sprest/intellisense/peopleManager' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IResults } from "gd-sprest/intellisense/results";
-    
-    /**
-        * Person Properties
-        */
-    export interface IPersonProperties extends IBaseExecution<IPersonProperties> {
-            /**
-                * The user's account name.
-                */
-            AccountName: string;
-    
-            /**
-                * The account names of the user's direct reports.
-                */
-            DirectReports: string
-    
-            /**
-                * The user's display name.
-                */
-            DisplayName: string;
-    
-            /**
-                * The user's email address.
-                */
-            Email: string;
-    
-            /**
-                * The account names of the user's manager hierarchy.
-                */
-            ExtendedManagers: IResults<string>;
-    
-            /**
-                * The account names of the user's extended reports.
-                */
-            ExtendedReports: IResults<string>;
-    
-            /**
-                * A Boolean value that indicates whether the user is being followed by the current user.
-                */
-            IsFollowed: boolean;
-    
-            /**
-                * The user's latest microblog post.
-                */
-            LatestPost: string;
-    
-            /**
-                * The account names of the user's peers.
-                */
-            Peers: IResults<string>;
-    
-            /**
-                * The absolute URL of the user's personal site.
-                */
-            PersonalUrl: string;
-    
-            /**
-                * The URL of the user's profile picture.
-                */
-            PictureUrl: string;
-    
-            /**
-                * The user's title.
-                */
-            Title: string;
-    
-            /**
-                * The user profile properties for the user.
-                */
-            UserProfileProperties: IResults<SP.KeyValue>;
-    
-            /**
-                * The URL of the user's profile page.
-                */
-            UserUrl: string;
-    }
-    
-    /**
-        * People Manager
-        */
-    export interface IPeopleManager extends IBaseExecution<IPeopleManager> {
-    
-            /**
-                * The URL of the edit profile page for the current user.
-                */
-            EditProfileLink: string;
-    
-            /**
-                * A Boolean value that indicates whether the current user's People I'm Following list is public.
-                */
-            IsMyPeopleListPublic: boolean;
-    
-    
-            /** Checks whether the specified user is following the current user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-             */
-            amIFollowedBy(accountName: string): IBaseExecution;
-    
-            /**
-                * Checks whether the current user is following the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            amIFollowing(accountName: string): IBaseExecution;
-    
-            /**
-                * Adds the specified user to the current user's list of followed users.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            follow(accountName: string): IBaseExecution;
-    
-            /**
-                * Adds the specified tag to the current user's list of followed tags.
-                * @param id - The ID of the tag to start following.
-                */
-            followTag(id: string): IBaseExecution;
-    
-            /**
-                * Gets tags that the user is following.
-                * @param maxCount - The maximum number of tags to get.
-                */
-            getFollowedTags(maxCount: number): IBaseExecution;
-    
-            /**
-                * Gets the people who are following the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getFollowersFor(accountName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the people who are following the current user.
-                */
-            getMyFollowers(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets user properties for the current user.
-                */
-            getMyProperties(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets suggestions for who the current user might want to follow.
-                */
-            getMySuggestions(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the people who the specified user is following.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getPeopleFollowedBy(accountName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the people who the current user is following.
-                */
-            getPeopleFollowedByMe(): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets user properties for the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getPropertiesFor(accountName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Gets the most popular tags.
-                */
-            getTrendingTags(): IBaseExecution;
-    
-            /**
-                * Gets the specified user profile property for the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                * @param propertyName - The case-sensitive name of the property to get.
-                */
-            getUserProfilePropertyFor(accountName: string, propertyName: string): IBaseExecution<IPersonProperties>;
-    
-            /**
-                * Removes the specified user from the user's list of suggested people to follow.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            hideSuggestion(accountName: string): IBaseExecution;
-    
-            /**
-                * Checks whether the first user is following the second user.
-                * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
-                * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
-                */
-            isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBaseExecution;
-    
-            /**
-                * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
-                * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
-                */
-            setMyProfilePicture(stream: any): IBaseExecution;
-    
-            /**
-                * Remove the specified user from the current user's list of followed users.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            stopFollowing(accountName: string): IBaseExecution;
-    
-            /**
-                * Remove the specified tag from the current user's list of followed tags.
-                * @param id - The ID of the tag to stop following.
-                */
-            stopFollowingTag(id: string): IBaseExecution;
-    }
-}
-
 declare module 'gd-sprest/intellisense/peoplePicker' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IEntityData } from "gd-sprest/intellisense/entityData";
+    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { SPTypes } from "gd-sprest/mapper/types";
     
     /**
-        * People Picker Query
+        * Entity Data
         */
-    export interface IPeoplePickerQuery {
-            /** True to allow the email address. */
-            AllowEmailAddresses?: boolean;
+    export interface IEntityData {
+            /** Account Name */
+            AccountName?: string;
     
-            /** True to allow multiple entities.  */
-            AllowMultipleEntities?: boolean;
+            /** Department. */
+            Department?: string;
     
-            /** True to allow all url zones. */
-            AllUrlZones?: boolean;
+            /** EMail */
+            Email?: string;
     
-            /** True to enable claim providers. */
-            EnabledClaimProviders?: boolean;
+            /** */
+            IsAltSecIdPresent?: boolean;
     
-            /** True to force claims. */
-            ForceClaims?: boolean;
+            /** Mobile Phone */
+            MobilePhone?: string;
     
-            /** Maximum entity suggestions. */
-            MaximumEntitySuggestions: number;
+            /** Object ID */
+            ObjectId?: string;
     
-            /** The principal source. */
-            PrincipalSource?: number;
+            /** Principal Type */
+            PrincipalType?: string;
     
-            /** The principal type. */
-            PrincipalType?: number;
+            /** SharePoint Group ID */
+            SPGroupID?: string;
     
-            /** The query string. This value must be >= 3 characters. */
-            QueryString?: string;
+            /** SharePoint User ID */
+            SPUserID?: string;
     
-            /** Required flag. */
-            Required?: boolean;
-    
-            /** The SharePoint group id. */
-            SharePointGroupID?: number;
-    
-            /** The url zone. */
-            UrlZone?: number;
-    
-            /** Url zone specified flag. */
-            UrlZoneSpecified?: boolean;
-    
-            /** The web. */
-            Web?: any;
-    
-            /** The web application id. */
-            WebApplicationID?: any;
+            /** Title */
+            Title?: string;
     }
     
     /**
@@ -4816,720 +4469,12 @@ declare module 'gd-sprest/intellisense/peoplePicker' {
             /** Method to resolve users.
                 * @param query - The people picker query.
              */
-            clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerResolveUser>;
+            clientPeoplePickerResolveUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerResolveUser>;
     
             /** Method to search for users.
                 * @param query - The people picker query.
              */
-            clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBaseExecution<IPeoplePickerSearchUser>;
-    }
-}
-
-declare module 'gd-sprest/intellisense/profileLoader' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { IUserProfile } from "gd-sprest/intellisense";
-    
-    /**
-        * Profile Loader
-        */
-    export interface IProfileLoader extends IBaseExecution<IProfileLoader> {
-            /**
-                * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
-                * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
-                */
-            createPersonalSiteEnqueueBulk(emailIDs: Array<string>): IBaseExecution;
-    
-            /**
-                * Gets the user profile of the site owner.
-                */
-            getOwnerUserProfile(): IBaseExecution<IUserProfile>;
-    
-            /**
-                * Gets the user profile that corresponds to the current user.
-                */
-            getUserProfile(): IBaseExecution<IUserProfile>;
-    }
-}
-
-declare module 'gd-sprest/intellisense/propertyValues' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    import { ODataQuery } from "gd-sprest/intellisense";
-    
-    /**
-        * Property Values
-        */
-    export interface IPropertyValues extends IBaseExecution, SP.KeyValue {
-            /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query(query: ODataQuery): IPropertyValues;
-    }
-}
-
-declare module 'gd-sprest/intellisense/results' {
-    import { SP } from "gd-sprest-def";
-    
-    /**
-        * Results
-        */
-    export interface IResults<P> {
-            /** The collection data */
-            results: Array<P>;
-    }
-    
-    /**
-        * App License
-        */
-    export interface AppLicense {
-            /** The collection of app licenses. */
-            results: Array<SP.AppLicense>;
-    }
-    
-    /**
-        * Content Type Id
-        */
-    export interface ContentTypeId {
-            /** The collection of content type ids. */
-            results: Array<SP.ContentTypeId>;
-    }
-    
-    /**
-        * Creatable Item Information
-        */
-    export interface CreatableItemInfo {
-            /** The collection of creatable item information. */
-            results: Array<SP.CreatableItemInfoCollection>;
-    }
-    
-    /**
-        * Custom Action Element
-        */
-    export interface CustomActionElement {
-            /** The collection of custom action elements. */
-            results: Array<SP.CustomActionElement>;
-    }
-    
-    /**
-        * Custom Result
-        */
-    export interface CustomResult {
-            /** The collection of custom results. */
-            results: Array<CustomResult>;
-    }
-    
-    /**
-        * Data Row
-        */
-    export interface DataRow {
-            /** The collection of data rows. */
-            results: Array<SP.SimpleDataRow>;
-    }
-    
-    /**
-        * Key/Value
-        */
-    export interface KeyValue {
-            /** The collection of key-value pairs. */
-            results: Array<SP.KeyValue>;
-    }
-    
-    /**
-        * List Data Validation Failure
-        */
-    export interface ListDataValidationFailure {
-            /** The collection of list data validation failures. */
-            results: Array<SP.ListDataValidationFailure>;
-    }
-    
-    /**
-        * Menu Node
-        */
-    export interface MenuNode {
-            /** The collection of menu nodes. */
-            results: Array<SP.MenuNode>;
-    }
-    
-    /**
-        * Number
-        */
-    export interface Number {
-            /** The collection of numbers. */
-            results: Array<number>;
-    }
-    
-    /**
-        * Object
-        */
-    export interface Object {
-            /** A collection of objects. */
-            results: Array<object>;
-    }
-    
-    /**
-        * Parameter Information
-        */
-    export interface ParameterInformation {
-            /** The collection of parameter information. */
-            results: Array<SP.ParameterInformation>;
-    }
-    
-    /**
-        * Personal Result Suggestion
-        */
-    export interface PersonalResultSuggestion {
-            /** The collection of personal result suggestions. */
-            results: Array<PersonalResultSuggestion>;
-    }
-    
-    /**
-        * Query Result
-        */
-    export interface QueryResult {
-            /** The collection of custom results. */
-            results: Array<QueryResult>;
-    }
-    
-    /**
-        * Query Suggestion Query
-        */
-    export interface QuerySuggestionQuery {
-            /** The collection of query suggestion queries. */
-            results: Array<QuerySuggestionQuery>;
-    }
-    
-    /**
-        * Refiner
-        */
-    export interface Refiner {
-            /** The collection of refiners. */
-            results: Array<Refiner>;
-    }
-    
-    /**
-        * Refiner Entry
-        */
-    export interface RefinerEntry {
-            /** The collection of refiner entries. */
-            results: Array<RefinerEntry>;
-    }
-    
-    /**
-        * Shared User
-        */
-    export interface SharedWithUser {
-            /** The collection of shared users. */
-            results: Array<SP.SharedWithUser>
-    }
-    
-    /**
-        * Social Actor
-        */
-    export interface SocialActor {
-            /** The collection of social actors. */
-            results: Array<SocialActor>;
-    }
-    
-    /**
-        * Social Data Item
-        */
-    export interface SocialDataItem {
-            /** The collection of social data items. */
-            results: Array<SocialDataItem>;
-    }
-    
-    /**
-        * Social Data Overlay
-        */
-    export interface SocialDataOverlay {
-            /** The collection of social data overlays. */
-            results: Array<SocialDataOverlay>;
-    }
-    
-    
-    /**
-        * Social Post
-        */
-    export interface SocialPost {
-            /** The collection of social posts. */
-            results: Array<SocialPost>;
-    }
-    
-    /**
-        * Social Post Definition Data Item
-        */
-    export interface SocialPostDefinitionDataItem {
-            /** The collection of social post definition data items. */
-            results: Array<SocialPostDefinitionDataItem>;
-    }
-    
-    /**
-        * Social Thread
-        */
-    export interface SocialThread {
-            /** The collection of social threads. */
-            results: Array<SocialThread>;
-    }
-    
-    /**
-        * String Collection
-        */
-    export interface String {
-            /** The collection of strings. */
-            results: Array<string>;
-    }
-    
-    /**
-        * Visualization Field
-        */
-    export interface VisualizationField {
-            /** The collection of visualization fields. */
-            results: Array<SP.VisualizationField>;
-    }
-}
-
-declare module 'gd-sprest/intellisense/search' {
-    import { Microsoft } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Search
-        */
-    export interface ISearch extends IBaseExecution<ISearch, Microsoft.Office.Server.Search.REST.SearchResult> {
-            /** Method to execute a search query.
-                * @param settings - The search request settings.
-             */
-            postquery(settings: Microsoft.Office.Server.Search.REST.SearchRequest): IBaseExecution<Microsoft.Office.Server.Search.REST.SearchResult>;
-    
-            /** Method to execute a search query.
-                * @param settings - The search request settings.
-             */
-            searchquery(settings: Microsoft.Office.Server.Search.REST.SearchRequest): IBaseExecution<Microsoft.Office.Server.Search.REST.SearchResult>;
-    
-            /** Method to execute a search suggestion.
-                * @param settings - The search suggest settings.
-             */
-            //suggest(settings: Microsoft.Office.Server.Search.REST.SearchSuggestion): IBaseExecution<Microsoft.Office.Server.Search.REST.QuerySuggestionResults>;
-    }
-}
-
-declare module 'gd-sprest/intellisense/socialFeed' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Social Feed
-        */
-    export interface ISocialFeed extends IBaseExecution<ISocialFeed> {
-            /**
-                * Gets information about the specified user and the current user.
-                * @param accountName - The login name of the user.
-                */
-            actor(accountName: string): IBaseExecution<ISocialRestActor>;
-    
-            /**
-                * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
-                * @param accountName - The login name of the user.
-                */
-            actorFeed(accountName: string): IBaseExecution<ISocialRestThread>;
-    
-            /**
-                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
-                */
-            clearMyUnreadMentionCount(): IBaseExecution;
-    
-            /**
-                * Gets information about the current user.
-                */
-            my(): IBaseExecution<ISocialRestActor>;
-    
-            /**
-                * Gets the feed of activity by the current user (Personal feed type).
-                */
-            myFeed(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread Types.SP. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
-                */
-            myLikes(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of microblog posts that mention the current user.
-                */
-            myMentionFeed(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
-                */
-            myNews(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
-                */
-            myTimelineFeed(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Gets the count of unread mentions for the current user.
-                */
-            myUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
-    
-            /**
-                * Creates a root post in the specified site feed.
-                * @param accountName - The login name of the user.
-                */
-            postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
-    
-            /**
-                * Creates a root post in the current user's feed.
-                * @param creationData - The post creation data.
-                */
-            postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
-    }
-    
-    /**
-        * Social Rest Actor
-        */
-    export interface ISocialRestActor extends IBaseExecution<ISocialRestActor> {
-    
-            /**
-                * Properties
-                */
-            FollowableItem?: string;
-    
-            FollwableItemActor: SP.Social.SocialActor;
-    
-            Me: SP.Social.SocialActor;
-    
-    
-            /**
-                * Methods
-                */
-            clearUnreadMentionCount(): IBaseExecution<ISocialRestFeed>;
-    }
-    
-    /**
-        * Social Rest Feed
-        */
-    export interface ISocialRestFeed extends IBaseExecution<ISocialRestFeed> {
-    
-            /**
-                * Properties
-                */
-            SocialFeed: SP.Social.SocialFeed;
-    
-    
-            /**
-                * Creates a root post in the user's feed.
-                */
-            post(postInfo: SP.Social.SocialRestPostCreationData): ISocialRestThread;
-    }
-    
-    /**
-        * Social Rest Thread
-        */
-    export interface ISocialRestThread extends IBaseExecution<ISocialRestThread> {
-    
-            /**
-                * Properties
-                */
-            ID?: string;
-    
-            SocialThread: SP.Social.SocialThread;
-    
-    
-            /**
-                * Methods
-                */
-            delete(): IBaseExecution<ISocialRestThread>;
-    
-            reply(restCreationData: SP.Social.SocialPostCreationData): IBaseExecution<ISocialRestThread>;
-    }
-}
-
-declare module 'gd-sprest/intellisense/tenantApp' {
-    import { IBaseExecution } from "gd-sprest/utils/types/base";
-    
-    /**
-        * Methods
-        */
-    export interface ITenantAppMethods {
-            /**
-                * Deploy solution package in tenant app catalog
-                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
-                */
-            deploy(): IBaseExecution;
-    
-            /**
-                * Install solution package from tenant app catalog to SharePoint site
-                * Install a solution package with specific identifier from tenant app catalog to the site based on URL context. This REST call can be executed in the context of the site where the install operation should happen.
-                */
-            install(): IBaseExecution;
-    
-            /**
-                * Remove solution package from tenant app catalog
-                * Remove the solution package from the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
-                */
-            remove(): IBaseExecution;
-    
-            /**
-                * Retract solution package in the tenant app catalog
-                * Retract solution to be available from the sites. This API is designed to be executed in the context of the tenant app catalog site.
-                */
-            retract(): IBaseExecution;
-    
-            /**
-                * Uninstall solution package from SharePoint site
-                * Uninstall a solution package from the site. This REST call can be executed in the context of the site where the uninstall operation should happen.
-                */
-            uninstall(): IBaseExecution;
-    
-            /**
-                * Upgrade solution package in SharePoint site
-                * Upgrade a solution package from the site to a newer version available in the tenant app catalog. This REST call can be executed in the context of the site where the upgrade operation should happen.
-                */
-            upgrade(): IBaseExecution;
-    }
-    
-    /**
-        * Properties
-        */
-    export interface ITenantAppProps {
-            /** The app version. */
-            AppCatalogVersion: string;
-    
-            /** Flag indicating an upgrade is available. */
-            CanUpgrade: boolean;
-    
-            /** Flag indicating if the current version is deployed. */
-            CurrentVersionDeployed: boolean;
-    
-            /** Flag indicating if the app is deployed. */
-            Deployed: boolean;
-    
-            /** The app id. */
-            ID: string;
-    
-            /** The installed version. */
-            InstalledVersion: string;
-    
-            /** Flag indicating if this is a client-side solution. */
-            IsClientSideSolution: boolean;
-    
-            /** The app title. */
-            Title: string;
-    }
-    
-    /**
-        * Tenant App Result
-        */
-    export interface ITenantAppResult extends ITenantAppMethods, ITenantAppProps, IBaseExecution<ITenantApp, ITenantAppResult> { }
-    
-    /**
-        * Tenant App
-        */
-    export interface ITenantApp extends ITenantAppMethods, IBaseExecution<ITenantApp, ITenantAppResult> { }
-}
-
-declare module 'gd-sprest/intellisense/tenantAppCatalog' {
-    import { SP } from "gd-sprest-def";
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    import { ITenantApp, ITenantApps } from "gd-sprest/intellisense";
-    
-    /**
-        * Tenant App Catalog Methods
-        */
-    export interface ITenantAppCatalogMethods {
-            /**
-                * Add solution package to tenant app catalog
-                * Adding solution to the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
-                * @param overwrite - Flag to overwrite the solution.
-                * @param url - The file name of the solution.
-                */
-            add(overwrite?: boolean, url?: string): IBaseExecution<SP.IFile>;
-    
-            /**
-                * Deploy solution package in tenant app catalog
-                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
-                * @param guid - The app id.
-                */
-            getById(guid: string): ITenantApp;
-    }
-    
-    /**
-        * Tenant App Catalog Properties
-        */
-    export interface ITenantAppCatalogProps {
-            /**
-                * List available packages from tenant app catalog
-                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
-                */
-            AvailableApps(): ITenantApps;
-    
-            /**
-                * No documentation available. Need to research this.
-                */
-            SiteCollectionAppCatalogsSites(): IBaseCollection;
-    }
-    
-    /**
-        * Tenant App Catalog Query Properties
-        */
-    export interface ITenantAppCatalogQueryProps {
-            /**
-                * List available packages from tenant app catalog
-                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
-                */
-            AvailableApps(): ITenantApps;
-    }
-    
-    /**
-        * Tenant App Catalog Query Result
-        */
-    export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps { }
-    
-    /**
-        * Tenant App Catalog Result
-        */
-    export interface ITenantAppCatalogResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, ITenantAppCatalogQueryProps, IBaseExecution<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
-    }
-    
-    /**
-        * Tenant App Catalog
-        */
-    export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBaseExecution<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> { }
-}
-
-declare module 'gd-sprest/intellisense/tenantApps' {
-    import { IBaseExecution, IBaseCollection } from "gd-sprest/utils/types/base";
-    import { ITenantApp } from "gd-sprest/intellisense";
-    
-    /**
-        * Methods
-        */
-    export interface ITenantAppsMethods {
-            /**
-                * Details on individual solution package from tenant app catalog
-                * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
-                * @param guid - The app id.
-                */
-            getById(guid: string): IBaseExecution<ITenantApp>;
-    }
-    
-    /**
-        * Tenant Apps
-        */
-    export interface ITenantApps extends ITenantAppsMethods, IBaseCollection<ITenantApp> { }
-}
-
-declare module 'gd-sprest/intellisense/userProfile' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
-    
-    /**
-        * User Profile
-        */
-    export interface IUserProfile extends IBaseExecution<IUserProfile> {
-    
-            /**
-                * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
-                */
-            FollowedContent(): IBaseExecution<any>;
-    
-            /**
-                * The account name of the user. (SharePoint Online only)
-                */
-            AccountName: string;
-    
-            /**
-                * The display name of the user. (SharePoint Online only)
-                */
-            DisplayName: string;
-    
-            FollowPersonalSiteUrl: string;
-    
-            IsPeopleListPublic: boolean;
-    
-            IsPrivacySettingOn: boolean;
-    
-            IsSelf: boolean;
-    
-            JobTitle: string;
-    
-            MySiteFirstRunExperience: number;
-    
-            MySiteHostUrl: string;
-    
-            /**
-                * The FirstRun flag of the user. (SharePoint Online only)
-                */
-            O15FirstRunExperience: number;
-    
-            /**
-                * The personal site of the user.
-                */
-            PersonalSite(): IBaseExecution<SP.IWeb>;
-    
-            /**
-                * The capabilities of the user's personal site.
-                */
-            PersonalSiteCapabilities: number;
-    
-            /**
-                * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)
-                */
-            PersonalSiteFirstCreationError: string;
-    
-            /**
-                * The date and time when the user's personal site was first created. (SharePoint Online only)
-                */
-            PersonalSiteFirstCreationTime: string;
-    
-            /**
-                * The status for the state of the personal site instantiation.
-                * See PersonalSiteInstantiationState in the .NET client object model reference for a list of instantiation state values.
-                */
-            PersonalSiteInstantiationState: number;
-    
-            /**
-                * The date and time when the user's personal site was last created. (SharePoint Online only)
-                */
-            PersonalSiteLastCreationTime: string;
-    
-            /**
-                * The number of attempts made to create the user's personal site. (SharePoint Online only)
-                */
-            PersonalSiteNumberOfRetries: number;
-    
-            /**
-                * A Boolean value that indicates whether the user's picture is imported from Exchange.
-                */
-            PictureImportEnabled: boolean;
-    
-            PictureUrl: string;
-    
-            /**
-                * The public URL of the personal site of the current user. (SharePoint Online only)
-                */
-            PublicUrl: string;
-    
-            /**
-                * The URL used to create the user's personal site.
-                */
-            UrlToCreatePersonalSite: string;
-    
-    
-            /**
-                * Enqueues creating a personal site for this user, which can be used to share documents, web pages, and other files.
-                * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
-                * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
-                */
-            createPersonalSiteEnque(interactiveFl: boolean): IBaseExecution;
-    
-            /**
-                * Sets the privacy settings for this profile.
-                * @param publicFl - true to make all social data public; false to make all social data private.
-                */
-            shareAllSocialData(publicFl: boolean): IBaseExecution;
+            clientPeoplePickerSearchUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerSearchUser>;
     }
 }
 
@@ -5722,236 +4667,22 @@ declare module 'gd-sprest/intellisense/utility' {
     }
 }
 
-declare module 'gd-sprest/utils/types/base' {
-    import { ODataQuery } from "gd-sprest/intellisense";
-    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
-    import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
-    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
-    
-    /**
-        * Base Execution
-        */
-    export interface IBaseExecution<Type = any, Result = Type, QueryResult = Result> {
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param resolve - The method to be executed after the request completes.
-                */
-            batch(resolve: (value?: Result) => void): Type;
-    
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param appendFl - Flag to execute the request as part of a change set.
-                */
-            batch(appendFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param resolve - The method to be executed after the request completes.
-                * @param appendFl - Flag to execute the request as part of a change set.
-                */
-            batch(resolve: (value?: Result) => void, appendFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(waitFl: boolean): Type;
-    
-            /**
-                * Method to execute the request.
-                * @param resolve - The method to be executed if the request is successful.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request.
-                * @param resolve - The method to be executed if the request is successful.
-                * @param reject - The method to be executed if the request fails.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
-    
-            /**
-                * Method to execute the request. (This is an internal method, but can be used for dev purposes.)
-                * @param methodName - The method name to execute.
-                * @param methodConfig - The configuration to pass with the request.
-                * @param args - The optional arguments for the request.
-                */
-            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
-    
-            /**
-                * Method to execute the request synchronously.
-                */
-            executeAndWait(): Result;
-    
-            /**
-                * Method to wait for the requests to complete.
-                * @param resolve - The method to be executed after the request completes.
-                */
-            done<T=IBase>(resolve: (value?: T) => void);
-    
-            /**
-                * Method to get the request information.
-                */
-            getInfo(): IRequestInfo;
-    }
-    
-    /**
-        * Base Result
-        */
-    export interface IBaseResult<Type = any, Result = Type, QueryResult = Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-    
-            /** The response */
-            response: string;
-    
-            /** The target information. */
-            targetInfo: ITargetInfoProps;
-    
-            /**
-                * Method to stringify the object.
-                */
-            stringify(): string;
-    }
-    
-    /**
-        * Base Execution w/ Query
-        */
-    export interface IBaseQueryExecution<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult> {
-            /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query?(query: ODataQuery): IBaseExecution<QueryResult>;
-    }
-    
-    /**
-        * Base Execution Query Result
-        */
-    export interface IBaseQueryExecutionResult<Type = any> extends IBaseCollectionResult<Type> {
-            /** The collection results. */
-            results: Array<Type>
-    }
-    
-    /**
-        * Base Collection
-        */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IBaseQueryExecution<IBaseQueryExecutionResult<QueryResult>> {
-    }
-    
-    /**
-        * Base Collection Results
-        */
-    export interface IBaseCollectionResult<Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-    
-            /** Returns the next set of results, if paging exists. */
-            next(): IBaseCollection<Result>;
-    
-            /** True, if more items exist. */
-            nextFl: boolean;
-    
-            /** The raw string response. */
-            response: string;
-    
-            /** The results. */
-            results: Array<Result>;
-    
-            /** Method to stringify the object. */
-            stringify(): string;
-    }
-    
-    /**
-        * Base
-        */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result, QueryResult>, IBaseResult<Type, Result, QueryResult> {
-    
-            /** The parent object, which created this object. */
-            parent: any;
-    
-    
-            /** The batch requests. */
-            batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
-    
-            /** The index of this object in the responses array. */
-            responseIndex: number;
-    
-            /** The responses. */
-            responses: Array<IBase>;
-    
-            /** The wait flags. */
-            waitFlags: Array<boolean>;
-    
-    
-            /** The base object. */
-            base: IBase;
-    
-            /** The request type */
-            requestType: number;
-    
-            /** The request's status. */
-            status: number;
-    
-            /** The xml object. */
-            xml: string | XMLDocument;
-    
-    
-            /** Flag to get all items. */
-            getAllItemsFl: boolean;
-    
-            /** Flag determining if more items exist. */
-            nextFl: boolean;
-    
-            /** The request. */
-            xhr: IXHRRequest;
-    
-            /** Adds methods based on the object type. */
-            addMethods(data: any, context?: any);
-    
-            /** Gets the property as a collection. */
-            getCollection(method: string, args?: any);
-    
-            /** Gets the next set of results. */
-            getNextSetOfResults();
-    
-            /** Gets the property. */
-            getProperty(propertyName: string, requestType?: string);
-    
-            /** Updates the metdata uri. */
-            updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
-    
-            /**
-                * Method to wait for the parent requests to complete
-                */
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number);
-    }
+declare module 'gd-sprest/utils/types' {
+    export * from "gd-sprest/utils/types/base";
+    export * from "gd-sprest/utils/types/helper";
+    export * from "gd-sprest/utils/types/request";
+    export * from "gd-sprest/utils/types/requestType";
+    export * from "gd-sprest/utils/types/targetInfo";
+    export * from "gd-sprest/utils/types/xhrRequest";
 }
 
 declare module 'gd-sprest/utils/types/targetInfo' {
+    import { IRequestInfo } from "gd-sprest-def";
+    
     /**
         * Target Information
         */
     export const TargetInfo: (props: ITargetInfoProps) => ITargetInfo;
-    
-    /**
-        * Request Information
-        */
-    export interface IRequestInfo {
-            /** The data being sent in the body of the request. */
-            data?: object;
-    
-            /** The request method (GET/POST) */
-            method: string;
-    
-            /** The url of the request. */
-            url: string;
-    }
     
     /**
         * Target Information
@@ -6030,9 +4761,83 @@ declare module 'gd-sprest/utils/types/targetInfo' {
     }
 }
 
+declare module 'gd-sprest/utils/types/base' {
+    import { IBaseExecution, IBaseResult, IODataQuery } from "gd-sprest-def";
+    import { ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
+    import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
+    
+    /**
+        * Base
+        */
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Result, QueryResult>, IBaseResult {
+    
+            /** The parent object, which created this object. */
+            parent: any;
+    
+    
+            /** The batch requests. */
+            batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
+    
+            /** The index of this object in the responses array. */
+            responseIndex: number;
+    
+            /** The responses. */
+            responses: Array<IBase>;
+    
+            /** The wait flags. */
+            waitFlags: Array<boolean>;
+    
+    
+            /** The base object. */
+            base: IBase;
+    
+            /** The request type */
+            requestType: number;
+    
+            /** The request's status. */
+            status: number;
+    
+            /** The target information. */
+            targetInfo: ITargetInfoProps;
+    
+            /** The xml object. */
+            xml: string | XMLDocument;
+    
+    
+            /** Flag to get all items. */
+            getAllItemsFl: boolean;
+    
+            /** Flag determining if more items exist. */
+            nextFl: boolean;
+    
+            /** The request. */
+            xhr: IXHRRequest;
+    
+            /** Adds methods based on the object type. */
+            addMethods(data: any, context?: any);
+    
+            /** Gets the property as a collection. */
+            getCollection(method: string, args?: any);
+    
+            /** Gets the next set of results. */
+            getNextSetOfResults();
+    
+            /** Gets the property. */
+            getProperty(propertyName: string, requestType?: string);
+    
+            /** Updates the metdata uri. */
+            updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
+    
+            /**
+                * Method to wait for the parent requests to complete
+                */
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number);
+    }
+}
+
 declare module 'gd-sprest/utils/types/helper' {
+    import { IMethodInfo } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types/base";
-    import { IMethodInfo } from "gd-sprest/utils/types/methodInfo";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -6068,25 +4873,6 @@ declare module 'gd-sprest/utils/types/helper' {
     
         /** Updates the metdata uri. */
         updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
-    }
-}
-
-declare module 'gd-sprest/utils/types/methodInfo' {
-    /**
-      * Method Information Settings
-      */
-    export interface IMethodInfo {
-        argNames?: Array<string>;
-        argValues?: Array<any>;
-        data?: any;
-        getAllItemsFl?: boolean;
-        inheritMetadataType?: boolean;
-        metadataType?: string;
-        name?: string;
-        replaceEndpointFl?: boolean;
-        requestMethod?: string;
-        requestType?: number;
-        returnType?: string;
     }
 }
 

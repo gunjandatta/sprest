@@ -1,5 +1,6 @@
+import { IRequestInfo } from "gd-sprest-def";
 import { ContextInfo } from "../lib";
-import { IRequestInfo, ITargetInfo, ITargetInfoProps } from "./types";
+import { ITargetInfo, ITargetInfoProps } from "./types";
 import { RequestType } from ".";
 
 /**

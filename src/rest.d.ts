@@ -1,7 +1,6 @@
-import { SP } from "gd-sprest-def";
+import { IBaseExecution, SP } from "gd-sprest-def";
 import * as Helper from "./helper/types";
 import * as LibTypes from "./lib/types";
-import * as UtilTypes from "./utils/types";
 
 /**
  * SharePoint REST Library
@@ -20,7 +19,7 @@ export interface IREST {
     /**
      * Use this api to get the app context information of a site.
      */
-    AppContext: (siteUrl: string) => UtilTypes.IBaseExecution;
+    AppContext: (siteUrl: string) => IBaseExecution;
 
     /**
      * A reference to the _spPageContextInfo global variable.
@@ -58,7 +57,7 @@ export interface IREST {
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => UtilTypes.IBaseExecution<LibTypes.IListDataStream>
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => IBaseExecution<LibTypes.IListDataStream>
 
     /**
      * Use this api to interact with SharePoint navigation.
@@ -87,7 +86,7 @@ export interface IREST {
      * Use this api to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    RemoteWeb: (requestUrl?: string) => UtilTypes.IBaseExecution<SP.RemoteWeb>;
+    RemoteWeb: (requestUrl?: string) => IBaseExecution<SP.RemoteWeb>;
 
     /**
      * Use this api to interact with the SharePoint search service.
@@ -105,13 +104,13 @@ export interface IREST {
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    SiteExists: (url: string) => UtilTypes.IBaseExecution<LibTypes.ISiteExists>;
+    SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
 
     /**
      * Use this api to get the url of a site, by its id.
      * @param id - The site id.
      */
-    SiteUrl: (id: string) => UtilTypes.IBaseExecution<LibTypes.ISiteUrl>;
+    SiteUrl: (id: string) => IBaseExecution<LibTypes.ISiteUrl>;
 
     /**
      * Use this api to interact with the current user's social profile.
