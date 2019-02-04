@@ -96,6 +96,7 @@ export const field = {
     // Updates it's properties.
     update: {
         inheritMetadataType: true,
+        metadataType: "SP.Field",
         name: "",
         requestMethod: "MERGE",
         requestType: RequestType.PostWithArgsInBody

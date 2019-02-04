@@ -84,6 +84,7 @@ exports.field = {
     // Updates it's properties.
     update: {
         inheritMetadataType: true,
+        metadataType: "SP.Field",
         name: "",
         requestMethod: "MERGE",
         requestType: utils_1.RequestType.PostWithArgsInBody
