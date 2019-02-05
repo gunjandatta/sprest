@@ -46,6 +46,7 @@ export class MethodInfo implements IMethodInfo {
             case RequestType.Post:
             case RequestType.PostBodyNoArgs:
             case RequestType.PostWithArgs:
+            case RequestType.PostWithArgsAndData:
             case RequestType.PostWithArgsInBody:
             case RequestType.PostWithArgsInQS:
             case RequestType.PostWithArgsInQSAsVar:
@@ -88,7 +89,7 @@ export class MethodInfo implements IMethodInfo {
         // See if the argument names exist
         if (this.methodInfo.argNames) {
             // Parse the argument names
-            for (let i = 0; i < this.methodInfo.argNames.length && i < this.methodInfo.argValues.length; i++) {
+            for (let i = 0; i < this.methodInfo.argNames.length - (this.methodInfo.requestType == RequestType.PostWithArgsAndData ? 1 : 0) && i < this.methodInfo.argValues.length; i++) {
                 let name = this.methodInfo.argNames[i];
                 let value = this.methodInfo.argValues[i];
 

@@ -26,6 +26,7 @@ export type IRequestType = {
     Post: number;
     PostBodyNoArgs: number;
     PostWithArgs: number;
+    PostWithArgsAndData: number;
     PostWithArgsInBody: number;
     PostWithArgsInQS: number;
     PostWithArgsInQSAsVar: number;

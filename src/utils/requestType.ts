@@ -28,9 +28,10 @@ export const RequestType: IRequestType = {
     Post: 30,
     PostBodyNoArgs: 31,
     PostWithArgs: 32,
-    PostWithArgsInBody: 33,
-    PostWithArgsInQS: 34,
-    PostWithArgsInQSAsVar: 35,
-    PostWithArgsValueOnly: 36,
-    PostReplace: 37
+    PostWithArgsAndData: 33,
+    PostWithArgsInBody: 34,
+    PostWithArgsInQS: 35,
+    PostWithArgsInQSAsVar: 36,
+    PostWithArgsValueOnly: 37,
+    PostReplace: 38
 }
