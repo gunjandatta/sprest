@@ -88,8 +88,11 @@ export class MethodInfo implements IMethodInfo {
 
         // See if the argument names exist
         if (this.methodInfo.argNames) {
+            let maxArgNames = this.methodInfo.argNames.length -
+                (this.methodInfo.requestType == RequestType.PostWithArgsAndData || this.methodInfo.requestType == RequestType.PostReplaceWithData ? 1 : 0);
+
             // Parse the argument names
-            for (let i = 0; i < this.methodInfo.argNames.length - (this.methodInfo.requestType == RequestType.PostWithArgsAndData ? 1 : 0) && i < this.methodInfo.argValues.length; i++) {
+            for (let i = 0; i < maxArgNames && i < this.methodInfo.argValues.length; i++) {
                 let name = this.methodInfo.argNames[i];
                 let value = this.methodInfo.argValues[i];
 

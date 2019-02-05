@@ -32,4 +32,5 @@ export type IRequestType = {
     PostWithArgsInQSAsVar: number;
     PostWithArgsValueOnly: number;
     PostReplace: number;
+    PostReplaceWithData: number;
 }
