@@ -15,7 +15,7 @@ export const List: IList = ((listName: string, targetInfo?: ITargetInfoProps) =>
     list.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
 
     // Add the methods
-    Request.addMethods(list, { __metadata: { type: "list" } });
+    Request.addMethods(list, { __metadata: { type: "SP.List" } });
 
     // Return the list
     return list;
