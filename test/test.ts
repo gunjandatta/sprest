@@ -2,6 +2,9 @@ import {
     $REST, List, Helper
 } from "../src";
 
+let el:HTMLElement;
+el.addEventListener
+
 List("").Items().execute(i => { i.results[0].File().execute(f => { f.Name; }) })
 
 Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");

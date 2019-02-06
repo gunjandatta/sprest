@@ -16,46 +16,53 @@ exports.Request = {
     addMethods: function (base, data, graphType) {
         var obj = base;
         var isCollection = data.results && data.results.length > 0;
+        var methods = null;
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
-        // Determine the object type
+        // Get the object type
         var objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
-        objType = objType.split('/');
-        objType = (objType[objType.length - 1]);
-        objType = objType.split('.');
-        objType = (objType[objType.length - 1]).toLowerCase();
-        objType += isCollection ? "s" : "";
-        // See if this is a graph request
-        if (/^graph/.test(objType)) {
-            // Do nothing
+        // See if the new mapper has the type
+        if ((methods = mapper_1.Mapper[objType]) == null) {
+            console.info("[gd-sprest] Old Mapper being used for " + objType);
+            // Determine the object type
+            objType = objType.split('/');
+            objType = (objType[objType.length - 1]);
+            objType = objType.split('.');
+            objType = (objType[objType.length - 1]).toLowerCase();
+            objType += isCollection ? "s" : "";
+            // See if this is a graph request
+            if (/^graph/.test(objType)) {
+                // Do nothing
+            }
+            // Else, see if the base is a field
+            else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+                // Update the type
+                objType = "field" + (isCollection ? "s" : "");
+            }
+            // Else, see if the base is an item
+            else if (/item$/.test(objType)) {
+                // Update the type
+                objType = "listitem";
+            }
+            // Else, see if the base is an item collection
+            else if (/items$/.test(objType)) {
+                // Update the type
+                objType = "items";
+            }
+            // Else, see if this is a tenant app
+            else if (/corporatecatalogappmetadata/.test(objType)) {
+                // Update the type
+                objType = "tenantapp";
+            }
+            // Else, see if this is a tenant app collection
+            else if (/corporatecatalogappmetadatas/.test(objType)) {
+                // Update the type
+                objType = "tenantapps";
+            }
+            // Get the methods for the base object
+            methods = mapper_1.Mapper_Old[objType];
         }
-        // Else, see if the base is a field
-        else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
-            // Update the type
-            objType = "field" + (isCollection ? "s" : "");
-        }
-        // Else, see if the base is an item
-        else if (/item$/.test(objType)) {
-            // Update the type
-            objType = "listitem";
-        }
-        // Else, see if the base is an item collection
-        else if (/items$/.test(objType)) {
-            // Update the type
-            objType = "items";
-        }
-        // Else, see if this is a tenant app
-        else if (/corporatecatalogappmetadata/.test(objType)) {
-            // Update the type
-            objType = "tenantapp";
-        }
-        // Else, see if this is a tenant app collection
-        else if (/corporatecatalogappmetadatas/.test(objType)) {
-            // Update the type
-            objType = "tenantapps";
-        }
-        // Get the methods for the base object
-        var methods = mapper_1.Mapper[objType];
+        // Ensure methods exist
         if (methods) {
             // Parse the methods
             for (var methodName in methods) {

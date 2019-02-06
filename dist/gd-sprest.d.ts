@@ -4936,12 +4936,15 @@ declare module 'gd-sprest/utils/types/requestType' {
     
         // Post Requests
         Post: number;
+        PostBodyNoArgs: number;
         PostWithArgs: number;
+        PostWithArgsAndData: number;
         PostWithArgsInBody: number;
         PostWithArgsInQS: number;
         PostWithArgsInQSAsVar: number;
         PostWithArgsValueOnly: number;
         PostReplace: number;
+        PostReplaceWithData: number;
     }
 }
 

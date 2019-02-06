@@ -11,7 +11,7 @@ exports.List = (function (listName, targetInfo) {
     list.targetInfo.defaultToWebFl = true;
     list.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
     // Add the methods
-    utils_1.Request.addMethods(list, { __metadata: { type: "list" } });
+    utils_1.Request.addMethods(list, { __metadata: { type: "SP.List" } });
     // Return the list
     return list;
 });
