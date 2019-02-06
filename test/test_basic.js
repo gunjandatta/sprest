@@ -23,7 +23,7 @@ function assert(obj, action, property, value) {
         }
     }
     else {
-        writeToLog("Error: Object does not exist.", LogType.Error);
+        writeToLog("Error in Method '" + action + "': Object does not exist.", LogType.Error);
     }
 }
 
@@ -90,7 +90,10 @@ function testALM() {
     // Read the content types of this file
     file.content().execute(function (content) {
         // Add the app file
-        var appFile = $REST.Web().TenantAppCatalog().add(true, "hw-webpart.sppkg", content).executeAndWait();
+        var appFile = $REST.Web().TenantAppCatalog().add("hw-webpart.sppkg", true, content).executeAndWait();
+
+        // Ensure the app exists
+        assert(appFile, "get app file", "existsFl", true);
 
         // Get the app
         $REST.Web().TenantAppCatalog().AvailableApps().query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
@@ -98,30 +101,40 @@ function testALM() {
 
             // Ensure the app exists
             assert(app, "query app", "existsFl", true);
+            if (app == null) { return; }
+
+            // Method to retract the app
+            let retractApp = (app) => {
+                // Retract the app
+                app.retract().execute(function (response) {
+                    // Ensure it was retracted
+                    assert(response, "retract app", "Retract", null);
+
+                    // Remove the app
+                    app.remove().execute(function (response) {
+                        // Ensure it was removed
+                        assert(response, "remove app", "Remove", null);
+                    });
+                })
+            }
 
             // Ensure it's deployed
             if (app.Deployed) {
                 // Log
                 writeToLog("App is already deployed.", LogType.Info);
+
+                // Retract the app
+                retractApp(app);
             } else {
                 // Deploy the app
                 app.deploy().execute(function (response) {
                     // Ensure it was deployed
                     assert(response, "deploy app", "Deploy", null);
+
+                    // Retract the app
+                    retractApp(app);
                 }, true)
             }
-
-            // Retract the app
-            app.retract().execute(function (response) {
-                // Ensure it was retracted
-                assert(response, "retract app", "Retract", null);
-
-                // Remove the app
-                app.remove().execute(function (response) {
-                    // Ensure it was removed
-                    assert(response, "remove app", "Remove", null);
-                });
-            })
         });
     });
 }
@@ -388,7 +401,7 @@ function testFile() {
     }
 
     // Copy the file
-    file = subFolder.Files().add(true, "test.aspx", buffer).executeAndWait();
+    file = subFolder.Files().add("test.aspx", true, buffer).executeAndWait();
 
     // Test
     assert(file, "copy file", "Exists", true);

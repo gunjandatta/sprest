@@ -81,6 +81,7 @@ export class MethodInfo implements IMethodInfo {
 
     // Method to generate the method input parameters
     private generateParams(): string {
+        let maxArgNames = 0;
         let params = {};
 
         // Ensure values exist
@@ -88,7 +89,8 @@ export class MethodInfo implements IMethodInfo {
 
         // See if the argument names exist
         if (this.methodInfo.argNames) {
-            let maxArgNames = this.methodInfo.argNames.length -
+            // Set the max arguments
+            maxArgNames = this.methodInfo.argNames.length -
                 (this.methodInfo.requestType == RequestType.PostWithArgsAndData || this.methodInfo.requestType == RequestType.PostReplaceWithData ? 1 : 0);
 
             // Parse the argument names
@@ -148,9 +150,9 @@ export class MethodInfo implements IMethodInfo {
                 this.methodData = this.methodInfo.argValues[0];
             }
             // Else, see if we are passing arguments outside of the parameters
-            else if (this.methodInfo.argValues.length > this.methodInfo.argNames.length) {
+            else if (this.methodInfo.argValues.length > maxArgNames) {
                 // Set the method data to the next available argument value
-                this.methodData = this.methodInfo.argValues[this.methodInfo.argNames.length];
+                this.methodData = this.methodInfo.argValues[maxArgNames];
             }
         }
 

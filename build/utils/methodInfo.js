@@ -106,6 +106,7 @@ var MethodInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Method to generate the method input parameters
     MethodInfo.prototype.generateParams = function () {
+        var maxArgNames = 0;
         var params = {};
         // Ensure values exist
         if (this.methodInfo.argValues == null) {
@@ -113,7 +114,8 @@ var MethodInfo = /** @class */ (function () {
         }
         // See if the argument names exist
         if (this.methodInfo.argNames) {
-            var maxArgNames = this.methodInfo.argNames.length -
+            // Set the max arguments
+            maxArgNames = this.methodInfo.argNames.length -
                 (this.methodInfo.requestType == _1.RequestType.PostWithArgsAndData || this.methodInfo.requestType == _1.RequestType.PostReplaceWithData ? 1 : 0);
             // Parse the argument names
             for (var i = 0; i < maxArgNames && i < this.methodInfo.argValues.length; i++) {
@@ -169,9 +171,9 @@ var MethodInfo = /** @class */ (function () {
                 this.methodData = this.methodInfo.argValues[0];
             }
             // Else, see if we are passing arguments outside of the parameters
-            else if (this.methodInfo.argValues.length > this.methodInfo.argNames.length) {
+            else if (this.methodInfo.argValues.length > maxArgNames) {
                 // Set the method data to the next available argument value
-                this.methodData = this.methodInfo.argValues[this.methodInfo.argNames.length];
+                this.methodData = this.methodInfo.argValues[maxArgNames];
             }
         }
         // See if the metadata type exists

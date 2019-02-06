@@ -1012,7 +1012,7 @@ export const Mapper: IMapper = {
         ],
 
         add: {
-            argNames: ["Content", "Overwrite", "Url"],
+            argNames: ["Url", "Overwrite", "Content"],
             requestType: RequestType.PostWithArgsAndData
         },
 
@@ -1026,7 +1026,7 @@ export const Mapper: IMapper = {
         ],
 
         add: {
-            argNames: ["Content", "Overwrite", "Url"],
+            argNames: ["Url", "Overwrite", "Content"],
             requestType: RequestType.PostWithArgsAndData
         },
 
@@ -2476,6 +2476,9 @@ export const Mapper: IMapper = {
     "SP.Alert.Collection": {
         add: {
             argNames: ["alertCreationInformation"],
+            name: "",
+            metadataType: "SP.Alert",
+            requestType: RequestType.PostBodyNoArgs
         },
 
         contains: {
@@ -2882,6 +2885,7 @@ export const Mapper: IMapper = {
     "SP.ContentType.Collection": {
         add: {
             argNames: ["parameters"],
+            metadataType: "SP.ContentType",
             name: "",
             requestType: RequestType.PostBodyNoArgs
         },
@@ -3085,6 +3089,9 @@ export const Mapper: IMapper = {
     "SP.Field": {
         add: {
             argNames: ["parameters"],
+            name: "",
+            metadataType: "SP.Field",
+            requestType: RequestType.PostBodyNoArgs
         },
 
         delete: {
@@ -3395,7 +3402,7 @@ export const Mapper: IMapper = {
             argNames: ["parameters"],
             metadataType: "SP.FieldLink",
             name: "",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: RequestType.PostBodyNoArgs
         },
 
         getById: {
@@ -4109,6 +4116,7 @@ export const Mapper: IMapper = {
     "SP.Group.Collection": {
         add: {
             argNames: ["parameters"],
+            metadataType: "SP.Group",
             name: "",
             requestType: RequestType.PostBodyNoArgs
         },
@@ -6251,6 +6259,7 @@ export const Mapper: IMapper = {
     "SP.User.Collection": {
         add: {
             argNames: ["properties"],
+            metadataType: "SP.User",
             name: "",
             requestType: RequestType.PostBodyNoArgs
         },
@@ -6308,6 +6317,7 @@ export const Mapper: IMapper = {
     "SP.UserCustomAction.Collection": {
         add: {
             argNames: ["properties"],
+            metadataType: "SP.UserCustomAction",
             name: "",
             requestType: RequestType.PostBodyNoArgs
         },
@@ -7111,6 +7121,9 @@ export const Mapper: IMapper = {
     "SP.Web.Collection": {
         add: {
             argNames: ["parameters"],
+            metadataType: "SP.Web",
+            name: "",
+            requestType: RequestType.PostBodyNoArgs
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -7121,6 +7134,7 @@ export const Mapper: IMapper = {
         add: {
             argNames: ["parameters"],
             metadataType: "SP.WebCreationInformation",
+            name: "",
             requestType: RequestType.PostBodyNoArgs
         },
 

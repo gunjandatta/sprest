@@ -668,7 +668,7 @@ exports.Mapper = {
             "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Id]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
         ],
         add: {
-            argNames: ["Content", "Overwrite", "Url"],
+            argNames: ["Url", "Overwrite", "Content"],
             requestType: utils_1.RequestType.PostWithArgsAndData
         },
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
@@ -678,7 +678,7 @@ exports.Mapper = {
             "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Id]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
         ],
         add: {
-            argNames: ["Content", "Overwrite", "Url"],
+            argNames: ["Url", "Overwrite", "Content"],
             requestType: utils_1.RequestType.PostWithArgsAndData
         },
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
@@ -1644,6 +1644,9 @@ exports.Mapper = {
     "SP.Alert.Collection": {
         add: {
             argNames: ["alertCreationInformation"],
+            name: "",
+            metadataType: "SP.Alert",
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
         contains: {
             argNames: ["idAlert"],
@@ -1904,6 +1907,7 @@ exports.Mapper = {
     "SP.ContentType.Collection": {
         add: {
             argNames: ["parameters"],
+            metadataType: "SP.ContentType",
             name: "",
             requestType: utils_1.RequestType.PostBodyNoArgs
         },
@@ -2053,6 +2057,9 @@ exports.Mapper = {
     "SP.Field": {
         add: {
             argNames: ["parameters"],
+            name: "",
+            metadataType: "SP.Field",
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
         delete: {
             requestType: utils_1.RequestType.Delete
@@ -2303,7 +2310,7 @@ exports.Mapper = {
             argNames: ["parameters"],
             metadataType: "SP.FieldLink",
             name: "",
-            requestType: utils_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
         getById: {
             argNames: ["id"],
@@ -2866,6 +2873,7 @@ exports.Mapper = {
     "SP.Group.Collection": {
         add: {
             argNames: ["parameters"],
+            metadataType: "SP.Group",
             name: "",
             requestType: utils_1.RequestType.PostBodyNoArgs
         },
@@ -4379,6 +4387,7 @@ exports.Mapper = {
     "SP.User.Collection": {
         add: {
             argNames: ["properties"],
+            metadataType: "SP.User",
             name: "",
             requestType: utils_1.RequestType.PostBodyNoArgs
         },
@@ -4424,6 +4433,7 @@ exports.Mapper = {
     "SP.UserCustomAction.Collection": {
         add: {
             argNames: ["properties"],
+            metadataType: "SP.UserCustomAction",
             name: "",
             requestType: utils_1.RequestType.PostBodyNoArgs
         },
@@ -5027,6 +5037,9 @@ exports.Mapper = {
     "SP.Web.Collection": {
         add: {
             argNames: ["parameters"],
+            metadataType: "SP.Web",
+            name: "",
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
     },
@@ -5034,6 +5047,7 @@ exports.Mapper = {
         add: {
             argNames: ["parameters"],
             metadataType: "SP.WebCreationInformation",
+            name: "",
             requestType: utils_1.RequestType.PostBodyNoArgs
         },
         getById: {
