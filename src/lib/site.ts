@@ -10,7 +10,7 @@ export const Site: ISite = ((url?: string, targetInfo?: ITargetInfoProps) => {
 
     // Default the properties
     site.targetInfo.defaultToWebFl = true;
-    site.targetInfo.endpoint = "site";
+    site.targetInfo.endpoint = "SP.Site";
 
     // See if the web url exists
     if (url) {

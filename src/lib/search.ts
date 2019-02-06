@@ -20,7 +20,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
     }
 
     // Add the methods
-    Request.addMethods(search as any, { __metadata: { type: "search" } });
+    Request.addMethods(search as any, { __metadata: { type: "Microsoft.Office.Server.Search.REST.SearchService" } });
 
     /** The search query method */
     search.searchquery = (settings: Microsoft.Office.Server.Search.REST.SearchRequest) => {

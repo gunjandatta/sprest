@@ -8,7 +8,7 @@ exports.Site = (function (url, targetInfo) {
     var site = new utils_1.Base(targetInfo);
     // Default the properties
     site.targetInfo.defaultToWebFl = true;
-    site.targetInfo.endpoint = "site";
+    site.targetInfo.endpoint = "SP.Site";
     // See if the web url exists
     if (url) {
         // Set the settings
