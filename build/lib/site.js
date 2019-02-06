@@ -8,14 +8,14 @@ exports.Site = (function (url, targetInfo) {
     var site = new utils_1.Base(targetInfo);
     // Default the properties
     site.targetInfo.defaultToWebFl = true;
-    site.targetInfo.endpoint = "SP.Site";
+    site.targetInfo.endpoint = "site";
     // See if the web url exists
     if (url) {
         // Set the settings
         site.targetInfo.url = url;
     }
     // Add the methods
-    utils_1.Request.addMethods(site, { __metadata: { type: "site" } });
+    utils_1.Request.addMethods(site, { __metadata: { type: "SP.Site" } });
     // Return the site
     return site;
 });

@@ -3068,7 +3068,7 @@ export const Mapper: IMapper = {
     "SP.Feature.Collection": {
         add: {
             argNames: ["featureId", "force", "featdefScope"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: RequestType.PostWithArgs
         },
 
         getById: {
@@ -3081,7 +3081,7 @@ export const Mapper: IMapper = {
 
         remove: {
             argNames: ["featureId", "force"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: RequestType.PostWithArgs
         },
 
     },

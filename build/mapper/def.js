@@ -2041,7 +2041,7 @@ exports.Mapper = {
     "SP.Feature.Collection": {
         add: {
             argNames: ["featureId", "force", "featdefScope"],
-            requestType: utils_1.RequestType.PostWithArgsValueOnly
+            requestType: utils_1.RequestType.PostWithArgs
         },
         getById: {
             argNames: ["featureId"],
@@ -2051,7 +2051,7 @@ exports.Mapper = {
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
         remove: {
             argNames: ["featureId", "force"],
-            requestType: utils_1.RequestType.PostWithArgsValueOnly
+            requestType: utils_1.RequestType.PostWithArgs
         },
     },
     "SP.Field": {
