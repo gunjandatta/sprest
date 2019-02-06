@@ -576,6 +576,37 @@ function testListItem(list) {
     assert(item, "update", "Title", "Updated Item");
 
     // Log
+    writeToLog("Add Attachment", LogType.SubHeader);
+
+    // Get this file content
+    var file = $REST.Web().getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath).executeAndWait();
+    var fileContent = file.content().executeAndWait();
+
+    // Note - The content will be a string, since I'm executing this synchronously.
+    // We will need to convert the content to a buffer
+    var buffer = new ArrayBuffer(fileContent.length * 2);
+    var bufferView = new Uint16Array(buffer);
+    for (var i = 0; i < fileContent.length; i++) {
+        bufferView[i] = fileContent.charCodeAt(i);
+    }
+
+    // Add an attachment to the item
+    let attachment = item.AttachmentFiles().add(file.Name, buffer).executeAndWait();
+
+    // Test
+    assert(attachment, "add attachment", "existsFl", true);
+
+    // Get the attachment content
+    let attachmentContent = $REST.Web().getFileByServerRelativeUrl(attachment.ServerRelativeUrl).content().executeAndWait();
+
+    // Test
+    if (fileContent == attachmentContent) {
+        writeToLog("Method 'attachment content' passed the test.", LogType.Pass);
+    } else {
+        writeToLog("Method 'attachment content' failed the test.", LogType.Error);
+    }
+
+    // Log
     writeToLog("Deleting the list item", LogType.SubHeader);
 
     // Delete the item
