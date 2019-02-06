@@ -95,47 +95,55 @@ function testALM() {
         // Ensure the app exists
         assert(appFile, "get app file", "existsFl", true);
 
+        // Get the context for the app catalog
+        let ctx = $REST.ContextInfo.getWeb("/sites/appcatalog").executeAndWait();
+
         // Get the app
-        $REST.Web().TenantAppCatalog().AvailableApps().query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
-            var app = apps.results[0];
+        // Note - You must get the app from the app catalog's web
+        $REST.Web("/sites/appcatalog", { requestDigest: ctx.GetContextWebInformation.FormDigestValue }).TenantAppCatalog().AvailableApps()
+            .query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
+                var app = apps.results[0];
 
-            // Ensure the app exists
-            assert(app, "query app", "existsFl", true);
-            if (app == null) { return; }
+                // Ensure the app exists
+                assert(app, "query app", "existsFl", true);
+                if (app == null) { return; }
 
-            // Method to retract the app
-            let retractApp = (app) => {
-                // Retract the app
-                app.retract().execute(function (response) {
-                    // Ensure it was retracted
-                    assert(response, "retract app", "Retract", null);
+                // Method to retract the app
+                let retractApp = (app) => {
+                    // Retract the app
+                    app.retract().execute(function (response) {
+                        // Ensure it was retracted
+                        assert(response, "retract app", "Retract", null);
 
-                    // Remove the app
-                    app.remove().execute(function (response) {
-                        // Ensure it was removed
-                        assert(response, "remove app", "Remove", null);
-                    });
-                })
-            }
+                        // Remove the app
+                        app.remove().execute(function (response) {
+                            // Ensure it was removed
+                            assert(response, "remove app", "Remove", null);
+                        });
+                    })
+                }
 
-            // Ensure it's deployed
-            if (app.Deployed) {
-                // Log
-                writeToLog("App is already deployed.", LogType.Info);
-
-                // Retract the app
-                retractApp(app);
-            } else {
-                // Deploy the app
-                app.deploy().execute(function (response) {
-                    // Ensure it was deployed
-                    assert(response, "deploy app", "Deploy", null);
+                // Ensure it's deployed
+                if (app.Deployed) {
+                    // Log
+                    writeToLog("App is already deployed.", LogType.Info);
 
                     // Retract the app
                     retractApp(app);
-                }, true)
-            }
-        });
+                } else {
+                    // Log
+                    writeToLog("Deploying the App", LogType.SubHeader);
+
+                    // Deploy the app
+                    app.deploy().execute(function (response) {
+                        // Ensure it was deployed
+                        assert(response, "deploy app", "Deploy", null);
+
+                        // Retract the app
+                        retractApp(app);
+                    }, true)
+                }
+            });
     });
 }
 
