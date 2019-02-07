@@ -23,7 +23,7 @@ function assert(obj, action, property, value) {
         }
     }
     else {
-        writeToLog("Error: Object does not exist.", LogType.Error);
+        writeToLog("Error in Method '" + action + "': Object does not exist.", LogType.Error);
     }
 }
 
@@ -90,39 +90,60 @@ function testALM() {
     // Read the content types of this file
     file.content().execute(function (content) {
         // Add the app file
-        var appFile = $REST.Web().TenantAppCatalog().add(true, "hw-webpart.sppkg", content).executeAndWait();
+        var appFile = $REST.Web().TenantAppCatalog().add("hw-webpart.sppkg", true, content).executeAndWait();
+
+        // Ensure the app exists
+        assert(appFile, "get app file", "existsFl", true);
+
+        // Get the context for the app catalog
+        let ctx = $REST.ContextInfo.getWeb("/sites/appcatalog").executeAndWait();
 
         // Get the app
-        $REST.Web().TenantAppCatalog().AvailableApps().query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
-            var app = apps.results[0];
+        // Note - You must get the app from the app catalog's web
+        $REST.Web("/sites/appcatalog", { requestDigest: ctx.GetContextWebInformation.FormDigestValue }).TenantAppCatalog().AvailableApps()
+            .query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
+                var app = apps.results[0];
 
-            // Ensure the app exists
-            assert(app, "query app", "existsFl", true);
+                // Ensure the app exists
+                assert(app, "query app", "existsFl", true);
+                if (app == null) { return; }
 
-            // Ensure it's deployed
-            if (app.Deployed) {
-                // Log
-                writeToLog("App is already deployed.", LogType.Info);
-            } else {
-                // Deploy the app
-                app.deploy().execute(function (response) {
-                    // Ensure it was deployed
-                    assert(response, "deploy app", "Deploy", null);
-                }, true)
-            }
+                // Method to retract the app
+                let retractApp = (app) => {
+                    // Retract the app
+                    app.retract().execute(function (response) {
+                        // Ensure it was retracted
+                        assert(response, "retract app", "Retract", null);
 
-            // Retract the app
-            app.retract().execute(function (response) {
-                // Ensure it was retracted
-                assert(response, "retract app", "Retract", null);
+                        // Remove the app
+                        app.remove().execute(function (response) {
+                            // Ensure it was removed
+                            assert(response, "remove app", "Remove", null);
+                        });
+                    })
+                }
 
-                // Remove the app
-                app.remove().execute(function (response) {
-                    // Ensure it was removed
-                    assert(response, "remove app", "Remove", null);
-                });
-            })
-        });
+                // Ensure it's deployed
+                if (app.Deployed) {
+                    // Log
+                    writeToLog("App is already deployed.", LogType.Info);
+
+                    // Retract the app
+                    retractApp(app);
+                } else {
+                    // Log
+                    writeToLog("Deploying the App", LogType.SubHeader);
+
+                    // Deploy the app
+                    app.deploy().execute(function (response) {
+                        // Ensure it was deployed
+                        assert(response, "deploy app", "Deploy", null);
+
+                        // Retract the app
+                        retractApp(app);
+                    }, true)
+                }
+            });
     });
 }
 
@@ -388,7 +409,7 @@ function testFile() {
     }
 
     // Copy the file
-    file = subFolder.Files().add(true, "test.aspx", buffer).executeAndWait();
+    file = subFolder.Files().add("test.aspx", true, buffer).executeAndWait();
 
     // Test
     assert(file, "copy file", "Exists", true);
@@ -553,6 +574,37 @@ function testListItem(list) {
 
     // Test
     assert(item, "update", "Title", "Updated Item");
+
+    // Log
+    writeToLog("Add Attachment", LogType.SubHeader);
+
+    // Get this file content
+    var file = $REST.Web().getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath).executeAndWait();
+    var fileContent = file.content().executeAndWait();
+
+    // Note - The content will be a string, since I'm executing this synchronously.
+    // We will need to convert the content to a buffer
+    var buffer = new ArrayBuffer(fileContent.length * 2);
+    var bufferView = new Uint16Array(buffer);
+    for (var i = 0; i < fileContent.length; i++) {
+        bufferView[i] = fileContent.charCodeAt(i);
+    }
+
+    // Add an attachment to the item
+    let attachment = item.AttachmentFiles().add(file.Name, buffer).executeAndWait();
+
+    // Test
+    assert(attachment, "add attachment", "existsFl", true);
+
+    // Get the attachment content
+    let attachmentContent = $REST.Web().getFileByServerRelativeUrl(attachment.ServerRelativeUrl).content().executeAndWait();
+
+    // Test
+    if (fileContent == attachmentContent) {
+        writeToLog("Method 'attachment content' passed the test.", LogType.Pass);
+    } else {
+        writeToLog("Method 'attachment content' failed the test.", LogType.Error);
+    }
 
     // Log
     writeToLog("Deleting the list item", LogType.SubHeader);

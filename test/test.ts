@@ -2,6 +2,14 @@ import {
     $REST, List, Helper
 } from "../src";
 
+$REST.ContextInfo.getWeb("/sites/appcatalog").execute(ctx => {
+    $REST.Web("/sites/web", { requestDigest: ctx.GetContextWebInformation.FormDigestValue }).execute(w => {
+    });
+})
+
+let el:HTMLElement;
+el.addEventListener
+
 List("").Items().execute(i => { i.results[0].File().execute(f => { f.Name; }) })
 
 Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");

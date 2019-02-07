@@ -6,7 +6,7 @@ import {
     ISPConfig, ISPConfigProps
 } from "./types";
 import {
-    FieldSchemaXML, parse, SPCfgType
+    FieldSchemaXML, SPCfgType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -938,39 +938,22 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         })
                         // Execute the request
                         .execute(list => {
-                            // See if the title field is being updated
-                            if (cfgList.TitleFieldDisplayName) {
-                                // Parse the fields
-                                for (let i = 0; i < list.Fields.results.length; i++) {
-                                    let field = list.Fields.results[i];
-
-                                    // See if this is the title field
-                                    if (field.InternalName == "Title") {
-                                        // See if an update is required
-                                        if (field.Title != cfgList.TitleFieldDisplayName) {
-                                            // Update the field name
-                                            field.update({ Title: cfgList.TitleFieldDisplayName }).execute(() => {
-                                                // Log
-                                                console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-
-                            // Create the fields
-                            createFields(list.Fields, cfgList.CustomFields).then(() => {
-                                // Create the content types
-                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
-                                    // Update the views
-                                    createViews(list.Views, cfgList.ViewInformation).then(() => {
+                            // Update the title field
+                            updateListTitleField(list, cfgList).then(() => {
+                                // Create the fields
+                                createFields(list.Fields, cfgList.CustomFields).then(() => {
+                                    // Create the content types
+                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
                                         // Update the views
-                                        createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(() => {
-                                            // Trigger the event
-                                            cfgList.onUpdated ? cfgList.onUpdated(list as any) : null;
+                                        createViews(list.Views, cfgList.ViewInformation).then(() => {
+                                            // Update the views
+                                            createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(() => {
+                                                // Trigger the event
+                                                cfgList.onUpdated ? cfgList.onUpdated(list as any) : null;
 
-                                            // Update the next list
-                                            request(idx + 1, resolve);
+                                                // Update the next list
+                                                request(idx + 1, resolve);
+                                            }, reject);
                                         }, reject);
                                     }, reject);
                                 }, reject);
@@ -984,6 +967,27 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
             // Execute the request
             request(0, resolve);
+        });
+    }
+
+    // Method to update the list title field
+    let updateListTitleField = (list: SP.IListQuery, cfgList: ISPCfgListInfo): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // See if the title field is being updated
+            if (cfgList.TitleFieldDisplayName) {
+                // Update the field name
+                list.Fields.getByTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(() => {
+                    // Log
+                    console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
+
+                    // Resolve the promise
+                    resolve();
+                }, reject);
+            } else {
+                // Resolve the promise
+                resolve();
+            }
         });
     }
 
@@ -1154,7 +1158,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // Create the fields
-                            createFields(parse(fields.stringify()), cfg.Fields).then(() => {
+                            createFields(fields, cfg.Fields).then(() => {
                                 // Log
                                 console.log("[gd-sprest][Fields] Completed the requests.");
 
@@ -1179,7 +1183,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Get the content types
                     web.ContentTypes().execute(contentTypes => {
                         // Create the content types
-                        createContentTypes(parse(contentTypes.stringify()), cfg.ContentTypes).then(() => {
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(() => {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
 
@@ -1200,7 +1204,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Get the lists
                     web.Lists().execute(lists => {
                         // Create the lists
-                        createLists(parse(lists.stringify()), cfg.ListCfg).then(() => {
+                        createLists(lists, cfg.ListCfg).then(() => {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
 
@@ -1243,7 +1247,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Get the user custom actions
                             .UserCustomActions().execute(customActions => {
                                 // Create the user custom actions
-                                createUserCustomActions(parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(() => {
+                                createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(() => {
                                     // Log
                                     console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
 
@@ -1264,7 +1268,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Get the user custom actions
                         web.UserCustomActions().execute(customActions => {
                             // Create the user custom actions
-                            createUserCustomActions(parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(() => {
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(() => {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
 

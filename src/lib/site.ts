@@ -19,7 +19,7 @@ export const Site: ISite = ((url?: string, targetInfo?: ITargetInfoProps) => {
     }
 
     // Add the methods
-    Request.addMethods(site, { __metadata: { type: "site" } });
+    Request.addMethods(site, { __metadata: { type: "SP.Site" } });
 
     // Return the site
     return site;

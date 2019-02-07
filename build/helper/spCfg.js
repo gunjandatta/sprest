@@ -869,36 +869,21 @@ exports.SPConfig = function (cfg, webUrl) {
                     })
                         // Execute the request
                         .execute(function (list) {
-                        // See if the title field is being updated
-                        if (cfgList.TitleFieldDisplayName) {
-                            // Parse the fields
-                            for (var i = 0; i < list.Fields.results.length; i++) {
-                                var field = list.Fields.results[i];
-                                // See if this is the title field
-                                if (field.InternalName == "Title") {
-                                    // See if an update is required
-                                    if (field.Title != cfgList.TitleFieldDisplayName) {
-                                        // Update the field name
-                                        field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
-                                            // Log
-                                            console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                        // Create the fields
-                        createFields(list.Fields, cfgList.CustomFields).then(function () {
-                            // Create the content types
-                            createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
-                                // Update the views
-                                createViews(list.Views, cfgList.ViewInformation).then(function () {
+                        // Update the title field
+                        updateListTitleField(list, cfgList).then(function () {
+                            // Create the fields
+                            createFields(list.Fields, cfgList.CustomFields).then(function () {
+                                // Create the content types
+                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
                                     // Update the views
-                                    createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(function () {
-                                        // Trigger the event
-                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
-                                        // Update the next list
-                                        request(idx + 1, resolve);
+                                    createViews(list.Views, cfgList.ViewInformation).then(function () {
+                                        // Update the views
+                                        createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(function () {
+                                            // Trigger the event
+                                            cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                                            // Update the next list
+                                            request(idx + 1, resolve);
+                                        }, reject);
                                     }, reject);
                                 }, reject);
                             }, reject);
@@ -912,6 +897,26 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Execute the request
             request(0, resolve);
+        });
+    };
+    // Method to update the list title field
+    var updateListTitleField = function (list, cfgList) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the title field is being updated
+            if (cfgList.TitleFieldDisplayName) {
+                // Update the field name
+                list.Fields.getByTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
+                    // Log
+                    console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
+                    // Resolve the promise
+                    resolve();
+                }, reject);
+            }
+            else {
+                // Resolve the promise
+                resolve();
+            }
         });
     };
     // Method to update the views
@@ -1063,7 +1068,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Return a promise
                         return new Promise(function (resolve, reject) {
                             // Create the fields
-                            createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
+                            createFields(fields, cfg.Fields).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Fields] Completed the requests.");
                                 // Execute the post execute method
@@ -1083,7 +1088,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the content types
                     web.ContentTypes().execute(function (contentTypes) {
                         // Create the content types
-                        createContentTypes(_1.parse(contentTypes.stringify()), cfg.ContentTypes).then(function () {
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
                             // Execute the post execute method
@@ -1100,7 +1105,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the lists
                     web.Lists().execute(function (lists) {
                         // Create the lists
-                        createLists(_1.parse(lists.stringify()), cfg.ListCfg).then(function () {
+                        createLists(lists, cfg.ListCfg).then(function () {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
                             // Execute the post execute method
@@ -1135,7 +1140,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // Get the user custom actions
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
                                 // Execute the post execute method
@@ -1152,7 +1157,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Get the user custom actions
                         web.UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(function () {
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
                                 // Execute the post execute method

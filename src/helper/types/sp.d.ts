@@ -1,7 +1,12 @@
 /**
  * SharePoint Components
  */
-export const SP: {
+export const SP: ISPComponents;
+
+/**
+ * SharePoint Components
+ */
+export interface ISPComponents {
     /**
      * Modal Dialog
      */

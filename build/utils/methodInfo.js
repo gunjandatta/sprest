@@ -51,7 +51,9 @@ var MethodInfo = /** @class */ (function () {
             switch (this.methodInfo.requestType) {
                 case _1.RequestType.Delete:
                 case _1.RequestType.Post:
+                case _1.RequestType.PostBodyNoArgs:
                 case _1.RequestType.PostWithArgs:
+                case _1.RequestType.PostWithArgsAndData:
                 case _1.RequestType.PostWithArgsInBody:
                 case _1.RequestType.PostWithArgsInQS:
                 case _1.RequestType.PostWithArgsInQSAsVar:
@@ -75,7 +77,7 @@ var MethodInfo = /** @class */ (function () {
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
-        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == _1.RequestType.PostWithArgsInBody; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == _1.RequestType.PostBodyNoArgs || this.methodInfo.requestType == _1.RequestType.PostWithArgsInBody; },
         enumerable: true,
         configurable: true
     });
@@ -104,6 +106,7 @@ var MethodInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Method to generate the method input parameters
     MethodInfo.prototype.generateParams = function () {
+        var maxArgNames = 0;
         var params = {};
         // Ensure values exist
         if (this.methodInfo.argValues == null) {
@@ -111,8 +114,11 @@ var MethodInfo = /** @class */ (function () {
         }
         // See if the argument names exist
         if (this.methodInfo.argNames) {
+            // Set the max arguments
+            maxArgNames = this.methodInfo.argNames.length -
+                (this.methodInfo.requestType == _1.RequestType.PostWithArgsAndData || this.methodInfo.requestType == _1.RequestType.PostReplaceWithData ? 1 : 0);
             // Parse the argument names
-            for (var i = 0; i < this.methodInfo.argNames.length && i < this.methodInfo.argValues.length; i++) {
+            for (var i = 0; i < maxArgNames && i < this.methodInfo.argValues.length; i++) {
                 var name_1 = this.methodInfo.argNames[i];
                 var value = this.methodInfo.argValues[i];
                 // Copy the parameter value
@@ -160,20 +166,20 @@ var MethodInfo = /** @class */ (function () {
         // See if argument values exist
         if (this.methodInfo.argValues && this.methodInfo.argValues.length > 0) {
             // See if argument names exist
-            if (this.methodInfo.argNames == null) {
+            if (this.methodInfo.argNames == null || this.methodInfo.requestType == _1.RequestType.PostBodyNoArgs) {
                 // Set the method data to first argument value
                 this.methodData = this.methodInfo.argValues[0];
             }
             // Else, see if we are passing arguments outside of the parameters
-            else if (this.methodInfo.argValues.length > this.methodInfo.argNames.length) {
+            else if (this.methodInfo.argValues.length > maxArgNames) {
                 // Set the method data to the next available argument value
-                this.methodData = this.methodInfo.argValues[this.methodInfo.argNames.length];
+                this.methodData = this.methodInfo.argValues[maxArgNames];
             }
         }
         // See if the metadata type exists
         if (this.methodInfo.metadataType) {
             // See if parameters exist
-            if (this.methodInfo.argNames) {
+            if (this.methodInfo.argNames && this.methodInfo.requestType != _1.RequestType.PostBodyNoArgs) {
                 // Append the metadata to the first parameter, if it doesn't exist
                 (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] =
                     (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] || { "type": this.methodInfo.metadataType };

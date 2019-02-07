@@ -15,7 +15,7 @@ export const Web: IWeb = ((url?, targetInfo?) => {
     }
 
     // Add the methods
-    Request.addMethods(web, { __metadata: { type: "web" } });
+    Request.addMethods(web, { __metadata: { type: "SP.Web" } });
 
     // Return the web
     return web;

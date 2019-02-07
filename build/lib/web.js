@@ -12,7 +12,7 @@ exports.Web = (function (url, targetInfo) {
         web.targetInfo.url = url;
     }
     // Add the methods
-    utils_1.Request.addMethods(web, { __metadata: { type: "web" } });
+    utils_1.Request.addMethods(web, { __metadata: { type: "SP.Web" } });
     // Return the web
     return web;
 });

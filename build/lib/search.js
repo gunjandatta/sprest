@@ -16,7 +16,7 @@ exports.Search = (function (url, targetInfo) {
         base.targetInfo.url = url;
     }
     // Add the methods
-    utils_1.Request.addMethods(search, { __metadata: { type: "search" } });
+    utils_1.Request.addMethods(search, { __metadata: { type: "Microsoft.Office.Server.Search.REST.SearchService" } });
     /** The search query method */
     search.searchquery = function (settings) {
         // Execute the request

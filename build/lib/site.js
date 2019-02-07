@@ -15,7 +15,7 @@ exports.Site = (function (url, targetInfo) {
         site.targetInfo.url = url;
     }
     // Add the methods
-    utils_1.Request.addMethods(site, { __metadata: { type: "site" } });
+    utils_1.Request.addMethods(site, { __metadata: { type: "SP.Site" } });
     // Return the site
     return site;
 });
