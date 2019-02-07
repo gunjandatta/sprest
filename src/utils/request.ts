@@ -26,8 +26,6 @@ export const Request = {
 
         // See if the new mapper has the type
         if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
-            console.info("[gd-sprest] Old Mapper being used for " + objType);
-
             // Determine the object type
             objType = objType.split('/');
             objType = (objType[objType.length - 1]);

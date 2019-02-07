@@ -23,7 +23,6 @@ exports.Request = {
         var objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
         // See if the new mapper has the type
         if ((methods = mapper_1.Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
-            console.info("[gd-sprest] Old Mapper being used for " + objType);
             // Determine the object type
             objType = objType.split('/');
             objType = (objType[objType.length - 1]);

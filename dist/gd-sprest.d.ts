@@ -34,6 +34,25 @@ declare module 'gd-sprest' {
 }
 
 declare module 'gd-sprest/helper/types' {
+    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { IApp } from "gd-sprest/helper/types/app";
+    import { IDependencies } from "gd-sprest/helper/types/dependencies";
+    import { IFieldSchemaXML } from "gd-sprest/helper/types/fieldSchemaXML";
+    import { IJSLink } from "gd-sprest/helper/types/jslink";
+    import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "gd-sprest/helper/types/linkInfo";
+    import { IListForm } from "gd-sprest/helper/types/listForm";
+    import { IListFormField } from "gd-sprest/helper/types/listFormField";
+    import { ILoader } from "gd-sprest/helper/types/loader";
+    import { IRequest } from "gd-sprest/helper/types/methods";
+    import { ISPComponents } from "gd-sprest/helper/types/sp";
+    import { ISPConfig, ISPConfigProps, IFieldInfo } from "gd-sprest/helper/types/spCfg";
+    import { ISPCfgFieldType, ISPCfgType } from "gd-sprest/helper/types/spCfgTypes";
+    import { ITaxonomy } from "gd-sprest/helper/types/taxonomy";
+    import { IWebPart } from "gd-sprest/helper/types/webpart";
+    
+    /**
+        * Helper Library
+        */
     export * from "gd-sprest/helper/types/app";
     export * from "gd-sprest/helper/types/dependencies";
     export * from "gd-sprest/helper/types/executor";
@@ -49,6 +68,112 @@ declare module 'gd-sprest/helper/types' {
     export * from "gd-sprest/helper/types/spCfgTypes";
     export * from "gd-sprest/helper/types/taxonomy";
     export * from "gd-sprest/helper/types/webpart";
+    
+    /**
+        * Helper
+        */
+    export interface IHelper {
+            /**
+                * Helper classes for the app web
+                */
+            App: IApp;
+    
+            /**
+                * Helper class to load the required SP scripts
+                */
+            Dependencies: IDependencies;
+    
+            /**
+                * Method to create a document set item.
+                */
+            createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<SP.ListItem>;
+    
+            /**
+                * Executor
+                */
+            Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
+    
+            /**
+                * Helper class for generating a field schema xml
+                */
+            FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
+    
+            /**
+                * Determines if the user has permissions, based on the permission kind value
+                */
+            hasPermissions(permissionMask: SP.BasePermissions, permissions: Array<number> | number): boolean;
+    
+            /**
+                * Helper class for implementing JSLink solutions
+                */
+            JSLink: IJSLink;
+    
+            /**
+                * Helper class for implementing custom list forms
+                */
+            ListForm: IListForm;
+    
+            /**
+                * Helper class for implementing custom list forms
+                */
+            ListFormField: IListFormField;
+    
+            /**
+                * Helper class for waiting until the core SP scripts are loaded
+                */
+            Loader: ILoader;
+    
+            /**
+                * Helper method to convert a json string to a base object
+                * This will require you to use the stringify method of the base object.
+                */
+            parse<T = IBaseExecution>(jsonString: string): T;
+    
+            /**
+                * Helper method to execute an XMLHttpRequest
+                */
+            request(props: IRequest): PromiseLike<any>;
+    
+            /**
+                * Helper class for adding links to the top ribbon bar
+                */
+            RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+    
+            /**
+                * SharePoint Core Library Components
+                */
+            SP: ISPComponents;
+    
+            /**
+                * The field configuration types
+                */
+            SPCfgFieldType: ISPCfgFieldType;
+    
+            /**
+                * The configuration types
+                */
+            SPCfgType: ISPCfgType;
+    
+            /**
+                * Helper class for automating SharePoint assets
+                */
+            SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
+    
+            /**
+                * Helper class for adding links to the suite bar
+                */
+            SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+    
+            /**
+                * Helper class for getting information from the taxonomy term store
+                */
+            Taxonomy: ITaxonomy;
+    
+            /**
+                * Helper class for creating modern webparts in SharePoint 2013+ environments
+                */
+            WebPart: IWebPart;
+    }
 }
 
 declare module 'gd-sprest/lib/types' {
@@ -69,7 +194,7 @@ declare module 'gd-sprest/lib/types' {
 
 declare module 'gd-sprest/rest' {
     import { IBaseExecution, SP } from "gd-sprest-def";
-    import * as Helper from "gd-sprest/helper/types";
+    import { IHelper } from "gd-sprest/helper/types";
     import * as LibTypes from "gd-sprest/lib/types";
     
     /**
@@ -109,7 +234,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Helper methods.
                 */
-            Helper;
+            Helper: IHelper;
     
             /**
                 * Use this api to interact with SharePoint lists and libraries.
@@ -331,16 +456,6 @@ declare module 'gd-sprest/helper/types/dependencies' {
                 */
             waitForPageContext();
     }
-}
-
-declare module 'gd-sprest/helper/types/executor' {
-    /**
-      * Executor
-      * @param methodParams - An array of parameters to execute in order synchronously.
-      * @param method - The method to execute for each method parameter provided.
-      * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
-      */
-    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
 }
 
 declare module 'gd-sprest/helper/types/fieldSchemaXML' {
@@ -1005,7 +1120,12 @@ declare module 'gd-sprest/helper/types/sp' {
     /**
         * SharePoint Components
         */
-    export const SP: {
+    export const SP: ISPComponents;
+    
+    /**
+        * SharePoint Components
+        */
+    export interface ISPComponents {
             /**
                 * Modal Dialog
                 */
@@ -1954,6 +2074,16 @@ declare module 'gd-sprest/helper/types/webpart' {
             /** The webpart zone. */
             zone?: string;
     }
+}
+
+declare module 'gd-sprest/helper/types/executor' {
+    /**
+      * Executor
+      * @param methodParams - An array of parameters to execute in order synchronously.
+      * @param method - The method to execute for each method parameter provided.
+      * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
+      */
+    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {

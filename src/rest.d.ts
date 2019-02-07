@@ -1,7 +1,6 @@
 import { IBaseExecution, SP } from "gd-sprest-def";
 import { IHelper } from "./helper/types";
 import * as LibTypes from "./lib/types";
-import { Dependencies } from "./helper";
 
 /**
  * SharePoint REST Library
