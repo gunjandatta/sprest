@@ -1,6 +1,7 @@
 import { IBaseExecution, SP } from "gd-sprest-def";
-import * as Helper from "./helper/types";
+import { IHelper } from "./helper/types";
 import * as LibTypes from "./lib/types";
+import { Dependencies } from "./helper";
 
 /**
  * SharePoint REST Library
@@ -39,7 +40,7 @@ export interface IREST {
     /**
      * Helper methods.
      */
-    Helper;
+    Helper: IHelper;
 
     /**
      * Use this api to interact with SharePoint lists and libraries.
