@@ -6,7 +6,7 @@ import {
     ISPConfig, ISPConfigProps
 } from "./types";
 import {
-    FieldSchemaXML, parse, SPCfgType
+    FieldSchemaXML, SPCfgType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -1154,7 +1154,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // Create the fields
-                            createFields(parse(fields.stringify()), cfg.Fields).then(() => {
+                            createFields(fields, cfg.Fields).then(() => {
                                 // Log
                                 console.log("[gd-sprest][Fields] Completed the requests.");
 
@@ -1179,7 +1179,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Get the content types
                     web.ContentTypes().execute(contentTypes => {
                         // Create the content types
-                        createContentTypes(parse(contentTypes.stringify()), cfg.ContentTypes).then(() => {
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(() => {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
 
@@ -1200,7 +1200,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Get the lists
                     web.Lists().execute(lists => {
                         // Create the lists
-                        createLists(parse(lists.stringify()), cfg.ListCfg).then(() => {
+                        createLists(lists, cfg.ListCfg).then(() => {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
 
@@ -1243,7 +1243,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Get the user custom actions
                             .UserCustomActions().execute(customActions => {
                                 // Create the user custom actions
-                                createUserCustomActions(parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(() => {
+                                createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(() => {
                                     // Log
                                     console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
 
@@ -1264,7 +1264,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Get the user custom actions
                         web.UserCustomActions().execute(customActions => {
                             // Create the user custom actions
-                            createUserCustomActions(parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(() => {
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(() => {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
 

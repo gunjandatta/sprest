@@ -2079,7 +2079,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2143,7 +2142,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2168,7 +2166,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2193,7 +2190,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2218,7 +2214,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2243,7 +2238,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2268,7 +2262,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2293,7 +2286,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2340,7 +2332,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2365,7 +2356,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2390,7 +2380,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2415,7 +2404,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2440,7 +2428,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2465,7 +2452,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2490,7 +2476,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2515,7 +2500,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -2540,7 +2524,6 @@ exports.Mapper = {
         },
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",

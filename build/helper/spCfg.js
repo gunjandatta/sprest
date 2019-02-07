@@ -1063,7 +1063,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Return a promise
                         return new Promise(function (resolve, reject) {
                             // Create the fields
-                            createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
+                            createFields(fields, cfg.Fields).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Fields] Completed the requests.");
                                 // Execute the post execute method
@@ -1083,7 +1083,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the content types
                     web.ContentTypes().execute(function (contentTypes) {
                         // Create the content types
-                        createContentTypes(_1.parse(contentTypes.stringify()), cfg.ContentTypes).then(function () {
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
                             // Execute the post execute method
@@ -1100,7 +1100,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the lists
                     web.Lists().execute(function (lists) {
                         // Create the lists
-                        createLists(_1.parse(lists.stringify()), cfg.ListCfg).then(function () {
+                        createLists(lists, cfg.ListCfg).then(function () {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
                             // Execute the post execute method
@@ -1135,7 +1135,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // Get the user custom actions
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
                                 // Execute the post execute method
@@ -1152,7 +1152,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Get the user custom actions
                         web.UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(function () {
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
                                 // Execute the post execute method

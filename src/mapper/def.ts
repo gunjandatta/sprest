@@ -3117,7 +3117,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3195,7 +3194,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3226,7 +3224,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3257,7 +3254,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3288,7 +3284,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3319,7 +3314,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3350,7 +3344,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3381,7 +3374,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3441,7 +3433,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3472,7 +3463,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3503,7 +3493,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3534,7 +3523,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3565,7 +3553,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3596,7 +3583,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3627,7 +3613,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3658,7 +3643,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
@@ -3689,7 +3673,6 @@ export const Mapper: IMapper = {
 
         update: {
             argNames: ["properties"],
-            inheritMetadataType: true,
             metadataType: "SP.Field",
             name: "",
             requestMethod: "MERGE",
