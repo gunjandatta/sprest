@@ -1,5 +1,5 @@
 import {
-    $REST, List, Helper
+    $REST, List, Helper, Types
 } from "../src/index.d";
 
 $REST.Helper.SP.ModalDialog.showWaitScreenWithNoClose("");

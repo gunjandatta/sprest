@@ -674,7 +674,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
 }
 
 declare module 'gd-sprest/helper/types/listForm' {
-    import { Base, SP } from "gd-sprest-def";
+    import { IODataQuery, SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/intellisense";
     
     /**
@@ -695,7 +695,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             /**
                 * Method to generate the odata query for the list item.
                 */
-            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Base.IODataQuery;
+            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): IODataQuery;
     
             /**
                 * Method to load the item attachments
@@ -839,7 +839,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             loadAttachments?: boolean;
     
             /** OData query used when loading an item */
-            query?: Base.IODataQuery;
+            query?: IODataQuery;
     
             /** The relative web url containing the list */
             webUrl?: string;
@@ -859,7 +859,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             item?: SP.ListItemOData | SP.ListItem;
     
             /** The item query. */
-            query?: Base.IODataQuery;
+            query?: IODataQuery;
     
             /** The list. */
             list: SP.List;
