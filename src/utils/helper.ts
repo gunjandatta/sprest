@@ -1,4 +1,4 @@
-import { IMethodInfo } from "gd-sprest-def";
+import { IMethodInfo } from "gd-sprest-def/base";
 import { ContextInfo } from "../lib";
 import { IBase } from "./types/base";
 import { IBaseHelper } from "./types/helper";

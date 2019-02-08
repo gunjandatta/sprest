@@ -1,4 +1,4 @@
-import { IRequestInfo } from "gd-sprest-def";
+import { Base } from "gd-sprest-def";
 import { ContextInfo } from "../lib";
 import { ITargetInfo, ITargetInfoProps } from "./types";
 import { RequestType } from ".";
@@ -38,7 +38,7 @@ export class TargetInfo implements ITargetInfo {
     requestData: any;
 
     // The request information
-    get requestInfo(): IRequestInfo {
+    get requestInfo(): Base.IRequestInfo {
         // Return the request information
         return {
             data: this.requestData,
