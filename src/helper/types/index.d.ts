@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { IApp } from "./app";
 import { IDependencies } from "./dependencies";
 import { IFieldSchemaXML } from "./fieldSchemaXML";
@@ -91,7 +91,7 @@ export interface IHelper {
      * Helper method to convert a json string to a base object
      * This will require you to use the stringify method of the base object.
      */
-    parse<T = IBaseExecution>(jsonString: string): T;
+    parse<T = Base.IBaseResult>(jsonString: string): T;
 
     /**
      * Helper method to execute an XMLHttpRequest

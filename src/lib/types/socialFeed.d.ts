@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types";
 
 /**
@@ -21,11 +21,11 @@ export interface ISocialFeed {
      * @param accountName - The account name to post to.
      * @param postInfo - The post information.
      */
-    postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<SP.Social.SocialRestThread>;
+    postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): Base.IBaseExecution<SP.Social.SocialRestThread>;
 
     /**
      * Post to the current user's feed.
      * @param postInfo - The post information.
      */
-    postToMyFeed(postInfo: SP.Social.SocialPostCreationData): IBaseExecution<SP.Social.SocialRestThread>;
+    postToMyFeed(postInfo: SP.Social.SocialPostCreationData): Base.IBaseExecution<SP.Social.SocialRestThread>;
 }

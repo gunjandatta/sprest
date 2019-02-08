@@ -4,6 +4,18 @@
 
 declare module 'gd-sprest' {
     /**
+        * Library
+        */
+    import {
+            ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
+            ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
+    } from "./lib/types";
+    export {
+            ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
+            ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
+    }
+    
+    /**
         * Helper Class
         */
     import * as Helper from "gd-sprest/helper/types";
@@ -12,7 +24,8 @@ declare module 'gd-sprest' {
     /**
         * Library Components
         */
-    export * from "gd-sprest/lib/types";
+    import * as Lib from "gd-sprest/lib/types";
+    export { Lib }
     
     /**
         * $REST Global Variable
@@ -30,11 +43,10 @@ declare module 'gd-sprest' {
         */
     import * as Types from "gd-sprest/intellisense";
     export { Types }
-    export * from "gd-sprest-def";
 }
 
 declare module 'gd-sprest/helper/types' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { IApp } from "gd-sprest/helper/types/app";
     import { IDependencies } from "gd-sprest/helper/types/dependencies";
     import { IFieldSchemaXML } from "gd-sprest/helper/types/fieldSchemaXML";
@@ -127,7 +139,7 @@ declare module 'gd-sprest/helper/types' {
                 * Helper method to convert a json string to a base object
                 * This will require you to use the stringify method of the base object.
                 */
-            parse<T = IBaseExecution>(jsonString: string): T;
+            parse<T = Base.IBaseResult>(jsonString: string): T;
     
             /**
                 * Helper method to execute an XMLHttpRequest
@@ -193,7 +205,7 @@ declare module 'gd-sprest/lib/types' {
 }
 
 declare module 'gd-sprest/rest' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { IHelper } from "gd-sprest/helper/types";
     import * as LibTypes from "gd-sprest/lib/types";
     
@@ -214,7 +226,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to get the app context information of a site.
                 */
-            AppContext: (siteUrl: string) => IBaseExecution;
+            AppContext: (siteUrl: string) => Base.IBaseExecution;
     
             /**
                 * A reference to the _spPageContextInfo global variable.
@@ -252,7 +264,7 @@ declare module 'gd-sprest/rest' {
                 * @param listFullUrl - The absolute url of the list.
                 * @param parameters - The optional list data parameters.
                 */
-            ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => IBaseExecution<LibTypes.IListDataStream>
+            ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Base.IBaseExecution<LibTypes.IListDataStream>
     
             /**
                 * Use this api to interact with SharePoint navigation.
@@ -281,7 +293,7 @@ declare module 'gd-sprest/rest' {
                 * Use this api to get a remote web.
                 * @param requestUrl - The absolute url of the remote web.
                 */
-            RemoteWeb: (requestUrl?: string) => IBaseExecution<SP.RemoteWeb>;
+            RemoteWeb: (requestUrl?: string) => Base.IBaseExecution<SP.RemoteWeb>;
     
             /**
                 * Use this api to interact with the SharePoint search service.
@@ -299,13 +311,13 @@ declare module 'gd-sprest/rest' {
                 * Use this api to see if a site collection exists.
                 * @param url - The absolute url of the site collection.
                 */
-            SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
+            SiteExists: (url: string) => Base.IBaseExecution<LibTypes.ISiteExists>;
     
             /**
                 * Use this api to get the url of a site, by its id.
                 * @param id - The site id.
                 */
-            SiteUrl: (id: string) => IBaseExecution<LibTypes.ISiteUrl>;
+            SiteUrl: (id: string) => Base.IBaseExecution<LibTypes.ISiteUrl>;
     
             /**
                 * Use this api to interact with the current user's social profile.
@@ -342,6 +354,7 @@ declare module 'gd-sprest/mapper/types' {
 }
 
 declare module 'gd-sprest/intellisense' {
+    export * from "gd-sprest-def";
     export * from "gd-sprest/intellisense/graph";
     export * from "gd-sprest/intellisense/peoplePicker";
     export * from "gd-sprest/intellisense/utility";
@@ -661,7 +674,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
 }
 
 declare module 'gd-sprest/helper/types/listForm' {
-    import { IODataQuery, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import * as Types from "gd-sprest/intellisense";
     
     /**
@@ -682,7 +695,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             /**
                 * Method to generate the odata query for the list item.
                 */
-            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): IODataQuery;
+            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Base.IODataQuery;
     
             /**
                 * Method to load the item attachments
@@ -826,7 +839,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             loadAttachments?: boolean;
     
             /** OData query used when loading an item */
-            query?: IODataQuery;
+            query?: Base.IODataQuery;
     
             /** The relative web url containing the list */
             webUrl?: string;
@@ -846,7 +859,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             item?: SP.ListItemOData | SP.ListItem;
     
             /** The item query. */
-            query?: IODataQuery;
+            query?: Base.IODataQuery;
     
             /** The list. */
             list: SP.List;
@@ -2087,7 +2100,7 @@ declare module 'gd-sprest/helper/types/executor' {
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     
     /**
         * Context Information
@@ -2441,7 +2454,7 @@ declare module 'gd-sprest/lib/types/contextInfo' {
                 * Method to get the web context information.
                 * @param url - The relative url of the web.
                 */
-            getWeb(url: string): IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
+            getWeb(url: string): Base.IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
     
             /** The page context object from an SPFX project. */
             setPageContext(spfxPageContext: any);
@@ -2476,7 +2489,7 @@ declare module 'gd-sprest/lib/types/graph' {
 }
 
 declare module 'gd-sprest/lib/types/list' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -2506,7 +2519,7 @@ declare module 'gd-sprest/lib/types/list' {
                 * @param listFullUrl - The absolute url of the list.
                 * @param parameters - The optional list data parameters.
                 */
-            getDataAsStream(listFullUrl: string, parameters?: any): IBaseExecution<IListDataStream>;
+            getDataAsStream(listFullUrl: string, parameters?: any): Base.IBaseExecution<IListDataStream>;
     }
     
     /**
@@ -2628,7 +2641,7 @@ declare module 'gd-sprest/lib/types/profileLoader' {
 }
 
 declare module 'gd-sprest/lib/types/search' {
-    import { IBaseExecution, Microsoft, SP } from "gd-sprest-def";
+    import { Base, Microsoft, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -2651,7 +2664,7 @@ declare module 'gd-sprest/lib/types/search' {
                 * Method to get the app context information.
                 * @param siteUrl - The absolute url of the site.
                 */
-            getAppContext(siteUrl: string): IBaseExecution;
+            getAppContext(siteUrl: string): Base.IBaseExecution;
     
             /**
                 * Method to get the query from the search parameters.
@@ -2663,12 +2676,12 @@ declare module 'gd-sprest/lib/types/search' {
                 * Method to get the url of a site, by its id.
                 * @param id - The site id.
                 */
-            getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
+            getUrlById(id: string): Base.IBaseExecution<{ GetUrlById: string }>;
     }
 }
 
 declare module 'gd-sprest/lib/types/site' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -2691,19 +2704,19 @@ declare module 'gd-sprest/lib/types/site' {
                 * Method to check if a site collection exists.
                 * @param url - The absolute url of the site collection.
                 */
-            exists(url: string): IBaseExecution<ISiteExists>;
+            exists(url: string): Base.IBaseExecution<ISiteExists>;
     
             /**
                 * Method to get the app context information.
                 * @param siteUrl - The absolute url of the site.
                 */
-            getAppContext(siteUrl: string): IBaseExecution;
+            getAppContext(siteUrl: string): Base.IBaseExecution;
     
             /**
                 * Method to get the url of a site, by its id.
                 * @param id - The site id.
                 */
-            getUrlById(id: string): IBaseExecution<ISiteUrl>;
+            getUrlById(id: string): Base.IBaseExecution<ISiteUrl>;
     }
     
     /**
@@ -2724,7 +2737,7 @@ declare module 'gd-sprest/lib/types/site' {
 }
 
 declare module 'gd-sprest/lib/types/socialFeed' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types";
     
     /**
@@ -2747,13 +2760,13 @@ declare module 'gd-sprest/lib/types/socialFeed' {
                 * @param accountName - The account name to post to.
                 * @param postInfo - The post information.
                 */
-            postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBaseExecution<SP.Social.SocialRestThread>;
+            postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): Base.IBaseExecution<SP.Social.SocialRestThread>;
     
             /**
                 * Post to the current user's feed.
                 * @param postInfo - The post information.
                 */
-            postToMyFeed(postInfo: SP.Social.SocialPostCreationData): IBaseExecution<SP.Social.SocialRestThread>;
+            postToMyFeed(postInfo: SP.Social.SocialPostCreationData): Base.IBaseExecution<SP.Social.SocialRestThread>;
     }
 }
 
@@ -2801,7 +2814,7 @@ declare module 'gd-sprest/lib/types/utility' {
 }
 
 declare module 'gd-sprest/lib/types/web' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
     /**
@@ -2824,7 +2837,7 @@ declare module 'gd-sprest/lib/types/web' {
                 * Method to get a remote web.
                 * @param requestUrl - The absolute url of the remote web.
                 */
-            getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+            getRemoteWeb(requestUrl: string): Base.IBaseExecution<SP.RemoteWeb>;
     }
 }
 
@@ -4159,7 +4172,7 @@ declare module 'gd-sprest/mapper/types/sptypes' {
 }
 
 declare module 'gd-sprest/intellisense/graph' {
-    import { IBaseExecution, IBaseQuery } from "gd-sprest-def";
+    import { Base } from "gd-sprest-def";
     
     /**
         * Graph Collection
@@ -4180,37 +4193,37 @@ declare module 'gd-sprest/intellisense/graph' {
             /**
                 * Represents a collection of OneDrives and Document Libraries.
                 */
-            drives(): IBaseExecution<IGraphCollection<IGraphDrive>>;
+            drives(): Base.IBaseExecution<IGraphCollection<IGraphDrive>>;
     
             /**
                 * Represents a OneDrive or Document Library.
                 * @param id - The drive id.
                 */
-            drives(id: string): IBaseExecution<IGraphDrive>;
+            drives(id: string): Base.IBaseExecution<IGraphDrive>;
     
             /**
                 * Represents a collection of Azure Active Directory (Azure AD) groups.
                 * Types: Office 365 Group, Dynamic Group or Security Group
                 */
-            groups(): IBaseExecution<IGraphCollection<IGraphGroup>>;
+            groups(): Base.IBaseExecution<IGraphCollection<IGraphGroup>>;
     
             /**
                 * Represents an Azure Active Directory (Azure AD) group.
                 * Types: Office 365 Group, Dynamic Group or Security Group
                 * @param id - The group id.
                 */
-            groups(id: string): IBaseExecution<IGraphGroup>;
+            groups(id: string): Base.IBaseExecution<IGraphGroup>;
     
             /**
                 * Represents a collection of Azure AD user accounts.
                 */
-            users(): IBaseExecution<IGraphCollection<IGraphUser>>;
+            users(): Base.IBaseExecution<IGraphCollection<IGraphUser>>;
     
             /**
                 * Represents a collection of Azure AD user accounts.
                 * @param id - The user id.
                 */
-            users(id: string): IBaseExecution<IGraphUser>;
+            users(id: string): Base.IBaseExecution<IGraphUser>;
     }
     
     /**
@@ -4243,7 +4256,7 @@ declare module 'gd-sprest/intellisense/graph' {
             id?: string;
     
             // The drive items
-            items?: () => IBaseExecution<IGraphCollection<IGraphDriveItem>>;
+            items?: () => Base.IBaseExecution<IGraphCollection<IGraphDriveItem>>;
     
             // Identity of the user, device, and application which last modified the item.
             lastModifiedBy?: { user: IGraphUser };
@@ -4261,10 +4274,10 @@ declare module 'gd-sprest/intellisense/graph' {
             quota?: IGraphDriveQuota;
     
             // Reference to the root folder.
-            root?: () => IBaseExecution<IGraphDriveItem>;
+            root?: () => Base.IBaseExecution<IGraphDriveItem>;
     
             // Collection of common folders available in OneDrive.
-            specials?: () => IBaseExecution<IGraphCollection<IGraphDriveItem>>;
+            specials?: () => Base.IBaseExecution<IGraphCollection<IGraphDriveItem>>;
     
             // Returns identifiers useful for SharePoint REST compatibility.
             sharepointIds?: IGraphSharePointIds;
@@ -4307,7 +4320,7 @@ declare module 'gd-sprest/intellisense/graph' {
     /**
         * Graph
         */
-    export interface IGraph extends IGraphMethods, IGraphQueryProps, IBaseQuery<IGraphResult, IGraphQueryResult> { }
+    export interface IGraph extends IGraphMethods, IGraphQueryProps, Base.IBaseQuery<IGraphResult, IGraphQueryResult> { }
     
     /**
         * Graph Group
@@ -4506,7 +4519,7 @@ declare module 'gd-sprest/intellisense/graph' {
 }
 
 declare module 'gd-sprest/intellisense/peoplePicker' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     import { SPTypes } from "gd-sprest/mapper/types";
     
     /**
@@ -4595,21 +4608,21 @@ declare module 'gd-sprest/intellisense/peoplePicker' {
     /**
         * People Picker
         */
-    export interface IPeoplePicker extends IBaseExecution {
+    export interface IPeoplePicker extends Base.IBaseExecution {
             /** Method to resolve users.
                 * @param query - The people picker query.
              */
-            clientPeoplePickerResolveUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerResolveUser>;
+            clientPeoplePickerResolveUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): Base.IBaseExecution<IPeoplePickerResolveUser>;
     
             /** Method to search for users.
                 * @param query - The people picker query.
              */
-            clientPeoplePickerSearchUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerSearchUser>;
+            clientPeoplePickerSearchUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): Base.IBaseExecution<IPeoplePickerSearchUser>;
     }
 }
 
 declare module 'gd-sprest/intellisense/utility' {
-    import { IBaseExecution, SP } from "gd-sprest-def";
+    import { Base, SP } from "gd-sprest-def";
     
     /**
         * Email
@@ -4698,14 +4711,14 @@ declare module 'gd-sprest/intellisense/utility' {
     /**
         * Utility Results
         */
-    export interface ICreateEmailBodyForInvitationResult extends IBaseExecution { CreateEmailBodyForInvitation: string; }
-    export interface IGetCurrentUserEmailAddressesResult extends IBaseExecution { GetCurrentUserEmailAddresses: string; }
-    export interface IGetAppLicenseDeploymentIdResult extends IBaseExecution { GetAppLicenseDeploymentId: string; }
-    export interface IGetAppLicenseInformationResult extends IBaseExecution { GetAppLicenseInformation: string; }
-    export interface IGetLowerCaseStringResult extends IBaseExecution { GetLowerCaseString: string; }
-    export interface IResolvePrincipalResult extends IBaseExecution { ResolvePrincipalInCurrentContext: IPrincipalResult; }
-    export interface ISearchPrincipalsResult extends IBaseExecution { results: Array<IPrincipalResult>; SearchPrincipalsUsingContextWeb: { results: Array<IPrincipalResult>; }; }
-    export interface ISendEmailResult extends IBaseExecution { SendEmail: string; }
+    export interface ICreateEmailBodyForInvitationResult extends Base.IBaseExecution { CreateEmailBodyForInvitation: string; }
+    export interface IGetCurrentUserEmailAddressesResult extends Base.IBaseExecution { GetCurrentUserEmailAddresses: string; }
+    export interface IGetAppLicenseDeploymentIdResult extends Base.IBaseExecution { GetAppLicenseDeploymentId: string; }
+    export interface IGetAppLicenseInformationResult extends Base.IBaseExecution { GetAppLicenseInformation: string; }
+    export interface IGetLowerCaseStringResult extends Base.IBaseExecution { GetLowerCaseString: string; }
+    export interface IResolvePrincipalResult extends Base.IBaseExecution { ResolvePrincipalInCurrentContext: IPrincipalResult; }
+    export interface ISearchPrincipalsResult extends Base.IBaseExecution { results: Array<IPrincipalResult>; SearchPrincipalsUsingContextWeb: { results: Array<IPrincipalResult>; }; }
+    export interface ISendEmailResult extends Base.IBaseExecution { SendEmail: string; }
     
     /**
         * Utility Methods
@@ -4715,85 +4728,85 @@ declare module 'gd-sprest/intellisense/utility' {
                 * Gets the external (outside the firewall) URL to a document or resource in a site.
                 * pageAddress - The URL for the document or resource.
                 */
-            createEmailBodyForInvitation(pageAddress: string): IBaseExecution<IBaseExecution, ICreateEmailBodyForInvitationResult>;
+            createEmailBodyForInvitation(pageAddress: string): Base.IBaseExecution<Base.IBaseExecution, ICreateEmailBodyForInvitationResult>;
     
             /**
                 * Gets the app license deployment id.
                 */
-            getAppLicenseDeploymentId(): IBaseExecution<IBaseExecution, IGetAppLicenseDeploymentIdResult>;
+            getAppLicenseDeploymentId(): Base.IBaseExecution<Base.IBaseExecution, IGetAppLicenseDeploymentIdResult>;
     
             /**
                 * Gets the app license information.
                 */
-            getAppLicenseInformation(): IBaseExecution<IBaseExecution, IGetAppLicenseInformationResult>;
+            getAppLicenseInformation(): Base.IBaseExecution<Base.IBaseExecution, IGetAppLicenseInformationResult>;
     
             /**
                 * Returns the current user's email address.
                 */
-            getCurrentUserEmailAddresses(): IBaseExecution<IBaseExecution, IGetCurrentUserEmailAddressesResult>;
+            getCurrentUserEmailAddresses(): Base.IBaseExecution<Base.IBaseExecution, IGetCurrentUserEmailAddressesResult>;
     
             /**
                 * Converts the text to a localized string.
                 */
-            getLocalizedString(sourceValue: string): IBaseExecution;
+            getLocalizedString(sourceValue: string): Base.IBaseExecution;
     
             /**
                 * Converts the text to be lower case.
                 */
-            getLowerCaseString(sourceValue: string, lcid: number): IBaseExecution<IBaseExecution, IGetLowerCaseStringResult>;
+            getLowerCaseString(sourceValue: string, lcid: number): Base.IBaseExecution<Base.IBaseExecution, IGetLowerCaseStringResult>;
     
             /**
                 * Need to research
                 */
-            importAppLicense(url: string): IBaseExecution;
+            importAppLicense(url: string): Base.IBaseExecution;
     
             /**
                 * Need to research
                 */
-            isUserLicensedForEntityInContext(url: string): IBaseExecution;
+            isUserLicensedForEntityInContext(url: string): Base.IBaseExecution;
     
             /**
                 * Need to research
                 */
-            localizeWebPartGallery(url: string): IBaseExecution;
+            localizeWebPartGallery(url: string): Base.IBaseExecution;
     
             /**
                 * Need to research
                 */
-            markDiscussionAsFeatured(url: string): IBaseExecution;
+            markDiscussionAsFeatured(url: string): Base.IBaseExecution;
     
             /**
                 * Gets information about a principal that matches the specified Search criteria.
                 */
-            resolvePrincipal(principal: IResolvePrincipal): IBaseExecution<IBaseExecution, IResolvePrincipalResult>;
+            resolvePrincipal(principal: IResolvePrincipal): Base.IBaseExecution<Base.IBaseExecution, IResolvePrincipalResult>;
     
             /**
                 * Gets information about the principals that match the specified Search criteria.
                 */
-            searchPrincipals(principal: ISearchPrincipal): IBaseExecution<IBaseExecution, ISearchPrincipalsResult>;
+            searchPrincipals(principal: ISearchPrincipal): Base.IBaseExecution<Base.IBaseExecution, ISearchPrincipalsResult>;
     
             /**
                 * Need to research
                 */
-            unmarkDiscussionAsFeatured(url: string): IBaseExecution;
+            unmarkDiscussionAsFeatured(url: string): Base.IBaseExecution;
     }
     
     /**
         * Utility
         */
-    export interface IUtility extends IUtilityMethods, IBaseExecution<IUtility> {
+    export interface IUtility extends IUtilityMethods, Base.IBaseExecution<IUtility> {
             /**
                 * Creates a wiki page.
                 * @param listUrl - The relative url to the library.
                 * @param content - The html content.
                 */
-            createWikiPage(pageUrl: string, content?: string): IBaseExecution<SP.File>;
+            createWikiPage(pageUrl: string, content?: string): Base.IBaseExecution<SP.File>;
     
             /**
                 * Method to send an email.
                 * @param email - The email properties.
                 */
-            sendEmail(email: IEmail): IBaseExecution<IBaseExecution, ISendEmailResult>;
+            sendEmail(email: IEmail): Base.IBaseExecution<Base.IBaseExecution, ISendEmailResult>;
     }
 }
 
@@ -4807,7 +4820,7 @@ declare module 'gd-sprest/utils/types' {
 }
 
 declare module 'gd-sprest/utils/types/targetInfo' {
-    import { IRequestInfo } from "gd-sprest-def";
+    import { Base } from "gd-sprest-def";
     
     /**
         * Target Information
@@ -4831,7 +4844,7 @@ declare module 'gd-sprest/utils/types/targetInfo' {
             requestData: any;
     
             // The request information
-            requestInfo: IRequestInfo;
+            requestInfo: Base.IRequestInfo;
     
             // The request header
             requestHeaders: object;
@@ -4892,14 +4905,14 @@ declare module 'gd-sprest/utils/types/targetInfo' {
 }
 
 declare module 'gd-sprest/utils/types/base' {
-    import { IBaseExecution, IBaseResult, IODataQuery } from "gd-sprest-def";
+    import { Base } from "gd-sprest-def";
     import { ITargetInfo, ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     import { IXHRRequest } from "gd-sprest/utils/types/xhrRequest";
     
     /**
         * Base
         */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Result, QueryResult>, IBaseResult {
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends Base.IBaseExecution<Result, QueryResult>, Base.IBaseResult {
     
             /** The parent object, which created this object. */
             parent: any;
@@ -4966,7 +4979,7 @@ declare module 'gd-sprest/utils/types/base' {
 }
 
 declare module 'gd-sprest/utils/types/helper' {
-    import { IMethodInfo } from "gd-sprest-def";
+    import { Base } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types/base";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
     
@@ -4981,7 +4994,7 @@ declare module 'gd-sprest/utils/types/helper' {
         done(base: IBase, resolve: (value?: any) => void);
     
         /** Method to execute the request. */
-        executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
+        executeMethod(base: IBase, methodName: string, methodConfig: Base.IMethodInfo, args?: any);
     
         /** Gets the property as a collection. */
         getCollection(base: IBase, method: string, args?: any): IBase;

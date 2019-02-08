@@ -1,4 +1,4 @@
-import { IODataQuery, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { Helper, SPTypes, Web } from "..";
 import {
     IListForm, IListFormAttachmentInfo,
@@ -382,8 +382,8 @@ export const ListForm: IListForm = {
     },
 
     // Method to generate the odata query
-    generateODataQuery: (info: IListFormResult, loadAttachments: boolean = false): IODataQuery => {
-        let query: IODataQuery = info.query || {};
+    generateODataQuery: (info: IListFormResult, loadAttachments: boolean = false): Base.IODataQuery => {
+        let query: Base.IODataQuery = info.query || {};
 
         // Default the select query to get all the fields by default
         query.Select = query.Select || ["*"];

@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 
 /**
  * Context Information
@@ -358,7 +358,7 @@ export interface IContextInformation {
      * Method to get the web context information.
      * @param url - The relative url of the web.
      */
-    getWeb(url: string): IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
+    getWeb(url: string): Base.IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
 
     /** The page context object from an SPFX project. */
     setPageContext(spfxPageContext: any);

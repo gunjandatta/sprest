@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -21,19 +21,19 @@ export interface ISite {
      * Method to check if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
-    exists(url: string): IBaseExecution<ISiteExists>;
+    exists(url: string): Base.IBaseExecution<ISiteExists>;
 
     /**
      * Method to get the app context information.
      * @param siteUrl - The absolute url of the site.
      */
-    getAppContext(siteUrl: string): IBaseExecution;
+    getAppContext(siteUrl: string): Base.IBaseExecution;
 
     /**
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBaseExecution<ISiteUrl>;
+    getUrlById(id: string): Base.IBaseExecution<ISiteUrl>;
 }
 
 /**

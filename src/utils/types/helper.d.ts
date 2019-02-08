@@ -1,4 +1,4 @@
-import { IMethodInfo } from "gd-sprest-def";
+import { Base } from "gd-sprest-def";
 import { IBase } from "./base";
 import { ITargetInfoProps } from "./targetInfo";
 
@@ -13,7 +13,7 @@ export interface IBaseHelper {
     done(base: IBase, resolve: (value?: any) => void);
 
     /** Method to execute the request. */
-    executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
+    executeMethod(base: IBase, methodName: string, methodConfig: Base.IMethodInfo, args?: any);
 
     /** Gets the property as a collection. */
     getCollection(base: IBase, method: string, args?: any): IBase;

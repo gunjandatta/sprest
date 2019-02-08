@@ -1,4 +1,4 @@
-import { IRequestInfo } from "gd-sprest-def";
+import { Base } from "gd-sprest-def";
 
 /**
  * Target Information
@@ -22,7 +22,7 @@ export interface ITargetInfo {
     requestData: any;
 
     // The request information
-    requestInfo: IRequestInfo;
+    requestInfo: Base.IRequestInfo;
 
     // The request header
     requestHeaders: object;

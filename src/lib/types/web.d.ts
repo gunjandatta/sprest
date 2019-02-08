@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -21,5 +21,5 @@ export interface IWeb {
      * Method to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+    getRemoteWeb(requestUrl: string): Base.IBaseExecution<SP.RemoteWeb>;
 }

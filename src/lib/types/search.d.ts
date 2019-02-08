@@ -1,4 +1,4 @@
-import { IBaseExecution, Microsoft, SP } from "gd-sprest-def";
+import { Base, Microsoft, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -21,7 +21,7 @@ export interface ISearch {
      * Method to get the app context information.
      * @param siteUrl - The absolute url of the site.
      */
-    getAppContext(siteUrl: string): IBaseExecution;
+    getAppContext(siteUrl: string): Base.IBaseExecution;
 
     /**
      * Method to get the query from the search parameters.
@@ -33,5 +33,5 @@ export interface ISearch {
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */
-    getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
+    getUrlById(id: string): Base.IBaseExecution<{ GetUrlById: string }>;
 }

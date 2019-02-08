@@ -1,15 +1,15 @@
-import { IMethodInfo } from "gd-sprest-def";
+import { Base } from "gd-sprest-def";
 import { OData, RequestType } from ".";
 
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
 /*********************************************************************************************************************************/
-export class MethodInfo implements IMethodInfo {
+export class MethodInfo implements Base.IMethodInfo {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(methodName: string, methodInfo: IMethodInfo, args: any) {
+    constructor(methodName: string, methodInfo: Base.IMethodInfo, args: any) {
         // Default the properties
         this.methodInfo = methodInfo;
         this.methodInfo.argValues = args;
@@ -71,7 +71,7 @@ export class MethodInfo implements IMethodInfo {
     private get isTemplate(): boolean { return this.methodInfo.data ? true : false; }
     private get replace(): boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
     private methodData: any;
-    private methodInfo: IMethodInfo;
+    private methodInfo: Base.IMethodInfo;
     private methodParams: any;
     private methodUrl: string;
 

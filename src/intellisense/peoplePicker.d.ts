@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { SPTypes } from "../mapper/types";
 
 /**
@@ -87,14 +87,14 @@ export interface IPeoplePickerUser {
 /**
  * People Picker
  */
-export interface IPeoplePicker extends IBaseExecution {
+export interface IPeoplePicker extends Base.IBaseExecution {
     /** Method to resolve users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerResolveUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerResolveUser>;
+    clientPeoplePickerResolveUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): Base.IBaseExecution<IPeoplePickerResolveUser>;
 
     /** Method to search for users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerSearchUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): IBaseExecution<IPeoplePickerSearchUser>;
+    clientPeoplePickerSearchUser(query: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): Base.IBaseExecution<IPeoplePickerSearchUser>;
 }

@@ -1,6 +1,8 @@
 import {
     $REST, List, Helper
-} from "../src";
+} from "../src/index.d";
+
+$REST.Helper.SP.ModalDialog.showWaitScreenWithNoClose("");
 
 $REST.ContextInfo.getWeb("/sites/appcatalog").execute(ctx => {
     $REST.Web("/sites/web", { requestDigest: ctx.GetContextWebInformation.FormDigestValue }).execute(w => {

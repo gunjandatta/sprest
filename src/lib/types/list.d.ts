@@ -1,4 +1,4 @@
-import { IBaseExecution, SP } from "gd-sprest-def";
+import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../../utils/types/targetInfo";
 
 /**
@@ -28,7 +28,7 @@ export interface IList {
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    getDataAsStream(listFullUrl: string, parameters?: any): IBaseExecution<IListDataStream>;
+    getDataAsStream(listFullUrl: string, parameters?: any): Base.IBaseExecution<IListDataStream>;
 }
 
 /**
