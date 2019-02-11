@@ -1,10 +1,7 @@
 /**
  * Library
  */
-import {
-    ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
-    ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
-} from "./lib/types";
+import { ContextInfo, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib/types";
 export {
     ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
     ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
