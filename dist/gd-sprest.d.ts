@@ -1889,6 +1889,11 @@ declare module 'gd-sprest/helper/types/sp' {
             Notify: INotify,
     
             /**
+                * Script on Demand (SOD)
+                */
+            SOD: ISOD,
+    
+            /**
                 * Status
                 */
             Status: IStatus
@@ -2038,6 +2043,67 @@ declare module 'gd-sprest/helper/types/sp' {
                 * @param id - The notification to remove from the page.
                 */
             removeNotification(id: string);
+    }
+    
+    /**
+        * Script on Demand (SOD)
+        */
+    export interface ISOD {
+            /**
+                * Executes the specified function in the specified file with the optional arguments.
+                * @param key - The name of the file containing the JavaScript function.
+                * @param functionName - The fuction to execute.
+                * @param args - The optional arguments to the function.
+                */
+            execute(key: string, functionName: string, ...args);
+    
+            /**
+                * Ensures that the specified file that contains the specified function is loaded and then runs the specified callback function.
+                * @param key - The name of the file containing the function that is executed.
+                * @param functionName - The name of the function that is executed.
+                * @param fn - The function that is called once functionName has finished executing.
+                */
+            executeFunc(key: string, functionName: string, fn: Function);
+    
+            /**
+                * Executes the specified function if the specified event has occurred; otherwise, adds the function to the pending job queue.
+                * @param func - The function to execute.
+                * @param eventName - The name of the event.
+                */
+            executeOrDelayUntilEventNotified(func: Function, eventName: string);
+    
+            /**
+                * Executes the specified function if the file containing it is loaded; otherwise, adds it to the pending job queue.
+                * @param func - The function to execute.
+                * @param depScriptFileName - The name of the file containing the function.
+                */
+            executeOrDelayUntilScriptLoaded(func: Function, depScriptFileName: string);
+    
+            /**
+                * Records the event and executes any jobs in the pending job queue that are waiting on the event.
+                * @param eventName - The name of the event.
+                */
+            notifyEventAndExecuteWaitingJobs(eventName: string);
+    
+            /**
+                * Records that the script file is loaded and executes any jobs in the pending job queue that are waiting for the script file to be loaded.
+                * @param scriptFileName - The name of the script file.
+                */
+            notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string);
+    
+            /**
+                * Registers the specified file at the specified URL.
+                * @param key - The name of the file to register.
+                * @param url - The relative (to the server root) URL of the file.
+                */
+            registerSod(key: string, url: string);
+    
+            /**
+                * Registers the specified file as a dependency of another file.
+                * @param key - The name of the file to which the other file is dependent.
+                * @param dep - The name of the dependent file.
+                */
+            registerSodDep(key: string, dep: string);
     }
     
     /**

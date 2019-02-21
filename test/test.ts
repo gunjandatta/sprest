@@ -9,12 +9,8 @@ $REST.ContextInfo.getWeb("/sites/appcatalog").execute(ctx => {
     });
 })
 
-let el:HTMLElement;
-el.addEventListener
 
-List("").Items().execute(i => { i.results[0].File().execute(f => { f.Name; }) })
-
-Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");
+$REST.Helper.SP.SOD.registerSod("gd-sprest", $REST.ContextInfo.siteServerRelativeUrl + "/siteassets/gd-sprest");
 
 $REST.Web().Lists().execute(r => {
     let title = r.results[0].Title;
