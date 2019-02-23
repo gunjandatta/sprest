@@ -4297,7 +4297,7 @@ export const Mapper: IMapper = {
             data: {
                 query: {
                     __metadata: { type: "SP.CamlQuery" },
-                    ViewXml: "[[viewXml]]"
+                    ViewXml: "[[viewXML]]"
                 }
             }
         },

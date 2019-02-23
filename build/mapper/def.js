@@ -3012,7 +3012,7 @@ exports.Mapper = {
             data: {
                 query: {
                     __metadata: { type: "SP.CamlQuery" },
-                    ViewXml: "[[viewXml]]"
+                    ViewXml: "[[viewXML]]"
                 }
             }
         },

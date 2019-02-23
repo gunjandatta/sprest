@@ -2052,7 +2052,7 @@ declare module 'gd-sprest/helper/types/sp' {
             /**
                 * Executes the specified function in the specified file with the optional arguments.
                 * @param key - The name of the file containing the JavaScript function.
-                * @param functionName - The fuction to execute.
+                * @param functionName - The function to execute.
                 * @param args - The optional arguments to the function.
                 */
             execute(key: string, functionName: string, ...args);
