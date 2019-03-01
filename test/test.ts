@@ -4,17 +4,15 @@ import {
 
 $REST.Helper.SP.ModalDialog.showWaitScreenWithNoClose("");
 
+$REST.Helper.SP.SOD.registerSod("gd-sprest", "/siteassets/gd-sprest.min.js");
+
 $REST.ContextInfo.getWeb("/sites/appcatalog").execute(ctx => {
     $REST.Web("/sites/web", { requestDigest: ctx.GetContextWebInformation.FormDigestValue }).execute(w => {
     });
 })
 
-let el:HTMLElement;
-el.addEventListener
 
-List("").Items().execute(i => { i.results[0].File().execute(f => { f.Name; }) })
-
-Helper.SP.ModalDialog.showWaitScreenWithNoClose("Title", "Loading the Form");
+$REST.Helper.SP.SOD.registerSod("gd-sprest", $REST.ContextInfo.siteServerRelativeUrl + "/siteassets/gd-sprest");
 
 $REST.Web().Lists().execute(r => {
     let title = r.results[0].Title;

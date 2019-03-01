@@ -11,6 +11,13 @@ export const utility = {
         requestType: RequestType.PostWithArgsInBody
     },
 
+    createWikiPage: {
+        argNames: ["parameters"],
+        name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgsInBody
+    },
+
     getAppLicenseDeploymentId: {
         name: "SP.Utilities.Utility.GetAppLicenseDeploymentId",
         replaceEndpointFl: true,
@@ -81,6 +88,14 @@ export const utility = {
         name: "SP.Utilities.Utility.SearchPrincipalsUsingContextWeb",
         replaceEndpointFl: true,
         requestType: RequestType.Post
+    },
+
+    sendEmail: {
+        argNames: ["properties"],
+        metadataType: "SP.Utilities.EmailProperties",
+        name: "SP.Utilities.Utility.sendEmail",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgsInBody
     },
 
     unmarkDiscussionAsFeatured: {
