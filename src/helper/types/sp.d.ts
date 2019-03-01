@@ -166,43 +166,43 @@ export interface IModalDialogObj {
     close(dialogResult?: number);
 
     /** Gets the allow maximized property. */
-    get_allowMaximize();
+    get_allowMaximize(): boolean;
 
     /** Gets the modal dialog arguments. */
-    get_args()
+    get_args(): any;
 
     /** Gets the closed property. */
-    get_closed()
+    get_closed(): boolean;
 
     /** Gets the modal dialog element. */
-    get_dialogElement()
+    get_dialogElement(): HTMLDivElement;
 
     /** Need to find documentation. */
-    get_firstTabStop()
+    get_firstTabStop(): any;
 
     /** Gets the iframe element. */
-    get_frameElement()
+    get_frameElement(): HTMLIFrameElement;
 
     /** Gets the html property. */
-    get_html()
+    get_html(): HTMLElement;
 
     /** True if the maximized/restore button is visible. */
-    get_isMaximized()
+    get_isMaximized(): boolean;
 
     /** Need to find documentation. */
-    get_lastTabStop()
+    get_lastTabStop(): any;
 
     /** Gets the return value. */
-    get_returnValue()
+    get_returnValue(): any;
 
     /** True if the close button is visible. */
-    get_showClose()
+    get_showClose(): boolean;
 
     /** Gets the title property. */
-    get_title()
+    get_title(): string;
 
     /** Gets the url property. */
-    get_url()
+    get_url(): string;
 
     /**
      * Hides the dialog
