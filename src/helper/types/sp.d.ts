@@ -77,12 +77,6 @@ export interface IDialogOptions {
  */
 export interface IModalDialog {
     /**
-     * Closes the most recently opened modal dialog with the specified dialog result.
-     * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
-     */
-    close(dialogResult?: number);
-
-    /**
      * Closes the most recently opened modal dialog with the specified dialog result and return value.
      * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
      * @param returnVal - The return value of the modal dialog.
@@ -122,7 +116,7 @@ export interface IModalDialog {
      * Displays a modal dialog with specified dialog options.
      * @param options - The options to create the modal dialog.
      */
-    showModalDialog(options: IDialogOptions);
+    showModalDialog(options: IDialogOptions): PromiseLike<IModalDialogObj>;
 
     /**
      * Displays a modal dialog using the page at the specified URL.
@@ -138,7 +132,7 @@ export interface IModalDialog {
      * @param height - The height of the wait screen dialog.
      * @param width - The width of the wait screen dialog.
      */
-    showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number);
+    showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number): PromiseLike<IModalDialogObj>;
 
     /**
      * Displays a wait screen dialog that does not have a Cancel button using the specified parameters.
@@ -147,7 +141,88 @@ export interface IModalDialog {
      * @param height - The height of the wait screen dialog.
      * @param width - The width of the wait screen dialog.
      */
-    showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number);
+    showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number): PromiseLike<IModalDialogObj>;
+}
+
+/**
+ * Modal Dialog Object
+ */
+export interface IModalDialogObj {
+    /**
+     * Auto-sizes the modal dialog.
+     */
+    autoSize();
+
+    /**
+     * Auto-sizes the modal dialog.
+     * Can't find documentation on this.
+     */
+    autoSizeSupressScrollbar(d: any);
+
+    /**
+     * Closes the most recently opened modal dialog with the specified dialog result.
+     * @param dialogResult - One of the enumeration values that specifies the result of the modal dialog.
+     */
+    close(dialogResult?: number);
+
+    /** Gets the allow maximized property. */
+    get_allowMaximize();
+
+    /** Gets the modal dialog arguments. */
+    get_args()
+
+    /** Gets the closed property. */
+    get_closed()
+
+    /** Gets the modal dialog element. */
+    get_dialogElement()
+
+    /** Need to find documentation. */
+    get_firstTabStop()
+
+    /** Gets the iframe element. */
+    get_frameElement()
+
+    /** Gets the html property. */
+    get_html()
+
+    /** True if the maximized/restore button is visible. */
+    get_isMaximized()
+
+    /** Need to find documentation. */
+    get_lastTabStop()
+
+    /** Gets the return value. */
+    get_returnValue()
+
+    /** True if the close button is visible. */
+    get_showClose()
+
+    /** Gets the title property. */
+    get_title()
+
+    /** Gets the url property. */
+    get_url()
+
+    /**
+     * Hides the dialog
+     */
+    hide();
+
+    /**
+     * Sets the return value
+     */
+    set_returnValue(value: any);
+
+    /**
+     * Sets the title
+     */
+    set_title(title: string);
+
+    /**
+     * Shows the dialog
+     */
+    show();
 }
 
 /**
