@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var _1 = require(".");
@@ -189,7 +188,7 @@ exports.Helper = {
     // Method to get the request information
     getRequestInfo: function (base) {
         // Create the request, but don't execute it
-        var xhr = new xhrRequest_1.XHRRequest(true, new _1.TargetInfo(_this.targetInfo), null, false);
+        var xhr = new xhrRequest_1.XHRRequest(true, new _1.TargetInfo(base.targetInfo), null, false);
         // Return the request information
         return xhr.requestInfo;
     },

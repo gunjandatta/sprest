@@ -234,7 +234,7 @@ export const Helper: IBaseHelper = {
     // Method to get the request information
     getRequestInfo: (base: IBase): IRequestInfo => {
         // Create the request, but don't execute it
-        let xhr = new XHRRequest(true, new TargetInfo(this.targetInfo), null, false);
+        let xhr = new XHRRequest(true, new TargetInfo(base.targetInfo), null, false);
 
         // Return the request information
         return xhr.requestInfo;
