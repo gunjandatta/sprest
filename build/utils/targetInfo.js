@@ -30,19 +30,6 @@ var TargetInfo = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TargetInfo.prototype, "requestInfo", {
-        // The request information
-        get: function () {
-            // Return the request information
-            return {
-                data: this.requestData,
-                method: this.requestMethod,
-                url: this.requestUrl
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/

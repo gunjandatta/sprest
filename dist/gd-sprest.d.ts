@@ -4958,8 +4958,6 @@ declare module 'gd-sprest/utils/types' {
 }
 
 declare module 'gd-sprest/utils/types/targetInfo' {
-    import { Base } from "gd-sprest-def";
-    
     /**
         * Target Information
         */
@@ -4980,9 +4978,6 @@ declare module 'gd-sprest/utils/types/targetInfo' {
     
             // The request data
             requestData: any;
-    
-            // The request information
-            requestInfo: Base.IRequestInfo;
     
             // The request header
             requestHeaders: object;
@@ -5143,6 +5138,9 @@ declare module 'gd-sprest/utils/types/helper' {
         /** Gets the property. */
         getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
     
+        /** Gets the XHR request information. */
+        getRequestInfo(base: IBase): Base.IRequestInfo;
+    
         /** Converts the base object to a JSON string. */
         stringify(base: IBase): string;
     
@@ -5248,10 +5246,13 @@ declare module 'gd-sprest/utils/types/xhrRequest' {
             response: string;
     
             // The xml http request
-            request: any;
+            request: XMLHttpRequest;
     
             // The data send in the body of the request
             requestData: any;
+    
+            // The request headers
+            requestHeaders: { [key: string]: string };
     
             // The reqest url
             requestUrl: string;

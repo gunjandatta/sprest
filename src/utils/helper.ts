@@ -1,9 +1,10 @@
-import { IMethodInfo } from "gd-sprest-def/base";
+import { IMethodInfo, IRequestInfo } from "gd-sprest-def/base";
 import { ContextInfo } from "../lib";
 import { IBase } from "./types/base";
 import { IBaseHelper } from "./types/helper";
 import { ITargetInfoProps } from "./types/targetInfo";
-import { Base, MethodInfo, Request, RequestType } from ".";
+import { Base, MethodInfo, Request, RequestType, TargetInfo } from ".";
+import { XHRRequest } from "./xhrRequest";
 
 /**
  * Request Helper
@@ -228,6 +229,15 @@ export const Helper: IBaseHelper = {
 
         // Return the object
         return obj;
+    },
+
+    // Method to get the request information
+    getRequestInfo: (base: IBase): IRequestInfo => {
+        // Create the request, but don't execute it
+        let xhr = new XHRRequest(true, new TargetInfo(this.targetInfo), null, false);
+
+        // Return the request information
+        return xhr.requestInfo;
     },
 
     // Method to stringify the object

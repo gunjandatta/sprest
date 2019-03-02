@@ -67,7 +67,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     getCollection(method: string, args?: any) { return Helper.getCollection(this, method, args); }
 
     // Method to get the request information
-    getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
+    getInfo(): IRequestInfo { return Helper.getRequestInfo(this); }
 
     // Method to get the next set of results
     getNextSetOfResults() { return Helper.getNextSetOfResults(this); }

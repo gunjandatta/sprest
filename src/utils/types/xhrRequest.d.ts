@@ -16,10 +16,13 @@ export interface IXHRRequest {
     response: string;
 
     // The xml http request
-    request: any;
+    request: XMLHttpRequest;
 
     // The data send in the body of the request
     requestData: any;
+
+    // The request headers
+    requestHeaders: { [key: string]: string };
 
     // The reqest url
     requestUrl: string;

@@ -24,6 +24,9 @@ export interface IBaseHelper {
     /** Gets the property. */
     getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
 
+    /** Gets the XHR request information. */
+    getRequestInfo(base: IBase): Base.IRequestInfo;
+
     /** Converts the base object to a JSON string. */
     stringify(base: IBase): string;
 

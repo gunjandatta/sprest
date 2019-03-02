@@ -1,3 +1,4 @@
+import { Base } from "gd-sprest-def";
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
 declare var ActiveXObject;
@@ -9,9 +10,11 @@ export class XHRRequest {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void) {
+    constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void, executeFl: boolean = true) {
         // Default the properties
         this.asyncFl = asyncFl;
+        this.executeFl = executeFl;
+        this.headers = {};
         this.onRequestCompleted = callback || targetInfo.props.callback;
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
@@ -36,7 +39,21 @@ export class XHRRequest {
     // The data send in the body of the request
     get requestData() { return this.targetInfo.requestData; }
 
-    // The reqest url
+    // The request headers
+    get requestHeaders() { return this.headers; }
+
+    // The request information
+    get requestInfo(): Base.IRequestInfo {
+        // Return the request information
+        return {
+            data: this.targetInfo.requestData,
+            headers: this.headers,
+            method: this.targetInfo.requestMethod,
+            url: this.targetInfo.requestUrl
+        };
+    }
+
+    // The request url
     get requestUrl(): string { return this.xhr ? this.xhr.responseURL : null; }
 
     // The request status
@@ -49,6 +66,12 @@ export class XHRRequest {
     // The flag to determine if the request is executed asynchronously or synchronously
     private asyncFl: boolean;
 
+    // The flag to determine if the request should be executed
+    private executeFl: boolean;
+
+    // The request headers used for this request
+    private headers: { [key: string]: string };
+
     // The target information
     private targetInfo: TargetInfo;
 
@@ -56,7 +79,7 @@ export class XHRRequest {
     private onRequestCompleted: (xhr: XHRRequest) => any;
 
     // The xml http request object
-    private xhr: any;
+    private xhr: XMLHttpRequest;
 
     /*********************************************************************************************************************************/
     // Private Methods
@@ -96,6 +119,7 @@ export class XHRRequest {
             for (var header in this.targetInfo.requestHeaders) {
                 // Add the header
                 this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+                this.headers[header] = this.targetInfo.requestHeaders[header];
 
                 // See if this is the "IF-MATCH" header
                 ifMatchExists = ifMatchExists || header.toUpperCase() == "IF-MATCH";
@@ -106,10 +130,14 @@ export class XHRRequest {
                 // Set the default headers
                 this.xhr.setRequestHeader("Accept", "application/json");
                 this.xhr.setRequestHeader("Content-Type", "application/json");
+                this.headers["Accept"] = "application/json";
+                this.headers["Content-Type"] = "application/json";
             } else {
                 // Set the default headers
                 this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
                 this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+                this.headers["Accept"] = "application/json;odata=verbose";
+                this.headers["Content-Type"] = "application/json;odata=verbose";
             }
         }
 
@@ -117,20 +145,24 @@ export class XHRRequest {
         if (this.targetInfo.isGraph) {
             // Set the authorization
             this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken);
+            this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
         } else {
             // See if custom headers were not defined
             if (this.targetInfo.requestHeaders == null) {
                 // Set the method by default
                 this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+                this.headers["X-HTTP-Method"] = this.targetInfo.requestMethod;
             }
 
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
+            this.headers["X-RequestDigest"] = requestDigest;
 
             // See if we are deleting or updating the data
             if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE" && !ifMatchExists) {
                 // Append the header for deleting/updating
                 this.xhr.setRequestHeader("IF-MATCH", "*");
+                this.headers["IF-MATCH"] = "*";
             }
         }
     }
@@ -206,7 +238,10 @@ export class XHRRequest {
             }
         }
 
-        // Execute the request
-        this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        // See if we are executing the request
+        if (this.executeFl) {
+            // Execute the request
+            this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        }
     }
 }

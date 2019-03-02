@@ -44,7 +44,7 @@ var Base = /** @class */ (function () {
     // Method to return a collection
     Base.prototype.getCollection = function (method, args) { return _1.Helper.getCollection(this, method, args); };
     // Method to get the request information
-    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    Base.prototype.getInfo = function () { return _1.Helper.getRequestInfo(this); };
     // Method to get the next set of results
     Base.prototype.getNextSetOfResults = function () { return _1.Helper.getNextSetOfResults(this); };
     // Method to return a property of the base object
