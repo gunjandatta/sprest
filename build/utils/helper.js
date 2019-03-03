@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var _1 = require(".");
+var xhrRequest_1 = require("./xhrRequest");
 /**
  * Request Helper
  */
@@ -183,6 +184,13 @@ exports.Helper = {
         requestType ? _1.Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
         // Return the object
         return obj;
+    },
+    // Method to get the request information
+    getRequestInfo: function (base) {
+        // Create the request, but don't execute it
+        var xhr = new xhrRequest_1.XHRRequest(true, new _1.TargetInfo(base.targetInfo), null, false);
+        // Return the request information
+        return xhr.requestInfo;
     },
     // Method to stringify the object
     stringify: function (base) {

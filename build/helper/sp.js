@@ -148,22 +148,22 @@ var SOD = {
         for (var _i = 2; _i < arguments.length; _i++) {
             args[_i - 2] = arguments[_i];
         }
-        exports.SP ? exports.SP.SOD.execute(key, functionName, args) : null;
+        window["SP"] ? window["SP"].SOD.execute(key, functionName, args) : null;
     },
     // Ensures that the specified file that contains the specified function is loaded and then runs the specified callback function.
-    executeFunc: function (key, functionName, fn) { exports.SP ? exports.SP.SOD.executeFunc(key, functionName, fn) : null; },
+    executeFunc: function (key, functionName, fn) { window["SP"] ? window["SP"].SOD.executeFunc(key, functionName, fn) : null; },
     // Executes the specified function if the specified event has occurred; otherwise, adds the function to the pending job queue.
-    executeOrDelayUntilEventNotified: function (func, eventName) { exports.SP ? exports.SP.SOD.executeOrDelayUntilEventNotified(func, eventName) : null; },
+    executeOrDelayUntilEventNotified: function (func, eventName) { window["SP"] ? window["SP"].SOD.executeOrDelayUntilEventNotified(func, eventName) : null; },
     // Executes the specified function if the file containing it is loaded; otherwise, adds it to the pending job queue.
-    executeOrDelayUntilScriptLoaded: function (func, depScriptFileName) { exports.SP ? exports.SP.SOD.executeOrDelayUntilScriptLoaded(func, depScriptFileName) : null; },
+    executeOrDelayUntilScriptLoaded: function (func, depScriptFileName) { window["SP"] ? window["SP"].SOD.executeOrDelayUntilScriptLoaded(func, depScriptFileName) : null; },
     // Records the event and executes any jobs in the pending job queue that are waiting on the event.
-    notifyEventAndExecuteWaitingJobs: function (eventName) { exports.SP ? exports.SP.SOD.notifyEventAndExecuteWaitingJobs(eventName) : null; },
+    notifyEventAndExecuteWaitingJobs: function (eventName) { window["SP"] ? window["SP"].SOD.notifyEventAndExecuteWaitingJobs(eventName) : null; },
     // Records that the script file is loaded and executes any jobs in the pending job queue that are waiting for the script file to be loaded.
-    notifyScriptLoadedAndExecuteWaitingJobs: function (scriptFileName) { exports.SP ? exports.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName) : null; },
+    notifyScriptLoadedAndExecuteWaitingJobs: function (scriptFileName) { window["SP"] ? window["SP"].SOD.notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName) : null; },
     // Registers the specified file at the specified URL.
-    registerSod: function (key, url) { exports.SP ? exports.SP.SOD.registerSod(key, url) : null; },
+    registerSod: function (key, url) { window["SP"] ? window["SP"].SOD.registerSod(key, url) : null; },
     // Registers the specified file as a dependency of another file.
-    registerSodDep: function (key, dep) { exports.SP ? exports.SP.SOD.registerSodDep(key, dep) : null; },
+    registerSodDep: function (key, dep) { window["SP"] ? window["SP"].SOD.registerSodDep(key, dep) : null; },
 };
 /**
  * Status

@@ -1,4 +1,3 @@
-import { Base } from "gd-sprest-def";
 import { ContextInfo } from "../lib";
 import { ITargetInfo, ITargetInfoProps } from "./types";
 import { RequestType } from ".";
@@ -36,16 +35,6 @@ export class TargetInfo implements ITargetInfo {
 
     // The request data
     requestData: any;
-
-    // The request information
-    get requestInfo(): Base.IRequestInfo {
-        // Return the request information
-        return {
-            data: this.requestData,
-            method: this.requestMethod,
-            url: this.requestUrl
-        };
-    }
 
     // The request header
     requestHeaders: object;

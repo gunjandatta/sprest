@@ -8,9 +8,12 @@ var XHRRequest = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    function XHRRequest(asyncFl, targetInfo, callback) {
+    function XHRRequest(asyncFl, targetInfo, callback, executeFl) {
+        if (executeFl === void 0) { executeFl = true; }
         // Default the properties
         this.asyncFl = asyncFl;
+        this.executeFl = executeFl;
+        this.headers = {};
         this.onRequestCompleted = callback || targetInfo.props.callback;
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
@@ -44,8 +47,28 @@ var XHRRequest = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(XHRRequest.prototype, "requestHeaders", {
+        // The request headers
+        get: function () { return this.headers; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(XHRRequest.prototype, "requestInfo", {
+        // The request information
+        get: function () {
+            // Return the request information
+            return {
+                data: this.targetInfo.requestData,
+                headers: this.headers,
+                method: this.targetInfo.requestMethod,
+                url: this.targetInfo.requestUrl
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(XHRRequest.prototype, "requestUrl", {
-        // The reqest url
+        // The request url
         get: function () { return this.xhr ? this.xhr.responseURL : null; },
         enumerable: true,
         configurable: true
@@ -93,6 +116,7 @@ var XHRRequest = /** @class */ (function () {
             for (var header in this.targetInfo.requestHeaders) {
                 // Add the header
                 this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+                this.headers[header] = this.targetInfo.requestHeaders[header];
                 // See if this is the "IF-MATCH" header
                 ifMatchExists = ifMatchExists || header.toUpperCase() == "IF-MATCH";
             }
@@ -103,30 +127,38 @@ var XHRRequest = /** @class */ (function () {
                 // Set the default headers
                 this.xhr.setRequestHeader("Accept", "application/json");
                 this.xhr.setRequestHeader("Content-Type", "application/json");
+                this.headers["Accept"] = "application/json";
+                this.headers["Content-Type"] = "application/json";
             }
             else {
                 // Set the default headers
                 this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
                 this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+                this.headers["Accept"] = "application/json;odata=verbose";
+                this.headers["Content-Type"] = "application/json;odata=verbose";
             }
         }
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
             // Set the authorization
             this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken);
+            this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
         }
         else {
             // See if custom headers were not defined
             if (this.targetInfo.requestHeaders == null) {
                 // Set the method by default
                 this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+                this.headers["X-HTTP-Method"] = this.targetInfo.requestMethod;
             }
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
+            this.headers["X-RequestDigest"] = requestDigest;
             // See if we are deleting or updating the data
             if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE" && !ifMatchExists) {
                 // Append the header for deleting/updating
                 this.xhr.setRequestHeader("IF-MATCH", "*");
+                this.headers["IF-MATCH"] = "*";
             }
         }
     };
@@ -200,8 +232,11 @@ var XHRRequest = /** @class */ (function () {
                 this.targetInfo.requestData = this.targetInfo.requestData.byteLength ? this.targetInfo.requestData : JSON.stringify(this.targetInfo.requestData);
             }
         }
-        // Execute the request
-        this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        // See if we are executing the request
+        if (this.executeFl) {
+            // Execute the request
+            this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        }
     };
     return XHRRequest;
 }());

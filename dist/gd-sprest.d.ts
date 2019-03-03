@@ -2037,43 +2037,43 @@ declare module 'gd-sprest/helper/types/sp' {
             close(dialogResult?: number);
     
             /** Gets the allow maximized property. */
-            get_allowMaximize();
+            get_allowMaximize(): boolean;
     
             /** Gets the modal dialog arguments. */
-            get_args()
+            get_args(): any;
     
             /** Gets the closed property. */
-            get_closed()
+            get_closed(): boolean;
     
             /** Gets the modal dialog element. */
-            get_dialogElement()
+            get_dialogElement(): HTMLDivElement;
     
             /** Need to find documentation. */
-            get_firstTabStop()
+            get_firstTabStop(): any;
     
             /** Gets the iframe element. */
-            get_frameElement()
+            get_frameElement(): HTMLIFrameElement;
     
             /** Gets the html property. */
-            get_html()
+            get_html(): HTMLElement;
     
             /** True if the maximized/restore button is visible. */
-            get_isMaximized()
+            get_isMaximized(): boolean;
     
             /** Need to find documentation. */
-            get_lastTabStop()
+            get_lastTabStop(): any;
     
             /** Gets the return value. */
-            get_returnValue()
+            get_returnValue(): any;
     
             /** True if the close button is visible. */
-            get_showClose()
+            get_showClose(): boolean;
     
             /** Gets the title property. */
-            get_title()
+            get_title(): string;
     
             /** Gets the url property. */
-            get_url()
+            get_url(): string;
     
             /**
                 * Hides the dialog
@@ -4958,8 +4958,6 @@ declare module 'gd-sprest/utils/types' {
 }
 
 declare module 'gd-sprest/utils/types/targetInfo' {
-    import { Base } from "gd-sprest-def";
-    
     /**
         * Target Information
         */
@@ -4980,9 +4978,6 @@ declare module 'gd-sprest/utils/types/targetInfo' {
     
             // The request data
             requestData: any;
-    
-            // The request information
-            requestInfo: Base.IRequestInfo;
     
             // The request header
             requestHeaders: object;
@@ -5143,6 +5138,9 @@ declare module 'gd-sprest/utils/types/helper' {
         /** Gets the property. */
         getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
     
+        /** Gets the XHR request information. */
+        getRequestInfo(base: IBase): Base.IRequestInfo;
+    
         /** Converts the base object to a JSON string. */
         stringify(base: IBase): string;
     
@@ -5248,10 +5246,13 @@ declare module 'gd-sprest/utils/types/xhrRequest' {
             response: string;
     
             // The xml http request
-            request: any;
+            request: XMLHttpRequest;
     
             // The data send in the body of the request
             requestData: any;
+    
+            // The request headers
+            requestHeaders: { [key: string]: string };
     
             // The reqest url
             requestUrl: string;

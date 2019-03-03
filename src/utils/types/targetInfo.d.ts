@@ -1,5 +1,3 @@
-import { Base } from "gd-sprest-def";
-
 /**
  * Target Information
  */
@@ -20,9 +18,6 @@ export interface ITargetInfo {
 
     // The request data
     requestData: any;
-
-    // The request information
-    requestInfo: Base.IRequestInfo;
 
     // The request header
     requestHeaders: object;
