@@ -60,8 +60,15 @@ function Executor(methodParams, method, onExecuted) {
     return new Promise(function (resolve, reject) {
         // Set the resolve reference
         _resolve = resolve;
-        // Execute the methods
-        executeMethods();
+        // See if params exist
+        if (methodParams.length > 0) {
+            // Execute the methods
+            executeMethods();
+        }
+        else {
+            // resolve the promise
+            _resolve();
+        }
     });
 }
 exports.Executor = Executor;

@@ -52,7 +52,13 @@ export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T
         // Set the resolve reference
         _resolve = resolve;
 
-        // Execute the methods
-        executeMethods();
+        // See if params exist
+        if (methodParams.length > 0) {
+            // Execute the methods
+            executeMethods();
+        } else {
+            // resolve the promise
+            _resolve();
+        }
     });
 }
