@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function Executor(methodParams, method, onExecuted) {
     var _this = this;
     if (methodParams === void 0) { methodParams = []; }
-    var _completedFl = false;
     var _resolve = null;
     // Method to execute the methods
     var executeMethods = function (idx) {
