@@ -7,7 +7,7 @@ import { IREST } from "./rest.d";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.75,
+    __ver: 4.76,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -40,8 +40,15 @@ if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
 
     // Ensure the SP lib exists
     if (Lib.ContextInfo.window.SP) {
-        // Alert other scripts this library is loaded
-        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest");
-        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
+        // If MDS is turned on in a SP2013 environment, it may throw an error
+        try {
+            // Alert other scripts this library is loaded
+            Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest");
+            Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
+        }
+        catch {
+            // Log
+            console.error("[gd-sprest] Error notifying scripts using the SP SOD library.");
+        }
     }
 }
