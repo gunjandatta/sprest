@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
     // Return the configuration
     return {
         entry: [
-            "core-js/es6/promise.js",
+            "core-js/fn/promise.js",
             "./build/index.js"
         ],
         output: {

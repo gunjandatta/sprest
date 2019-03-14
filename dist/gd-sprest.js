@@ -622,7 +622,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar Helper = __webpack_require__(/*! ./helper */ \"./build/helper/index.js\");\n\nvar Lib = __webpack_require__(/*! ./lib */ \"./build/lib/index.js\");\n\nvar Mapper = __webpack_require__(/*! ./mapper */ \"./build/mapper/index.js\");\n/**\r\n * SharePoint REST Library\r\n */\n\n\nexports.$REST = {\n  __ver: 4.76,\n  AppContext: function AppContext(siteUrl) {\n    return Lib.Site.getAppContext(siteUrl);\n  },\n  ContextInfo: Lib.ContextInfo,\n  DefaultRequestToHostFl: false,\n  Graph: Lib.Graph,\n  Helper: Helper,\n  List: Lib.List,\n  ListByEntityName: Lib.List.getByEntityName,\n  ListDataAsStream: Lib.List.getDataAsStream,\n  Navigation: Lib.Navigation,\n  PeopleManager: Lib.PeopleManager,\n  PeoplePicker: Lib.PeoplePicker,\n  ProfileLoader: Lib.ProfileLoader,\n  RemoteWeb: function RemoteWeb(requestUrl) {\n    return Lib.Web.getRemoteWeb(requestUrl);\n  },\n  Search: Lib.Search,\n  Site: Lib.Site,\n  SiteExists: function SiteExists(url) {\n    return Lib.Site.exists(url);\n  },\n  SiteUrl: function SiteUrl(id) {\n    return Lib.Site.getUrlById(id);\n  },\n  SPTypes: Mapper.SPTypes,\n  SocialFeed: Lib.SocialFeed,\n  UserProfile: Lib.UserProfile,\n  Utility: Lib.Utility,\n  Web: Lib.Web\n}; // See if the library doesn't exist, or is an older version\n\nvar global = Lib.ContextInfo.window.$REST;\n\nif (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {\n  // Set the global variable\n  Lib.ContextInfo.window.$REST = exports.$REST; // Ensure the SP lib exists\n\n  if (Lib.ContextInfo.window.SP) {\n    // If MDS is turned on in a SP2013 environment, it may throw an error\n    try {\n      // Alert other scripts this library is loaded\n      Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest\");\n      Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest.js\");\n    } catch (_a) {\n      // Log\n      console.error(\"[gd-sprest] Error notifying scripts using the SP SOD library.\");\n    }\n  }\n}\n\n//# sourceURL=webpack:///./build/rest.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar Helper = __webpack_require__(/*! ./helper */ \"./build/helper/index.js\");\n\nvar Lib = __webpack_require__(/*! ./lib */ \"./build/lib/index.js\");\n\nvar Mapper = __webpack_require__(/*! ./mapper */ \"./build/mapper/index.js\");\n/**\r\n * SharePoint REST Library\r\n */\n\n\nexports.$REST = {\n  __ver: 4.77,\n  AppContext: function AppContext(siteUrl) {\n    return Lib.Site.getAppContext(siteUrl);\n  },\n  ContextInfo: Lib.ContextInfo,\n  DefaultRequestToHostFl: false,\n  Graph: Lib.Graph,\n  Helper: Helper,\n  List: Lib.List,\n  ListByEntityName: Lib.List.getByEntityName,\n  ListDataAsStream: Lib.List.getDataAsStream,\n  Navigation: Lib.Navigation,\n  PeopleManager: Lib.PeopleManager,\n  PeoplePicker: Lib.PeoplePicker,\n  ProfileLoader: Lib.ProfileLoader,\n  RemoteWeb: function RemoteWeb(requestUrl) {\n    return Lib.Web.getRemoteWeb(requestUrl);\n  },\n  Search: Lib.Search,\n  Site: Lib.Site,\n  SiteExists: function SiteExists(url) {\n    return Lib.Site.exists(url);\n  },\n  SiteUrl: function SiteUrl(id) {\n    return Lib.Site.getUrlById(id);\n  },\n  SPTypes: Mapper.SPTypes,\n  SocialFeed: Lib.SocialFeed,\n  UserProfile: Lib.UserProfile,\n  Utility: Lib.Utility,\n  Web: Lib.Web\n}; // See if the library doesn't exist, or is an older version\n\nvar global = Lib.ContextInfo.window.$REST;\n\nif (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {\n  // Set the global variable\n  Lib.ContextInfo.window.$REST = exports.$REST; // Ensure the SP lib exists\n\n  if (Lib.ContextInfo.window.SP) {\n    // If MDS is turned on in a SP2013 environment, it may throw an error\n    try {\n      // Alert other scripts this library is loaded\n      Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest\");\n      Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs(\"gd-sprest.js\");\n    } catch (_a) {\n      // Log\n      console.error(\"[gd-sprest] Error notifying scripts using the SP SOD library.\");\n    }\n  }\n}\n\n//# sourceURL=webpack:///./build/rest.js?");
 
 /***/ }),
 
@@ -746,14 +746,14 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 
 /***/ }),
 
-/***/ "./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/es6/promise.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/es6/promise.js ***!
-  \********************************************************************************************/
+/***/ "./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/fn/promise.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/fn/promise.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! ../modules/es6.object.to-string */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es6.object.to-string.js\");\n__webpack_require__(/*! ../modules/es6.string.iterator */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es6.string.iterator.js\");\n__webpack_require__(/*! ../modules/web.dom.iterable */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/web.dom.iterable.js\");\n__webpack_require__(/*! ../modules/es6.promise */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es6.promise.js\");\nmodule.exports = __webpack_require__(/*! ../modules/_core */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_core.js\").Promise;\n\n\n//# sourceURL=webpack:///./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/es6/promise.js?");
+eval("__webpack_require__(/*! ../modules/es6.object.to-string */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es6.object.to-string.js\");\n__webpack_require__(/*! ../modules/es6.string.iterator */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es6.string.iterator.js\");\n__webpack_require__(/*! ../modules/web.dom.iterable */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/web.dom.iterable.js\");\n__webpack_require__(/*! ../modules/es6.promise */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es6.promise.js\");\n__webpack_require__(/*! ../modules/es7.promise.finally */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.finally.js\");\n__webpack_require__(/*! ../modules/es7.promise.try */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.try.js\");\nmodule.exports = __webpack_require__(/*! ../modules/_core */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_core.js\").Promise;\n\n\n//# sourceURL=webpack:///./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/fn/promise.js?");
 
 /***/ }),
 
@@ -1502,6 +1502,30 @@ eval("\nvar $at = __webpack_require__(/*! ./_string-at */ \"./node_modules/.regi
 
 /***/ }),
 
+/***/ "./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.finally.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.finally.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("// https://github.com/tc39/proposal-promise-finally\n\nvar $export = __webpack_require__(/*! ./_export */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_export.js\");\nvar core = __webpack_require__(/*! ./_core */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_core.js\");\nvar global = __webpack_require__(/*! ./_global */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_global.js\");\nvar speciesConstructor = __webpack_require__(/*! ./_species-constructor */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_species-constructor.js\");\nvar promiseResolve = __webpack_require__(/*! ./_promise-resolve */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_promise-resolve.js\");\n\n$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {\n  var C = speciesConstructor(this, core.Promise || global.Promise);\n  var isFunction = typeof onFinally == 'function';\n  return this.then(\n    isFunction ? function (x) {\n      return promiseResolve(C, onFinally()).then(function () { return x; });\n    } : onFinally,\n    isFunction ? function (e) {\n      return promiseResolve(C, onFinally()).then(function () { throw e; });\n    } : onFinally\n  );\n} });\n\n\n//# sourceURL=webpack:///./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.finally.js?");
+
+/***/ }),
+
+/***/ "./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.try.js":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.try.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n// https://github.com/tc39/proposal-promise-try\nvar $export = __webpack_require__(/*! ./_export */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_export.js\");\nvar newPromiseCapability = __webpack_require__(/*! ./_new-promise-capability */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_new-promise-capability.js\");\nvar perform = __webpack_require__(/*! ./_perform */ \"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/_perform.js\");\n\n$export($export.S, 'Promise', { 'try': function (callbackfn) {\n  var promiseCapability = newPromiseCapability.f(this);\n  var result = perform(callbackfn);\n  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);\n  return promiseCapability.promise;\n} });\n\n\n//# sourceURL=webpack:///./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/es7.promise.try.js?");
+
+/***/ }),
+
 /***/ "./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/web.dom.iterable.js":
 /*!*********************************************************************************************************!*\
   !*** ./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/modules/web.dom.iterable.js ***!
@@ -1514,13 +1538,13 @@ eval("var $iterators = __webpack_require__(/*! ./es6.array.iterator */ \"./node_
 /***/ }),
 
 /***/ 0:
-/*!*****************************************************!*\
-  !*** multi core-js/es6/promise.js ./build/index.js ***!
-  \*****************************************************/
+/*!****************************************************!*\
+  !*** multi core-js/fn/promise.js ./build/index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! core-js/es6/promise.js */\"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/es6/promise.js\");\nmodule.exports = __webpack_require__(/*! ./build/index.js */\"./build/index.js\");\n\n\n//# sourceURL=webpack:///multi_core-js/es6/promise.js_./build/index.js?");
+eval("__webpack_require__(/*! core-js/fn/promise.js */\"./node_modules/.registry.npmjs.org/core-js/2.6.4/node_modules/core-js/fn/promise.js\");\nmodule.exports = __webpack_require__(/*! ./build/index.js */\"./build/index.js\");\n\n\n//# sourceURL=webpack:///multi_core-js/fn/promise.js_./build/index.js?");
 
 /***/ })
 
