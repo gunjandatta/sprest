@@ -18,7 +18,7 @@ var XHRRequest = /** @class */ (function () {
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
         // Execute the request
-        this.execute();
+        this.xhr ? this.execute() : null;
     }
     Object.defineProperty(XHRRequest.prototype, "completedFl", {
         /*********************************************************************************************************************************/
@@ -104,8 +104,8 @@ var XHRRequest = /** @class */ (function () {
             return new ActiveXObject("Microsoft.XMLHTTP");
         }
         catch (e) { }
-        // Throw an error
-        throw new Error("This browser does not support xml http requests.");
+        // Log an error
+        console.error("This browser does not support xml http requests.");
     };
     // Method to default the request headers
     XHRRequest.prototype.defaultHeaders = function (requestDigest) {

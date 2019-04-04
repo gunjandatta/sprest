@@ -41,17 +41,17 @@ The intellisense for this library is included as part of the npm installation. I
 One of the key reasons of creating this library, was to give an easy way to develop using the modern web stack in SharePoint 2013 environments.
 
 ### User Adoption
+
 Since these components are designed using same framework creating the new Office 365 modern experience, this gives the ability to introduce the new Office 365 experience within SharePoint 2013. This will be an important part for the SharePoint 2013 user adoption to the new modern experience. Most SharePoint 2010/2013 environments are undergoing upgrades to 2016, Hybrid 2016/O365, O365 and private O365-Gov environments.
 
 ### [Server-Side to Client-Side Conversion Guide](https://gunjandatta.github.io/dev/serverside-conversion-guide)
 
 The execution method was designed to give a server-side like experience, similar to SharePoint 2010/2013 solutions. This will help convert existing server-side solutions to client-side solutions.
 
-### Upgrade Path to SharePoint Framework [SPFx](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview)
-The javascript, typescript, react/angular/react/etc solutions developed for SharePoint 2013 can easily be migrated/copied to a SharePoint Framework (SPFx) modern solution. A [blog series](http://dattabase.com/sharepoint-app-fabric-ui-react-part-3-3/) is available for creating an Add-In for SharePoint 2013/Online using the Office Fabric-UI React framework, including converting it to a SPFX WebPart.
+#### [SPFx](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview) Support
 
-#### SPFx Project
-Refer to the [documentation](https://gunjandatta.github.io/dev/spfx) for steps on configuring this library in a SPFx project.
+Follow the [documentation](https://gunjandatta.github.io/dev/spfx) for steps on configuring this library with SPFx projects.
 
 ### Security
+
 The REST api execute requests based on the user's permissions. There is no way to elevate privileges requests against the SharePoint REST.

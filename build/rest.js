@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.75,
+    __ver: 4.78,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -38,8 +38,15 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
     Lib.ContextInfo.window.$REST = exports.$REST;
     // Ensure the SP lib exists
     if (Lib.ContextInfo.window.SP) {
-        // Alert other scripts this library is loaded
-        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest");
-        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
+        // If MDS is turned on in a SP2013 environment, it may throw an error
+        try {
+            // Alert other scripts this library is loaded
+            Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest");
+            Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
+        }
+        catch (_a) {
+            // Log
+            console.error("[gd-sprest] Error notifying scripts using the SP SOD library.");
+        }
     }
 }

@@ -2,6 +2,43 @@ import {
     $REST, List, Helper, Types
 } from "../src/index.d";
 
+// Add attachments
+let addAttachments = () => {
+    const upInc = Number(100 / this.state.files.length).toFixed(2);
+    this.setState({
+        uploadInc: upInc,
+        uploadCont: upInc
+    });
+
+    // Get the list item
+    let item = List("TaskTracker").Items(this.state.newReqID);
+
+    // Parse the files
+    const currentFiles = this.state.files;
+    for (let i = 0; i < currentFiles.length; i++) {
+        let file = currentFiles[i];
+
+        // Read the file
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // Upload the file
+            item.AttachmentFiles().add(file.name, reader.result).execute(info => {
+                const uploadedFiles = this.state.fileCount+1;
+                this.setState({ fileCount: uploadFiles }, () => {
+                    // ...
+                });
+            }, true);
+        }
+        reader.onerror = () => console.error("file reading has failed");
+        reader.readAsArrayBuffer(file);
+    }
+
+    // Wait for the files to be uploaded
+    item.done(() => {
+        // Do something
+    });
+}
+
 $REST.Helper.SP.ModalDialog.showWaitScreenWithNoClose("");
 
 $REST.Helper.SP.SOD.registerSod("gd-sprest", "/siteassets/gd-sprest.min.js");
