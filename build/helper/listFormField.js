@@ -98,7 +98,7 @@ exports.ListFormField = {
                 // Default
                 default:
                     // See if this is an MMS field
-                    if (_fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
+                    if (_fieldInfo.typeAsString.indexOf("TaxonomyFieldType") == 0) {
                         var fldMMS = _fieldInfo.field;
                         _fieldInfo.multi = fldMMS.AllowMultipleValues;
                         _fieldInfo.termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;

@@ -116,7 +116,7 @@ export const ListFormField: IListFormField = {
                 // Default
                 default:
                     // See if this is an MMS field
-                    if (_fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
+                    if (_fieldInfo.typeAsString.indexOf("TaxonomyFieldType") == 0) {
                         let fldMMS = _fieldInfo.field as SP.Taxonomy.TaxonomyField;
                         (_fieldInfo as IListFormMMSFieldInfo).multi = fldMMS.AllowMultipleValues;
                         (_fieldInfo as IListFormMMSFieldInfo).termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;

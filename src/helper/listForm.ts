@@ -216,7 +216,7 @@ export const ListForm: IListForm = {
                         // Default
                         default:
                             // See if this is an taxonomy field
-                            if (field.TypeAsString.startsWith("TaxonomyFieldType")) {
+                            if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                                 let fieldValue = _info.item[fieldName + "Id"];
 
                                 // Ensure the value exists
@@ -350,7 +350,7 @@ export const ListForm: IListForm = {
                     formFields[field.InternalName] = field;
 
                     // See if this is a taxonomy field
-                    if (field.TypeAsString.startsWith("TaxonomyFieldType")) {
+                    if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                         // Parse the list fields
                         for (let fieldName in _info.fields) {
                             let valueField = _info.fields[fieldName];
@@ -428,7 +428,7 @@ export const ListForm: IListForm = {
                 // Default
                 default:
                     // See if this is an taxonomy field
-                    if (field.TypeAsString.startsWith("TaxonomyFieldType")) {
+                    if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                         // Parse the fields
                         for (let fieldName in info.fields) {
                             let valueField = info.fields[fieldName];
