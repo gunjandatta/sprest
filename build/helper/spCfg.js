@@ -267,65 +267,71 @@ exports.SPConfig = function (cfg, webUrl) {
     var createLists = function (lists, cfgLists) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            var _loop_4 = function (i) {
-                var cfgList = cfgLists[i];
-                // See if the target name exists
-                if (_cfgType && _targetName) {
-                    // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
-                        return "continue";
+            // Execute code against each list configuration
+            _1.Executor(cfgLists, function (cfgList) {
+                // Return a promise
+                return new Promise(function (resolve) {
+                    // See if the target name exists and matches this list
+                    if (_cfgType && _targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
+                            // Do nothing
+                            resolve();
+                            return;
+                        }
                     }
-                }
-                // See if this content type already exists
-                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                if (list) {
-                    // Log
-                    console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
-                }
-                else {
+                    // See if this list already exists
+                    var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                    if (list) {
+                        // Log
+                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
+                        // Resolve the promise and do nothing
+                        resolve();
+                        return;
+                    }
                     // Log
                     console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
                     // Update the list name and remove spaces
-                    var listInfo_1 = cfgList.ListInformation;
-                    var listName_1 = listInfo_1.Title;
-                    listInfo_1.Title = listName_1.replace(/ /g, "");
+                    var listInfo = cfgList.ListInformation;
+                    var listName = listInfo.Title;
+                    listInfo.Title = listName.replace(/ /g, "");
                     // Add the list
-                    lists.add(listInfo_1)
+                    lists.add(listInfo)
                         // Execute the request
                         .execute(function (list) {
                         // Restore the list name in the configuration
-                        listInfo_1.Title = listName_1;
+                        listInfo.Title = listName;
                         // See if the request was successful
                         if (list.Id) {
                             // See if we need to update the list
-                            if (list.Title != listName_1) {
+                            if (list.Title != listName) {
                                 // Update the list
-                                list.update({ Title: listName_1 }).execute(function () {
+                                list.update({ Title: listName }).execute(function () {
                                     // Log
                                     console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                    // Resolve the promise
+                                    resolve();
                                 });
                             }
                             else {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                // Resolve the promise
+                                resolve();
                             }
                             // Trigger the event
                             cfgList.onCreated ? cfgList.onCreated(list) : null;
                         }
                         else {
                             // Log
-                            console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
+                            console.log("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
                             console.log("[gd-sprest][List] Error: '" + list.response);
+                            // Resolve the promise
+                            resolve();
                         }
                     }, reject);
-                }
-            };
-            // Parse the content types
-            for (var i = 0; i < cfgLists.length; i++) {
-                _loop_4(i);
-            }
-            // Wait for the requests to complete
-            lists.done(function () {
+                });
+            }).then(function () {
                 // Update the lists
                 updateLists(cfgLists).then(function () {
                     // Resolve the promise
@@ -408,7 +414,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
                 return;
             }
-            var _loop_5 = function (i) {
+            var _loop_4 = function (i) {
                 var cfgView = cfgViews[i];
                 // See if this view exists
                 var view = isInCollection("Title", cfgView.ViewName, views.results);
@@ -439,7 +445,7 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Parse the views
             for (var i = 0; i < cfgViews.length; i++) {
-                _loop_5(i);
+                _loop_4(i);
             }
             // Wait for the requests to complete
             views.done(function () {
@@ -471,7 +477,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Execute the request
                 .execute(function (folder) {
                 var ctr = 0;
-                var _loop_6 = function (i) {
+                var _loop_5 = function (i) {
                     var cfgWebPart = cfgWebParts[i];
                     // See if the target name exists
                     if (_cfgType && _targetName) {
@@ -538,7 +544,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 };
                 // Parse the configuration
                 for (var i = 0; i < cfgWebParts.length; i++) {
-                    _loop_6(i);
+                    _loop_5(i);
                 }
             }, reject);
         });
@@ -569,7 +575,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
                 return;
             }
-            var _loop_7 = function (i) {
+            var _loop_6 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // Get the field
                 var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
@@ -583,7 +589,7 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Parse the configuration
             for (var i = 0; i < cfgContentTypes.length; i++) {
-                _loop_7(i);
+                _loop_6(i);
             }
             // Wait for the requests to complete
             contentTypes.done(function () {
@@ -602,7 +608,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
                 return;
             }
-            var _loop_8 = function (i) {
+            var _loop_7 = function (i) {
                 var cfgField = cfgFields[i];
                 // Get the field
                 var field = isInCollection("InternalName", cfgField.name, fields.results);
@@ -616,7 +622,7 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Parse the configuration
             for (var i = 0; i < cfgFields.length; i++) {
-                _loop_8(i);
+                _loop_7(i);
             }
             // Wait for the requests to complete
             fields.done(function () {
@@ -644,7 +650,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
                 return;
             }
-            var _loop_9 = function (i) {
+            var _loop_8 = function (i) {
                 var cfgList = cfgLists[i];
                 // See if the target name exists
                 if (_cfgType && _targetName) {
@@ -665,7 +671,7 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Parse the configuration
             for (var i = 0; i < cfgLists.length; i++) {
-                _loop_9(i);
+                _loop_8(i);
             }
             // Wait for the requests to complete
             lists.done(function () {
@@ -693,7 +699,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
                 return;
             }
-            var _loop_10 = function (i) {
+            var _loop_9 = function (i) {
                 var cfgCustomAction = cfgCustomActions[i];
                 // See if the target name exists
                 if (_cfgType && _targetName) {
@@ -715,7 +721,7 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Parse the configuration
             for (var i = 0; i < cfgCustomActions.length; i++) {
-                _loop_10(i);
+                _loop_9(i);
             }
             // Wait for the requests to complete
             customActions.done(function () {
@@ -756,7 +762,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 .Files()
                 // Execute the request
                 .execute(function (files) {
-                var _loop_11 = function (i) {
+                var _loop_10 = function (i) {
                     var cfgWebPart = cfgWebParts[i];
                     // See if the target name exists
                     if (_cfgType && _targetName) {
@@ -777,7 +783,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 };
                 // Parse the configuration
                 for (var i = 0; i < cfgWebParts.length; i++) {
-                    _loop_11(i);
+                    _loop_10(i);
                 }
                 // Resolve the promise
                 resolve();
@@ -918,7 +924,7 @@ exports.SPConfig = function (cfg, webUrl) {
         var counter = 0;
         // Return a promise
         return new Promise(function (resolve, reject) {
-            var _loop_12 = function (i) {
+            var _loop_11 = function (i) {
                 var cfgView = cfgViews[i];
                 // Get the view
                 var view = views.getByTitle(cfgView.ViewName);
@@ -964,7 +970,7 @@ exports.SPConfig = function (cfg, webUrl) {
             };
             // Parse the views
             for (var i = 0; i < cfgViews.length; i++) {
-                _loop_12(i);
+                _loop_11(i);
             }
         });
     };
