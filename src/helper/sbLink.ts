@@ -5,17 +5,14 @@ import { ILinkInfo } from "./types";
 /**
  * Suite Bar Link
  */
-export const SuiteBarLink = (props: ILinkInfo): HTMLAnchorElement => {
-    let link: HTMLAnchorElement = null;
+export const SuiteBarLink = (props: ILinkInfo): PromiseLike<HTMLAnchorElement> => {
+    // Creates the ribbon link
+    let create = () => {
+        // Default the append flag
+        let appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : true;
 
-    // Default the append flag
-    let appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : true;
-
-    // Get the suite bar top links
-    let topLinks = document.querySelector("#suiteLinksBox > ul");
-    if (topLinks) {
         // Query for the link, and ensure it exists
-        link = topLinks.querySelector("#" + props.id) as HTMLAnchorElement;
+        let link = _elTopLinks.querySelector("#" + props.id) as HTMLAnchorElement;
         if (link == null) {
             // Create a list link
             link = document.createElement("a");
@@ -31,15 +28,49 @@ export const SuiteBarLink = (props: ILinkInfo): HTMLAnchorElement => {
             sbLink.appendChild(link);
 
             // Append the item to the list
-            appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
+            appendFl ? _elTopLinks.appendChild(sbLink) : _elTopLinks.insertBefore(sbLink, _elTopLinks.firstChild);
         }
-    }
-    // Else, see if this is SPO
-    else if (ContextInfo.isSPO) {
-        // Create this as a ribbon link
-        link = RibbonLink(props);
+
+        // Return the link
+        return link;
     }
 
-    // Return the link
-    return link;
+    // Gets the top links element
+    let _elTopLinks = null;
+    let getTopLinks = () => {
+        // See if the bar exists
+        if (_elTopLinks == null) {
+            // Set the element
+            _elTopLinks = document.querySelector("#suiteLinksBox > ul");
+        }
+
+        // Return the element
+        return _elTopLinks;
+    }
+
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // See if the top links exists
+        if (getTopLinks()) {
+            // Create the link
+            let el = create();
+            if (el) {
+                // Resolve the promise
+                resolve(el);
+            }
+        } else if (window) {
+            // Wait for the window to be loaded
+            window.addEventListener("load", () => {
+                // See if the top links exists
+                if (getTopLinks()) {
+                    // Create the link
+                    let el = create();
+                    if (el) {
+                        // Resolve the promise
+                        resolve(el);
+                    }
+                }
+            });
+        }
+    });
 }
