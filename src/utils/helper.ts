@@ -191,7 +191,7 @@ export const Helper: IBaseHelper = {
         let targetInfo: ITargetInfoProps = Object.create(base.targetInfo);
 
         // See if this is a graph request
-        if (requestType.startsWith("graph")) {
+        if (requestType.indexOf("graph") == 0) {
             // Default the request type
             targetInfo.requestType = RequestType.GraphGet;
         }

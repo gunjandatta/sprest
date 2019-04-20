@@ -6,7 +6,7 @@ import {
     ISPConfig, ISPConfigProps
 } from "./types";
 import {
-    FieldSchemaXML, SPCfgType
+    Executor, FieldSchemaXML, SPCfgType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -290,25 +290,31 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createLists = (lists: SP.IListCollection, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Parse the content types
-            for (let i = 0; i < cfgLists.length; i++) {
-                let cfgList = cfgLists[i];
-
-                // See if the target name exists
-                if (_cfgType && _targetName) {
-                    // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
-                        // Skip this list
-                        continue;
+            // Execute code against each list configuration
+            Executor<ISPCfgListInfo>(cfgLists, cfgList => {
+                // Return a promise
+                return new Promise((resolve) => {
+                    // See if the target name exists and matches this list
+                    if (_cfgType && _targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
+                            // Do nothing
+                            resolve();
+                            return;
+                        }
                     }
-                }
 
-                // See if this content type already exists
-                let list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                if (list) {
-                    // Log
-                    console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
-                } else {
+                    // See if this list already exists
+                    let list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                    if (list) {
+                        // Log
+                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
+
+                        // Resolve the promise and do nothing
+                        resolve();
+                        return;
+                    }
+
                     // Log
                     console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
 
@@ -332,10 +338,16 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     list.update({ Title: listName }).execute(() => {
                                         // Log
                                         console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+
+                                        // Resolve the promise
+                                        resolve();
                                     });
                                 } else {
                                     // Log
                                     console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+
+                                    // Resolve the promise
+                                    resolve();
                                 }
 
                                 // Trigger the event
@@ -344,19 +356,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
                                 console.log("[gd-sprest][List] Error: '" + list.response);
+
+                                // Resolve the promise
+                                resolve();
                             }
                         }, reject);
-                }
-            }
-
-            // Wait for the requests to complete
-            lists.done(() => {
+                });
+            }).then(() => {
                 // Update the lists
                 updateLists(cfgLists).then(() => {
                     // Resolve the promise
                     resolve();
                 });
-            });
+            })
         });
     }
 

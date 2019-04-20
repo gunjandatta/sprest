@@ -1,19 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = require("../lib");
-var ribbonLink_1 = require("./ribbonLink");
 /**
  * Suite Bar Link
  */
 exports.SuiteBarLink = function (props) {
-    var link = null;
-    // Default the append flag
-    var appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : true;
-    // Get the suite bar top links
-    var topLinks = document.querySelector("#suiteLinksBox > ul");
-    if (topLinks) {
+    // Creates the ribbon link
+    var create = function () {
+        // Default the append flag
+        var appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : true;
         // Query for the link, and ensure it exists
-        link = topLinks.querySelector("#" + props.id);
+        var link = _elTopLinks.querySelector("#" + props.id);
         if (link == null) {
             // Create a list link
             link = document.createElement("a");
@@ -27,14 +23,46 @@ exports.SuiteBarLink = function (props) {
             sbLink.className = "ms-core-suiteLink";
             sbLink.appendChild(link);
             // Append the item to the list
-            appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
+            appendFl ? _elTopLinks.appendChild(sbLink) : _elTopLinks.insertBefore(sbLink, _elTopLinks.firstChild);
         }
-    }
-    // Else, see if this is SPO
-    else if (lib_1.ContextInfo.isSPO) {
-        // Create this as a ribbon link
-        link = ribbonLink_1.RibbonLink(props);
-    }
-    // Return the link
-    return link;
+        // Return the link
+        return link;
+    };
+    // Gets the top links element
+    var _elTopLinks = null;
+    var getTopLinks = function () {
+        // See if the bar exists
+        if (_elTopLinks == null) {
+            // Set the element
+            _elTopLinks = document.querySelector("#suiteLinksBox > ul");
+        }
+        // Return the element
+        return _elTopLinks;
+    };
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // See if the top links exists
+        if (getTopLinks()) {
+            // Create the link
+            var el = create();
+            if (el) {
+                // Resolve the promise
+                resolve(el);
+            }
+        }
+        else if (window) {
+            // Wait for the window to be loaded
+            window.addEventListener("load", function () {
+                // See if the top links exists
+                if (getTopLinks()) {
+                    // Create the link
+                    var el = create();
+                    if (el) {
+                        // Resolve the promise
+                        resolve(el);
+                    }
+                }
+            });
+        }
+    });
 };

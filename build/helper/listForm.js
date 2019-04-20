@@ -189,7 +189,7 @@ exports.ListForm = {
                         // Default
                         default:
                             // See if this is an taxonomy field
-                            if (field.TypeAsString.startsWith("TaxonomyFieldType")) {
+                            if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                                 var fieldValue_1 = _info.item[fieldName + "Id"];
                                 // Ensure the value exists
                                 if (fieldValue_1) {
@@ -310,7 +310,7 @@ exports.ListForm = {
                     // Save the field
                     formFields[field.InternalName] = field;
                     // See if this is a taxonomy field
-                    if (field.TypeAsString.startsWith("TaxonomyFieldType")) {
+                    if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                         // Parse the list fields
                         for (var fieldName in _info.fields) {
                             var valueField = _info.fields[fieldName];
@@ -375,7 +375,7 @@ exports.ListForm = {
                 // Default
                 default:
                     // See if this is an taxonomy field
-                    if (field.TypeAsString.startsWith("TaxonomyFieldType")) {
+                    if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                         // Parse the fields
                         for (var fieldName_2 in info.fields) {
                             var valueField = info.fields[fieldName_2];

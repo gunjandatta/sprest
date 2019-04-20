@@ -17,7 +17,7 @@ exports.createDocSet = function (name, listName, webUrl) {
             var ctId = "0x0120D520";
             for (var i = 0; i < list.ContentTypes.results.length; i++) {
                 // See if this is the document set content type
-                if (list.ContentTypes.results[i].StringId.startsWith(ctId)) {
+                if (list.ContentTypes.results[i].StringId.indexOf(ctId) == 0) {
                     // Set the content type id
                     ctId = list.ContentTypes.results[i].StringId;
                     break;

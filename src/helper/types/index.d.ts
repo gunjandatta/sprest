@@ -101,7 +101,7 @@ export interface IHelper {
     /**
      * Helper class for adding links to the top ribbon bar
      */
-    RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+    RibbonLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
 
     /**
      * SharePoint Core Library Components
@@ -126,7 +126,7 @@ export interface IHelper {
     /**
      * Helper class for adding links to the suite bar
      */
-    SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+    SuiteBarLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
 
     /**
      * Helper class for getting information from the taxonomy term store

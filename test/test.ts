@@ -23,7 +23,7 @@ let addAttachments = () => {
         reader.onloadend = () => {
             // Upload the file
             item.AttachmentFiles().add(file.name, reader.result).execute(info => {
-                const uploadedFiles = this.state.fileCount+1;
+                const uploadedFiles = this.state.fileCount + 1;
                 this.setState({ fileCount: uploadFiles }, () => {
                     // ...
                 });
@@ -88,11 +88,13 @@ $REST.Search().postquery({
 $REST.Helper.SPConfig({
     ListCfg: [{
         CustomFields: [
-            { name: "Location", title: "Location", type: $REST.Helper.SPCfgFieldType.Geolocation },
+            { name: "TestField1", title: "Test Field 1", type: $REST.Helper.SPCfgFieldType.Text },
+            { name: "TestField2", title: "Test Field 2", type: $REST.Helper.SPCfgFieldType.Text },
+            { name: "TestField3", title: "Test Field 3", type: $REST.Helper.SPCfgFieldType.Text }
         ],
         ListInformation: {
             BaseTemplate: 100,
-            Title: "Map"
+            Title: "Test List With Spaces"
         }
     }]
 }).install();

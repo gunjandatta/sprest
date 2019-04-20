@@ -3,17 +3,16 @@ import { ILinkInfo } from "./types";
 /**
  * Ribbon Link
  */
-export const RibbonLink = (props: ILinkInfo): HTMLAnchorElement => {
-    let link: HTMLAnchorElement = null;
+export const RibbonLink = (props: ILinkInfo): PromiseLike<HTMLAnchorElement> => {
+    // Creates the ribbon link
+    let create = () => {
+        let link: HTMLAnchorElement = null;
 
-    // Default the append flag
-    let appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : false;
+        // Default the append flag
+        let appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : false;
 
-    // Get the ribbon top bar
-    let topBar = document.querySelector("#RibbonContainer-TabRowRight");
-    if (topBar) {
         // Get the link
-        link = topBar.querySelector("#" + props.id) as HTMLAnchorElement;
+        link = _elTopBar.querySelector("#" + props.id) as HTMLAnchorElement;
         if (link == null) {
             // Create the link
             link = document.createElement("a");
@@ -24,10 +23,49 @@ export const RibbonLink = (props: ILinkInfo): HTMLAnchorElement => {
             link.onclick = props.onClick as any;
 
             // Add the link
-            appendFl ? topBar.appendChild(link) : topBar.insertBefore(link, topBar.firstChild);
+            appendFl ? _elTopBar.appendChild(link) : _elTopBar.insertBefore(link, _elTopBar.firstChild);
         }
+
+        // Return the link
+        return link;
     }
 
-    // Return the link
-    return link;
+    // Gets the top bar element
+    let _elTopBar = null;
+    let getTopBar = () => {
+        // See if the bar exists
+        if (_elTopBar == null) {
+            // Set the element
+            _elTopBar = document.querySelector("#RibbonContainer-TabRowRight");
+        }
+
+        // Return the element
+        return _elTopBar;
+    }
+
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // See if the top bar exists
+        if (getTopBar()) {
+            // Create the link
+            let el = create();
+            if (el) {
+                // Resolve the promise
+                resolve(el);
+            }
+        } else if (window) {
+            // Wait for the window to be loaded
+            window.addEventListener("load", () => {
+                // See if the top bar exists
+                if (getTopBar()) {
+                    // Create the link
+                    let el = create();
+                    if (el) {
+                        // Resolve the promise
+                        resolve(el);
+                    }
+                }
+            });
+        }
+    });
 }
