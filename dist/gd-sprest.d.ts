@@ -1365,12 +1365,12 @@ declare module 'gd-sprest/helper/types/linkInfo' {
     /**
         * Ribbon Link
         */
-    export const RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+    export const RibbonLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
     
     /**
         * Suitebar Link
         */
-    export const SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+    export const SuiteBarLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
     
     /**
      * Link Information
@@ -1400,7 +1400,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
         */
     export interface IRibbonLink {
             /** Creates the ribbon link */
-            new(props: ILinkInfo): HTMLAnchorElement;
+            new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
     }
     
     /**
@@ -1408,7 +1408,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
         */
     export interface ISuiteBarLink {
             /** Creates the suitebar link */
-            new(props: ILinkInfo): HTMLAnchorElement;
+            new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
     }
 }
 
