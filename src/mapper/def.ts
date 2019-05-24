@@ -71,6 +71,7 @@ export const Mapper: IMapper = {
         },
 
         exportpopulartenantqueries: {
+            argNames: ["count"]
         },
 
         postquery: {
@@ -341,6 +342,10 @@ export const Mapper: IMapper = {
             argNames: ["siteUrl"],
         },
 
+        getSiteRenameReport: {
+            argNames: ["state"],
+        },
+
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
     },
@@ -532,10 +537,6 @@ export const Mapper: IMapper = {
     },
 
     "Microsoft.Online.SharePoint.TenantAdministration.SiteCollectionManagementService": {
-        emailAdmins: {
-            argNames: ["message", "siteIds", "subject"],
-        },
-
         exportCSVFile: {
         },
 
@@ -566,6 +567,10 @@ export const Mapper: IMapper = {
             argNames: ["siteId"],
         },
 
+        getGroupSiteRelationship: {
+            argNames: ["siteId"],
+        },
+
         getLockStateById: {
             argNames: ["siteId"],
         },
@@ -593,9 +598,6 @@ export const Mapper: IMapper = {
         getIdleSessionSignOutForUnmanagedDevices: {
         },
 
-        getSPOTenantAllWebTemplates: {
-        },
-
         getSitePropertiesByUrl: {
             argNames: ["url", "includeDetail"],
         },
@@ -606,6 +608,17 @@ export const Mapper: IMapper = {
 
         getSiteSecondaryAdministrators: {
             argNames: ["secondaryAdministratorsFieldsData"],
+        },
+
+        getSPOTenantAllWebTemplates: {
+        },
+
+        getSPOTenantWebTemplates: {
+            argNames: ["localeId", "compatibilityLevel"],
+        },
+
+        grantHubSiteRightsById: {
+            argNames: ["hubSiteId", "principals", "grantedRights"],
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -638,12 +651,20 @@ export const Mapper: IMapper = {
             argNames: ["siteUrl", "siteId"],
         },
 
+        revokeHubSiteRightsById: {
+            argNames: ["hubSiteId", "principals"],
+        },
+
         setIdleSessionSignOutForUnmanagedDevices: {
             argNames: ["enabled", "warnAfter", "signOutAfter"],
         },
 
         setSiteSecondaryAdministrators: {
             argNames: ["secondaryAdministratorsFieldsData"],
+        },
+
+        swapSite: {
+            argNames: ["sourceUrl", "targetUrl", "archiveUrl"],
         },
 
         unregisterHubSite: {
@@ -690,8 +711,8 @@ export const Mapper: IMapper = {
             argNames: ["name", "themeJson"],
         },
 
-        addToCarLibAndCdn: {
-            argNames: ["cdnType", "libUrl", "displayName", "thumbnailUrl"],
+        addToOrgAssetsLibAndCdn: {
+            argNames: ["cdnType", "libUrl", "thumbnailUrl"],
         },
 
         createTenantCdnDefaultOrigins: {
@@ -766,7 +787,7 @@ export const Mapper: IMapper = {
             argNames: ["uniqueIds"],
         },
 
-        removeFromCarAndCdn: {
+        removeFromOrgAssetsAndCdn: {
             argNames: ["remove", "cdnType", "libUrl"],
         },
 
@@ -795,6 +816,10 @@ export const Mapper: IMapper = {
 
         setIdleSessionSignOutForUnmanagedDevices: {
             argNames: ["enabled", "warnAfter", "signOutAfter"],
+        },
+
+        setOrgAssetsLib: {
+            argNames: ["libUrl", "thumbnailUrl"]
         },
 
         setTenantCdnEnabled: {
@@ -838,6 +863,9 @@ export const Mapper: IMapper = {
             argNames: ["getCountOnly", "maxRows", "queryString", "isLike", "contentSourceID", "errorLevel", "errorID", "startDateTime", "endDateTime"],
         },
 
+        getUnsuccesfulCrawledUrls: {
+            argNames: ["displayUrl", "startDateTime", "endDateTime"]
+        }
     },
 
     "Microsoft.SharePoint.Client.Search.Analytics.SignalStore": {
@@ -990,10 +1018,6 @@ export const Mapper: IMapper = {
             argNames: ["absolutePath"],
         },
 
-        getByAbsoluteUrl: {
-            argNames: ["absolutePath"],
-        },
-
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         remove: {
@@ -1032,6 +1056,84 @@ export const Mapper: IMapper = {
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
+        syncSolutionToTeams: {
+            argNames: ["id"]
+        }
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.Device": {
+        delete: { requestType: RequestType.Delete },
+
+        update: {}
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.Device.Collection": {
+        getById: {
+            argNames: ["id"]
+        },
+
+        query: { argNames: ["oData"], requestType: RequestType.OData },
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.MigrationCenterStorage": {
+        create: {
+            argNames: ["config"]
+        },
+
+        delete: { requestType: RequestType.Delete },
+
+        update: {}
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.MigrationCredential": {
+        delete: { requestType: RequestType.Delete },
+
+        update: {}
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.MigrationCredential.Collection": {
+        getById: {
+            argNames: ["id"]
+        },
+
+        getCredentials: {
+            argNames: ["AccountName", "Type"]
+        },
+
+        query: { argNames: ["oData"], requestType: RequestType.OData }
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.MigrationTask": {
+        delete: { requestType: RequestType.Delete },
+
+        update: {}
+    },
+
+    "Microsoft.Online.SharePoint.MigrationCenter.Service.MigrationTask.Collection": {
+        getById: {
+            argNames: ["id"]
+        },
+
+        query: { argNames: ["oData"], requestType: RequestType.OData }
+    },
+
+    "Microsoft.Online.SharePoint.Onboarding.RestService.TenantRename.TenantRenameJob.Collection": {
+        getState: {},
+
+        query: { argNames: ["oData"], requestType: RequestType.OData }
+    },
+
+    "Microsoft.Online.SharePoint.TenantAdministration.Internal.SPO3rdPartyAADPermissionGrant.Collection": {
+        add: {
+            argNames: ["servicePrincipalId", "resource", "scope"]
+        },
+
+        query: { argNames: ["oData"], requestType: RequestType.OData },
+
+        remove: {
+            argNames: ["servicePrincipalId", "resource", "scope"],
+            requestType: RequestType.PostWithArgs
+        }
     },
 
     "Microsoft.SharePoint.Navigation.REST.NavigationServiceRest": {
@@ -1093,11 +1195,15 @@ export const Mapper: IMapper = {
             argNames: ["displayName", "alias", "isPublic", "optionalParams"],
         },
 
-        getGroupCreationContext: {
+        delete: {
+            argNames: ["siteUrl"]
         },
 
-        getGroupSiteConversionData: {
-        },
+        ensureTeamForGroup: {},
+
+        getGroupCreationContext: {},
+
+        getGroupSiteConversionData: {},
 
         getSiteStatus: {
             argNames: ["groupId"],
@@ -1105,6 +1211,14 @@ export const Mapper: IMapper = {
 
         getValidSiteUrlFromAlias: {
             argNames: ["alias", "managedPath", "isTeamSite"],
+        },
+
+        hideTeamifyPrompt: {
+            argNames: ["siteUrl"]
+        },
+
+        isTeamifyPromptHidden: {
+            argNames: ["siteUrl"]
         },
 
         notebook: {
@@ -1131,6 +1245,22 @@ export const Mapper: IMapper = {
         delete: {
             argNames: ["siteId"],
             requestType: RequestType.Delete
+        },
+
+        getTeamChannelSiteOwner: {
+            argNames: ["siteId"]
+        },
+
+        restoreTeamsChannelSite: {
+            argNames: ["siteId", "relatedGroupId"]
+        },
+
+        setTeamChannelSiteOwner: {
+            argNames: ["siteId", "logonName", "secondaryLogonName"]
+        },
+
+        siteUrl: {
+            argNames: ["siteId"]
         },
 
         status: {
@@ -1948,19 +2078,17 @@ export const Mapper: IMapper = {
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
-        readyToLeaveProjectStage: {
-        },
+        readyToLeaveProjectStage: {},
 
-        submitToWorkflow: {
-        },
+        submitToWorkflow: {},
+
+        unlinkProjectSite: {},
 
         updateIdeaListItemStatus: {
             argNames: ["status"],
         },
 
-        updateVisibilityCustomFields: {
-        },
-
+        updateVisibilityCustomFields: {}
     },
 
     "PS.PublishedProject.Collection": {
@@ -2872,6 +3000,10 @@ export const Mapper: IMapper = {
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
+        reorderFields: {
+            argNames: ["fieldNames"]
+        },
+
         update: {
             argNames: ["properties"],
             metadataType: "SP.ContentType",
@@ -3636,6 +3768,36 @@ export const Mapper: IMapper = {
 
     },
 
+    "SP.FieldThumbnail": {
+        delete: {
+            requestType: RequestType.Delete
+        },
+
+        setShowInDisplayForm: {
+            argNames: ["value"],
+            requestType: RequestType.PostWithArgsValueOnly
+        },
+
+        setShowInEditForm: {
+            argNames: ["value"],
+            requestType: RequestType.PostWithArgsValueOnly
+        },
+
+        setShowInNewForm: {
+            argNames: ["value"],
+            requestType: RequestType.PostWithArgsValueOnly
+        },
+
+        update: {
+            argNames: ["properties"],
+            inheritMetadataType: true,
+            metadataType: "SP.FieldThumbnail",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostBodyNoArgs
+        },
+    },
+
     "SP.FieldUrl": {
         delete: {
             requestType: RequestType.Delete
@@ -3703,11 +3865,6 @@ export const Mapper: IMapper = {
             "Author|SP.User", "CheckedOutByUser|SP.User", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
             "ListItemAllFields", "LockedByUser|SP.User", "ModifiedBy|SP.User", "Properties", "VersionEvents", "Versions|SP.FileVersion.Collection"
         ],
-
-        addActivities: {
-            argNames: ["activities"],
-            requestType: RequestType.PostWithArgs
-        },
 
         addClientActivities: {
             argNames: ["activitiesStream"],
@@ -4157,6 +4314,10 @@ export const Mapper: IMapper = {
     "SP.HubSite.Collection": {
         getById: {
             argNames: ["hubSiteId"],
+        },
+
+        getSiteUrlByHubSiteId: {
+            argNames: ["hubSiteId"]
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -4670,6 +4831,10 @@ export const Mapper: IMapper = {
             argNames: ["workItemId"],
         },
 
+        deleteMicroserviceWorkItemByContentDbId: {
+            argNames: ["contentDatabaseId", "siteId", "workItemId"]
+        },
+
         getServiceInternalUrls: {
             argNames: ["service"],
         },
@@ -4924,9 +5089,17 @@ export const Mapper: IMapper = {
 
     },
 
+    "SP.OrganizationNews": {
+        sitesReference: {}
+    },
+
     "SP.Publishing.CommunicationSite": {
         create: {
             argNames: ["request"],
+        },
+
+        enable: {
+            argNames: ["designPackageId"]
         },
 
         status: {
@@ -5046,6 +5219,8 @@ export const Mapper: IMapper = {
         copy: {
         },
 
+        createNewsCopy: {},
+
         demoteFromNews: {
         },
 
@@ -5149,6 +5324,8 @@ export const Mapper: IMapper = {
         copy: {
         },
 
+        createNewsCopy: {},
+
         demoteFromNews: {
         },
 
@@ -5194,6 +5371,14 @@ export const Mapper: IMapper = {
     },
 
     "SP.Publishing.SitePage.Collection": {
+        createAppPage: {
+            argNames: ["webPartDataAsJson"]
+        },
+
+        createFullPageApp: {
+            argNames: ["webPartDataAsJson", "title", "addToQuickLaunch"]
+        },
+
         ensureTitleResource: {
         },
 
@@ -5226,6 +5411,13 @@ export const Mapper: IMapper = {
         templates: {
         },
 
+        updateAppPage: {
+            argNames: ["pageId", "webPartDataAsJson", "title", "includeInNavigation"]
+        },
+
+        updateFullPageApp: {
+            argNames: ["serverRelativeUrl", "webPartDataAsJson"]
+        }
     },
 
     "SP.Publishing.SitePageMetadata.Collection": {
@@ -5697,13 +5889,6 @@ export const Mapper: IMapper = {
 
     },
 
-    "SP.SPAppLicenseManager": {
-        checkLicense: {
-            argNames: ["productId"],
-        },
-
-    },
-
     "SP.ScriptSafeDomain": {
         delete: {
             requestType: RequestType.Delete
@@ -5769,6 +5954,11 @@ export const Mapper: IMapper = {
 
         createPreviewSPSite: {
             argNames: ["upgrade", "sendemail"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        createSPAsyncReadJob: {
+            argNames: ["url", "options"],
             requestType: RequestType.PostWithArgs
         },
 
@@ -6157,6 +6347,16 @@ export const Mapper: IMapper = {
 
     },
 
+    "SP.SPAppLicenseManager": {
+        checkLicense: {
+            argNames: ["productId"],
+        }
+    },
+
+    "SP.SPHSite": {
+        details: {}
+    },
+
     "SP.Taxonomy.TaxonomyField": {
         delete: {
             requestType: RequestType.Delete
@@ -6243,6 +6443,10 @@ export const Mapper: IMapper = {
         properties: [
             "Groups|SP.Group.Collection|([Name])|SP.Group"
         ],
+
+        expire: {
+            requestType: RequestType.Post
+        },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
@@ -7037,6 +7241,8 @@ export const Mapper: IMapper = {
             argNames: ["fileName", "progId", "size"],
             requestType: RequestType.GetWithArgs
         },
+
+        pageContextCore: {},
 
         pageContextInfo: {
             argNames: ["includeODBSettings", "emitNavigationInfo"],
