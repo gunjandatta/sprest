@@ -43,8 +43,13 @@ declare module 'gd-sprest' {
 }
 
 declare module 'gd-sprest/lib/types' {
+    export * from "gd-sprest/lib/types/apps";
     export * from "gd-sprest/lib/types/contextInfo";
     export * from "gd-sprest/lib/types/graph";
+    export * from "gd-sprest/lib/types/groupService";
+    export * from "gd-sprest/lib/types/groupsitemanager";
+    export * from "gd-sprest/lib/types/hubSites";
+    export * from "gd-sprest/lib/types/hubSitesUtility";
     export * from "gd-sprest/lib/types/list";
     export * from "gd-sprest/lib/types/navigation";
     export * from "gd-sprest/lib/types/peopleManager";
@@ -53,6 +58,7 @@ declare module 'gd-sprest/lib/types' {
     export * from "gd-sprest/lib/types/search";
     export * from "gd-sprest/lib/types/site";
     export * from "gd-sprest/lib/types/socialFeed";
+    export * from "gd-sprest/lib/types/themeManager";
     export * from "gd-sprest/lib/types/userProfile";
     export * from "gd-sprest/lib/types/utility";
     export * from "gd-sprest/lib/types/web";
@@ -226,6 +232,11 @@ declare module 'gd-sprest/rest' {
             AppContext: (siteUrl: string) => Base.IBaseExecution;
     
             /**
+                * Use this api to interact with the SharePoint Apps
+                */
+            Apps: LibTypes.IApps;
+    
+            /**
                 * A reference to the _spPageContextInfo global variable.
                 */
             ContextInfo: LibTypes.IContextInformation;
@@ -241,9 +252,29 @@ declare module 'gd-sprest/rest' {
             Graph: LibTypes.IGraph;
     
             /**
+                * A reference to the _api/groupservice endpoint.
+                */
+            GroupService: LibTypes.IGroupService;
+    
+            /**
+                * A reference to the _api/groupsitemanager endpoint.
+                */
+            GroupSiteManager: LibTypes.IGroupSiteManager;
+    
+            /**
                 * Helper methods.
                 */
             Helper: IHelper;
+    
+            /**
+                * A reference to the _api/hubsites endpoint.
+                */
+            HubSites: LibTypes.IHubSites;
+    
+            /**
+                * A reference to the _api/hubsitesutility endpoint.
+                */
+            HubSitesUtility: LibTypes.IHubSitesUtility;
     
             /**
                 * Use this api to interact with SharePoint lists and libraries.
@@ -327,6 +358,11 @@ declare module 'gd-sprest/rest' {
             SPTypes;
     
             /**
+                * A reference to the _api/thememanager endpoint.
+                */
+            ThemeManager: LibTypes.IThemeManager;
+    
+            /**
                 * Use this api to interact with the current user's profile.
                 */
             UserProfile: LibTypes.IUserProfile;
@@ -355,6 +391,27 @@ declare module 'gd-sprest/intellisense' {
     export * from "gd-sprest/intellisense/graph";
     export * from "gd-sprest/intellisense/peoplePicker";
     export * from "gd-sprest/intellisense/utility";
+}
+
+declare module 'gd-sprest/lib/types/apps' {
+    import { Microsoft } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    
+    /**
+        * Apps
+        */
+    export const Apps: IApps;
+    
+    /**
+        * Apps
+        */
+    export interface IApps {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): Microsoft.AppServices.IAppCollection;
+    }
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
@@ -746,6 +803,94 @@ declare module 'gd-sprest/lib/types/graph' {
     }
 }
 
+declare module 'gd-sprest/lib/types/groupService' {
+    import { Microsoft } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    
+    /**
+        * Group Service
+        */
+    export const GroupService: IGroupService;
+    
+    /**
+        * Group Service
+        */
+    export interface IGroupService {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.IGroupService;
+    }
+}
+
+import { Microsoft } from "gd-sprest-def";
+import { ITargetInfoProps } from "gd-sprest/utils/types";
+
+/**
+    * Group Site Manager
+    */
+export const GroupSiteManager: IGroupSiteManager;
+
+/**
+    * Group Site Manager
+    */
+export interface IGroupSiteManager {
+        /**
+            * Creates an instance of the user profile library.
+            * @param targetInfo - (Optional) The target information.
+            */
+        (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.IGroupSiteManager;
+}
+
+declare module 'gd-sprest/lib/types/hubSites' {
+    import { Base, SP } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    
+    /**
+        * Hub Sites
+        */
+    export const HubSites: IHubSites;
+    
+    /**
+        * Hub Sites
+        */
+    export interface IHubSites {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): SP.IHubSiteCollection;
+    
+            /**
+                * A static method to see if the current user can create a hub site.
+                * @param props - The list entity request properties.
+                */
+            canCreate(): Base.IBaseExecution<{ CanCreate: boolean }>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/hubSitesUtility' {
+    import { Microsoft } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    
+    /**
+        * Hub Sites Utility
+        */
+    export const HubSitesUtility: IHubSitesUtility;
+    
+    /**
+        * Hub Sites Utility
+        */
+    export interface IHubSitesUtility {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.ISPHubSitesUtility;
+    }
+}
+
 declare module 'gd-sprest/lib/types/list' {
     import { Base, SP } from "gd-sprest-def";
     import { ITargetInfoProps } from "gd-sprest/utils/types/targetInfo";
@@ -1025,6 +1170,27 @@ declare module 'gd-sprest/lib/types/socialFeed' {
                 * @param postInfo - The post information.
                 */
             postToMyFeed(postInfo: SP.Social.SocialPostCreationData): Base.IBaseExecution<SP.Social.SocialRestThread>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/themeManager' {
+    import { SP } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    
+    /**
+        * Theme Manager
+        */
+    export const ThemeManager: IThemeManager;
+    
+    /**
+        * Theme Manager
+        */
+    export interface IThemeManager {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): SP.Utilities.IThemeManager;
     }
 }
 
@@ -1365,12 +1531,12 @@ declare module 'gd-sprest/helper/types/linkInfo' {
     /**
         * Ribbon Link
         */
-    export const RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
+    export const RibbonLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
     
     /**
         * Suitebar Link
         */
-    export const SuiteBarLink: (props: ILinkInfo) => HTMLAnchorElement;
+    export const SuiteBarLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
     
     /**
      * Link Information
@@ -1400,7 +1566,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
         */
     export interface IRibbonLink {
             /** Creates the ribbon link */
-            new(props: ILinkInfo): HTMLAnchorElement;
+            new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
     }
     
     /**
@@ -1408,7 +1574,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
         */
     export interface ISuiteBarLink {
             /** Creates the suitebar link */
-            new(props: ILinkInfo): HTMLAnchorElement;
+            new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
     }
 }
 

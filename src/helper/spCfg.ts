@@ -36,30 +36,35 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Parse the configuration
-            for (let i = 0; i < cfgContentTypes.length; i++) {
-                let cfgContentType = cfgContentTypes[i];
+            Executor<ISPCfgContentTypeInfo>(cfgContentTypes, cfg => {
+                // Return a promise
+                return new Promise((resolve, reject) => {
+                    // See if this content type already exists
+                    let ct = isInCollection("Name", cfg.Name, contentTypes.results);
+                    if (ct) {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' already exists.");
 
-                // See if this content type already exists
-                let ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                if (ct) {
-                    // Log
-                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
+                        // Update the configuration
+                        cfg.ContentType = ct;
 
-                    // Update the configuration
-                    cfgContentType.ContentType = ct;
-                } else {
+                        // Resolve the promise and return
+                        resolve(cfg);
+                        return;
+                    }
+
                     // Log
-                    console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
+                    console.log("[gd-sprest][Content Type] Creating the '" + cfg.Name + "' content type.");
 
                     // See if the parent name exists
-                    if (cfgContentType.ParentName) {
+                    if (cfg.ParentName) {
                         // Get the web containing the parent content type
-                        Web(cfgContentType.ParentWebUrl || webUrl)
+                        Web(cfg.ParentWebUrl || webUrl)
                             // Get the content types
                             .ContentTypes()
                             // Filter for the parent name
                             .query({
-                                Filter: "Name eq '" + cfgContentType.ParentName + "'"
+                                Filter: "Name eq '" + cfg.ParentName + "'"
                             })
                             .execute(parent => {
                                 // See if the parent exists
@@ -72,8 +77,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                             (() => {
                                                 return new Promise((resolve, reject) => {
                                                     // Ensure the name doesn't need to be updated
-                                                    if (ct.Name != cfgContentType.Name) {
-                                                        ct.update({ Name: cfgContentType.Name }).execute(() => {
+                                                    if (ct.Name != cfg.Name) {
+                                                        ct.update({ Name: cfg.Name }).execute(() => {
                                                             // Resolve the promise
                                                             resolve();
                                                         });
@@ -84,55 +89,67 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                                 });
                                             })().then(() => {
                                                 // Log
-                                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                                console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' was created successfully.");
 
                                                 // Update the configuration
-                                                cfgContentType.ContentType = ct;
+                                                cfg.ContentType = ct;
 
                                                 // Trigger the event
-                                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                            })
+                                                cfg.onCreated ? cfg.onCreated(ct) : null;
+
+                                                // Resolve the promise
+                                                resolve(cfg);
+                                            });
                                         } else {
                                             // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' failed to be created.");
                                             console.error("[gd-sprest][Field] Error: " + ct.response);
+
+                                            // Reject the promise
+                                            reject(ct.response);
                                         }
                                     }, true);
                                 } else {
                                     // Log
-                                    console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
+                                    console.log("[gd-sprest][Content Type] The parent content type '" + cfg.Name + "' was not found.");
+
+                                    // Reject the promise
+                                    reject(ct.response);
                                 }
                             }, reject);
                     } else {
                         // Create the content type
                         contentTypes.add({
-                            Description: cfgContentType.Description,
-                            Group: cfgContentType.Group,
-                            Id: cfgContentType.Id || "0x0100" + ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
-                            Name: cfgContentType.Name
+                            Description: cfg.Description,
+                            Group: cfg.Group,
+                            Id: cfg.Id || "0x0100" + ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
+                            Name: cfg.Name
                         }).execute((ct) => {
                             // See if it was successful
                             if (ct.Name) {
                                 // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' was created successfully.");
 
                                 // Update the configuration
-                                cfgContentType.ContentType = ct;
+                                cfg.ContentType = ct;
 
                                 // Trigger the event
-                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                cfg.onCreated ? cfg.onCreated(ct) : null;
+
+                                // Resolve the promise
+                                resolve(cfg);
                             } else {
                                 // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' failed to be created.");
                                 console.error("[gd-sprest][Field] Error: " + ct.response);
+
+                                // Reject the promise
+                                reject();
                             }
                         }, reject, true);
                     }
-                }
-            }
-
-            // Wait for the requests to complete
-            contentTypes.done(() => {
+                });
+            }).then(() => {
                 // Parse the configuration
                 for (let i = 0; i < cfgContentTypes.length; i++) {
                     let cfgContentType = cfgContentTypes[i];
@@ -213,12 +230,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
                 }
 
-                // Wait for the requests to complete
-                contentTypes.done(() => {
-                    // Resolve the promise
-                    resolve();
-                })
-            });
+                // Resolve the promise
+                resolve();
+            }, reject);
         });
     }
 
@@ -233,21 +247,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 return;
             }
 
-            // Parse the fields
-            for (let i = 0; i < cfgFields.length; i++) {
-                let cfgField = cfgFields[i];
-
+            // Parse the configuration
+            Executor<ISPCfgFieldInfo>(cfgFields, cfg => {
                 // See if this field already exists
-                let field = isInCollection("InternalName", cfgField.name, fields.results);
+                let field = isInCollection("InternalName", cfg.name, fields.results);
                 if (field) {
                     // Log
-                    console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
+                    console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
 
                     // Trigger the event
-                    cfgField.onUpdated ? cfgField.onUpdated(field) : null;
+                    cfg.onUpdated ? cfg.onUpdated(field) : null;
                 } else {
                     // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
+                    console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
 
                     // The field created event
                     let onFieldCreated = (field: SP.Field) => {
@@ -257,16 +269,16 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
 
                             // Trigger the event
-                            cfgField.onCreated ? cfgField.onCreated(field) : null;
+                            cfg.onCreated ? cfg.onCreated(field) : null;
                         } else {
                             // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
+                            console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
                             console.error("[gd-sprest][Field] Error: " + field.response);
                         }
                     }
 
                     // Compute the schema xml
-                    FieldSchemaXML(cfgField).then(response => {
+                    FieldSchemaXML(cfg).then(response => {
                         let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
                         // Parse the fields to add
@@ -276,13 +288,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         }
                     });
                 }
-            }
-
-            // Wait for the requests to complete
-            fields.done(() => {
-                // Resolve the promise
-                resolve();
-            });
+            }).then(resolve);
         })
     }
 
@@ -393,33 +399,31 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 return;
             }
 
-            // Parse the custom actions
-            for (let i = 0; i < cfgCustomActions.length; i++) {
-                let cfgCustomAction = cfgCustomActions[i];
-
+            // Parse the configuration
+            Executor<SP.UserCustomActionProps>(cfgCustomActions, cfg => {
                 // See if the target name exists
                 if (_cfgType && _targetName) {
                     // Ensure it's for this custom action
-                    if (cfgCustomAction.Name.toLowerCase() != _targetName ||
-                        cfgCustomAction.Title.toLowerCase() != _targetName) {
+                    if (cfg.Name.toLowerCase() != _targetName ||
+                        cfg.Title.toLowerCase() != _targetName) {
                         // Skip this custom action
-                        continue;
+                        return;
                     }
                 }
 
                 // See if this custom action already exists
-                if (isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                if (isInCollection("Name", cfg.Name, customActions.results)) {
                     // Log
-                    console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
+                    console.log("[gd-sprest][Custom Action] The custom action '" + cfg.Name + "' already exists.");
                 } else {
                     // See if rights exist
-                    if (cfgCustomAction.Rights) {
+                    if (cfg.Rights) {
                         // Update the value
-                        cfgCustomAction.Rights = updateBasePermissions(cfgCustomAction.Rights) as any;
+                        cfg.Rights = updateBasePermissions(cfg.Rights) as any;
                     }
 
                     // Add the custom action
-                    customActions.add(cfgCustomAction).execute((ca) => {
+                    customActions.add(cfg).execute((ca) => {
                         // Ensure it exists
                         if (ca.existsFl) {
                             // Log
@@ -431,13 +435,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         }
                     }, reject, true);
                 }
-            }
-
-            // Wait for the requests to complete
-            customActions.done(() => {
-                // Resolve the promise
-                resolve();
-            });
+            }).then(resolve);
         });
     }
 
@@ -452,39 +450,34 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 return;
             }
 
-            // Parse the views
-            for (let i = 0; i < cfgViews.length; i++) {
-                let cfgView = cfgViews[i];
-
+            // Parse the configuration
+            Executor<ISPCfgViewInfo>(cfgViews, cfg => {
                 // See if this view exists
-                let view: SP.View = isInCollection("Title", cfgView.ViewName, views.results);
+                let view: SP.View = isInCollection("Title", cfg.ViewName, views.results);
                 if (view) {
                     // Log
-                    console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
+                    console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' already exists.");
                 } else {
                     // Add the view
                     views.add({
-                        Title: cfgView.ViewName,
-                        ViewQuery: cfgView.ViewQuery
+                        Title: cfg.ViewName,
+                        ViewQuery: cfg.ViewQuery
                     }).execute((view) => {
                         // Ensure it exists
                         if (view.existsFl) {
                             // Log
-                            console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
+                            console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' was created successfully.");
 
                             // Trigger the event
-                            cfgView.onCreated ? cfgView.onCreated(view) : null;
+                            cfg.onCreated ? cfg.onCreated(view) : null;
                         } else {
                             // Log
-                            console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
+                            console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' failed to be created.");
                             console.log("[gd-sprest][View] Error: " + view.response);
                         }
                     }, reject, true);
                 }
-            }
-
-            // Wait for the requests to complete
-            views.done(() => {
+            }).then(() => {
                 // Update the views
                 updateViews(views, cfgViews).then(() => {
                     // Resolve the promise
@@ -628,11 +621,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Parse the configuration
-            for (let i = 0; i < cfgContentTypes.length; i++) {
-                let cfgContentType = cfgContentTypes[i];
-
+            Executor<ISPCfgContentTypeInfo>(cfgContentTypes, cfg => {
                 // Get the field
-                let ct: SP.ContentType = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                let ct: SP.ContentType = isInCollection("Name", cfg.Name, contentTypes.results);
                 if (ct) {
                     // Remove the field
                     ct.delete().execute(() => {
@@ -640,13 +631,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
                     }, reject, true);
                 }
-            }
-
-            // Wait for the requests to complete
-            contentTypes.done(() => {
-                // Resolve the promise
-                resolve();
-            });
+            }).then(resolve);
         });
     }
 
@@ -662,11 +647,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Parse the configuration
-            for (let i = 0; i < cfgFields.length; i++) {
-                let cfgField = cfgFields[i];
-
+            Executor<ISPCfgFieldInfo>(cfgFields, cfg => {
                 // Get the field
-                let field: SP.Field = isInCollection("InternalName", cfgField.name, fields.results);
+                let field: SP.Field = isInCollection("InternalName", cfg.name, fields.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(() => {
@@ -674,13 +657,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
                     }, reject, true);
                 }
-            }
-
-            // Wait for the requests to complete
-            fields.done(() => {
-                // Resolve the promise
-                resolve();
-            });
+            }).then(resolve);
         });
     }
 
@@ -706,20 +683,18 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Parse the configuration
-            for (let i = 0; i < cfgLists.length; i++) {
-                let cfgList = cfgLists[i];
-
+            Executor<ISPCfgListInfo>(cfgLists, cfg => {
                 // See if the target name exists
                 if (_cfgType && _targetName) {
                     // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
+                    if (cfg.ListInformation.Title.toLowerCase() != _targetName) {
                         // Skip this list
-                        continue;
+                        return;
                     }
                 }
 
                 // Get the list
-                let list: SP.List = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                let list: SP.List = isInCollection("Title", cfg.ListInformation.Title, lists.results);
                 if (list) {
                     // Remove the list
                     list.delete().execute(() => {
@@ -727,13 +702,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
                     }, reject, true);
                 }
-            }
-
-            // Wait for the requests to complete
-            lists.done(() => {
-                // Resolve the promise
-                resolve();
-            });
+            }).then(resolve);
         });
     }
     // Method to remove the user custom actions
@@ -758,21 +727,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Parse the configuration
-            for (let i = 0; i < cfgCustomActions.length; i++) {
-                let cfgCustomAction = cfgCustomActions[i];
-
+            Executor<SP.UserCustomActionProps>(cfgCustomActions, cfg => {
                 // See if the target name exists
                 if (_cfgType && _targetName) {
                     // Ensure it's for this custom action
-                    if (cfgCustomAction.Name.toLowerCase() != _targetName ||
-                        cfgCustomAction.Title.toLowerCase() != _targetName) {
+                    if (cfg.Name.toLowerCase() != _targetName ||
+                        cfg.Title.toLowerCase() != _targetName) {
                         // Skip this custom action
-                        continue;
+                        return;
                     }
                 }
 
                 // Get the custom action
-                let ca: SP.UserCustomAction = isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                let ca: SP.UserCustomAction = isInCollection("Name", cfg.Name, customActions.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(() => {
@@ -780,13 +747,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
                     }, reject, true);
                 }
-            }
-
-            // Wait for the requests to complete
-            customActions.done(() => {
-                // Resolve the promise
-                resolve();
-            });
+            }).then(resolve);
         });
     }
 
@@ -999,42 +960,38 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
     // Method to update the views
     let updateViews = (views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
-        let counter = 0;
-
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Parse the views
-            for (let i = 0; i < cfgViews.length; i++) {
-                let cfgView = cfgViews[i];
-
+            // Parse the configuration
+            Executor<ISPCfgViewInfo>(cfgViews, cfg => {
                 // Get the view
-                let view = views.getByTitle(cfgView.ViewName);
+                let view = views.getByTitle(cfg.ViewName);
 
                 // See if the view fields are defined
-                if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
+                if (cfg.ViewFields && cfg.ViewFields.length > 0) {
                     // Log
-                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
+                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfg.ViewName + "' view.");
 
                     // Clear the view fields
                     view.ViewFields().removeAllViewFields().execute(true);
 
                     // Parse the view fields
-                    for (let i = 0; i < cfgView.ViewFields.length; i++) {
+                    for (let i = 0; i < cfg.ViewFields.length; i++) {
                         // Add the view field
-                        view.ViewFields().addViewField(cfgView.ViewFields[i]).execute(true);
+                        view.ViewFields().addViewField(cfg.ViewFields[i]).execute(true);
                     }
                 }
 
                 // See if we are updating the view properties
-                if (cfgView.JSLink || cfgView.ViewQuery) {
+                if (cfg.JSLink || cfg.ViewQuery) {
                     let props = {};
 
                     // Log
-                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
+                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
 
                     // Set the properties
-                    cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
-                    cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
+                    cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
+                    cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
 
                     // Update the view
                     view.update(props).execute(true);
@@ -1043,18 +1000,15 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Wait for the requests to complete
                 view.done((...args) => {
                     // Log
-                    console.log("[gd-sprest][View] The updates for the '" + cfgView.ViewName + "' view has completed.");
+                    console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
 
                     // Trigger the event
-                    cfgView.onUpdated ? cfgView.onUpdated(view as any) : null;
+                    cfg.onUpdated ? cfg.onUpdated(view as any) : null;
 
-                    // See if we are done
-                    if (++counter >= cfgViews.length) {
-                        // Resolve the promise
-                        resolve();
-                    }
-                })
-            }
+                    // Resolve the promise
+                    resolve();
+                });
+            }).then(resolve);
         });
     }
 
@@ -1093,15 +1047,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let uninstallWeb = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
+            let Expand: Array<string> = [];
+
             // Log
             console.log("[gd-sprest][uninstall] Loading the web information...");
 
-            // Get the web
-            Web(webUrl)
-                // Expand the content types, fields, lists and user custom actions
-                .query({
-                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-                })
+            // Set the query
+            if (cfg.ContentTypes) { Expand.push("ContentTypes"); }
+            if (cfg.CustomActionCfg) { Expand.push("UserCustomActions"); }
+            if (cfg.Fields) { Expand.push("Fields"); }
+            if (cfg.ListCfg) { Expand.push("Lists"); }
+
+            // Query the web
+            Web(webUrl).query({ Expand })
                 // Execute the request
                 .execute(web => {
                     // Remove the fields
@@ -1137,7 +1095,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let ctrExecutions = 0;
 
                 // Log
-                console.log("[gd-sprest] Loading the web information...");
+                console.log("[gd-sprest] Installing the web assets...");
 
                 // Get the web
                 let web = Web(webUrl);
@@ -1161,20 +1119,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                     // Get the fields
                     web.Fields().execute(fields => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // Create the fields
-                            createFields(fields, cfg.Fields).then(() => {
-                                // Log
-                                console.log("[gd-sprest][Fields] Completed the requests.");
+                        // Create the fields
+                        createFields(fields, cfg.Fields).then(() => {
+                            // Log
+                            console.log("[gd-sprest][Fields] Completed the requests.");
 
-                                // Execute the post execute method
-                                postExecute();
-
-                                // Resolve the promise
-                                resolve();
-                            }, reject);
-                        });
+                            // Execute the post execute method
+                            postExecute();
+                        }, reject);
                     }, reject);
                 }
 

@@ -19,7 +19,7 @@ export const List: IList = ((listName: string, targetInfo?: ITargetInfoProps) =>
 
     // Return the list
     return list;
-}) as any;
+}) as any as IList;
 
 // Static method to get the list by the entity name.
 List.getByEntityName = ((props: IListEntityProps) => {
@@ -61,4 +61,4 @@ List.getDataAsStream = ((listFullUrl: string, parameters: SP.RenderListDataParam
     return new Base({
         endpoint: "SP.List.getListDataAsStream" + params
     });
-}) as any;
+});
