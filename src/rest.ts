@@ -7,12 +7,17 @@ import { IREST } from "./rest.d";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.83,
+    __ver: 4.84,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
+    Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
+    GroupService: Lib.GroupService,
+    GroupSiteManager: Lib.GroupSiteManager,
     Helper,
+    HubSites: Lib.HubSites,
+    HubSitesUtility: Lib.HubSitesUtility,
     List: Lib.List,
     ListByEntityName: Lib.List.getByEntityName,
     ListDataAsStream: Lib.List.getDataAsStream,
@@ -27,6 +32,7 @@ export const $REST: IREST = {
     SiteUrl: (id: string) => { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
+    ThemeManager: Lib.ThemeManager,
     UserProfile: Lib.UserProfile,
     Utility: Lib.Utility,
     Web: Lib.Web

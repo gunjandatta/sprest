@@ -783,25 +783,33 @@ exports.Mapper = {
         },
         setGroupImage: {
             argNames: ["imageStream"],
+            requestType: utils_1.RequestType.PostWithArgsAndData
         },
-        syncGroupProperties: {},
+        syncGroupProperties: {
+            requestType: utils_1.RequestType.PostWithArgsInBody
+        },
     },
     "Microsoft.SharePoint.Portal.GroupSiteManager": {
         canUserCreateGroup: {},
         create: {
             argNames: ["groupId"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         createGroup: {
             argNames: ["displayName", "alias", "isPublic", "ownerPrincipalNames", "description", "creationOptions"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         createGroupEx: {
             argNames: ["displayName", "alias", "isPublic", "optionalParams"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         createGroupForSite: {
             argNames: ["displayName", "alias", "isPublic", "optionalParams"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         delete: {
-            argNames: ["siteUrl"]
+            argNames: ["siteUrl"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         ensureTeamForGroup: {},
         getGroupCreationContext: {},
@@ -813,7 +821,8 @@ exports.Mapper = {
             argNames: ["alias", "managedPath", "isTeamSite"],
         },
         hideTeamifyPrompt: {
-            argNames: ["siteUrl"]
+            argNames: ["siteUrl"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         isTeamifyPromptHidden: {
             argNames: ["siteUrl"]
@@ -823,7 +832,9 @@ exports.Mapper = {
         },
     },
     "Microsoft.SharePoint.Portal.SPHubSitesUtility": {
-        getHubSites: {},
+        getHubSites: {
+            requestType: utils_1.RequestType.Post
+        },
     },
     "Microsoft.SharePoint.Portal.SPSiteManager": {
         canCreateHubJoinedSite: {
@@ -3024,14 +3035,16 @@ exports.Mapper = {
     "SP.HubSite": {
         delete: {
             requestType: utils_1.RequestType.Delete
-        },
+        }
     },
     "SP.HubSite.Collection": {
         getById: {
             argNames: ["hubSiteId"],
+            requestType: utils_1.RequestType.GetWithArgsInQS
         },
         getSiteUrlByHubSiteId: {
-            argNames: ["hubSiteId"]
+            argNames: ["hubSiteId"],
+            requestType: utils_1.RequestType.GetWithArgsInQS
         },
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
     },
@@ -4781,17 +4794,21 @@ exports.Mapper = {
     "SP.Utilities.ThemeManager": {
         addTenantTheme: {
             argNames: ["name", "themeJson"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         applyTheme: {
             argNames: ["name", "themeJson"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         deleteTenantTheme: {
             argNames: ["name"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         getAvailableThemes: {},
         getHideDefaultThemes: {},
         getTenantTheme: {
             argNames: ["name"],
+            requestType: utils_1.RequestType.GetWithArgsInBody
         },
         getTenantThemingOptions: {},
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
@@ -4800,6 +4817,7 @@ exports.Mapper = {
         },
         updateTenantTheme: {
             argNames: ["name", "themeJson"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
     },
     "SP.View": {

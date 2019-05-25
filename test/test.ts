@@ -2,6 +2,11 @@ import {
     $REST, List, Helper, Types
 } from "../src/index.d";
 
+$REST.HubSites().getById("").execute(h => { h.Title; });
+$REST.GroupSiteManager().canUserCreateGroup().execute(value => {
+    value
+})
+
 // Add attachments
 let addAttachments = () => {
     const upInc = Number(100 / this.state.files.length).toFixed(2);
@@ -24,7 +29,7 @@ let addAttachments = () => {
             // Upload the file
             item.AttachmentFiles().add(file.name, reader.result).execute(info => {
                 const uploadedFiles = this.state.fileCount + 1;
-                this.setState({ fileCount: uploadFiles }, () => {
+                this.setState({ fileCount: uploadedFiles }, () => {
                     // ...
                 });
             }, true);

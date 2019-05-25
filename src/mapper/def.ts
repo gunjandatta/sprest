@@ -1168,35 +1168,41 @@ export const Mapper: IMapper = {
 
         setGroupImage: {
             argNames: ["imageStream"],
+            requestType: RequestType.PostWithArgsAndData
         },
 
         syncGroupProperties: {
+            requestType: RequestType.PostWithArgsInBody
         },
 
     },
 
     "Microsoft.SharePoint.Portal.GroupSiteManager": {
-        canUserCreateGroup: {
-        },
+        canUserCreateGroup: {},
 
         create: {
             argNames: ["groupId"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         createGroup: {
             argNames: ["displayName", "alias", "isPublic", "ownerPrincipalNames", "description", "creationOptions"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         createGroupEx: {
             argNames: ["displayName", "alias", "isPublic", "optionalParams"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         createGroupForSite: {
             argNames: ["displayName", "alias", "isPublic", "optionalParams"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         delete: {
-            argNames: ["siteUrl"]
+            argNames: ["siteUrl"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         ensureTeamForGroup: {},
@@ -1214,7 +1220,8 @@ export const Mapper: IMapper = {
         },
 
         hideTeamifyPrompt: {
-            argNames: ["siteUrl"]
+            argNames: ["siteUrl"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         isTeamifyPromptHidden: {
@@ -1229,6 +1236,7 @@ export const Mapper: IMapper = {
 
     "Microsoft.SharePoint.Portal.SPHubSitesUtility": {
         getHubSites: {
+            requestType: RequestType.Post
         },
 
     },
@@ -4307,17 +4315,18 @@ export const Mapper: IMapper = {
     "SP.HubSite": {
         delete: {
             requestType: RequestType.Delete
-        },
-
+        }
     },
 
     "SP.HubSite.Collection": {
         getById: {
             argNames: ["hubSiteId"],
+            requestType: RequestType.GetWithArgsInQS
         },
 
         getSiteUrlByHubSiteId: {
-            argNames: ["hubSiteId"]
+            argNames: ["hubSiteId"],
+            requestType: RequestType.GetWithArgsInQS
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -6787,28 +6796,29 @@ export const Mapper: IMapper = {
     "SP.Utilities.ThemeManager": {
         addTenantTheme: {
             argNames: ["name", "themeJson"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         applyTheme: {
             argNames: ["name", "themeJson"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         deleteTenantTheme: {
             argNames: ["name"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
-        getAvailableThemes: {
-        },
+        getAvailableThemes: {},
 
-        getHideDefaultThemes: {
-        },
+        getHideDefaultThemes: {},
 
         getTenantTheme: {
             argNames: ["name"],
+            requestType: RequestType.GetWithArgsInBody
         },
 
-        getTenantThemingOptions: {
-        },
+        getTenantThemingOptions: {},
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
@@ -6818,6 +6828,7 @@ export const Mapper: IMapper = {
 
         updateTenantTheme: {
             argNames: ["name", "themeJson"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
     },

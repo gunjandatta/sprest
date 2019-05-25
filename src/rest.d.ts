@@ -22,6 +22,11 @@ export interface IREST {
     AppContext: (siteUrl: string) => Base.IBaseExecution;
 
     /**
+     * Use this api to interact with the SharePoint Apps
+     */
+    Apps: LibTypes.IApps;
+
+    /**
      * A reference to the _spPageContextInfo global variable.
      */
     ContextInfo: LibTypes.IContextInformation;
@@ -37,9 +42,29 @@ export interface IREST {
     Graph: LibTypes.IGraph;
 
     /**
+     * A reference to the _api/groupservice endpoint.
+     */
+    GroupService: LibTypes.IGroupService;
+
+    /**
+     * A reference to the _api/groupsitemanager endpoint.
+     */
+    GroupSiteManager: LibTypes.IGroupSiteManager;
+
+    /**
      * Helper methods.
      */
     Helper: IHelper;
+
+    /**
+     * A reference to the _api/hubsites endpoint.
+     */
+    HubSites: LibTypes.IHubSites;
+
+    /**
+     * A reference to the _api/hubsitesutility endpoint.
+     */
+    HubSitesUtility: LibTypes.IHubSitesUtility;
 
     /**
      * Use this api to interact with SharePoint lists and libraries.
@@ -121,6 +146,11 @@ export interface IREST {
      * The SharePoint enumerator types.
      */
     SPTypes;
+
+    /**
+     * A reference to the _api/thememanager endpoint.
+     */
+    ThemeManager: LibTypes.IThemeManager;
 
     /**
      * Use this api to interact with the current user's profile.
