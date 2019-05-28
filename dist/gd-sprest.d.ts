@@ -6,10 +6,11 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { ContextInfo, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib/types";
+    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib/types";
     export {
-            ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
-            ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
+            Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
+            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
+            SocialFeed, UserProfile, Utility, Web
     }
     
     /**
@@ -47,7 +48,7 @@ declare module 'gd-sprest/lib/types' {
     export * from "gd-sprest/lib/types/contextInfo";
     export * from "gd-sprest/lib/types/graph";
     export * from "gd-sprest/lib/types/groupService";
-    export * from "gd-sprest/lib/types/groupsitemanager";
+    export * from "gd-sprest/lib/types/groupSiteManager";
     export * from "gd-sprest/lib/types/hubSites";
     export * from "gd-sprest/lib/types/hubSitesUtility";
     export * from "gd-sprest/lib/types/list";
@@ -824,23 +825,25 @@ declare module 'gd-sprest/lib/types/groupService' {
     }
 }
 
-import { Microsoft } from "gd-sprest-def";
-import { ITargetInfoProps } from "gd-sprest/utils/types";
-
-/**
-    * Group Site Manager
-    */
-export const GroupSiteManager: IGroupSiteManager;
-
-/**
-    * Group Site Manager
-    */
-export interface IGroupSiteManager {
-        /**
-            * Creates an instance of the user profile library.
-            * @param targetInfo - (Optional) The target information.
-            */
-        (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.IGroupSiteManager;
+declare module 'gd-sprest/lib/types/groupSiteManager' {
+    import { Microsoft } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils/types";
+    
+    /**
+        * Group Site Manager
+        */
+    export const GroupSiteManager: IGroupSiteManager;
+    
+    /**
+        * Group Site Manager
+        */
+    export interface IGroupSiteManager {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.IGroupSiteManager;
+    }
 }
 
 declare module 'gd-sprest/lib/types/hubSites' {

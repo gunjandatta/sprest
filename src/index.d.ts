@@ -1,10 +1,11 @@
 /**
  * Library
  */
-import { ContextInfo, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib/types";
+import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib/types";
 export {
-    ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
-    ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
+    Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
+    List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
+    SocialFeed, UserProfile, Utility, Web
 }
 
 /**
