@@ -2,7 +2,7 @@ export * from "./apps";
 export * from "./contextInfo";
 export * from "./graph";
 export * from "./groupService";
-export * from "./groupsitemanager";
+export * from "./groupSiteManager";
 export * from "./hubSites";
 export * from "./hubSitesUtility";
 export * from "./list";
