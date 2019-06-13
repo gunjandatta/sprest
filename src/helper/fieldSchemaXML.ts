@@ -1,11 +1,11 @@
-import { ContextInfo, Web } from "../lib";
-import { SPTypes } from "..";
-import { SPCfgFieldType } from "./spCfg";
 import {
     IFieldInfo, IFieldInfoCalculated, IFieldInfoChoice,
     IFieldInfoCurrency, IFieldInfoDate, IFieldInfoLookup,
     IFieldInfoMMS, IFieldInfoNote, IFieldInfoNumber, IFieldInfoUser
-} from "./types";
+} from "../../@types/helper";
+import { ContextInfo, Web } from "../lib";
+import { SPTypes } from "..";
+import { SPCfgFieldType } from "./spCfg";
 
 /**
  * Field Schema XML

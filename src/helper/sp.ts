@@ -1,4 +1,7 @@
-import { IDialogOptions, IModalDialog, IModalDialogObj, INotify, ISOD, IStatus } from "./types";
+import {
+    IDialogOptions, IModalDialog, IModalDialogObj,
+    INotify, ISOD, IStatus
+} from "../../@types/helper";
 
 /**
  * Modal Dialog

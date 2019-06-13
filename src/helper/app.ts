@@ -1,6 +1,6 @@
+import { IApp } from "../../@types/helper";
 import { SP } from "gd-sprest-def";
 import { ContextInfo, Web } from "../lib";
-import { IApp } from "./types";
 
 /**
  * App Helper Methods

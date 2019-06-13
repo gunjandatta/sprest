@@ -1,5 +1,5 @@
+import { IContextInformation } from "../../@types/lib";
 import { Base } from "../utils";
-import { IContextInformation } from "./types";
 
 /**
  * Context Information

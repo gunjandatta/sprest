@@ -1,6 +1,6 @@
-import * as Types from "../intellisense";
+import { IUtility } from "../../@types/lib";
+import * as Types from "../../@types/intellisense";
 import { Base, Request, RequestType } from "../utils";
-import { IUtility } from "./types/utility";
 
 /**
  * Utility

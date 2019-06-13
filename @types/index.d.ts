@@ -1,7 +1,11 @@
 /**
  * Library
  */
-import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib/types";
+import {
+    Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
+    List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
+    SocialFeed, UserProfile, Utility, Web
+} from "./lib";
 export {
     Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
     List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
@@ -11,13 +15,13 @@ export {
 /**
  * Helper Class
  */
-import * as Helper from "./helper/types";
+import * as Helper from "./helper";
 export { Helper }
 
 /**
  * Library Components
  */
-import * as Lib from "./lib/types";
+import * as Lib from "./lib";
 export { Lib }
 
 /**
@@ -28,7 +32,7 @@ export * from "./rest";
 /**
  * SharePoint Enumerator Types
  */
-import { SPTypes } from "./mapper/types";
+import { SPTypes } from "./mapper";
 export { SPTypes }
 
 /**

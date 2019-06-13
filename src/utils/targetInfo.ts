@@ -1,5 +1,5 @@
+import { ITargetInfo, ITargetInfoProps } from "../../@types/utils";
 import { ContextInfo } from "../lib";
-import { ITargetInfo, ITargetInfoProps } from "./types";
 import { RequestType } from ".";
 
 /**

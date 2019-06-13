@@ -1,7 +1,7 @@
+import { IRequest } from "../../@types/helper";
 import { ListItem } from "gd-sprest-def/lib/SP";
 import { Web } from "../lib";
 import { Base, Request } from "../utils";
-import { IRequest } from "./types";
 declare var SP;
 
 /**

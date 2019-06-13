@@ -1,10 +1,10 @@
-import { SP } from "gd-sprest-def";
-import { ContextInfo, Site, Web } from "../lib";
-import { SPTypes } from "..";
 import {
     ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
     ISPConfig, ISPConfigProps
-} from "./types";
+} from "../../@types/helper";
+import { SP } from "gd-sprest-def";
+import { ContextInfo, Site, Web } from "../lib";
+import { SPTypes } from "..";
 import {
     Executor, FieldSchemaXML, SPCfgType
 } from ".";

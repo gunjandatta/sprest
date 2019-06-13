@@ -1,5 +1,5 @@
+import * as WebPartTypes from "../../@types/helper/webpart";
 import { ContextInfo } from "../lib";
-import * as WebPartTypes from "./types";
 declare var SP;
 declare var MSOWebPartPageFormName;
 

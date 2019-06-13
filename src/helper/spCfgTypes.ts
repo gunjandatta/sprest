@@ -1,4 +1,4 @@
-import { ISPCfgFieldType, ISPCfgType } from "./types";
+import { ISPCfgFieldType, ISPCfgType } from "../../@types/helper";
 
 /**
  * SharePoint Configuration Field Types

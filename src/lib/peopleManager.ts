@@ -1,6 +1,6 @@
+import { IPeopleManager } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IPeopleManager } from "./types/peopleManager";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * People Manager

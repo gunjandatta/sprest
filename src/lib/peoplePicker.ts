@@ -1,6 +1,6 @@
+import { IPeoplePicker } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IPeoplePicker } from "./types/peoplePicker";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * People Picker

@@ -1,5 +1,5 @@
+import { IDependencies } from "../../@types/helper";
 import { ContextInfo } from "../lib";
-import { IDependencies } from "./types";
 
 /**
  * Dependencies

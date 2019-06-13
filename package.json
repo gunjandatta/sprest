@@ -39,6 +39,6 @@
     "all": "npm run build && npm run prod && npm run typings",
     "build": "tsc && webpack --mode=development",
     "prod": "webpack --mode=production",
-    "typings": "dts-bundle --out ../dist/gd-sprest.d.ts --name gd-sprest --main ./src/index.d.ts"
+    "typings": "dts-bundle --out ../dist/gd-sprest.d.ts --name gd-sprest --main ./@types/index.d.ts"
   }
 }

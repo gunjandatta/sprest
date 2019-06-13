@@ -1,6 +1,6 @@
+import { IBase, ITargetInfo } from "../../@types/utils";
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
-import { IBase, ITargetInfo } from "./types";
 
 /**
  * Batch Requests

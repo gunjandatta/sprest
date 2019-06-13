@@ -1,7 +1,7 @@
 import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
-import { IREST } from "./rest.d";
+import { IREST } from "../@types";
 
 /**
  * SharePoint REST Library

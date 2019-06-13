@@ -1,5 +1,5 @@
 import { Base, SP } from "gd-sprest-def";
-import { SPTypes } from "../mapper/types";
+import { SPTypes } from "../mapper";
 
 /**
  * Entity Data

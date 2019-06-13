@@ -1,6 +1,6 @@
 import { Base, SP } from "gd-sprest-def";
-import { IHelper } from "./helper/types";
-import * as LibTypes from "./lib/types";
+import { IHelper } from "./helper";
+import * as LibTypes from "./lib";
 
 /**
  * SharePoint REST Library

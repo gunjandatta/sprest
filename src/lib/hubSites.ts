@@ -1,6 +1,6 @@
+import { IHubSites } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IHubSites } from "./types/hubSites";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Hub Sites

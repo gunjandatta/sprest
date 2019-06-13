@@ -1,5 +1,5 @@
 import { Base, Microsoft, SP } from "gd-sprest-def";
-import { ITargetInfoProps } from "../../utils/types/targetInfo";
+import { ITargetInfoProps } from "../utils";
 
 /**
  * Search
