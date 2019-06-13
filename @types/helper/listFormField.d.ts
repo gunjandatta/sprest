@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import { ITermInfo } from "../../helper/types";
+import { ITermInfo } from "./taxonomy";
 
 /**
  * List Form Field

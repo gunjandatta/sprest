@@ -1,9 +1,9 @@
-import { IODataQuery, SP } from "gd-sprest-def";
-import { Helper, SPTypes, Web } from "..";
 import {
     IListForm, IListFormAttachmentInfo,
     IListFormCache, IListFormResult, IListFormProps
-} from "./types";
+} from "../../@types/helper";
+import { IODataQuery, SP } from "gd-sprest-def";
+import { Helper, SPTypes, Web } from "..";
 
 /**
  * List Form

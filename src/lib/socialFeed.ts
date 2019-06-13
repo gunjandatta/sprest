@@ -1,6 +1,6 @@
-import { ISocialFeed } from "./types";
+import { ISocialFeed } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request, RequestType } from "../utils";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Social Feed

@@ -1,6 +1,4 @@
-import { ContextInfo } from "../lib";
-import { RibbonLink } from "./ribbonLink";
-import { ILinkInfo } from "./types";
+import { ILinkInfo } from "../../@types/helper";
 
 /**
  * Suite Bar Link

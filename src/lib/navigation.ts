@@ -1,5 +1,5 @@
+import { INavigation } from "../../@types/lib";
 import { Base, Request } from "../utils";
-import { INavigation } from "./types/navigation";
 
 /**
  * Navigation

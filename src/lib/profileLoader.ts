@@ -1,6 +1,6 @@
+import { IProfileLoader } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IProfileLoader } from "./types/profileLoader";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Profile Loader

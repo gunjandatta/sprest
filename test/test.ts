@@ -1,6 +1,6 @@
 import {
     $REST, List, Helper, Types
-} from "../src/index.d";
+} from "../@types";
 
 $REST.HubSites().getById("").execute(h => { h.Title; });
 $REST.GroupSiteManager().canUserCreateGroup().execute(value => {

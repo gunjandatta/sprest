@@ -1,5 +1,5 @@
 import { IODataQuery, SP } from "gd-sprest-def";
-import * as Types from "../../intellisense";
+import * as Types from "../intellisense";
 
 /**
  * List Form

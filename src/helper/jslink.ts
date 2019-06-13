@@ -1,6 +1,6 @@
+import { IJSLink, IJSLinkCfg } from "../../@types/helper";
 import { ContextInfo } from "../lib";
 import { SPTypes } from "../mapper";
-import { IJSLink, IJSLinkCfg } from "./types";
 
 /**
  * JSLink Helper Methods

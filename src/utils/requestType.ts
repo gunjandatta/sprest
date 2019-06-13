@@ -1,4 +1,4 @@
-import { IRequestType } from "./types";
+import { IRequestType } from "../../@types/utils";
 
 /**
  * Request Type

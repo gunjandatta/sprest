@@ -1,6 +1,6 @@
+import { ISite } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
-import { ISite } from "./types/site";
 
 /**
  * Site

@@ -1,4 +1,4 @@
-import { ILinkInfo } from "./types";
+import { ILinkInfo } from "../../@types/helper";
 
 /**
  * Ribbon Link

@@ -1,5 +1,5 @@
+import { ILoader } from "../../@types/helper";
 import { ContextInfo } from "../lib";
-import { ILoader } from "./types";
 
 /**
  * Loader

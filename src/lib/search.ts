@@ -1,6 +1,6 @@
 import { Microsoft } from "gd-sprest-def";
+import { ISearch } from "../../@types/lib";
 import { Base, Request, RequestType } from "../utils";
-import { ISearch } from "./types/search";
 
 /**
  * Search

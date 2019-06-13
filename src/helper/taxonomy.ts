@@ -1,5 +1,4 @@
-import * as TaxonomyTypes from "./types";
-import { ITermGroupInfo, ITermSetInfo } from "./types";
+import * as TaxonomyTypes from "../../@types/helper/taxonomy";
 declare var SP;
 
 /**
@@ -168,7 +167,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                         context.executeQueryAsync(
                             // Success
                             () => {
-                                let groups: Array<ITermGroupInfo> = [];
+                                let groups: Array<TaxonomyTypes.ITermGroupInfo> = [];
 
                                 // Parse the groups
                                 let enumerator = termGroups.getEnumerator();
@@ -217,7 +216,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
 
                     // Execute the request
                     context.executeQueryAsync(() => {
-                        let termSets: Array<ITermSetInfo> = [];
+                        let termSets: Array<TaxonomyTypes.ITermSetInfo> = [];
 
                         // Parse the term group information
                         let enumerator = termGroupInfo.getEnumerator();
@@ -271,7 +270,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                 context.executeQueryAsync(
                     // Success
                     () => {
-                        let termSets: Array<ITermSetInfo> = [];
+                        let termSets: Array<TaxonomyTypes.ITermSetInfo> = [];
 
                         // Parse the term group information
                         let enumerator = termGroupInfo.getEnumerator();

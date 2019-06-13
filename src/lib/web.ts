@@ -1,5 +1,5 @@
+import { IWeb } from "../../@types/lib";
 import { Base, Request } from "../utils";
-import { IWeb } from "./types/web";
 
 export const Web: IWeb = ((url?, targetInfo?) => {
     let web = new Base(targetInfo);

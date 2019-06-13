@@ -1,4 +1,4 @@
-import { IBase } from "./types/base";
+import { IBase } from "../../@types/utils";
 import { Base } from "./base";
 import { Batch } from "./batch";
 import { ContextInfo } from "../lib";

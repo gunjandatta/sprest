@@ -1,12 +1,11 @@
-import { SP } from "gd-sprest-def";
-import { ITermInfo } from "../helper/types";
-import { Helper, Site, SPTypes, Web } from "..";
 import {
     IListFormField, IListFormFieldInfo, IListFormLookupFieldInfo,
     IListFormMMSFieldInfo, IListFormDateFieldInfo,
     IListFormTextFieldInfo, IListFormUserFieldInfo, IListFormChoiceFieldInfo,
-    IListFormNumberFieldInfo
-} from "./types";
+    IListFormNumberFieldInfo, ITermInfo
+} from "../../@types/helper";
+import { SP } from "gd-sprest-def";
+import { Helper, Site, SPTypes, Web } from "..";
 
 /**
  * List Form Field

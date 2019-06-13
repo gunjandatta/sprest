@@ -1,6 +1,6 @@
+import { IApps } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IApps } from "./types/apps";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Apps

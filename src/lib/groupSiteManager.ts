@@ -1,6 +1,6 @@
+import { IGroupSiteManager } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IGroupSiteManager } from "./types/groupSiteManager";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Group Site Manager

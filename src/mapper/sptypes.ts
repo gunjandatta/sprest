@@ -1,4 +1,4 @@
-import { SPTypes } from "./types";
+import { SPTypes } from "../../@types/mapper";
 
 /**
  * Base Permission Types

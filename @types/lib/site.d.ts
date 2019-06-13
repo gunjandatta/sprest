@@ -1,5 +1,5 @@
 import { Base, SP } from "gd-sprest-def";
-import { ITargetInfoProps } from "../../utils/types/targetInfo";
+import { ITargetInfoProps } from "../utils";
 
 /**
  * Site

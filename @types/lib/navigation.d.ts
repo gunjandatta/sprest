@@ -1,5 +1,5 @@
 import { Microsoft } from "gd-sprest-def";
-import { ITargetInfoProps } from "../../utils/types";
+import { ITargetInfoProps } from "../utils";
 
 /**
  * INavigation

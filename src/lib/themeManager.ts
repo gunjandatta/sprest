@@ -1,6 +1,6 @@
+import { IThemeManager } from "../../@types/lib";
+import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
-import { IThemeManager } from "./types/themeManager";
-import { ITargetInfoProps } from "../utils/types/targetInfo";
 
 /**
  * Theme Manager
