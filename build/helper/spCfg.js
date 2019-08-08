@@ -150,8 +150,6 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.Description != cfgContentType.Description) {
                         // Update the configuration
                         cfgUpdate.Description = cfgContentType.Description;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
                         // Set the flag
                         updateFl = true;
                     }
@@ -159,8 +157,6 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.Group != cfgContentType.Group) {
                         // Update the configuration
                         cfgUpdate.Group = cfgContentType.Group;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
                         // Set the flag
                         updateFl = true;
                     }
@@ -168,8 +164,6 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
                         // Update the configuration
                         cfgUpdate.JSLink = cfgContentType.JSLink;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
                         // Set the flag
                         updateFl = true;
                     }
@@ -177,15 +171,13 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.Name != cfgContentType.Name) {
                         // Update the configuration
                         cfgUpdate.Name = cfgContentType.Name;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
                         // Set the flag
                         updateFl = true;
                     }
                     // See if an update is needed
                     if (updateFl) {
                         // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
                         // Update the content type
                         cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
                             // Log
