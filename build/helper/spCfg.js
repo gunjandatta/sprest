@@ -212,42 +212,46 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Parse the configuration
             _1.Executor(cfgFields, function (cfg) {
-                // See if this field already exists
-                var field = isInCollection("InternalName", cfg.name, fields.results);
-                if (field) {
-                    // Log
-                    console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
-                    // Trigger the event
-                    cfg.onUpdated ? cfg.onUpdated(field) : null;
-                }
-                else {
-                    // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
-                    // The field created event
-                    var onFieldCreated_1 = function (field) {
-                        // See if it was successful
-                        if (field.InternalName) {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
-                            // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(field) : null;
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
-                        }
-                    };
-                    // Compute the schema xml
-                    _1.FieldSchemaXML(cfg).then(function (response) {
-                        var schemas = typeof (response) === "string" ? [response] : response;
-                        // Parse the fields to add
-                        for (var i = 0; i < schemas.length; i++) {
-                            // Add the field
-                            fields.createFieldAsXml(schemas[i]).execute(onFieldCreated_1, true);
-                        }
-                    });
-                }
+                return new Promise(function (resolve, reject) {
+                    // See if this field already exists
+                    var field = isInCollection("InternalName", cfg.name, fields.results);
+                    if (field) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
+                        // Trigger the event
+                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+                        // Compute the schema xml
+                        _1.FieldSchemaXML(cfg).then(function (response) {
+                            var schemas = typeof (response) === "string" ? [response] : response;
+                            // Parse the fields to add
+                            for (var i = 0; i < schemas.length; i++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i]).execute(function (field) {
+                                    // See if it was successful
+                                    if (field.InternalName) {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                                        // Trigger the event
+                                        cfg.onCreated ? cfg.onCreated(field) : null;
+                                        // Resolve the promise
+                                        resolve();
+                                    }
+                                    else {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + field.response);
+                                        // Reject the promise
+                                        reject();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }).then(resolve);
         });
     };

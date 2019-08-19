@@ -237,45 +237,50 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
             // Parse the configuration
             Executor<ISPCfgFieldInfo>(cfgFields, cfg => {
-                // See if this field already exists
-                let field = isInCollection("InternalName", cfg.name, fields.results);
-                if (field) {
-                    // Log
-                    console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
+                return new Promise((resolve, reject) => {
+                    // See if this field already exists
+                    let field = isInCollection("InternalName", cfg.name, fields.results);
+                    if (field) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
 
-                    // Trigger the event
-                    cfg.onUpdated ? cfg.onUpdated(field) : null;
-                } else {
-                    // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+                        // Trigger the event
+                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                    } else {
+                        // Log
+                        console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
 
-                    // The field created event
-                    let onFieldCreated = (field: SP.Field) => {
-                        // See if it was successful
-                        if (field.InternalName) {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                        // Compute the schema xml
+                        FieldSchemaXML(cfg).then(response => {
+                            let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
-                            // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(field) : null;
-                        } else {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
-                        }
+                            // Parse the fields to add
+                            for (let i = 0; i < schemas.length; i++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i]).execute((field: SP.Field) => {
+                                    // See if it was successful
+                                    if (field.InternalName) {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+
+                                        // Trigger the event
+                                        cfg.onCreated ? cfg.onCreated(field) : null;
+
+                                        // Resolve the promise
+                                        resolve();
+                                    } else {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + field.response);
+
+                                        // Reject the promise
+                                        reject();
+                                    }
+                                });
+                            }
+                        });
                     }
-
-                    // Compute the schema xml
-                    FieldSchemaXML(cfg).then(response => {
-                        let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
-
-                        // Parse the fields to add
-                        for (let i = 0; i < schemas.length; i++) {
-                            // Add the field
-                            fields.createFieldAsXml(schemas[i]).execute(onFieldCreated, true);
-                        }
-                    });
-                }
+                });
             }).then(resolve);
         })
     }
