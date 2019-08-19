@@ -150,8 +150,6 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.Description != cfgContentType.Description) {
                         // Update the configuration
                         cfgUpdate.Description = cfgContentType.Description;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
                         // Set the flag
                         updateFl = true;
                     }
@@ -159,8 +157,6 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.Group != cfgContentType.Group) {
                         // Update the configuration
                         cfgUpdate.Group = cfgContentType.Group;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
                         // Set the flag
                         updateFl = true;
                     }
@@ -168,8 +164,6 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
                         // Update the configuration
                         cfgUpdate.JSLink = cfgContentType.JSLink;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
                         // Set the flag
                         updateFl = true;
                     }
@@ -177,15 +171,13 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ContentType.Name != cfgContentType.Name) {
                         // Update the configuration
                         cfgUpdate.Name = cfgContentType.Name;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
                         // Set the flag
                         updateFl = true;
                     }
                     // See if an update is needed
                     if (updateFl) {
                         // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
                         // Update the content type
                         cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
                             // Log
@@ -220,42 +212,46 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Parse the configuration
             _1.Executor(cfgFields, function (cfg) {
-                // See if this field already exists
-                var field = isInCollection("InternalName", cfg.name, fields.results);
-                if (field) {
-                    // Log
-                    console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
-                    // Trigger the event
-                    cfg.onUpdated ? cfg.onUpdated(field) : null;
-                }
-                else {
-                    // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
-                    // The field created event
-                    var onFieldCreated_1 = function (field) {
-                        // See if it was successful
-                        if (field.InternalName) {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
-                            // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(field) : null;
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
-                        }
-                    };
-                    // Compute the schema xml
-                    _1.FieldSchemaXML(cfg).then(function (response) {
-                        var schemas = typeof (response) === "string" ? [response] : response;
-                        // Parse the fields to add
-                        for (var i = 0; i < schemas.length; i++) {
-                            // Add the field
-                            fields.createFieldAsXml(schemas[i]).execute(onFieldCreated_1, true);
-                        }
-                    });
-                }
+                return new Promise(function (resolve, reject) {
+                    // See if this field already exists
+                    var field = isInCollection("InternalName", cfg.name, fields.results);
+                    if (field) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
+                        // Trigger the event
+                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+                        // Compute the schema xml
+                        _1.FieldSchemaXML(cfg).then(function (response) {
+                            var schemas = typeof (response) === "string" ? [response] : response;
+                            // Parse the fields to add
+                            for (var i = 0; i < schemas.length; i++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i]).execute(function (field) {
+                                    // See if it was successful
+                                    if (field.InternalName) {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                                        // Trigger the event
+                                        cfg.onCreated ? cfg.onCreated(field) : null;
+                                        // Resolve the promise
+                                        resolve();
+                                    }
+                                    else {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + field.response);
+                                        // Reject the promise
+                                        reject();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }).then(resolve);
         });
     };

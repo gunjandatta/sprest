@@ -168,9 +168,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Update the configuration
                         cfgUpdate.Description = cfgContentType.Description;
 
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
-
                         // Set the flag
                         updateFl = true;
                     }
@@ -179,9 +176,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     if (cfgContentType.ContentType.Group != cfgContentType.Group) {
                         // Update the configuration
                         cfgUpdate.Group = cfgContentType.Group;
-
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
 
                         // Set the flag
                         updateFl = true;
@@ -192,9 +186,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Update the configuration
                         cfgUpdate.JSLink = cfgContentType.JSLink;
 
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
-
                         // Set the flag
                         updateFl = true;
                     }
@@ -204,9 +195,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Update the configuration
                         cfgUpdate.Name = cfgContentType.Name;
 
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
-
                         // Set the flag
                         updateFl = true;
                     }
@@ -214,7 +202,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // See if an update is needed
                     if (updateFl) {
                         // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
 
                         // Update the content type
                         cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(() => {
@@ -249,45 +237,50 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
             // Parse the configuration
             Executor<ISPCfgFieldInfo>(cfgFields, cfg => {
-                // See if this field already exists
-                let field = isInCollection("InternalName", cfg.name, fields.results);
-                if (field) {
-                    // Log
-                    console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
+                return new Promise((resolve, reject) => {
+                    // See if this field already exists
+                    let field = isInCollection("InternalName", cfg.name, fields.results);
+                    if (field) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
 
-                    // Trigger the event
-                    cfg.onUpdated ? cfg.onUpdated(field) : null;
-                } else {
-                    // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+                        // Trigger the event
+                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                    } else {
+                        // Log
+                        console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
 
-                    // The field created event
-                    let onFieldCreated = (field: SP.Field) => {
-                        // See if it was successful
-                        if (field.InternalName) {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                        // Compute the schema xml
+                        FieldSchemaXML(cfg).then(response => {
+                            let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
-                            // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(field) : null;
-                        } else {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
-                        }
+                            // Parse the fields to add
+                            for (let i = 0; i < schemas.length; i++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i]).execute((field: SP.Field) => {
+                                    // See if it was successful
+                                    if (field.InternalName) {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+
+                                        // Trigger the event
+                                        cfg.onCreated ? cfg.onCreated(field) : null;
+
+                                        // Resolve the promise
+                                        resolve();
+                                    } else {
+                                        // Log
+                                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + field.response);
+
+                                        // Reject the promise
+                                        reject();
+                                    }
+                                });
+                            }
+                        });
                     }
-
-                    // Compute the schema xml
-                    FieldSchemaXML(cfg).then(response => {
-                        let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
-
-                        // Parse the fields to add
-                        for (let i = 0; i < schemas.length; i++) {
-                            // Add the field
-                            fields.createFieldAsXml(schemas[i]).execute(onFieldCreated, true);
-                        }
-                    });
-                }
+                });
             }).then(resolve);
         })
     }
