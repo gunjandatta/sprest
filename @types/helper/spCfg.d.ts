@@ -171,6 +171,14 @@ export interface IFieldInfoNumber extends IFieldInfo {
 }
 
 /**
+ * Url
+ */
+export interface IFieldInfoUrl extends IFieldInfo {
+    /** The attribute to set the url as a Hyperlink or Image */
+    format?: number;
+}
+
+/**
  * User
  */
 export interface IFieldInfoUser extends IFieldInfo {
@@ -183,6 +191,7 @@ export interface IFieldInfoUser extends IFieldInfo {
     /** The user selection scope */
     selectionScope?: number;
 }
+
 /**
  * SharePoint Configuration - Content Type Information
  */

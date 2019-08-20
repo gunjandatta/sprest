@@ -275,6 +275,8 @@ exports.FieldSchemaXML = function (fieldInfo) {
         var schemaXml = null;
         // Set the field type
         props["Type"] = "URL";
+        // Set the url properties
+        props["Format"] = fieldInfo.format == __1.SPTypes.UrlFormatType.Image ? "Image" : "Hyperlink";
         // Generate the schema
         schemaXml = "<Field " + toString(props) + " />";
         // Resolve the request
