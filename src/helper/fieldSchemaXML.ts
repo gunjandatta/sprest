@@ -1,7 +1,7 @@
 import {
     IFieldInfo, IFieldInfoCalculated, IFieldInfoChoice,
     IFieldInfoCurrency, IFieldInfoDate, IFieldInfoLookup,
-    IFieldInfoMMS, IFieldInfoNote, IFieldInfoNumber, IFieldInfoUser
+    IFieldInfoMMS, IFieldInfoNote, IFieldInfoNumber, IFieldInfoUrl, IFieldInfoUser
 } from "../../@types/helper";
 import { ContextInfo, Web } from "../lib";
 import { SPTypes } from "..";
@@ -283,11 +283,14 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
     }
 
     // Returns the schema xml for a url field.
-    let createUrl = (fieldInfo: IFieldInfo, props: object) => {
+    let createUrl = (fieldInfo: IFieldInfoUrl, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
         props["Type"] = "URL";
+
+        // Set the url properties
+        props["Format"] = fieldInfo.format == SPTypes.UrlFormatType.Image ? "Image" : "Hyperlink";
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + " />";

@@ -2577,6 +2577,14 @@ declare module 'gd-sprest/helper/spCfg' {
     }
     
     /**
+        * Url
+        */
+    export interface IFieldInfoUrl extends IFieldInfo {
+            /** The attribute to set the url as a Hyperlink or Image */
+            format?: number;
+    }
+    
+    /**
         * User
         */
     export interface IFieldInfoUser extends IFieldInfo {
@@ -2589,6 +2597,7 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The user selection scope */
             selectionScope?: number;
     }
+    
     /**
         * SharePoint Configuration - Content Type Information
         */
