@@ -220,6 +220,8 @@ exports.SPConfig = function (cfg, webUrl) {
                         console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
                         // Trigger the event
                         cfg.onUpdated ? cfg.onUpdated(field) : null;
+                        // Resolve the promise
+                        resolve();
                     }
                     else {
                         // Log

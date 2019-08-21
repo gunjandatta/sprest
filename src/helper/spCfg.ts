@@ -246,6 +246,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                         // Trigger the event
                         cfg.onUpdated ? cfg.onUpdated(field) : null;
+
+                        // Resolve the promise
+                        resolve();
                     } else {
                         // Log
                         console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
