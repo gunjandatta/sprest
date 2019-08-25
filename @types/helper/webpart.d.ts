@@ -90,6 +90,9 @@ export interface IWebPartScriptEditor {
     /** The webpart description. */
     description?: string;
 
+    /** The webpart chrome type. (BorderOnly, Default, None, TitleAndBorder or TitleOnly) */
+    chromeType?: string;
+
     /** The webpart content. */
     content: string;
 

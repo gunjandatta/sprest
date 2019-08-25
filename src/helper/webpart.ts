@@ -93,12 +93,13 @@ class _WebPart {
             <properties>
             <property name="Title" type="string">[[Title]]</property>
             <property name="Description" type="string">[[Description]]</property>
-            <property name="ChromeType" type="chrometype">TitleOnly</property>
+            <property name="ChromeType" type="chrometype">[[ChromeType]]</property>
             <property name="Content" type="string">[[Content]]</property>
         </properties>
         </data>
     </webPart>
 </webParts>`.replace(/\r?\n/g, '')
+                .replace(/\[\[ChromeType\]\]/g, wpProps.chromeType || "TitleOnly")
                 .replace(/\[\[Content\]\]/g, wpProps.content.replace(/\</g, '&lt;').replace(/\>/g, '&gt;'))
                 .replace(/\[\[Description\]\]/g, wpProps.description || "")
                 .replace(/\[\[Title\]\]/g, wpProps.title || "")
