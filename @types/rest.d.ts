@@ -1,5 +1,6 @@
 import { Base, SP } from "gd-sprest-def";
 import { IHelper } from "./helper";
+import { ISPTypes } from "./sptypes";
 import * as LibTypes from "./lib";
 
 /**
@@ -145,7 +146,7 @@ export interface IREST {
     /**
      * The SharePoint enumerator types.
      */
-    SPTypes;
+    SPTypes: ISPTypes;
 
     /**
      * A reference to the _api/thememanager endpoint.

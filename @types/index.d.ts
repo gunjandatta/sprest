@@ -28,7 +28,7 @@ export * from "./rest";
 /**
  * SharePoint Enumerator Types
  */
-import { SPTypes } from "./mapper";
+import { SPTypes } from "./sptypes";
 export { SPTypes }
 
 /**

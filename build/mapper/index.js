@@ -10,5 +10,3 @@ var Mapper_Old = require("./old");
 exports.Mapper_Old = Mapper_Old;
 var def_1 = require("./def");
 exports.Mapper = def_1.Mapper;
-var SPTypes = require("./sptypes");
-exports.SPTypes = SPTypes;

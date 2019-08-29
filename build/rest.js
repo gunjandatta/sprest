@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Helper = require("./helper");
 var Lib = require("./lib");
-var Mapper = require("./mapper");
+var sptypes_1 = require("./sptypes");
 /**
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.92,
+    __ver: 4.93,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
@@ -30,7 +30,7 @@ exports.$REST = {
     Site: Lib.Site,
     SiteExists: function (url) { return Lib.Site.exists(url); },
     SiteUrl: function (id) { return Lib.Site.getUrlById(id); },
-    SPTypes: Mapper.SPTypes,
+    SPTypes: sptypes_1.SPTypes,
     SocialFeed: Lib.SocialFeed,
     ThemeManager: Lib.ThemeManager,
     UserProfile: Lib.UserProfile,
