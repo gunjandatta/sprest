@@ -2,6 +2,10 @@ import {
     $REST, List, Helper, Types
 } from "../@types";
 
+$REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execute(d => {
+    d.results[0].Name;
+})
+
 $REST.HubSites().getById("").execute(h => { h.Title; });
 $REST.GroupSiteManager().canUserCreateGroup().execute(value => {
     value
