@@ -28,6 +28,37 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
                 return;
             }
+            // Method to get the parent content type
+            var getParentCT = function (ctName, url) {
+                // Return a promise
+                return new Promise(function (resolve, reject) {
+                    // Get the web containing the parent content type
+                    lib_1.Web(url)
+                        // Get the content types
+                        .ContentTypes()
+                        // Filter for the parent name
+                        .query({
+                        Filter: "Name eq '" + ctName + "'"
+                    })
+                        // Execute the request
+                        .execute(function (cts) {
+                        // See if the parent exists
+                        if (cts.results[0]) {
+                            // Resolve the promise
+                            resolve(cts.results[0]);
+                        }
+                        // Else, ensure this isn't the root web
+                        else if (url != lib_1.ContextInfo.siteServerRelativeUrl) {
+                            // Check the root web for the parent content type
+                            getParentCT(ctName, lib_1.ContextInfo.siteServerRelativeUrl).then(resolve, reject);
+                        }
+                        else {
+                            // Reject the promise
+                            reject();
+                        }
+                    }, reject);
+                });
+            };
             // Parse the configuration
             _1.Executor(cfgContentTypes, function (cfg) {
                 // Return a promise
@@ -47,63 +78,55 @@ exports.SPConfig = function (cfg, webUrl) {
                     console.log("[gd-sprest][Content Type] Creating the '" + cfg.Name + "' content type.");
                     // See if the parent name exists
                     if (cfg.ParentName) {
-                        // Get the web containing the parent content type
-                        lib_1.Web(cfg.ParentWebUrl || webUrl)
-                            // Get the content types
-                            .ContentTypes()
-                            // Filter for the parent name
-                            .query({
-                            Filter: "Name eq '" + cfg.ParentName + "'"
-                        })
-                            .execute(function (parent) {
-                            // See if the parent exists
-                            if (parent.results[0]) {
-                                // Add the available content type
-                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
-                                    // See if it was successful
-                                    if (ct.Name) {
-                                        // Update the name
-                                        (function () {
-                                            return new Promise(function (resolve, reject) {
-                                                // Ensure the name doesn't need to be updated
-                                                if (ct.Name != cfg.Name) {
-                                                    ct.update({ Name: cfg.Name }).execute(function () {
-                                                        // Resolve the promise
-                                                        resolve();
-                                                    });
-                                                }
-                                                else {
+                        getParentCT(cfg.ParentName, cfg.ParentWebUrl || webUrl).then(
+                        // Success
+                        function (ct) {
+                            // Add the available content type
+                            contentTypes.addAvailableContentType(ct.Id.StringValue).execute(function (ct) {
+                                // See if it was successful
+                                if (ct.Name) {
+                                    // Update the name
+                                    (function () {
+                                        return new Promise(function (resolve, reject) {
+                                            // Ensure the name doesn't need to be updated
+                                            if (ct.Name != cfg.Name) {
+                                                ct.update({ Name: cfg.Name }).execute(function () {
                                                     // Resolve the promise
                                                     resolve();
-                                                }
-                                            });
-                                        })().then(function () {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' was created successfully.");
-                                            // Update the configuration
-                                            cfg.ContentType = ct;
-                                            // Trigger the event
-                                            cfg.onCreated ? cfg.onCreated(ct) : null;
-                                            // Resolve the promise
-                                            resolve(cfg);
+                                                });
+                                            }
+                                            else {
+                                                // Resolve the promise
+                                                resolve();
+                                            }
                                         });
-                                    }
-                                    else {
+                                    })().then(function () {
                                         // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' failed to be created.");
-                                        console.error("[gd-sprest][Field] Error: " + ct.response);
-                                        // Reject the promise
-                                        reject(ct.response);
-                                    }
-                                }, true);
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The parent content type '" + cfg.Name + "' was not found.");
-                                // Reject the promise
-                                reject(ct.response);
-                            }
-                        }, reject);
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' was created successfully.");
+                                        // Update the configuration
+                                        cfg.ContentType = ct;
+                                        // Trigger the event
+                                        cfg.onCreated ? cfg.onCreated(ct) : null;
+                                        // Resolve the promise
+                                        resolve(cfg);
+                                    });
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' failed to be created.");
+                                    console.error("[gd-sprest][Field] Error: " + ct.response);
+                                    // Reject the promise
+                                    reject(ct.response);
+                                }
+                            }, true);
+                        }, 
+                        // Error
+                        function () {
+                            // Log
+                            console.log("[gd-sprest][Content Type] The parent content type '" + cfg.ParentName + "' was not found.");
+                            // Reject the promise
+                            reject(ct.response);
+                        });
                     }
                     else {
                         // Create the content type
