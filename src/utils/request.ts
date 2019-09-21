@@ -173,6 +173,9 @@ export const Request = {
                         // Update the data collection
                         Helper.updateDataCollection(base, objCollection["results"]);
 
+                        // Update the expanded properties
+                        Helper.updateExpandedProperties(base);
+
                         // Update the property
                         base[key] = objCollection;
                     }
@@ -496,6 +499,9 @@ export const Request = {
 
                         // Update the data collection
                         Helper.updateDataCollection(obj, objData["results"]);
+
+                        // Update the expanded properties
+                        Helper.updateExpandedProperties(obj);
                     } else {
                         // Update the object to the raw data
                         obj = data;
@@ -517,6 +523,9 @@ export const Request = {
 
                     // Update the data collection
                     Helper.updateDataCollection(obj, data.d.results);
+
+                    // Update the expanded properties
+                    Helper.updateExpandedProperties(obj);
                 } else {
                     // Update the base object's properties
                     Request.addProperties(obj, data);
@@ -581,6 +590,9 @@ export const Request = {
                                 if (data.d) {
                                     // Update the data collection
                                     Helper.updateDataCollection(base as any, data.d.results);
+
+                                    // Update the expanded properties
+                                    Helper.updateExpandedProperties(base);
 
                                     // Append the raw data results
                                     base["d"].results = base["d"].results.concat(data.d.results);

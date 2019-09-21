@@ -153,6 +153,8 @@ exports.Request = {
                         exports.Request.addMethods(objCollection, objCollection);
                         // Update the data collection
                         helper_1.Helper.updateDataCollection(base, objCollection["results"]);
+                        // Update the expanded properties
+                        helper_1.Helper.updateExpandedProperties(base);
                         // Update the property
                         base[key] = objCollection;
                     }
@@ -450,6 +452,8 @@ exports.Request = {
                         exports.Request.addMethods(obj, objData, objData["@odata.context"]);
                         // Update the data collection
                         helper_1.Helper.updateDataCollection(obj, objData["results"]);
+                        // Update the expanded properties
+                        helper_1.Helper.updateExpandedProperties(obj);
                     }
                     else {
                         // Update the object to the raw data
@@ -468,6 +472,8 @@ exports.Request = {
                     exports.Request.addMethods(obj, data.d, data["@odata.context"]);
                     // Update the data collection
                     helper_1.Helper.updateDataCollection(obj, data.d.results);
+                    // Update the expanded properties
+                    helper_1.Helper.updateExpandedProperties(obj);
                 }
                 else {
                     // Update the base object's properties
@@ -526,6 +532,8 @@ exports.Request = {
                                 if (data.d) {
                                     // Update the data collection
                                     helper_1.Helper.updateDataCollection(base, data.d.results);
+                                    // Update the expanded properties
+                                    helper_1.Helper.updateExpandedProperties(base);
                                     // Append the raw data results
                                     base["d"].results = base["d"].results.concat(data.d.results);
                                     // Validate the data collection

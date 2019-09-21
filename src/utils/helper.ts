@@ -286,6 +286,34 @@ export const Helper: IBaseHelper = {
         }
     },
 
+    // Method to update the expanded properties
+    updateExpandedProperties: (base: IBase) => {
+        // Ensure this is an OData request
+        if (base["results"] && base.requestType != RequestType.OData) { return; }
+
+        // Parse the results
+        for (let i = 0; i < base["results"].length; i++) {
+            let result = base["results"][i];
+
+            // Parse the properties
+            for (let key in result) {
+                let prop = result[key];
+
+                // See if this property was expanded
+                if (prop["__metadata"]) {
+                    // Add the base methods
+                    Helper.addBaseMethods(result, prop);
+
+                    // Update the metadata
+                    Helper.updateMetadata(result, prop);
+
+                    // Add the methods
+                    Request.addMethods(prop, prop);
+                }
+            }
+        }
+    },
+
     // Method to update the metadata
     updateMetadata: (base, data) => {
         // Ensure the base is the app web

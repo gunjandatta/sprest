@@ -5261,6 +5261,9 @@ declare module 'gd-sprest/utils/helper' {
         /** Updates the data collection objects. */
         updateDataCollection(base: IBase, results: Array<IBase>);
     
+        /** Updates the expanded properties for odata queries. */
+        updateExpandedProperties(base: IBase);
+    
         /** Updates the metadata. */
         updateMetadata(base, data);
     
