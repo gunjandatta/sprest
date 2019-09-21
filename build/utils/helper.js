@@ -235,6 +235,30 @@ exports.Helper = {
             }
         }
     },
+    // Method to update the expanded properties
+    updateExpandedProperties: function (base) {
+        // Ensure this is an OData request
+        if (base["results"] && base.requestType != _1.RequestType.OData) {
+            return;
+        }
+        // Parse the results
+        for (var i = 0; i < base["results"].length; i++) {
+            var result = base["results"][i];
+            // Parse the properties
+            for (var key in result) {
+                var prop = result[key];
+                // See if this property was expanded
+                if (prop["__metadata"]) {
+                    // Add the base methods
+                    exports.Helper.addBaseMethods(result, prop);
+                    // Update the metadata
+                    exports.Helper.updateMetadata(result, prop);
+                    // Add the methods
+                    _1.Request.addMethods(prop, prop);
+                }
+            }
+        }
+    },
     // Method to update the metadata
     updateMetadata: function (base, data) {
         // Ensure the base is the app web

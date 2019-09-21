@@ -21,6 +21,26 @@ var ModalDialog = (function () {
                 el.style.display = "";
             }
         };
+        // Updates the title
+        dialog.setTitle = function (value) {
+            // Get the title element
+            var elDlg = dialog.get_dialogElement();
+            var elTitle = elDlg ? elDlg.querySelector(".ms-dlgLoadingTextDiv .ms-core-pageTitle") : null;
+            if (elTitle) {
+                // Update the title
+                elTitle.innerHTML = value;
+            }
+        };
+        // Updates the sub-title
+        dialog.setSubTitle = function (value) {
+            // Get the sub-title element
+            var elDlg = dialog.get_dialogElement();
+            var elSubTitle = elDlg ? elDlg.querySelector(".ms-dlgLoadingTextDiv ~ div") : null;
+            if (elSubTitle) {
+                // Update the sub-title
+                elSubTitle.innerHTML = value;
+            }
+        };
         // Return the dialog
         return dialog;
     };

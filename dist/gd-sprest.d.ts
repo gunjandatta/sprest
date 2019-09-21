@@ -33,7 +33,7 @@ declare module 'gd-sprest' {
     /**
         * SharePoint Enumerator Types
         */
-    import { SPTypes } from "gd-sprest/mapper";
+    import { SPTypes } from "gd-sprest/sptypes";
     export { SPTypes }
     
     /**
@@ -211,6 +211,7 @@ declare module 'gd-sprest/helper' {
 declare module 'gd-sprest/rest' {
     import { Base, SP } from "gd-sprest-def";
     import { IHelper } from "gd-sprest/helper";
+    import { ISPTypes } from "gd-sprest/sptypes";
     import * as LibTypes from "gd-sprest/lib";
     
     /**
@@ -356,7 +357,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * The SharePoint enumerator types.
                 */
-            SPTypes;
+            SPTypes: ISPTypes;
     
             /**
                 * A reference to the _api/thememanager endpoint.
@@ -380,10 +381,49 @@ declare module 'gd-sprest/rest' {
     }
 }
 
-declare module 'gd-sprest/mapper' {
-    import * as SPTypes from "gd-sprest/mapper/sptypes";
-    export {
-        SPTypes
+declare module 'gd-sprest/sptypes' {
+    import * as Types from "gd-sprest/sptypes/sptypes";
+    export * from "gd-sprest/sptypes/sptypes";
+    
+    /**
+      * SharePoint Types
+      */
+    export const SPTypes: ISPTypes;
+    export interface ISPTypes {
+        BasePermissionTypes: Types.IBasePermissionTypes;
+        CalendarType: Types.ICalendarType;
+        CheckOutType: Types.ICheckOutType;
+        ChoiceFormatType: Types.IChoiceFormatType;
+        ClientTemplateUtility: Types.IClientTemplateUtility;
+        ControlMode: Types.IControlMode;
+        DateFormat: Types.IDateFormat;
+        DraftVisibilityType: Types.IDraftVisibilityType;
+        EventReceiverType: Types.IEventReceiverType;
+        EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+        FieldNoteType: Types.IFieldNoteType;
+        FieldNumberType: Types.IFieldNumberType;
+        FieldResultType: Types.IFieldResultType;
+        FieldType: Types.IFieldType;
+        FieldUserSelectionType: Types.IFieldUserSelectionType;
+        FileTemplateType: Types.IFileTemplateType;
+        FriendlyDateFormat: Types.IFriendlyDateFormat;
+        ListTemplateType: Types.IListTemplateType;
+        LocaleLCIDType: Types.ILocaleLCIDType;
+        NodeType: Types.INodeType;
+        PageType: Types.IPageType;
+        PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
+        PrincipalSources: Types.IPrincipalSources;
+        PrincipalTypes: Types.IPrincipalTypes;
+        RelationshipDeleteBehaviorType: Types.IRelationshipDeleteBehaviorType;
+        RenderListDataOptions: Types.IRenderListDataOptions;
+        ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
+        RoleType: Types.IRoleType;
+        StatusPriColor: Types.IStatusPriColor;
+        UrlFormatType: Types.IUrlFormatType;
+        URLZones: Types.IURLZones;
+        UserCustomActionRegistrationType: Types.IUserCustomActionRegistrationType;
+        ViewType: Types.IViewType;
+        WebTemplateType: Types.IWebTemplateType;
     }
 }
 
@@ -2260,6 +2300,16 @@ declare module 'gd-sprest/helper/sp' {
             set_title(title: string);
     
             /**
+                * Sets the sub title of the close dialog
+                */
+            setSubTitle(value:string);
+    
+            /**
+                * Sets the title of the close dialog
+                */
+            setTitle(value:string);
+    
+            /**
                 * Shows the dialog
                 */
             show();
@@ -3160,13 +3210,12 @@ declare module 'gd-sprest/helper/executor' {
     export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any>;
 }
 
-declare module 'gd-sprest/mapper/sptypes' {
+declare module 'gd-sprest/sptypes/sptypes' {
     import { SP } from "gd-sprest-def";
     
     /**
         * Base Permission Types
         */
-    export const BasePermissionTypes: IBasePermissionTypes;
     export type IBasePermissionTypes = {
             AddAndCustomizePages: number,
             AddDelPrivateWebParts: number,
@@ -3208,16 +3257,8 @@ declare module 'gd-sprest/mapper/sptypes' {
     }
     
     /**
-        * Base Permission Result
-        */
-    export interface IGetUserEffectivePermissionsResult {
-            GetUserEffectivePermissions: SP.BasePermissions
-    }
-    
-    /**
         * Calendar Types
         */
-    export const CalendarType: ICalendarType;
     export type ICalendarType = {
             /** Gregorian (localized) */
             Gregorian: number,
@@ -3265,7 +3306,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Check Out Types
         */
-    export const CheckOutType: ICheckOutType;
     export type ICheckOutType = {
             /** Online */
             Online: number,
@@ -3280,7 +3320,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Choice Format Types
         */
-    export const ChoiceFormatType: IChoiceFormatType;
     export type IChoiceFormatType = {
             /** Dropdown */
             Dropdown: number,
@@ -3292,7 +3331,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Client Template Utility
         */
-    export const ClientTemplateUtility: IClientTemplateUtility;
     export type IClientTemplateUtility = {
             /** User Lookup Delimiter */
             UserLookupDelimitString: string,
@@ -3304,7 +3342,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Control Modes
         */
-    export const ControlMode: IControlMode;
     export type IControlMode = {
             /** A placeholder value in the export typeeration indicating that it has no valid display mode from one of the other export typeeration values. */
             Invalid: number,
@@ -3325,7 +3362,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Date Format
         */
-    export const DateFormat: IDateFormat;
     export type IDateFormat = {
             /** Displays only the date. */
             DateOnly: number,
@@ -3337,7 +3373,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Draft Visibility Types
         */
-    export const DraftVisibilityType: IDraftVisibilityType;
     export type IDraftVisibilityType = {
             /** export typeeration whose values specify that the minimum permission is approver. */
             Approver: number,
@@ -3352,7 +3387,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Event Receiver Types
         */
-    export const EventReceiverType: IEventReceiverType;
     export type IEventReceiverType = {
             /** Event that occurs before an item has been added. */
             ItemAdding: number,
@@ -3583,7 +3617,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Event Receiver Synchronization Types
         */
-    export const EventReceiverSynchronizationType: IEventReceiverSynchronizationType;
     export type IEventReceiverSynchronizationType = {
             /** Event to be triggered asynchronously. */
             Asynchronous: number,
@@ -3595,7 +3628,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Field Note Types
         */
-    export const FieldNoteType: IFieldNoteType;
     export type IFieldNoteType = {
             /** Enhance Rich Text */
             EnhancedRichText: number,
@@ -3610,7 +3642,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Field Number Type
         */
-    export const FieldNumberType: IFieldNumberType;
     export type IFieldNumberType = {
             /** Decimal */
             Decimal: number,
@@ -3625,7 +3656,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Field Result Types
         */
-    export const FieldResultType: IFieldResultType;
     export type IFieldResultType = {
             /** Boolean */
             Boolean: string,
@@ -3649,7 +3679,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Field Types
         */
-    export const FieldType: IFieldType;
     export type IFieldType = {
             /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
             AllDayEvent: number,
@@ -3754,7 +3783,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Field User Selection Types
         */
-    export const FieldUserSelectionType: IFieldUserSelectionType;
     export type IFieldUserSelectionType = {
             /** People only. */
             PeopleOnly: number,
@@ -3766,7 +3794,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * File Template Types
      */
-    export const FileTemplateType: IFileTemplateType;
     export type IFileTemplateType = {
             /** export typeeration whose value specifies default form template. */
             FormPage: number,
@@ -3781,7 +3808,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Friendly Date Format
         */
-    export const FriendlyDateFormat: IFriendlyDateFormat;
     export type IFriendlyDateFormat = {
             /** Unspecified */
             Unspecified: number,
@@ -3794,9 +3820,15 @@ declare module 'gd-sprest/mapper/sptypes' {
     }
     
     /**
+        * Base Permission Result
+        */
+    export interface IGetUserEffectivePermissionsResult {
+            GetUserEffectivePermissions: SP.BasePermissions
+    }
+    
+    /**
         * List Template Types
      */
-    export const ListTemplateType: IListTemplateType;
     export type IListTemplateType = {
             /** Access Request List */
             AccessRequest: number,
@@ -3976,7 +4008,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Locale LCID Types
         */
-    export const LocaleLCIDType: ILocaleLCIDType;
     export type ILocaleLCIDType = {
             Afrikaans: number,
             Albanian: number,
@@ -4116,7 +4147,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Node Types
         */
-    export const NodeType: INodeType;
     export type INodeType = {
             /** Specifies no node types. */
             None: number;
@@ -4167,7 +4197,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Page Types
         */
-    export const PageType: IPageType;
     export type IPageType = {
             /** export typeeration whose values specify a page that is the default view for a list. */
             DefaultView: number,
@@ -4209,12 +4238,9 @@ declare module 'gd-sprest/mapper/sptypes' {
             View: number
     };
     
-    
-    
     /**
         * Personal Site Capabilities
         */
-    export const PersonalSiteCapabilities: IPersonalSiteCapabilities;
     export type IPersonalSiteCapabilities = {
             Education: number,
             Guest: number,
@@ -4228,7 +4254,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Principal Sources
         */
-    export const PrincipalSources: IPrincipalSources;
     export type IPrincipalSources = {
             /** Search all principal sources. */
             All: number,
@@ -4252,7 +4277,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Principal Types
         */
-    export const PrincipalTypes: IPrincipalTypes;
     export type IPrincipalTypes = {
             /** Return all entity types. */
             All: number,
@@ -4276,7 +4300,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Relationship Delete Behavior Types
         */
-    export const RelationshipDeleteBehaviorType: IRelationshipDeleteBehaviorType;
     export type IRelationshipDeleteBehaviorType = {
             /** No relationship behavior is applied. */
             None: number,
@@ -4291,7 +4314,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Render List Data Options
         */
-    export const RenderListDataOptions: IRenderListDataOptions;
     export type IRenderListDataOptions = {
             None: number,
             ContextInfo: number,
@@ -4315,7 +4337,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Reordering Rule Match Types
         */
-    export const ReorderingRuleMatchType: IReorderingRuleMatchType;
     export type IReorderingRuleMatchType = {
             ResultContainsKeyword: number,
             TitleContainsKeyword: number,
@@ -4331,7 +4352,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Role Types
         */
-    export const RoleType: IRoleType;
     export type IRoleType = {
             /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
             Administrator: number,
@@ -4358,7 +4378,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Status Pri Color
         */
-    export const StatusPriColor: IStatusPriColor;
     export interface IStatusPriColor {
             /** Information */
             Blue: string,
@@ -4376,7 +4395,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * URL Format Types
         */
-    export const UrlFormatType: IUrlFormatType;
     export type IUrlFormatType = {
             /** Hyperlink */
             Hyperlink: number,
@@ -4388,7 +4406,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * URL Zones
         */
-    export const URLZones: IURLZones;
     export type IURLZones = {
             /** Search the custom zone. */
             Custom: number,
@@ -4409,7 +4426,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * User Custom Action Registration Types
         */
-    export const UserCustomActionRegistrationType: IUserCustomActionRegistrationType;
     export type IUserCustomActionRegistrationType = {
             /** export typeeration whose values specify that the object association is not specified. */
             None: number,
@@ -4430,7 +4446,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * View Types
         */
-    export const ViewType: IViewType;
     export type IViewType = {
             /** export typeeration whose values specify a calendar list view type. */
             Calendar: number,
@@ -4455,7 +4470,6 @@ declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Web Template Types
         */
-    export const WebTemplateType: IWebTemplateType;
     export type IWebTemplateType = {
             AcademicLibrary: string,
             App: string,
@@ -4839,7 +4853,6 @@ declare module 'gd-sprest/intellisense/graph' {
 
 declare module 'gd-sprest/intellisense/peoplePicker' {
     import { Base, SP } from "gd-sprest-def";
-    import { SPTypes } from "gd-sprest/mapper";
     
     /**
         * Entity Data
@@ -5247,6 +5260,9 @@ declare module 'gd-sprest/utils/helper' {
     
         /** Updates the data collection objects. */
         updateDataCollection(base: IBase, results: Array<IBase>);
+    
+        /** Updates the expanded properties for odata queries. */
+        updateExpandedProperties(base: IBase);
     
         /** Updates the metadata. */
         updateMetadata(base, data);

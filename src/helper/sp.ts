@@ -26,6 +26,28 @@ const ModalDialog: IModalDialog = (() => {
             }
         }
 
+        // Updates the title
+        dialog.setTitle = (value: string) => {
+            // Get the title element
+            let elDlg = dialog.get_dialogElement();
+            let elTitle = elDlg ? elDlg.querySelector(".ms-dlgLoadingTextDiv .ms-core-pageTitle") : null;
+            if (elTitle) {
+                // Update the title
+                elTitle.innerHTML = value;
+            }
+        }
+
+        // Updates the sub-title
+        dialog.setSubTitle = (value: string) => {
+            // Get the sub-title element
+            let elDlg = dialog.get_dialogElement();
+            let elSubTitle = elDlg ? elDlg.querySelector(".ms-dlgLoadingTextDiv ~ div") : null;
+            if (elSubTitle) {
+                // Update the sub-title
+                elSubTitle.innerHTML = value;
+            }
+        }
+
         // Return the dialog
         return dialog;
     }

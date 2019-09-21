@@ -1,6 +1,14 @@
 import {
-    $REST, List, Helper, Types
+    $REST, List, Helper, Types, Utility
 } from "../@types";
+
+$REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execute(d => {
+    d.results[0].Name;
+});
+
+$REST.Web().SiteGroups().execute(groups => {
+    groups.results[0].Id;
+});
 
 $REST.HubSites().getById("").execute(h => { h.Title; });
 $REST.GroupSiteManager().canUserCreateGroup().execute(value => {

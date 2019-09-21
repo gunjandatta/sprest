@@ -1,13 +1,13 @@
 import * as Helper from "./helper";
 import * as Lib from "./lib";
-import * as Mapper from "./mapper";
+import { SPTypes } from "./sptypes";
 import { IREST } from "../@types";
 
 /**
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.92,
+    __ver: 4.99,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
@@ -30,7 +30,7 @@ export const $REST: IREST = {
     Site: Lib.Site,
     SiteExists: (url) => { return Lib.Site.exists(url); },
     SiteUrl: (id: string) => { return Lib.Site.getUrlById(id); },
-    SPTypes: Mapper.SPTypes,
+    SPTypes: SPTypes as any,
     SocialFeed: Lib.SocialFeed,
     ThemeManager: Lib.ThemeManager,
     UserProfile: Lib.UserProfile,

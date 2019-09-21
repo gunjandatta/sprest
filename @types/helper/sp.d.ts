@@ -220,6 +220,16 @@ export interface IModalDialogObj {
     set_title(title: string);
 
     /**
+     * Sets the sub title of the close dialog
+     */
+    setSubTitle(value:string);
+
+    /**
+     * Sets the title of the close dialog
+     */
+    setTitle(value:string);
+
+    /**
      * Shows the dialog
      */
     show();

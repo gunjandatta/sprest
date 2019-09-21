@@ -31,7 +31,6 @@ SOFTWARE.
 ***************************************************************************************************/
 var Helper = require("./helper");
 exports.Helper = Helper;
-var mapper_1 = require("./mapper");
-exports.SPTypes = mapper_1.SPTypes;
 __export(require("./lib"));
 __export(require("./rest"));
+__export(require("./sptypes"));

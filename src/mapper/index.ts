@@ -6,5 +6,4 @@
 // 5) Remove the mapper files and code used as a backup
 import * as Mapper_Old from "./old";
 import { Mapper } from "./def";
-import * as SPTypes from "./sptypes";
-export { Mapper, Mapper_Old, SPTypes }
+export { Mapper, Mapper_Old }
