@@ -300,7 +300,7 @@ export const Helper: IBaseHelper = {
                 let prop = result[key];
 
                 // See if this property was expanded
-                if (prop["__metadata"]) {
+                if (prop && prop["__metadata"]) {
                     // Add the base methods
                     Helper.addBaseMethods(result, prop);
 

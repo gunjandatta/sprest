@@ -248,7 +248,7 @@ exports.Helper = {
             for (var key in result) {
                 var prop = result[key];
                 // See if this property was expanded
-                if (prop["__metadata"]) {
+                if (prop && prop["__metadata"]) {
                     // Add the base methods
                     exports.Helper.addBaseMethods(result, prop);
                     // Update the metadata
