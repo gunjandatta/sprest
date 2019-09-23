@@ -289,7 +289,7 @@ export const Helper: IBaseHelper = {
     // Method to update the expanded properties
     updateExpandedProperties: (base: IBase) => {
         // Ensure this is an OData request
-        if (base["results"] && base.requestType != RequestType.OData) { return; }
+        if (base["results"] == null || base.requestType != RequestType.OData) { return; }
 
         // Parse the results
         for (let i = 0; i < base["results"].length; i++) {
@@ -300,7 +300,7 @@ export const Helper: IBaseHelper = {
                 let prop = result[key];
 
                 // See if this property was expanded
-                if (prop["__metadata"]) {
+                if (prop && prop["__metadata"]) {
                     // Add the base methods
                     Helper.addBaseMethods(result, prop);
 

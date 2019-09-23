@@ -238,7 +238,7 @@ exports.Helper = {
     // Method to update the expanded properties
     updateExpandedProperties: function (base) {
         // Ensure this is an OData request
-        if (base["results"] && base.requestType != _1.RequestType.OData) {
+        if (base["results"] == null || base.requestType != _1.RequestType.OData) {
             return;
         }
         // Parse the results
@@ -248,7 +248,7 @@ exports.Helper = {
             for (var key in result) {
                 var prop = result[key];
                 // See if this property was expanded
-                if (prop["__metadata"]) {
+                if (prop && prop["__metadata"]) {
                     // Add the base methods
                     exports.Helper.addBaseMethods(result, prop);
                     // Update the metadata
