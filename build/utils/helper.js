@@ -238,7 +238,7 @@ exports.Helper = {
     // Method to update the expanded properties
     updateExpandedProperties: function (base) {
         // Ensure this is an OData request
-        if (base["results"] && base.requestType != _1.RequestType.OData) {
+        if (base["results"] == null || base.requestType != _1.RequestType.OData) {
             return;
         }
         // Parse the results
