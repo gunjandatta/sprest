@@ -60,5 +60,5 @@ List.getDataAsStream = ((listFullUrl: string, parameters: SP.RenderListDataParam
     // Return the base object
     return new Base({
         endpoint: "SP.List.getListDataAsStream" + params
-    });
+    }) as any;
 });
