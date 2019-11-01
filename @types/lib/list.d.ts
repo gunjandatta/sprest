@@ -28,7 +28,7 @@ export interface IList {
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    getDataAsStream(listFullUrl: string, parameters?: any): Base.IBaseExecution<IListDataStream>;
+    getDataAsStream(listFullUrl: string, parameters?: SP.RenderListDataParameters): Base.IBaseExecution<IListDataStream>;
 }
 
 /**
