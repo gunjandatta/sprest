@@ -151,8 +151,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         contentTypes.add({
                             Description: cfg.Description,
                             Group: cfg.Group,
-                            Id: cfg.Id || "0x0100" + ContextInfo.generateGUID().replace(/-/g, ""),
-                            Name: cfg.Name
+                            Name: cfg.Name,
+                            Id: {
+                                __metadata: {
+                                    type: "SP.ContentTypeId"
+                                },
+                                StringValue: cfg.Id || "0x0100" + ContextInfo.generateGUID().replace(/-/g, "")
+                            } as any
                         }).execute((ct) => {
                             // See if it was successful
                             if (ct.Name) {
