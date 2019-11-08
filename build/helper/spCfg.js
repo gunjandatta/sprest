@@ -135,7 +135,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         contentTypes.add({
                             Description: cfg.Description,
                             Group: cfg.Group,
-                            Id: cfg.Id || "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
+                            Id: cfg.Id || "0x0100" + lib_1.ContextInfo.generateGUID().replace(/-/g, ""),
                             Name: cfg.Name
                         }).execute(function (ct) {
                             // See if it was successful
