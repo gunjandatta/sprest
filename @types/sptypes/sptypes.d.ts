@@ -413,6 +413,16 @@ export type IEventReceiverSynchronizationType = {
 };
 
 /**
+ * Field Index Status
+ */
+export type IFieldIndexStatus = {
+    None: number,
+    Indexed: number,
+    Enabling: number,
+    Disabling: number
+}
+
+/**
  * Field Note Types
  */
 export type IFieldNoteType = {

@@ -6,6 +6,10 @@ $REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execu
     d.results[0].Name;
 });
 
+$REST.Web().Lists().query({}).execute(lists => {
+    lists.results[0].RoleAssignments.results[0];
+})
+
 $REST.Web().SiteGroups().execute(groups => {
     groups.results[0].Id;
 });

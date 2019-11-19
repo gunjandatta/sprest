@@ -286,7 +286,7 @@ function testContentType(list) {
         var field = $REST.Web().Fields("SPRestText").executeAndWait();
         if (!field.existsFl) {
             // Create the test field
-            field = web.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
+            field = web.Fields().createFieldAsXml('<Field ID="{' + SP.Guid.newGuid().toString() + '}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
         }
 
         // Test
@@ -296,7 +296,7 @@ function testContentType(list) {
         writeToLog("Add List Field", LogType.SubHeader);
 
         // Add the field to the list
-        var listField = list.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
+        var listField = list.Fields().createFieldAsXml('<Field ID="{' + SP.Guid.newGuid().toString() + '}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
 
         // Test
         assert(listField, "add list field", "existsFl", true);
@@ -410,18 +410,22 @@ function testFile() {
 
     // Copy the file
     file = subFolder.Files().add("test.aspx", true, buffer).executeAndWait();
+    file2 = subFolder.Files().add("test2.aspx", true, buffer).executeAndWait();
 
     // Test
     assert(file, "copy file", "Exists", true);
+    assert(file2, "copy file", "Exists", true);
 
     // Log
     writeToLog("Delete the file", LogType.SubHeader);
 
     // Delete the file
     file = file.delete().executeAndWait();
+    file2 = file2.deleteWithParameters({ BypassSharedLock: true, ETagMatch: "*"}).executeAndWait();
 
     // Test
     assert(file.d, "delete file", "DeleteObject", null);
+    assert(file2.d, "delete file", "DeleteObject", null);
 
     // Log
     writeToLog("Delete the folder", LogType.SubHeader);
@@ -597,7 +601,8 @@ function testListItem(list) {
     assert(attachment, "add attachment", "existsFl", true);
 
     // Get the attachment content
-    let attachmentContent = $REST.Web().getFileByServerRelativeUrl(attachment.ServerRelativeUrl).content().executeAndWait();
+    // Not recommended to read file contents this way
+    let attachmentContent = $REST.Web().getFileByServerRelativeUrl(attachment.ServerRelativeUrl).content().executeAndWait().replace(/\0/g, '');
 
     // Test
     if (fileContent == attachmentContent) {

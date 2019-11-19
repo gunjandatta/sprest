@@ -189,6 +189,16 @@ export const EventReceiverType: SPTypes.IEventReceiverType = {
 };
 
 /**
+ * Field Index Status
+ */
+export type IFieldIndexStatus = {
+    None: 0,
+    Indexed: 1,
+    Enabling: 2,
+    Disabling: 3
+}
+
+/**
  * Field Note Types
  */
 export const FieldNoteType: SPTypes.IFieldNoteType = {
