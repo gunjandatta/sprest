@@ -410,18 +410,22 @@ function testFile() {
 
     // Copy the file
     file = subFolder.Files().add("test.aspx", true, buffer).executeAndWait();
+    file2 = subFolder.Files().add("test2.aspx", true, buffer).executeAndWait();
 
     // Test
     assert(file, "copy file", "Exists", true);
+    assert(file2, "copy file", "Exists", true);
 
     // Log
     writeToLog("Delete the file", LogType.SubHeader);
 
     // Delete the file
     file = file.delete().executeAndWait();
+    file2 = file2.deleteWithParameters({ BypassSharedLock: true, ETagMatch: "*"}).executeAndWait();
 
     // Test
     assert(file.d, "delete file", "DeleteObject", null);
+    assert(file2.d, "delete file", "DeleteObject", null);
 
     // Log
     writeToLog("Delete the folder", LogType.SubHeader);

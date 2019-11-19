@@ -4144,7 +4144,7 @@ export const Mapper: IMapper = {
 
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: RequestType.Delete
+            requestType: RequestType.PostWithArgsInBody
         },
 
         deny: {
@@ -4410,7 +4410,7 @@ export const Mapper: IMapper = {
 
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: RequestType.Delete
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getChanges: {
@@ -4929,7 +4929,7 @@ export const Mapper: IMapper = {
 
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: RequestType.Delete
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getChanges: {
@@ -8257,7 +8257,7 @@ export const Mapper: IMapper = {
 
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: RequestType.Delete
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getChanges: {
@@ -8299,7 +8299,7 @@ export const Mapper: IMapper = {
 
         recycleWithParameters: {
             argNames: ["parameters"],
-            requestType: RequestType.Post
+            requestType: RequestType.PostWithArgsInBody
         },
 
         resetRoleInheritance: {

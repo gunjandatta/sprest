@@ -2894,7 +2894,7 @@ exports.Mapper = {
         },
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: utils_1.RequestType.Delete
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         deny: {
             argNames: ["comment"],
@@ -3103,7 +3103,7 @@ exports.Mapper = {
         },
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: utils_1.RequestType.Delete
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         getChanges: {
             argNames: ["query"],
@@ -3506,7 +3506,7 @@ exports.Mapper = {
         },
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: utils_1.RequestType.Delete
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         getChanges: {
             argNames: ["query"],
@@ -5834,7 +5834,7 @@ exports.Mapper = {
         },
         deleteWithParameters: {
             argNames: ["parameters"],
-            requestType: utils_1.RequestType.Delete
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         getChanges: {
             argNames: ["query"],
@@ -5865,7 +5865,7 @@ exports.Mapper = {
         },
         recycleWithParameters: {
             argNames: ["parameters"],
-            requestType: utils_1.RequestType.Post
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         resetRoleInheritance: {},
         setCommentsDisabled: {
