@@ -523,11 +523,18 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         return new Promise((resolve, reject) => {
             let cfgWebParts = cfg.WebPartCfg;
 
+            // Ensure fields exist
+            if (cfgWebParts == null || cfgWebParts.length == 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
+
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
 
             // Get the root web
-            Web(ContextInfo.siteServerRelativeUrl)
+            Site(webUrl, { requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -782,7 +789,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to remove the web parts
-    let removeWebParts = (): PromiseLike<void> => {
+    let removeWebParts = (site: SP.Site): PromiseLike<void> => {
         let cfgWebParts = cfg.WebPartCfg;
 
         // Return a promise
@@ -807,10 +814,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
 
-            // Get the root web
-            Web(ContextInfo.siteServerRelativeUrl)
-                // Get the webpart gallery
-                .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+            // Get the webpart gallery
+            site.getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
@@ -1068,30 +1073,32 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let uninstallSite = (): PromiseLike<SP.ISiteQuery> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Log
-            console.log("[gd-sprest][uninstall] Loading the site information...");
+            // Ensure we need to complete this request
+            if ((cfg.CustomActionCfg != null && cfg.CustomActionCfg.Site != null) || cfg.WebPartCfg != null) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the site information...");
 
-            // Ensure site actions exist
-            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
+                // Get the site
+                Site(webUrl, { requestDigest: _requestDigest })
+                    // Expand the user custom actions
+                    .query({
+                        Expand: ["UserCustomActions"]
+                    })
+                    // Execute the request
+                    .execute(site => {
+                        // Remove the user custom actions
+                        removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
+                            // Remove the webpart
+                            removeWebParts(site as any).then(() => {
+                                // Resolve the promise
+                                resolve(site);
+                            }, reject);
+                        });
+                    }, reject);
+            } else {
                 // Resolve the promise
                 resolve();
-                return;
             }
-
-            // Get the site
-            Site(webUrl, { requestDigest: _requestDigest })
-                // Expand the user custom actions
-                .query({
-                    Expand: ["UserCustomActions"]
-                })
-                // Execute the request
-                .execute(site => {
-                    // Remove the user custom actions
-                    removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
-                        // Resolve the promise
-                        resolve(site);
-                    });
-                }, reject);
         });
     }
 
@@ -1304,14 +1311,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     uninstallWeb().then(() => {
                         // Uninstall the site components
                         uninstallSite().then(() => {
-                            // Remove the webparts
-                            removeWebParts().then(() => {
-                                // Log
-                                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                            // Log
+                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
 
-                                // Resolve the promise
-                                resolve();
-                            }, reject);
+                            // Resolve the promise
+                            resolve();
                         }, reject);
                     }, reject);
                 });

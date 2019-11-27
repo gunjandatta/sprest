@@ -474,10 +474,16 @@ exports.SPConfig = function (cfg, webUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var cfgWebParts = cfg.WebPartCfg;
+            // Ensure fields exist
+            if (cfgWebParts == null || cfgWebParts.length == 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
+            lib_1.Site(webUrl, { requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -709,7 +715,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the web parts
-    var removeWebParts = function () {
+    var removeWebParts = function (site) {
         var cfgWebParts = cfg.WebPartCfg;
         // Return a promise
         return new Promise(function (resolve, reject) {
@@ -730,10 +736,8 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
-            // Get the root web
-            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
-                // Get the webpart gallery
-                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+            // Get the webpart gallery
+            site.getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
@@ -969,28 +973,32 @@ exports.SPConfig = function (cfg, webUrl) {
     var uninstallSite = function () {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Log
-            console.log("[gd-sprest][uninstall] Loading the site information...");
-            // Ensure site actions exist
-            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
+            // Ensure we need to complete this request
+            if ((cfg.CustomActionCfg != null && cfg.CustomActionCfg.Site != null) || cfg.WebPartCfg != null) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the site information...");
+                // Get the site
+                lib_1.Site(webUrl, { requestDigest: _requestDigest })
+                    // Expand the user custom actions
+                    .query({
+                    Expand: ["UserCustomActions"]
+                })
+                    // Execute the request
+                    .execute(function (site) {
+                    // Remove the user custom actions
+                    removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
+                        // Remove the webpart
+                        removeWebParts(site).then(function () {
+                            // Resolve the promise
+                            resolve(site);
+                        }, reject);
+                    });
+                }, reject);
+            }
+            else {
                 // Resolve the promise
                 resolve();
-                return;
             }
-            // Get the site
-            lib_1.Site(webUrl, { requestDigest: _requestDigest })
-                // Expand the user custom actions
-                .query({
-                Expand: ["UserCustomActions"]
-            })
-                // Execute the request
-                .execute(function (site) {
-                // Remove the user custom actions
-                removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
-                    // Resolve the promise
-                    resolve(site);
-                });
-            }, reject);
         });
     };
     // Method to uninstall the web components
@@ -1177,13 +1185,10 @@ exports.SPConfig = function (cfg, webUrl) {
                     uninstallWeb().then(function () {
                         // Uninstall the site components
                         uninstallSite().then(function () {
-                            // Remove the webparts
-                            removeWebParts().then(function () {
-                                // Log
-                                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                                // Resolve the promise
-                                resolve();
-                            }, reject);
+                            // Log
+                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                            // Resolve the promise
+                            resolve();
                         }, reject);
                     }, reject);
                 });
