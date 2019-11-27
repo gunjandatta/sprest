@@ -532,7 +532,9 @@ exports.SPConfig = function (cfg, webUrl) {
                             bufferView[j] = xml.charCodeAt(j);
                         }
                         // Create the webpart, but execute the requests one at a time
-                        folder.Files.add(cfgWebPart.FileName, true, buffer).execute(function (file) {
+                        folder.Files.add(cfgWebPart.FileName, true, buffer).execute(
+                        // Success
+                        function (file) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
@@ -557,6 +559,13 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
                             // Trigger the event
                             cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                        }, 
+                        // Error
+                        function () {
+                            // Log
+                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file upload failed.");
+                            // Skip this webpart
+                            resolve();
                         });
                     }
                 };

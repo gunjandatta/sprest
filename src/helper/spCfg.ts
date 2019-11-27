@@ -592,34 +592,46 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             }
 
                             // Create the webpart, but execute the requests one at a time
-                            folder.Files.add(cfgWebPart.FileName, true, buffer).execute((file) => {
-                                // See if group exists
-                                if (cfgWebPart.Group) {
-                                    // Set the target to the root web
-                                    Web(ContextInfo.siteServerRelativeUrl)
-                                        // Get the web part catalog
-                                        .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
-                                        // Get the Items
-                                        .Items()
-                                        // Query for this webpart
-                                        .query({
-                                            Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
-                                        })
-                                        // Execute the request
-                                        .execute((items) => {
-                                            // Update the item
-                                            items.results[0].update({
-                                                Group: cfgWebPart.Group
-                                            }).execute(postExecute);
-                                        });
+                            folder.Files.add(cfgWebPart.FileName, true, buffer).execute(
+                                // Success
+                                (file) => {
+                                    // See if group exists
+                                    if (cfgWebPart.Group) {
+                                        // Set the target to the root web
+                                        Web(ContextInfo.siteServerRelativeUrl)
+                                            // Get the web part catalog
+                                            .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+                                            // Get the Items
+                                            .Items()
+                                            // Query for this webpart
+                                            .query({
+                                                Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
+                                            })
+                                            // Execute the request
+                                            .execute((items) => {
+                                                // Update the item
+                                                items.results[0].update({
+                                                    Group: cfgWebPart.Group
+                                                }).execute(postExecute);
+                                            });
+                                    }
+
+                                    // Log
+                                    console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+
+                                    // Trigger the event
+                                    cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                                },
+
+                                // Error
+                                () => {
+                                    // Log
+                                    console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file upload failed.");
+
+                                    // Skip this webpart
+                                    resolve();
                                 }
-
-                                // Log
-                                console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
-
-                                // Trigger the event
-                                cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
-                            });
+                            );
                         }
                     }
                 }, reject);
