@@ -533,8 +533,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
 
-            // Get the root web
-            Site(webUrl, { requestDigest: _requestDigest })
+            // Get the web
+            Web(webUrl, { requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -814,8 +814,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
 
-            // Get the webpart gallery
-            site.getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+            // Get the webpart gallery from the root web
+            site.RootWeb().getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files

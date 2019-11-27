@@ -482,8 +482,8 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
-            // Get the root web
-            lib_1.Site(webUrl, { requestDigest: _requestDigest })
+            // Get the web
+            lib_1.Web(webUrl, { requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -736,8 +736,8 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
-            // Get the webpart gallery
-            site.getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+            // Get the webpart gallery from the root web
+            site.RootWeb().getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
