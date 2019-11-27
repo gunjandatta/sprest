@@ -212,29 +212,39 @@ exports.Request = {
                     }
                     // Else, see if there is a resolve method
                     else if (resolve) {
-                        // Set the base to this object, and clear requests
-                        // This will ensure requests from this object do not conflict w/ this request
-                        base.base = base;
-                        base.base.responses = [];
                         // Execute the callback and see if it returns a promise
                         var returnVal = resolve(response);
                         var waitFunc = returnVal ? returnVal.done || returnVal.then : null;
                         if (waitFunc && typeof (waitFunc) === "function") {
                             // Wait for the promise to complete
                             waitFunc(function () {
-                                // Reset the base
-                                base.base = base.parent.base || base.base;
                                 // Set the wait flag
                                 base.base.waitFlags[base.responseIndex] = true;
+                                // Set the base to this object, and clear requests
+                                // This will ensure requests from this object do not conflict w/ this request
+                                base.base = base;
+                                base.base.responses = [];
+                                base.base.waitFlags = [];
+                                // Reset the base
+                                base.base = base.parent.base || base.base;
                             });
-                            // Wait for the promise to complete
+                            // Do nothing
                             return;
                         }
+                        // Set the wait flag
+                        base.base.waitFlags[base.responseIndex] = true;
+                        // Set the base to this object, and clear requests
+                        // This will ensure requests from this object do not conflict w/ this request
+                        base.base = base;
+                        base.base.responses = [];
+                        base.base.waitFlags = [];
                         // Reset the base
                         base.base = base.parent.base || base.base;
                     }
-                    // Set the wait flag
-                    base.base.waitFlags[base.responseIndex] = true;
+                    else {
+                        // Set the wait flag
+                        base.base.waitFlags[base.responseIndex] = true;
+                    }
                 });
             }, base.responseIndex);
         }

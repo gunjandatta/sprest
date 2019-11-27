@@ -918,46 +918,49 @@ exports.SPConfig = function (cfg, webUrl) {
     // Method to update the views
     var updateViews = function (views, cfgViews) {
         // Return a promise
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
             // Parse the configuration
             _1.Executor(cfgViews, function (cfg) {
-                // Get the view
-                var view = views.getByTitle(cfg.ViewName);
-                // See if the view fields are defined
-                if (cfg.ViewFields && cfg.ViewFields.length > 0) {
-                    // Log
-                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfg.ViewName + "' view.");
-                    // Clear the view fields
-                    view.ViewFields().removeAllViewFields().execute(true);
-                    // Parse the view fields
-                    for (var i = 0; i < cfg.ViewFields.length; i++) {
-                        // Add the view field
-                        view.ViewFields().addViewField(cfg.ViewFields[i]).execute(true);
+                // Return a promise
+                return new Promise(function (resolve) {
+                    // Get the view
+                    var view = views.getByTitle(cfg.ViewName);
+                    // See if the view fields are defined
+                    if (cfg.ViewFields && cfg.ViewFields.length > 0) {
+                        // Log
+                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfg.ViewName + "' view.");
+                        // Clear the view fields
+                        view.ViewFields().removeAllViewFields().execute(true);
+                        // Parse the view fields
+                        for (var i = 0; i < cfg.ViewFields.length; i++) {
+                            // Add the view field
+                            view.ViewFields().addViewField(cfg.ViewFields[i]).execute(true);
+                        }
                     }
-                }
-                // See if we are updating the view properties
-                if (cfg.JSLink || cfg.ViewQuery) {
-                    var props = {};
-                    // Log
-                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
-                    // Set the properties
-                    cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
-                    cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
-                    // Update the view
-                    view.update(props).execute(true);
-                }
-                // Wait for the requests to complete
-                view.done(function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
+                    // See if we are updating the view properties
+                    if (cfg.JSLink || cfg.ViewQuery) {
+                        var props = {};
+                        // Log
+                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
+                        // Set the properties
+                        cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
+                        cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
+                        // Update the view
+                        view.update(props).execute(true);
                     }
-                    // Log
-                    console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
-                    // Trigger the event
-                    cfg.onUpdated ? cfg.onUpdated(view) : null;
-                    // Resolve the promise
-                    resolve();
+                    // Wait for the requests to complete
+                    view.done(function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
+                        // Trigger the event
+                        cfg.onUpdated ? cfg.onUpdated(view) : null;
+                        // Resolve the promise
+                        resolve();
+                    });
                 });
             }).then(resolve);
         });
