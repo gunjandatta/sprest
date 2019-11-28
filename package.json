@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest",
-  "version": "5.0.9",
+  "version": "5.1.3",
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io)",
   "license": "<LICENSE>",

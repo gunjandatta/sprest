@@ -21,7 +21,7 @@ exports.SPConfig = function (cfg, webUrl) {
      * Methods
      */
     // Method to create the content types
-    var createContentTypes = function (contentTypes, cfgContentTypes) {
+    var createContentTypes = function (contentTypes, cfgContentTypes, list) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
@@ -108,7 +108,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                         // Update the configuration
                                         cfg.ContentType = ct;
                                         // Trigger the event
-                                        cfg.onCreated ? cfg.onCreated(ct) : null;
+                                        cfg.onCreated ? cfg.onCreated(ct, list) : null;
                                         // Resolve the promise
                                         resolve(cfg);
                                     });
@@ -150,7 +150,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 // Update the configuration
                                 cfg.ContentType = ct;
                                 // Trigger the event
-                                cfg.onCreated ? cfg.onCreated(ct) : null;
+                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
                                 // Resolve the promise
                                 resolve(cfg);
                             }
@@ -231,7 +231,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the fields`
-    var createFields = function (fields, cfgFields) {
+    var createFields = function (fields, cfgFields, list) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
@@ -249,7 +249,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Log
                         console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
                         // Trigger the event
-                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                        cfg.onUpdated ? cfg.onUpdated(field, list) : null;
                         // Resolve the promise
                         resolve();
                     }
@@ -268,7 +268,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                         // Log
                                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
                                         // Trigger the event
-                                        cfg.onCreated ? cfg.onCreated(field) : null;
+                                        cfg.onCreated ? cfg.onCreated(field, list) : null;
                                         // Resolve the promise
                                         resolve();
                                     }
@@ -423,7 +423,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to create the list views
-    var createViews = function (views, cfgViews) {
+    var createViews = function (list, views, cfgViews) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure the list views exist
@@ -451,7 +451,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // Log
                             console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' was created successfully.");
                             // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(view) : null;
+                            cfg.onCreated ? cfg.onCreated(view, list) : null;
                         }
                         else {
                             // Log
@@ -462,7 +462,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 }
             }).then(function () {
                 // Update the views
-                updateViews(views, cfgViews).then(function () {
+                updateViews(list, views, cfgViews).then(function () {
                     // Resolve the promise
                     resolve();
                 });
@@ -474,10 +474,16 @@ exports.SPConfig = function (cfg, webUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var cfgWebParts = cfg.WebPartCfg;
+            // Ensure fields exist
+            if (cfgWebParts == null || cfgWebParts.length == 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
-            // Get the root web
-            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
+            // Get the web
+            lib_1.Web(webUrl, { requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -526,7 +532,9 @@ exports.SPConfig = function (cfg, webUrl) {
                             bufferView[j] = xml.charCodeAt(j);
                         }
                         // Create the webpart, but execute the requests one at a time
-                        folder.Files.add(cfgWebPart.FileName, true, buffer).execute(function (file) {
+                        folder.Files.add(cfgWebPart.FileName, true, buffer).execute(
+                        // Success
+                        function (file) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
@@ -551,6 +559,13 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
                             // Trigger the event
                             cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                        }, 
+                        // Error
+                        function () {
+                            // Log
+                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file upload failed.");
+                            // Skip this webpart
+                            resolve();
                         });
                     }
                 };
@@ -709,7 +724,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to remove the web parts
-    var removeWebParts = function () {
+    var removeWebParts = function (site) {
         var cfgWebParts = cfg.WebPartCfg;
         // Return a promise
         return new Promise(function (resolve, reject) {
@@ -730,10 +745,8 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
-            // Get the root web
-            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
-                // Get the webpart gallery
-                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+            // Get the webpart gallery from the root web
+            site.RootWeb().getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
@@ -868,11 +881,11 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Update the title field
                         updateListTitleField(list, cfgList).then(function () {
                             // Create the fields
-                            createFields(list.Fields, cfgList.CustomFields).then(function () {
+                            createFields(list.Fields, cfgList.CustomFields, list).then(function () {
                                 // Create the content types
-                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
+                                createContentTypes(list.ContentTypes, cfgList.ContentTypes, list).then(function () {
                                     // Update the views
-                                    createViews(list.Views, cfgList.ViewInformation).then(function () {
+                                    createViews(list, list.Views, cfgList.ViewInformation).then(function () {
                                         // Update the views
                                         createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(function () {
                                             // Trigger the event
@@ -916,7 +929,7 @@ exports.SPConfig = function (cfg, webUrl) {
         });
     };
     // Method to update the views
-    var updateViews = function (views, cfgViews) {
+    var updateViews = function (list, views, cfgViews) {
         // Return a promise
         return new Promise(function (resolve) {
             // Parse the configuration
@@ -957,7 +970,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Log
                         console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
                         // Trigger the event
-                        cfg.onUpdated ? cfg.onUpdated(view) : null;
+                        cfg.onUpdated ? cfg.onUpdated(view, list) : null;
                         // Resolve the promise
                         resolve();
                     });
@@ -969,28 +982,32 @@ exports.SPConfig = function (cfg, webUrl) {
     var uninstallSite = function () {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Log
-            console.log("[gd-sprest][uninstall] Loading the site information...");
-            // Ensure site actions exist
-            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
+            // Ensure we need to complete this request
+            if ((cfg.CustomActionCfg != null && cfg.CustomActionCfg.Site != null) || cfg.WebPartCfg != null) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the site information...");
+                // Get the site
+                lib_1.Site(webUrl, { requestDigest: _requestDigest })
+                    // Expand the user custom actions
+                    .query({
+                    Expand: ["UserCustomActions"]
+                })
+                    // Execute the request
+                    .execute(function (site) {
+                    // Remove the user custom actions
+                    removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
+                        // Remove the webpart
+                        removeWebParts(site).then(function () {
+                            // Resolve the promise
+                            resolve(site);
+                        }, reject);
+                    });
+                }, reject);
+            }
+            else {
                 // Resolve the promise
                 resolve();
-                return;
             }
-            // Get the site
-            lib_1.Site(webUrl, { requestDigest: _requestDigest })
-                // Expand the user custom actions
-                .query({
-                Expand: ["UserCustomActions"]
-            })
-                // Execute the request
-                .execute(function (site) {
-                // Remove the user custom actions
-                removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
-                    // Resolve the promise
-                    resolve(site);
-                });
-            }, reject);
         });
     };
     // Method to uninstall the web components
@@ -1177,13 +1194,10 @@ exports.SPConfig = function (cfg, webUrl) {
                     uninstallWeb().then(function () {
                         // Uninstall the site components
                         uninstallSite().then(function () {
-                            // Remove the webparts
-                            removeWebParts().then(function () {
-                                // Log
-                                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                                // Resolve the promise
-                                resolve();
-                            }, reject);
+                            // Log
+                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                            // Resolve the promise
+                            resolve();
                         }, reject);
                     }, reject);
                 });

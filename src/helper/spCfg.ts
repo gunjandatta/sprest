@@ -28,7 +28,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
      */
 
     // Method to create the content types
-    let createContentTypes = (contentTypes: SP.IContentTypeCollection, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    let createContentTypes = (contentTypes: SP.IContentTypeCollection, cfgContentTypes: Array<ISPCfgContentTypeInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
@@ -121,7 +121,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                             cfg.ContentType = ct;
 
                                             // Trigger the event
-                                            cfg.onCreated ? cfg.onCreated(ct) : null;
+                                            cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
                                             // Resolve the promise
                                             resolve(cfg);
@@ -168,7 +168,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 cfg.ContentType = ct;
 
                                 // Trigger the event
-                                cfg.onCreated ? cfg.onCreated(ct) : null;
+                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
                                 // Resolve the promise
                                 resolve(cfg);
@@ -259,7 +259,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the fields`
-    let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+    let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
@@ -279,7 +279,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
 
                         // Trigger the event
-                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                        cfg.onUpdated ? cfg.onUpdated(field, list) : null;
 
                         // Resolve the promise
                         resolve();
@@ -301,7 +301,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
 
                                         // Trigger the event
-                                        cfg.onCreated ? cfg.onCreated(field) : null;
+                                        cfg.onCreated ? cfg.onCreated(field, list) : null;
 
                                         // Resolve the promise
                                         resolve();
@@ -470,7 +470,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the list views
-    let createViews = (views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    let createViews = (list: SP.List, views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list views exist
@@ -499,7 +499,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' was created successfully.");
 
                             // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(view) : null;
+                            cfg.onCreated ? cfg.onCreated(view, list) : null;
                         } else {
                             // Log
                             console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' failed to be created.");
@@ -509,7 +509,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
             }).then(() => {
                 // Update the views
-                updateViews(views, cfgViews).then(() => {
+                updateViews(list, views, cfgViews).then(() => {
                     // Resolve the promise
                     resolve();
                 });
@@ -523,11 +523,18 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         return new Promise((resolve, reject) => {
             let cfgWebParts = cfg.WebPartCfg;
 
+            // Ensure fields exist
+            if (cfgWebParts == null || cfgWebParts.length == 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
+
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
 
-            // Get the root web
-            Web(ContextInfo.siteServerRelativeUrl)
+            // Get the web
+            Web(webUrl, { requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -585,34 +592,46 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             }
 
                             // Create the webpart, but execute the requests one at a time
-                            folder.Files.add(cfgWebPart.FileName, true, buffer).execute((file) => {
-                                // See if group exists
-                                if (cfgWebPart.Group) {
-                                    // Set the target to the root web
-                                    Web(ContextInfo.siteServerRelativeUrl)
-                                        // Get the web part catalog
-                                        .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
-                                        // Get the Items
-                                        .Items()
-                                        // Query for this webpart
-                                        .query({
-                                            Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
-                                        })
-                                        // Execute the request
-                                        .execute((items) => {
-                                            // Update the item
-                                            items.results[0].update({
-                                                Group: cfgWebPart.Group
-                                            }).execute(postExecute);
-                                        });
+                            folder.Files.add(cfgWebPart.FileName, true, buffer).execute(
+                                // Success
+                                (file) => {
+                                    // See if group exists
+                                    if (cfgWebPart.Group) {
+                                        // Set the target to the root web
+                                        Web(ContextInfo.siteServerRelativeUrl)
+                                            // Get the web part catalog
+                                            .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+                                            // Get the Items
+                                            .Items()
+                                            // Query for this webpart
+                                            .query({
+                                                Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
+                                            })
+                                            // Execute the request
+                                            .execute((items) => {
+                                                // Update the item
+                                                items.results[0].update({
+                                                    Group: cfgWebPart.Group
+                                                }).execute(postExecute);
+                                            });
+                                    }
+
+                                    // Log
+                                    console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+
+                                    // Trigger the event
+                                    cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                                },
+
+                                // Error
+                                () => {
+                                    // Log
+                                    console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file upload failed.");
+
+                                    // Skip this webpart
+                                    resolve();
                                 }
-
-                                // Log
-                                console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
-
-                                // Trigger the event
-                                cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
-                            });
+                            );
                         }
                     }
                 }, reject);
@@ -782,7 +801,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to remove the web parts
-    let removeWebParts = (): PromiseLike<void> => {
+    let removeWebParts = (site: SP.Site): PromiseLike<void> => {
         let cfgWebParts = cfg.WebPartCfg;
 
         // Return a promise
@@ -807,10 +826,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
 
-            // Get the root web
-            Web(ContextInfo.siteServerRelativeUrl)
-                // Get the webpart gallery
-                .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+            // Get the webpart gallery from the root web
+            site.RootWeb().getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Expand the files
@@ -957,11 +974,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Update the title field
                             updateListTitleField(list, cfgList).then(() => {
                                 // Create the fields
-                                createFields(list.Fields, cfgList.CustomFields).then(() => {
+                                createFields(list.Fields, cfgList.CustomFields, list as any).then(() => {
                                     // Create the content types
-                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
+                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes, list as any).then(() => {
                                         // Update the views
-                                        createViews(list.Views, cfgList.ViewInformation).then(() => {
+                                        createViews(list as any, list.Views, cfgList.ViewInformation).then(() => {
                                             // Update the views
                                             createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(() => {
                                                 // Trigger the event
@@ -1008,7 +1025,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to update the views
-    let updateViews = (views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    let updateViews = (list: SP.List, views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve) => {
             // Parse the configuration
@@ -1054,7 +1071,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
 
                         // Trigger the event
-                        cfg.onUpdated ? cfg.onUpdated(view as any) : null;
+                        cfg.onUpdated ? cfg.onUpdated(view as any, list) : null;
 
                         // Resolve the promise
                         resolve();
@@ -1068,30 +1085,32 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let uninstallSite = (): PromiseLike<SP.ISiteQuery> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Log
-            console.log("[gd-sprest][uninstall] Loading the site information...");
+            // Ensure we need to complete this request
+            if ((cfg.CustomActionCfg != null && cfg.CustomActionCfg.Site != null) || cfg.WebPartCfg != null) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the site information...");
 
-            // Ensure site actions exist
-            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
+                // Get the site
+                Site(webUrl, { requestDigest: _requestDigest })
+                    // Expand the user custom actions
+                    .query({
+                        Expand: ["UserCustomActions"]
+                    })
+                    // Execute the request
+                    .execute(site => {
+                        // Remove the user custom actions
+                        removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
+                            // Remove the webpart
+                            removeWebParts(site as any).then(() => {
+                                // Resolve the promise
+                                resolve(site);
+                            }, reject);
+                        });
+                    }, reject);
+            } else {
                 // Resolve the promise
                 resolve();
-                return;
             }
-
-            // Get the site
-            Site(webUrl, { requestDigest: _requestDigest })
-                // Expand the user custom actions
-                .query({
-                    Expand: ["UserCustomActions"]
-                })
-                // Execute the request
-                .execute(site => {
-                    // Remove the user custom actions
-                    removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
-                        // Resolve the promise
-                        resolve(site);
-                    });
-                }, reject);
         });
     }
 
@@ -1304,14 +1323,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     uninstallWeb().then(() => {
                         // Uninstall the site components
                         uninstallSite().then(() => {
-                            // Remove the webparts
-                            removeWebParts().then(() => {
-                                // Log
-                                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                            // Log
+                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
 
-                                // Resolve the promise
-                                resolve();
-                            }, reject);
+                            // Resolve the promise
+                            resolve();
                         }, reject);
                     }, reject);
                 });
