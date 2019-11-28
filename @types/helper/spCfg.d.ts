@@ -224,7 +224,7 @@ export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation
     /**
      * Event triggered after the content type is created.
      */
-    onCreated?: (ct: SP.ContentType) => void;
+    onCreated?: (ct: SP.ContentType, list?: SP.List) => void;
 
     /**
      * Event triggered after the content type is updated.
@@ -254,12 +254,12 @@ export interface ISPCfgFieldInfo extends IFieldInfo {
     /**
      * Event triggered after the field is created.
      */
-    onCreated?: (field: SP.Field) => void;
+    onCreated?: (field: SP.Field, list?: SP.List) => void;
 
     /**
      * Event triggered after the field is updated.
      */
-    onUpdated?: (field: SP.Field) => void;
+    onUpdated?: (field: SP.Field, list?: SP.List) => void;
 }
 
 /**
@@ -314,12 +314,12 @@ export interface ISPCfgViewInfo {
     /**
      * Event triggered after the view is created or updated.
      */
-    onCreated?: (view: SP.View) => void;
+    onCreated?: (view: SP.View, list?: SP.List) => void;
 
     /**
      * Event triggered after the view is updated.
      */
-    onUpdated?: (view: SP.View) => void;
+    onUpdated?: (view: SP.View, list?: SP.List) => void;
 }
 
 /**

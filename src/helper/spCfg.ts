@@ -28,7 +28,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
      */
 
     // Method to create the content types
-    let createContentTypes = (contentTypes: SP.IContentTypeCollection, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    let createContentTypes = (contentTypes: SP.IContentTypeCollection, cfgContentTypes: Array<ISPCfgContentTypeInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
@@ -121,7 +121,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                             cfg.ContentType = ct;
 
                                             // Trigger the event
-                                            cfg.onCreated ? cfg.onCreated(ct) : null;
+                                            cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
                                             // Resolve the promise
                                             resolve(cfg);
@@ -168,7 +168,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 cfg.ContentType = ct;
 
                                 // Trigger the event
-                                cfg.onCreated ? cfg.onCreated(ct) : null;
+                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
                                 // Resolve the promise
                                 resolve(cfg);
@@ -259,7 +259,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the fields`
-    let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+    let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
@@ -279,7 +279,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
 
                         // Trigger the event
-                        cfg.onUpdated ? cfg.onUpdated(field) : null;
+                        cfg.onUpdated ? cfg.onUpdated(field, list) : null;
 
                         // Resolve the promise
                         resolve();
@@ -301,7 +301,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
 
                                         // Trigger the event
-                                        cfg.onCreated ? cfg.onCreated(field) : null;
+                                        cfg.onCreated ? cfg.onCreated(field, list) : null;
 
                                         // Resolve the promise
                                         resolve();
@@ -470,7 +470,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the list views
-    let createViews = (views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    let createViews = (list: SP.List, views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list views exist
@@ -499,7 +499,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' was created successfully.");
 
                             // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(view) : null;
+                            cfg.onCreated ? cfg.onCreated(view, list) : null;
                         } else {
                             // Log
                             console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' failed to be created.");
@@ -509,7 +509,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
             }).then(() => {
                 // Update the views
-                updateViews(views, cfgViews).then(() => {
+                updateViews(list, views, cfgViews).then(() => {
                     // Resolve the promise
                     resolve();
                 });
@@ -974,11 +974,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Update the title field
                             updateListTitleField(list, cfgList).then(() => {
                                 // Create the fields
-                                createFields(list.Fields, cfgList.CustomFields).then(() => {
+                                createFields(list.Fields, cfgList.CustomFields, list as any).then(() => {
                                     // Create the content types
-                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
+                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes, list as any).then(() => {
                                         // Update the views
-                                        createViews(list.Views, cfgList.ViewInformation).then(() => {
+                                        createViews(list as any, list.Views, cfgList.ViewInformation).then(() => {
                                             // Update the views
                                             createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(() => {
                                                 // Trigger the event
@@ -1025,7 +1025,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to update the views
-    let updateViews = (views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    let updateViews = (list: SP.List, views: SP.IViewCollection, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve) => {
             // Parse the configuration
@@ -1071,7 +1071,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
 
                         // Trigger the event
-                        cfg.onUpdated ? cfg.onUpdated(view as any) : null;
+                        cfg.onUpdated ? cfg.onUpdated(view as any, list) : null;
 
                         // Resolve the promise
                         resolve();
