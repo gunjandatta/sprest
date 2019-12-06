@@ -2,6 +2,9 @@ import {
     $REST, List, Helper, Types, Utility
 } from "../@types";
 
+$REST.Web().execute(web => {});
+$REST.Site().RootWeb().execute(web => {});
+
 $REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execute(d => {
     d.results[0].Name;
 });

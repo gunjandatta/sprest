@@ -1,4 +1,5 @@
 def/lib
+*-lock.json
 *.log
 *.yaml
 .vscode
