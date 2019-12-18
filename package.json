@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/gunjandatta/sprest/issues"
   },
-  "homepage": "https://gunjandatta.github.io",
+  "homepage": "https://dattabase.com",
   "dependencies": {
     "core-js": "^2.6.4",
     "gd-sprest-def": "^0.7.6"
