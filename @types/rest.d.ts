@@ -167,4 +167,14 @@ export interface IREST {
      * Use this api to interact with a SharePoint web.
      */
     Web: LibTypes.IWeb;
+
+    /**
+     * User this api to interact with the SharePoint 2013 workflow instance service.
+     */
+    WorkflowInstanceService: LibTypes.IWorkflowInstanceService;
+
+    /**
+     * User this api to interact with the SharePoint 2013 workflow subscription service.
+     */
+    WorkflowSubscriptionService: LibTypes.IWorkflowSubscriptionService;
 }

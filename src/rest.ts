@@ -7,7 +7,7 @@ import { IREST } from "../@types";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 5.13,
+    __ver: 5.14,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
@@ -35,7 +35,9 @@ export const $REST: IREST = {
     ThemeManager: Lib.ThemeManager,
     UserProfile: Lib.UserProfile,
     Utility: Lib.Utility,
-    Web: Lib.Web
+    Web: Lib.Web,
+    WorkflowInstanceService: Lib.WorkflowInstanceService,
+    WorkflowSubscriptionService: Lib.WorkflowSubscriptionService
 };
 
 // See if the library doesn't exist, or is an older version

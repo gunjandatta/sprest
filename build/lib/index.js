@@ -22,3 +22,5 @@ __export(require("./themeManager"));
 __export(require("./userProfile"));
 __export(require("./utility"));
 __export(require("./web"));
+__export(require("./wfInstanceService"));
+__export(require("./wfSubscriptionService"));

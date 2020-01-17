@@ -17,3 +17,5 @@ export * from "./themeManager";
 export * from "./userProfile";
 export * from "./utility";
 export * from "./web";
+export * from "./wfInstanceService";
+export * from "./wfSubscriptionService";

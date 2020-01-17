@@ -6004,21 +6004,31 @@ exports.Mapper = {
     "SP.WorkflowServices.WorkflowInstanceService": {
         enumerateInstancesForListItem: {
             argNames: ["listId", "itemId"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         enumerateInstancesForListItemWithOffset: {
             argNames: ["listId", "itemId", "offset"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
-        enumerateInstancesForSite: {},
+        enumerateInstancesForSite: {
+            requestType: utils_1.RequestType.Post
+        },
         enumerateInstancesForSiteWithOffset: {
             argNames: ["offset"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         getInstance: {
             argNames: ["instanceId"],
+            requestType: utils_1.RequestType.Get
         },
-        query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
+        query: {
+            argNames: ["oData"],
+            requestType: utils_1.RequestType.OData
+        },
         startWorkflowOnListItemBySubscriptionId: {
             argNames: ["subscriptionId", "itemId", "payload"],
-        },
+            requestType: utils_1.RequestType.PostWithArgs
+        }
     },
     "SP.WorkflowServices.WorkflowMessagingService": {
         publishEvent: {
@@ -6051,38 +6061,54 @@ exports.Mapper = {
     "SP.WorkflowServices.WorkflowSubscriptionService": {
         deleteSubscription: {
             argNames: ["subscriptionId"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
-        enumerateSubscriptions: {},
+        enumerateSubscriptions: {
+            requestType: utils_1.RequestType.Post
+        },
         enumerateSubscriptionsByDefinition: {
             argNames: ["definitionId"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         enumerateSubscriptionsByEventSource: {
             argNames: ["eventSourceId"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         enumerateSubscriptionsByList: {
             argNames: ["listId"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         enumerateSubscriptionsByListAndParentContentType: {
             argNames: ["listId", "parentContentTypeId", "includeNoContentTypeSpecified"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         enumerateSubscriptionsByListWithContentType: {
             argNames: ["listId", "includeContentTypeSpecified"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         getSubscription: {
             argNames: ["subscriptionId"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
-        query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
+        query: {
+            argNames: ["oData"],
+            requestType: utils_1.RequestType.OData
+        },
         registerInterestInHostWebList: {
             argNames: ["listId", "eventName"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         registerInterestInList: {
             argNames: ["listId", "eventName"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         unregisterInterestInHostWebList: {
             argNames: ["listId", "eventName"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         unregisterInterestInList: {
             argNames: ["listId", "eventName"],
-        },
+            requestType: utils_1.RequestType.PostWithArgs
+        }
     },
 };
