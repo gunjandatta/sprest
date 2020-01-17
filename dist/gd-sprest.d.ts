@@ -63,6 +63,8 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/userProfile";
     export * from "gd-sprest/lib/utility";
     export * from "gd-sprest/lib/web";
+    export * from "gd-sprest/lib/wfInstanceService";
+    export * from "gd-sprest/lib/wfSubscriptionService";
 }
 
 declare module 'gd-sprest/helper' {
@@ -378,6 +380,16 @@ declare module 'gd-sprest/rest' {
                 * Use this api to interact with a SharePoint web.
                 */
             Web: LibTypes.IWeb;
+    
+            /**
+                * User this api to interact with the SharePoint 2013 workflow instance service.
+                */
+            WorkflowInstanceService: LibTypes.IWorkflowInstanceService;
+    
+            /**
+                * User this api to interact with the SharePoint 2013 workflow subscription service.
+                */
+            WorkflowSubscriptionService: LibTypes.IWorkflowSubscriptionService;
     }
 }
 
@@ -1305,6 +1317,50 @@ declare module 'gd-sprest/lib/web' {
                 * @param requestUrl - The absolute url of the remote web.
                 */
             getRemoteWeb(requestUrl: string): Base.IBaseExecution<SP.RemoteWeb>;
+    }
+}
+
+declare module 'gd-sprest/lib/wfInstanceService' {
+    import { Base, SP } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * Workflow Instance Service
+        */
+    export const WorkflowInstanceService: IWorkflowInstanceService;
+    
+    /**
+        * Workflow Instance Service
+        */
+    export interface IWorkflowInstanceService {
+            /**
+                * Creates an instance of the web library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SP.WorkflowServices.IWorkflowInstanceService;
+    }
+}
+
+declare module 'gd-sprest/lib/wfSubscriptionService' {
+    import { Base, SP } from "gd-sprest-def";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * Workflow Subscription Service
+        */
+    export const WorkflowSubscriptionService: IWorkflowSubscriptionService;
+    
+    /**
+        * Workflow Subscription Service
+        */
+    export interface IWorkflowSubscriptionService {
+            /**
+                * Creates an instance of the web library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SP.WorkflowServices.IWorkflowSubscriptionService;
     }
 }
 

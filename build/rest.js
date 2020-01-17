@@ -7,7 +7,7 @@ var sptypes_1 = require("./sptypes");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 5.13,
+    __ver: 5.14,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
@@ -35,7 +35,9 @@ exports.$REST = {
     ThemeManager: Lib.ThemeManager,
     UserProfile: Lib.UserProfile,
     Utility: Lib.Utility,
-    Web: Lib.Web
+    Web: Lib.Web,
+    WorkflowInstanceService: Lib.WorkflowInstanceService,
+    WorkflowSubscriptionService: Lib.WorkflowSubscriptionService
 };
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
