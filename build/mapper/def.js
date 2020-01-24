@@ -5525,7 +5525,7 @@ exports.Mapper = {
     },
     "SP.WebParts.LimitedWebPartManager": {
         properties: [
-            "WebParts|SP.WebParts.LimitedWebPartManager.Collection|/([Id])|SP.WebParts.LimitedWebPartManager"
+            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Id])|SP.WebParts.WebPartDefinition"
         ],
         exportWebPart: {
             argNames: ["webPartId"],
@@ -5543,7 +5543,9 @@ exports.Mapper = {
         moveWebPartTo: {
             argNames: ["zoneID", "zoneIndex"],
         },
-        openWebPart: {},
+        openWebPart: {
+            requestType: utils_1.RequestType.Get
+        },
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
         saveWebPartChanges: {},
     },

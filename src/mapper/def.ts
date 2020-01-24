@@ -7771,7 +7771,7 @@ export const Mapper: IMapper = {
 
     "SP.WebParts.LimitedWebPartManager": {
         properties: [
-            "WebParts|SP.WebParts.LimitedWebPartManager.Collection|/([Id])|SP.WebParts.LimitedWebPartManager"
+            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Id])|SP.WebParts.WebPartDefinition"
         ],
 
         exportWebPart: {
@@ -7800,6 +7800,7 @@ export const Mapper: IMapper = {
         },
 
         openWebPart: {
+            requestType: RequestType.Get
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
