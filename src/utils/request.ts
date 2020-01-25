@@ -3,7 +3,7 @@ import { Base } from "./base";
 import { Batch } from "./batch";
 import { ContextInfo } from "../lib";
 import { Helper } from "./helper";
-import { Mapper, Mapper_Old } from "../mapper";
+import { Mapper, Mapper_Custom } from "../mapper";
 import { RequestType } from "./requestType";
 import { TargetInfo } from "./targetInfo";
 import { XHRRequest } from "./xhrRequest";
@@ -24,7 +24,7 @@ export const Request = {
         // Get the object type
         let objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
 
-        // See if the new mapper has the type
+        // Get the methods from the default mapper, otherwise get it from the custom mapper
         if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
             // Determine the object type
             objType = objType.split('/');
@@ -64,7 +64,7 @@ export const Request = {
             }
 
             // Get the methods for the base object
-            methods = Mapper_Old[objType];
+            methods = Mapper_Custom[objType];
         }
 
         // Ensure methods exist

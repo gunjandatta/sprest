@@ -13,7 +13,7 @@ export const PeopleManager: IPeopleManager = ((targetInfo?: ITargetInfoProps) =>
     peopleManager.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 
     // Add the methods
-    Request.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
+    Request.addMethods(peopleManager, { __metadata: { type: "SP.UserProfiles.PeopleManager" } });
 
     // Return the people manager
     return peopleManager;

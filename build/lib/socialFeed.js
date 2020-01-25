@@ -11,7 +11,7 @@ exports.SocialFeed = (function (targetInfo) {
     base.targetInfo.defaultToWebFl = true;
     base.targetInfo.endpoint = "social.feed";
     // Add the methods
-    utils_1.Request.addMethods(socialFeed, { __metadata: { type: "socialfeed" } });
+    utils_1.Request.addMethods(socialFeed, { __metadata: { type: "SP.Social.SocialRestFeedManager" } });
     // Return the social feed
     return socialFeed;
 });

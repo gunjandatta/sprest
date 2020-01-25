@@ -7,5 +7,4 @@ __export(require("./audit"));
 __export(require("./graph"));
 __export(require("./peoplePicker"));
 __export(require("./propertyValues"));
-__export(require("./social"));
 __export(require("./utility"));
