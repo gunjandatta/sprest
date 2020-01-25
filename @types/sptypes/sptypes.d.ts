@@ -1036,6 +1036,14 @@ export type IPageType = {
 };
 
 /**
+ * Personalization Scope
+ */
+export type IPersonalizationScope = {
+    Shared: number,
+    User: number
+};
+
+/**
  * Personal Site Capabilities
  */
 export type IPersonalSiteCapabilities = {

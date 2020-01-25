@@ -423,6 +423,7 @@ declare module 'gd-sprest/sptypes' {
         LocaleLCIDType: Types.ILocaleLCIDType;
         NodeType: Types.INodeType;
         PageType: Types.IPageType;
+        PersonalizationScope: Types.IPersonalizationScope;
         PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
         PrincipalSources: Types.IPrincipalSources;
         PrincipalTypes: Types.IPrincipalTypes;
@@ -4302,6 +4303,14 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** export typeeration whose values specify a page that is a list view. */
             View: number
+    };
+    
+    /**
+        * Personalization Scope
+        */
+    export type IPersonalizationScope = {
+            Shared: number,
+            User: number
     };
     
     /**
