@@ -18,7 +18,7 @@ export const Navigation: INavigation = ((url?: string, targetInfo?) => {
     }
 
     // Add the methods
-    Request.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
+    Request.addMethods(navigation, { __metadata: { type: "Microsoft.SharePoint.Navigation.REST.NavigationServiceRest" } });
 
     // Return the navigation
     return navigation;

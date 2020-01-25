@@ -844,6 +844,9 @@ exports.Mapper = {
         }
     },
     "Microsoft.SharePoint.Navigation.REST.NavigationServiceRest": {
+        properties: [
+            "MenuState|menustate|([Name])|menunode"
+        ],
         getPublishingNavigationProviderType: {
             argNames: ["mapProviderName"],
         },
@@ -4578,130 +4581,189 @@ exports.Mapper = {
     "SP.Social.SocialFeedManager": {
         createFileAttachment: {
             argNames: ["name", "description", "fileData"],
+            requestType: utils_1.RequestType.PostWithArgsAndData
         },
         createImageAttachment: {
             argNames: ["name", "description", "imageData"],
+            requestType: utils_1.RequestType.PostWithArgsAndData
         },
         createPost: {
             argNames: ["targetId", "creationData"],
+            requestType: utils_1.RequestType.PostWithArgsAndData
         },
         deletePost: {
             argNames: ["postId"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
         getAllLikers: {
             argNames: ["postId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getFeed: {
             argNames: ["type", "options"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getFeedFor: {
             argNames: ["actorId", "options"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getFullThread: {
             argNames: ["threadId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getMentions: {
             argNames: ["clearUnreadMentions", "options"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getPreview: {
             argNames: ["itemUrl"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getPreviewImage: {
             argNames: ["url", "key", "iv"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
-        getUnreadMentionCount: {},
+        getUnreadMentionCount: {
+            requestType: utils_1.RequestType.Get
+        },
         likePost: {
             argNames: ["postId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         lockThread: {
             argNames: ["threadId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         suppressThreadNotifications: {
             argNames: ["threadId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         unlikePost: {
             argNames: ["postId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         unlockThread: {
             argNames: ["threadId"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
     },
     "SP.Social.SocialFollowingManager": {
         follow: {
             argNames: ["actor"],
+            name: "follow(actor=@v)?@v='[[actor]]'",
+            requestType: utils_1.RequestType.PostReplace
         },
         getFollowed: {
             argNames: ["types"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         getFollowedCount: {
             argNames: ["types"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
-        getFollowers: {},
-        getSuggestions: {},
+        getFollowers: {
+            requestType: utils_1.RequestType.Get
+        },
+        getSuggestions: {
+            requestType: utils_1.RequestType.Get
+        },
         isFollowed: {
             argNames: ["actor"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         stopFollowing: {
             argNames: ["actor"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
     },
     "SP.Social.SocialRestActor": {
         feed: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         likes: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         mentionFeed: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         news: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         organizationFeed: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
         timelineFeed: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.GetWithArgs
         },
-        unreadMentionCount: {},
+        unreadMentionCount: {
+            requestType: utils_1.RequestType.Get
+        },
     },
     "SP.Social.SocialRestFeed": {
         clearUnReadMentionCount: {
             argNames: ["MaxThreadCount", "NewerThan", "OlderThan", "SortOrder"],
+            requestType: utils_1.RequestType.PostWithArgs
         },
         post: {
             argNames: ["restCreationData"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
     },
     "SP.Social.SocialRestFeedManager": {
         actor: {
             argNames: ["item"],
+            name: "actor(item=@v)?@v='[[item]]'",
+            requestType: utils_1.RequestType.GetReplace,
+            returnType: "SP.Social.SocialRestActor"
         },
-        my: {},
+        my: {
+            requestType: utils_1.RequestType.Get,
+            returnType: "SP.Social.SocialRestActor"
+        },
         post: {
             argNames: ["ID"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly,
         },
     },
     "SP.Social.SocialRestFollowingManager": {
         follow: {
             argNames: ["AccountName", "ActorType", "ContentUri", "Id", "TagGuid"],
+            name: "follow(AccountName=@v, ActorType='[[ActorType]]', ContentUri='[[ContentUri]]', Id='[[Id]]', TagGuid='[[TagGuid]]')?@v='[[AccountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         followed: {
             argNames: ["types"],
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
         followedCount: {
             argNames: ["types"],
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
-        followers: {},
+        followers: {
+            requestType: utils_1.RequestType.Get
+        },
         isFollowed: {
             argNames: ["AccountName", "ActorType", "ContentUri", "Id", "TagGuid"],
+            name: "isFollowed(AccountName=@v, ActorType='[[ActorType]]', ContentUri='[[ContentUri]]', Id='[[Id]]', TagGuid='[[TagGuid]]')?@v='[[AccountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
-        my: {},
+        my: {
+            requestType: utils_1.RequestType.Get
+        },
         stopFollowing: {
             argNames: ["AccountName", "ActorType", "ContentUri", "Id", "TagGuid"],
+            name: "stopFollowing(AccountName=@v, ActorType='[[ActorType]]', ContentUri='[[ContentUri]]', Id='[[Id]]', TagGuid='[[TagGuid]]')?@v='[[AccountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
-        suggestions: {},
+        suggestions: {
+            requestType: utils_1.RequestType.Get
+        },
     },
     "SP.Social.SocialRestThread": {
         delete: {
@@ -4710,21 +4772,27 @@ exports.Mapper = {
         },
         like: {
             argNames: ["ID"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         likers: {
             argNames: ["ID"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         lock: {
             argNames: ["ID"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         reply: {
             argNames: ["restCreationData"],
+            requestType: utils_1.RequestType.PostBodyNoArgs
         },
         unLike: {
             argNames: ["ID"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         unLock: {
             argNames: ["ID"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
     },
     "SP.SPAppLicenseManager": {
@@ -4926,67 +4994,110 @@ exports.Mapper = {
     "SP.UserProfiles.PeopleManager": {
         amIFollowedBy: {
             argNames: ["accountName"],
+            name: "amIFollowedBy(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         amIFollowing: {
             argNames: ["accountName"],
+            name: "amIFollowing(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         follow: {
             argNames: ["accountName"],
+            name: "follow(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.PostReplace
         },
         followTag: {
             argNames: ["value"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
         getDefaultDocumentLibrary: {
             argNames: ["accountName", "createSiteIfNotExists", "siteCreationPriority"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getFollowedTags: {
             argNames: ["cTagsToFetch"],
+            requestType: utils_1.RequestType.GetWithArgsValueOnly
         },
         getFollowersFor: {
             argNames: ["accountName"],
+            name: "getFollowersFor(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
-        getMyFollowers: {},
-        getMyProperties: {},
-        getMySuggestions: {},
+        getMyFollowers: {
+            requestType: utils_1.RequestType.Get
+        },
+        getMyProperties: {
+            requestType: utils_1.RequestType.Get
+        },
+        getMySuggestions: {
+            requestType: utils_1.RequestType.Get
+        },
         getPeopleFollowedBy: {
             argNames: ["accountName"],
+            name: "getPeopleFollowedBy(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
-        getPeopleFollowedByMe: {},
+        getPeopleFollowedByMe: {
+            requestType: utils_1.RequestType.Get
+        },
         getPropertiesFor: {
             argNames: ["accountName"],
+            name: "getPropertiesFor(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         getSPUserInformation: {
             argNames: ["accountName", "siteId"],
+            name: "getSPUserInformation(accountName=@v, siteId='[[siteId]]')?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         getUserProfileProperties: {
             argNames: ["accountName"],
+            name: "getUserProfileProperties(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         getUserProfilePropertyFor: {
             argNames: ["accountName", "propertyName"],
+            name: "getUserProfilePropertyFor(accountName=@v, propertyName='[[propertyName]]')?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         hardDeleteUserProfile: {
             argNames: ["accountName", "userId"],
+            name: "hardDeleteUserProfile(accountName=@v, userId='[[userId]]')?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         hideSuggestion: {
             argNames: ["accountName"],
+            name: "hideSuggestion(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.PostReplace
         },
         removeSPUserInformation: {
             argNames: ["accountName", "siteId", "redactName"],
+            name: "removeSPUserInformation(accountName=@v, siteId='[[siteId]]', redactName='[[redactName]]')?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         setMultiValuedProfileProperty: {
             argNames: ["accountName", "propertyName", "propertyValues"],
+            name: "setMultiValuedProfileProperty(accountName=@v, propertyName='[[propertyName]]', propertyValues='[[propertyValues]]')?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         setMyProfilePicture: {
             argNames: ["picture"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
         setSingleValueProfileProperty: {
             argNames: ["accountName", "propertyName", "propertyValue"],
+            name: "setSingleValueProfileProperty(accountName=@v, propertyName='[[propertyName]]', propertyValue='[[propertyValue]]')?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.GetReplace
         },
         stopFollowing: {
             argNames: ["accountName"],
+            name: "stopFollowing(@v)?@v='[[accountName]]'",
+            requestType: utils_1.RequestType.PostWithArgsInQSAsVar
         },
         stopFollowingTag: {
             argNames: ["value"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
     },
     "SP.UserProfiles.PersonalCache": {
@@ -5034,25 +5145,35 @@ exports.Mapper = {
     "SP.UserProfiles.ProfileLoader": {
         createPersonalSiteEnqueueBulk: {
             argNames: ["emailIDs"],
+            requestType: utils_1.RequestType.PostWithArgsInBody
         },
-        getUserProfile: {},
+        getUserProfile: {
+            requestType: utils_1.RequestType.Post,
+            returnType: "SP.UserProfiles.UserProfile"
+        },
     },
     "SP.UserProfiles.UserProfile": {
+        properties: ["PersonalSite|site"],
         createPersonalSite: {
             argNames: ["lcid"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
         createPersonalSiteEnque: {
             argNames: ["isInteractive"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
         createPersonalSiteFromWorkItem: {
             argNames: ["workItemType"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
         query: { argNames: ["oData"], requestType: utils_1.RequestType.OData },
         setMySiteFirstRunExperience: {
             argNames: ["value"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
         shareAllSocialData: {
             argNames: ["shareAll"],
+            requestType: utils_1.RequestType.PostWithArgsValueOnly
         },
     },
     "SP.UserProfiles.UserProfilePropertiesForUser": {

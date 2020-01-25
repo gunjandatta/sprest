@@ -96,7 +96,7 @@ function testALM() {
         assert(appFile, "get app file", "existsFl", true);
 
         // Get the context for the app catalog
-        let ctx = $REST.ContextInfo.getWeb("/sites/appcatalog").executeAndWait();
+        var ctx = $REST.ContextInfo.getWeb("/sites/appcatalog").executeAndWait();
 
         // Get the app
         // Note - You must get the app from the app catalog's web
@@ -109,7 +109,7 @@ function testALM() {
                 if (app == null) { return; }
 
                 // Method to retract the app
-                let retractApp = (app) => {
+                function retractApp(app) {
                     // Retract the app
                     app.retract().execute(function (response) {
                         // Ensure it was retracted
@@ -158,7 +158,7 @@ function testBatch() {
         writeToLog("Batch Create Items", LogType.SubHeader);
 
         // Loop 10 times
-        let ctr = 0;
+        var ctr = 0;
         do {
             // Add a new item
             // Batch the new items as one request
@@ -421,7 +421,7 @@ function testFile() {
 
     // Delete the file
     file = file.delete().executeAndWait();
-    file2 = file2.deleteWithParameters({ BypassSharedLock: true, ETagMatch: "*"}).executeAndWait();
+    file2 = file2.deleteWithParameters({ BypassSharedLock: true, ETagMatch: "*" }).executeAndWait();
 
     // Test
     assert(file.d, "delete file", "DeleteObject", null);
@@ -595,14 +595,14 @@ function testListItem(list) {
     }
 
     // Add an attachment to the item
-    let attachment = item.AttachmentFiles().add(file.Name, buffer).executeAndWait();
+    var attachment = item.AttachmentFiles().add(file.Name, buffer).executeAndWait();
 
     // Test
     assert(attachment, "add attachment", "existsFl", true);
 
     // Get the attachment content
     // Not recommended to read file contents this way
-    let attachmentContent = $REST.Web().getFileByServerRelativeUrl(attachment.ServerRelativeUrl).content().executeAndWait().replace(/\0/g, '');
+    var attachmentContent = $REST.Web().getFileByServerRelativeUrl(attachment.ServerRelativeUrl).content().executeAndWait().replace(/\0/g, '');
 
     // Test
     if (fileContent == attachmentContent) {

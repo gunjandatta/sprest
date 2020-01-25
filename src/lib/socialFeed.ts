@@ -14,7 +14,7 @@ export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfoProps) => {
     base.targetInfo.endpoint = "social.feed";
 
     // Add the methods
-    Request.addMethods(socialFeed as any, { __metadata: { type: "socialfeed" } });
+    Request.addMethods(socialFeed as any, { __metadata: { type: "SP.Social.SocialRestFeedManager" } });
 
     // Return the social feed
     return socialFeed;

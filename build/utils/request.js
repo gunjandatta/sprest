@@ -21,7 +21,7 @@ exports.Request = {
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
         // Get the object type
         var objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
-        // See if the new mapper has the type
+        // Get the methods from the default mapper, otherwise get it from the custom mapper
         if ((methods = mapper_1.Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
             // Determine the object type
             objType = objType.split('/');
@@ -59,7 +59,7 @@ exports.Request = {
                 objType = "tenantapps";
             }
             // Get the methods for the base object
-            methods = mapper_1.Mapper_Old[objType];
+            methods = mapper_1.Mapper_Custom[objType];
         }
         // Ensure methods exist
         if (methods) {

@@ -1,12 +1,9 @@
 import { Base, SP } from "gd-sprest-def";
-import { IApp } from "./app";
-import { IDependencies } from "./dependencies";
 import { IFieldSchemaXML } from "./fieldSchemaXML";
 import { IJSLink } from "./jslink";
 import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "./linkInfo";
 import { IListForm } from "./listForm";
 import { IListFormField } from "./listFormField";
-import { ILoader } from "./loader";
 import { IRequest } from "./methods";
 import { ISPComponents } from "./sp";
 import { ISPConfig, ISPConfigProps, IFieldInfo } from "./spCfg";
@@ -17,15 +14,12 @@ import { IWebPart } from "./webpart";
 /**
  * Helper Library
  */
-export * from "./app";
-export * from "./dependencies";
 export * from "./executor";
 export * from "./fieldSchemaXML";
 export * from "./jslink";
 export * from "./linkInfo";
 export * from "./listForm";
 export * from "./listFormField";
-export * from "./loader";
 export * from "./methods";
 export * from "./sp";
 export * from "./spCfg";
@@ -37,16 +31,6 @@ export * from "./webpart";
  * Helper
  */
 export interface IHelper {
-    /**
-     * Helper classes for the app web
-     */
-    App: IApp;
-
-    /**
-     * Helper class to load the required SP scripts
-     */
-    Dependencies: IDependencies;
-
     /**
      * Method to create a document set item.
      */
@@ -81,11 +65,6 @@ export interface IHelper {
      * Helper class for implementing custom list forms
      */
     ListFormField: IListFormField;
-
-    /**
-     * Helper class for waiting until the core SP scripts are loaded
-     */
-    Loader: ILoader;
 
     /**
      * Helper method to convert a json string to a base object

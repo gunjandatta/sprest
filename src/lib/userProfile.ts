@@ -14,7 +14,7 @@ export const UserProfile: IUserProfile = ((targetInfo?: ITargetInfoProps) => {
     userProfile.targetInfo.method = "POST";
 
     // Add the methods
-    Request.addMethods(userProfile, { __metadata: { type: "userprofile" } });
+    Request.addMethods(userProfile, { __metadata: { type: "SP.UserProfiles.UserProfile" } });
 
     // Return the user profile
     return userProfile;

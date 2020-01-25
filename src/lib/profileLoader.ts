@@ -14,7 +14,7 @@ export const ProfileLoader: IProfileLoader = ((targetInfo?: ITargetInfoProps) =>
     profileLoader.targetInfo.method = "POST";
 
     // Add the methods
-    Request.addMethods(profileLoader, { __metadata: { type: "profileloader" } });
+    Request.addMethods(profileLoader, { __metadata: { type: "SP.UserProfiles.ProfileLoader" } });
 
     // Return the profile loader
     return profileLoader;
