@@ -580,6 +580,14 @@ export const PageType: SPTypes.IPageType = {
 };
 
 /**
+ * Personalization Scope
+ */
+export const PersonalizationScope: SPTypes.IPersonalizationScope = {
+    Shared: 1,
+    User: 0
+}
+
+/**
  * Personal Site Capabilities
  */
 export const PersonalSiteCapabilities: SPTypes.IPersonalSiteCapabilities = {

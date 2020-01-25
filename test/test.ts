@@ -2,6 +2,9 @@ import {
     $REST, List, Helper, Types, Utility
 } from "../@types";
 
+$REST.Web().getFileByServerRelativeUrl("").getLimitedWebPartManager().WebParts().execute(wpMgr => {
+});
+
 $REST.Web().execute(web => {});
 $REST.Site().RootWeb().execute(web => {});
 

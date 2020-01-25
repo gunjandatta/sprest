@@ -27,6 +27,7 @@ export interface ISPTypes {
     LocaleLCIDType: Types.ILocaleLCIDType;
     NodeType: Types.INodeType;
     PageType: Types.IPageType;
+    PersonalizationScope: Types.IPersonalizationScope;
     PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
     PrincipalSources: Types.IPrincipalSources;
     PrincipalTypes: Types.IPrincipalTypes;

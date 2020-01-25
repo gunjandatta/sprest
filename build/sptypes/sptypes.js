@@ -491,6 +491,13 @@ exports.PageType = {
     View: 3
 };
 /**
+ * Personalization Scope
+ */
+exports.PersonalizationScope = {
+    Shared: 1,
+    User: 0
+};
+/**
  * Personal Site Capabilities
  */
 exports.PersonalSiteCapabilities = {

@@ -4187,7 +4187,8 @@ export const Mapper: IMapper = {
         getLimitedWebPartManager: {
             argNames: ["scope"],
             name: "getLimitedWebPartManager(scope=[[scope]])",
-            requestType: RequestType.GetReplace
+            requestType: RequestType.GetReplace,
+            returnType: "SP.WebParts.LimitedWebPartManager"
         },
 
         getPreAuthorizedAccessUrl: {
@@ -7771,7 +7772,7 @@ export const Mapper: IMapper = {
 
     "SP.WebParts.LimitedWebPartManager": {
         properties: [
-            "WebParts|SP.WebParts.LimitedWebPartManager.Collection|/([Id])|SP.WebParts.LimitedWebPartManager"
+            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Id])|SP.WebParts.WebPartDefinition"
         ],
 
         exportWebPart: {
@@ -7792,14 +7793,14 @@ export const Mapper: IMapper = {
         closeWebPart: {
         },
 
-        deleteWebPart: {
-        },
+        deleteWebPart: {},
 
         moveWebPartTo: {
             argNames: ["zoneID", "zoneIndex"],
         },
 
         openWebPart: {
+            requestType: RequestType.Get
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
