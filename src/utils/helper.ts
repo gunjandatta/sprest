@@ -316,22 +316,28 @@ export const Helper: IBaseHelper = {
 
     // Method to update the metadata
     updateMetadata: (base, data) => {
-        // Ensure the base is the app web
-        if (!ContextInfo.isAppWeb) { return; }
+        // See if this is the app web
+        if (ContextInfo.isAppWeb) {
+            // Get the url information
+            let hostUrl = ContextInfo.webAbsoluteUrl.toLowerCase();
+            let requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+            let targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
 
-        // Get the url information
-        let hostUrl = ContextInfo.webAbsoluteUrl.toLowerCase();
-        let requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        let targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
+            // Ensure the urls exist
+            if (hostUrl == null || requestUrl == null || targetUrl == null) { return; }
 
-        // Ensure the urls exist
-        if (hostUrl == null || requestUrl == null || targetUrl == null) { return; }
+            // See if we need to make an update
+            if (targetUrl.indexOf(hostUrl) == 0) { return; }
 
-        // See if we need to make an update
-        if (targetUrl.indexOf(hostUrl) == 0) { return; }
+            // Update the metadata uri
+            data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+        }
 
-        // Update the metadata uri
-        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+        // See if this is a webpart definition
+        if (data.__metadata && /SP.WebParts.WebPartDefinition/.test(data.__metadata.type)) {
+            // Update the metadata uri
+            data.__metadata.uri = data.__metadata.uri.replace(/SP.WebParts.WebPartDefinition/, base.targetInfo.endpoint + "/getById('") + "')";
+        }
     },
 
     // Method to update the metadata uri

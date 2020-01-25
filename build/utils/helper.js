@@ -261,24 +261,28 @@ exports.Helper = {
     },
     // Method to update the metadata
     updateMetadata: function (base, data) {
-        // Ensure the base is the app web
-        if (!lib_1.ContextInfo.isAppWeb) {
-            return;
+        // See if this is the app web
+        if (lib_1.ContextInfo.isAppWeb) {
+            // Get the url information
+            var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
+            var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+            var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
+            // Ensure the urls exist
+            if (hostUrl == null || requestUrl == null || targetUrl == null) {
+                return;
+            }
+            // See if we need to make an update
+            if (targetUrl.indexOf(hostUrl) == 0) {
+                return;
+            }
+            // Update the metadata uri
+            data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
         }
-        // Get the url information
-        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
-        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
-        // Ensure the urls exist
-        if (hostUrl == null || requestUrl == null || targetUrl == null) {
-            return;
+        // See if this is a webpart definition
+        if (data.__metadata && /SP.WebParts.WebPartDefinition/.test(data.__metadata.type)) {
+            // Update the metadata uri
+            data.__metadata.uri = data.__metadata.uri.replace(/SP.WebParts.WebPartDefinition/, base.targetInfo.endpoint + "/getById('") + "')";
         }
-        // See if we need to make an update
-        if (targetUrl.indexOf(hostUrl) == 0) {
-            return;
-        }
-        // Update the metadata uri
-        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
     },
     // Method to update the metadata uri
     updateMetadataUri: function (base, metadata, targetInfo) {

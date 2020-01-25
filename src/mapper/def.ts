@@ -7793,8 +7793,7 @@ export const Mapper: IMapper = {
         closeWebPart: {
         },
 
-        deleteWebPart: {
-        },
+        deleteWebPart: {},
 
         moveWebPartTo: {
             argNames: ["zoneID", "zoneIndex"],
