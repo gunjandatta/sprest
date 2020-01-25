@@ -2929,7 +2929,8 @@ exports.Mapper = {
         getLimitedWebPartManager: {
             argNames: ["scope"],
             name: "getLimitedWebPartManager(scope=[[scope]])",
-            requestType: utils_1.RequestType.GetReplace
+            requestType: utils_1.RequestType.GetReplace,
+            returnType: "SP.WebParts.LimitedWebPartManager"
         },
         getPreAuthorizedAccessUrl: {
             argNames: ["expirationHours"],

@@ -4187,7 +4187,8 @@ export const Mapper: IMapper = {
         getLimitedWebPartManager: {
             argNames: ["scope"],
             name: "getLimitedWebPartManager(scope=[[scope]])",
-            requestType: RequestType.GetReplace
+            requestType: RequestType.GetReplace,
+            returnType: "SP.WebParts.LimitedWebPartManager"
         },
 
         getPreAuthorizedAccessUrl: {
