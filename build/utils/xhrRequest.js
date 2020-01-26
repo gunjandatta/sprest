@@ -16,9 +16,16 @@ var XHRRequest = /** @class */ (function () {
         this.headers = {};
         this.onRequestCompleted = callback || targetInfo.props.callback;
         this.targetInfo = targetInfo;
+        // Create the request
         this.xhr = this.createXHR();
-        // Execute the request
-        this.xhr ? this.execute() : null;
+        if (this.xhr) {
+            // Execute the request
+            this.execute();
+        }
+        else {
+            // Default the headers
+            this.defaultHeaders();
+        }
     }
     Object.defineProperty(XHRRequest.prototype, "completedFl", {
         /*********************************************************************************************************************************/
@@ -115,7 +122,7 @@ var XHRRequest = /** @class */ (function () {
             // Parse the custom headers
             for (var header in this.targetInfo.requestHeaders) {
                 // Add the header
-                this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+                this.xhr ? this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]) : null;
                 this.headers[header] = this.targetInfo.requestHeaders[header];
                 // See if this is the "IF-MATCH" header
                 ifMatchExists = ifMatchExists || header.toUpperCase() == "IF-MATCH";
@@ -125,15 +132,15 @@ var XHRRequest = /** @class */ (function () {
             // See if this is a graph request
             if (this.targetInfo.isGraph) {
                 // Set the default headers
-                this.xhr.setRequestHeader("Accept", "application/json");
-                this.xhr.setRequestHeader("Content-Type", "application/json");
+                this.xhr ? this.xhr.setRequestHeader("Accept", "application/json") : null;
+                this.xhr ? this.xhr.setRequestHeader("Content-Type", "application/json") : null;
                 this.headers["Accept"] = "application/json";
                 this.headers["Content-Type"] = "application/json";
             }
             else {
                 // Set the default headers
-                this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
-                this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+                this.xhr ? this.xhr.setRequestHeader("Accept", "application/json;odata=verbose") : null;
+                this.xhr ? this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose") : null;
                 this.headers["Accept"] = "application/json;odata=verbose";
                 this.headers["Content-Type"] = "application/json;odata=verbose";
             }
@@ -141,23 +148,23 @@ var XHRRequest = /** @class */ (function () {
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
             // Set the authorization
-            this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken);
+            this.xhr ? this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken) : null;
             this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
         }
         else {
             // See if custom headers were not defined
             if (this.targetInfo.requestHeaders == null) {
                 // Set the method by default
-                this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+                this.xhr ? this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod) : null;
                 this.headers["X-HTTP-Method"] = this.targetInfo.requestMethod;
             }
             // Set the request digest
-            this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
-            this.headers["X-RequestDigest"] = requestDigest;
+            this.xhr ? this.xhr.setRequestHeader("X-RequestDigest", requestDigest) : null;
+            requestDigest ? this.headers["X-RequestDigest"] = requestDigest : null;
             // See if we are deleting or updating the data
             if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE" && !ifMatchExists) {
                 // Append the header for deleting/updating
-                this.xhr.setRequestHeader("IF-MATCH", "*");
+                this.xhr ? this.xhr.setRequestHeader("IF-MATCH", "*") : null;
                 this.headers["IF-MATCH"] = "*";
             }
         }
