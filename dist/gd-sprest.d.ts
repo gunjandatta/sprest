@@ -1990,6 +1990,11 @@ declare module 'gd-sprest/helper/sp' {
         */
     export interface ISPComponents {
             /**
+                * Callout Manager
+                */
+            CalloutManager: ICalloutManager,
+    
+            /**
                 * Modal Dialog
                 */
             ModalDialog: IModalDialog,
@@ -2008,6 +2013,249 @@ declare module 'gd-sprest/helper/sp' {
                 * Status
                 */
             Status: IStatus
+    }
+    
+    /**
+        * Callout
+        */
+    export interface ICallout {
+            /** Adds a link to the actions panel of the callout window. */
+            addAction(action: ICalloutAction): any;
+    
+            /**
+                * Adds an event handler to the callout.
+                * Examples - opened, opening, closed and closing
+                */
+            addEventCallback(eventName: string, callback: (callout: ICallout) => void): any;
+    
+            /** Closes the callout. */
+            close(useAnimation: boolean): any;
+    
+            /** Do not call this method, use the CalloutManager to remove the callout. */
+            destroy();
+    
+            /** Returns the action menu of the callout. */
+            getActionMenu(): ICalloutActionMenu;
+    
+            /** Returns the beak orientation of the callout. */
+            getBeakOrientation(): string;
+    
+            /** Returns the bounding box element of the callout. */
+            getBoundingBox(): HTMLElement;
+    
+            /** Returns the html of the content. */
+            getContent(): string;
+    
+            /** Returns the content element. */
+            getContentElement(): HTMLElement;
+    
+            /** Returns the content width of the callout. */
+            getContentWidth(): number;
+    
+            /** Returns the unique id of the callout. */
+            getID(): string;
+    
+            /** Returns the launch point element of the callout. */
+            getLaunchPoint(): HTMLElement;
+    
+            /** Returns the open options of the callout. */
+            getOpenOptions(): ICalloutOpenOptions;
+    
+            /** Gets the position of the callout. */
+            getPositionAlgorithm(): any;
+    
+            /** Returns the title of the callout. */
+            getTitle(): string;
+    
+            /** Returns true if the callout is closed. */
+            isClosed(): boolean
+    
+            /** Returns true if the callout is closing. */
+            isClosing(): boolean;
+    
+            /** Returns true if the callout is opened. */
+            isOpen(): boolean;
+    
+            /** Returns true if the callout is opening or opened. */
+            isOpenOrOpening(): boolean;
+    
+            /** Returns true if the callout is in the "Opening" state. */
+            isOpening(): boolean;
+    
+            /** Displays the callout. */
+            open(useAnimation: boolean): any;
+    
+            /** Re-renders the actions menu. Call after the actions menu is changed. */
+            refreshActions();
+    
+            /** 
+                * Sets options for the callout.
+                * Note - Not all options can be changed for the callout after its creation. */
+            set(options: ICalloutOptions): any;
+    
+            /** Displays the callout if it's hidden, hides it otherwise. */
+            toggle();
+    }
+    
+    /**
+        * Callout Action
+        */
+    export interface ICalloutAction {
+            getDisabledToolTip(): string;
+            getIsDisabledCallback(): (action: ICalloutAction) => boolean;
+            getIsMenu(): boolean;
+            getIsVisibleCallback(): (action: ICalloutAction) => boolean;
+            getMenuEntries(): Array<ICalloutActionMenuEntry>;
+            getText(): string;
+            getToolTop(): string;
+            isEnabled(): boolean;
+            isVisible(): boolean;
+            render();
+            set(options: ICalloutActionOptions);
+    }
+    
+    /**
+        * Callout Action Menu
+        */
+    export interface ICalloutActionMenu {
+            constructor(actionId: any): ICalloutActionMenu;
+            addAction(action: ICalloutAction): any;
+            calculateActionWidth();
+            getActions(): Array<ICalloutAction>;
+            refreshActions();
+            render();
+    }
+    
+    /**
+        * Callout Action Options
+        */
+    export interface ICalloutActionOptions {
+            disabledTooltip?: string;
+            isEnabledCallback?: (action: ICalloutAction) => boolean;
+            isVisibleCallback?: (action: ICalloutAction) => boolean;
+            menuEntries?: Array<ICalloutActionMenu>;
+            onClickCallback: (event: Event, action: ICalloutAction) => any;
+            text?: string;
+            tooltip?: string;
+    }
+    
+    /**
+        * Callout Action Menu Entry
+        */
+    export interface ICalloutActionMenuEntry {
+            onClickCallback: (actionMenuEntry: ICalloutActionMenuEntry, actionMenuEntryIndex: number) => void;
+            iconUrl?: string;
+            text: string;
+    }
+    
+    /**
+        * Callout Manager
+        */
+    export interface ICalloutManager {
+            /** Closes all callouts on the page. */
+            closeAll();
+    
+            /** Returns true if the associated callout is open. */
+            containsOneCalloutOpen(el: HTMLElement);
+    
+            /** Creates an action menu entry. */
+            createAction(options: ICalloutActionOptions): ICalloutAction;
+    
+            /** Creates an action menu entries. */
+            createMenuEntries(options: Array<ICalloutActionMenuEntry>): Array<ICalloutActionMenu>;
+    
+            /** Creates a new callout. */
+            createNew(options: ICalloutOptions);
+    
+            /** Checks if the callout id exists, before creating it. */
+            createNewIfNecessary(options: ICalloutOptions): ICallout;
+    
+            /** Performs an action on each callout on the page. */
+            forEach(callback: (callout: ICallout) => void);
+    
+            /** Finds the closest launch point and returns the callout associated with it. */
+            getFromCalloutDescendant(descendant: HTMLElement): ICallout;
+    
+            /** Returns the callout from the specified launch point. */
+            getFromLaunchPoint(launchPoint: HTMLElement): ICallout;
+    
+            /** Returns the callout for the specified launch point, null if it doesn't exist. */
+            getFromLaunchPointIfExists(launchPoint: HTMLElement): ICallout;
+    
+            /** Returns true if at least one callout is defined on the page is opened or opening. */
+            isAtLeastOneCalloutOn(): boolean;
+    
+            /** Returns true if at least one callout is opened on the page. */
+            isAtLeastOneCalloutOpen(): boolean;
+    
+            /**
+                * Method to ensure the core script is loaded.
+                */
+            init(): PromiseLike<void>;
+    
+            /** Removes the callout and destroys it. */
+            remove(callout: ICallout): any;
+    }
+    
+    /**
+        * Callout Options
+        */
+    export interface ICalloutOptions {
+            /** The unique id of the callout. */
+            ID: string;
+    
+            /** The orientation of the callout. The valid options are: topBottom (default) or leftRight */
+            beakOrientation?: string;
+    
+            /** */
+            boundingBox?: HTMLElement;
+    
+            /** The html to be displayed in the callout. */
+            content?: string;
+    
+            /** Element to be displayed in the callout. */
+            contentElement?: HTMLElement;
+    
+            /** The width in pixels. Default - 350px */
+            contentWidth?: number;
+    
+            /** The element to apply the callout to. */
+            launchPoint: HTMLElement;
+    
+            /** Event triggered after the callout is closed. */
+            onClosedCallback?(callout: ICallout);
+    
+            /** Event triggered before the callout is closed. */
+            onClosingCallback?(callout: ICallout);
+    
+            /** Event triggered after the callout is shown. */
+            onOpenedCallback?(callout: ICallout);
+    
+            /** Event triggered after the callout is rendered, but before it is positioned and shown. */
+            onOpeningCallback?(callout: ICallout);
+    
+            /** Defines the callout opening behavior. */
+            openOptions?: ICalloutOpenOptions;
+    
+            /** Sets the position of the callout during the opening event. */
+            positionAlgorithm?(callout: ICallout);
+    
+            /** The title of the callout. */
+            title?: string;
+    }
+    
+    /**
+        * Callout Open Options
+        */
+    export interface ICalloutOpenOptions {
+            /** Closes the callout on blur. */
+            closeCalloutOnBlur: boolean;
+    
+            /** The event name. Example: 'click' */
+            event: string;
+    
+            /** Close button will be shown within the callout window. */
+            showCloseButton: boolean;
     }
     
     /**
@@ -2204,12 +2452,12 @@ declare module 'gd-sprest/helper/sp' {
             /**
                 * Sets the sub title of the close dialog
                 */
-            setSubTitle(value:string);
+            setSubTitle(value: string);
     
             /**
                 * Sets the title of the close dialog
                 */
-            setTitle(value:string);
+            setTitle(value: string);
     
             /**
                 * Shows the dialog

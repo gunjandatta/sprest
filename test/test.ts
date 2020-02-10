@@ -2,11 +2,19 @@ import {
     $REST, List, Helper, Types, Utility
 } from "../@types";
 
+let el = document.querySelector("#Element");
+let a1 = Helper.SP.CalloutManager.createAction({ text: "", onClickCallback: () => { } });
+let m = Helper.SP.CalloutManager.createMenuEntries([{ text: "", onClickCallback: () => { } }]);
+let a2 = Helper.SP.CalloutManager.createAction({ text: "", menuEntries: m })
+let c = Helper.SP.CalloutManager.createNewIfNecessary({ ID: "", launchPoint: el });
+c.addAction(a1);
+c.addAction(a2);
+
 $REST.Web().getFileByServerRelativeUrl("").getLimitedWebPartManager().WebParts().execute(wpMgr => {
 });
 
-$REST.Web().execute(web => {});
-$REST.Site().RootWeb().execute(web => {});
+$REST.Web().execute(web => { });
+$REST.Site().RootWeb().execute(web => { });
 
 $REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execute(d => {
     d.results[0].Name;
