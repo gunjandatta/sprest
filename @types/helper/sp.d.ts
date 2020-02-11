@@ -267,13 +267,13 @@ export interface ICalloutOptions {
  */
 export interface ICalloutOpenOptions {
     /** Closes the callout on blur. */
-    closeCalloutOnBlur: boolean;
+    closeCalloutOnBlur?: boolean;
 
     /** The event name. Example: 'click' */
-    event: string;
+    event?: string;
 
     /** Close button will be shown within the callout window. */
-    showCloseButton: boolean;
+    showCloseButton?: boolean;
 }
 
 /**
