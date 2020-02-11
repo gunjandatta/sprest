@@ -101,7 +101,7 @@ export const CalloutManager: ICalloutManager = (() => {
                 if (window["CalloutManager"]) { resolve(); }
                 else {
                     // Wait for the core script to be loaded
-                    window["SP"].SOD.executeFunc("sp.callout", "Callout", () => {
+                    window["SP"].SOD.executeFunc("callout.js", "Callout", () => {
                         // Resolve the promise
                         resolve();
                     });

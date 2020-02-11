@@ -2134,7 +2134,7 @@ declare module 'gd-sprest/helper/sp' {
             isEnabledCallback?: (action: ICalloutAction) => boolean;
             isVisibleCallback?: (action: ICalloutAction) => boolean;
             menuEntries?: Array<ICalloutActionMenu>;
-            onClickCallback: (event: Event, action: ICalloutAction) => any;
+            onClickCallback?: (event: Event, action: ICalloutAction) => any;
             text?: string;
             tooltip?: string;
     }
@@ -2208,19 +2208,19 @@ declare module 'gd-sprest/helper/sp' {
             beakOrientation?: string;
     
             /** */
-            boundingBox?: HTMLElement;
+            boundingBox?: Element;
     
             /** The html to be displayed in the callout. */
             content?: string;
     
             /** Element to be displayed in the callout. */
-            contentElement?: HTMLElement;
+            contentElement?: Element;
     
             /** The width in pixels. Default - 350px */
             contentWidth?: number;
     
             /** The element to apply the callout to. */
-            launchPoint: HTMLElement;
+            launchPoint: Element;
     
             /** Event triggered after the callout is closed. */
             onClosedCallback?(callout: ICallout);
@@ -2249,13 +2249,13 @@ declare module 'gd-sprest/helper/sp' {
         */
     export interface ICalloutOpenOptions {
             /** Closes the callout on blur. */
-            closeCalloutOnBlur: boolean;
+            closeCalloutOnBlur?: boolean;
     
             /** The event name. Example: 'click' */
-            event: string;
+            event?: string;
     
             /** Close button will be shown within the callout window. */
-            showCloseButton: boolean;
+            showCloseButton?: boolean;
     }
     
     /**
@@ -2278,7 +2278,7 @@ declare module 'gd-sprest/helper/sp' {
             height?: number;
     
             /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
-            html?: HTMLElement;
+            html?: Element;
     
             /** A Boolean value that specifies whether the Close button appears on the dialog. */
             showClose?: boolean;

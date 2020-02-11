@@ -85,7 +85,7 @@ exports.CalloutManager = (function () {
                 }
                 else {
                     // Wait for the core script to be loaded
-                    window["SP"].SOD.executeFunc("sp.callout", "Callout", function () {
+                    window["SP"].SOD.executeFunc("callout.js", "Callout", function () {
                         // Resolve the promise
                         resolve();
                     });
