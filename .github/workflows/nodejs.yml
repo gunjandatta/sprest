@@ -19,6 +19,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm link typescript
-    - run: npm run all
+    - run: npm run build
+    - run: npm run prod
+    - run: npm run typings
       env:
         CI: true
