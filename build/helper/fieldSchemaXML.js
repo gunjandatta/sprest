@@ -331,6 +331,9 @@ exports.FieldSchemaXML = function (fieldInfo) {
             props["StaticName"] = fieldInfo.name;
             props["DisplayName"] = fieldInfo.title || fieldInfo.name;
             // Set the optional properties
+            if (typeof (fieldInfo.description) !== "undefined") {
+                props["Description"] = fieldInfo.description;
+            }
             if (typeof (fieldInfo.group) !== "undefined") {
                 props["Group"] = fieldInfo.group;
             }

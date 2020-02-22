@@ -352,6 +352,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             props["DisplayName"] = fieldInfo.title || fieldInfo.name;
 
             // Set the optional properties
+            if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
             if (typeof (fieldInfo.jslink) !== "undefined") { props["JSLink"] = fieldInfo.jslink; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }

@@ -12,6 +12,9 @@ export interface IFieldInfo {
     /** The default value of the field. */
     defaultValue?: string;
 
+    /** The field description. */
+    description?: string;
+
     /** The group name. */
     group?: string;
 
