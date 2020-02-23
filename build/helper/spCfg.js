@@ -915,7 +915,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // See if the title field is being updated
             if (cfgList.TitleFieldDisplayName) {
                 // Update the field name
-                list.Fields.getByTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
+                list.Fields.getByInternalNameOrTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
                     // Log
                     console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
                     // Resolve the promise

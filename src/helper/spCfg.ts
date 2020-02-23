@@ -1010,7 +1010,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // See if the title field is being updated
             if (cfgList.TitleFieldDisplayName) {
                 // Update the field name
-                list.Fields.getByTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(() => {
+                list.Fields.getByInternalNameOrTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(() => {
                     // Log
                     console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
 
