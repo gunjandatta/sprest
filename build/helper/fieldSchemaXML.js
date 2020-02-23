@@ -35,6 +35,9 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 break;
             case __1.SPTypes.FieldResultType.Currency:
                 props["ResultType"] = "Currency";
+                if (fieldInfo.lcid > 0) {
+                    props["LCID"] = fieldInfo.lcid;
+                }
                 break;
             case __1.SPTypes.FieldResultType.DateOnly:
                 props["Format"] = "DateOnly";
@@ -46,6 +49,12 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 break;
             case __1.SPTypes.FieldResultType.Number:
                 props["ResultType"] = "Number";
+                if (fieldInfo.decimals >= 0) {
+                    props["Decimals"] = fieldInfo.decimals;
+                }
+                if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Percentage) {
+                    props["ShowPercentage"] = "TRUE";
+                }
                 break;
             default:
                 props["ResultType"] = "Text";

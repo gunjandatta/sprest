@@ -2668,6 +2668,9 @@ declare module 'gd-sprest/helper/spCfg' {
         * Calculated Field Information
         */
     export interface IFieldInfoCalculated extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+    
             /** The field references */
             fieldRefs?: Array<string>;
     
@@ -2676,6 +2679,12 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The formula */
             formula?: string;
+    
+            /** The country/region whose currency format is being used. */
+            lcid?: number;
+    
+            /** The number field type */
+            numberType?: number;
     
             /** The result type */
             resultType?: string;
