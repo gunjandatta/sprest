@@ -101,7 +101,7 @@ export interface ICallout {
     isOpening(): boolean;
 
     /** Displays the callout. */
-    open(useAnimation: boolean): any;
+    open(useAnimation?: boolean): any;
 
     /** Re-renders the actions menu. Call after the actions menu is changed. */
     refreshActions();
