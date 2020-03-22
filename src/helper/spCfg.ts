@@ -100,7 +100,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     Description: cfg.Description,
                                     Group: cfg.Group,
                                     Name: cfg.Name
-                                }, parentInfo, list ? list.Title : null).then(
+                                }, parentInfo, webUrl, list ? list.Title : null).then(
                                     // Success
                                     ct => {
                                         // Log

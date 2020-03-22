@@ -88,7 +88,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 Description: cfg.Description,
                                 Group: cfg.Group,
                                 Name: cfg.Name
-                            }, parentInfo, list ? list.Title : null).then(
+                            }, parentInfo, webUrl, list ? list.Title : null).then(
                             // Success
                             function (ct) {
                                 // Log

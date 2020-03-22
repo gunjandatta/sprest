@@ -1941,9 +1941,10 @@ declare module 'gd-sprest/helper/methods' {
         * Creates a content type in the current web or specified list.
         * @param ctInfo - The content type information.
         * @param parentInfo - The parent content type id and url containing it.
+        * @param webUrl - The relative url to create the content type in.
         * @param listName - The list name to add the content type to.
         */
-    export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, listName?: string) => PromiseLike<SP.ContentType>;
+    export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string) => PromiseLike<SP.ContentType>;
     
     /**
         * Creates a document set item.
