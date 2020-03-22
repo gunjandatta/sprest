@@ -14,68 +14,52 @@ declare var SP;
 export const createContentType = (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType> => {
     // Return a promise
     return new Promise((resolve, reject) => {
-        // Get the parent context
-        let ctxParent = parentInfo.Url ? new SP.ClientContext(parentInfo.Url) : SP.ClientContext.get_current();
+        // Set the context
+        let ctx = webUrl ? new SP.ClientContext(webUrl) : SP.ClientContext.get_current();
 
         // Get the parent content type
-        let parent = ctxParent.get_web().get_contentTypes().getById(parentInfo.Id);
-        ctxParent.load(parent);
+        let parentContentType = (parentInfo.Url ? ctx.get_site().openWeb(parentInfo.Url) : ctx.get_web()).get_contentTypes().getById(parentInfo.Id);
+
+        // Create the content type
+        let ct = new SP.ContentTypeCreationInformation();
+        ct.set_description(ctInfo.Description);
+        ct.set_group(ctInfo.Group);
+        ct.set_name(ctInfo.Name);
+        ct.set_parentContentType(parentContentType)
+
+        // See if the list name was defined
+        let contentTypes = null;
+        if (listName) {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_lists().getByTitle(listName).get_contentTypes();
+        } else {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_contentTypes();
+        }
+
+        // Add the content type
+        contentTypes.add(ct);
+        ctx.load(contentTypes);
 
         // Execute the request
-        ctxParent.executeQueryAsync(
+        ctx.executeQueryAsync(
             // Success
             () => {
-                // Get the context
-                let ctxWeb = webUrl ? new SP.ClientContext(webUrl) : SP.ClientContext.get_current();
+                // Set the content type collection
+                let cts = (listName ? Web().Lists(listName) : Web()).ContentTypes();
 
-                // Create the content type
-                let ct = new SP.ContentTypeCreationInformation();
-                ct.set_description(ctInfo.Description);
-                ct.set_group(ctInfo.Group);
-                ct.set_name(ctInfo.Name);
-                ct.set_parentContentType(parent)
-
-                // See if the list name was defined
-                let contentTypes = null;
-                if (listName) {
-                    // Set the content type collection
-                    contentTypes = ctxWeb.get_web().get_lists().getByTitle(listName).get_contentTypes();
-                } else {
-                    // Set the content type collection
-                    contentTypes = ctxWeb.get_web().get_contentTypes();
-                }
-
-                // Add the content type
-                contentTypes.add(ct);
-                ctxWeb.load(contentTypes);
-
-                // Execute the request
-                ctxWeb.executeQueryAsync(
-                    // Success
-                    () => {
-                        // Set the content type collection
-                        let cts = (listName ? Web().Lists(listName) : Web()).ContentTypes();
-
-                        // Find the content type
-                        cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(cts => {
-                            // Resolve the request
-                            resolve(cts.results[0] as any);
-                        });
-                    },
-
-                    // Error
-                    (sender, args) => {
-                        // Reject the request
-                        reject(args.get_message());
-                    });
+                // Find the content type
+                cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(cts => {
+                    // Resolve the request
+                    resolve(cts.results[0] as any);
+                });
             },
 
             // Error
             (sender, args) => {
                 // Reject the request
                 reject(args.get_message());
-            }
-        );
+            });
     });
 }
 

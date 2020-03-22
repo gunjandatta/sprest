@@ -12,52 +12,39 @@ var utils_1 = require("../utils");
 exports.createContentType = function (ctInfo, parentInfo, webUrl, listName) {
     // Return a promise
     return new Promise(function (resolve, reject) {
-        // Get the context
-        var ctxParent = parentInfo.Url ? new SP.ClientContext(parentInfo.Url) : SP.ClientContext.get_current();
+        // Set the context
+        var ctx = webUrl ? new SP.ClientContext(webUrl) : SP.ClientContext.get_current();
         // Get the parent content type
-        var parent = ctxParent.get_web().get_contentTypes().getById(parentInfo.Id);
-        ctxParent.load(parent);
+        var parentContentType = (parentInfo.Url ? ctx.get_site().openWeb(parentInfo.Url) : ctx.get_web()).get_contentTypes().getById(parentInfo.Id);
+        // Create the content type
+        var ct = new SP.ContentTypeCreationInformation();
+        ct.set_description(ctInfo.Description);
+        ct.set_group(ctInfo.Group);
+        ct.set_name(ctInfo.Name);
+        ct.set_parentContentType(parentContentType);
+        // See if the list name was defined
+        var contentTypes = null;
+        if (listName) {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_lists().getByTitle(listName).get_contentTypes();
+        }
+        else {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_contentTypes();
+        }
+        // Add the content type
+        contentTypes.add(ct);
+        ctx.load(contentTypes);
         // Execute the request
-        ctxParent.executeQueryAsync(
+        ctx.executeQueryAsync(
         // Success
         function () {
-            // Get the context
-            var ctxWeb = webUrl ? new SP.ClientContext(webUrl) : SP.ClientContext.get_current();
-            // Create the content type
-            var ct = new SP.ContentTypeCreationInformation();
-            ct.set_description(ctInfo.Description);
-            ct.set_group(ctInfo.Group);
-            ct.set_name(ctInfo.Name);
-            ct.set_parentContentType(parent);
-            // See if the list name was defined
-            var contentTypes = null;
-            if (listName) {
-                // Set the content type collection
-                contentTypes = ctxWeb.get_web().get_lists().getByTitle(listName).get_contentTypes();
-            }
-            else {
-                // Set the content type collection
-                contentTypes = ctxWeb.get_web().get_contentTypes();
-            }
-            // Add the content type
-            contentTypes.add(ct);
-            ctxWeb.load(contentTypes);
-            // Execute the request
-            ctxWeb.executeQueryAsync(
-            // Success
-            function () {
-                // Set the content type collection
-                var cts = (listName ? lib_1.Web().Lists(listName) : lib_1.Web()).ContentTypes();
-                // Find the content type
-                cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(function (cts) {
-                    // Resolve the request
-                    resolve(cts.results[0]);
-                });
-            }, 
-            // Error
-            function (sender, args) {
-                // Reject the request
-                reject(args.get_message());
+            // Set the content type collection
+            var cts = (listName ? lib_1.Web().Lists(listName) : lib_1.Web()).ContentTypes();
+            // Find the content type
+            cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(function (cts) {
+                // Resolve the request
+                resolve(cts.results[0]);
             });
         }, 
         // Error

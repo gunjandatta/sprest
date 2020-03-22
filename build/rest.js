@@ -7,7 +7,7 @@ var sptypes_1 = require("./sptypes");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 5.30,
+    __ver: 5.31,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
