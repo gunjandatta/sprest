@@ -1,6 +1,14 @@
 import { SP } from "gd-sprest-def";
 
 /**
+ * Creates a content type in the current web or specified list.
+ * @param ctInfo - The content type information.
+ * @param parentContentTypeId - The parent content type id to inherit from.
+ * @param listName - The list name to add the content type to.
+ */
+export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentContentTypeId: string, listName?: string) => PromiseLike<SP.ContentType>;
+
+/**
  * Creates a document set item.
  * @param name - The name of the document set folder to create.
  * @param listName - The name of the document set library.

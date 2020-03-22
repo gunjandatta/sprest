@@ -1,8 +1,66 @@
 import { IRequest } from "../../@types/helper";
-import { ListItem } from "gd-sprest-def/lib/SP";
+import { ContentType, ContentTypeCreationInformation, ListItem } from "gd-sprest-def/lib/SP";
 import { Web } from "../lib";
 import { Base, Request } from "../utils";
 declare var SP;
+
+/**
+ * Creates a content type in the current web or specified list.
+ * @param ctInfo - The content type information.
+ * @param parentContentTypeId - The parent content type id to inherit from.
+ * @param listName - The list name to add the content type to.
+ */
+export const createContentType = (ctInfo: ContentTypeCreationInformation, parentContentTypeId: string, listName?: string): PromiseLike<ContentType> => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Get the current context
+        let ctx = SP.ClientContext.get_current();
+
+        // Get the parent content type
+        let parent = ctx.get_site().get_rootWeb().get_contentTypes().getById(parentContentTypeId);
+
+        // Create the content type
+        let ct = new SP.ContentTypeCreationInformation();
+        ct.set_description(ctInfo.Description);
+        ct.set_group(ctInfo.Group);
+        ct.set_name(ctInfo.Name);
+        ct.set_parentContentType(parent)
+
+        // See if the list name was defined
+        let contentTypes = null;
+        if (listName) {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_lists().getByTitle(listName).get_contentTypes();
+        } else {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_contentTypes();
+        }
+
+        // Add the content type
+        contentTypes.add(ct);
+        ctx.load(contentTypes);
+
+        // Execute the request
+        ctx.executeQueryAsync(
+            // Success
+            () => {
+                // Set the content type collection
+                let cts = (listName ? Web().Lists(listName) : Web()).ContentTypes();
+
+                // Find the content type
+                cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(cts => {
+                    // Resolve the request
+                    resolve(cts.results[0] as any);
+                });
+            },
+
+            // Error
+            (sender, args) => {
+                // Reject the request
+                reject(args.get_message());
+            });
+    });
+}
 
 /**
  * Creates a document set item.

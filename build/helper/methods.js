@@ -3,6 +3,57 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var utils_1 = require("../utils");
 /**
+ * Creates a content type in the current web or specified list.
+ * @param ctInfo - The content type information.
+ * @param parentContentTypeId - The parent content type id to inherit from.
+ * @param listName - The list name to add the content type to.
+ */
+exports.createContentType = function (ctInfo, parentContentTypeId, listName) {
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Get the current context
+        var ctx = SP.ClientContext.get_current();
+        // Get the parent content type
+        var parent = ctx.get_site().get_rootWeb().get_contentTypes().getById(parentContentTypeId);
+        // Create the content type
+        var ct = new SP.ContentTypeCreationInformation();
+        ct.set_description(ctInfo.Description);
+        ct.set_group(ctInfo.Group);
+        ct.set_name(ctInfo.Name);
+        ct.set_parentContentType(parent);
+        // See if the list name was defined
+        var contentTypes = null;
+        if (listName) {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_lists().getByTitle(listName).get_contentTypes();
+        }
+        else {
+            // Set the content type collection
+            contentTypes = ctx.get_web().get_contentTypes();
+        }
+        // Add the content type
+        contentTypes.add(ct);
+        ctx.load(contentTypes);
+        // Execute the request
+        ctx.executeQueryAsync(
+        // Success
+        function () {
+            // Set the content type collection
+            var cts = (listName ? lib_1.Web().Lists(listName) : lib_1.Web()).ContentTypes();
+            // Find the content type
+            cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(function (cts) {
+                // Resolve the request
+                resolve(cts.results[0]);
+            });
+        }, 
+        // Error
+        function (sender, args) {
+            // Reject the request
+            reject(args.get_message());
+        });
+    });
+};
+/**
  * Creates a document set item.
  * @param name - The name of the document set folder to create.
  * @param listName - The name of the document set library.
