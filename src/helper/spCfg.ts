@@ -39,7 +39,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Method to get the parent content type
-            let getParentCT = (ctName: string, url: string): PromiseLike<SP.ContentType> => {
+            let getParentCT = (ctName: string, url: string): PromiseLike<{ Id: string, Url: string }> => {
                 // Return a promise
                 return new Promise((resolve, reject) => {
                     // Get the web containing the parent content type
@@ -55,7 +55,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // See if the parent exists
                             if (cts.results[0]) {
                                 // Resolve the promise
-                                resolve(cts.results[0] as any);
+                                resolve({ Id: cts.results[0].Id.StringValue, Url: url });
                             }
                             // Else, ensure this isn't the root web
                             else if (url != ContextInfo.siteServerRelativeUrl) {
@@ -94,13 +94,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     if (cfg.ParentName) {
                         getParentCT(cfg.ParentName, cfg.ParentWebUrl || webUrl).then(
                             // Success
-                            ct => {
+                            parentInfo => {
                                 // Add the content type
                                 createContentType({
                                     Description: cfg.Description,
                                     Group: cfg.Group,
                                     Name: cfg.Name
-                                }, ct.Id.StringValue, list ? list.Title : null).then(
+                                }, parentInfo, list ? list.Title : null).then(
                                     // Success
                                     ct => {
                                         // Log
@@ -673,7 +673,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Remove the field
                     ct.delete().execute(() => {
                         // Log
-                        console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
+                        console.log("[gd-sprest][Content Type] The content type '" + ct.Name + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);

@@ -7,17 +7,17 @@ declare var SP;
 /**
  * Creates a content type in the current web or specified list.
  * @param ctInfo - The content type information.
- * @param parentContentTypeId - The parent content type id to inherit from.
+ * @param parentInfo - The parent content type id and url containing it.
  * @param listName - The list name to add the content type to.
  */
-export const createContentType = (ctInfo: ContentTypeCreationInformation, parentContentTypeId: string, listName?: string): PromiseLike<ContentType> => {
+export const createContentType = (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, listName?: string): PromiseLike<ContentType> => {
     // Return a promise
     return new Promise((resolve, reject) => {
-        // Get the current context
-        let ctx = SP.ClientContext.get_current();
+        // Get the context
+        let ctx = parentInfo.Url ? new SP.ClientContext(parentInfo.Url) : SP.ClientContext.get_current();
 
         // Get the parent content type
-        let parent = ctx.get_site().get_rootWeb().get_contentTypes().getById(parentContentTypeId);
+        let parent = ctx.get_web().get_contentTypes().getById(parentInfo.Id);
 
         // Create the content type
         let ct = new SP.ContentTypeCreationInformation();

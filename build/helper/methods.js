@@ -5,16 +5,16 @@ var utils_1 = require("../utils");
 /**
  * Creates a content type in the current web or specified list.
  * @param ctInfo - The content type information.
- * @param parentContentTypeId - The parent content type id to inherit from.
+ * @param parentInfo - The parent content type id and url containing it.
  * @param listName - The list name to add the content type to.
  */
-exports.createContentType = function (ctInfo, parentContentTypeId, listName) {
+exports.createContentType = function (ctInfo, parentInfo, listName) {
     // Return a promise
     return new Promise(function (resolve, reject) {
-        // Get the current context
-        var ctx = SP.ClientContext.get_current();
+        // Get the context
+        var ctx = parentInfo.Url ? new SP.ClientContext(parentInfo.Url) : SP.ClientContext.get_current();
         // Get the parent content type
-        var parent = ctx.get_site().get_rootWeb().get_contentTypes().getById(parentContentTypeId);
+        var parent = ctx.get_web().get_contentTypes().getById(parentInfo.Id);
         // Create the content type
         var ct = new SP.ContentTypeCreationInformation();
         ct.set_description(ctInfo.Description);

@@ -47,7 +47,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // See if the parent exists
                         if (cts.results[0]) {
                             // Resolve the promise
-                            resolve(cts.results[0]);
+                            resolve({ Id: cts.results[0].Id.StringValue, Url: url });
                         }
                         // Else, ensure this isn't the root web
                         else if (url != lib_1.ContextInfo.siteServerRelativeUrl) {
@@ -82,13 +82,13 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfg.ParentName) {
                         getParentCT(cfg.ParentName, cfg.ParentWebUrl || webUrl).then(
                         // Success
-                        function (ct) {
+                        function (parentInfo) {
                             // Add the content type
                             _1.createContentType({
                                 Description: cfg.Description,
                                 Group: cfg.Group,
                                 Name: cfg.Name
-                            }, ct.Id.StringValue, list ? list.Title : null).then(
+                            }, parentInfo, list ? list.Title : null).then(
                             // Success
                             function (ct) {
                                 // Log
@@ -596,7 +596,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Remove the field
                     ct.delete().execute(function () {
                         // Log
-                        console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
+                        console.log("[gd-sprest][Content Type] The content type '" + ct.Name + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);
