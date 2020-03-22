@@ -6,11 +6,11 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
+    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
             Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
             List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
-            SocialFeed, UserProfile, Utility, Web
+            SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
     /**
@@ -2083,7 +2083,7 @@ declare module 'gd-sprest/helper/sp' {
             isOpening(): boolean;
     
             /** Displays the callout. */
-            open(useAnimation: boolean): any;
+            open(useAnimation?: boolean): any;
     
             /** Re-renders the actions menu. Call after the actions menu is changed. */
             refreshActions();
