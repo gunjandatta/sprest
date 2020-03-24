@@ -1986,6 +1986,12 @@ declare module 'gd-sprest/helper/methods' {
             /** The request url. */
             url: string;
     }
+    
+    /**
+        * Sets the field links associated with the content type.
+        * @param ctInfo - The content type information
+        */
+    export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
 }
 
 declare module 'gd-sprest/helper/sp' {

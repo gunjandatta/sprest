@@ -6,7 +6,7 @@ import { SP } from "gd-sprest-def";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
-    createContentType, Executor, FieldSchemaXML, SPCfgType
+    createContentType, setContentTypeFields, Executor, FieldSchemaXML, SPCfgType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -109,18 +109,25 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         // Update the configuration
                                         cfg.ContentType = ct;
 
-                                        // Trigger the event
-                                        cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                        // Create the field refs
+                                        setContentTypeFields({
+                                            fields: cfg.FieldRefs,
+                                            id: ct.Id.StringValue,
+                                            listName: list ? list.Title : null,
+                                            webUrl
+                                        }).then(() => {
+                                            // Trigger the event
+                                            cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
-                                        // Resolve the promise
-                                        resolve(cfg);
+                                            // Resolve the promise
+                                            resolve(cfg);
+                                        });
                                     },
 
                                     // Error
                                     error => {
                                         // Log
-                                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.");
-                                        console.error("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Error: " + error);
+                                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.", error);
 
                                         // Reject the promise
                                         reject(error);
@@ -158,11 +165,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // Update the configuration
                                 cfg.ContentType = ct;
 
-                                // Trigger the event
-                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                // Create the field refs
+                                setContentTypeFields({
+                                    fields: cfg.FieldRefs,
+                                    id: ct.Id.StringValue,
+                                    listName: list ? list.Title : null,
+                                    webUrl
+                                }).then(() => {
+                                    // Trigger the event
+                                    cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
-                                // Resolve the promise
-                                resolve(cfg);
+                                    // Resolve the promise
+                                    resolve(cfg);
+                                });
                             },
 
                             // Error

@@ -23,22 +23,14 @@ export const createContentType = (ctInfo: ContentTypeCreationInformation, parent
 
         // Create the content type
         let ct = new SP.ContentTypeCreationInformation();
-        ct.set_description(ctInfo.Description);
-        ct.set_group(ctInfo.Group);
+        ctInfo.Description != null ? ct.set_description(ctInfo.Description) : null;
+        ctInfo.Group != null ? ct.set_group(ctInfo.Group) : null;
         ct.set_name(ctInfo.Name);
         ct.set_parentContentType(parentContentType)
 
-        // See if the list name was defined
-        let contentTypes = null;
-        if (listName) {
-            // Set the content type collection
-            contentTypes = ctx.get_web().get_lists().getByTitle(listName).get_contentTypes();
-        } else {
-            // Set the content type collection
-            contentTypes = ctx.get_web().get_contentTypes();
-        }
-
         // Add the content type
+        let src = listName ? ctx.get_web().get_lists().getByTitle(listName) : ctx.get_web();
+        let contentTypes = src.get_contentTypes();
         contentTypes.add(ct);
         ctx.load(contentTypes);
 
@@ -58,6 +50,9 @@ export const createContentType = (ctInfo: ContentTypeCreationInformation, parent
 
             // Error
             (sender, args) => {
+                // Log
+                console.log("[gd-sprest][Create Content Type] Error adding the content type.", ctInfo.Name);
+
                 // Reject the request
                 reject(args.get_message());
             });
@@ -197,10 +192,10 @@ export const request = (props: IRequest): PromiseLike<any> => {
  * @param ctInfo - The content type information
  */
 export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void> => {
-    // Gets the content type field links
-    let getLinks = (): PromiseLike<Array<any>> => {
+    // Clears the content type field links
+    let clearLinks = () => {
         // Return a promise
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             // Set the context
             let ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : SP.ClientContext.get_current();
 
@@ -225,47 +220,41 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
                     fieldRefs.push(enumFieldLinks.get_current());
                 }
 
-                // Resolve the promise
-                resolve(fieldRefs);
-            }, reject);
-        });
-    }
-
-    // Clears the content type field links
-    let clearLinks = () => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Set the context
-            let ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : SP.ClientContext.get_current();
-
-            // Get the field links
-            getLinks().then(fieldLinks => {
-                // Get the source
-                let src = ctInfo.listName ? ctx.get_web().get_lists().getByTitle(ctInfo.listName) : ctx.get_web();
-
                 // See if we need to remove any fields
-                if (fieldLinks.length > 0) {
+                if (fieldRefs.length > 0) {
                     // Parse the content type field links
-                    Executor(fieldLinks, fieldLink => {
+                    Executor(fieldRefs, fieldRef => {
                         // Return a promise
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
                             // Get the content type
                             let contentType = src.get_contentTypes().getById(ctInfo.id);
 
                             // Remove the field link
-                            contentType.get_fieldLinks().getById(fieldLink.get_id()).deleteObject();
+                            contentType.get_fieldLinks().getById(fieldRef.get_id()).deleteObject();
 
                             // Update the content type
                             contentType.update(false);
 
                             // Execute the request
-                            ctx.executeQueryAsync(resolve, reject);
+                            ctx.executeQueryAsync(resolve, (sender, args) => {
+                                // Log
+                                console.log("[gd-sprest][Set Content Type Fields] Error removing the field link.", fieldRef.get_name());
+
+                                // Resolve the request
+                                resolve();
+                            });
                         });
-                    }).then(resolve, reject);
+                    }).then(resolve);
                 } else {
                     // Resolve the request
                     resolve();
                 }
+            }, (sender, args) => {
+                // Log
+                console.log("[gd-sprest][Set Content Type Fields] Error getting field links for the content type.", args.get_message());
+
+                // Resolve the request
+                resolve();
             });
         });
     }
@@ -273,7 +262,7 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
     // Creates the field links
     let createLinks = () => {
         // Return a promise
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             // Set the context
             let ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : SP.ClientContext.get_current();
 
@@ -283,7 +272,7 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
             // Parse the fields to add to the content type
             Executor(ctInfo.fields, fieldName => {
                 // Return a promise
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
                     // Load the field
                     let field = src.get_fields().getByInternalNameOrTitle(fieldName);
                     ctx.load(field);
@@ -305,19 +294,37 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
                         contentType.update(ctInfo.listName ? false : true);
 
                         // Execute the request
-                        ctx.executeQueryAsync(resolve, reject);
-                    }, reject);
+                        ctx.executeQueryAsync(resolve, (sender, args) => {
+                            // Log
+                            console.log("[gd-sprest][Set Content Type Fields] Error adding the field link.", field.get_name());
+
+                            // Resolve the request
+                            resolve();
+                        });
+                    }, (sender, args) => {
+                        // Log
+                        console.log("[gd-sprest][Set Content Type Fields] Error getting source field.", fieldName);
+
+                        // Resolve the request
+                        resolve();
+                    });
                 });
-            }).then(resolve, reject);
+            }).then(resolve);
         });
     }
 
     // Return a promise
     return new Promise((resolve, reject) => {
-        // Clear the links
-        clearLinks().then(() => {
-            // Create the links
-            createLinks().then(resolve, reject);
-        }, reject);
+        // Ensure fields exist
+        if (ctInfo.fields) {
+            // Clear the links
+            clearLinks().then(() => {
+                // Create the links
+                createLinks().then(resolve, reject);
+            }, reject);
+        } else {
+            // Resolve the promise
+            resolve();
+        }
     });
 }

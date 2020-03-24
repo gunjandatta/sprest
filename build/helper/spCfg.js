@@ -95,16 +95,23 @@ exports.SPConfig = function (cfg, webUrl) {
                                 console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
                                 // Update the configuration
                                 cfg.ContentType = ct;
-                                // Trigger the event
-                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
-                                // Resolve the promise
-                                resolve(cfg);
+                                // Create the field refs
+                                _1.setContentTypeFields({
+                                    fields: cfg.FieldRefs,
+                                    id: ct.Id.StringValue,
+                                    listName: list ? list.Title : null,
+                                    webUrl: webUrl
+                                }).then(function () {
+                                    // Trigger the event
+                                    cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                    // Resolve the promise
+                                    resolve(cfg);
+                                });
                             }, 
                             // Error
                             function (error) {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.");
-                                console.error("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Error: " + error);
+                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.", error);
                                 // Reject the promise
                                 reject(error);
                             });
@@ -136,10 +143,18 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
                             // Update the configuration
                             cfg.ContentType = ct;
-                            // Trigger the event
-                            cfg.onCreated ? cfg.onCreated(ct, list) : null;
-                            // Resolve the promise
-                            resolve(cfg);
+                            // Create the field refs
+                            _1.setContentTypeFields({
+                                fields: cfg.FieldRefs,
+                                id: ct.Id.StringValue,
+                                listName: list ? list.Title : null,
+                                webUrl: webUrl
+                            }).then(function () {
+                                // Trigger the event
+                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                // Resolve the promise
+                                resolve(cfg);
+                            });
                         }, 
                         // Error
                         function (error) {
