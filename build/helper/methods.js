@@ -2,6 +2,53 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var utils_1 = require("../utils");
+var _1 = require(".");
+/**
+ * Creates a content type in the current web or specified list.
+ * @param ctInfo - The content type information.
+ * @param parentInfo - The parent content type id and url containing it.
+ * @param webUrl - The relative url to create the content type in.
+ * @param listName - The list name to add the content type to.
+ */
+exports.createContentType = function (ctInfo, parentInfo, webUrl, listName) {
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Set the context
+        var ctx = webUrl ? new SP.ClientContext(webUrl) : SP.ClientContext.get_current();
+        // Get the parent content type
+        var parentContentType = (parentInfo.Url ? ctx.get_site().openWeb(parentInfo.Url) : ctx.get_web()).get_contentTypes().getById(parentInfo.Id);
+        // Create the content type
+        var ct = new SP.ContentTypeCreationInformation();
+        ctInfo.Description != null ? ct.set_description(ctInfo.Description) : null;
+        ctInfo.Group != null ? ct.set_group(ctInfo.Group) : null;
+        ct.set_name(ctInfo.Name);
+        ct.set_parentContentType(parentContentType);
+        // Add the content type
+        var src = listName ? ctx.get_web().get_lists().getByTitle(listName) : ctx.get_web();
+        var contentTypes = src.get_contentTypes();
+        contentTypes.add(ct);
+        ctx.load(contentTypes);
+        // Execute the request
+        ctx.executeQueryAsync(
+        // Success
+        function () {
+            // Set the content type collection
+            var cts = (listName ? lib_1.Web().Lists(listName) : lib_1.Web()).ContentTypes();
+            // Find the content type
+            cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(function (cts) {
+                // Resolve the request
+                resolve(cts.results[0]);
+            });
+        }, 
+        // Error
+        function (sender, args) {
+            // Log
+            console.log("[gd-sprest][Create Content Type] Error adding the content type.", ctInfo.Name);
+            // Reject the request
+            reject(args.get_message());
+        });
+    });
+};
 /**
  * Creates a document set item.
  * @param name - The name of the document set folder to create.
@@ -117,5 +164,126 @@ exports.request = function (props) {
             requestHeader: props.headers,
             data: props.data
         })).execute(resolve, reject);
+    });
+};
+/**
+ * Sets the field links associated with the content type.
+ * @param ctInfo - The content type information
+ */
+exports.setContentTypeFields = function (ctInfo) {
+    // Clears the content type field links
+    var clearLinks = function () {
+        // Return a promise
+        return new Promise(function (resolve) {
+            // Set the context
+            var ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : SP.ClientContext.get_current();
+            // Get the source
+            var src = ctInfo.listName ? ctx.get_web().get_lists().getByTitle(ctInfo.listName) : ctx.get_web();
+            // Get the content type
+            var contentType = src.get_contentTypes().getById(ctInfo.id);
+            // Get the field links
+            var fieldLinks = contentType.get_fieldLinks();
+            ctx.load(fieldLinks);
+            // Execute the request
+            ctx.executeQueryAsync(function () {
+                var fieldRefs = [];
+                // Parse the field links
+                var enumFieldLinks = fieldLinks.getEnumerator();
+                while (enumFieldLinks.moveNext()) {
+                    // Save the field reference
+                    fieldRefs.push(enumFieldLinks.get_current());
+                }
+                // See if we need to remove any fields
+                if (fieldRefs.length > 0) {
+                    // Parse the content type field links
+                    _1.Executor(fieldRefs, function (fieldRef) {
+                        // Return a promise
+                        return new Promise(function (resolve) {
+                            // Get the content type
+                            var contentType = src.get_contentTypes().getById(ctInfo.id);
+                            // Remove the field link
+                            contentType.get_fieldLinks().getById(fieldRef.get_id()).deleteObject();
+                            // Update the content type
+                            contentType.update(false);
+                            // Execute the request
+                            ctx.executeQueryAsync(resolve, function (sender, args) {
+                                // Log
+                                console.log("[gd-sprest][Set Content Type Fields] Error removing the field link.", fieldRef.get_name());
+                                // Resolve the request
+                                resolve();
+                            });
+                        });
+                    }).then(resolve);
+                }
+                else {
+                    // Resolve the request
+                    resolve();
+                }
+            }, function (sender, args) {
+                // Log
+                console.log("[gd-sprest][Set Content Type Fields] Error getting field links for the content type.", args.get_message());
+                // Resolve the request
+                resolve();
+            });
+        });
+    };
+    // Creates the field links
+    var createLinks = function () {
+        // Return a promise
+        return new Promise(function (resolve) {
+            // Set the context
+            var ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : SP.ClientContext.get_current();
+            // Get the source
+            var src = ctInfo.listName ? ctx.get_web().get_lists().getByTitle(ctInfo.listName) : ctx.get_web();
+            // Parse the fields to add to the content type
+            _1.Executor(ctInfo.fields, function (fieldName) {
+                // Return a promise
+                return new Promise(function (resolve) {
+                    // Load the field
+                    var field = src.get_fields().getByInternalNameOrTitle(fieldName);
+                    ctx.load(field);
+                    // Execute the request
+                    ctx.executeQueryAsync(function () {
+                        // Get the content type
+                        var contentType = src.get_contentTypes().getById(ctInfo.id);
+                        ctx.load(contentType);
+                        // Create the field link
+                        var fieldLink = new SP.FieldLinkCreationInformation();
+                        fieldLink.set_field(field);
+                        // Add the field link to the content type
+                        contentType.get_fieldLinks().add(fieldLink);
+                        // Update the content type
+                        contentType.update(ctInfo.listName ? false : true);
+                        // Execute the request
+                        ctx.executeQueryAsync(resolve, function (sender, args) {
+                            // Log
+                            console.log("[gd-sprest][Set Content Type Fields] Error adding the field link.", field.get_name());
+                            // Resolve the request
+                            resolve();
+                        });
+                    }, function (sender, args) {
+                        // Log
+                        console.log("[gd-sprest][Set Content Type Fields] Error getting source field.", fieldName);
+                        // Resolve the request
+                        resolve();
+                    });
+                });
+            }).then(resolve);
+        });
+    };
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Ensure fields exist
+        if (ctInfo.fields) {
+            // Clear the links
+            clearLinks().then(function () {
+                // Create the links
+                createLinks().then(resolve, reject);
+            }, reject);
+        }
+        else {
+            // Resolve the promise
+            resolve();
+        }
     });
 };

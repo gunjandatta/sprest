@@ -47,7 +47,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // See if the parent exists
                         if (cts.results[0]) {
                             // Resolve the promise
-                            resolve(cts.results[0]);
+                            resolve({ Id: cts.results[0].Id.StringValue, Url: url });
                         }
                         // Else, ensure this isn't the root web
                         else if (url != lib_1.ContextInfo.siteServerRelativeUrl) {
@@ -69,7 +69,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     var ct = isInCollection("Name", cfg.Name, contentTypes.results);
                     if (ct) {
                         // Log
-                        console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' already exists.");
+                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' already exists.");
                         // Update the configuration
                         cfg.ContentType = ct;
                         // Resolve the promise and return
@@ -77,55 +77,49 @@ exports.SPConfig = function (cfg, webUrl) {
                         return;
                     }
                     // Log
-                    console.log("[gd-sprest][Content Type] Creating the '" + cfg.Name + "' content type.");
+                    console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Creating the '" + cfg.Name + "' content type.");
                     // See if the parent name exists
                     if (cfg.ParentName) {
                         getParentCT(cfg.ParentName, cfg.ParentWebUrl || webUrl).then(
                         // Success
-                        function (ct) {
-                            // Add the available content type
-                            contentTypes.addAvailableContentType(ct.Id.StringValue).execute(function (ct) {
-                                // See if it was successful
-                                if (ct.Name) {
-                                    // Update the name
-                                    (function () {
-                                        return new Promise(function (resolve, reject) {
-                                            // Ensure the name doesn't need to be updated
-                                            if (ct.Name != cfg.Name) {
-                                                ct.update({ Name: cfg.Name }).execute(function () {
-                                                    // Resolve the promise
-                                                    resolve();
-                                                });
-                                            }
-                                            else {
-                                                // Resolve the promise
-                                                resolve();
-                                            }
-                                        });
-                                    })().then(function () {
-                                        // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' was created successfully.");
-                                        // Update the configuration
-                                        cfg.ContentType = ct;
-                                        // Trigger the event
-                                        cfg.onCreated ? cfg.onCreated(ct, list) : null;
-                                        // Resolve the promise
-                                        resolve(cfg);
-                                    });
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' failed to be created.");
-                                    console.error("[gd-sprest][Field] Error: " + ct.response);
-                                    // Reject the promise
-                                    reject(ct.response);
-                                }
-                            }, true);
+                        function (parentInfo) {
+                            // Add the content type
+                            _1.createContentType({
+                                Description: cfg.Description,
+                                Group: cfg.Group,
+                                Name: cfg.Name
+                            }, parentInfo, webUrl, list ? list.Title : null).then(
+                            // Success
+                            function (ct) {
+                                // Log
+                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
+                                // Update the configuration
+                                cfg.ContentType = ct;
+                                // Create the field refs
+                                _1.setContentTypeFields({
+                                    fields: cfg.FieldRefs,
+                                    id: ct.Id.StringValue,
+                                    listName: list ? list.Title : null,
+                                    webUrl: webUrl
+                                }).then(function () {
+                                    // Trigger the event
+                                    cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                    // Resolve the promise
+                                    resolve(cfg);
+                                });
+                            }, 
+                            // Error
+                            function (error) {
+                                // Log
+                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.", error);
+                                // Reject the promise
+                                reject(error);
+                            });
                         }, 
                         // Error
                         function () {
                             // Log
-                            console.log("[gd-sprest][Content Type] The parent content type '" + cfg.ParentName + "' was not found.");
+                            console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The parent content type '" + cfg.ParentName + "' was not found.");
                             // Reject the promise
                             reject(ct.response);
                         });
@@ -142,63 +136,71 @@ exports.SPConfig = function (cfg, webUrl) {
                                 },
                                 StringValue: cfg.Id || "0x0100" + lib_1.ContextInfo.generateGUID().replace(/-/g, "")
                             }
-                        }).execute(function (ct) {
-                            // See if it was successful
-                            if (ct.Name) {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' was created successfully.");
-                                // Update the configuration
-                                cfg.ContentType = ct;
+                        }).execute(
+                        // Success
+                        function (ct) {
+                            // Log
+                            console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
+                            // Update the configuration
+                            cfg.ContentType = ct;
+                            // Create the field refs
+                            _1.setContentTypeFields({
+                                fields: cfg.FieldRefs,
+                                id: ct.Id.StringValue,
+                                listName: list ? list.Title : null,
+                                webUrl: webUrl
+                            }).then(function () {
                                 // Trigger the event
                                 cfg.onCreated ? cfg.onCreated(ct, list) : null;
                                 // Resolve the promise
                                 resolve(cfg);
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfg.Name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + ct.response);
-                                // Reject the promise
-                                reject();
-                            }
-                        }, reject, true);
+                            });
+                        }, 
+                        // Error
+                        function (error) {
+                            // Log
+                            console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.");
+                            console.error("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Error: " + error.response);
+                            // Reject the promise
+                            reject(error.response);
+                        });
                     }
                 });
             }).then(function () {
-                var _loop_1 = function (i) {
-                    var cfgContentType = cfgContentTypes[i];
+                // Parse the configuration
+                _1.Executor(cfgContentTypes, function (cfgContentType) {
                     var cfgUpdate = {};
                     var updateFl = false;
                     // Ensure the content type exists
                     if (cfgContentType.ContentType == null) {
-                        return "continue";
+                        return;
                     }
                     /**
                      * See if we need to update the properties
                      */
                     // Description
-                    if (cfgContentType.ContentType.Description != cfgContentType.Description) {
+                    if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
                         // Update the configuration
                         cfgUpdate.Description = cfgContentType.Description;
                         // Set the flag
                         updateFl = true;
                     }
                     // Group
-                    if (cfgContentType.ContentType.Group != cfgContentType.Group) {
+                    if (cfgContentType.Group != null && cfgContentType.ContentType.Group != cfgContentType.Group) {
                         // Update the configuration
                         cfgUpdate.Group = cfgContentType.Group;
                         // Set the flag
                         updateFl = true;
                     }
                     // JSLink
-                    if (cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
+                    if (cfgContentType.JSLink != null && cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
                         // Update the configuration
                         cfgUpdate.JSLink = cfgContentType.JSLink;
                         // Set the flag
                         updateFl = true;
                     }
                     // Name
-                    if (cfgContentType.ContentType.Name != cfgContentType.Name) {
+                    if (cfgContentType.Name != null && cfgContentType.ContentType.Name != cfgContentType.Name) {
                         // Update the configuration
                         cfgUpdate.Name = cfgContentType.Name;
                         // Set the flag
@@ -207,26 +209,25 @@ exports.SPConfig = function (cfg, webUrl) {
                     // See if an update is needed
                     if (updateFl) {
                         // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
-                        // Update the content type
-                        cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
-                            // Trigger the event
-                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // Update the content type
+                            cfgContentType.ContentType.update(cfgUpdate).execute(function () {
+                                // Log
+                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                // Trigger the event
+                                cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                                // Resolve the promise
+                                resolve();
+                            }, reject);
                         });
                     }
                     else {
                         // Trigger the event
                         cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
                     }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgContentTypes.length; i++) {
-                    _loop_1(i);
-                }
-                // Resolve the promise
-                resolve();
+                }).then(resolve);
             }, reject);
         });
     };
@@ -495,7 +496,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Execute the request
                 .execute(function (folder) {
                 var ctr = 0;
-                var _loop_2 = function (i) {
+                var _loop_1 = function (i) {
                     var cfgWebPart = cfgWebParts[i];
                     // See if the target name exists
                     if (_cfgType && _targetName) {
@@ -571,7 +572,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 };
                 // Parse the configuration
                 for (var i = 0; i < cfgWebParts.length; i++) {
-                    _loop_2(i);
+                    _loop_1(i);
                 }
             }, reject);
         });
@@ -610,7 +611,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Remove the field
                     ct.delete().execute(function () {
                         // Log
-                        console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
+                        console.log("[gd-sprest][Content Type] The content type '" + ct.Name + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);
@@ -753,7 +754,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 .Files()
                 // Execute the request
                 .execute(function (files) {
-                var _loop_3 = function (i) {
+                var _loop_2 = function (i) {
                     var cfgWebPart = cfgWebParts[i];
                     // See if the target name exists
                     if (_cfgType && _targetName) {
@@ -774,7 +775,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 };
                 // Parse the configuration
                 for (var i = 0; i < cfgWebParts.length; i++) {
-                    _loop_3(i);
+                    _loop_2(i);
                 }
                 // Resolve the promise
                 resolve();
@@ -915,7 +916,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // See if the title field is being updated
             if (cfgList.TitleFieldDisplayName) {
                 // Update the field name
-                list.Fields.getByTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
+                list.Fields.getByInternalNameOrTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
                     // Log
                     console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
                     // Resolve the promise
@@ -1034,14 +1035,14 @@ exports.SPConfig = function (cfg, webUrl) {
             lib_1.Web(webUrl, { requestDigest: _requestDigest }).query({ Expand: Expand })
                 // Execute the request
                 .execute(function (web) {
-                // Remove the fields
-                removeFields(web.Fields, cfg.Fields).then(function () {
-                    // Remove the content types
-                    removeContentTypes(web.ContentTypes, cfg.ContentTypes).then(function () {
-                        // Remove the lists
-                        removeLists(web.Lists, cfg.ListCfg).then(function () {
-                            // Remove the web custom actions
-                            removeUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(function () {
+                // Remove the web custom actions
+                removeUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(function () {
+                    // Remove the lists
+                    removeLists(web.Lists, cfg.ListCfg).then(function () {
+                        // Remove the content types
+                        removeContentTypes(web.ContentTypes, cfg.ContentTypes).then(function () {
+                            // Remove the fields
+                            removeFields(web.Fields, cfg.Fields).then(function () {
                                 // Resolve the promise
                                 resolve();
                             }, reject);
@@ -1063,125 +1064,174 @@ exports.SPConfig = function (cfg, webUrl) {
             return new Promise(function (resolve, reject) {
                 // Set the request digest
                 setRequestDigest().then(function () {
-                    var ctr = 0;
-                    var ctrExecutions = 0;
                     // Log
                     console.log("[gd-sprest] Installing the web assets...");
                     // Get the web
                     var web = lib_1.Web(webUrl, { requestDigest: _requestDigest });
-                    // The post execution method
-                    var postExecute = function () {
-                        // See if we have completed the executions
-                        if (++ctr >= ctrExecutions) {
-                            // Resolve the promise
-                            resolve();
-                        }
-                    };
-                    // See if we are creating fields
-                    if (cfg.Fields && cfg.Fields.length > 0) {
-                        // Increment the counter
-                        ctrExecutions++;
-                        // Log
-                        console.log("[gd-sprest][Fields] Starting the requests.");
-                        // Get the fields
-                        web.Fields().execute(function (fields) {
-                            // Create the fields
-                            createFields(fields, cfg.Fields).then(function () {
+                    // Create the site fields
+                    var createSiteFields = function () {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if we are creating fields
+                            if (cfg.Fields && cfg.Fields.length > 0) {
                                 // Log
-                                console.log("[gd-sprest][Fields] Completed the requests.");
-                                // Execute the post execute method
-                                postExecute();
+                                console.log("[gd-sprest][Fields] Starting the requests.");
+                                // Get the fields
+                                web.Fields().execute(function (fields) {
+                                    // Create the fields
+                                    createFields(fields, cfg.Fields).then(function () {
+                                        // Log
+                                        console.log("[gd-sprest][Fields] Completed the requests.");
+                                        // Resolve the promise
+                                        resolve();
+                                    }, reject);
+                                }, reject);
+                            }
+                            else {
+                                // Resolve the promise
+                                resolve();
+                            }
+                        });
+                    };
+                    // Create the site content types
+                    var createSiteContentTypes = function () {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if we are creating the content types
+                            if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
+                                // Log
+                                console.log("[gd-sprest][Content Types] Starting the requests.");
+                                // Get the content types
+                                web.ContentTypes().execute(function (contentTypes) {
+                                    // Create the content types
+                                    createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
+                                        // Log
+                                        console.log("[gd-sprest][Content Types] Completed the requests.");
+                                        // Resolve the promise
+                                        resolve();
+                                    }, reject);
+                                }, reject);
+                            }
+                            else {
+                                // Resolve the promise
+                                resolve();
+                            }
+                        });
+                    };
+                    // Create the site lists
+                    var createSiteLists = function () {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if we are creating the lists
+                            if (cfg.ListCfg && cfg.ListCfg.length) {
+                                // Log
+                                console.log("[gd-sprest][Lists] Starting the requests.");
+                                // Get the lists
+                                web.Lists().execute(function (lists) {
+                                    // Create the lists
+                                    createLists(lists, cfg.ListCfg).then(function () {
+                                        // Log
+                                        console.log("[gd-sprest][Lists] Completed the requests.");
+                                        // Resolve the promise
+                                        resolve();
+                                    }, reject);
+                                }, reject);
+                            }
+                            else {
+                                // Resolve the promise
+                                resolve();
+                            }
+                        });
+                    };
+                    // Create the site webparts
+                    var createSiteWebParts = function () {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if we are creating the webparts
+                            if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
+                                // Log
+                                console.log("[gd-sprest][WebParts] Starting the requests.");
+                                // Create the webparts
+                                createWebParts().then(function () {
+                                    // Log
+                                    console.log("[gd-sprest][WebParts] Completed the requests.");
+                                    // Resolve the promise
+                                    resolve();
+                                }, reject);
+                            }
+                            else {
+                                // Resolve the promise
+                                resolve();
+                            }
+                        });
+                    };
+                    // Create the custom actions
+                    var createSiteCollectionCustomActions = function () {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if we are targeting the site collection
+                            if (cfg.CustomActionCfg && cfg.CustomActionCfg.Site) {
+                                // Log
+                                console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
+                                // Get the site
+                                lib_1.Site(webUrl, { requestDigest: _requestDigest })
+                                    // Get the user custom actions
+                                    .UserCustomActions().execute(function (customActions) {
+                                    // Create the user custom actions
+                                    createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
+                                        // Log
+                                        console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+                                        // Resolve the promise
+                                        resolve();
+                                    }, reject);
+                                }, reject);
+                            }
+                        });
+                    };
+                    // Create the custom actions
+                    var createSiteCustomActions = function () {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if we are targeting the web
+                            if (cfg.CustomActionCfg && cfg.CustomActionCfg.Web) {
+                                // Log
+                                console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
+                                // Get the user custom actions
+                                web.UserCustomActions().execute(function (customActions) {
+                                    // Create the user custom actions
+                                    createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
+                                        // Log
+                                        console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
+                                        // Resolve the promise
+                                        resolve();
+                                    });
+                                }, reject);
+                            }
+                        });
+                    };
+                    // Create the site fields
+                    createSiteFields().then(function () {
+                        // Create the site content types
+                        createSiteContentTypes().then(function () {
+                            // Create the site lists
+                            createSiteLists().then(function () {
+                                // Create the webparts
+                                createSiteWebParts().then(function () {
+                                    // Create the site collection custom actions
+                                    createSiteCollectionCustomActions().then(function () {
+                                        // Create the site custom actions
+                                        createSiteCustomActions().then(function () {
+                                            // Log
+                                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                                            // Resolve the request
+                                            resolve();
+                                        }, reject);
+                                    }, reject);
+                                }, reject);
                             }, reject);
                         }, reject);
-                    }
-                    // See if we are creating the content types
-                    if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
-                        // Increment the counter
-                        ctrExecutions++;
-                        // Log
-                        console.log("[gd-sprest][Content Types] Starting the requests.");
-                        // Get the content types
-                        web.ContentTypes().execute(function (contentTypes) {
-                            // Create the content types
-                            createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
-                                // Log
-                                console.log("[gd-sprest][Content Types] Completed the requests.");
-                                // Execute the post execute method
-                                postExecute();
-                            });
-                        }, reject, true);
-                    }
-                    // See if we are creating the lists
-                    if (cfg.ListCfg && cfg.ListCfg.length) {
-                        // Increment the counter
-                        ctrExecutions++;
-                        // Log
-                        console.log("[gd-sprest][Lists] Starting the requests.");
-                        // Get the lists
-                        web.Lists().execute(function (lists) {
-                            // Create the lists
-                            createLists(lists, cfg.ListCfg).then(function () {
-                                // Log
-                                console.log("[gd-sprest][Lists] Completed the requests.");
-                                // Execute the post execute method
-                                postExecute();
-                            });
-                        }, reject, true);
-                    }
-                    // See if we are creating the webparts
-                    if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
-                        // Increment the counter
-                        ctrExecutions++;
-                        // Log
-                        console.log("[gd-sprest][WebParts] Starting the requests.");
-                        // Create the webparts
-                        createWebParts().then(function () {
-                            // Log
-                            console.log("[gd-sprest][WebParts] Completed the requests.");
-                            // Execute the post execute method
-                            postExecute();
-                        });
-                    }
-                    // See if we are creating custom actions
-                    if (cfg.CustomActionCfg) {
-                        // See if we are targeting the site collection
-                        if (cfg.CustomActionCfg.Site) {
-                            // Increment the counter
-                            ctrExecutions++;
-                            // Log
-                            console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
-                            // Get the site
-                            lib_1.Site(webUrl, { requestDigest: _requestDigest })
-                                // Get the user custom actions
-                                .UserCustomActions().execute(function (customActions) {
-                                // Create the user custom actions
-                                createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
-                                    // Log
-                                    console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
-                                    // Execute the post execute method
-                                    postExecute();
-                                });
-                            });
-                        }
-                        // See if we are targeting the web
-                        if (cfg.CustomActionCfg.Web) {
-                            // Increment the counter
-                            ctrExecutions++;
-                            // Log
-                            console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
-                            // Get the user custom actions
-                            web.UserCustomActions().execute(function (customActions) {
-                                // Create the user custom actions
-                                createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
-                                    // Log
-                                    console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
-                                    // Execute the post execute method
-                                    postExecute();
-                                });
-                            }, reject);
-                        }
-                    }
-                });
+                    }, reject);
+                }, reject);
             });
         },
         // Method to uninstall the configuration

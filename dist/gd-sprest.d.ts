@@ -6,11 +6,11 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
+    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
             Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
             List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
-            SocialFeed, UserProfile, Utility, Web
+            SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
     /**
@@ -1938,6 +1938,15 @@ declare module 'gd-sprest/helper/methods' {
     import { SP } from "gd-sprest-def";
     
     /**
+        * Creates a content type in the current web or specified list.
+        * @param ctInfo - The content type information.
+        * @param parentInfo - The parent content type id and url containing it.
+        * @param webUrl - The relative url to create the content type in.
+        * @param listName - The list name to add the content type to.
+        */
+    export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string) => PromiseLike<SP.ContentType>;
+    
+    /**
         * Creates a document set item.
         * @param name - The name of the document set folder to create.
         * @param listName - The name of the document set library.
@@ -1977,6 +1986,12 @@ declare module 'gd-sprest/helper/methods' {
             /** The request url. */
             url: string;
     }
+    
+    /**
+        * Sets the field links associated with the content type.
+        * @param ctInfo - The content type information
+        */
+    export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
 }
 
 declare module 'gd-sprest/helper/sp' {
@@ -2083,7 +2098,7 @@ declare module 'gd-sprest/helper/sp' {
             isOpening(): boolean;
     
             /** Displays the callout. */
-            open(useAnimation: boolean): any;
+            open(useAnimation?: boolean): any;
     
             /** Re-renders the actions menu. Call after the actions menu is changed. */
             refreshActions();
@@ -2618,6 +2633,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The default value of the field. */
             defaultValue?: string;
     
+            /** The field description. */
+            description?: string;
+    
             /** The group name. */
             group?: string;
     
@@ -2665,6 +2683,9 @@ declare module 'gd-sprest/helper/spCfg' {
         * Calculated Field Information
         */
     export interface IFieldInfoCalculated extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+    
             /** The field references */
             fieldRefs?: Array<string>;
     
@@ -2673,6 +2694,12 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The formula */
             formula?: string;
+    
+            /** The country/region whose currency format is being used. */
+            lcid?: number;
+    
+            /** The number field type */
+            numberType?: number;
     
             /** The result type */
             resultType?: string;

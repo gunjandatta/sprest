@@ -44,6 +44,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 break;
             case SPTypes.FieldResultType.Currency:
                 props["ResultType"] = "Currency";
+                if (fieldInfo.lcid > 0) { props["LCID"] = fieldInfo.lcid; }
                 break;
             case SPTypes.FieldResultType.DateOnly:
                 props["Format"] = "DateOnly"
@@ -55,6 +56,8 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 break;
             case SPTypes.FieldResultType.Number:
                 props["ResultType"] = "Number";
+                if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
+                if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
                 break;
             default:
                 props["ResultType"] = "Text";
@@ -352,6 +355,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             props["DisplayName"] = fieldInfo.title || fieldInfo.name;
 
             // Set the optional properties
+            if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
             if (typeof (fieldInfo.jslink) !== "undefined") { props["JSLink"] = fieldInfo.jslink; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }

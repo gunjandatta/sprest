@@ -1,5 +1,5 @@
 import {
-    $REST, List, Helper, Types, Utility
+    $REST, List, Helper, WorkflowSubscriptionService
 } from "../@types";
 
 let el = document.querySelector("#Element");

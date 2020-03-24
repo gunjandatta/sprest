@@ -1,6 +1,15 @@
 import { SP } from "gd-sprest-def";
 
 /**
+ * Creates a content type in a web or specified list.
+ * @param ctInfo - The content type information.
+ * @param parentInfo - The parent content type id and url containing it.
+ * @param webUrl - The relative url to create the content type in.
+ * @param listName - The list name to add the content type to.
+ */
+export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string) => PromiseLike<SP.ContentType>;
+
+/**
  * Creates a document set item.
  * @param name - The name of the document set folder to create.
  * @param listName - The name of the document set library.
@@ -40,3 +49,9 @@ export interface IRequest {
     /** The request url. */
     url: string;
 }
+
+/**
+ * Sets the field links associated with a content type.
+ * @param ctInfo - The content type information
+ */
+export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
