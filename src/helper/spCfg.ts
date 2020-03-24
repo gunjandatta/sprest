@@ -109,19 +109,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         // Update the configuration
                                         cfg.ContentType = ct;
 
-                                        // Create the field refs
-                                        setContentTypeFields({
-                                            fields: cfg.FieldRefs,
-                                            id: ct.Id.StringValue,
-                                            listName: list ? list.Title : null,
-                                            webUrl
-                                        }).then(() => {
-                                            // Trigger the event
-                                            cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                        // Trigger the event
+                                        cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
-                                            // Resolve the promise
-                                            resolve(cfg);
-                                        });
+                                        // Resolve the promise
+                                        resolve(cfg);
                                     },
 
                                     // Error
@@ -165,19 +157,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // Update the configuration
                                 cfg.ContentType = ct;
 
-                                // Create the field refs
-                                setContentTypeFields({
-                                    fields: cfg.FieldRefs,
-                                    id: ct.Id.StringValue,
-                                    listName: list ? list.Title : null,
-                                    webUrl
-                                }).then(() => {
-                                    // Trigger the event
-                                    cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                // Trigger the event
+                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
 
-                                    // Resolve the promise
-                                    resolve(cfg);
-                                });
+                                // Resolve the promise
+                                resolve(cfg);
                             },
 
                             // Error
@@ -195,75 +179,93 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }).then(() => {
                 // Parse the configuration
                 Executor(cfgContentTypes, cfgContentType => {
-                    let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
-                    let updateFl = false;
+                    // Return a promise
+                    return new Promise((resolve, reject) => {
+                        let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
+                        let updateFl = false;
 
-                    // Ensure the content type exists
-                    if (cfgContentType.ContentType == null) { return; }
+                        // Ensure the content type exists
+                        if (cfgContentType.ContentType == null) {
+                            // Skip this content type
+                            resolve();
+                            return;
+                        }
 
-                    /**
-                     * See if we need to update the properties
-                     */
-
-                    // Description
-                    if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
-                        // Update the configuration
-                        cfgUpdate.Description = cfgContentType.Description;
-
-                        // Set the flag
-                        updateFl = true;
-                    }
-
-                    // Group
-                    if (cfgContentType.Group != null && cfgContentType.ContentType.Group != cfgContentType.Group) {
-                        // Update the configuration
-                        cfgUpdate.Group = cfgContentType.Group;
-
-                        // Set the flag
-                        updateFl = true;
-                    }
-
-                    // JSLink
-                    if (cfgContentType.JSLink != null && cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
-                        // Update the configuration
-                        cfgUpdate.JSLink = cfgContentType.JSLink;
-
-                        // Set the flag
-                        updateFl = true;
-                    }
-
-                    // Name
-                    if (cfgContentType.Name != null && cfgContentType.ContentType.Name != cfgContentType.Name) {
-                        // Update the configuration
-                        cfgUpdate.Name = cfgContentType.Name;
-
-                        // Set the flag
-                        updateFl = true;
-                    }
-
-                    // See if an update is needed
-                    if (updateFl) {
                         // Log
-                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
+                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Updating the field references for: '" + cfgContentType.Name);
 
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // Update the content type
-                            cfgContentType.ContentType.update(cfgUpdate).execute(() => {
+                        // Create the field refs
+                        setContentTypeFields({
+                            fields: cfgContentType.FieldRefs,
+                            id: cfgContentType.ContentType.Id.StringValue,
+                            listName: list ? list.Title : null,
+                            webUrl
+                        }).then(() => {
+                            /**
+                             * See if we need to update the properties
+                             */
+
+                            // Description
+                            if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
+                                // Update the configuration
+                                cfgUpdate.Description = cfgContentType.Description;
+
+                                // Set the flag
+                                updateFl = true;
+                            }
+
+                            // Group
+                            if (cfgContentType.Group != null && cfgContentType.ContentType.Group != cfgContentType.Group) {
+                                // Update the configuration
+                                cfgUpdate.Group = cfgContentType.Group;
+
+                                // Set the flag
+                                updateFl = true;
+                            }
+
+                            // JSLink
+                            if (cfgContentType.JSLink != null && cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
+                                // Update the configuration
+                                cfgUpdate.JSLink = cfgContentType.JSLink;
+
+                                // Set the flag
+                                updateFl = true;
+                            }
+
+                            // Name
+                            if (cfgContentType.Name != null && cfgContentType.ContentType.Name != cfgContentType.Name) {
+                                // Update the configuration
+                                cfgUpdate.Name = cfgContentType.Name;
+
+                                // Set the flag
+                                updateFl = true;
+                            }
+
+                            // See if an update is needed
+                            if (updateFl) {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
 
+                                // Update the content type
+                                cfgContentType.ContentType.update(cfgUpdate).execute(() => {
+                                    // Log
+                                    console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+
+                                    // Trigger the event
+                                    cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+
+                                    // Resolve this request
+                                    resolve();
+                                }, reject);
+                            } else {
                                 // Trigger the event
                                 cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
 
-                                // Resolve the promise
+                                // Resolve this request
                                 resolve();
-                            }, reject);
-                        });
-                    } else {
-                        // Trigger the event
-                        cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                    }
+                            }
+                        }, reject);
+                    });
                 }).then(resolve);
             }, reject);
         });
