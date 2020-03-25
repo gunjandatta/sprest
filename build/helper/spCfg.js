@@ -164,7 +164,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             return;
                         }
                         // Log
-                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Updating the field references for: '" + cfgContentType.Name);
+                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Updating the field references for: " + cfgContentType.Name);
                         // Create the field refs
                         _1.setContentTypeFields({
                             fields: cfgContentType.FieldRefs,

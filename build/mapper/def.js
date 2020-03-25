@@ -2521,6 +2521,14 @@ exports.Mapper = {
         delete: {
             requestType: utils_1.RequestType.Delete
         },
+        update: {
+            argNames: ["properties"],
+            inheritMetadataType: true,
+            metadataType: "SP.FieldLink",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: utils_1.RequestType.PostBodyNoArgs
+        },
     },
     "SP.FieldLink.Collection": {
         add: {
