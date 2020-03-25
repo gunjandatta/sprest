@@ -297,7 +297,7 @@ exports.setContentTypeFields = function (ctInfo) {
                         contentType.get_fieldLinks().add(fieldLink);
                     }
                     // Update the content type
-                    contentType.update(ctInfo.listName ? false : true);
+                    contentType.update(false);
                     // Execute the request
                     ctx.executeQueryAsync(
                     // Success

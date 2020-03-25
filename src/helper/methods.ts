@@ -342,7 +342,7 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string 
                     }
 
                     // Update the content type
-                    contentType.update(ctInfo.listName ? false : true);
+                    contentType.update(false);
 
                     // Execute the request
                     ctx.executeQueryAsync(
