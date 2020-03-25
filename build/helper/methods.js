@@ -193,7 +193,8 @@ exports.setContentTypeFields = function (ctInfo) {
                         var removeFl = true;
                         for (var j = 0; j < ctInfo.fields.length; j++) {
                             var field = ctInfo.fields[j];
-                            if (field == fieldLink.Name) {
+                            var fieldName = typeof (field) === "string" ? field : field.Name || field.FieldInternalName;
+                            if (fieldName == fieldLink.Name) {
                                 // Set the flag
                                 removeFl = false;
                                 // Add the field
@@ -265,7 +266,8 @@ exports.setContentTypeFields = function (ctInfo) {
             // Parse the fields to add
             var fields = [];
             for (var i = 0; i < ctInfo.fields.length; i++) {
-                var fieldName = ctInfo.fields[i];
+                var fieldInfo = ctInfo.fields[i];
+                var fieldName = typeof (fieldInfo) === "string" ? fieldInfo : fieldInfo.Name || fieldInfo.FieldInternalName;
                 // See if we are skipping this field
                 if (skipField(fieldName, skipFields)) {
                     continue;
@@ -276,7 +278,7 @@ exports.setContentTypeFields = function (ctInfo) {
                 // Log
                 console.log("[gd-sprest][Set Content Type Fields] Adding the field link: " + fieldName);
                 // Save a reference to this field
-                fields.push(field);
+                fields.push({ ref: field, info: fieldInfo });
             }
             // See if an update is needed
             if (fields.length > 0) {
@@ -290,7 +292,16 @@ exports.setContentTypeFields = function (ctInfo) {
                         var field = fields[i];
                         // Create the field link
                         var fieldLink = new SP.FieldLinkCreationInformation();
-                        fieldLink.set_field(field);
+                        fieldLink.set_field(field.ref);
+                        // See if field information exist
+                        if (typeof (field.info) != "string") {
+                            // Update the properties
+                            field.info.DisplayName != null ? fieldLink.set_displayName(field.info.DisplayName) : null;
+                            field.info.Hidden != null ? fieldLink.set_hidden(field.info.Hidden) : null;
+                            field.info.ReadOnly != null ? fieldLink.set_readOnly(field.info.ReadOnly) : null;
+                            field.info.Required != null ? fieldLink.set_required(field.info.Required) : null;
+                            field.info.ShowInDisplayForm != null ? fieldLink.set_showInDisplayForm(field.info.ShowInDisplayForm) : null;
+                        }
                         // Add the field link to the content type
                         contentType.get_fieldLinks().add(fieldLink);
                     }

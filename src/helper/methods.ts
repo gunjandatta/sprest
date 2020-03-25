@@ -1,7 +1,8 @@
 import { IRequest } from "../../@types/helper";
-import { ContentType, ContentTypeCreationInformation, FieldLink, ListItem } from "gd-sprest-def/lib/SP";
+import { ContentType, ContentTypeCreationInformation, FieldLink, FieldLinkProps, ListItem } from "gd-sprest-def/lib/SP";
 import { ContextInfo, Web } from "../lib";
 import { Base, Request } from "../utils";
+import { fieldlinks } from "../mapper/custom";
 declare var SP;
 
 /**
@@ -190,7 +191,7 @@ export const request = (props: IRequest): PromiseLike<any> => {
  * Sets the field links associated with a content type.
  * @param ctInfo - The content type information
  */
-export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void> => {
+export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string | FieldLinkProps>, listName?: string, webUrl?: string }): PromiseLike<void> => {
     // Clears the content type field links
     let clearLinks = (): PromiseLike<Array<FieldLink>> => {
         // Return a promise
@@ -220,8 +221,9 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
                         let removeFl = true;
                         for (let j = 0; j < ctInfo.fields.length; j++) {
                             let field = ctInfo.fields[j];
+                            let fieldName = typeof (field) === "string" ? field : field.Name || field.FieldInternalName;
 
-                            if (field == fieldLink.Name) {
+                            if (fieldName == fieldLink.Name) {
                                 // Set the flag
                                 removeFl = false;
 
@@ -301,9 +303,10 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
             }
 
             // Parse the fields to add
-            let fields = [];
+            let fields: Array<{ ref: any, info: string | FieldLinkProps }> = [];
             for (let i = 0; i < ctInfo.fields.length; i++) {
-                let fieldName = ctInfo.fields[i];
+                let fieldInfo = ctInfo.fields[i];
+                let fieldName = typeof (fieldInfo) === "string" ? fieldInfo : fieldInfo.Name || fieldInfo.FieldInternalName;
 
                 // See if we are skipping this field
                 if (skipField(fieldName, skipFields)) { continue; }
@@ -316,7 +319,7 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
                 console.log("[gd-sprest][Set Content Type Fields] Adding the field link: " + fieldName);
 
                 // Save a reference to this field
-                fields.push(field);
+                fields.push({ ref: field, info: fieldInfo });
             }
 
             // See if an update is needed
@@ -333,7 +336,17 @@ export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string>
 
                         // Create the field link
                         let fieldLink = new SP.FieldLinkCreationInformation();
-                        fieldLink.set_field(field);
+                        fieldLink.set_field(field.ref);
+
+                        // See if field information exist
+                        if (typeof (field.info) != "string") {
+                            // Update the properties
+                            field.info.DisplayName != null ? fieldLink.set_displayName(field.info.DisplayName) : null;
+                            field.info.Hidden != null ? fieldLink.set_hidden(field.info.Hidden) : null;
+                            field.info.ReadOnly != null ? fieldLink.set_readOnly(field.info.ReadOnly) : null;
+                            field.info.Required != null ? fieldLink.set_required(field.info.Required) : null;
+                            field.info.ShowInDisplayForm != null ? fieldLink.set_showInDisplayForm(field.info.ShowInDisplayForm) : null;
+                        }
 
                         // Add the field link to the content type
                         contentType.get_fieldLinks().add(fieldLink);

@@ -2837,7 +2837,7 @@ declare module 'gd-sprest/helper/spCfg' {
             /**
                 * The field references.
                 */
-            FieldRefs?: Array<string>;
+            FieldRefs?: Array<string | SP.FieldLinkProps>;
     
             /**
                 * The JSLink property.
