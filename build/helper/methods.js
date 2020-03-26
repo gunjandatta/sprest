@@ -189,18 +189,47 @@ exports.setContentTypeFields = function (ctInfo) {
                     // Parse the content type field links
                     for (var i = 0; i < fieldLinks.length; i++) {
                         var fieldLink = fieldLinks[i];
-                        // See if we are keeping this field
                         var removeFl = true;
-                        for (var j = 0; j < ctInfo.fields.length; j++) {
+                        var _loop_1 = function (j) {
                             var field = ctInfo.fields[j];
                             var fieldName = typeof (field) === "string" ? field : field.Name || field.FieldInternalName;
+                            // See if we are keeping this field
                             if (fieldName == fieldLink.Name) {
-                                // Set the flag
-                                removeFl = false;
-                                // Add the field
-                                skipFields.push(fieldLink);
-                                break;
+                                var propUpdateFl_1 = false;
+                                // Checks if an update is needed
+                                var updateField = function (oldValue, newValue) {
+                                    // Ensure a value exists
+                                    if (newValue == null) {
+                                        return;
+                                    }
+                                    // See if an update is needed
+                                    if (oldValue == newValue) {
+                                        return;
+                                    }
+                                    // Set the flag
+                                    propUpdateFl_1 = true;
+                                };
+                                // Update the properties
+                                updateField(fieldLink.DisplayName, field.DisplayName);
+                                updateField(fieldLink.Hidden, field.Hidden);
+                                updateField(fieldLink.ReadOnly, field.ReadOnly);
+                                updateField(fieldLink.Required, field.Required);
+                                updateField(fieldLink.ShowInDisplayForm, field.ShowInDisplayForm);
+                                // See if an update to the property is needed
+                                if (!propUpdateFl_1) {
+                                    // Set the flag to not remove this field reference
+                                    removeFl = false;
+                                    // Add the field to skip
+                                    skipFields.push(fieldLink);
+                                }
+                                return "break";
                             }
+                        };
+                        // Parse the fields to add
+                        for (var j = 0; j < ctInfo.fields.length; j++) {
+                            var state_1 = _loop_1(j);
+                            if (state_1 === "break")
+                                break;
                         }
                         // See if we are removing the field
                         if (removeFl) {
@@ -290,6 +319,19 @@ exports.setContentTypeFields = function (ctInfo) {
                     // Parse the fields
                     for (var i = 0; i < fields.length; i++) {
                         var field = fields[i];
+                        /**
+                         * The field link set_[property] methods don't seem to work. Setting the field information seems to be the only way.
+                         * The read only property is the only one that doesn't seem to work.
+                         */
+                        // See if the field ref has properties to update
+                        if (typeof (field.info) !== "string") {
+                            // Update the field properties
+                            field.info.DisplayName != null ? field.ref.set_title(field.info.DisplayName) : null;
+                            field.info.Hidden != null ? field.ref.set_hidden(field.info.Hidden) : null;
+                            field.info.ReadOnly != null ? field.ref.set_readOnlyField(field.info.ReadOnly) : null;
+                            field.info.Required != null ? field.ref.set_required(field.info.Required) : null;
+                            field.info.ShowInDisplayForm != null ? field.ref.setShowInDisplayForm(field.info.ShowInDisplayForm) : null;
+                        }
                         // Create the field link
                         var fieldLink = new SP.FieldLinkCreationInformation();
                         fieldLink.set_field(field.ref);
@@ -384,136 +426,6 @@ exports.setContentTypeFields = function (ctInfo) {
             });
         });
     };
-    // Update the field links
-    var updateLinks = function () {
-        // Return a promise
-        return new Promise(function (resolve, reject) {
-            /*
-            The JSOM methods aren't working. Need to figure out if this is a bug.
-            */
-            // Resolve the promise
-            resolve();
-            return;
-            /*
-            // Get the field links
-            getLinks().then(fieldLinks => {
-                // Set the context
-                let ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : new SP.ClientContext(ContextInfo.webServerRelativeUrl);
-
-                // Get the source
-                let src = ctInfo.listName ? ctx.get_web().get_lists().getByTitle(ctInfo.listName) : ctx.get_web();
-
-                // Get the content type
-                let contentType = src.get_contentTypes().getById(ctInfo.id);
-                ctx.load(contentType);
-
-                // Parse the fields
-                let fields: Array<{ ref: any, info: FieldLinkProps }> = [];
-                for (let i = 0; i < ctInfo.fields.length; i++) {
-                    let fieldInfo = ctInfo.fields[i];
-
-                    // See if properties have been defined
-                    if (typeof (fieldInfo) === "string") { continue; }
-
-                    // Parse the field information
-                    for (let j = 0; j < fieldLinks.length; j++) {
-                        let fieldLink = fieldLinks[j];
-
-                        // See if this is the target field
-                        if (fieldLink.Name == fieldInfo.Name || fieldLink.Name == fieldInfo.FieldInternalName) {
-                            // Load this field
-                            fields.push({
-                                ref: contentType.get_fieldLinks().getById(fieldLink.Id),
-                                info: fieldLink
-                            });
-                        }
-                    }
-                }
-
-                // See if an update is needed
-                if (fields.length > 0) {
-                    // Execute the request
-                    ctx.executeQueryAsync(() => {
-                        let updateFl = false;
-
-                        // Parse the fields
-                        for (let i = 0; i < fields.length; i++) {
-                            let field = fields[i];
-
-                            // Checks if an update is needed
-                            let updateField = (fieldLink: any, fieldId: string, propName: string, propValue: any) => {
-                                // Ensure a value exists
-                                if (propValue == null) { return; }
-
-                                // See if an update is needed
-                                if (fieldLink["get_" + propName] == propValue) { return; }
-
-                                // Update the field property
-                                let fl = contentType.get_fieldLinks().getById(fieldId);
-                                fl["set_" + propName](propValue);
-                                ctx.load(fl);
-
-                                // Set the flag
-                                updateFl = true;
-                            }
-
-                            // Update the properties
-                            updateField(field.ref, field.info.Id, "displayName", field.info.DisplayName);
-                            updateField(field.ref, field.info.Id, "hidden", field.info.Hidden);
-                            updateField(field.ref, field.info.Id, "readOnly", field.info.ReadOnly);
-                            updateField(field.ref, field.info.Id, "required", field.info.Required);
-                            updateField(field.ref, field.info.Id, "showInDisplayForm", field.info.ShowInDisplayForm);
-                        }
-
-                        // See if an update is required
-                        if (updateFl) {
-                            // Update the site content types
-                            ctInfo.listName ? null : contentType.update(true);
-
-                            // Execute the request
-                            ctx.executeQueryAsync(
-                                // Success
-                                () => {
-                                    // Log
-                                    console.log("[gd-sprest][Set Content Type Fields] Updated the field links successfully.");
-
-                                    // Resolve the request
-                                    resolve();
-                                },
-
-                                // Error
-                                (sender, args) => {
-                                    // Log
-                                    console.log("[gd-sprest][Set Content Type Fields] Error updating field references.", args.get_message());
-
-                                    // Reject the request
-                                    reject();
-                                });
-                        } else {
-                            // Log
-                            console.log("[gd-sprest][Set Content Type Fields] No fields need to be updated.");
-
-                            // Resolve the request
-                            resolve();
-                        }
-                    }, (sender, args) => {
-                        // Log
-                        console.log("[gd-sprest][Set Content Type Fields] Error getting field references.", args.get_message());
-
-                        // Resolve the request
-                        resolve();
-                    });
-                } else {
-                    // Log
-                    console.log("[gd-sprest][Set Content Type Fields] No fields need to be updated.");
-
-                    // Resolve the request
-                    resolve();
-                }
-            });
-            */
-        });
-    };
     // Return a promise
     return new Promise(function (resolve, reject) {
         // Ensure fields exist
@@ -523,10 +435,7 @@ exports.setContentTypeFields = function (ctInfo) {
                 // Create the links
                 createLinks(skipFields).then(function () {
                     // Set the field order
-                    setOrder().then(function () {
-                        // Update the field links
-                        updateLinks().then(resolve, reject);
-                    }, reject);
+                    setOrder().then(resolve, reject);
                 }, reject);
             }, reject);
         }
