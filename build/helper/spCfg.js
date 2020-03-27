@@ -95,18 +95,10 @@ exports.SPConfig = function (cfg, webUrl) {
                                 console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
                                 // Update the configuration
                                 cfg.ContentType = ct;
-                                // Create the field refs
-                                _1.setContentTypeFields({
-                                    fields: cfg.FieldRefs,
-                                    id: ct.Id.StringValue,
-                                    listName: list ? list.Title : null,
-                                    webUrl: webUrl
-                                }).then(function () {
-                                    // Trigger the event
-                                    cfg.onCreated ? cfg.onCreated(ct, list) : null;
-                                    // Resolve the promise
-                                    resolve(cfg);
-                                });
+                                // Trigger the event
+                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                                // Resolve the promise
+                                resolve(cfg);
                             }, 
                             // Error
                             function (error) {
@@ -143,18 +135,10 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
                             // Update the configuration
                             cfg.ContentType = ct;
-                            // Create the field refs
-                            _1.setContentTypeFields({
-                                fields: cfg.FieldRefs,
-                                id: ct.Id.StringValue,
-                                listName: list ? list.Title : null,
-                                webUrl: webUrl
-                            }).then(function () {
-                                // Trigger the event
-                                cfg.onCreated ? cfg.onCreated(ct, list) : null;
-                                // Resolve the promise
-                                resolve(cfg);
-                            });
+                            // Trigger the event
+                            cfg.onCreated ? cfg.onCreated(ct, list) : null;
+                            // Resolve the promise
+                            resolve(cfg);
                         }, 
                         // Error
                         function (error) {
@@ -169,64 +153,78 @@ exports.SPConfig = function (cfg, webUrl) {
             }).then(function () {
                 // Parse the configuration
                 _1.Executor(cfgContentTypes, function (cfgContentType) {
-                    var cfgUpdate = {};
-                    var updateFl = false;
-                    // Ensure the content type exists
-                    if (cfgContentType.ContentType == null) {
-                        return;
-                    }
-                    /**
-                     * See if we need to update the properties
-                     */
-                    // Description
-                    if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
-                        // Update the configuration
-                        cfgUpdate.Description = cfgContentType.Description;
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // Group
-                    if (cfgContentType.Group != null && cfgContentType.ContentType.Group != cfgContentType.Group) {
-                        // Update the configuration
-                        cfgUpdate.Group = cfgContentType.Group;
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // JSLink
-                    if (cfgContentType.JSLink != null && cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
-                        // Update the configuration
-                        cfgUpdate.JSLink = cfgContentType.JSLink;
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // Name
-                    if (cfgContentType.Name != null && cfgContentType.ContentType.Name != cfgContentType.Name) {
-                        // Update the configuration
-                        cfgUpdate.Name = cfgContentType.Name;
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // See if an update is needed
-                    if (updateFl) {
+                    // Return a promise
+                    return new Promise(function (resolve, reject) {
+                        var cfgUpdate = {};
+                        var updateFl = false;
+                        // Ensure the content type exists
+                        if (cfgContentType.ContentType == null) {
+                            // Skip this content type
+                            resolve();
+                            return;
+                        }
                         // Log
-                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
-                        // Return a promise
-                        return new Promise(function (resolve, reject) {
-                            // Update the content type
-                            cfgContentType.ContentType.update(cfgUpdate).execute(function () {
+                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Updating the field references for: " + cfgContentType.Name);
+                        // Create the field refs
+                        _1.setContentTypeFields({
+                            fields: cfgContentType.FieldRefs,
+                            id: cfgContentType.ContentType.Id.StringValue,
+                            listName: list ? list.Title : null,
+                            webUrl: webUrl
+                        }).then(function () {
+                            /**
+                             * See if we need to update the properties
+                             */
+                            // Description
+                            if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
+                                // Update the configuration
+                                cfgUpdate.Description = cfgContentType.Description;
+                                // Set the flag
+                                updateFl = true;
+                            }
+                            // Group
+                            if (cfgContentType.Group != null && cfgContentType.ContentType.Group != cfgContentType.Group) {
+                                // Update the configuration
+                                cfgUpdate.Group = cfgContentType.Group;
+                                // Set the flag
+                                updateFl = true;
+                            }
+                            // JSLink
+                            if (cfgContentType.JSLink != null && cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
+                                // Update the configuration
+                                cfgUpdate.JSLink = cfgContentType.JSLink;
+                                // Set the flag
+                                updateFl = true;
+                            }
+                            // Name
+                            if (cfgContentType.Name != null && cfgContentType.ContentType.Name != cfgContentType.Name) {
+                                // Update the configuration
+                                cfgUpdate.Name = cfgContentType.Name;
+                                // Set the flag
+                                updateFl = true;
+                            }
+                            // See if an update is needed
+                            if (updateFl) {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
+                                // Update the content type
+                                cfgContentType.ContentType.update(cfgUpdate).execute(function () {
+                                    // Log
+                                    console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                    // Trigger the event
+                                    cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                                    // Resolve this request
+                                    resolve();
+                                }, reject);
+                            }
+                            else {
                                 // Trigger the event
                                 cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                                // Resolve the promise
+                                // Resolve this request
                                 resolve();
-                            }, reject);
-                        });
-                    }
-                    else {
-                        // Trigger the event
-                        cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                    }
+                            }
+                        }, reject);
+                    });
                 }).then(resolve);
             }, reject);
         });

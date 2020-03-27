@@ -1938,7 +1938,7 @@ declare module 'gd-sprest/helper/methods' {
     import { SP } from "gd-sprest-def";
     
     /**
-        * Creates a content type in the current web or specified list.
+        * Creates a content type in a web or specified list.
         * @param ctInfo - The content type information.
         * @param parentInfo - The parent content type id and url containing it.
         * @param webUrl - The relative url to create the content type in.
@@ -1988,7 +1988,7 @@ declare module 'gd-sprest/helper/methods' {
     }
     
     /**
-        * Sets the field links associated with the content type.
+        * Sets the field links associated with a content type.
         * @param ctInfo - The content type information
         */
     export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
@@ -2837,7 +2837,7 @@ declare module 'gd-sprest/helper/spCfg' {
             /**
                 * The field references.
                 */
-            FieldRefs?: Array<string>;
+            FieldRefs?: Array<string | SP.FieldLinkProps>;
     
             /**
                 * The JSLink property.

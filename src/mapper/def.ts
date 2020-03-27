@@ -3665,7 +3665,6 @@ export const Mapper: IMapper = {
             requestMethod: "MERGE",
             requestType: RequestType.PostBodyNoArgs
         },
-
     },
 
     "SP.FieldLink": {
@@ -3673,6 +3672,14 @@ export const Mapper: IMapper = {
             requestType: RequestType.Delete
         },
 
+        update: {
+            argNames: ["properties"],
+            inheritMetadataType: true,
+            metadataType: "SP.FieldLink",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostBodyNoArgs
+        },
     },
 
     "SP.FieldLink.Collection": {

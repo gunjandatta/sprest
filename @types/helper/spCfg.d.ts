@@ -216,7 +216,7 @@ export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation
     /**
      * The field references.
      */
-    FieldRefs?: Array<string>;
+    FieldRefs?: Array<string | SP.FieldLinkProps>;
 
     /**
      * The JSLink property.
