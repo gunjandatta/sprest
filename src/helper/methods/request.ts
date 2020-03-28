@@ -1,4 +1,4 @@
-import { IRequest } from "../../../@types/helper";
+import { IRequest } from "../../../@types/helper/methods";
 import { Base } from "../../utils";
 
 /**

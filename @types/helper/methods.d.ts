@@ -1,6 +1,20 @@
 import { SP } from "gd-sprest-def";
 
 /**
+ * Adds a content editor webpart to a page.
+ * @param url - The relative url of the page.
+ * @param wpProps - The webpart properties.
+ */
+export const addContentEditorWebPart: (url: string, wpProps: IContentEditorWebPart) => PromiseLike<void>;
+
+/**
+ * Adds a script editor webpart to a page.
+ * @param url - The relative url of the page.
+ * @param wpProps - The webpart properties.
+ */
+export const addScriptEditorWebPart: (url: string, wpProps: IScriptEditorWebPart) => PromiseLike<void>;
+
+/**
  * Creates a content type in a web or specified list.
  * @param ctInfo - The content type information.
  * @param parentInfo - The parent content type id and url containing it.
@@ -34,6 +48,12 @@ export function parse<T = any>(jsonString: string): T;
 export const request: (props: IRequest) => PromiseLike<any>;
 
 /**
+ * Sets the field links associated with a content type.
+ * @param ctInfo - The content type information
+ */
+export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
+
+/**
  * Request
  */
 export interface IRequest {
@@ -51,7 +71,50 @@ export interface IRequest {
 }
 
 /**
- * Sets the field links associated with a content type.
- * @param ctInfo - The content type information
+ * The content editor webpart properties
  */
-export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
+export interface IContentEditorWebPart {
+    /** The webpart description. */
+    description?: string;
+
+    /** The webpart content. */
+    content?: string;
+
+    /** The webpart content link. */
+    contentLink?: string;
+
+    /** The webpart frame type. (BorderOnly, Default, None, Standard or TitleBarOnly) */
+    frameType?: string;
+
+    /** The webpart index. */
+    index?: number;
+
+    /** The webpart title. */
+    title?: string;
+
+    /** The webpart zone. */
+    zone?: string;
+}
+
+/**
+ * The script editor webpart properties
+ */
+export interface IScriptEditorWebPart {
+    /** The webpart description. */
+    description?: string;
+
+    /** The webpart chrome type. (BorderOnly, Default, None, TitleAndBorder or TitleOnly) */
+    chromeType?: string;
+
+    /** The webpart content. */
+    content: string;
+
+    /** The webpart index. */
+    index?: number;
+
+    /** The webpart title. */
+    title?: string;
+
+    /** The webpart zone. */
+    zone?: string;
+}

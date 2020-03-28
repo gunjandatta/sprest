@@ -1,3 +1,5 @@
+export * from "./addContentEditorWebPart";
+export * from "./addScriptEditorWebPart";
 export * from "./createContentType";
 export * from "./createDocSet";
 export * from "./hasPermissions";

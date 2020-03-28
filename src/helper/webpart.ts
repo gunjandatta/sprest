@@ -1,6 +1,4 @@
 import * as WebPartTypes from "../../@types/helper/webpart";
-import { ContextInfo } from "../lib";
-declare var SP;
 declare var MSOWebPartPageFormName;
 
 /**
@@ -70,103 +68,10 @@ class _WebPart {
         }
     }
 
-    // Method to add a script editor webpart to the page
-    static addWebPartToPage(url: string, wpProps: WebPartTypes.IWebPartScriptEditor) {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Get the current context
-            let context = SP.ClientContext.get_current();
-
-            // Get the webpart manager for the page
-            let page = context.get_web().getFileByServerRelativeUrl(url);
-            let wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
-
-            // Create the webpart
-            let wp = wpMgr.importWebPart(`<?xml version="1.0" encoding="utf-8"?>
-<webParts>
-    <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
-        <metaData>
-            <type name="Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
-            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>
-        </metaData>
-        <data>
-            <properties>
-            <property name="Title" type="string">[[Title]]</property>
-            <property name="Description" type="string">[[Description]]</property>
-            <property name="ChromeType" type="chrometype">[[ChromeType]]</property>
-            <property name="Content" type="string">[[Content]]</property>
-        </properties>
-        </data>
-    </webPart>
-</webParts>`.replace(/\r?\n/g, '')
-                .replace(/\[\[ChromeType\]\]/g, wpProps.chromeType || "TitleOnly")
-                .replace(/\[\[Content\]\]/g, wpProps.content.replace(/\</g, '&lt;').replace(/\>/g, '&gt;'))
-                .replace(/\[\[Description\]\]/g, wpProps.description || "")
-                .replace(/\[\[Title\]\]/g, wpProps.title || "")
-            ).get_webPart();
-
-            // Add the webpart to the page
-            wpMgr.addWebPart(wp, wpProps.zone || "", wpProps.index || 0);
-
-            // Save the page
-            context.load(wp);
-            context.executeQueryAsync(
-                // Success
-                () => {
-                    // Resolve the promise
-                    resolve();
-                },
-                // Error
-                (...args) => {
-                    // Reject the promise
-                    reject(args[1] ? args[1].get_message() : "")
-                }
-            );
-        });
-    }
-
     // Method to create an instance of the webpart
     static create(props: WebPartTypes.IWebPartProps) {
         // Return an instance of the webpart
         return new _WebPart(props);
-    }
-
-    /**
-     * Method to get the webpart
-     */
-    private getWebPart = (wpId: string): PromiseLike<IWebPartObject> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Get the current context
-            let context = SP.ClientContext.get_current();
-
-            // Get the webpart from the current page
-            let page = context.get_web().getFileByServerRelativeUrl(ContextInfo.serverRequestPath);
-            let wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
-            let wpDef = wpMgr.get_webParts().getById(wpId);
-            let wp = wpDef.get_webPart();
-            context.load(wp, "Properties");
-
-            // Execute the request
-            context.executeQueryAsync(
-                // Success
-                () => {
-                    // Resolve the promise
-                    resolve({
-                        Context: context,
-                        Properties: wp.get_properties(),
-                        WebPart: wp,
-                        WebPartDefinition: wpDef,
-                        WebPartId: wp.get_id()
-                    } as IWebPartObject);
-                },
-                // Error
-                (...args) => {
-                    // Reject the promise
-                    reject(args[1] ? args[1].get_message() : "");
-                }
-            );
-        });
     }
 
     /**

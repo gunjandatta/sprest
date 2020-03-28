@@ -1938,6 +1938,20 @@ declare module 'gd-sprest/helper/methods' {
     import { SP } from "gd-sprest-def";
     
     /**
+        * Adds a content editor webpart to a page.
+        * @param url - The relative url of the page.
+        * @param wpProps - The webpart properties.
+        */
+    export const addContentEditorWebPart: (url: string, wpProps: IContentEditorWebPart) => PromiseLike<void>;
+    
+    /**
+        * Adds a script editor webpart to a page.
+        * @param url - The relative url of the page.
+        * @param wpProps - The webpart properties.
+        */
+    export const addScriptEditorWebPart: (url: string, wpProps: IScriptEditorWebPart) => PromiseLike<void>;
+    
+    /**
         * Creates a content type in a web or specified list.
         * @param ctInfo - The content type information.
         * @param parentInfo - The parent content type id and url containing it.
@@ -1971,6 +1985,12 @@ declare module 'gd-sprest/helper/methods' {
     export const request: (props: IRequest) => PromiseLike<any>;
     
     /**
+        * Sets the field links associated with a content type.
+        * @param ctInfo - The content type information
+        */
+    export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
+    
+    /**
         * Request
         */
     export interface IRequest {
@@ -1988,10 +2008,53 @@ declare module 'gd-sprest/helper/methods' {
     }
     
     /**
-        * Sets the field links associated with a content type.
-        * @param ctInfo - The content type information
+        * The content editor webpart properties
         */
-    export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
+    export interface IContentEditorWebPart {
+            /** The webpart description. */
+            description?: string;
+    
+            /** The webpart content. */
+            content?: string;
+    
+            /** The webpart content link. */
+            contentLink?: string;
+    
+            /** The webpart frame type. (BorderOnly, Default, None, Standard or TitleBarOnly) */
+            frameType?: string;
+    
+            /** The webpart index. */
+            index?: number;
+    
+            /** The webpart title. */
+            title?: string;
+    
+            /** The webpart zone. */
+            zone?: string;
+    }
+    
+    /**
+        * The script editor webpart properties
+        */
+    export interface IScriptEditorWebPart {
+            /** The webpart description. */
+            description?: string;
+    
+            /** The webpart chrome type. (BorderOnly, Default, None, TitleAndBorder or TitleOnly) */
+            chromeType?: string;
+    
+            /** The webpart content. */
+            content: string;
+    
+            /** The webpart index. */
+            index?: number;
+    
+            /** The webpart title. */
+            title?: string;
+    
+            /** The webpart zone. */
+            zone?: string;
+    }
 }
 
 declare module 'gd-sprest/helper/sp' {
@@ -3284,13 +3347,6 @@ declare module 'gd-sprest/helper/webpart' {
             new(props: IWebPartProps);
     
             /**
-                * Adds a script editor webpart to a page.
-                * @param url - The relative url of the page.
-                * @param wpProps - The webpart properties.
-                */
-            addWebPartToPage(url: string, wpProps: IWebPartScriptEditor): PromiseLike<void>;
-    
-            /**
                 * Creates an instance of a webpart.
                 * @param props - The webpart properties.
                 */
@@ -3351,29 +3407,6 @@ declare module 'gd-sprest/helper/webpart' {
     
             /** The target element id to render the webpart to */
             elementId: string;
-    }
-    
-    /**
-        * The script editor webpart properties
-        */
-    export interface IWebPartScriptEditor {
-            /** The webpart description. */
-            description?: string;
-    
-            /** The webpart chrome type. (BorderOnly, Default, None, TitleAndBorder or TitleOnly) */
-            chromeType?: string;
-    
-            /** The webpart content. */
-            content: string;
-    
-            /** The webpart index. */
-            index?: number;
-    
-            /** The webpart title. */
-            title?: string;
-    
-            /** The webpart zone. */
-            zone?: string;
     }
 }
 
