@@ -154,9 +154,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
         if (fieldInfo.multi) {
             props["Mult"] = "TRUE";
         }
-        if (fieldInfo.showField) {
-            props["ShowField"] = fieldInfo.showField;
-        }
+        props["ShowField"] = fieldInfo.showField || "Title";
         // See if the lookup name exists
         if (fieldInfo.listName) {
             // Get the web containing the list

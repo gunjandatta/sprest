@@ -160,7 +160,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }
         if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
-        if (fieldInfo.showField) { props["ShowField"] = fieldInfo.showField; }
+        props["ShowField"] = fieldInfo.showField || "Title";
 
         // See if the lookup name exists
         if (fieldInfo.listName) {
