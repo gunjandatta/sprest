@@ -1,5 +1,5 @@
 def/lib
-*-lock.*
 *.log
+*.yaml
 .vscode
 node_modules

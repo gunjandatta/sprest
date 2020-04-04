@@ -1184,6 +1184,10 @@ exports.SPConfig = function (cfg, webUrl) {
                                     }, reject);
                                 }, reject);
                             }
+                            else {
+                                // Resolve the promise
+                                resolve();
+                            }
                         });
                     };
                     // Create the custom actions
@@ -1204,6 +1208,10 @@ exports.SPConfig = function (cfg, webUrl) {
                                         resolve();
                                     });
                                 }, reject);
+                            }
+                            else {
+                                // Resolve the promise
+                                resolve();
                             }
                         });
                     };

@@ -1310,6 +1310,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                             resolve();
                                         }, reject);
                                     }, reject);
+                            } else {
+                                // Resolve the promise
+                                resolve();
                             }
                         });
                     }
@@ -1334,6 +1337,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         resolve();
                                     });
                                 }, reject);
+                            } else {
+                                // Resolve the promise
+                                resolve();
                             }
                         });
                     }
