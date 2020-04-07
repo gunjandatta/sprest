@@ -81,6 +81,15 @@ exports.FieldSchemaXML = function (fieldInfo) {
         var schemaXml = null;
         // Set the field type
         props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
+        // Set the result type
+        switch (fieldInfo.format) {
+            case __1.SPTypes.ChoiceFormatType.Dropdown:
+                props["Format"] = "Dropdown";
+                break;
+            case __1.SPTypes.ChoiceFormatType.RadioButtons:
+                props["Format"] = "RadioButtons";
+                break;
+        }
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.defaultValue) {
@@ -250,6 +259,9 @@ exports.FieldSchemaXML = function (fieldInfo) {
         if (fieldInfo.decimals >= 0) {
             props["Decimals"] = fieldInfo.decimals;
         }
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
         if (fieldInfo.max != null) {
             props["Max"] = fieldInfo.max;
         }
@@ -272,6 +284,9 @@ exports.FieldSchemaXML = function (fieldInfo) {
         var schemaXml = null;
         // Set the field type
         props["Type"] = "Text";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
         // Generate the schema
         schemaXml = "<Field " + toString(props) + " />";
         // Resolve the request

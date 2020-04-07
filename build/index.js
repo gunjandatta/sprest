@@ -4,7 +4,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 // Type definitions for gd-sprest
-// Project: https://gunjandatta.github.io/sprest
+// Project: https://dattabase.com
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 /***************************************************************************************************
 MIT License

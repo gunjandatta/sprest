@@ -2775,6 +2775,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The choices */
             choices?: string[];
     
+            /** The selection format */
+            format?: number;
+    
             /** Allow multiple choices */
             multi?: boolean;
     }

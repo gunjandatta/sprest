@@ -91,6 +91,9 @@ export interface IFieldInfoChoice extends IFieldInfo {
     /** The choices */
     choices?: string[];
 
+    /** The selection format */
+    format?: number;
+
     /** Allow multiple choices */
     multi?: boolean;
 }
