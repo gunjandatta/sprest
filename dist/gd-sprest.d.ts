@@ -5125,7 +5125,7 @@ declare module 'gd-sprest/intellisense/peoplePicker' {
         */
     export interface IPeoplePickerResolveUser {
             // The client people picker resolve user results
-            ClientPeoplePickerResolveUser: Array<IPeoplePickerUser>;
+            ClientPeoplePickerResolveUser: IPeoplePickerUser;
     }
     
     /**
