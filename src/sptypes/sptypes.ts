@@ -513,7 +513,7 @@ export const LocaleLCIDType: SPTypes.ILocaleLCIDType = {
 /**
  * Modal Dialog Results
  */
-export type ModalDialogResult = {
+export const ModalDialogResult: SPTypes.ModalDialogResult = {
     Invalid: -1,
     Cancel: 0,
     OK: 1

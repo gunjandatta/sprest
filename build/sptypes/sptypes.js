@@ -473,6 +473,14 @@ exports.LocaleLCIDType = {
     Vietnamese: 1066,
 };
 /**
+ * Modal Dialog Results
+ */
+exports.ModalDialogResult = {
+    Invalid: -1,
+    Cancel: 0,
+    OK: 1
+};
+/**
  * Page Types
  */
 exports.PageType = {
