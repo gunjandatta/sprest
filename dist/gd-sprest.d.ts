@@ -4368,6 +4368,15 @@ declare module 'gd-sprest/sptypes/sptypes' {
     }
     
     /**
+        * Modal Dialog Results
+        */
+    export type ModalDialogResult = {
+            Invalid: number;
+            Cancel: number;
+            OK: number;
+    }
+    
+    /**
         * Node Types
         */
     export type INodeType = {
