@@ -1,4 +1,5 @@
 import { SP } from "gd-sprest-def";
+import { IContentEditorWebPart, IScriptEditorWebPart } from "./webpart";
 
 /**
  * Adds a content editor webpart to a page.
@@ -68,53 +69,4 @@ export interface IRequest {
 
     /** The request url. */
     url: string;
-}
-
-/**
- * The content editor webpart properties
- */
-export interface IContentEditorWebPart {
-    /** The webpart description. */
-    description?: string;
-
-    /** The webpart content. */
-    content?: string;
-
-    /** The webpart content link. */
-    contentLink?: string;
-
-    /** The webpart frame type. (BorderOnly, Default, None, Standard or TitleBarOnly) */
-    frameType?: string;
-
-    /** The webpart index. */
-    index?: number;
-
-    /** The webpart title. */
-    title?: string;
-
-    /** The webpart zone. */
-    zone?: string;
-}
-
-/**
- * The script editor webpart properties
- */
-export interface IScriptEditorWebPart {
-    /** The webpart description. */
-    description?: string;
-
-    /** The webpart chrome type. (BorderOnly, Default, None, TitleAndBorder or TitleOnly) */
-    chromeType?: string;
-
-    /** The webpart content. */
-    content: string;
-
-    /** The webpart index. */
-    index?: number;
-
-    /** The webpart title. */
-    title?: string;
-
-    /** The webpart zone. */
-    zone?: string;
 }
