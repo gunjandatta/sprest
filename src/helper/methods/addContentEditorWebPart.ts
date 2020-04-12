@@ -1,4 +1,5 @@
 import { IContentEditorWebPart } from "../../../@types/helper";
+import { WebPart } from "../webpart";
 declare var SP;
 
 // Method to add a script editor webpart to the page
@@ -13,22 +14,7 @@ export const addContentEditorWebPart = (url: string, wpProps: IContentEditorWebP
         let wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
 
         // Create the webpart
-        let wp = wpMgr.importWebPart(`<?xml version="1.0" encoding="utf-8"?>
-<WebPart xmlns="http://schemas.microsoft.com/WebPart/v2">
-    <Assembly>Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-    <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
-    <Title>[[Title]]</Title>
-    <Description>[[Description]]</Description>
-    <FrameType>[[FrameType]]</FrameType>
-    <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor">[[ContentLink]]</ContentLink>
-    <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[[[Content]]]]></Content>
-</WebPart>`.replace(/\r?\n/g, '')
-            .replace(/\[\[FrameType\]\]/g, wpProps.frameType || "Default")
-            .replace(/\[\[Content\]\]/g, wpProps.content || "")
-            .replace(/\[\[ContentLink\]\]/g, wpProps.contentLink || "")
-            .replace(/\[\[Description\]\]/g, wpProps.description || "")
-            .replace(/\[\[Title\]\]/g, wpProps.title || "")
-        ).get_webPart();
+        let wp = wpMgr.importWebPart(WebPart.generateContentEditorXML(wpProps)).get_webPart();
 
         // Add the webpart to the page
         wpMgr.addWebPart(wp, wpProps.zone || "", wpProps.index || 0);

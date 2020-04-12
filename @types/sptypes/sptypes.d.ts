@@ -942,6 +942,15 @@ export type ILocaleLCIDType = {
 }
 
 /**
+ * Modal Dialog Results
+ */
+export type ModalDialogResult = {
+    Invalid: number;
+    Cancel: number;
+    OK: number;
+}
+
+/**
  * Node Types
  */
 export type INodeType = {

@@ -25,6 +25,7 @@ export interface ISPTypes {
     FriendlyDateFormat: Types.IFriendlyDateFormat;
     ListTemplateType: Types.IListTemplateType;
     LocaleLCIDType: Types.ILocaleLCIDType;
+    ModalDialogResult: Types.ModalDialogResult,
     NodeType: Types.INodeType;
     PageType: Types.IPageType;
     PersonalizationScope: Types.IPersonalizationScope;

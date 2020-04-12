@@ -81,6 +81,15 @@ exports.FieldSchemaXML = function (fieldInfo) {
         var schemaXml = null;
         // Set the field type
         props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
+        // Set the result type
+        switch (fieldInfo.format) {
+            case __1.SPTypes.ChoiceFormatType.Dropdown:
+                props["Format"] = "Dropdown";
+                break;
+            case __1.SPTypes.ChoiceFormatType.RadioButtons:
+                props["Format"] = "RadioButtons";
+                break;
+        }
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.defaultValue) {
@@ -263,7 +272,11 @@ exports.FieldSchemaXML = function (fieldInfo) {
             props["ShowPercentage"] = "TRUE";
         }
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
+        schemaXml += "</Field>";
         // Resolve the request
         _resolve(schemaXml);
     };
@@ -273,7 +286,11 @@ exports.FieldSchemaXML = function (fieldInfo) {
         // Set the field type
         props["Type"] = "Text";
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
+        schemaXml += "</Field>";
         // Resolve the request
         _resolve(schemaXml);
     };

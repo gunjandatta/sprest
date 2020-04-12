@@ -511,6 +511,15 @@ export const LocaleLCIDType: SPTypes.ILocaleLCIDType = {
 }
 
 /**
+ * Modal Dialog Results
+ */
+export const ModalDialogResult: SPTypes.ModalDialogResult = {
+    Invalid: -1,
+    Cancel: 0,
+    OK: 1
+}
+
+/**
  * Node Types - Need to get this info. Documentation not found online. Ref the MS Publishing DLL and decompile to find the type info.
  */
 export type NodeType = {

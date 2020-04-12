@@ -1,4 +1,53 @@
 /**
+ * The content editor webpart properties
+ */
+export interface IContentEditorWebPart {
+    /** The webpart description. */
+    description?: string;
+
+    /** The webpart content. */
+    content?: string;
+
+    /** The webpart content link. */
+    contentLink?: string;
+
+    /** The webpart frame type. (BorderOnly, Default, None, Standard or TitleBarOnly) */
+    frameType?: string;
+
+    /** The webpart index. */
+    index?: number;
+
+    /** The webpart title. */
+    title?: string;
+
+    /** The webpart zone. */
+    zone?: string;
+}
+
+/**
+ * The script editor webpart properties
+ */
+export interface IScriptEditorWebPart {
+    /** The webpart description. */
+    description?: string;
+
+    /** The webpart chrome type. (BorderOnly, Default, None, TitleAndBorder or TitleOnly) */
+    chromeType?: string;
+
+    /** The webpart content. */
+    content: string;
+
+    /** The webpart index. */
+    index?: number;
+
+    /** The webpart title. */
+    title?: string;
+
+    /** The webpart zone. */
+    zone?: string;
+}
+
+/**
  * Web Part
  */
 export const WebPart: IWebPart;
@@ -18,6 +67,18 @@ export interface IWebPart {
      * @param props - The webpart properties.
      */
     create(props: IWebPartProps);
+
+    /**
+     * Generates the XML for a content editor webpart
+     * @param props - The content editor webpart properties
+     */
+    generateContentEditorXML(props: IContentEditorWebPart);
+
+    /**
+     * Generates the XML for a script editor webpart
+     * @param props - The script editor webpart properties
+     */
+    generateScriptEditorXML(props: IScriptEditorWebPart);
 
     /**
      * Determines if the page is being edited.

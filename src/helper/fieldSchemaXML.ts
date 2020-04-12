@@ -85,6 +85,16 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // Set the field type
         props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
 
+        // Set the result type
+        switch (fieldInfo.format) {
+            case SPTypes.ChoiceFormatType.Dropdown:
+                props["Format"] = "Dropdown";
+                break;
+            case SPTypes.ChoiceFormatType.RadioButtons:
+                props["Format"] = "RadioButtons";
+                break;
+        }
+
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
@@ -265,7 +275,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
 
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        schemaXml += "</Field>";
 
         // Resolve the request
         _resolve(schemaXml);
@@ -279,7 +291,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         props["Type"] = "Text";
 
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        schemaXml += "</Field>";
 
         // Resolve the request
         _resolve(schemaXml);

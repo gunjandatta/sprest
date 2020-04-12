@@ -74,6 +74,50 @@ class _WebPart {
         return new _WebPart(props);
     }
 
+    // Generates the XML for a content editor webpart
+    static generateContentEditorXML = (props: WebPartTypes.IContentEditorWebPart) => {
+        return `<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns="http://schemas.microsoft.com/WebPart/v2">
+    <Assembly>Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+    <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+    <Title>[[Title]]</Title>
+    <Description>[[Description]]</Description>
+    <FrameType>[[FrameType]]</FrameType>
+    <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor">[[ContentLink]]</ContentLink>
+    <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[[[Content]]]]></Content>
+</WebPart>`.replace(/\r?\n/g, '')
+            .replace(/\[\[FrameType\]\]/g, props.frameType || "Default")
+            .replace(/\[\[Content\]\]/g, props.content || "")
+            .replace(/\[\[ContentLink\]\]/g, props.contentLink || "")
+            .replace(/\[\[Description\]\]/g, props.description || "")
+            .replace(/\[\[Title\]\]/g, props.title || "");
+    }
+
+    // Generates the XML for a script editor webpart
+    static generateScriptEditorXML = (props: WebPartTypes.IScriptEditorWebPart) => {
+        return `<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+    <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+        <metaData>
+            <type name="Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>
+        </metaData>
+        <data>
+            <properties>
+            <property name="Title" type="string">[[Title]]</property>
+            <property name="Description" type="string">[[Description]]</property>
+            <property name="ChromeType" type="chrometype">[[ChromeType]]</property>
+            <property name="Content" type="string">[[Content]]</property>
+        </properties>
+        </data>
+    </webPart>
+</webParts>`.replace(/\r?\n/g, '')
+            .replace(/\[\[ChromeType\]\]/g, props.chromeType || "TitleOnly")
+            .replace(/\[\[Content\]\]/g, props.content.replace(/\</g, '&lt;').replace(/\>/g, '&gt;'))
+            .replace(/\[\[Description\]\]/g, props.description || "")
+            .replace(/\[\[Title\]\]/g, props.title || "");
+    }
+
     /**
      * Method to get the webpart id for a specified element
      * @param el - The target element.

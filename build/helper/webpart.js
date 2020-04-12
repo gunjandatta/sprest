@@ -217,6 +217,23 @@ var _WebPart = /** @class */ (function () {
         // Return an instance of the webpart
         return new _WebPart(props);
     };
+    // Generates the XML for a content editor webpart
+    _WebPart.generateContentEditorXML = function (props) {
+        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<WebPart xmlns=\"http://schemas.microsoft.com/WebPart/v2\">\n    <Assembly>Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>\n    <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>\n    <Title>[[Title]]</Title>\n    <Description>[[Description]]</Description>\n    <FrameType>[[FrameType]]</FrameType>\n    <ContentLink xmlns=\"http://schemas.microsoft.com/WebPart/v2/ContentEditor\">[[ContentLink]]</ContentLink>\n    <Content xmlns=\"http://schemas.microsoft.com/WebPart/v2/ContentEditor\"><![CDATA[[[Content]]]]></Content>\n</WebPart>".replace(/\r?\n/g, '')
+            .replace(/\[\[FrameType\]\]/g, props.frameType || "Default")
+            .replace(/\[\[Content\]\]/g, props.content || "")
+            .replace(/\[\[ContentLink\]\]/g, props.contentLink || "")
+            .replace(/\[\[Description\]\]/g, props.description || "")
+            .replace(/\[\[Title\]\]/g, props.title || "");
+    };
+    // Generates the XML for a script editor webpart
+    _WebPart.generateScriptEditorXML = function (props) {
+        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<webParts>\n    <webPart xmlns=\"http://schemas.microsoft.com/WebPart/v3\">\n        <metaData>\n            <type name=\"Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c\" />\n            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>\n        </metaData>\n        <data>\n            <properties>\n            <property name=\"Title\" type=\"string\">[[Title]]</property>\n            <property name=\"Description\" type=\"string\">[[Description]]</property>\n            <property name=\"ChromeType\" type=\"chrometype\">[[ChromeType]]</property>\n            <property name=\"Content\" type=\"string\">[[Content]]</property>\n        </properties>\n        </data>\n    </webPart>\n</webParts>".replace(/\r?\n/g, '')
+            .replace(/\[\[ChromeType\]\]/g, props.chromeType || "TitleOnly")
+            .replace(/\[\[Content\]\]/g, props.content.replace(/\</g, '&lt;').replace(/\>/g, '&gt;'))
+            .replace(/\[\[Description\]\]/g, props.description || "")
+            .replace(/\[\[Title\]\]/g, props.title || "");
+    };
     /**
      * Method to detect if a page is being edited
      */
