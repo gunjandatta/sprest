@@ -3,59 +3,69 @@ import { IContentEditorWebPart, IScriptEditorWebPart } from "./webpart";
 
 /**
  * Adds a content editor webpart to a page.
- * @param url - The relative url of the page.
- * @param wpProps - The webpart properties.
+ * @category Helper
+ * @param url The relative url of the page.
+ * @param wpProps The webpart properties.
+ * @returns A promise is returned.
  */
-export const addContentEditorWebPart: (url: string, wpProps: IContentEditorWebPart) => PromiseLike<void>;
+export function addContentEditorWebPart(url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
 
 /**
  * Adds a script editor webpart to a page.
+ * @category Helper
  * @param url - The relative url of the page.
  * @param wpProps - The webpart properties.
  */
-export const addScriptEditorWebPart: (url: string, wpProps: IScriptEditorWebPart) => PromiseLike<void>;
+export function addScriptEditorWebPart(url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
 
 /**
  * Creates a content type in a web or specified list.
+ * @category Helper
  * @param ctInfo - The content type information.
  * @param parentInfo - The parent content type id and url containing it.
  * @param webUrl - The relative url to create the content type in.
  * @param listName - The list name to add the content type to.
  */
-export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string) => PromiseLike<SP.ContentType>;
+export function createContentType(ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<SP.ContentType>;
 
 /**
  * Creates a document set item.
+ * @category Helper
  * @param name - The name of the document set folder to create.
  * @param listName - The name of the document set library.
  * @param webUrl - The url of the web containing the document set library.
  */
-export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<SP.ListItem>;
+export function createDocSet(name: string, listName: string, webUrl?: string): PromiseLike<SP.ListItem>;
 
 /**
  * Determines if the user has permissions, based on the permission kind value
+ * @category Helper
  */
-export const hasPermissions: (permissionMask: any, permissions: Array<number> | number) => boolean;
+export function hasPermissions(permissionMask: any, permissions: Array<number> | number): boolean;
 
 /**
  * Convert a JSON string to a base object
+ * @category Helper
  */
 export function parse<T = any>(jsonString: string): T;
 
 
 /**
  * XML HTTP Request
+ * @category Helper
  */
-export const request: (props: IRequest) => PromiseLike<any>;
+export function request(props: IRequest): PromiseLike<any>;
 
 /**
  * Sets the field links associated with a content type.
  * @param ctInfo - The content type information
+ * @category Helper
  */
-export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
+export function setContentTypeFields(ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
 
 /**
- * Request
+ * The XML HTTP request properties.
+ * @internal
  */
 export interface IRequest {
     /** The data to pass in the request. */
