@@ -2,12 +2,14 @@ import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Social Feed
+ * #### REST API
+ * _api/Social.Feed
  */
 export const SocialFeed: ISocialFeed;
 
 /**
  * Social Feed
+ * @cateogry Social Feed
  */
 export interface ISocialFeed {
     /**

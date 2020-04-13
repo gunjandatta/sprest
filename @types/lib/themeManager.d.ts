@@ -2,12 +2,14 @@ import { SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Theme Manager
+ * #### REST API
+ * _api/ThemeManager
  */
 export const ThemeManager: IThemeManager;
 
 /**
  * Theme Manager
+ * @category Theme Manager
  */
 export interface IThemeManager {
     /**

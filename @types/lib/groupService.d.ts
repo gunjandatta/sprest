@@ -2,12 +2,14 @@ import { Microsoft } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Group Service
+ * #### REST API
+ * _api/Microsoft.SharePoint.Portal.GroupService
  */
 export const GroupService: IGroupService;
 
 /**
  * Group Service
+ * @category Group Site
  */
 export interface IGroupService {
     /**

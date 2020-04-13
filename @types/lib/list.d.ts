@@ -2,17 +2,22 @@ import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
+ * #### REST API
+ * _api/web/lists/getByTitle('listName')
+ *
  * #### Get list from the current web
+ *
  * ```typescript
  * import { List } from "gd-sprest";
  * 
  * List("Site Assets").execute(list => {
- *   ...
+ *   let title = list.Title;
  * });
  * ```
  * 
  *
  * #### Query a list to include various collections
+ *
  * ```typescript
  * import { List } from "gd-sprest";
  * 

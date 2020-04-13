@@ -2,12 +2,14 @@ import { Microsoft } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * INavigation
+ * #### REST API
+ * _api/navigation
  */
 export const Navigation: INavigation;
 
 /**
  * Navigation
+ * @category Navigation
  */
 export interface INavigation {
     /**

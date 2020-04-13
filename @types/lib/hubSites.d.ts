@@ -2,12 +2,14 @@ import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Hub Sites
+ * #### REST API
+ * _api/SP.HubSite.Collection
  */
 export const HubSites: IHubSites;
 
 /**
  * Hub Sites
+ * @category Hub Site
  */
 export interface IHubSites {
     /**
@@ -18,7 +20,6 @@ export interface IHubSites {
 
     /**
      * A static method to see if the current user can create a hub site.
-     * @param props - The list entity request properties.
      */
     canCreate(): Base.IBaseExecution<{ CanCreate: boolean }>;
 }

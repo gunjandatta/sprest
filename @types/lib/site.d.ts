@@ -2,12 +2,37 @@ import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Site
+ * #### REST API
+ * _api/site
+ *
+ * #### Get list from the current site collection
+ *
+ * ```typescript
+ * import { Site } from "gd-sprest";
+ * 
+ * Site().execute(site => {
+ *   let hubSiteId = site.HubSiteId;
+ * });
+ * ```
+ * 
+ *
+ * #### Query a list to include various collections
+ *
+ * ```typescript
+ * import { Site } from "gd-sprest";
+ * 
+ * Site().query({
+ *  Expand: ["UserCustomActions"]
+ * }).execute(list => {
+ *   let actions = site.UserCustomActions.results;
+ * });
+ * ```
  */
 export const Site: ISite;
 
 /**
  * Site
+ * @category Site
  */
 export interface ISite {
     /**

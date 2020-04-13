@@ -2,12 +2,14 @@ import { Base, Microsoft, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Search
+ * #### REST API
+ * _api/search
  */
 export const Search: ISearch;
 
 /**
  * Search
+ * @category Search
  */
 export interface ISearch {
     /**

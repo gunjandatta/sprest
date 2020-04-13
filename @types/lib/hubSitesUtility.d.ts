@@ -2,12 +2,14 @@ import { Microsoft } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Hub Sites Utility
+ * #### REST API
+ * _api/HubSitesUtility
  */
 export const HubSitesUtility: IHubSitesUtility;
 
 /**
  * Hub Sites Utility
+ * @category Hub Site
  */
 export interface IHubSitesUtility {
     /**

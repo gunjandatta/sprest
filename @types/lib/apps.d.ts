@@ -2,12 +2,14 @@ import { Microsoft } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Apps
+ * #### REST API
+ * _api/Microsoft.AppServices.AppCollection
  */
 export const Apps: IApps;
 
 /**
  * Apps
+ * @category Apps
  */
 export interface IApps {
     /**

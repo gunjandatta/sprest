@@ -2,12 +2,14 @@ import { SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Profile Loader
+ * #### REST API
+ * _api/SP.UserProfiles.ProfileLoader.getProfileLoader
  */
 export const ProfileLoader: IProfileLoader;
 
 /**
  * Profile Loader
+ * @category Profile Loader
  */
 export interface IProfileLoader {
     /**

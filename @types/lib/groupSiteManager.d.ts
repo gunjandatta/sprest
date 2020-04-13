@@ -2,12 +2,14 @@ import { Microsoft } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Group Site Manager
+ * #### REST API
+ * _api/Microsoft.SharePoint.Portal.GroupSiteManager
  */
 export const GroupSiteManager: IGroupSiteManager;
 
 /**
  * Group Site Manager
+ * @category Group Site
  */
 export interface IGroupSiteManager {
     /**

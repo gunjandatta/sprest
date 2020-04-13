@@ -3,11 +3,13 @@ import { ITargetInfo } from "../utils";
 
 /**
  * Graph
+ * @hidden
  */
 export const Graph: IGraph;
 
 /**
  * Graph
+ * @hidden
  */
 export interface IGraph {
     /**

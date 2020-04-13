@@ -2,12 +2,14 @@ import * as Types from "../intellisense";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Utility
+ * #### REST API
+ * _api/SP.Utilities.Utility
  */
 export const Utility: IUtility;
 
 /**
  * Utility
+ * @category Utility
  */
 export interface IUtility {
     /**

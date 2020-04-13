@@ -2,7 +2,8 @@ import { Base, SP } from "gd-sprest-def";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Workflow Instance Service
+ * #### REST API
+ * _api/SP.WorkflowServices.WorkflowInstanceService.Current
  */
 export const WorkflowInstanceService: IWorkflowInstanceService;
 

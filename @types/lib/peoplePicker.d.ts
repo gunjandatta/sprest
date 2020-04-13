@@ -2,12 +2,14 @@ import * as Types from "../intellisense";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * People Picker
+ * #### REST API
+ * _api/SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface
  */
 export const PeoplePicker: IPeoplePicker;
 
 /**
  * People Picker
+ * @category People Picker
  */
 export interface IPeoplePicker {
     /**

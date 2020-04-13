@@ -1,12 +1,15 @@
 import { Base, SP } from "gd-sprest-def";
 
 /**
- * Context Information
+ * ### Context Information
+ * 
+ * A reference to the _spPageContextInfo global variable.
  */
 export const ContextInfo: IContextInformation;
 
 /**
  * Context Information
+ * @category Context Information
  */
 export interface IContextInformation {
     /**
@@ -350,16 +353,22 @@ export interface IContextInformation {
      */
 
     /**
-     * Method to generate a guid.
+     * Generates a guid.
+     * @returns A GUID as a string value.
      */
     generateGUID: () => string;
 
     /**
-     * Method to get the web context information.
-     * @param url - The relative url of the web.
+     * Gets the context information of another web.
+     * This is required for making POST requests on other site collections.
+     * @param url The relative url of the web.
+     * @return The context information of the web.
      */
     getWeb(url: string): Base.IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
 
-    /** The page context object from an SPFX project. */
+    /**
+     * Sets the page context information for modern pages.
+     * @param spfxPageContext - The page context information variable from a SPFx project.
+     */
     setPageContext(spfxPageContext: any);
 }
