@@ -65,7 +65,6 @@ export function setContentTypeFields(ctInfo: { id: string, fields: Array<string>
 
 /**
  * The XML HTTP request properties.
- * @internal
  */
 export interface IRequest {
     /** The data to pass in the request. */
