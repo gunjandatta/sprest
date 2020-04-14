@@ -5,7 +5,7 @@ import { SP } from "gd-sprest-def";
  * 
  * ### Example Configuration
  * ```ts
- * let helper = Helper.SPConfig({
+ * let cfg = Helper.SPConfig({
  *     ListCfg: [
  *         {
  *             ListInformation: {
@@ -24,6 +24,12 @@ import { SP } from "gd-sprest-def";
  *         }
  *     ]
  * });
+ * 
+ * // Install the library
+ * cfg.install();
+ * 
+ * // Unisntall the library
+ * cfg.uninstall();
  * ```
  */
 export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
