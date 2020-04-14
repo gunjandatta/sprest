@@ -2,6 +2,26 @@ import { Base, SP } from "gd-sprest-def";
 
 /**
  * A reference to the _spPageContextInfo global variable.
+ * 
+ * ### How to get the context information of another web
+ * This is required for making POST requests on webs in different site collections.
+ * ```ts
+ * // Get the context information of the root web
+ * ContextInfo.getWeb("/").execute((contextInfo) => {
+ *     // Get the root web
+ *     Web("/", { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
+ *         // Get the 'Site Assets' library
+ *         .Lists("Site Assets")
+ *         // Query for the items
+ *         .getItemsByQuery("<Query><OrderBy><FieldRef Name='ID' /></OrderBy></Query>")
+ *         // Execute the request
+ *         .execute(items => {
+ *             // Parse the items
+ *             for(let i=0; i<items.results.length; i++) {
+ *                 let item = items.results[i];
+ *             }
+ *         });
+ * });
  */
 export const ContextInfo: IContextInformation;
 
