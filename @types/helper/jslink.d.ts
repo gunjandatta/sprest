@@ -1,5 +1,39 @@
 /**
- * JSLink
+ * Helper class for creating JSLink solutions.
+ * 
+ * ### How to register a template
+ * ```ts
+ * Helper.JSLink.register({
+ *     Templates: {
+ *         Fields: {
+ *             Title: {
+ *                 EditForm: (ctx, field) => { $REST.Helper.JSLink.hideField(ctx, field, true); },
+ *                 View: $REST.Helper.JSLink.disableQuickEdit
+ *             }
+ *         }
+ *     }
+ * });
+ * 
+ * ### Available Customizations
+ * - BaseViewID
+ * - ListTemplateType
+ * - OnPostRender
+ * - onPreRender
+ * - Templates
+ *     - Body
+ *     - Footer
+ *     - Fields
+ *         - DisplayForm
+ *         - EditForm
+ *         - Name
+ *         - NewForm
+ *         - View
+ *     - Group
+ *     - Header
+ *     - Item
+ *     - OnPostRender
+ *     - OnPreRender
+ * ```
  */
 export const JSLink: IJSLink;
 

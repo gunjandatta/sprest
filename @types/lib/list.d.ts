@@ -8,8 +8,6 @@ import { ITargetInfoProps } from "../utils";
  * #### Get list from the current web
  *
  * ```typescript
- * import { List } from "gd-sprest";
- * 
  * List("Site Assets").execute(list => {
  *   let title = list.Title;
  * });
@@ -19,8 +17,6 @@ import { ITargetInfoProps } from "../utils";
  * #### Query a list to include various collections
  *
  * ```typescript
- * import { List } from "gd-sprest";
- * 
  * List("Site Assets").query({
  *  Expand: ["ContentTypes", "Fields", "Views"]
  * }).execute(list => {

@@ -1,7 +1,30 @@
 import { SP } from "gd-sprest-def";
 
 /**
- * SharePoint Configuration
+ * Helper class for creating SharePoint Assets
+ * 
+ * ### Example Configuration
+ * ```ts
+ * let helper = Helper.SPConfig({
+ *     ListCfg: [
+ *         {
+ *             ListInformation: {
+ *                 BaseTemplate: SPTypes.ListTemplateType.GenericList,
+ *                 Description: "",
+ *                 Title: "My Custom List",
+ *             },
+ *             ViewInformation: [
+ *                 {
+ *                     JSLink: "~sitecollection/style library/jslinks/mySolution.js",
+ *                     ViewFields: ["ID", "Title", "InternalFieldName"],
+ *                     ViewName: "All Items",
+ *                     ViewQuery: "<Query></Query>"
+ *                 }
+ *             ]
+ *         }
+ *     ]
+ * });
+ * ```
  */
 export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
 

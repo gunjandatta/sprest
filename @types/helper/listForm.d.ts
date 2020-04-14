@@ -2,7 +2,7 @@ import { IODataQuery, SP } from "gd-sprest-def";
 import * as Types from "../intellisense";
 
 /**
- * List Form
+ * Helper class for creating custom list forms.
  */
 export const ListForm: IListForm;
 

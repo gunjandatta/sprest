@@ -48,7 +48,7 @@ export interface IScriptEditorWebPart {
 }
 
 /**
- * Web Part
+ * Helper class for creating custom webparts.
  */
 export const WebPart: IWebPart;
 

@@ -1,9 +1,10 @@
+import { IhasPermissions } from "../../../@types/helper/methods";
 declare var SP;
 
 /**
  * Determines if the user has permissions, based on the permission kind value
  */
-export const hasPermissions = (permissionMask: any, permissions: Array<number> | number = []): boolean => {
+export const hasPermissions: IhasPermissions = (permissionMask: any, permissions: Array<number> | number = []): boolean => {
     let hasPermissions = false;
 
     // Set the permissions

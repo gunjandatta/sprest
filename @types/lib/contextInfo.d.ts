@@ -1,8 +1,6 @@
 import { Base, SP } from "gd-sprest-def";
 
 /**
- * ### Context Information
- * 
  * A reference to the _spPageContextInfo global variable.
  */
 export const ContextInfo: IContextInformation;

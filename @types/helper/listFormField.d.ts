@@ -2,7 +2,7 @@ import { SP } from "gd-sprest-def";
 import { ITermInfo } from "./taxonomy";
 
 /**
- * List Form Field
+ * Helper class for creating custom list forms.
  */
 export const ListFormField: IListFormField;
 

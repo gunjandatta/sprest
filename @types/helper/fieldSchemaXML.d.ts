@@ -1,17 +1,15 @@
-/**
- * Field Schema XML
- */
-import { IFieldInfo } from ".";
+import { IFieldInfo } from "./spCfg";
 
 /**
- * Field Schema XML
+ * Generates the Schema XML for a Field.
+ * @category Field Schema XML
  */
-export const FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
+export const FieldSchemaXML: IFieldSchemaXML;
 
 /**
- * Field Schema XML
+ * @category Field Schema XML
  */
 export interface IFieldSchemaXML {
     /** Creates the suitebar link */
-    new(fieldInfo: IFieldInfo): PromiseLike<string>;
+    (fieldInfo: IFieldInfo): PromiseLike<string>;
 }

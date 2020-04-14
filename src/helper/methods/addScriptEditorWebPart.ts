@@ -1,9 +1,10 @@
-import { IScriptEditorWebPart } from "../../../@types/helper";
+import { IaddScriptEditorWebPart } from "../../../@types/helper/methods";
+import { IScriptEditorWebPart } from "../../../@types/helper/webpart";
 import { WebPart } from "../webpart";
 declare var SP;
 
 // Method to add a script editor webpart to the page
-export const addScriptEditorWebPart = (url: string, wpProps: IScriptEditorWebPart) => {
+export const addScriptEditorWebPart: IaddScriptEditorWebPart = (url: string, wpProps: IScriptEditorWebPart) => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the current context

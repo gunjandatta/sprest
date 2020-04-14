@@ -1,4 +1,5 @@
 import { IContentType, FieldLink, FieldLinkProps } from "gd-sprest-def/lib/SP";
+import { IsetContentTypeFields } from "../../../@types/helper/methods";
 import { ContextInfo, Web } from "../../lib";
 declare var SP;
 
@@ -6,7 +7,7 @@ declare var SP;
  * Sets the field links associated with a content type.
  * @param ctInfo - The content type information
  */
-export const setContentTypeFields = (ctInfo: { id: string, fields: Array<string | FieldLinkProps>, listName?: string, webUrl?: string }): PromiseLike<void> => {
+export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string, fields: Array<string | FieldLinkProps>, listName?: string, webUrl?: string }): PromiseLike<void> => {
     // Clears the content type field links
     let clearLinks = (): PromiseLike<Array<FieldLink>> => {
         // Return a promise

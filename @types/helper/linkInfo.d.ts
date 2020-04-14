@@ -1,10 +1,12 @@
 /**
- * Ribbon Link
+ * Adds an icon to the ribbon bar on a classic page.
+ * @param props The ribbon link information.
  */
 export const RibbonLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
 
 /**
- * Suitebar Link
+ * Adds an icon to the suite bar on a classic page.
+ * If SharePoint Online is detected, then the icon will be rendered in the ribbon bar.
  */
 export const SuiteBarLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
 
@@ -35,14 +37,12 @@ export interface ILinkInfo {
  * Ribbon Link
  */
 export interface IRibbonLink {
-    /** Creates the ribbon link */
-    new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
+    (props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
 }
 
 /**
  * Suitebar Link
  */
 export interface ISuiteBarLink {
-    /** Creates the suitebar link */
-    new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
+    (props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
 }
