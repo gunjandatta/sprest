@@ -40,7 +40,7 @@ export interface IREST {
     /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
-    Graph: LibTypes.IGraph;
+    //Graph: LibTypes.IGraph;
 
     /**
      * A reference to the _api/groupservice endpoint.

@@ -1,4 +1,4 @@
-import * as Types from "../intellisense";
+import * as Types from "../intellisense/graph";
 import { ITargetInfo } from "../utils";
 
 /**

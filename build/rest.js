@@ -12,7 +12,7 @@ exports.$REST = {
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
-    Graph: Lib.Graph,
+    //Graph: Lib.Graph,
     GroupService: Lib.GroupService,
     GroupSiteManager: Lib.GroupSiteManager,
     Helper: Helper,

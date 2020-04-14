@@ -2,6 +2,7 @@ import { Base } from "gd-sprest-def";
 
 /**
  * Graph Collection
+ * @hidden
  */
 export interface IGraphCollection<T> {
     value: Array<T>;
@@ -9,11 +10,13 @@ export interface IGraphCollection<T> {
 
 /**
  * Graph Methods
+ * @hidden
  */
 export interface IGraphMethods { }
 
 /**
  * Graph Query Properties
+ * @hidden
  */
 export interface IGraphQueryProps {
     /**
@@ -54,16 +57,19 @@ export interface IGraphQueryProps {
 
 /**
  * Graph Result
+ * @hidden
  */
 export interface IGraphResult { }
 
 /**
  * Graph Query Result
+ * @hidden
  */
 export interface IGraphQueryResult { }
 
 /**
  * Graph Drive
+ * @hidden
  */
 export interface IGraphDrive {
     // Identity of the user, device, or application which created the item.
@@ -117,12 +123,14 @@ export interface IGraphDrive {
 
 /**
  * Graph Drive Item
+ * @hidden
  */
 export interface IGraphDriveItem {
 }
 
 /**
  * Graph Drive Quota
+ * @hidden
  */
 export interface IGraphDriveQuota {
     deleted?: number;
@@ -134,6 +142,7 @@ export interface IGraphDriveQuota {
 
 /**
  * Graph Token
+ * @hidden
  */
 export interface IGraphToken {
     access_token: string;
@@ -145,11 +154,13 @@ export interface IGraphToken {
 
 /**
  * Graph
+ * @hidden
  */
 export interface IGraph extends IGraphMethods, IGraphQueryProps, Base.IBaseQuery<IGraphResult, IGraphQueryResult> { }
 
 /**
  * Graph Group
+ * @hidden
  */
 export interface IGraphGroup {
     // Default is false. Indicates if people external to the organization can send messages to the group.
@@ -215,6 +226,7 @@ export interface IGraphGroup {
 
 /**
  * Graph SharePoint IDs
+ * @hidden
  */
 export interface IGraphSharePointIds {
     // The unique identifier (guid) for the item's list in SharePoint.
@@ -238,6 +250,7 @@ export interface IGraphSharePointIds {
 
 /**
  * Graph User
+ * @hidden
  */
 export interface IGraphUser {
     // A freeform text entry field for the user to describe themselves.

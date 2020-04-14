@@ -196,7 +196,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                         // Create the field refs
                         setContentTypeFields({
-                            fields: cfgContentType.FieldRefs,
+                            fields: cfgContentType.FieldRefs as any,
                             id: cfgContentType.ContentType.Id.StringValue,
                             listName: list ? list.Title : null,
                             webUrl

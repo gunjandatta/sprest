@@ -46,7 +46,6 @@ declare module 'gd-sprest' {
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/apps";
     export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/graph";
     export * from "gd-sprest/lib/groupService";
     export * from "gd-sprest/lib/groupSiteManager";
     export * from "gd-sprest/lib/hubSites";
@@ -69,12 +68,16 @@ declare module 'gd-sprest/lib' {
 
 declare module 'gd-sprest/helper' {
     import { Base, SP } from "gd-sprest-def";
+    import { IExecutor } from "gd-sprest/helper/executor";
     import { IFieldSchemaXML } from "gd-sprest/helper/fieldSchemaXML";
     import { IJSLink } from "gd-sprest/helper/jslink";
     import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "gd-sprest/helper/linkInfo";
     import { IListForm } from "gd-sprest/helper/listForm";
     import { IListFormField } from "gd-sprest/helper/listFormField";
-    import { IRequest } from "gd-sprest/helper/methods";
+    import {
+            IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType,
+            IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields
+    } from "./methods";
     import { ISPComponents } from "gd-sprest/helper/sp";
     import { ISPConfig, ISPConfigProps, IFieldInfo } from "gd-sprest/helper/spCfg";
     import { ISPCfgFieldType, ISPCfgType } from "gd-sprest/helper/spCfgTypes";
@@ -98,93 +101,37 @@ declare module 'gd-sprest/helper' {
     export * from "gd-sprest/helper/webpart";
     
     /**
-        * Helper
+        * Helper functions for SharePoint development.
+        * @category Helper
         */
     export interface IHelper {
-            /**
-                * Method to create a document set item.
-                */
-            createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<SP.ListItem>;
+    
+            /** Methods */
+            addContentEditorWebPart: IaddContentEditorWebPart,
+            addScriptEditorWebPart: IaddScriptEditorWebPart,
+            createContentType: IcreateContentType,
+            createDocSet: IcreateDocSet,
+            hasPermissions: IhasPermissions,
+            parse: Iparse,
+            request: Irequest,
+            setContentTypeFields: IsetContentTypeFields,
+            Executor: IExecutor;
+            FieldSchemaXML: IFieldSchemaXML;
+    
     
             /**
-                * Executor
-                */
-            Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
-    
-            /**
-                * Helper class for generating a field schema xml
-                */
-            FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
-    
-            /**
-                * Determines if the user has permissions, based on the permission kind value
-                */
-            hasPermissions(permissionMask: SP.BasePermissions, permissions: Array<number> | number): boolean;
-    
-            /**
-                * Helper class for implementing JSLink solutions
+                * Helper classes
                 */
             JSLink: IJSLink;
-    
-            /**
-                * Helper class for implementing custom list forms
-                */
             ListForm: IListForm;
-    
-            /**
-                * Helper class for implementing custom list forms
-                */
             ListFormField: IListFormField;
-    
-            /**
-                * Helper method to convert a json string to a base object
-                * This will require you to use the stringify method of the base object.
-                */
-            parse<T = Base.IBaseResult>(jsonString: string): T;
-    
-            /**
-                * Helper method to execute an XMLHttpRequest
-                */
-            request(props: IRequest): PromiseLike<any>;
-    
-            /**
-                * Helper class for adding links to the top ribbon bar
-                */
-            RibbonLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
-    
-            /**
-                * SharePoint Core Library Components
-                */
+            RibbonLink: IRibbonLink;
             SP: ISPComponents;
-    
-            /**
-                * The field configuration types
-                */
             SPCfgFieldType: ISPCfgFieldType;
-    
-            /**
-                * The configuration types
-                */
             SPCfgType: ISPCfgType;
-    
-            /**
-                * Helper class for automating SharePoint assets
-                */
             SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
-    
-            /**
-                * Helper class for adding links to the suite bar
-                */
-            SuiteBarLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
-    
-            /**
-                * Helper class for getting information from the taxonomy term store
-                */
+            SuiteBarLink: ISuiteBarLink;
             Taxonomy: ITaxonomy;
-    
-            /**
-                * Helper class for creating modern webparts in SharePoint 2013+ environments
-                */
             WebPart: IWebPart;
     }
 }
@@ -232,7 +179,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to interact with the Graph API. (Still In Development)
                 */
-            Graph: LibTypes.IGraph;
+            //Graph: LibTypes.IGraph;
     
             /**
                 * A reference to the _api/groupservice endpoint.
@@ -422,7 +369,6 @@ declare module 'gd-sprest/sptypes' {
 
 declare module 'gd-sprest/intellisense' {
     export * from "gd-sprest-def";
-    export * from "gd-sprest/intellisense/graph";
     export * from "gd-sprest/intellisense/peoplePicker";
     export * from "gd-sprest/intellisense/utility";
 }
@@ -432,12 +378,14 @@ declare module 'gd-sprest/lib/apps' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Apps
+        * #### REST API
+        * _api/Microsoft.AppServices.AppCollection
         */
     export const Apps: IApps;
     
     /**
         * Apps
+        * @category Apps
         */
     export interface IApps {
             /**
@@ -452,12 +400,33 @@ declare module 'gd-sprest/lib/contextInfo' {
     import { Base, SP } from "gd-sprest-def";
     
     /**
-        * Context Information
+        * A reference to the _spPageContextInfo global variable.
+        * 
+        * ### How to get the context information of another web
+        * This is required for making POST requests on webs in different site collections.
+        * ```ts
+        * // Get the context information of the root web
+        * ContextInfo.getWeb("/").execute((contextInfo) => {
+        *     // Get the root web
+        *     Web("/", { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
+        *         // Get the 'Site Assets' library
+        *         .Lists("Site Assets")
+        *         // Query for the items
+        *         .getItemsByQuery("<Query><OrderBy><FieldRef Name='ID' /></OrderBy></Query>")
+        *         // Execute the request
+        *         .execute(items => {
+        *             // Parse the items
+        *             for(let i=0; i<items.results.length; i++) {
+        *                 let item = items.results[i];
+        *             }
+        *         });
+        * });
         */
     export const ContextInfo: IContextInformation;
     
     /**
         * Context Information
+        * @category Context Information
         */
     export interface IContextInformation {
     
@@ -795,45 +764,24 @@ declare module 'gd-sprest/lib/contextInfo' {
     
     
             /**
-                * Method to generate a guid.
+                * Generates a guid.
+                * @returns A GUID as a string value.
                 */
             generateGUID: () => string;
     
             /**
-                * Method to get the web context information.
-                * @param url - The relative url of the web.
+                * Gets the context information of another web.
+                * This is required for making POST requests on other site collections.
+                * @param url The relative url of the web.
+                * @return The context information of the web.
                 */
             getWeb(url: string): Base.IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
     
-            /** The page context object from an SPFX project. */
+            /**
+                * Sets the page context information for modern pages.
+                * @param spfxPageContext - The page context information variable from a SPFx project.
+                */
             setPageContext(spfxPageContext: any);
-    }
-}
-
-declare module 'gd-sprest/lib/graph' {
-    import * as Types from "gd-sprest/intellisense";
-    import { ITargetInfo } from "gd-sprest/utils";
-    
-    /**
-        * Graph
-        */
-    export const Graph: IGraph;
-    
-    /**
-        * Graph
-        */
-    export interface IGraph {
-            /**
-                * Creates an instance of the graph library.
-                * @param accessToken - The access token for the graph api request.
-                * @param version - The version of the graph to target.
-                */
-            (accessToken: string, version?: string): Types.IGraph;
-    
-            /**
-                * Method to get the access token from a classic page.
-                */
-            getAccessToken(): Promise<Types.IGraphToken>;
     }
 }
 
@@ -842,12 +790,14 @@ declare module 'gd-sprest/lib/groupService' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Group Service
+        * #### REST API
+        * _api/Microsoft.SharePoint.Portal.GroupService
         */
     export const GroupService: IGroupService;
     
     /**
         * Group Service
+        * @category Group Site
         */
     export interface IGroupService {
             /**
@@ -863,12 +813,14 @@ declare module 'gd-sprest/lib/groupSiteManager' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Group Site Manager
+        * #### REST API
+        * _api/Microsoft.SharePoint.Portal.GroupSiteManager
         */
     export const GroupSiteManager: IGroupSiteManager;
     
     /**
         * Group Site Manager
+        * @category Group Site
         */
     export interface IGroupSiteManager {
             /**
@@ -884,12 +836,14 @@ declare module 'gd-sprest/lib/hubSites' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Hub Sites
+        * #### REST API
+        * _api/SP.HubSite.Collection
         */
     export const HubSites: IHubSites;
     
     /**
         * Hub Sites
+        * @category Hub Site
         */
     export interface IHubSites {
             /**
@@ -900,7 +854,6 @@ declare module 'gd-sprest/lib/hubSites' {
     
             /**
                 * A static method to see if the current user can create a hub site.
-                * @param props - The list entity request properties.
                 */
             canCreate(): Base.IBaseExecution<{ CanCreate: boolean }>;
     }
@@ -911,12 +864,14 @@ declare module 'gd-sprest/lib/hubSitesUtility' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Hub Sites Utility
+        * #### REST API
+        * _api/HubSitesUtility
         */
     export const HubSitesUtility: IHubSitesUtility;
     
     /**
         * Hub Sites Utility
+        * @category Hub Site
         */
     export interface IHubSitesUtility {
             /**
@@ -932,22 +887,47 @@ declare module 'gd-sprest/lib/list' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * List
+        * #### REST API
+        * _api/web/lists/getByTitle('listName')
+        *
+        * #### Get list from the current web
+        *
+        * ```typescript
+        * List("Site Assets").execute(list => {
+        *   let title = list.Title;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * List("Site Assets").query({
+        *  Expand: ["ContentTypes", "Fields", "Views"]
+        * }).execute(list => {
+        *   let contentTypes = list.ContentTypes.results;
+        *   let fields = list.Fields.results;
+        *   let views = list.Views.results;
+        * });
+        * ```
         */
     export const List: IList;
     
     /**
         * List
+        * @category List
         */
     export interface IList {
             /**
                 * Creates an instance of the library.
+                * @category List
                 * @param listName - The name of the list.
                 * @param targetInfo - (Optional) The target information.
                 */
             (listName: string, targetInfo?: ITargetInfoProps): SP.IList;
     
             /**
+                * @category List
                 * A static method to get the list by the entity name.
                 * @param props - The list entity request properties.
                 */
@@ -955,6 +935,7 @@ declare module 'gd-sprest/lib/list' {
     
             /**
                 * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
+                * @category List
                 * @param listFullUrl - The absolute url of the list.
                 * @param parameters - The optional list data parameters.
                 */
@@ -963,6 +944,7 @@ declare module 'gd-sprest/lib/list' {
     
     /**
         * List Data Stream
+        * @category List
         */
     export interface IListDataStream<RowProps = SP.ListItem> {
             FilterFields?: string;
@@ -978,6 +960,7 @@ declare module 'gd-sprest/lib/list' {
     
     /**
         * List Entity Properties
+        * @category List
         */
     export interface IListEntityProps {
             /** The callback method. */
@@ -999,12 +982,14 @@ declare module 'gd-sprest/lib/navigation' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * INavigation
+        * #### REST API
+        * _api/navigation
         */
     export const Navigation: INavigation;
     
     /**
         * Navigation
+        * @category Navigation
         */
     export interface INavigation {
             /**
@@ -1021,12 +1006,14 @@ declare module 'gd-sprest/lib/peopleManager' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * People Manager
+        * #### REST API
+        * _api/SP.UserProfiles.PeopleManager
         */
     export const PeopleManager: IPeopleManager;
     
     /**
         * People Manager
+        * @category People Manager
         */
     export interface IPeopleManager {
             /**
@@ -1042,12 +1029,14 @@ declare module 'gd-sprest/lib/peoplePicker' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * People Picker
+        * #### REST API
+        * _api/SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface
         */
     export const PeoplePicker: IPeoplePicker;
     
     /**
         * People Picker
+        * @category People Picker
         */
     export interface IPeoplePicker {
             /**
@@ -1063,12 +1052,14 @@ declare module 'gd-sprest/lib/profileLoader' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Profile Loader
+        * #### REST API
+        * _api/SP.UserProfiles.ProfileLoader.getProfileLoader
         */
     export const ProfileLoader: IProfileLoader;
     
     /**
         * Profile Loader
+        * @category Profile Loader
         */
     export interface IProfileLoader {
             /**
@@ -1084,12 +1075,14 @@ declare module 'gd-sprest/lib/search' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Search
+        * #### REST API
+        * _api/search
         */
     export const Search: ISearch;
     
     /**
         * Search
+        * @category Search
         */
     export interface ISearch {
             /**
@@ -1124,12 +1117,37 @@ declare module 'gd-sprest/lib/site' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Site
+        * #### REST API
+        * _api/site
+        *
+        * #### Get list from the current site collection
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().execute(site => {
+        *   let hubSiteId = site.HubSiteId;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().query({
+        *  Expand: ["UserCustomActions"]
+        * }).execute(list => {
+        *   let actions = site.UserCustomActions.results;
+        * });
+        * ```
         */
     export const Site: ISite;
     
     /**
         * Site
+        * @category Site
         */
     export interface ISite {
             /**
@@ -1180,12 +1198,14 @@ declare module 'gd-sprest/lib/socialFeed' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Social Feed
+        * #### REST API
+        * _api/Social.Feed
         */
     export const SocialFeed: ISocialFeed;
     
     /**
         * Social Feed
+        * @cateogry Social Feed
         */
     export interface ISocialFeed {
             /**
@@ -1214,12 +1234,14 @@ declare module 'gd-sprest/lib/themeManager' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Theme Manager
+        * #### REST API
+        * _api/ThemeManager
         */
     export const ThemeManager: IThemeManager;
     
     /**
         * Theme Manager
+        * @category Theme Manager
         */
     export interface IThemeManager {
             /**
@@ -1235,12 +1257,14 @@ declare module 'gd-sprest/lib/userProfile' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * User Profile
+        * #### REST API
+        * _api/SP.UserProfiles.ProfileLoader.getProfileLoader/getUserProfile
         */
     export const UserProfile: IUserProfile;
     
     /**
         * User Profile
+        * @category User Profile
         */
     export interface IUserProfile {
             /**
@@ -1256,12 +1280,14 @@ declare module 'gd-sprest/lib/utility' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Utility
+        * #### REST API
+        * _api/SP.Utilities.Utility
         */
     export const Utility: IUtility;
     
     /**
         * Utility
+        * @category Utility
         */
     export interface IUtility {
             /**
@@ -1278,7 +1304,34 @@ declare module 'gd-sprest/lib/web' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Web
+        * #### REST API
+        * _api/web
+        *
+        * #### Get current web
+        *
+        * ```typescript
+        * import { Web } from "gd-sprest";
+        * 
+        * Web().execute(web => {
+        *   let title = web.Title;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * import { Web } from "gd-sprest";
+        * 
+        * Web().query({
+        *  Expand: ["ContentTypes", "Fields", "Lists", "RootFolder"]
+        * }).execute(web => {
+        *   let contentTypes = web.ContentTypes.results;
+        *   let fields = web.Fields.results;
+        *   let lists = web.Lists.results;
+        *   let rootFolder = web.RootFolder;
+        * });
+        * ```
         */
     export const Web: IWeb;
     
@@ -1306,7 +1359,8 @@ declare module 'gd-sprest/lib/wfInstanceService' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Workflow Instance Service
+        * #### REST API
+        * _api/SP.WorkflowServices.WorkflowInstanceService.Current
         */
     export const WorkflowInstanceService: IWorkflowInstanceService;
     
@@ -1328,7 +1382,8 @@ declare module 'gd-sprest/lib/wfSubscriptionService' {
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
-        * Workflow Subscription Service
+        * #### REST API
+        * _api/SP.WorkflowServices.WorkflowSubscriptionService.Current
         */
     export const WorkflowSubscriptionService: IWorkflowSubscriptionService;
     
@@ -1345,29 +1400,79 @@ declare module 'gd-sprest/lib/wfSubscriptionService' {
     }
 }
 
+declare module 'gd-sprest/helper/executor' {
+    /**
+        * An easy way to apply simple or complex code against an array of objects.
+        * @param methodParams - An array of parameters to execute in order synchronously.
+        * @param method - The method to execute for each method parameter provided. Returning a promise will prevent the next item from executing until it is resolved.
+        * @param onExecuted - An event executed after the method completes. Returning a promise will prevent the next item from executing until it is resolved.
+        */
+    export const Executor: IExecutor;
+    
+    /**
+        * Executor
+        */
+    export interface IExecutor {
+            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any>;
+    }
+}
+
 declare module 'gd-sprest/helper/fieldSchemaXML' {
-    /**
-        * Field Schema XML
-        */
-    import { IFieldInfo } from "gd-sprest/helper";
+    import { IFieldInfo } from "gd-sprest/helper/spCfg";
     
     /**
-        * Field Schema XML
+        * Generates the Schema XML for a Field.
+        * @category Field Schema XML
         */
-    export const FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
+    export const FieldSchemaXML: IFieldSchemaXML;
     
     /**
-        * Field Schema XML
+        * @category Field Schema XML
         */
     export interface IFieldSchemaXML {
             /** Creates the suitebar link */
-            new(fieldInfo: IFieldInfo): PromiseLike<string>;
+            (fieldInfo: IFieldInfo): PromiseLike<string>;
     }
 }
 
 declare module 'gd-sprest/helper/jslink' {
     /**
-        * JSLink
+        * Helper class for creating JSLink solutions.
+        * 
+        * ### How to register a template
+        * ```ts
+        * Helper.JSLink.register({
+        *     Templates: {
+        *         Fields: {
+        *             Title: {
+        *                 EditForm: (ctx, field) => { $REST.Helper.JSLink.hideField(ctx, field, true); },
+        *                 View: $REST.Helper.JSLink.disableQuickEdit
+        *             }
+        *         }
+        *     }
+        * });
+        * ```
+        * 
+        * ### Available Customizations
+        * - BaseViewID
+        * - ListTemplateType
+        * - OnPostRender
+        * - onPreRender
+        * - Templates
+        *     - Body
+        *     - Footer
+        *     - Fields
+        *         - DisplayForm
+        *         - EditForm
+        *         - Name
+        *         - NewForm
+        *         - View
+        *     - Group
+        *     - Header
+        *     - Item
+        *     - OnPostRender
+        *     - OnPreRender
+        * ```
         */
     export const JSLink: IJSLink;
     
@@ -1498,12 +1603,14 @@ declare module 'gd-sprest/helper/jslink' {
 
 declare module 'gd-sprest/helper/linkInfo' {
     /**
-        * Ribbon Link
+        * Adds an icon to the ribbon bar on a classic page.
+        * @param props The ribbon link information.
         */
     export const RibbonLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
     
     /**
-        * Suitebar Link
+        * Adds an icon to the suite bar on a classic page.
+        * If SharePoint Online is detected, then the icon will be rendered in the ribbon bar.
         */
     export const SuiteBarLink: (props: ILinkInfo) => PromiseLike<HTMLAnchorElement>;
     
@@ -1534,16 +1641,14 @@ declare module 'gd-sprest/helper/linkInfo' {
         * Ribbon Link
         */
     export interface IRibbonLink {
-            /** Creates the ribbon link */
-            new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
+            (props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
     }
     
     /**
         * Suitebar Link
         */
     export interface ISuiteBarLink {
-            /** Creates the suitebar link */
-            new(props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
+            (props: ILinkInfo): PromiseLike<HTMLAnchorElement>;
     }
 }
 
@@ -1552,7 +1657,7 @@ declare module 'gd-sprest/helper/listForm' {
     import * as Types from "gd-sprest/intellisense";
     
     /**
-        * List Form
+        * Helper class for creating custom list forms.
         */
     export const ListForm: IListForm;
     
@@ -1748,7 +1853,7 @@ declare module 'gd-sprest/helper/listFormField' {
     import { ITermInfo } from "gd-sprest/helper/taxonomy";
     
     /**
-        * List Form Field
+        * Helper class for creating custom list forms.
         */
     export const ListFormField: IListFormField;
     
@@ -1935,84 +2040,9 @@ declare module 'gd-sprest/helper/listFormField' {
     }
 }
 
-declare module 'gd-sprest/helper/methods' {
-    import { SP } from "gd-sprest-def";
-    import { IContentEditorWebPart, IScriptEditorWebPart } from "gd-sprest/helper/webpart";
-    
-    /**
-        * Adds a content editor webpart to a page.
-        * @param url - The relative url of the page.
-        * @param wpProps - The webpart properties.
-        */
-    export const addContentEditorWebPart: (url: string, wpProps: IContentEditorWebPart) => PromiseLike<void>;
-    
-    /**
-        * Adds a script editor webpart to a page.
-        * @param url - The relative url of the page.
-        * @param wpProps - The webpart properties.
-        */
-    export const addScriptEditorWebPart: (url: string, wpProps: IScriptEditorWebPart) => PromiseLike<void>;
-    
-    /**
-        * Creates a content type in a web or specified list.
-        * @param ctInfo - The content type information.
-        * @param parentInfo - The parent content type id and url containing it.
-        * @param webUrl - The relative url to create the content type in.
-        * @param listName - The list name to add the content type to.
-        */
-    export const createContentType: (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string) => PromiseLike<SP.ContentType>;
-    
-    /**
-        * Creates a document set item.
-        * @param name - The name of the document set folder to create.
-        * @param listName - The name of the document set library.
-        * @param webUrl - The url of the web containing the document set library.
-        */
-    export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<SP.ListItem>;
-    
-    /**
-        * Determines if the user has permissions, based on the permission kind value
-        */
-    export const hasPermissions: (permissionMask: any, permissions: Array<number> | number) => boolean;
-    
-    /**
-        * Convert a JSON string to a base object
-        */
-    export function parse<T = any>(jsonString: string): T;
-    
-    
-    /**
-        * XML HTTP Request
-        */
-    export const request: (props: IRequest) => PromiseLike<any>;
-    
-    /**
-        * Sets the field links associated with a content type.
-        * @param ctInfo - The content type information
-        */
-    export const setContentTypeFields: (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }) => PromiseLike<void>;
-    
-    /**
-        * Request
-        */
-    export interface IRequest {
-            /** The data to pass in the request. */
-            data?: any;
-    
-            /** The request headers. */
-            headers?: { [key: string]: string };
-    
-            /** The request method. */
-            method?: string;
-    
-            /** The request url. */
-            url: string;
-    }
-}
-
 declare module 'gd-sprest/helper/sp' {
     /**
-        * SharePoint Components
+        * References to the internal SharePoint libraries.
         */
     export const SP: ISPComponents;
     
@@ -2021,27 +2051,55 @@ declare module 'gd-sprest/helper/sp' {
         */
     export interface ISPComponents {
             /**
-                * Callout Manager
+                * ### How to create a callout
+                * ```ts
+                * Helper.SP.CalloutManager.init().then(() => {
+                *   // Create the callout
+                *   let callout = Helper.SP.CalloutManager.createNewIfNecessary({
+                *     ID: "UniqueId",
+                *     launchPoint: document.querySelector("input[value='Run']"),
+                *     title: "My Custom Callout",
+                *     content: "<p>This is the content of the callout. An element can be applied instead of a string."
+                *   });
+                * });
+                * ```
                 */
             CalloutManager: ICalloutManager,
     
             /**
-                * Modal Dialog
+                * ### How to create a modal dialog
+                * ```ts
+                * Helper.SP.ModalDialog.showWaitScreenWithNoClose("Loading the Data").then(dlg => {
+                *   // Do Stuff and then close the dialog
+                *   dlg.close();
+                * });
+                * ```
                 */
             ModalDialog: IModalDialog,
     
             /**
-                * Notification
+                * ### How to create a notification
+                * ```ts
+                * Helper.SP.Notify.addNotifition("This is a notification.", false);
+                * ```
                 */
             Notify: INotify,
     
             /**
-                * Script on Demand (SOD)
+                * ### How to wait for a library to be loaded
+                * ```ts
+                * Helper.SP.SOD.executeOrDelayUntilScriptLoaded(() => {
+                *   // Do Stuff
+                * }, "gd-sprest");
+                * ```
                 */
             SOD: ISOD,
     
             /**
-                * Status
+                * ### How to create a status
+                * ```ts
+                * Helper.SP.Status.addStatus("Success", "This is a custom status.");
+                * ```
                 */
             Status: IStatus
     }
@@ -2334,7 +2392,7 @@ declare module 'gd-sprest/helper/sp' {
     }
     
     /**
-        * Modal Dialog
+        * @cateogry Modal Dialog
         */
     export interface IModalDialog {
             /**
@@ -2638,7 +2696,36 @@ declare module 'gd-sprest/helper/spCfg' {
     import { SP } from "gd-sprest-def";
     
     /**
-        * SharePoint Configuration
+        * Helper class for creating SharePoint Assets
+        * 
+        * ### Example Configuration
+        * ```ts
+        * let cfg = Helper.SPConfig({
+        *     ListCfg: [
+        *         {
+        *             ListInformation: {
+        *                 BaseTemplate: SPTypes.ListTemplateType.GenericList,
+        *                 Description: "",
+        *                 Title: "My Custom List",
+        *             },
+        *             ViewInformation: [
+        *                 {
+        *                     JSLink: "~sitecollection/style library/jslinks/mySolution.js",
+        *                     ViewFields: ["ID", "Title", "InternalFieldName"],
+        *                     ViewName: "All Items",
+        *                     ViewQuery: "<Query></Query>"
+        *                 }
+        *             ]
+        *         }
+        *     ]
+        * });
+        * 
+        * // Install the library
+        * cfg.install();
+        * 
+        * // Unisntall the library
+        * cfg.uninstall();
+        * ```
         */
     export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
     
@@ -3100,7 +3187,7 @@ declare module 'gd-sprest/helper/spCfgTypes' {
 declare module 'gd-sprest/helper/taxonomy' {
     
     /**
-        * Taxonomy Helper Class
+        * Helper class for getting data from the Managed Metadata Service.
         */
     export const Taxonomy: ITaxonomy;
     
@@ -3337,7 +3424,7 @@ declare module 'gd-sprest/helper/webpart' {
     }
     
     /**
-        * Web Part
+        * Helper class for creating custom webparts.
         */
     export const WebPart: IWebPart;
     
@@ -3427,14 +3514,112 @@ declare module 'gd-sprest/helper/webpart' {
     }
 }
 
-declare module 'gd-sprest/helper/executor' {
+declare module 'gd-sprest/helper/methods' {
+    import { SP } from "gd-sprest-def";
+    import { IContentEditorWebPart, IScriptEditorWebPart } from "gd-sprest/helper/webpart";
+    
     /**
-      * Executor
-      * @param methodParams - An array of parameters to execute in order synchronously.
-      * @param method - The method to execute for each method parameter provided.
-      * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
-      */
-    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any>;
+        * Adds a content editor webpart to a page.
+        * @category Helper
+        * @param url The relative url of the page.
+        * @param wpProps The webpart properties.
+        * @returns A promise is returned.
+        */
+    export const addContentEditorWebPart: IaddContentEditorWebPart;
+    export interface IaddContentEditorWebPart {
+            (url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
+    }
+    
+    /**
+        * Adds a script editor webpart to a page.
+        * @category Helper
+        * @param url - The relative url of the page.
+        * @param wpProps - The webpart properties.
+        */
+    export const addScriptEditorWebPart: IaddScriptEditorWebPart;
+    export interface IaddScriptEditorWebPart {
+            (url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
+    }
+    
+    /**
+        * Creates a content type in a web or specified list.
+        * @category Helper
+        * @param ctInfo - The content type information.
+        * @param parentInfo - The parent content type id and url containing it.
+        * @param webUrl - The relative url to create the content type in.
+        * @param listName - The list name to add the content type to.
+        */
+    export const createContentType: IcreateContentType;
+    export interface IcreateContentType {
+            (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<SP.ContentType>;
+    }
+    
+    /**
+        * Creates a document set item.
+        * @category Helper
+        * @param name - The name of the document set folder to create.
+        * @param listName - The name of the document set library.
+        * @param webUrl - The url of the web containing the document set library.
+        */
+    export const createDocSet: IcreateDocSet;
+    export interface IcreateDocSet {
+            (name: string, listName: string, webUrl?: string): PromiseLike<SP.ListItem>;
+    }
+    
+    /**
+        * Determines if the user has permissions, based on the permission kind value
+        * @category Helper
+        */
+    export const hasPermissions: IhasPermissions;
+    export interface IhasPermissions {
+            (permissionMask: any, permissions: Array<number> | number): boolean;
+    }
+    
+    /**
+        * Convert a JSON string to a base object
+        * @category Helper
+        */
+    export const parse: Iparse;
+    export interface Iparse {
+            <T = any>(jsonString: string): T;
+    }
+    
+    
+    /**
+        * XML HTTP Request
+        * @category Helper
+        */
+    export const request: Irequest;
+    export interface Irequest {
+            (props: IRequest): PromiseLike<any>;
+    }
+    
+    /**
+        * Sets the field links associated with a content type.
+        * @param ctInfo - The content type information
+        * @category Helper
+        */
+    export const setContentTypeFields: IsetContentTypeFields;
+    export interface IsetContentTypeFields {
+            (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
+    }
+    
+    /**
+        * The XML HTTP request properties.
+        */
+    export interface IRequest {
+            /** The data to pass in the request. */
+            data?: any;
+    
+            /** The request headers. */
+            headers?: { [key: string]: string };
+    
+            /** The request method. */
+            method?: string;
+    
+            /** The request url. */
+            url: string;
+    }
 }
 
 declare module 'gd-sprest/sptypes/sptypes' {
@@ -4755,353 +4940,6 @@ declare module 'gd-sprest/sptypes/sptypes' {
             TeamCollaborationSite: string,
             TenantAdmin: string,
             Wiki: string
-    }
-}
-
-declare module 'gd-sprest/intellisense/graph' {
-    import { Base } from "gd-sprest-def";
-    
-    /**
-        * Graph Collection
-        */
-    export interface IGraphCollection<T> {
-            value: Array<T>;
-    }
-    
-    /**
-        * Graph Methods
-        */
-    export interface IGraphMethods { }
-    
-    /**
-        * Graph Query Properties
-        */
-    export interface IGraphQueryProps {
-            /**
-                * Represents a collection of OneDrives and Document Libraries.
-                */
-            drives(): Base.IBaseExecution<IGraphCollection<IGraphDrive>>;
-    
-            /**
-                * Represents a OneDrive or Document Library.
-                * @param id - The drive id.
-                */
-            drives(id: string): Base.IBaseExecution<IGraphDrive>;
-    
-            /**
-                * Represents a collection of Azure Active Directory (Azure AD) groups.
-                * Types: Office 365 Group, Dynamic Group or Security Group
-                */
-            groups(): Base.IBaseExecution<IGraphCollection<IGraphGroup>>;
-    
-            /**
-                * Represents an Azure Active Directory (Azure AD) group.
-                * Types: Office 365 Group, Dynamic Group or Security Group
-                * @param id - The group id.
-                */
-            groups(id: string): Base.IBaseExecution<IGraphGroup>;
-    
-            /**
-                * Represents a collection of Azure AD user accounts.
-                */
-            users(): Base.IBaseExecution<IGraphCollection<IGraphUser>>;
-    
-            /**
-                * Represents a collection of Azure AD user accounts.
-                * @param id - The user id.
-                */
-            users(id: string): Base.IBaseExecution<IGraphUser>;
-    }
-    
-    /**
-        * Graph Result
-        */
-    export interface IGraphResult { }
-    
-    /**
-        * Graph Query Result
-        */
-    export interface IGraphQueryResult { }
-    
-    /**
-        * Graph Drive
-        */
-    export interface IGraphDrive {
-            // Identity of the user, device, or application which created the item.
-            createdBy?: { user: IGraphUser };
-    
-            // Date and time of item creation.
-            createdDateTime?: string;
-    
-            // Provide a user-visible description of the drive.
-            description?: string;
-    
-            // Describes the type of drive represented by this resource. OneDrive personal drives will return personal. OneDrive for Business will return business. SharePoint document libraries will return documentLibrary.
-            driveType?: string;
-    
-            // The unique identifier of the drive.
-            id?: string;
-    
-            // The drive items
-            items?: () => Base.IBaseExecution<IGraphCollection<IGraphDriveItem>>;
-    
-            // Identity of the user, device, and application which last modified the item.
-            lastModifiedBy?: { user: IGraphUser };
-    
-            // Date and time the item was last modified.
-            lastModifiedDateTime?: string;
-    
-            // The name of the item.
-            name?: string;
-    
-            // The user account that owns the drive.
-            owner?: { user: IGraphUser };
-    
-            // Information about the drive's storage space quota.
-            quota?: IGraphDriveQuota;
-    
-            // Reference to the root folder.
-            root?: () => Base.IBaseExecution<IGraphDriveItem>;
-    
-            // Collection of common folders available in OneDrive.
-            specials?: () => Base.IBaseExecution<IGraphCollection<IGraphDriveItem>>;
-    
-            // Returns identifiers useful for SharePoint REST compatibility.
-            sharepointIds?: IGraphSharePointIds;
-    
-            // If present, indicates that this is a system-managed drive.
-            systemFacet?: any;
-    
-            // URL that displays the resource in the browser.
-            webUrl?: string;
-    }
-    
-    /**
-        * Graph Drive Item
-        */
-    export interface IGraphDriveItem {
-    }
-    
-    /**
-        * Graph Drive Quota
-        */
-    export interface IGraphDriveQuota {
-            deleted?: number;
-            remaining?: number;
-            state?: string;
-            total?: number;
-            used?: number;
-    }
-    
-    /**
-        * Graph Token
-        */
-    export interface IGraphToken {
-            access_token: string;
-            expires_on: string;
-            resource: string;
-            scope: string;
-            token_type: string;
-    }
-    
-    /**
-        * Graph
-        */
-    export interface IGraph extends IGraphMethods, IGraphQueryProps, Base.IBaseQuery<IGraphResult, IGraphQueryResult> { }
-    
-    /**
-        * Graph Group
-        */
-    export interface IGraphGroup {
-            // Default is false. Indicates if people external to the organization can send messages to the group.
-            allowExternalSenders?: boolean;
-    
-            // Default is false. Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set this property in a PATCH request for the group; do not set it in the initial POST request that creates the group.
-            autoSubscribeNewMembers?: boolean;
-    
-            // Describes a classification for the group (such as low, medium or high business impact). Valid values for this property are defined by creating a ClassificationList setting value, based on the template definition.
-            classification?: string;
-    
-            // Timestamp of when the group was created. The value cannot be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only.
-            createdDateTime?: string;
-    
-            // An optional description for the group.
-            description?: string;
-    
-            // The display name for the group. This property is required when a group is created and it cannot be cleared during updates. Supports $filter and $orderby.
-            displayName?: string;
-    
-            // Specifies the type of group to create. Possible values are Unified to create an Office 365 group, or DynamicMembership for dynamic groups.  For all other group types, like security-enabled groups and email-enabled security groups, do not set this property. Supports $filter.
-            groupTypes?: Array<string>;
-    
-            // The unique identifier for the group. Inherited from directoryObject. Key. Not nullable. Read-only.
-            id?: string;
-    
-            // Default value is true. Indicates whether the current user is subscribed to receive email conversations.
-            isSubscribedByMail?: boolean;
-    
-            // The SMTP address for the group, for example, "serviceadmins@contoso.onmicrosoft.com". Read-only. Supports $filter.
-            mail?: string;
-    
-            // Specifies whether the group is mail-enabled. If the securityEnabled property is also true, the group is a mail-enabled security group; otherwise, the group is a Microsoft Exchange distribution group.
-            mailEnabled?: boolean;
-    
-            // The mail alias for the group, unique in the organization. This property must be specified when a group is created. Supports $filter.
-            mailNickname?: string;
-    
-            // Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only. Supports $filter.
-            onPremisesLastSyncDateTime?: string;
-    
-            // Contains the on-premises security identifier (SID) for the group that was synchronized from on-premises to the cloud. Read-only.
-            onPremisesSecurityIdentifier?: string;
-    
-            // true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only. Supports $filter.
-            onPremisesSyncEnabled?: boolean;
-    
-            // The any operator is required for filter expressions on multi-valued properties. Read-only. Not nullable. Supports $filter.
-            proxyAddresses?: Array<string>;
-    
-            // Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Read-only.
-            renewedDateTime?: string;
-    
-            // Specifies whether the group is a security group. If the mailEnabled property is also true, the group is a mail-enabled security group; otherwise it is a security group. Must be false for Office 365 groups. Supports $filter.
-            securityEnabled?: boolean;
-    
-            // Count of posts that the current  user has not seen since his last visit.
-            unseenCount?: number;
-    
-            // Specifies the visibility of an Office 365 group. Possible values are: Private, Public, or empty (which is interpreted as Public).
-            visibility?: string;
-    }
-    
-    /**
-        * Graph SharePoint IDs
-        */
-    export interface IGraphSharePointIds {
-            // The unique identifier (guid) for the item's list in SharePoint.
-            listId?: string;
-    
-            // An integer identifier for the item within the containing list.
-            listItemId?: string;
-    
-            // The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site.
-            listItemUniqueId?: string;
-    
-            // The unique identifier (guid) for the item's site collection (SPSite).
-            siteId?: string;
-    
-            // The SharePoint URL for the site that contains the item.
-            siteUrl?: string;
-    
-            // The unique identifier (guid) for the item's site (SPWeb).
-            webId?: string;
-    }
-    
-    /**
-        * Graph User
-        */
-    export interface IGraphUser {
-            // A freeform text entry field for the user to describe themselves.
-            aboutMe?: string;
-    
-            // true if the account is enabled; otherwise, false. This property is required when a user is created. Supports $filter.
-            accountEnabled?: boolean;
-    
-            // The licenses that are assigned to the user.
-            assignedLicenses?: Array<string>;
-    
-            // The plans that are assigned to the user.
-            assignedPlans?: Array<string>;
-    
-            // The birthday of the user. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1,
-            birthday?: string;
-    
-            // The user's phone numbers.
-            businessPhones?: Array<string>;
-    
-            // The city in which the user is located.
-            city?: string;
-    
-            // The company name which the user is associated.
-            companyName?: string;
-    
-            // The country/region in which the user is located; for example, “US” or “UK”.
-            country?: string;
-    
-            // The name for the department in which the user works.
-            department?: string;
-    
-            // The name displayed in the address book for the user.
-            displayName?: string;
-    
-            // The first name of the user.
-            givenName?: string;
-    
-            // The hire date of the user. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time.
-            hireDate?: string;
-    
-            // The unique identifier for the user.
-            id?: string;
-    
-            // The instant message voice over IP (VOIP) session initiation protocol (SIP) addresses for the user.
-            imAddresses?: Array<string>;
-    
-            // A list for the user to describe their interests.
-            interests?: Array<string>;
-    
-            // The user's job title.
-            jobTitle?: string;
-    
-            // The user's email address.
-            mail?: string;
-    
-            // The mail alias for the user.
-            mailNickname?: string;
-    
-            // The user's cellphone number.
-            mobilePhone?: string;
-    
-            // The URL for the user's personal site.
-            mySite?: string;
-    
-            // The user's physical office location.
-            officeLocation?: string;
-    
-            // The postal code for the user's postal address. 
-            postalCode?: string;
-    
-            // The user's language of preference.
-            preferredLanguage?: string;
-    
-            // The preferred name for the user.
-            preferredName?: string;
-    
-            // A list for the user to enumerate their responsibilities.
-            responsibilities?: Array<string>;
-    
-            // A list for the user to enumerate the schools they have attended.
-            schools?: Array<string>;
-    
-            // A list for the user to enumerate their skills.
-            skills?: Array<string>;
-    
-            // The state or province in the user's address.
-            state?: string;
-    
-            // The street address of the user's place of business.
-            streetAddress?: string;
-    
-            // The last name of the user.
-            surname?: string;
-    
-            // A two letter country code (ISO standard 3166). Required for users that will be assigned licenses due to legal requirement to check for availability of services in countries.  Examples include: "US", "JP", and "GB".
-            usageLocation?: string;
-    
-            // The user's principal name.
-            userPrincipalName?: string;
-    
-            // A string value that can be used to classify user types in your directory, such as “Member” and “Guest”.
-            userType?: string;
     }
 }
 
