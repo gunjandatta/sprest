@@ -1,4 +1,6 @@
-import { Base, SP } from "gd-sprest-def";
+import { IBaseExecution } from "gd-sprest-def/base";
+import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
+import { IList as IListDef, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -39,14 +41,14 @@ export interface IList {
      * @param listName - The name of the list.
      * @param targetInfo - (Optional) The target information.
      */
-    (listName: string, targetInfo?: ITargetInfoProps): SP.IList;
+    (listName: string, targetInfo?: ITargetInfoProps): IListDef;
 
     /**
      * @category List
      * A static method to get the list by the entity name.
      * @param props - The list entity request properties.
      */
-    getByEntityName(props: IListEntityProps): SP.IList;
+    getByEntityName(props: IListEntityProps): IListDef;
 
     /**
      * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
@@ -54,14 +56,14 @@ export interface IList {
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    getDataAsStream(listFullUrl: string, parameters?: SP.RenderListDataParameters): Base.IBaseExecution<IListDataStream>;
+    getDataAsStream(listFullUrl: string, parameters?: RenderListDataParameters): IBaseExecution<IListDataStream>;
 }
 
 /**
  * List Data Stream
  * @category List
  */
-export interface IListDataStream<RowProps = SP.ListItem> {
+export interface IListDataStream<RowProps = ListItem> {
     FilterFields?: string;
     FilterLink: string;
     FirstRow: number;
@@ -79,7 +81,7 @@ export interface IListDataStream<RowProps = SP.ListItem> {
  */
 export interface IListEntityProps {
     /** The callback method. */
-    callback?: (list: SP.List) => void;
+    callback?: (list: IListDef) => void;
 
     /** The list entity name. */
     name: string;

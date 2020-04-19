@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { BasePermissions } from "gd-sprest-def/lib/SP/complextypes";
 
 /**
  * Base Permission Types
@@ -620,7 +620,7 @@ export type IFriendlyDateFormat = {
  * Base Permission Result
  */
 export interface IGetUserEffectivePermissionsResult {
-    GetUserEffectivePermissions: SP.BasePermissions
+    GetUserEffectivePermissions: BasePermissions
 }
 
 /**

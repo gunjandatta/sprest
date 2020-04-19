@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { IProfileLoader as IProfileLoaderDef } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,5 +16,5 @@ export interface IProfileLoader {
      * Creates an instance of the profile loader library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): SP.UserProfiles.IProfileLoader;
+    (targetInfo?: ITargetInfoProps): IProfileLoaderDef;
 }

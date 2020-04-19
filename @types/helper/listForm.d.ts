@@ -1,4 +1,5 @@
-import { IODataQuery, SP } from "gd-sprest-def";
+import { IODataQuery } from "gd-sprest-def/base";
+import { Attachment, Field, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
 import * as Types from "../intellisense";
 
 /**
@@ -25,7 +26,7 @@ export interface IListForm {
      * Method to load the item attachments
      * @param info - The list form information.
     */
-    loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>
+    loadAttachments(info: IListFormProps): PromiseLike<Array<Attachment>>
 
     /**
      * Method to refresh the item.
@@ -43,7 +44,7 @@ export interface IListForm {
      * @param info - The list form information.
      * @param attachmentInfo - The attachment files to add.
      */
-    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
+    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Attachment>>;
 
     /**
      * Method to save the item.
@@ -151,7 +152,7 @@ export interface IListFormProps {
     fields?: Array<string>;
 
     /** The list item */
-    item?: SP.ListItemOData | SP.ListItem;
+    item?: ListItemOData | ListItem;
 
     /** The item id */
     itemId?: number;
@@ -174,19 +175,19 @@ export interface IListFormProps {
  */
 export interface IListFormResult {
     /** The item attachments. */
-    attachments?: Array<SP.Attachment>;
+    attachments?: Array<Attachment>;
 
     /** The form fields. */
-    fields: { [key: string]: SP.Field };
+    fields: { [key: string]: Field };
 
     /** The list item. */
-    item?: SP.ListItemOData | SP.ListItem;
+    item?: ListItemOData | ListItem;
 
     /** The item query. */
     query?: IODataQuery;
 
     /** The list. */
-    list: SP.List;
+    list: List;
 
     /** The relative web url containing the list. */
     webUrl?: string;

@@ -1,4 +1,5 @@
-import { Base, SP } from "gd-sprest-def";
+import { IBaseExecution } from "gd-sprest-def/base";
+import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
 
 /**
  * A reference to the _spPageContextInfo global variable.
@@ -185,7 +186,7 @@ export interface IContextInformation {
     listId: string;
 
     /** List Permissions Mask */
-    listPermMask: SP.BasePermissions;
+    listPermMask: BasePermissions;
 
     /** List Title */
     listTitle: string;
@@ -209,7 +210,7 @@ export interface IContextInformation {
     pageListId: string;
 
     /** Page Permissions Mask */
-    pagePermMask: SP.BasePermissions;
+    pagePermMask: BasePermissions;
 
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
@@ -338,7 +339,7 @@ export interface IContextInformation {
     webLogoUrl: string;
 
     /** Web Permissions Mask */
-    webPermMask: SP.BasePermissions;
+    webPermMask: BasePermissions;
 
     /** Web Server Relative Url */
     webServerRelativeUrl: string;
@@ -382,7 +383,7 @@ export interface IContextInformation {
      * @param url The relative url of the web.
      * @return The context information of the web.
      */
-    getWeb(url: string): Base.IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
+    getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
 
     /**
      * Sets the page context information for modern pages.

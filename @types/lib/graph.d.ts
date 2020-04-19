@@ -1,4 +1,4 @@
-import * as Types from "../intellisense/graph";
+import { IGraph as IGraphDef, IGraphToken } from "../intellisense/graph";
 import { ITargetInfo } from "../utils";
 
 /**
@@ -17,10 +17,10 @@ export interface IGraph {
      * @param accessToken - The access token for the graph api request.
      * @param version - The version of the graph to target.
      */
-    (accessToken: string, version?: string): Types.IGraph;
+    (accessToken: string, version?: string): IGraphDef;
 
     /**
      * Method to get the access token from a classic page.
      */
-    getAccessToken(): Promise<Types.IGraphToken>;
+    getAccessToken(): Promise<IGraphToken>;
 }

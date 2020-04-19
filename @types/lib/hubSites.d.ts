@@ -1,4 +1,5 @@
-import { Base, SP } from "gd-sprest-def";
+import { IBaseExecution } from "gd-sprest-def/base";
+import { IHubSiteCollection } from "gd-sprest-def/lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,10 +17,10 @@ export interface IHubSites {
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): SP.IHubSiteCollection;
+    (targetInfo?: ITargetInfoProps): IHubSiteCollection;
 
     /**
      * A static method to see if the current user can create a hub site.
      */
-    canCreate(): Base.IBaseExecution<{ CanCreate: boolean }>;
+    canCreate(): IBaseExecution<{ CanCreate: boolean }>;
 }

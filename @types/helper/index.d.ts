@@ -1,4 +1,3 @@
-import { Base, SP } from "gd-sprest-def";
 import { IExecutor } from "./executor";
 import { IFieldSchemaXML } from "./fieldSchemaXML";
 import { IJSLink } from "./jslink";

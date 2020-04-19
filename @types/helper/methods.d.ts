@@ -1,4 +1,5 @@
-import { SP } from "gd-sprest-def";
+import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
+import { ContentType, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
 import { IContentEditorWebPart, IScriptEditorWebPart } from "./webpart";
 
 /**
@@ -34,7 +35,7 @@ export interface IaddScriptEditorWebPart {
  */
 export const createContentType: IcreateContentType;
 export interface IcreateContentType {
-    (ctInfo: SP.ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<SP.ContentType>;
+    (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType>;
 }
 
 /**
@@ -46,7 +47,7 @@ export interface IcreateContentType {
  */
 export const createDocSet: IcreateDocSet;
 export interface IcreateDocSet {
-    (name: string, listName: string, webUrl?: string): PromiseLike<SP.ListItem>;
+    (name: string, listName: string, webUrl?: string): PromiseLike<ListItem>;
 }
 
 /**

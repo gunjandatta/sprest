@@ -1,4 +1,4 @@
-import { Microsoft } from "gd-sprest-def";
+import { IGroupService as IGroupServiceDef } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,5 +16,5 @@ export interface IGroupService {
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.IGroupService;
+    (targetInfo?: ITargetInfoProps): IGroupServiceDef;
 }

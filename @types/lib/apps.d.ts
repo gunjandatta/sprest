@@ -1,4 +1,4 @@
-import { Microsoft } from "gd-sprest-def";
+import { IAppCollection } from "gd-sprest-def/lib/Microsoft/AppServices/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,5 +16,5 @@ export interface IApps {
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Microsoft.AppServices.IAppCollection;
+    (targetInfo?: ITargetInfoProps): IAppCollection;
 }
