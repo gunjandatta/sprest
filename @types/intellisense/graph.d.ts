@@ -1,4 +1,4 @@
-import { IBaseExecution, IBaseQuery } from "../../lib/base";
+import { IBaseExecution, IBaseQuery } from "gd-sprest-def/lib/base";
 
 /**
  * Graph Collection

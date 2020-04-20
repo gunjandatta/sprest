@@ -1,6 +1,6 @@
-import { IBaseExecution } from "../../lib/base";
-import { SocialPostCreationData } from "../../lib/SP/Social/complextypes";
-import { ISocialRestThread, SocialRestThread } from "../../lib/SP/Social/entitytypes";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { SocialPostCreationData } from "gd-sprest-def/lib/SP/Social/complextypes";
+import { ISocialRestThread, SocialRestThread } from "gd-sprest-def/lib/SP/Social/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

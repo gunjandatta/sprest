@@ -1,5 +1,5 @@
-import { ContentTypeCreationInformation } from "../../lib/SP/complextypes";
-import { ContentType, ListItem } from "../../lib/SP/entitytypes";
+import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
+import { ContentType, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
 import { IContentEditorWebPart, IScriptEditorWebPart } from "./webpart";
 
 /**

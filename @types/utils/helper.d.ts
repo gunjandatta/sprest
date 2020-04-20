@@ -1,4 +1,4 @@
-import { IMethodInfo, IRequestInfo } from "../../lib/base";
+import { IMethodInfo, IRequestInfo } from "gd-sprest-def/lib/base";
 import { IBase } from "./base";
 import { ITargetInfoProps } from "./targetInfo";
 

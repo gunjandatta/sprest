@@ -1,5 +1,5 @@
-import { IBaseExecution } from "../../lib/base";
-import { IWorkflowInstanceService as IWorkflowInstanceServiceDef } from "../../lib/SP/WorkflowServices/entitytypes";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import * as SP from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -17,5 +17,5 @@ export interface IWorkflowInstanceService {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): IWorkflowInstanceServiceDef;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.IWorkflowInstanceService;
 }

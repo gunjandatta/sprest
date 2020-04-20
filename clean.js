@@ -57,10 +57,4 @@ console.log("Cleaning the files...");
 deleteDirectory("./build");
 
 // Log
-console.log("Copying the library definitions...");
-
-// Copy
-copyDirectory("./node_modules/gd-sprest-def/lib", "./lib")
-
-// Log
 console.log("Successfully cleaned the library");

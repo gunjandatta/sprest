@@ -1,6 +1,6 @@
-import { IBaseExecution } from "../../lib/base";
-import { SearchRequest } from "../../lib/Microsoft/Office/Server/Search/REST/complextypes";
-import { ISearchService } from "../../lib/Microsoft/Office/Server/Search/REST/entitytypes";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { SearchRequest } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
+import { ISearchService } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

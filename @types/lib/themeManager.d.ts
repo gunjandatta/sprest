@@ -1,4 +1,4 @@
-import { IThemeManager as IThemeManagerDef } from "../../lib/SP/Utilities/entitytypes";
+import * as SP from "gd-sprest-def/lib/SP/Utilities/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,5 +16,5 @@ export interface IThemeManager {
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): IThemeManagerDef;
+    (targetInfo?: ITargetInfoProps): SP.IThemeManager;
 }

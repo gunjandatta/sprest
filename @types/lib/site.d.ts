@@ -1,5 +1,5 @@
-import { IBaseExecution } from "../../lib/base";
-import { ISite as ISiteDef } from "../../lib/SP/entitytypes";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import * as SP from "gd-sprest-def/lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -41,7 +41,7 @@ export interface ISite {
      * @param url - (Optional) The site url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): ISiteDef;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.ISite;
 
     /**
      * Method to check if a site collection exists.

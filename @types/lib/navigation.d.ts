@@ -1,4 +1,4 @@
-import { INavigationServiceRest } from "../../lib/Microsoft/SharePoint/Navigation/REST/entitytypes";
+import { INavigationServiceRest } from "gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

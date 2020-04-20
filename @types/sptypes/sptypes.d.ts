@@ -1,4 +1,4 @@
-import { BasePermissions } from "../../lib/SP/complextypes";
+import { BasePermissions } from "gd-sprest-def/lib/SP/complextypes";
 
 /**
  * Base Permission Types

@@ -1,5 +1,5 @@
-import { IBaseExecution } from "../../lib/base";
-import { IWeb as IWebDef, RemoteWeb } from "../../lib/SP/entitytypes";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import * as SP from "gd-sprest-def/lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -43,11 +43,11 @@ export interface IWeb {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): IWebDef;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.IWeb;
 
     /**
      * Method to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    getRemoteWeb(requestUrl: string): IBaseExecution<RemoteWeb>;
+    getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
 }

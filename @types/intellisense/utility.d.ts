@@ -1,6 +1,6 @@
-import { IBaseExecution } from "../../lib/base";
-import { KeyValue } from "../../lib/SP/complextypes";
-import { File } from "../../lib/SP/entitytypes";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { KeyValue } from "gd-sprest-def/lib/SP/complextypes";
+import { File } from "gd-sprest-def/lib/SP/entitytypes";
 
 /**
  * Email

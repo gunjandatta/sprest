@@ -1,6 +1,5 @@
 {
     "out": "../dist/gd-sprest.d.ts",
     "name": "gd-sprest",
-    "main": "./@types/index.d.ts",
-    "baseDir": "./node_modules/gd-sprest/def/lib"
+    "main": "./@types/index.d.ts"
 }
