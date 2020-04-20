@@ -1,4 +1,4 @@
-import { IThemeManager as IThemeManagerDef } from "gd-sprest-def/lib/SP/Utilities/entitytypes";
+import { IThemeManager as IThemeManagerDef } from "../../lib/SP/Utilities/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

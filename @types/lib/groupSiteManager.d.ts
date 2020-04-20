@@ -1,4 +1,4 @@
-import { IGroupSiteManager as IGroupSiteManagerDef } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+import { IGroupSiteManager as IGroupSiteManagerDef } from "../../lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

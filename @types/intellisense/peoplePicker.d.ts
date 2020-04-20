@@ -1,5 +1,5 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { ClientPeoplePickerQueryParameters } from "gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes";
+import { IBaseExecution } from "../../lib/base";
+import { ClientPeoplePickerQueryParameters } from "../../lib/SP/UI/ApplicationPages/complextypes";
 
 /**
  * Entity Data

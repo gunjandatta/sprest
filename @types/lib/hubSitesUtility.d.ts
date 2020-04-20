@@ -1,4 +1,4 @@
-import { ISPHubSitesUtility as ISPHubSitesUtilityDef } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+import { ISPHubSitesUtility as ISPHubSitesUtilityDef } from "../../lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

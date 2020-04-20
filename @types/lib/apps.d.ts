@@ -1,4 +1,4 @@
-import { IAppCollection } from "gd-sprest-def/lib/Microsoft/AppServices/entitytypes";
+import { IAppCollection } from "../../lib/Microsoft/AppServices/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

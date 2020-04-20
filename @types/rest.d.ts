@@ -1,6 +1,6 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
-import { IList, RemoteWeb } from "gd-sprest-def/lib/SP/entitytypes";
+import { IBaseExecution } from "../lib/base";
+import { RenderListDataParameters } from "../lib/SP/complextypes";
+import { IList, RemoteWeb } from "../lib/SP/entitytypes";
 import { IHelper } from "./helper";
 import { ISPTypes } from "./sptypes";
 import * as LibTypes from "./lib";

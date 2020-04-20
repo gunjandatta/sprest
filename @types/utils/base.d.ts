@@ -1,4 +1,4 @@
-import { IBaseExecution, IBaseResult } from "gd-sprest-def/base";
+import { IBaseExecution, IBaseResult } from "../../lib/base";
 import { ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
 

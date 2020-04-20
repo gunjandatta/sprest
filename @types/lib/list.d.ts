@@ -1,6 +1,6 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
-import { IList as IListDef, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
+import { IBaseExecution } from "../../lib/base";
+import { RenderListDataParameters } from "../../lib/SP/complextypes";
+import { IList as IListDef, ListItem } from "../../lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

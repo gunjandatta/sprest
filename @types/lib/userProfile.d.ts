@@ -1,4 +1,4 @@
-import { IProfileLoader } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+import { IProfileLoader } from "../../lib/SP/UserProfiles/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

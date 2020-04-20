@@ -1,4 +1,4 @@
-import { IGroupService as IGroupServiceDef } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+import { IGroupService as IGroupServiceDef } from "../../lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

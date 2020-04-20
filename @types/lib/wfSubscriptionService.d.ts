@@ -1,5 +1,5 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { IWorkflowSubscriptionService as IWorkflowSubscriptionServiceDef } from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
+import { IBaseExecution } from "../../lib/base";
+import { IWorkflowSubscriptionService as IWorkflowSubscriptionServiceDef } from "../../lib/SP/WorkflowServices/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

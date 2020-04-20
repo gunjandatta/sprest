@@ -1,5 +1,5 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
+import { IBaseExecution } from "../../lib/base";
+import { BasePermissions, ContextWebInformation } from "../../lib/SP/complextypes";
 
 /**
  * A reference to the _spPageContextInfo global variable.

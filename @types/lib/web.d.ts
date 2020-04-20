@@ -1,5 +1,5 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { IWeb as IWebDef, RemoteWeb } from "gd-sprest-def/lib/SP/entitytypes";
+import { IBaseExecution } from "../../lib/base";
+import { IWeb as IWebDef, RemoteWeb } from "../../lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

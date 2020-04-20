@@ -1,5 +1,5 @@
-import { IBaseExecution } from "gd-sprest-def/base";
-import { ISite as ISiteDef } from "gd-sprest-def/lib/SP/entitytypes";
+import { IBaseExecution } from "../../lib/base";
+import { ISite as ISiteDef } from "../../lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**

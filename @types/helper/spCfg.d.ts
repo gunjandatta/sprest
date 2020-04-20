@@ -1,5 +1,5 @@
-import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
-import { ContentType, Field, FieldLinkProps, File, List, ListProps, UserCustomActionProps, View } from "gd-sprest-def/lib/SP/entitytypes";
+import { ContentTypeCreationInformation } from "../../lib/SP/complextypes";
+import { ContentType, Field, FieldLinkProps, File, List, ListProps, UserCustomActionProps, View } from "../../lib/SP/entitytypes";
 
 /**
  * Helper class for creating SharePoint Assets

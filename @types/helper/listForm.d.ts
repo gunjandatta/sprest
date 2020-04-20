@@ -1,5 +1,5 @@
-import { IODataQuery } from "gd-sprest-def/base";
-import { Attachment, Field, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
+import { IODataQuery } from "../../lib/base";
+import { Attachment, Field, List, ListItem, ListItemOData } from "../../lib/SP/entitytypes";
 import * as Types from "../intellisense";
 
 /**

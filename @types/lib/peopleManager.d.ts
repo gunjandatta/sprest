@@ -1,4 +1,4 @@
-import { IPeopleManager as IPeopleManagerDef } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+import { IPeopleManager as IPeopleManagerDef } from "../../lib/SP/UserProfiles/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
