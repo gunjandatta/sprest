@@ -37,14 +37,14 @@ exports.ListForm = {
                 }
                 else {
                     // Load the content type
-                    loadDefaultContentType();
+                    loadContentType();
                 }
             }, 
             // Reject
             _reject);
         };
-        // Method to load the default content type
-        var loadDefaultContentType = function () {
+        // Method to load a content type for the associated fields
+        var loadContentType = function () {
             // See if the content type info exists
             if (_cacheData && _cacheData.ct) {
                 // Try to parse the data
@@ -64,6 +64,7 @@ exports.ListForm = {
             _info.list.ContentTypes()
                 // Query for the default content type and expand the field links
                 .query({
+                Filter: _props.contentType ? "Name eq '" + _props.contentType + "'" : null,
                 Expand: ["FieldLinks"],
                 Top: 1
             })

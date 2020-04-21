@@ -1828,6 +1828,9 @@ declare module 'gd-sprest/helper/listForm' {
             /** If defined, the data will be cached to the session storage. */
             cacheKey?: string;
     
+            /** The content type to target for the list form fields. */
+            contentType?: string;
+    
             /** The form fields to exclude. */
             excludeFields?: Array<string>;
     
