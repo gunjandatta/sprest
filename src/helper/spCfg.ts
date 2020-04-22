@@ -305,7 +305,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         let cfgLookup = cfg as IFieldInfoLookup;
                         if (cfgLookup.type == SPCfgFieldType.Lookup && cfgLookup.fieldRef) {
                             // Get the field reference
-                            let fieldRef = isInCollection("InternalName", cfg.name, fields.results);
+                            let fieldRef = isInCollection("InternalName", cfgLookup.fieldRef, fields.results);
                             if (fieldRef) {
                                 // Update the value to be the guid
                                 cfgLookup.fieldRef = (fieldRef as SP.Field).Id;

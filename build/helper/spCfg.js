@@ -259,7 +259,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         var cfgLookup = cfg;
                         if (cfgLookup.type == _1.SPCfgFieldType.Lookup && cfgLookup.fieldRef) {
                             // Get the field reference
-                            var fieldRef = isInCollection("InternalName", cfg.name, fields.results);
+                            var fieldRef = isInCollection("InternalName", cfgLookup.fieldRef, fields.results);
                             if (fieldRef) {
                                 // Update the value to be the guid
                                 cfgLookup.fieldRef = fieldRef.Id;
