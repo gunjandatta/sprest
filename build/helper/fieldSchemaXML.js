@@ -153,7 +153,6 @@ exports.FieldSchemaXML = function (fieldInfo) {
     };
     // Returns the schema xml for a lookup field.
     var createLookup = function (fieldInfo, props) {
-        var schemaXml = null;
         // Set the field type
         props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
         // Set the lookup properties
@@ -172,7 +171,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 .Lists(fieldInfo.listName)
                 // Set the query
                 .query({
-                Expand: ["Fields", "ParentWeb"]
+                Expand: ["ParentWeb"]
             })
                 // Execute the request
                 .execute(function (list) {
@@ -180,18 +179,6 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 props["List"] = "{" + list.Id + "}";
                 if (fieldInfo.webUrl) {
                     props["WebId"] = list.ParentWeb.Id;
-                }
-                // See if the field reference was defined
-                if (fieldInfo.fieldRef) {
-                    // Parse the fields
-                    for (var i = 0; i < list.Fields.results.length; i++) {
-                        var field = list.Fields.results[i];
-                        // See if this is the target field
-                        if (field.InternalName == fieldInfo.fieldRef) {
-                            // Update the value to the id
-                            props["FieldRef"] = field.Id;
-                        }
-                    }
                 }
                 // Resolve the request
                 _resolve("<Field " + toString(props) + " />");

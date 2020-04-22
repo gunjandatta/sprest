@@ -1,12 +1,13 @@
 import {
-    ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
-    ISPConfig, ISPConfigProps
+    IFieldInfoLookup, ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo,
+    ISPCfgViewInfo, ISPConfig, ISPConfigProps
 } from "../../@types/helper";
 import { SP } from "gd-sprest-def";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
-    createContentType, setContentTypeFields, Executor, FieldSchemaXML, SPCfgType
+    createContentType, setContentTypeFields, Executor, FieldSchemaXML,
+    SPCfgType, SPCfgFieldType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -299,6 +300,17 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     } else {
                         // Log
                         console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+
+                        // See if this is an associated lookup field
+                        let cfgLookup = cfg as IFieldInfoLookup;
+                        if (cfgLookup.type == SPCfgFieldType.Lookup && cfgLookup.fieldRef) {
+                            // Get the field reference
+                            let fieldRef = isInCollection("InternalName", cfg.name, fields.results);
+                            if (fieldRef) {
+                                // Update the value to be the guid
+                                cfgLookup.fieldRef = (fieldRef as SP.Field).Id;
+                            }
+                        }
 
                         // Compute the schema xml
                         FieldSchemaXML(cfg).then(response => {
