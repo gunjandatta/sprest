@@ -180,13 +180,27 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 .Lists(fieldInfo.listName)
                 // Set the query
                 .query({
-                    Expand: ["ParentWeb"]
+                    Expand: ["Fields", "ParentWeb"]
                 })
                 // Execute the request
                 .execute(list => {
                     // Set the list and web ids
                     props["List"] = "{" + list.Id + "}";
                     if (fieldInfo.webUrl) { props["WebId"] = list.ParentWeb.Id; }
+
+                    // See if the field reference was defined
+                    if (fieldInfo.fieldRef) {
+                        // Parse the fields
+                        for (let i = 0; i < list.Fields.results.length; i++) {
+                            let field = list.Fields.results[i];
+
+                            // See if this is the target field
+                            if (field.InternalName == fieldInfo.fieldRef) {
+                                // Update the value to the id
+                                props["FieldRef"] = field.Id;
+                            }
+                        }
+                    }
 
                     // Resolve the request
                     _resolve("<Field " + toString(props) + " />");
