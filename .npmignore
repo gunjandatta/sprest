@@ -4,6 +4,5 @@ images
 src
 test
 *.log
-gulpfile.js
 tsconfig.json
 webpack.config.js

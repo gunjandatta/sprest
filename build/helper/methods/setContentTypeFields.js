@@ -240,8 +240,16 @@ exports.setContentTypeFields = function (ctInfo) {
             var src = ctInfo.listName ? ctx.get_web().get_lists().getByTitle(ctInfo.listName) : ctx.get_web();
             // Get the content type
             var contentType = src.get_contentTypes().getById(ctInfo.id);
+            // Parse the fields to add
+            var fieldNames = [];
+            for (var i = 0; i < ctInfo.fields.length; i++) {
+                var fieldInfo = ctInfo.fields[i];
+                var fieldName = typeof (fieldInfo) === "string" ? fieldInfo : fieldInfo.Name || fieldInfo.FieldInternalName;
+                // Add the field name
+                fieldNames.push(fieldName);
+            }
             // Reorder the content type
-            contentType.get_fieldLinks().reorder(ctInfo.fields);
+            contentType.get_fieldLinks().reorder(fieldNames);
             // Update the content type
             contentType.update(ctInfo.listName ? false : true);
             // Execute the request

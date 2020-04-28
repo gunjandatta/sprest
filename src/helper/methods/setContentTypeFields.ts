@@ -277,8 +277,18 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
             // Get the content type
             let contentType = src.get_contentTypes().getById(ctInfo.id);
 
+            // Parse the fields to add
+            let fieldNames = [];
+            for (let i = 0; i < ctInfo.fields.length; i++) {
+                let fieldInfo = ctInfo.fields[i];
+                let fieldName = typeof (fieldInfo) === "string" ? fieldInfo : fieldInfo.Name || fieldInfo.FieldInternalName;
+
+                // Add the field name
+                fieldNames.push(fieldName);
+            }
+
             // Reorder the content type
-            contentType.get_fieldLinks().reorder(ctInfo.fields);
+            contentType.get_fieldLinks().reorder(fieldNames);
 
             // Update the content type
             contentType.update(ctInfo.listName ? false : true);
