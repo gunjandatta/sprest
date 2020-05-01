@@ -66,6 +66,7 @@ exports.ListForm = {
                 .query({
                 Filter: _props.contentType ? "Name eq '" + _props.contentType + "'" : null,
                 Expand: ["FieldLinks"],
+                Select: ["*", "FieldLinks/DisplayName", "FieldLinks/Hidden", "FieldLinks/Name", "FieldLinks/ReadOnly", "FieldLinks/Required"],
                 Top: 1
             })
                 // Execute the request, but wait for the previous one to be completed
