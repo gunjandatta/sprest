@@ -86,6 +86,7 @@ exports.ListForm = {
         var loadDefaultFields = function (ct) {
             var fields = ct ? ct.FieldLinks.results : [];
             var formFields = {};
+            var formLinks = {};
             // Parse the field links
             for (var i = 0; i < fields.length; i++) {
                 var fieldLink = fields[i];
@@ -100,12 +101,15 @@ exports.ListForm = {
                     if (field.Hidden || fieldLink.Hidden) {
                         continue;
                     }
-                    // Save the form field
+                    // Save the form field and link
                     formFields[field.InternalName] = field;
+                    formLinks[field.InternalName] = fieldLink;
                 }
             }
             // Update the fields
+            _info.contentType = ct;
             _info.fields = formFields;
+            _info.fieldLinks = formLinks;
             // Load the item data
             loadItem();
         };

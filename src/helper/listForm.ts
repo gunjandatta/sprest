@@ -100,6 +100,7 @@ export const ListForm: IListForm = {
         let loadDefaultFields = (ct: SP.ContentTypeOData) => {
             let fields = ct ? ct.FieldLinks.results : [];
             let formFields = {};
+            let formLinks = {};
 
             // Parse the field links
             for (let i = 0; i < fields.length; i++) {
@@ -114,13 +115,16 @@ export const ListForm: IListForm = {
                     // Skip hidden fields
                     if (field.Hidden || fieldLink.Hidden) { continue; }
 
-                    // Save the form field
+                    // Save the form field and link
                     formFields[field.InternalName] = field;
+                    formLinks[field.InternalName] = fieldLink;
                 }
             }
 
             // Update the fields
+            _info.contentType = ct as any;
             _info.fields = formFields;
+            _info.fieldLinks = formLinks;
 
             // Load the item data
             loadItem();

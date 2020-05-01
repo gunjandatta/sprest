@@ -1682,7 +1682,7 @@ declare module 'gd-sprest/helper/linkInfo' {
 
 declare module 'gd-sprest/helper/listForm' {
     import { IODataQuery } from "gd-sprest-def/lib/base";
-    import { Attachment, Field, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
+    import { Attachment, ContentType, Field, FieldLink, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
     import * as Types from "gd-sprest/intellisense";
     
     /**
@@ -1863,8 +1863,14 @@ declare module 'gd-sprest/helper/listForm' {
             /** The item attachments. */
             attachments?: Array<Attachment>;
     
+            /** The referenced content type. */
+            contentType: ContentType;
+    
             /** The form fields. */
             fields: { [key: string]: Field };
+    
+            /** The form field links, if a content type was referenced. */
+            fieldLinks: { [key: string]: FieldLink };
     
             /** The list item. */
             item?: ListItemOData | ListItem;
