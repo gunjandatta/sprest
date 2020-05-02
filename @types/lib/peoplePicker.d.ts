@@ -1,18 +1,20 @@
-import * as Types from "../intellisense";
+import * as SP from "../intellisense/peoplePicker";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * People Picker
+ * #### REST API
+ * _api/SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface
  */
 export const PeoplePicker: IPeoplePicker;
 
 /**
  * People Picker
+ * @category People Picker
  */
 export interface IPeoplePicker {
     /**
      * Creates an instance of the people picker library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Types.IPeoplePicker;
+    (targetInfo?: ITargetInfoProps): SP.IPeoplePicker;
 }

@@ -45,7 +45,7 @@ export const ListForm: IListForm = {
                         loadItem();
                     } else {
                         // Load the content type
-                        loadDefaultContentType();
+                        loadContentType();
                     }
                 },
                 // Reject
@@ -53,8 +53,8 @@ export const ListForm: IListForm = {
             );
         }
 
-        // Method to load the default content type
-        let loadDefaultContentType = () => {
+        // Method to load a content type for the associated fields
+        let loadContentType = () => {
             // See if the content type info exists
             if (_cacheData && _cacheData.ct) {
                 // Try to parse the data
@@ -75,7 +75,9 @@ export const ListForm: IListForm = {
             _info.list.ContentTypes()
                 // Query for the default content type and expand the field links
                 .query({
+                    Filter: _props.contentType ? "Name eq '" + _props.contentType + "'" : null,
                     Expand: ["FieldLinks"],
+                    Select: ["*", "FieldLinks/DisplayName", "FieldLinks/Hidden", "FieldLinks/Name", "FieldLinks/ReadOnly", "FieldLinks/Required"],
                     Top: 1
                 })
                 // Execute the request, but wait for the previous one to be completed
@@ -99,6 +101,7 @@ export const ListForm: IListForm = {
         let loadDefaultFields = (ct: SP.ContentTypeOData) => {
             let fields = ct ? ct.FieldLinks.results : [];
             let formFields = {};
+            let formLinks = {};
 
             // Parse the field links
             for (let i = 0; i < fields.length; i++) {
@@ -113,13 +116,16 @@ export const ListForm: IListForm = {
                     // Skip hidden fields
                     if (field.Hidden || fieldLink.Hidden) { continue; }
 
-                    // Save the form field
+                    // Save the form field and link
                     formFields[field.InternalName] = field;
+                    formLinks[field.InternalName] = fieldLink;
                 }
             }
 
             // Update the fields
+            _info.contentType = ct as any;
             _info.fields = formFields;
+            _info.fieldLinks = formLinks;
 
             // Load the item data
             loadItem();

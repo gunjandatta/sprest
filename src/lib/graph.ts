@@ -1,5 +1,5 @@
-import { IGraphToken } from "../../@types/intellisense";
-import { IGraph } from "../../@types/lib";
+import { IGraphToken } from "../../@types/intellisense/graph";
+import { IGraph } from "../../@types/lib/graph";
 import { Base, Request, RequestType } from "../utils";
 
 /**

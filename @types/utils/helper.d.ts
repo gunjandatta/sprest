@@ -1,4 +1,4 @@
-import { Base } from "gd-sprest-def";
+import { IMethodInfo, IRequestInfo } from "gd-sprest-def/lib/base";
 import { IBase } from "./base";
 import { ITargetInfoProps } from "./targetInfo";
 
@@ -13,7 +13,7 @@ export interface IBaseHelper {
     done(base: IBase, resolve: (value?: any) => void);
 
     /** Method to execute the request. */
-    executeMethod(base: IBase, methodName: string, methodConfig: Base.IMethodInfo, args?: any);
+    executeMethod(base: IBase, methodName: string, methodConfig: IMethodInfo, args?: any);
 
     /** Gets the property as a collection. */
     getCollection(base: IBase, method: string, args?: any): IBase;
@@ -25,7 +25,7 @@ export interface IBaseHelper {
     getProperty(base: IBase, propertyName: string, requestType?: string): IBase;
 
     /** Gets the XHR request information. */
-    getRequestInfo(base: IBase): Base.IRequestInfo;
+    getRequestInfo(base: IBase): IRequestInfo;
 
     /** Converts the base object to a JSON string. */
     stringify(base: IBase): string;

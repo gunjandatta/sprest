@@ -1,9 +1,10 @@
+import { Iparse } from "../../../@types/helper/methods";
 import { Base, Request } from "../../utils";
 
 /**
  * Convert a JSON string to a base object
  */
-export const parse = <T = Base>(jsonString: string): T => {
+export const parse: Iparse = <T = Base>(jsonString: string): T => {
     // Try to parse the string
     try {
         let obj = JSON.parse(jsonString);

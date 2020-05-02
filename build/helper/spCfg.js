@@ -255,6 +255,16 @@ exports.SPConfig = function (cfg, webUrl) {
                     else {
                         // Log
                         console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+                        // See if this is an associated lookup field
+                        var cfgLookup = cfg;
+                        if (cfgLookup.type == _1.SPCfgFieldType.Lookup && cfgLookup.fieldRef) {
+                            // Get the field reference
+                            var fieldRef = isInCollection("InternalName", cfgLookup.fieldRef, fields.results);
+                            if (fieldRef) {
+                                // Update the value to be the guid
+                                cfgLookup.fieldRef = fieldRef.Id;
+                            }
+                        }
                         // Compute the schema xml
                         _1.FieldSchemaXML(cfg).then(function (response) {
                             var schemas = typeof (response) === "string" ? [response] : response;

@@ -153,7 +153,6 @@ exports.FieldSchemaXML = function (fieldInfo) {
     };
     // Returns the schema xml for a lookup field.
     var createLookup = function (fieldInfo, props) {
-        var schemaXml = null;
         // Set the field type
         props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
         // Set the lookup properties

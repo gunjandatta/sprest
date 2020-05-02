@@ -1,5 +1,5 @@
 /**
- * SharePoint Components
+ * References to the internal SharePoint libraries.
  */
 export const SP: ISPComponents;
 
@@ -8,27 +8,55 @@ export const SP: ISPComponents;
  */
 export interface ISPComponents {
     /**
-     * Callout Manager
+     * ### How to create a callout
+     * ```ts
+     * Helper.SP.CalloutManager.init().then(() => {
+     *   // Create the callout
+     *   let callout = Helper.SP.CalloutManager.createNewIfNecessary({
+     *     ID: "UniqueId",
+     *     launchPoint: document.querySelector("input[value='Run']"),
+     *     title: "My Custom Callout",
+     *     content: "<p>This is the content of the callout. An element can be applied instead of a string."
+     *   });
+     * });
+     * ```
      */
     CalloutManager: ICalloutManager,
 
     /**
-     * Modal Dialog
+     * ### How to create a modal dialog
+     * ```ts
+     * Helper.SP.ModalDialog.showWaitScreenWithNoClose("Loading the Data").then(dlg => {
+     *   // Do Stuff and then close the dialog
+     *   dlg.close();
+     * });
+     * ```
      */
     ModalDialog: IModalDialog,
 
     /**
-     * Notification
+     * ### How to create a notification
+     * ```ts
+     * Helper.SP.Notify.addNotifition("This is a notification.", false);
+     * ```
      */
     Notify: INotify,
 
     /**
-     * Script on Demand (SOD)
+     * ### How to wait for a library to be loaded
+     * ```ts
+     * Helper.SP.SOD.executeOrDelayUntilScriptLoaded(() => {
+     *   // Do Stuff
+     * }, "gd-sprest");
+     * ```
      */
     SOD: ISOD,
 
     /**
-     * Status
+     * ### How to create a status
+     * ```ts
+     * Helper.SP.Status.addStatus("Success", "This is a custom status.");
+     * ```
      */
     Status: IStatus
 }
@@ -321,7 +349,7 @@ export interface IDialogOptions {
 }
 
 /**
- * Modal Dialog
+ * @cateogry Modal Dialog
  */
 export interface IModalDialog {
     /**

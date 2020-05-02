@@ -1,13 +1,15 @@
-import * as Types from "../intellisense";
+import * as SP from "../intellisense/graph";
 import { ITargetInfo } from "../utils";
 
 /**
  * Graph
+ * @hidden
  */
 export const Graph: IGraph;
 
 /**
  * Graph
+ * @hidden
  */
 export interface IGraph {
     /**
@@ -15,10 +17,10 @@ export interface IGraph {
      * @param accessToken - The access token for the graph api request.
      * @param version - The version of the graph to target.
      */
-    (accessToken: string, version?: string): Types.IGraph;
+    (accessToken: string, version?: string): SP.IGraph;
 
     /**
      * Method to get the access token from a classic page.
      */
-    getAccessToken(): Promise<Types.IGraphToken>;
+    getAccessToken(): Promise<SP.IGraphToken>;
 }

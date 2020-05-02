@@ -1,4 +1,5 @@
 import { ContentType, ContentTypeCreationInformation } from "gd-sprest-def/lib/SP";
+import { IcreateContentType } from "../../../@types/helper/methods";
 import { Web } from "../../lib";
 declare var SP;
 
@@ -9,7 +10,7 @@ declare var SP;
  * @param webUrl - The relative url to create the content type in.
  * @param listName - The list name to add the content type to.
  */
-export const createContentType = (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType> => {
+export const createContentType: IcreateContentType = (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType> => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Set the context

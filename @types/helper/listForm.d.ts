@@ -1,8 +1,9 @@
-import { IODataQuery, SP } from "gd-sprest-def";
+import { IODataQuery } from "gd-sprest-def/lib/base";
+import { Attachment, ContentType, Field, FieldLink, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
 import * as Types from "../intellisense";
 
 /**
- * List Form
+ * Helper class for creating custom list forms.
  */
 export const ListForm: IListForm;
 
@@ -25,7 +26,7 @@ export interface IListForm {
      * Method to load the item attachments
      * @param info - The list form information.
     */
-    loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>
+    loadAttachments(info: IListFormProps): PromiseLike<Array<Attachment>>
 
     /**
      * Method to refresh the item.
@@ -43,7 +44,7 @@ export interface IListForm {
      * @param info - The list form information.
      * @param attachmentInfo - The attachment files to add.
      */
-    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
+    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Attachment>>;
 
     /**
      * Method to save the item.
@@ -144,6 +145,9 @@ export interface IListFormProps {
     /** If defined, the data will be cached to the session storage. */
     cacheKey?: string;
 
+    /** The content type to target for the list form fields. */
+    contentType?: string;
+
     /** The form fields to exclude. */
     excludeFields?: Array<string>;
 
@@ -151,7 +155,7 @@ export interface IListFormProps {
     fields?: Array<string>;
 
     /** The list item */
-    item?: SP.ListItemOData | SP.ListItem;
+    item?: ListItemOData | ListItem;
 
     /** The item id */
     itemId?: number;
@@ -174,19 +178,25 @@ export interface IListFormProps {
  */
 export interface IListFormResult {
     /** The item attachments. */
-    attachments?: Array<SP.Attachment>;
+    attachments?: Array<Attachment>;
+
+    /** The referenced content type. */
+    contentType: ContentType;
 
     /** The form fields. */
-    fields: { [key: string]: SP.Field };
+    fields: { [key: string]: Field };
+
+    /** The form field links, if a content type was referenced. */
+    fieldLinks: { [key: string]: FieldLink };
 
     /** The list item. */
-    item?: SP.ListItemOData | SP.ListItem;
+    item?: ListItemOData | ListItem;
 
     /** The item query. */
     query?: IODataQuery;
 
     /** The list. */
-    list: SP.List;
+    list: List;
 
     /** The relative web url containing the list. */
     webUrl?: string;

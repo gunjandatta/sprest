@@ -1,8 +1,12 @@
-import { SP } from "gd-sprest-def";
+import {
+    Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice,
+    FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery
+} from "gd-sprest-def/lib/SP/entitytypes";
+import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
 import { ITermInfo } from "./taxonomy";
 
 /**
- * List Form Field
+ * Helper class for creating custom list forms.
  */
 export const ListFormField: IListFormField;
 
@@ -14,7 +18,7 @@ export interface IListFormFieldInfo {
     defaultValue?: any;
 
     /** The list field. */
-    field?: SP.Field | SP.FieldOData | SP.Taxonomy.TaxonomyField;
+    field?: Field | FieldOData | TaxonomyField;
 
     /** The list name. */
     listName: string;
@@ -49,7 +53,7 @@ export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
     choices?: Array<string>;
 
     /** The list field. */
-    field?: SP.FieldChoice | SP.FieldMultiChoice;
+    field?: FieldChoice | FieldMultiChoice;
 
     /** Flag to determine if multiple values exist */
     multi?: boolean;
@@ -60,7 +64,7 @@ export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormDateFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: SP.FieldDateTime;
+    field?: FieldDateTime;
 
     /** Flag determining if we are displaying time */
     showTime?: boolean;
@@ -71,7 +75,7 @@ export interface IListFormDateFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: SP.FieldLookup;
+    field?: FieldLookup;
 
     /** The lookup field */
     lookupField?: string;
@@ -91,7 +95,7 @@ export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: SP.Field & SP.Taxonomy.ITaxonomyField;
+    field?: Field & ITaxonomyField;
 
     /** Flag to determine if multiple values exist */
     multi?: boolean;
@@ -106,7 +110,7 @@ export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
     termStoreId?: string;
 
     /** The value field */
-    valueField?: SP.FieldMultiLineText;
+    valueField?: FieldMultiLineText;
 }
 
 /**
@@ -117,7 +121,7 @@ export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
     decimals?: number;
 
     /** The list field. */
-    field?: SP.FieldNumber | SP.FieldCurrency;
+    field?: FieldNumber | FieldCurrency;
 
     /** The maximum value */
     maxValue?: number;
@@ -134,7 +138,7 @@ export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormTextFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: SP.FieldText | SP.FieldMultiLineText;
+    field?: FieldText | FieldMultiLineText;
 
     /** Flag determining if this is a note field */
     multiline?: boolean;
@@ -151,7 +155,7 @@ export interface IListFormTextFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: SP.FieldUrl;
+    field?: FieldUrl;
 }
 
 /**
@@ -162,7 +166,7 @@ export interface IListFormUserFieldInfo extends IListFormFieldInfo {
     allowGroups?: boolean;
 
     /** The list field. */
-    field?: SP.FieldUser;
+    field?: FieldUser;
 
     /** Flag to determine if multiple values exist */
     multi?: boolean;
@@ -179,11 +183,11 @@ export interface IListFormField {
     create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
 
     /** Method to load the lookup data */
-    loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQuery>>;
+    loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;
 
     /** Method to load the mms data */
     loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
 
     /** Method to load the mms value field */
-    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<SP.FieldMultiLineText>;
+    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<FieldMultiLineText>;
 }

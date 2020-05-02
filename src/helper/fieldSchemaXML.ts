@@ -162,8 +162,6 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
 
     // Returns the schema xml for a lookup field.
     let createLookup = (fieldInfo: IFieldInfoLookup, props: object) => {
-        let schemaXml: string = null;
-
         // Set the field type
         props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
 

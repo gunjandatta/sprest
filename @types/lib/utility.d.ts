@@ -1,13 +1,15 @@
-import * as Types from "../intellisense";
+import * as SP from "../intellisense/utility";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Utility
+ * #### REST API
+ * _api/SP.Utilities.Utility
  */
 export const Utility: IUtility;
 
 /**
  * Utility
+ * @category Utility
  */
 export interface IUtility {
     /**
@@ -15,5 +17,5 @@ export interface IUtility {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Types.IUtility;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.IUtility;
 }

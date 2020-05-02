@@ -1,13 +1,15 @@
-import { Microsoft } from "gd-sprest-def";
+import { INavigationServiceRest } from "gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * INavigation
+ * #### REST API
+ * _api/navigation
  */
 export const Navigation: INavigation;
 
 /**
  * Navigation
+ * @category Navigation
  */
 export interface INavigation {
     /**
@@ -15,5 +17,5 @@ export interface INavigation {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Navigation.REST.INavigationServiceRest;
+    (url?: string, targetInfo?: ITargetInfoProps): INavigationServiceRest;
 }

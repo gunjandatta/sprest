@@ -1,12 +1,34 @@
-import { Base, SP } from "gd-sprest-def";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
 
 /**
- * Context Information
+ * A reference to the _spPageContextInfo global variable.
+ * 
+ * ### How to get the context information of another web
+ * This is required for making POST requests on webs in different site collections.
+ * ```ts
+ * // Get the context information of the root web
+ * ContextInfo.getWeb("/").execute((contextInfo) => {
+ *     // Get the root web
+ *     Web("/", { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
+ *         // Get the 'Site Assets' library
+ *         .Lists("Site Assets")
+ *         // Query for the items
+ *         .getItemsByQuery("<Query><OrderBy><FieldRef Name='ID' /></OrderBy></Query>")
+ *         // Execute the request
+ *         .execute(items => {
+ *             // Parse the items
+ *             for(let i=0; i<items.results.length; i++) {
+ *                 let item = items.results[i];
+ *             }
+ *         });
+ * });
  */
 export const ContextInfo: IContextInformation;
 
 /**
  * Context Information
+ * @category Context Information
  */
 export interface IContextInformation {
     /**
@@ -164,7 +186,7 @@ export interface IContextInformation {
     listId: string;
 
     /** List Permissions Mask */
-    listPermMask: SP.BasePermissions;
+    listPermMask: BasePermissions;
 
     /** List Title */
     listTitle: string;
@@ -188,7 +210,7 @@ export interface IContextInformation {
     pageListId: string;
 
     /** Page Permissions Mask */
-    pagePermMask: SP.BasePermissions;
+    pagePermMask: BasePermissions;
 
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
@@ -317,7 +339,7 @@ export interface IContextInformation {
     webLogoUrl: string;
 
     /** Web Permissions Mask */
-    webPermMask: SP.BasePermissions;
+    webPermMask: BasePermissions;
 
     /** Web Server Relative Url */
     webServerRelativeUrl: string;
@@ -350,16 +372,22 @@ export interface IContextInformation {
      */
 
     /**
-     * Method to generate a guid.
+     * Generates a guid.
+     * @returns A GUID as a string value.
      */
     generateGUID: () => string;
 
     /**
-     * Method to get the web context information.
-     * @param url - The relative url of the web.
+     * Gets the context information of another web.
+     * This is required for making POST requests on other site collections.
+     * @param url The relative url of the web.
+     * @return The context information of the web.
      */
-    getWeb(url: string): Base.IBaseExecution<{ GetContextWebInformation: SP.ContextWebInformation }>;
+    getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
 
-    /** The page context object from an SPFX project. */
+    /**
+     * Sets the page context information for modern pages.
+     * @param spfxPageContext - The page context information variable from a SPFx project.
+     */
     setPageContext(spfxPageContext: any);
 }

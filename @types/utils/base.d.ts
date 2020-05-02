@@ -1,11 +1,11 @@
-import { Base } from "gd-sprest-def";
+import { IBaseExecution, IBaseResult } from "gd-sprest-def/lib/base";
 import { ITargetInfo, ITargetInfoProps } from "./targetInfo";
 import { IXHRRequest } from "./xhrRequest";
 
 /**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> extends Base.IBaseExecution<Result, QueryResult>, Base.IBaseResult {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Result, QueryResult>, IBaseResult {
     /**
      * Base Properties
      */

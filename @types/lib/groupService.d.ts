@@ -1,18 +1,20 @@
-import { Microsoft } from "gd-sprest-def";
+import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Group Service
+ * #### REST API
+ * _api/Microsoft.SharePoint.Portal.GroupService
  */
 export const GroupService: IGroupService;
 
 /**
  * Group Service
+ * @category Group Site
  */
 export interface IGroupService {
     /**
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.IGroupService;
+    (targetInfo?: ITargetInfoProps): SP.IGroupService;
 }

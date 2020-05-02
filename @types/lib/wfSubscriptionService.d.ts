@@ -1,8 +1,10 @@
-import { Base, SP } from "gd-sprest-def";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import * as SP from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Workflow Subscription Service
+ * #### REST API
+ * _api/SP.WorkflowServices.WorkflowSubscriptionService.Current
  */
 export const WorkflowSubscriptionService: IWorkflowSubscriptionService;
 
@@ -15,5 +17,5 @@ export interface IWorkflowSubscriptionService {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): SP.WorkflowServices.IWorkflowSubscriptionService;
+    (url?: string, targetInfo?: ITargetInfoProps): SP.IWorkflowSubscriptionService;
 }

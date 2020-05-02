@@ -1,18 +1,20 @@
-import { Microsoft } from "gd-sprest-def";
+import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
- * Hub Sites Utility
+ * #### REST API
+ * _api/HubSitesUtility
  */
 export const HubSitesUtility: IHubSitesUtility;
 
 /**
  * Hub Sites Utility
+ * @category Hub Site
  */
 export interface IHubSitesUtility {
     /**
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): Microsoft.SharePoint.Portal.ISPHubSitesUtility;
+    (targetInfo?: ITargetInfoProps): SP.ISPHubSitesUtility;
 }

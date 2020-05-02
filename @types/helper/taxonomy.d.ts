@@ -1,6 +1,6 @@
 
 /**
- * Taxonomy Helper Class
+ * Helper class for getting data from the Managed Metadata Service.
  */
 export const Taxonomy: ITaxonomy;
 
