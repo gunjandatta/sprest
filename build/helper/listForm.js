@@ -349,6 +349,8 @@ exports.ListForm = {
         // Default the select query to get all the fields by default
         query.Select = query.Select || ["*"];
         query.Expand = query.Expand || [];
+        // Include the field values as HTML
+        query.Expand.push("FieldValuesAsHtml");
         // See if we are loading the attachments
         if (loadAttachments) {
             // Expand the attachment files collection
