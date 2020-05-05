@@ -256,8 +256,13 @@ exports.ListForm = {
                     _info.attachments = item.AttachmentFiles.results;
                     // Save the item
                     _info.item = item;
-                    // Resolve the promise
-                    _resolve(_info);
+                    // Get the html value
+                    _info.list.Items(item.Id).FieldValuesAsHtml().execute(function (values) {
+                        // Set the values
+                        _info.item.FieldValuesAsHtml = values;
+                        // Resolve the promise
+                        _resolve(_info);
+                    }, _reject);
                 }, _reject);
             }
             else {
@@ -349,8 +354,6 @@ exports.ListForm = {
         // Default the select query to get all the fields by default
         query.Select = query.Select || ["*"];
         query.Expand = query.Expand || [];
-        // Include the field values as HTML
-        query.Expand.push("FieldValuesAsHtml");
         // See if we are loading the attachments
         if (loadAttachments) {
             // Expand the attachment files collection
@@ -444,8 +447,13 @@ exports.ListForm = {
             info.list.Items(info.item.Id).query(info.query).execute(function (item) {
                 // Update the item
                 info.item = item;
-                // Resolve the promise
-                resolve(info);
+                // Get the html value
+                info.list.Items(item.Id).FieldValuesAsHtml().execute(function (values) {
+                    // Set the values
+                    info.item.FieldValuesAsHtml = values;
+                    // Resolve the promise
+                    resolve(info);
+                }, reject);
             }, reject);
         });
     },

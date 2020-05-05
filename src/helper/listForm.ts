@@ -288,8 +288,14 @@ export const ListForm: IListForm = {
                         // Save the item
                         _info.item = item;
 
-                        // Resolve the promise
-                        _resolve(_info);
+                        // Get the html value
+                        _info.list.Items(item.Id).FieldValuesAsHtml().execute(values => {
+                            // Set the values
+                            _info.item.FieldValuesAsHtml = values;
+
+                            // Resolve the promise
+                            _resolve(_info);
+                        }, _reject);
                     }, _reject);
             } else {
                 // Resolve the promise
@@ -394,9 +400,6 @@ export const ListForm: IListForm = {
         // Default the select query to get all the fields by default
         query.Select = query.Select || ["*"];
         query.Expand = query.Expand || [];
-
-        // Include the field values as HTML
-        query.Expand.push("FieldValuesAsHtml");
 
         // See if we are loading the attachments
         if (loadAttachments) {
@@ -504,8 +507,14 @@ export const ListForm: IListForm = {
                 // Update the item
                 info.item = item;
 
-                // Resolve the promise
-                resolve(info);
+                // Get the html value
+                info.list.Items(item.Id).FieldValuesAsHtml().execute(values => {
+                    // Set the values
+                    info.item.FieldValuesAsHtml = values;
+
+                    // Resolve the promise
+                    resolve(info);
+                }, reject);
             }, reject);
         });
     },
