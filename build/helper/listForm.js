@@ -256,10 +256,13 @@ exports.ListForm = {
                     _info.attachments = item.AttachmentFiles.results;
                     // Save the item
                     _info.item = item;
-                    // Get the html value
-                    _info.list.Items(item.Id).FieldValuesAsHtml().execute(function (values) {
+                    // Get the item values
+                    _info.list.Items(item.Id).query({
+                        Expand: ["FieldValuesAsHtml", "FieldValuesAsText"]
+                    }).execute(function (item) {
                         // Set the values
-                        _info.item.FieldValuesAsHtml = values;
+                        _info.item.FieldValuesAsHtml = item.FieldValuesAsHtml;
+                        _info.item.FieldValuesAsText = item.FieldValuesAsText;
                         // Resolve the promise
                         _resolve(_info);
                     }, _reject);
@@ -448,9 +451,12 @@ exports.ListForm = {
                 // Update the item
                 info.item = item;
                 // Get the html value
-                info.list.Items(item.Id).FieldValuesAsHtml().execute(function (values) {
+                info.list.Items(item.Id).query({
+                    Expand: ["FieldValuesAsHtml", "FieldValuesAsText"]
+                }).execute(function (item) {
                     // Set the values
-                    info.item.FieldValuesAsHtml = values;
+                    info.item.FieldValuesAsHtml = item.FieldValuesAsHtml;
+                    info.item.FieldValuesAsText = item.FieldValuesAsText;
                     // Resolve the promise
                     resolve(info);
                 }, reject);
