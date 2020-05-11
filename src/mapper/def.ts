@@ -4217,6 +4217,7 @@ export const Mapper: IMapper = {
 
         getWOPIFrameUrl: {
             argNames: ["action"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         moveTo: {
@@ -4960,6 +4961,7 @@ export const Mapper: IMapper = {
 
         getWOPIFrameUrl: {
             argNames: ["action"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         mediaServiceUpdate: {
@@ -8392,6 +8394,7 @@ export const Mapper: IMapper = {
 
         getWOPIFrameUrl: {
             argNames: ["action"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         mediaServiceUpdate: {
