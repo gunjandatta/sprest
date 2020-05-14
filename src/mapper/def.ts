@@ -8737,7 +8737,7 @@ export const Mapper: IMapper = {
 
         getSubscription: {
             argNames: ["subscriptionId"],
-            requestType: RequestType.GetWithArgs
+            requestType: RequestType.PostWithArgs
         },
 
         query: {

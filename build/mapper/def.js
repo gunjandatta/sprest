@@ -6223,7 +6223,7 @@ exports.Mapper = {
         },
         getSubscription: {
             argNames: ["subscriptionId"],
-            requestType: utils_1.RequestType.GetWithArgs
+            requestType: utils_1.RequestType.PostWithArgs
         },
         query: {
             argNames: ["oData"],
