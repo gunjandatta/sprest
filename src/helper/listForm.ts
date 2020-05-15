@@ -1,9 +1,9 @@
 import {
     IListForm, IListFormAttachmentInfo,
-    IListFormCache, IListFormResult, IListFormProps
+    IListFormResult, IListFormProps
 } from "../../@types/helper";
 import { IODataQuery, SP } from "gd-sprest-def";
-import { Helper, SPTypes, Web } from "..";
+import { SPTypes, Web } from "..";
 
 /**
  * List Form
@@ -11,7 +11,6 @@ import { Helper, SPTypes, Web } from "..";
 export const ListForm: IListForm = {
     // Method to create an instance of the list form
     create: (props: IListFormProps) => {
-        let _cacheData: IListFormCache = null;
         let _info: IListFormResult = null;
         let _props: IListFormProps = null;
         let _reject: () => void = null;
@@ -28,9 +27,6 @@ export const ListForm: IListForm = {
                 item: _props.item,
                 query: _props.query || {}
             } as any;
-
-            // Load the data from cache
-            loadFromCache();
 
             // Load the list data
             loadListData().then(
@@ -55,22 +51,6 @@ export const ListForm: IListForm = {
 
         // Method to load a content type for the associated fields
         let loadContentType = () => {
-            // See if the content type info exists
-            if (_cacheData && _cacheData.ct) {
-                // Try to parse the data
-                try {
-                    // Parse the content type
-                    let ct = Helper.parse(_cacheData.ct) as SP.IContentTypeQueryCollection;
-
-                    // Load the default fields
-                    loadDefaultFields(ct.results[0]);
-                    return;
-                } catch{
-                    // Clear the cache data
-                    sessionStorage.removeItem(_props.cacheKey);
-                }
-            }
-
             // Load the content types
             _info.list.ContentTypes()
                 // Query for the default content type and expand the field links
@@ -82,16 +62,6 @@ export const ListForm: IListForm = {
                 })
                 // Execute the request, but wait for the previous one to be completed
                 .execute(ct => {
-                    // See if we are storing data in cache
-                    if (_props.cacheKey) {
-                        // Update the cache data
-                        _cacheData = _cacheData || {} as any;
-                        _cacheData.ct = ct.stringify();
-
-                        // Update the cache
-                        sessionStorage.setItem(_props.cacheKey, JSON.stringify(_cacheData));
-                    }
-
                     // Resolve the promise
                     loadDefaultFields(ct.results[0]);
                 }, _reject);
@@ -160,32 +130,6 @@ export const ListForm: IListForm = {
 
                 // Save the field
                 _info.fields[field.InternalName] = field;
-            }
-        }
-
-        // Method to load the data from cache
-        let loadFromCache = () => {
-            // See if we are loading from cache
-            if (_props.cacheKey) {
-                // Get the data
-                let data = sessionStorage.getItem(_props.cacheKey);
-                if (data) {
-                    // Try to parse the data
-                    try {
-                        // Set the cache data
-                        _cacheData = JSON.parse(data);
-
-                        // Update the list information
-                        _info = _info || {} as any;
-                        _info.list = Helper.parse(_cacheData.list);
-
-                        // Load the field data
-                        loadFieldData(Helper.parse(_cacheData.fields));
-                    } catch {
-                        // Clear the cache data
-                        sessionStorage.removeItem(_props.cacheKey);
-                    }
-                }
             }
         }
 
@@ -288,13 +232,10 @@ export const ListForm: IListForm = {
                         // Save the item
                         _info.item = item;
 
-                        // Get the item values
-                        _info.list.Items(item.Id).query({
-                            Expand: ["FieldValuesAsHtml", "FieldValuesAsText"]
-                        }).execute(item => {
-                            // Set the values
-                            _info.item.FieldValuesAsHtml = item.FieldValuesAsHtml;
-                            _info.item.FieldValuesAsText = item.FieldValuesAsText;
+                        // Refresh the item
+                        ListForm.refreshItem(_info).then(info => {
+                            // Update the info
+                            _info = info;
 
                             // Resolve the promise
                             _resolve(_info);
@@ -331,17 +272,6 @@ export const ListForm: IListForm = {
                     .Fields()
                     // Execute the request
                     .execute(fields => {
-                        // See if we are caching the data
-                        if (_props.cacheKey) {
-                            // Update the cache
-                            _cacheData = _cacheData || {} as any;
-                            _cacheData.fields = fields.stringify();
-                            _cacheData.list = _info.list.stringify();
-
-                            // Cache the data
-                            sessionStorage.setItem(_props.cacheKey, JSON.stringify(_cacheData));
-                        }
-
                         // Load the field data
                         loadFieldData(fields as any);
 
@@ -510,17 +440,23 @@ export const ListForm: IListForm = {
                 // Update the item
                 info.item = item;
 
-                // Get the html value
+                // Get the item values
                 info.list.Items(item.Id).query({
-                    Expand: ["FieldValuesAsHtml", "FieldValuesAsText"]
+                    Expand: ["FieldValuesAsText"]
                 }).execute(item => {
                     // Set the values
-                    info.item.FieldValuesAsHtml = item.FieldValuesAsHtml;
-                    info.item.FieldValuesAsText = item.FieldValuesAsText;
+                    info.fieldValuesAsText = item.FieldValuesAsText;
+                }, reject);
+
+                // Get the item html values, after the previous request completes
+                // This needs to be done for complex field values to display correctly
+                info.list.Items(item.Id).FieldValuesAsHtml().execute(values => {
+                    // Set the values
+                    info.fieldValuesAsHtml = values;
 
                     // Resolve the promise
                     resolve(info);
-                }, reject);
+                }, true);
             }, reject);
         });
     },

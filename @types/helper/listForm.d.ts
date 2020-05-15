@@ -80,15 +80,6 @@ export interface IListFormAttachmentInfo {
 }
 
 /**
- * List Form Cache
- */
-export interface IListFormCache {
-    ct: string;
-    fields: string;
-    list: string;
-}
-
-/**
  * List Form Display
  */
 export interface IListFormDisplay {
@@ -142,9 +133,6 @@ export interface IListFormEditProps extends IListFormDisplayProps {
  * List Form Properties
  */
 export interface IListFormProps {
-    /** If defined, the data will be cached to the session storage. */
-    cacheKey?: string;
-
     /** The content type to target for the list form fields. */
     contentType?: string;
 
@@ -188,6 +176,12 @@ export interface IListFormResult {
 
     /** The form field links, if a content type was referenced. */
     fieldLinks: { [key: string]: FieldLink };
+
+    /** The field values as text. */
+    fieldValuesAsText: Types.SP.FieldStringValues;
+
+    /** The field values as html. */
+    fieldValuesAsHtml: Types.SP.FieldStringValues;
 
     /** The list item. */
     item?: ListItemOData | ListItem;
