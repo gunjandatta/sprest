@@ -442,11 +442,17 @@ export const ListForm: IListForm = {
 
                 // Get the item values
                 info.list.Items(item.Id).query({
-                    Expand: ["FieldValuesAsHtml", "FieldValuesAsText"]
+                    Expand: ["FieldValuesAsText"]
                 }).execute(item => {
                     // Set the values
-                    info.fieldValuesAsHtml = item.FieldValuesAsHtml;
                     info.fieldValuesAsText = item.FieldValuesAsText;
+                });
+
+                // Get the html values for this item
+                // This is needed for complex field values
+                info.list.Items(item.Id).FieldValuesAsHtml().execute(values => {
+                    // Set the values
+                    info.fieldValuesAsHtml = item.FieldValuesAsHtml;
 
                     // Resolve the promise
                     resolve(info);
