@@ -399,7 +399,7 @@ exports.ListForm = {
                 // This is needed for complex field values
                 info.list.Items(item.Id).FieldValuesAsHtml().execute(function (values) {
                     // Set the values
-                    info.fieldValuesAsHtml = item.FieldValuesAsHtml;
+                    info.fieldValuesAsHtml = values;
                     // Resolve the promise
                     resolve(info);
                 }, true);
