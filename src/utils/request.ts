@@ -236,6 +236,9 @@ export const Request = {
                 Request.executeRequest(base, true, (response, errorFl) => {
                     // See if there was an error
                     if (errorFl) {
+                        // Set the wait flag
+                        base.base.waitFlags[base.responseIndex] = true;
+
                         // Reject the request
                         reject ? reject(response) : null;
                     }

@@ -207,6 +207,8 @@ exports.Request = {
                 exports.Request.executeRequest(base, true, function (response, errorFl) {
                     // See if there was an error
                     if (errorFl) {
+                        // Set the wait flag
+                        base.base.waitFlags[base.responseIndex] = true;
                         // Reject the request
                         reject ? reject(response) : null;
                     }
