@@ -2956,6 +2956,7 @@ exports.Mapper = {
         },
         getWOPIFrameUrl: {
             argNames: ["action"],
+            requestType: utils_1.RequestType.PostWithArgsInQS
         },
         moveTo: {
             argNames: ["newUrl", "flags"],
@@ -3533,6 +3534,7 @@ exports.Mapper = {
         },
         getWOPIFrameUrl: {
             argNames: ["action"],
+            requestType: utils_1.RequestType.PostWithArgsInQS
         },
         mediaServiceUpdate: {
             argNames: ["parameters"],
@@ -5979,6 +5981,7 @@ exports.Mapper = {
         },
         getWOPIFrameUrl: {
             argNames: ["action"],
+            requestType: utils_1.RequestType.PostWithArgsInQS
         },
         mediaServiceUpdate: {
             argNames: ["parameters"],
@@ -6220,7 +6223,7 @@ exports.Mapper = {
         },
         getSubscription: {
             argNames: ["subscriptionId"],
-            requestType: utils_1.RequestType.GetWithArgs
+            requestType: utils_1.RequestType.PostWithArgs
         },
         query: {
             argNames: ["oData"],

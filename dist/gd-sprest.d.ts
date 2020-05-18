@@ -1763,15 +1763,6 @@ declare module 'gd-sprest/helper/listForm' {
     }
     
     /**
-        * List Form Cache
-        */
-    export interface IListFormCache {
-            ct: string;
-            fields: string;
-            list: string;
-    }
-    
-    /**
         * List Form Display
         */
     export interface IListFormDisplay {
@@ -1825,9 +1816,6 @@ declare module 'gd-sprest/helper/listForm' {
         * List Form Properties
         */
     export interface IListFormProps {
-            /** If defined, the data will be cached to the session storage. */
-            cacheKey?: string;
-    
             /** The content type to target for the list form fields. */
             contentType?: string;
     
@@ -1871,6 +1859,12 @@ declare module 'gd-sprest/helper/listForm' {
     
             /** The form field links, if a content type was referenced. */
             fieldLinks: { [key: string]: FieldLink };
+    
+            /** The field values as text. */
+            fieldValuesAsText: Types.SP.FieldStringValues;
+    
+            /** The field values as html. */
+            fieldValuesAsHtml: Types.SP.FieldStringValues;
     
             /** The list item. */
             item?: ListItemOData | ListItem;

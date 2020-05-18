@@ -7,7 +7,6 @@ var __1 = require("..");
 exports.ListForm = {
     // Method to create an instance of the list form
     create: function (props) {
-        var _cacheData = null;
         var _info = null;
         var _props = null;
         var _reject = null;
@@ -22,8 +21,6 @@ exports.ListForm = {
                 item: _props.item,
                 query: _props.query || {}
             };
-            // Load the data from cache
-            loadFromCache();
             // Load the list data
             loadListData().then(
             // Success
@@ -45,21 +42,6 @@ exports.ListForm = {
         };
         // Method to load a content type for the associated fields
         var loadContentType = function () {
-            // See if the content type info exists
-            if (_cacheData && _cacheData.ct) {
-                // Try to parse the data
-                try {
-                    // Parse the content type
-                    var ct = __1.Helper.parse(_cacheData.ct);
-                    // Load the default fields
-                    loadDefaultFields(ct.results[0]);
-                    return;
-                }
-                catch (_a) {
-                    // Clear the cache data
-                    sessionStorage.removeItem(_props.cacheKey);
-                }
-            }
             // Load the content types
             _info.list.ContentTypes()
                 // Query for the default content type and expand the field links
@@ -71,14 +53,6 @@ exports.ListForm = {
             })
                 // Execute the request, but wait for the previous one to be completed
                 .execute(function (ct) {
-                // See if we are storing data in cache
-                if (_props.cacheKey) {
-                    // Update the cache data
-                    _cacheData = _cacheData || {};
-                    _cacheData.ct = ct.stringify();
-                    // Update the cache
-                    sessionStorage.setItem(_props.cacheKey, JSON.stringify(_cacheData));
-                }
                 // Resolve the promise
                 loadDefaultFields(ct.results[0]);
             }, _reject);
@@ -140,30 +114,6 @@ exports.ListForm = {
                 }
                 // Save the field
                 _info.fields[field.InternalName] = field;
-            }
-        };
-        // Method to load the data from cache
-        var loadFromCache = function () {
-            // See if we are loading from cache
-            if (_props.cacheKey) {
-                // Get the data
-                var data = sessionStorage.getItem(_props.cacheKey);
-                if (data) {
-                    // Try to parse the data
-                    try {
-                        // Set the cache data
-                        _cacheData = JSON.parse(data);
-                        // Update the list information
-                        _info = _info || {};
-                        _info.list = __1.Helper.parse(_cacheData.list);
-                        // Load the field data
-                        loadFieldData(__1.Helper.parse(_cacheData.fields));
-                    }
-                    catch (_a) {
-                        // Clear the cache data
-                        sessionStorage.removeItem(_props.cacheKey);
-                    }
-                }
             }
         };
         // Method to load the item
@@ -256,8 +206,13 @@ exports.ListForm = {
                     _info.attachments = item.AttachmentFiles.results;
                     // Save the item
                     _info.item = item;
-                    // Resolve the promise
-                    _resolve(_info);
+                    // Refresh the item
+                    exports.ListForm.refreshItem(_info).then(function (info) {
+                        // Update the info
+                        _info = info;
+                        // Resolve the promise
+                        _resolve(_info);
+                    }, _reject);
                 }, _reject);
             }
             else {
@@ -289,15 +244,6 @@ exports.ListForm = {
                     .Fields()
                     // Execute the request
                     .execute(function (fields) {
-                    // See if we are caching the data
-                    if (_props.cacheKey) {
-                        // Update the cache
-                        _cacheData = _cacheData || {};
-                        _cacheData.fields = fields.stringify();
-                        _cacheData.list = _info.list.stringify();
-                        // Cache the data
-                        sessionStorage.setItem(_props.cacheKey, JSON.stringify(_cacheData));
-                    }
                     // Load the field data
                     loadFieldData(fields);
                     // Resolve the promise
@@ -442,8 +388,21 @@ exports.ListForm = {
             info.list.Items(info.item.Id).query(info.query).execute(function (item) {
                 // Update the item
                 info.item = item;
-                // Resolve the promise
-                resolve(info);
+                // Get the item values
+                info.list.Items(item.Id).query({
+                    Expand: ["FieldValuesAsText"]
+                }).execute(function (item) {
+                    // Set the values
+                    info.fieldValuesAsText = item.FieldValuesAsText;
+                });
+                // Get the html values for this item
+                // This is needed for complex field values
+                info.list.Items(item.Id).FieldValuesAsHtml().execute(function (values) {
+                    // Set the values
+                    info.fieldValuesAsHtml = values;
+                    // Resolve the promise
+                    resolve(info);
+                }, true);
             }, reject);
         });
     },
