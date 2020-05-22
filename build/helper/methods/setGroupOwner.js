@@ -18,6 +18,6 @@ exports.setGroupOwner = function (groupName, ownerName) {
         // Save the changes
         group.update();
         // Execute the request
-        group.executeQueryAsync(resolve, reject);
+        context.executeQueryAsync(resolve, reject);
     });
 };

@@ -23,6 +23,6 @@ export const setGroupOwner: IsetGroupOwner = (groupName: string, ownerName: stri
         group.update();
 
         // Execute the request
-        group.executeQueryAsync(resolve, reject);
+        context.executeQueryAsync(resolve, reject);
     });
 }
