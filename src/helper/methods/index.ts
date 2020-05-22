@@ -6,3 +6,4 @@ export * from "./hasPermissions";
 export * from "./parse";
 export * from "./request";
 export * from "./setContentTypeFields";
+export * from "./setGroupOwner";
