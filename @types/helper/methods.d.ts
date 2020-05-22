@@ -80,12 +80,23 @@ export interface Irequest {
 
 /**
  * Sets the field links associated with a content type.
- * @param ctInfo - The content type information
+ * @param ctInfo The content type information
  * @category Helper
  */
 export const setContentTypeFields: IsetContentTypeFields;
 export interface IsetContentTypeFields {
     (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
+}
+
+/**
+ * Sets a site group owner.
+ * This uses JSOM to set a site group owner's property to another group. You can only set the owner to a user, using the REST API.
+ * @param groupName The group name to update.
+ * @param ownerName The owner group name. 
+ */
+export const setGroupOwner: IsetGroupOwner;
+export interface IsetGroupOwner {
+    (groupName: string, ownerName: string): PromiseLike<void>;
 }
 
 /**
