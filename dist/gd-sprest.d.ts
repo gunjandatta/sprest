@@ -88,10 +88,7 @@ declare module 'gd-sprest/helper' {
     import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "gd-sprest/helper/linkInfo";
     import { IListForm } from "gd-sprest/helper/listForm";
     import { IListFormField } from "gd-sprest/helper/listFormField";
-    import {
-            IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType,
-            IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields
-    } from "./methods";
+    import { IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType, IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields, IsetGroupOwner } from "gd-sprest/helper/methods";
     import { ISPComponents } from "gd-sprest/helper/sp";
     import { ISPConfig, ISPConfigProps, IFieldInfo } from "gd-sprest/helper/spCfg";
     import { ISPCfgFieldType, ISPCfgType } from "gd-sprest/helper/spCfgTypes";
@@ -129,6 +126,7 @@ declare module 'gd-sprest/helper' {
             parse: Iparse,
             request: Irequest,
             setContentTypeFields: IsetContentTypeFields,
+            setGroupOwner: IsetGroupOwner,
             Executor: IExecutor;
             FieldSchemaXML: IFieldSchemaXML;
     
@@ -1881,10 +1879,7 @@ declare module 'gd-sprest/helper/listForm' {
 }
 
 declare module 'gd-sprest/helper/listFormField' {
-    import {
-            Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice,
-            FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery
-    } from "gd-sprest-def/lib/SP/entitytypes";
+    import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
     import { ITermInfo } from "gd-sprest/helper/taxonomy";
     
@@ -2074,6 +2069,18 @@ declare module 'gd-sprest/helper/listFormField' {
             /** Method to load the mms value field */
             loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<FieldMultiLineText>;
     }
+}
+
+declare module 'gd-sprest/helper/methods' {
+    export * from "gd-sprest/helper/methods/addContentEditorWebPart";
+    export * from "gd-sprest/helper/methods/addScriptEditorWebPart";
+    export * from "gd-sprest/helper/methods/createContentType";
+    export * from "gd-sprest/helper/methods/createDocSet";
+    export * from "gd-sprest/helper/methods/hasPermissions";
+    export * from "gd-sprest/helper/methods/parse";
+    export * from "gd-sprest/helper/methods/request";
+    export * from "gd-sprest/helper/methods/setContentTypeFields";
+    export * from "gd-sprest/helper/methods/setGroupOwner";
 }
 
 declare module 'gd-sprest/helper/sp' {
@@ -3548,126 +3555,6 @@ declare module 'gd-sprest/helper/webpart' {
     
             /** The target element id to render the webpart to */
             elementId: string;
-    }
-}
-
-declare module 'gd-sprest/helper/methods' {
-    import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
-    import { ContentType, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
-    import { IContentEditorWebPart, IScriptEditorWebPart } from "gd-sprest/helper/webpart";
-    
-    /**
-        * Adds a content editor webpart to a page.
-        * @category Helper
-        * @param url The relative url of the page.
-        * @param wpProps The webpart properties.
-        * @returns A promise is returned.
-        */
-    export const addContentEditorWebPart: IaddContentEditorWebPart;
-    export interface IaddContentEditorWebPart {
-            (url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
-    }
-    
-    /**
-        * Adds a script editor webpart to a page.
-        * @category Helper
-        * @param url - The relative url of the page.
-        * @param wpProps - The webpart properties.
-        */
-    export const addScriptEditorWebPart: IaddScriptEditorWebPart;
-    export interface IaddScriptEditorWebPart {
-            (url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
-    }
-    
-    /**
-        * Creates a content type in a web or specified list.
-        * @category Helper
-        * @param ctInfo - The content type information.
-        * @param parentInfo - The parent content type id and url containing it.
-        * @param webUrl - The relative url to create the content type in.
-        * @param listName - The list name to add the content type to.
-        */
-    export const createContentType: IcreateContentType;
-    export interface IcreateContentType {
-            (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType>;
-    }
-    
-    /**
-        * Creates a document set item.
-        * @category Helper
-        * @param name - The name of the document set folder to create.
-        * @param listName - The name of the document set library.
-        * @param webUrl - The url of the web containing the document set library.
-        */
-    export const createDocSet: IcreateDocSet;
-    export interface IcreateDocSet {
-            (name: string, listName: string, webUrl?: string): PromiseLike<ListItem>;
-    }
-    
-    /**
-        * Determines if the user has permissions, based on the permission kind value
-        * @category Helper
-        */
-    export const hasPermissions: IhasPermissions;
-    export interface IhasPermissions {
-            (permissionMask: any, permissions: Array<number> | number): boolean;
-    }
-    
-    /**
-        * Convert a JSON string to a base object
-        * @category Helper
-        */
-    export const parse: Iparse;
-    export interface Iparse {
-            <T = any>(jsonString: string): T;
-    }
-    
-    
-    /**
-        * XML HTTP Request
-        * @category Helper
-        */
-    export const request: Irequest;
-    export interface Irequest {
-            (props: IRequest): PromiseLike<any>;
-    }
-    
-    /**
-        * Sets the field links associated with a content type.
-        * @param ctInfo The content type information
-        * @category Helper
-        */
-    export const setContentTypeFields: IsetContentTypeFields;
-    export interface IsetContentTypeFields {
-            (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
-    }
-    
-    /**
-        * Sets a site group owner.
-        * This uses JSOM to set a site group owner's property to another group. You can only set the owner to a user, using the REST API.
-        * @param groupName The group name to update.
-        * @param ownerName The owner group name. 
-        */
-    export const setGroupOwner: IsetGroupOwner;
-    export interface IsetGroupOwner {
-            (groupName: string, ownerName: string): PromiseLike<void>;
-    }
-    
-    /**
-        * The XML HTTP request properties.
-        */
-    export interface IRequest {
-            /** The data to pass in the request. */
-            data?: any;
-    
-            /** The request headers. */
-            headers?: { [key: string]: string };
-    
-            /** The request method. */
-            method?: string;
-    
-            /** The request url. */
-            url: string;
     }
 }
 
@@ -5293,6 +5180,146 @@ declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/requestType";
     export * from "gd-sprest/utils/targetInfo";
     export * from "gd-sprest/utils/xhrRequest";
+}
+
+declare module 'gd-sprest/helper/methods/addContentEditorWebPart' {
+    import { IContentEditorWebPart } from "gd-sprest/helper/webpart";
+    
+    /**
+      * Adds a content editor webpart to a page.
+      * @category Helper
+      * @param url The relative url of the page.
+      * @param wpProps The webpart properties.
+      * @returns A promise is returned.
+      */
+    export const addContentEditorWebPart: IaddContentEditorWebPart;
+    export interface IaddContentEditorWebPart {
+        (url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/addScriptEditorWebPart' {
+    import { IScriptEditorWebPart } from "gd-sprest/helper/webpart";
+    
+    /**
+      * Adds a script editor webpart to a page.
+      * @category Helper
+      * @param url - The relative url of the page.
+      * @param wpProps - The webpart properties.
+      */
+    export const addScriptEditorWebPart: IaddScriptEditorWebPart;
+    export interface IaddScriptEditorWebPart {
+        (url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/createContentType' {
+    import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
+    import { ContentType } from "gd-sprest-def/lib/SP/entitytypes";
+    
+    /**
+      * Creates a content type in a web or specified list.
+      * @category Helper
+      * @param ctInfo - The content type information.
+      * @param parentInfo - The parent content type id and url containing it.
+      * @param webUrl - The relative url to create the content type in.
+      * @param listName - The list name to add the content type to.
+      */
+    export const createContentType: IcreateContentType;
+    export interface IcreateContentType {
+        (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/createDocSet' {
+    import { ListItem } from "gd-sprest-def/lib/SP/entitytypes";
+    
+    /**
+      * Creates a document set item.
+      * @category Helper
+      * @param name - The name of the document set folder to create.
+      * @param listName - The name of the document set library.
+      * @param webUrl - The url of the web containing the document set library.
+      */
+    export const createDocSet: IcreateDocSet;
+    export interface IcreateDocSet {
+        (name: string, listName: string, webUrl?: string): PromiseLike<ListItem>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/hasPermissions' {
+    /**
+      * Determines if the user has permissions, based on the permission kind value
+      * @category Helper
+      */
+    export const hasPermissions: IhasPermissions;
+    export interface IhasPermissions {
+        (permissionMask: any, permissions: Array<number> | number): boolean;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/parse' {
+    /**
+      * Convert a JSON string to a base object
+      * @category Helper
+      */
+    export const parse: Iparse;
+    export interface Iparse {
+        <T = any>(jsonString: string): T;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/request' {
+    /**
+        * XML HTTP Request
+        * @category Helper
+        */
+    export const request: Irequest;
+    export interface Irequest {
+            (props: IRequest): PromiseLike<any>;
+    }
+    
+    /**
+        * The XML HTTP request properties.
+        */
+    export interface IRequest {
+            /** The data to pass in the request. */
+            data?: any;
+    
+            /** The request headers. */
+            headers?: { [key: string]: string };
+    
+            /** The request method. */
+            method?: string;
+    
+            /** The request url. */
+            url: string;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setContentTypeFields' {
+    /**
+      * Sets the field links associated with a content type.
+      * @param ctInfo The content type information
+      * @category Helper
+      */
+    export const setContentTypeFields: IsetContentTypeFields;
+    export interface IsetContentTypeFields {
+        (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setGroupOwner' {
+    /**
+      * Sets a site group owner.
+      * This uses JSOM to set a site group owner's property to another group. You can only set the owner to a user, using the REST API.
+      * @param groupName The group name to update.
+      * @param ownerName The owner group name. 
+      */
+    export const setGroupOwner: IsetGroupOwner;
+    export interface IsetGroupOwner {
+        (groupName: string, ownerName: string): PromiseLike<void>;
+    }
 }
 
 declare module 'gd-sprest/utils/base' {
