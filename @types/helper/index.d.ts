@@ -4,10 +4,7 @@ import { IJSLink } from "./jslink";
 import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "./linkInfo";
 import { IListForm } from "./listForm";
 import { IListFormField } from "./listFormField";
-import {
-    IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType,
-    IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields
-} from "./methods";
+import { IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType, IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields, IsetGroupOwner } from "./methods";
 import { ISPComponents } from "./sp";
 import { ISPConfig, ISPConfigProps, IFieldInfo } from "./spCfg";
 import { ISPCfgFieldType, ISPCfgType } from "./spCfgTypes";
@@ -45,6 +42,7 @@ export interface IHelper {
     parse: Iparse,
     request: Irequest,
     setContentTypeFields: IsetContentTypeFields,
+    setGroupOwner: IsetGroupOwner,
     Executor: IExecutor;
     FieldSchemaXML: IFieldSchemaXML;
 

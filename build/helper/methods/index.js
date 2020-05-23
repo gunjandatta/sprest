@@ -11,3 +11,4 @@ __export(require("./hasPermissions"));
 __export(require("./parse"));
 __export(require("./request"));
 __export(require("./setContentTypeFields"));
+__export(require("./setGroupOwner"));

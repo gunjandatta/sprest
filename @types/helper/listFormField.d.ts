@@ -1,7 +1,4 @@
-import {
-    Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice,
-    FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery
-} from "gd-sprest-def/lib/SP/entitytypes";
+import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
 import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
 import { ITermInfo } from "./taxonomy";
 
