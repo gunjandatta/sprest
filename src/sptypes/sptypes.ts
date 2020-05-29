@@ -294,6 +294,11 @@ export const FieldType: SPTypes.IFieldType = {
 export const FieldUserSelectionType: SPTypes.IFieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 }
 
 /**
+ * File Level
+ */
+export const FileLevelType: SPTypes.IFileLevelType = { Published: 1, Draft: 2, Checkout: 3 }
+
+/**
  * File Template Types
 */
 export const FileTemplateType: SPTypes.IFileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };

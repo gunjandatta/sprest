@@ -260,6 +260,10 @@ exports.FieldType = {
  */
 exports.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 };
 /**
+ * File Level
+ */
+exports.FileLevelType = { Published: 1, Draft: 2, Checkout: 3 };
+/**
  * File Template Types
 */
 exports.FileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
