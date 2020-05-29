@@ -357,6 +357,7 @@ declare module 'gd-sprest/sptypes' {
         FieldResultType: Types.IFieldResultType;
         FieldType: Types.IFieldType;
         FieldUserSelectionType: Types.IFieldUserSelectionType;
+        FileLevelType: Types.IFileLevelType;
         FileTemplateType: Types.IFileTemplateType;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
         ListTemplateType: Types.IListTemplateType;
