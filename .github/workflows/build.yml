@@ -1,20 +1,20 @@
 # This workflow will build the library.
 on: [push]
 
-env:
-  NODE_VERSION: '10.x'
-
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build:
+    name: Build Library
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ env.NODE_VERSION }}
+    - name: Use Node.js ${{ env.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ env.NODE_VERSION }}
-    - name: Build Library
+        node-version: ${{ env.node-version }}
+    - name: Build Library using NodeJS v${{ env.node-version }}
       run: |
         # Build the project
         npm install
