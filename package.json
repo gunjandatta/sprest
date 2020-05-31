@@ -3,9 +3,9 @@
   "version": "5.7.5",
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io)",
-  "license": "<LICENSE>",
+  "license": "MIT",
   "main": "build/index.js",
-  "typings": "dist/gd-sprest.d.ts",
+  "typings": "build/index.d.ts",
   "keywords": [
     "sharepoint",
     "sharepoint 2013",
@@ -28,18 +28,16 @@
     "gd-sprest-def": "^0.7.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "babel-loader": "^8.1.0",
-    "dts-bundle": "^0.7.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "all": "npm run clean && npm run build && npm run prod && npm run typings",
+    "all": "npm run clean && npm run build && npm run prod",
     "clean": "node clean.js",
     "build": "tsc && webpack --mode=development",
-    "prod": "webpack --mode=production",
-    "typings": "dts-bundle --configJson dts-bundle.json"
+    "prod": "webpack --mode=production"
   }
 }
