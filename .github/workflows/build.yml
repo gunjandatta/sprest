@@ -14,7 +14,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.node-version }}
-    - name: Build Library using NodeJS v${{ env.node-version }}
+    - name: Build Library using NodeJS ${{ env.node-version }}
       run: |
         # Build the project
         npm install
