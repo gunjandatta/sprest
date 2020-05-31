@@ -5,9 +5,9 @@
             "es2015"
         ],
         "outDir": "build",
+        "skipLibCheck": true,
         "target": "es5"
     },
-    "exclude": ["node_modules"],
     "include": [
         "src/**/*.ts"
     ]
