@@ -19,5 +19,6 @@ jobs:
         # Build and test the project, then
         # deploy to Azure Web App.
         npm install
+        npm link typescript
         npm run all
         npm run test --if-present
