@@ -589,6 +589,20 @@ export type IFieldUserSelectionType = {
 }
 
 /**
+ * File Level Types
+ */
+export type IFileLevelType = {
+    /** The document is published. */
+    Published: number,
+
+    /** The document is a draft. */
+    Draft: number,
+
+    /** The document is checked out. */
+    Checkout: number
+}
+
+/**
  * File Template Types
 */
 export type IFileTemplateType = {

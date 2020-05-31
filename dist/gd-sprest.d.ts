@@ -357,6 +357,7 @@ declare module 'gd-sprest/sptypes' {
         FieldResultType: Types.IFieldResultType;
         FieldType: Types.IFieldType;
         FieldUserSelectionType: Types.IFieldUserSelectionType;
+        FileLevelType: Types.IFileLevelType;
         FileTemplateType: Types.IFileTemplateType;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
         ListTemplateType: Types.IListTemplateType;
@@ -4147,6 +4148,20 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** People and groups. */
             PeopleAndGroups: number
+    }
+    
+    /**
+        * File Level Types
+        */
+    export type IFileLevelType = {
+            /** The document is published. */
+            Published: number,
+    
+            /** The document is a draft. */
+            Draft: number,
+    
+            /** The document is checked out. */
+            Checkout: number
     }
     
     /**
