@@ -94,7 +94,7 @@ export interface IListFormDisplay {
  */
 export interface IListFormDisplayProps {
     /** The element to render the form to. */
-    el: Element;
+    el?: Element;
 
     /** The fields to exclude from the form. */
     excludeFields?: Array<string>;
