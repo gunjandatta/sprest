@@ -4,6 +4,7 @@ import {
 } from "../../@types/helper";
 import { IODataQuery, SP } from "gd-sprest-def";
 import { SPTypes, Web } from "..";
+import { Types } from "../../@types";
 
 /**
  * List Form
@@ -352,12 +353,29 @@ export const ListForm: IListForm = {
             switch (field.FieldTypeKind) {
                 // Lookup Field
                 case SPTypes.FieldType.Lookup:
-                    // Expand the field
-                    query.Expand.push(field.InternalName);
+                    let lookupField = field as Types.SP.FieldLookup;
 
-                    // Select the fields
-                    query.Select.push(field.InternalName + "/Id");
-                    query.Select.push(field.InternalName + "/" + (field as SP.FieldLookup).LookupField);
+                    // See if this is an associated lookup field
+                    if (lookupField.PrimaryFieldId) {
+                        // Parse the form fields to find the parent field
+                        for (let parentFieldName in info.fields) {
+                            let parentField = info.fields[parentFieldName];
+
+                            // See if the parent field is being loaded
+                            if (parentField.Id == lookupField.PrimaryFieldId) {
+                                // Select the field
+                                query.Select.push(parentField.InternalName + "/" + lookupField.LookupField);
+                                break;
+                            }
+                        }
+                    } else {
+                        // Expand the field
+                        query.Expand.push(field.InternalName);
+
+                        // Select the fields
+                        query.Select.push(field.InternalName + "/Id");
+                        query.Select.push(field.InternalName + "/" + (field as SP.FieldLookup).LookupField);
+                    }
                     break;
 
                 // User Field
