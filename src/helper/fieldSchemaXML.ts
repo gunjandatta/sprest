@@ -140,7 +140,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         props["Format"] = fieldInfo.format == SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
 
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        schemaXml += "</Field>"
 
         // Resolve the request
         _resolve(schemaXml);
