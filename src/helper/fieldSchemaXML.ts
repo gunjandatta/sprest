@@ -57,7 +57,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             case SPTypes.FieldResultType.Number:
                 props["ResultType"] = "Number";
                 if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
-                if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
+                if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["Percentage"] = "TRUE"; }
                 break;
             default:
                 props["ResultType"] = "Text";
@@ -272,7 +272,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         if (fieldInfo.max != null) { props["Max"] = fieldInfo.max; }
         if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
         if (fieldInfo.numberType == SPTypes.FieldNumberType.Integer) { props["Decimals"] = 0; }
-        if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
+        if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["Percentage"] = "TRUE"; }
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
