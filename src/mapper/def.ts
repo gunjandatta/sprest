@@ -1370,47 +1370,57 @@ export const Mapper: IMapper = {
     "Microsoft.SharePoint.Portal.SPSiteManager": {
         archiveTeamChannelSite: {
             argNames: ["siteId", "archive"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         canCreateHubJoinedSite: {
             argNames: ["hubSiteId"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         create: {
             argNames: ["request"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         delete: {
             argNames: ["siteId"],
-            requestType: RequestType.Delete
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getIBSegmentLabels: {
             argNames: ["IBSegments"],
+            requestType: RequestType.GetWithArgsInQS
         },
 
         getTeamChannelSiteOwner: {
-            argNames: ["siteId"]
+            argNames: ["siteId"],
+            requestType: RequestType.GetWithArgsInQS
         },
 
         restoreTeamsChannelSite: {
-            argNames: ["siteId", "relatedGroupId"]
+            argNames: ["siteId", "relatedGroupId"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         setTeamChannelSiteOwner: {
-            argNames: ["siteId", "logonName", "secondaryLogonName"]
+            argNames: ["siteId", "logonName", "secondaryLogonName"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         siteUrl: {
-            argNames: ["siteId"]
+            argNames: ["siteId"],
+            requestType: RequestType.GetWithArgsInQS
         },
 
         status: {
             argNames: ["url"],
+            requestType: RequestType.GetWithArgsInQS
         },
 
         updateWorkflow2013Endpoint: {
             argNames: ["workflowServiceAddress", "workflowHostname"],
+            requestType: RequestType.PostWithArgsInBody
         },
     },
 

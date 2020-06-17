@@ -21,10 +21,10 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
+    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
             Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site,
+            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager,
             SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
@@ -72,6 +72,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/profileLoader";
     export * from "gd-sprest/lib/search";
     export * from "gd-sprest/lib/site";
+    export * from "gd-sprest/lib/siteManager";
     export * from "gd-sprest/lib/socialFeed";
     export * from "gd-sprest/lib/themeManager";
     export * from "gd-sprest/lib/userProfile";
@@ -278,6 +279,11 @@ declare module 'gd-sprest/rest' {
                 * Use this api to interact with a SharePoint site collection.
                 */
             Site: LibTypes.ISite;
+    
+            /**
+                * Use this api to create/delete site collections.
+                */
+            SiteManager: LibTypes.ISiteManager;
     
             /**
                 * Use this api to see if a site collection exists.
@@ -1212,6 +1218,54 @@ declare module 'gd-sprest/lib/site' {
     export interface ISiteUrl {
             /** The site url. */
             GetUrlById: string;
+    }
+}
+
+declare module 'gd-sprest/lib/siteManager' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import * as Portal from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/siteManager
+        *
+        * #### Get list from the current site collection
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().execute(site => {
+        *   let hubSiteId = site.HubSiteId;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().query({
+        *  Expand: ["UserCustomActions"]
+        * }).execute(list => {
+        *   let actions = site.UserCustomActions.results;
+        * });
+        * ```
+        */
+    export const SiteManager: ISiteManager;
+    
+    /**
+        * Site Manager
+        * @category Site Manager
+        */
+    export interface ISiteManager {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): Portal.ISPSiteManager;
     }
 }
 

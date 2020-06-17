@@ -129,6 +129,11 @@ export interface IREST {
     Site: LibTypes.ISite;
 
     /**
+     * Use this api to create/delete site collections.
+     */
+    SiteManager: LibTypes.ISiteManager;
+
+    /**
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
      */
