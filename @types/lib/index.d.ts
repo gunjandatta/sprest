@@ -1,6 +1,6 @@
 export * from "./apps";
 export * from "./contextInfo";
-//export * from "./graph";
+export * from "./graph";
 export * from "./groupService";
 export * from "./groupSiteManager";
 export * from "./hubSites";
