@@ -167,6 +167,19 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // Set the field type
         props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
 
+        // Update the relationship behavior
+        switch (fieldInfo.relationshipBehavior) {
+            case SPTypes.RelationshipDeleteBehaviorType.Cascade:
+                props["RelationshipDeleteBehavior"] = "Cascade";
+                break;
+            case SPTypes.RelationshipDeleteBehaviorType.None:
+                props["RelationshipDeleteBehavior"] = "None";
+                break;
+            case SPTypes.RelationshipDeleteBehaviorType.Restrict:
+                props["RelationshipDeleteBehavior"] = "Restrict";
+                break;
+        }
+
         // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }
         if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
@@ -369,10 +382,12 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             props["DisplayName"] = fieldInfo.title || fieldInfo.name;
 
             // Set the optional properties
+            if (typeof (fieldInfo.allowDeletion) !== "undefined") { props["AllowDeletion"] = fieldInfo.allowDeletion ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
             if (typeof (fieldInfo.jslink) !== "undefined") { props["JSLink"] = fieldInfo.jslink; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.indexed) !== "undefined") { props["Indexed"] = fieldInfo.indexed ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.readOnly) !== "undefined") { props["ReadOnly"] = fieldInfo.readOnly ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.required) !== "undefined") { props["Required"] = fieldInfo.required ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.showInDisplayForm) !== "undefined") { props["ShowInDisplayForm"] = fieldInfo.showInDisplayForm ? "TRUE" : "FALSE"; }

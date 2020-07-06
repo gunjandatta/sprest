@@ -2862,6 +2862,9 @@ declare module 'gd-sprest/helper/spCfg' {
         * Field Information
         */
     export interface IFieldInfo {
+            /** True, to allow deletion of the field. */
+            allowDeletion?: boolean;
+    
             /** The default value of the field. */
             defaultValue?: string;
     
@@ -2873,6 +2876,9 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** True for hidden fields. */
             hidden?: boolean;
+    
+            /** True to index the field. */
+            indexed?: boolean;
     
             /** The JSLink value for the field. */
             jslink?: string;
@@ -2991,6 +2997,9 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The list name */
             listName?: string;
+    
+            /** The lookup field relationship behavior */
+            relationshipBehavior?: number;
     
             /** The lookup field to show */
             showField?: string;
