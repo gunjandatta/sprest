@@ -155,6 +155,9 @@ export interface IFieldInfoCurrency extends IFieldInfo {
  * Date Field Information
  */
 export interface IFieldInfoDate extends IFieldInfo {
+    /** The display format */
+    displayFormat?: number;
+
     /** The date/time format */
     format?: number;
 }

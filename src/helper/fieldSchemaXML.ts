@@ -139,6 +139,19 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // Set the date/time properties
         props["Format"] = fieldInfo.format == SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
 
+        // Set the date/time display
+        switch (fieldInfo.displayFormat) {
+            case SPTypes.FriendlyDateFormat.Disabled:
+                props["FriendlyDisplayFormat"] = "Disabled";
+                break;
+            case SPTypes.FriendlyDateFormat.Relative:
+                props["FriendlyDisplayFormat"] = "Relative";
+                break;
+            case SPTypes.FriendlyDateFormat.Unspecified:
+                props["FriendlyDisplayFormat"] = "Unspecified";
+                break;
+        }
+
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
