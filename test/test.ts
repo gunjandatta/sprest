@@ -1,5 +1,5 @@
 import {
-    $REST, List, Helper
+    $REST, List, Helper, SiteManager
 } from "../@types";
 
 let el = document.querySelector("#Element");

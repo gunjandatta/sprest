@@ -1,6 +1,6 @@
 export * from "./apps";
 export * from "./contextInfo";
-//export * from "./graph";
+export * from "./graph";
 export * from "./groupService";
 export * from "./groupSiteManager";
 export * from "./hubSites";
@@ -12,6 +12,7 @@ export * from "./peoplePicker";
 export * from "./profileLoader";
 export * from "./search";
 export * from "./site";
+export * from "./siteManager";
 export * from "./socialFeed";
 export * from "./themeManager";
 export * from "./userProfile";

@@ -57,7 +57,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             case SPTypes.FieldResultType.Number:
                 props["ResultType"] = "Number";
                 if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
-                if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
+                if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["Percentage"] = "TRUE"; }
                 break;
             default:
                 props["ResultType"] = "Text";
@@ -139,8 +139,23 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // Set the date/time properties
         props["Format"] = fieldInfo.format == SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
 
+        // Set the date/time display
+        switch (fieldInfo.displayFormat) {
+            case SPTypes.FriendlyDateFormat.Disabled:
+                props["FriendlyDisplayFormat"] = "Disabled";
+                break;
+            case SPTypes.FriendlyDateFormat.Relative:
+                props["FriendlyDisplayFormat"] = "Relative";
+                break;
+            case SPTypes.FriendlyDateFormat.Unspecified:
+                props["FriendlyDisplayFormat"] = "Unspecified";
+                break;
+        }
+
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        schemaXml += "</Field>"
 
         // Resolve the request
         _resolve(schemaXml);
@@ -164,6 +179,19 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
     let createLookup = (fieldInfo: IFieldInfoLookup, props: object) => {
         // Set the field type
         props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
+
+        // Update the relationship behavior
+        switch (fieldInfo.relationshipBehavior) {
+            case SPTypes.RelationshipDeleteBehaviorType.Cascade:
+                props["RelationshipDeleteBehavior"] = "Cascade";
+                break;
+            case SPTypes.RelationshipDeleteBehaviorType.None:
+                props["RelationshipDeleteBehavior"] = "None";
+                break;
+            case SPTypes.RelationshipDeleteBehaviorType.Restrict:
+                props["RelationshipDeleteBehavior"] = "Restrict";
+                break;
+        }
 
         // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }
@@ -270,7 +298,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         if (fieldInfo.max != null) { props["Max"] = fieldInfo.max; }
         if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
         if (fieldInfo.numberType == SPTypes.FieldNumberType.Integer) { props["Decimals"] = 0; }
-        if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
+        if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["Percentage"] = "TRUE"; }
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
@@ -367,10 +395,12 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             props["DisplayName"] = fieldInfo.title || fieldInfo.name;
 
             // Set the optional properties
+            if (typeof (fieldInfo.allowDeletion) !== "undefined") { props["AllowDeletion"] = fieldInfo.allowDeletion ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
             if (typeof (fieldInfo.jslink) !== "undefined") { props["JSLink"] = fieldInfo.jslink; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.indexed) !== "undefined") { props["Indexed"] = fieldInfo.indexed ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.readOnly) !== "undefined") { props["ReadOnly"] = fieldInfo.readOnly ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.required) !== "undefined") { props["Required"] = fieldInfo.required ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.showInDisplayForm) !== "undefined") { props["ShowInDisplayForm"] = fieldInfo.showInDisplayForm ? "TRUE" : "FALSE"; }

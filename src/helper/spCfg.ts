@@ -276,6 +276,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
+            let newFields = [];
+
             // Ensure fields exist
             if (cfgFields == null || cfgFields.length == 0) {
                 // Resolve the promise
@@ -305,7 +307,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         let cfgLookup = cfg as IFieldInfoLookup;
                         if (cfgLookup.type == SPCfgFieldType.Lookup && cfgLookup.fieldRef) {
                             // Get the field reference
-                            let fieldRef = isInCollection("InternalName", cfgLookup.fieldRef, fields.results);
+                            let fieldRef = isInCollection("InternalName", cfgLookup.fieldRef, fields.results) ||
+                                isInCollection("InternalName", cfgLookup.fieldRef, newFields);
                             if (fieldRef) {
                                 // Update the value to be the guid
                                 cfgLookup.fieldRef = (fieldRef as SP.Field).Id;
@@ -324,6 +327,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     if (field.InternalName) {
                                         // Log
                                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+
+                                        // Save a reference to the field
+                                        newFields.push(field);
 
                                         // Trigger the event
                                         cfg.onCreated ? cfg.onCreated(field, list) : null;

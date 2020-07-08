@@ -42,7 +42,7 @@ export interface IREST {
     /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
-    //Graph: LibTypes.IGraph;
+    Graph: LibTypes.IGraph;
 
     /**
      * A reference to the _api/groupservice endpoint.
@@ -127,6 +127,11 @@ export interface IREST {
      * Use this api to interact with a SharePoint site collection.
      */
     Site: LibTypes.ISite;
+
+    /**
+     * Use this api to create/delete site collections.
+     */
+    SiteManager: LibTypes.ISiteManager;
 
     /**
      * Use this api to see if a site collection exists.

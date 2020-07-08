@@ -39,6 +39,9 @@ export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
  * Field Information
  */
 export interface IFieldInfo {
+    /** True, to allow deletion of the field. */
+    allowDeletion?: boolean;
+
     /** The default value of the field. */
     defaultValue?: string;
 
@@ -50,6 +53,9 @@ export interface IFieldInfo {
 
     /** True for hidden fields. */
     hidden?: boolean;
+
+    /** True to index the field. */
+    indexed?: boolean;
 
     /** The JSLink value for the field. */
     jslink?: string;
@@ -149,6 +155,9 @@ export interface IFieldInfoCurrency extends IFieldInfo {
  * Date Field Information
  */
 export interface IFieldInfoDate extends IFieldInfo {
+    /** The display format */
+    displayFormat?: number;
+
     /** The date/time format */
     format?: number;
 }
@@ -168,6 +177,9 @@ export interface IFieldInfoLookup extends IFieldInfo {
 
     /** The list name */
     listName?: string;
+
+    /** The lookup field relationship behavior */
+    relationshipBehavior?: number;
 
     /** The lookup field to show */
     showField?: string;
