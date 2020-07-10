@@ -91,6 +91,20 @@ export type ICalendarType = {
 }
 
 /**
+ * Check In Types
+ */
+export type ICheckInType = {
+    /** Minor Check In */
+    MinorCheckIn: number,
+
+    /** Major Check In */
+    MajorCheckIn: number,
+
+    /** Overwrite Check In */
+    OverwriteCheckIn: number
+};
+
+/**
  * Check Out Types
  */
 export type ICheckOutType = {

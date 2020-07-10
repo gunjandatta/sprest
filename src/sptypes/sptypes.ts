@@ -64,6 +64,11 @@ export const CalendarTypes: SPTypes.ICalendarType = {
 };
 
 /**
+ * Check In Types
+ */
+export const CheckInType: SPTypes.ICheckInType = { MinorCheckIn: 0, MajorCheckIn: 1, OverwriteCheckIn: 2 };
+
+/**
  * Check Out Types
  */
 export const CheckOutType: SPTypes.ICheckOutType = { Online: 0, Offline: 1, None: 2 };
