@@ -5343,7 +5343,7 @@ export const Mapper: IMapper = {
         ],
 
         getNodeById: {
-            argNames: ["id"],
+            argNames: ["id"]
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -5351,6 +5351,10 @@ export const Mapper: IMapper = {
     },
 
     "SP.NavigationNode": {
+        properties: [
+            "Children|SP.NavigationNode.Collection|/../getNodeById([Name])|SP.NavigationNode"
+        ],
+
         delete: {
             requestType: RequestType.Delete
         },
@@ -5358,7 +5362,7 @@ export const Mapper: IMapper = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         update: {
-            metadataType: "",
+            metadataType: "SP.NavigationNode",
             name: "",
             requestMethod: "MERGE",
             requestType: RequestType.PostBodyNoArgs
