@@ -5337,6 +5337,11 @@ export const Mapper: IMapper = {
     },
 
     "SP.Navigation": {
+        properties: [
+            "QuickLaunch|SP.NavigationNode.Collection|/../getNodeById([Name])|SP.NavigationNode",
+            "TopNavigationBar|SP.NavigationNode.Collection|/../getNodeById([Name])|SP.NavigationNode"
+        ],
+
         getNodeById: {
             argNames: ["id"],
         },
@@ -7449,7 +7454,7 @@ export const Mapper: IMapper = {
             "DescriptionResource", "EventReceivers|SP.EventReceiverDefinition.Collection|('[Name]')|SP.EventReceiverDefinition", "Features|SP.Feature.Collection|('[Name]')|SP.Feature",
             "Fields|SP.Field.Collection|/getByInternalNameOrTitle('[Name]')|SP.Field", "FirstUniqueAncestorSecurableObject",
             "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder", "Lists|SP.List.Collection|/getByTitle('[Name]')|SP.List",
-            "ListTemplates|SP.ListTemplate.Collection|('[Name]')|SP.ListTemplate", "Navigation", "ParentWeb",
+            "ListTemplates|SP.ListTemplate.Collection|('[Name]')|SP.ListTemplate", "Navigation|SP.Navigation", "ParentWeb",
             "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|SP.RoleAssignment.Collection|([Name])|SP.RoleAssignment",
             "RoleDefinitions|SP.RoleDefinition.Collection|/getByName('[Name]')|SP.RoleDefinition", "RootFolder|SP.Folder|/getByUrl('[Name]')|SP.File",
             "SiteGroups|SP.Group.Collection|/getByName('[Name]')|SP.Group", "SiteUserInfoList", "SiteUsers|SP.User.Collection|/getById([Name])|SP.User",
