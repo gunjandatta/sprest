@@ -5343,7 +5343,8 @@ export const Mapper: IMapper = {
         ],
 
         getNodeById: {
-            argNames: ["id"]
+            argNames: ["id"],
+            returnType: "SP.NavigationNode"
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
