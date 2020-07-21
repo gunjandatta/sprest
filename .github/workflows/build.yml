@@ -20,3 +20,8 @@ jobs:
         npm install
         npm run all
         npm run test --if-present
+    - name: Build Artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: dist
+        path: dist
