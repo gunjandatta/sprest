@@ -6054,6 +6054,9 @@ declare module 'gd-sprest/utils/targetInfo' {
             /** True to default the request to the web api, site api otherwise. */
             defaultToWebFl?: boolean;
     
+            /** Sets the Cache-Control header to no-cache */
+            disableCache?: boolean;
+    
             /** The endpoint of the request. */
             endpoint?: string;
     

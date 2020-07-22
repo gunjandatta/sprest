@@ -44,7 +44,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Return a promise
                 return new Promise((resolve, reject) => {
                     // Get the web containing the parent content type
-                    Web(url)
+                    Web(url, { disableCache: true })
                         // Get the content types
                         .ContentTypes()
                         // Filter for the parent name
@@ -565,7 +565,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][WebPart] Creating the web parts.");
 
             // Get the web
-            Web(webUrl, { requestDigest: _requestDigest })
+            Web(webUrl, { disableCache: true, requestDigest: _requestDigest })
                 // Get the web part catalog
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -629,7 +629,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     // See if group exists
                                     if (cfgWebPart.Group) {
                                         // Set the target to the root web
-                                        Web(ContextInfo.siteServerRelativeUrl)
+                                        Web(ContextInfo.siteServerRelativeUrl, { disableCache: true })
                                             // Get the web part catalog
                                             .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                                             // Get the Items
@@ -993,7 +993,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    Web(webUrl, { requestDigest: _requestDigest })
+                    Web(webUrl, { disableCache: true, requestDigest: _requestDigest })
                         // Get the list
                         .Lists(cfgList.ListInformation.Title)
                         // Expand the content types, fields and views
@@ -1122,7 +1122,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 console.log("[gd-sprest][uninstall] Loading the site information...");
 
                 // Get the site
-                Site(webUrl, { requestDigest: _requestDigest })
+                Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
                     // Expand the user custom actions
                     .query({
                         Expand: ["UserCustomActions"]
@@ -1161,7 +1161,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             if (cfg.ListCfg) { Expand.push("Lists"); }
 
             // Query the web
-            Web(webUrl, { requestDigest: _requestDigest }).query({ Expand })
+            Web(webUrl, { disableCache: true, requestDigest: _requestDigest }).query({ Expand })
                 // Execute the request
                 .execute(web => {
                     // Remove the web custom actions
@@ -1199,7 +1199,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     console.log("[gd-sprest] Installing the web assets...");
 
                     // Get the web
-                    let web = Web(webUrl, { requestDigest: _requestDigest });
+                    let web = Web(webUrl, { disableCache: true, requestDigest: _requestDigest });
 
                     // Create the site fields
                     let createSiteFields = () => {
@@ -1316,7 +1316,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
 
                                 // Get the site
-                                Site(webUrl, { requestDigest: _requestDigest })
+                                Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
                                     // Get the user custom actions
                                     .UserCustomActions().execute(customActions => {
                                         // Create the user custom actions
