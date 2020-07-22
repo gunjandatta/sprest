@@ -147,6 +147,13 @@ export class XHRRequest {
             }
         }
 
+        // See if we are disabling cache
+        if (this.targetInfo.props.disableCache) {
+            // Add the header
+            this.xhr ? this.xhr.setRequestHeader("Cache-Control", "no-cache") : null;
+            this.headers["Cache-Control"] = "no-cache";
+        }
+
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
             // Set the authorization
