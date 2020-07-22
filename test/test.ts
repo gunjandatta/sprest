@@ -13,6 +13,9 @@ c.addAction(a2);
 $REST.Web().getFileByServerRelativeUrl("").getLimitedWebPartManager().WebParts().execute(wpMgr => {
 });
 
+$REST.Web().CurrentUser().execute(user => {
+    user.LoginName;
+})
 $REST.Web().CurrentUser().query({ Select: ["LoginName"] }).execute(user => {
     user.LoginName;
 });
