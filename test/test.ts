@@ -13,7 +13,11 @@ c.addAction(a2);
 $REST.Web().getFileByServerRelativeUrl("").getLimitedWebPartManager().WebParts().execute(wpMgr => {
 });
 
-$REST.Web().execute(web => { });
+$REST.Web().CurrentUser().query({ Select: ["LoginName"] }).execute(user => {
+    user.LoginName;
+});
+
+$REST.Web().query({}).execute(web => { });
 $REST.Site().RootWeb().execute(web => { });
 
 $REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execute(d => {
