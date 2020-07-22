@@ -4650,11 +4650,11 @@ export const Mapper: IMapper = {
     "SP.List": {
         properties: [
             "BrowserFileHandling", "ContentTypes|SP.ContentType.Collection|('[Name]')|SP.ContentType", "CreatablesInfo",
-            "DefaultDisplayFormUrl", "DefaultEditFormUrl", "DefaultNewFormUrl", "DefaultView|SP.View",
-            "DescriptionResource", "EventReceivers|SP.EventReceiverDefinition.Collection|('[Name]')|SP.EventReceiverDefinition", "Fields|SP.Field.Collection|/getByInternalNameOrTitle('[Name]')|SP.Field",
-            "FirstUniqueAncestorSecurableObject", "Forms|SP.Form.Collection|('[Name]')|SP.Form", "InformationRightsManagementSettings",
-            "Items|SP.ListItem.Collection|([Name])|SP.ListItem", "ParentWeb", "RoleAssignments|SP.RoleAssignment.Collection|([Name])|SP.RoleAssignment",
-            "RootFolder|SP.Folder|/getByUrl('[Name]')|SP.File", "Subscriptions", "TitleResource",
+            "DefaultDisplayFormUrl", "DefaultEditFormUrl", "DefaultNewFormUrl", "DefaultView|SP.View", "DescriptionResource",
+            "EffectiveBasePermissions", "EventReceivers|SP.EventReceiverDefinition.Collection|('[Name]')|SP.EventReceiverDefinition",
+            "Fields|SP.Field.Collection|/getByInternalNameOrTitle('[Name]')|SP.Field", "FirstUniqueAncestorSecurableObject", "Forms|SP.Form.Collection|('[Name]')|SP.Form",
+            "InformationRightsManagementSettings", "Items|SP.ListItem.Collection|([Name])|SP.ListItem", "ParentWeb",
+            "RoleAssignments|SP.RoleAssignment.Collection|([Name])|SP.RoleAssignment", "RootFolder|SP.Folder|/getByUrl('[Name]')|SP.File", "Subscriptions", "TitleResource",
             "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction", "Views|SP.View.Collection|('[Name]')|SP.View", "WorkflowAssociations"
         ],
         addItem: {
@@ -7456,15 +7456,15 @@ export const Mapper: IMapper = {
             "AllProperties", "AppTiles", "AssociatedMemberGroup|SP.Group", "AssociatedOwnerGroup|SP.Group",
             "AssociatedVisitorGroup|SP.Group", "Author|SP.User", "AvailableContentTypes|SP.ContentType.Collection", "AvailableFields|SP.Field.Collection",
             "ClientWebParts", "ContentTypes|SP.ContentType.Collection|('[Name]')|SP.ContentType", "CurrentUser|SP.User", "DataLeakagePreventionStatusInfo",
-            "DescriptionResource", "EventReceivers|SP.EventReceiverDefinition.Collection|('[Name]')|SP.EventReceiverDefinition", "Features|SP.Feature.Collection|('[Name]')|SP.Feature",
-            "Fields|SP.Field.Collection|/getByInternalNameOrTitle('[Name]')|SP.Field", "FirstUniqueAncestorSecurableObject",
-            "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder", "Lists|SP.List.Collection|/getByTitle('[Name]')|SP.List",
+            "DescriptionResource", "EffectiveBasePermissions", "EventReceivers|SP.EventReceiverDefinition.Collection|('[Name]')|SP.EventReceiverDefinition",
+            "Features|SP.Feature.Collection|('[Name]')|SP.Feature", "Fields|SP.Field.Collection|/getByInternalNameOrTitle('[Name]')|SP.Field",
+            "FirstUniqueAncestorSecurableObject", "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder", "Lists|SP.List.Collection|/getByTitle('[Name]')|SP.List",
             "ListTemplates|SP.ListTemplate.Collection|('[Name]')|SP.ListTemplate", "Navigation|SP.Navigation", "ParentWeb",
             "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|SP.RoleAssignment.Collection|([Name])|SP.RoleAssignment",
             "RoleDefinitions|SP.RoleDefinition.Collection|/getByName('[Name]')|SP.RoleDefinition", "RootFolder|SP.Folder|/getByUrl('[Name]')|SP.File",
             "SiteGroups|SP.Group.Collection|/getByName('[Name]')|SP.Group", "SiteUserInfoList", "SiteUsers|SP.User.Collection|/getById([Name])|SP.User",
-            "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
-            "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction", "WebInfos|SP.WebInformation.Collection", "Webs|SP.Web.Collection", "WorkflowAssociations", "WorkflowTemplates"
+            "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource", "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction",
+            "WebInfos|SP.WebInformation.Collection", "Webs|SP.Web.Collection", "WorkflowAssociations", "WorkflowTemplates"
         ],
 
         addCrossFarmMessage: {
