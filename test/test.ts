@@ -27,6 +27,10 @@ $REST.Web().RoleAssignments().getByPrincipalId(8).RoleDefinitionBindings().execu
     d.results[0].Name;
 });
 
+$REST.Web().Lists("Documents").RoleAssignments().execute(roles => {
+    roles.results[0].PrincipalId;
+});
+$REST.Web().Lists("Documents").RoleAssignments().execute(roles => { });
 $REST.Web().Lists().query({}).execute(lists => {
     lists.results[0].RoleAssignments.results[0];
 })
