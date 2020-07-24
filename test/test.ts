@@ -31,8 +31,10 @@ $REST.Web().Lists("Documents").RoleAssignments().execute(roles => {
     roles.results[0].PrincipalId;
 });
 $REST.Web().Lists("Documents").RoleAssignments().execute(roles => { });
+$REST.Web().Lists().getById("").RoleAssignments();
+$REST.Web().Lists().getByTitle("").RoleAssignments();
 $REST.Web().Lists().query({}).execute(lists => {
-    lists.results[0].RoleAssignments.results[0];
+    lists.results[0].RoleAssignments.results[0].PrincipalId;
 })
 
 $REST.Web().SiteGroups().execute(groups => {
