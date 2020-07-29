@@ -1263,6 +1263,7 @@ export const Mapper: IMapper = {
         properties: [
             "MenuState|menustate|([Name])|menunode"
         ],
+
         getPublishingNavigationProviderType: {
             argNames: ["mapProviderName"],
         },
@@ -5372,6 +5373,13 @@ export const Mapper: IMapper = {
     },
 
     "SP.NavigationNode.Collection": {
+        add: {
+            argNames: ["properties"],
+            metadataType: "SP.NavigationNode",
+            name: "",
+            requestType: RequestType.PostBodyNoArgs
+        },
+
         getById: {
             argNames: ["id"],
         },
@@ -5382,6 +5390,7 @@ export const Mapper: IMapper = {
 
         moveAfter: {
             argNames: ["nodeId", "previousNodeId"],
+            requestType: RequestType.PostWithArgs
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },

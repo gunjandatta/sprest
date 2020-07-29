@@ -5693,6 +5693,7 @@ declare module 'gd-sprest/helper/methods/addPermissionLevel' {
         */
     export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
             BasePermissions: Array<number>;
+            Name: string;
             WebUrl?: string;
     }
     
