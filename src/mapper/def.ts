@@ -6264,6 +6264,13 @@ export const Mapper: IMapper = {
     },
 
     "SP.RoleDefinition.Collection": {
+        add: {
+            argNames: ["properties"],
+            metadataType: "SP.RoleDefinition",
+            name: "",
+            requestType: RequestType.PostBodyNoArgs
+        },
+
         getById: {
             argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly,

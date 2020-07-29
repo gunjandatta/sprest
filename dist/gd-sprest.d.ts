@@ -16,6 +16,7 @@
 //   ../gd-sprest-def/lib/SP/WorkflowServices/entitytypes
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
+//   ../gd-sprest-def/lib/SP
 
 declare module 'gd-sprest' {
     /**
@@ -2158,6 +2159,7 @@ declare module 'gd-sprest/helper/listFormField' {
 
 declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/addContentEditorWebPart";
+    export * from "gd-sprest/helper/methods/addPermissionLevel";
     export * from "gd-sprest/helper/methods/addScriptEditorWebPart";
     export * from "gd-sprest/helper/methods/createContentType";
     export * from "gd-sprest/helper/methods/createDocSet";
@@ -5680,6 +5682,27 @@ declare module 'gd-sprest/helper/methods/addContentEditorWebPart' {
     export const addContentEditorWebPart: IaddContentEditorWebPart;
     export interface IaddContentEditorWebPart {
         (url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/addPermissionLevel' {
+    import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def/lib/SP";
+    
+    /**
+        * Properties
+        */
+    export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
+            BasePermissions: Array<number>;
+            WebUrl?: string;
+    }
+    
+    /**
+        * Adds a permission level to the current or specified web.
+        * @props properties
+        */
+    export const addPermissionLevel: IaddPermissionLevel;
+    export interface IaddPermissionLevel {
+            (props: Props): PromiseLike<RoleDefinition>;
     }
 }
 
