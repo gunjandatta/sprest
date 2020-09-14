@@ -499,7 +499,10 @@ export const Request = {
                     // Get the response properties
                     let idxStart = data.indexOf("<m:properties>");
                     let idxEnd = data.indexOf("</m:properties");
+                    let idxDelStart = data.indexOf("<d:DeleteObject");
+                    let idxDelEnd = data.indexOf('m:null="true" />');
                     let properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
+                    properties = properties == null && idxDelEnd > idxDelStart ? data.substr(idxDelStart, idxDelEnd) : properties;
                     if (properties) {
                         // Set the data object
                         objData = Request.parseXML(properties);
