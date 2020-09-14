@@ -5975,7 +5975,7 @@ declare module 'gd-sprest/utils/request' {
         parseXML(xml: string): IBase;
     
         /** Updates the data object. */
-        updateDataObject(base: IBase, isBatchRequest: boolean);
+        updateDataObject(base: IBase, isBatchRequest: boolean, batchCallback?: (batchResponses: Array<any>) => void);
     
         /** Validates the data collection results. */
         validateDataCollectionResults(base: IBase): PromiseLike<void>;
