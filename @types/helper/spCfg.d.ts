@@ -127,6 +127,9 @@ export interface IFieldInfoChoice extends IFieldInfo {
     /** The choices */
     choices?: string[];
 
+    /** Allow users to fill in custom values */
+    fillInChoice?: boolean;
+
     /** The selection format */
     format?: number;
 

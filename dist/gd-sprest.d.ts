@@ -2952,6 +2952,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The choices */
             choices?: string[];
     
+            /** Allow users to fill in custom values */
+            fillInChoice?: boolean;
+    
             /** The selection format */
             format?: number;
     
