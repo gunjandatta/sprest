@@ -5766,7 +5766,7 @@ declare module 'gd-sprest/helper/methods/hasPermissions' {
       */
     export const hasPermissions: IhasPermissions;
     export interface IhasPermissions {
-        (permissionMask: any, permissions: Array<number> | number): boolean;
+        (permissionMask: any, permissions: Array<number> | number): PromiseLike<boolean>;
     }
 }
 
