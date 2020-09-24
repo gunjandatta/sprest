@@ -253,7 +253,7 @@ function testContentType(list) {
     writeToLog("Creating the content type", LogType.SubHeader);
 
     // Create the content type
-    var web = new $REST.Web();
+    var web = $REST.Web();
     var ct = web.ContentTypes()
         .add({
             Name: "SPRest" + SP.Guid.newGuid().toString()
@@ -445,7 +445,7 @@ function testList() {
     writeToLog("Creating the list", LogType.SubHeader);
 
     // Create the list
-    var web = new $REST.Web();
+    var web = $REST.Web();
     var list = web.Lists()
         .add({
             BaseTemplate: 100,
@@ -468,7 +468,7 @@ function testList() {
         }).executeAndWait();
 
         // Read the updated list
-        list = new $REST.List(list.Title).executeAndWait();
+        list = $REST.List(list.Title).executeAndWait();
 
         // Test
         assert(list, "update", "Description", "Updated description");
@@ -687,6 +687,20 @@ function testListView(list) {
     assert(view.d, "delete", "DeleteObject", null);
 }
 
+function testPermissions() {
+    // Log
+    writeToLog("Permissions", LogType.Header);
+
+    // Get the current user's permissions
+    let permissions = $REST.Web().getUserEffectivePermissions("i:0#.f|membership|" + $REST.ContextInfo.userLoginName).executeAndWait();
+
+    // See if the user has create list permissions
+    $REST.Helper.hasPermissions(permissions, [$REST.SPTypes.BasePermissionTypes.ManageLists]).then(function (hasPermissions) {
+        // Test
+        assert({ hasPermissions: hasPermissions }, "User Permissions", "hasPermissions", true);
+    });
+}
+
 function testSecurity() {
     // Log
     writeToLog("Security", LogType.Header);
@@ -695,7 +709,7 @@ function testSecurity() {
     writeToLog("Querying the permissions", LogType.SubHeader);
 
     // Get the web
-    var web = new $REST.Web();
+    var web = $REST.Web();
 
     // Get the 'View Only' permission
     var permission = web.RoleDefinitions().query({ Filter: "Name eq 'View Only'" }).executeAndWait();
@@ -785,3 +799,6 @@ function writeToLog(text, logType) {
     // Append the text to the log
     log.innerHTML += "<{{el}}>{{text}}</{{el}}>".replace("{{el}}", el).replace("{{text}}", text);
 }
+
+// Run the permissions by default
+testPermissions();
