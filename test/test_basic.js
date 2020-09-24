@@ -695,7 +695,7 @@ function testPermissions() {
     let permissions = $REST.Web().getUserEffectivePermissions("i:0#.f|membership|" + $REST.ContextInfo.userLoginName).executeAndWait();
 
     // See if the user has create list permissions
-    $REST.Helper.hasPermissions(permissions, [$REST.SPTypes.BasePermissionTypes.ManageLists]).then(function (hasPermissions) {
+    $REST.Helper.hasPermissions(permissions.GetUserEffectivePermissions, [$REST.SPTypes.BasePermissionTypes.ManageLists]).then(function (hasPermissions) {
         // Test
         assert({ hasPermissions: hasPermissions }, "User Permissions", "hasPermissions", true);
     });
