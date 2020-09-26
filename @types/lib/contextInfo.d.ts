@@ -186,7 +186,7 @@ export interface IContextInformation {
     listId: string;
 
     /** List Permissions Mask */
-    listPermMask: BasePermissions;
+    listPermsMask: BasePermissions;
 
     /** List Title */
     listTitle: string;
@@ -210,7 +210,7 @@ export interface IContextInformation {
     pageListId: string;
 
     /** Page Permissions Mask */
-    pagePermMask: BasePermissions;
+    pagePermsMask: BasePermissions;
 
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
@@ -339,7 +339,7 @@ export interface IContextInformation {
     webLogoUrl: string;
 
     /** Web Permissions Mask */
-    webPermMask: BasePermissions;
+    webPermsMask: BasePermissions;
 
     /** Web Server Relative Url */
     webServerRelativeUrl: string;

@@ -10,19 +10,26 @@ class _ContextInfo {
 
     // The current context information
     private static get _contextInfo(): IContextInformation {
-        // Return the page context or a default object
-        return this.window["_spPageContextInfo"] || (this._spfxPageContext && this._spfxPageContext.legacyPageContext) ||
-            {
-                existsFl: false,
-                isAppWeb: false,
-                isHubSite: false,
-                isSPO: false,
-                siteAbsoluteUrl: "",
-                siteServerRelativeUrl: "",
-                userId: 0,
-                webAbsoluteUrl: "",
-                webServerRelativeUrl: ""
-            }
+        // Return the page context by default
+        if (this.window["_spPageContextInfo"]) { return this.window["_spPageContextInfo"]; }
+
+        // See if the SPFx context was set
+        if (this._spfxPageContext && this._spfxPageContext.legacyPageContext) {
+            return this._spfxPageContext.legacyPageContext;
+        }
+
+        // Return a default object
+        return {
+            existsFl: false,
+            isAppWeb: false,
+            isHubSite: false,
+            isSPO: false,
+            siteAbsoluteUrl: "",
+            siteServerRelativeUrl: "",
+            userId: 0,
+            webAbsoluteUrl: "",
+            webServerRelativeUrl: ""
+        } as any;
     };
 
     /**
@@ -78,14 +85,14 @@ class _ContextInfo {
     static get listBaseTemplate() { return this._contextInfo.listBaseTemplate; }
     static get listId() { return this._contextInfo.listId; }
     static get listTitle() { return this._contextInfo.listTitle; }
-    static get listPermMask() { return this._contextInfo.listPermMask; }
+    static get listPermsMask() { return this._contextInfo.listPermsMask; }
     static get listUrl() { return this._contextInfo.listUrl; }
     static get maximumFileSize() { return this._contextInfo.maximumFileSize; }
     static get nid() { return this._contextInfo.nid; }
     static get openInClient() { return this._contextInfo.openInClient; }
     static get pageItemId() { return this._contextInfo.pageItemId; }
     static get pageListId() { return this._contextInfo.pageListId; }
-    static get pagePermMask() { return this._contextInfo.pagePermMask; }
+    static get pagePermsMask() { return this._contextInfo.pagePermsMask; }
     static get pagePersonalizationScope() { return this._contextInfo.pagePersonalizationScope; }
     static get preferUserTimeZone() { return this._contextInfo.preferUserTimeZone; }
     static get PreviewFeaturesEnabled() { return this._contextInfo.PreviewFeaturesEnabled; }
@@ -128,7 +135,7 @@ class _ContextInfo {
     static get webId() { return this._contextInfo.webId; }
     static get webLanguage() { return this._contextInfo.webLanguage; }
     static get webLogoUrl() { return this._contextInfo.webLogoUrl; }
-    static get webPermMask() { return this._contextInfo.webPermMask; }
+    static get webPermsMask() { return this._contextInfo.webPermsMask; }
     static get webServerRelativeUrl() { return this._contextInfo.webServerRelativeUrl; }
     static get webTemplate() { return this._contextInfo.webTemplate; }
     static get webTime24() { return this._contextInfo.webTime24; }

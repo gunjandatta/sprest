@@ -605,7 +605,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             listId: string;
     
             /** List Permissions Mask */
-            listPermMask: BasePermissions;
+            listPermsMask: BasePermissions;
     
             /** List Title */
             listTitle: string;
@@ -629,7 +629,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             pageListId: string;
     
             /** Page Permissions Mask */
-            pagePermMask: BasePermissions;
+            pagePermsMask: BasePermissions;
     
             /** Page Personalization Scope */
             pagePersonalizationScope: number;
@@ -758,7 +758,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             webLogoUrl: string;
     
             /** Web Permissions Mask */
-            webPermMask: BasePermissions;
+            webPermsMask: BasePermissions;
     
             /** Web Server Relative Url */
             webServerRelativeUrl: string;

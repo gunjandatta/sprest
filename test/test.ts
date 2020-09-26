@@ -1,6 +1,18 @@
 import {
-    $REST, List, Helper, SiteManager, SPTypes, Types
+    $REST, List, Helper, SiteManager, SPTypes, Types, Web
 } from "../@types";
+
+// Web
+Web().getUserEffectivePermissions("").execute(perm => {
+    // Save the permissions
+    perm.GetUserEffectivePermissions;
+});
+
+// List
+List("Site Assets").getUserEffectivePermissions("").execute(perm => {
+    // Save the permissions
+    perm.GetUserEffectivePermissions;
+});
 
 let el = document.querySelector("#Element");
 let a1 = Helper.SP.CalloutManager.createAction({ text: "", onClickCallback: () => { } });
