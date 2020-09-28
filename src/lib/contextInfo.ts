@@ -72,22 +72,40 @@ class _ContextInfo {
     static get idleSessionSignOutEnabled() { return this._contextInfo.idleSessionSignOutEnabled; }
     static get isAnonymousGuestUser() { return this._contextInfo.isAnonymousGuestUser; }
     static get isAppWeb() { return this._contextInfo.isAppWeb; }
-    static get isEmailAuthenticatinoGuesUser() { return this._contextInfo.isEmailAuthenticatinoGuesUser; }
+    static get isArchived() { return this._contextInfo.isArchived; }
+    static get isEmailAuthenticationGuestUser() { return this._contextInfo.isEmailAuthenticationGuestUser; }
     static get isExternalGuestUser() { return this._contextInfo.isExternalGuestUser; }
+    static get isGroupRelatedSite() { return this._contextInfo.isGroupRelatedSite; }
+    static get isGroupifyDisabled() { return this._contextInfo.isGroupifyDisabled; }
+    static get isGroupifyMenuButtonFeatureOff() { return this._contextInfo.isGroupifyMenuButtonFeatureOff; }
     static get isHubSite() { return this._contextInfo.isHubSite; }
+    static get isLocationserviceAvailable() { return this._contextInfo.isLocationserviceAvailable; }
+    static get isMultiGeoODBMode() { return this._contextInfo.isMultiGeoODBMode; }
     static get isMultiGeoTenant() { return this._contextInfo.isMultiGeoTenant; }
     static get isNoScriptEnabled() { return this._contextInfo.isNoScriptEnabled; }
     static get isSiteAdmin() { return this._contextInfo.isSiteAdmin; }
+    static get isSiteOwner() { return this._contextInfo.isSiteOwner; }
     static get isSPO() { return this._contextInfo.isSPO; }
+    static get isShareByLinkEnabled() { return this._contextInfo.isShareByLinkEnabled; }
+    static get isTeamsChannelSite() { return this._contextInfo.isTeamsChannelSite; }
+    static get isTeamsConnectedSite() { return this._contextInfo.isTeamsConnectedSite; }
     static get isTenantDevSite() { return this._contextInfo.isTenantDevSite; }
+    static get isUnauthorizedTenant() { return this._contextInfo.isUnauthorizedTenant; }
     static get isWebWelcomePage() { return this._contextInfo.isWebWelcomePage; }
     static get layoutsUrl() { return this._contextInfo.layoutsUrl; }
     static get listBaseTemplate() { return this._contextInfo.listBaseTemplate; }
+    static get listBaseType() { return this._contextInfo.listBaseType; }
     static get listId() { return this._contextInfo.listId; }
+    static get listItemCount() { return this._contextInfo.listItemCount; }
     static get listTitle() { return this._contextInfo.listTitle; }
     static get listPermsMask() { return this._contextInfo.listPermsMask; }
     static get listUrl() { return this._contextInfo.listUrl; }
     static get maximumFileSize() { return this._contextInfo.maximumFileSize; }
+    static get modernThemingEnabled() { return this._contextInfo.modernThemingEnabled; }
+    static get msGraphEndpointUrl() { return this._contextInfo.msGraphEndpointUrl; }
+    static get msMruEndpointUrl() { return this._contextInfo.msMruEndpointUrl; }
+    static get multiGeoInfo() { return this._contextInfo.multiGeoInfo; }
+    static get navigationInfo() { return this._contextInfo.navigationInfo; }
     static get nid() { return this._contextInfo.nid; }
     static get openInClient() { return this._contextInfo.openInClient; }
     static get pageItemId() { return this._contextInfo.pageItemId; }
@@ -110,35 +128,46 @@ class _ContextInfo {
     static get siteColor() { return this._contextInfo.siteColor; }
     static get siteId() { return this._contextInfo.siteId; }
     static get sitePagesEnabled() { return this._contextInfo.sitePagesEnabled; }
+    static get sitePagesFeatureVersion() { return this._contextInfo.sitePagesFeatureVersion; }
     static get siteServerRelativeUrl() { return this._contextInfo.siteServerRelativeUrl; }
     static get siteSubscriptionId() { return this._contextInfo.siteSubscriptionId; }
+    static get socialBarEnabled() { return this._contextInfo.socialBarEnabled; }
     static get supportPercentStorePage() { return this._contextInfo.supportPercentStorePage; }
     static get supportPoundStorePath() { return this._contextInfo.supportPoundStorePath; }
     static get systemUserKey() { return this._contextInfo.systemUserKey; }
+    static get teamsChannelType() { return this._contextInfo.teamsChannelType; }
     static get tenantAppVersion() { return this._contextInfo.tenantAppVersion; }
+    static get tenantDisplayName() { return this._contextInfo.tenantDisplayName; }
     static get themeCacheToken() { return this._contextInfo.themeCacheToken; }
-    static get themeCssFolderUrl() { return this._contextInfo.themeCssFolderUrl; }
-    static get themeImageFileNames() { return this._contextInfo.themeImageFileNames; }
+    static get themedCssFolderUrl() { return this._contextInfo.themedCssFolderUrl; }
+    static get themedImageFileNames() { return this._contextInfo.themedImageFileNames; }
     static get updateFromDigestPageLoaded() { return this._contextInfo.updateFromDigestPageLoaded; }
     static get userDisplayName() { return this._contextInfo.userDisplayName; }
     static get userEmail() { return this._contextInfo.userEmail; }
     static get userFirstDayOfWeek() { return this._contextInfo.userFirstDayOfWeek; }
     static get userId() { return this._contextInfo.userId; }
     static get userLoginName() { return this._contextInfo.userLoginName; }
+    static get userPhotoCdnBaseUrl() { return this._contextInfo.userPhotoCdnBaseUrl; }
+    static get userPrincipalName() { return this._contextInfo.userPrincipalName; }
     static get userTime24() { return this._contextInfo.userTime24; }
     static get userTimeZoneData() { return this._contextInfo.userTimeZoneData; }
+    static get userVoiceForFeedbackEnabled() { return this._contextInfo.userVoiceForFeedbackEnabled; }
     static get viewId() { return this._contextInfo.viewId; }
     static get viewOnlyExperienceEnabled() { return this._contextInfo.viewOnlyExperienceEnabled; }
     static get webAbsoluteUrl() { return this._contextInfo.webAbsoluteUrl; }
     static get webDescription() { return this._contextInfo.webDescription; }
+    static get webDomain() { return this._contextInfo.webDomain; }
     static get webFirstDayOfWeek() { return this._contextInfo.webFirstDayOfWeek; }
     static get webId() { return this._contextInfo.webId; }
     static get webLanguage() { return this._contextInfo.webLanguage; }
+    static get webLanguageName() { return this._contextInfo.webLanguageName; }
     static get webLogoUrl() { return this._contextInfo.webLogoUrl; }
-    static get webPermsMask() { return this._contextInfo.webPermsMask; }
+    static get webPermMasks() { return this._contextInfo.webPermMasks; }
     static get webServerRelativeUrl() { return this._contextInfo.webServerRelativeUrl; }
     static get webTemplate() { return this._contextInfo.webTemplate; }
+    static get webTemplateConfiguration() { return this._contextInfo.webTemplateConfiguration; }
     static get webTime24() { return this._contextInfo.webTime24; }
+    static get webTimeZoneData() { return this._contextInfo.webTimeZoneData; }
     static get webTitle() { return this._contextInfo.webTitle; }
     static get webUIVersion() { return this._contextInfo.webUIVersion; }
     static get window() { return typeof (window) == "undefined" ? {} as any : window; }
