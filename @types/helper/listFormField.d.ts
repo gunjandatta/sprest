@@ -77,6 +77,9 @@ export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
     /** The lookup field */
     lookupField?: string;
 
+    /** Optional OData query to filter the lookup items */
+    lookupFilter?: string;
+
     /** The lookup list id */
     lookupListId?: string;
 

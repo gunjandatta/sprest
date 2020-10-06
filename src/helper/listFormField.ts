@@ -164,6 +164,7 @@ export const ListFormField: IListFormField = {
                         .Items()
                         // Set the query
                         .query({
+                            Filter: info.lookupFilter,
                             GetAllItems: true,
                             Select: ["ID", info.lookupField],
                             Top: queryTop > 0 && queryTop <= 5000 ? queryTop : 500

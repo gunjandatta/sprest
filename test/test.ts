@@ -126,8 +126,7 @@ $REST.List("").execute(l => {
 })
 
 $REST.Web().getUserEffectivePermissions("").execute(r => {
-    let h = r.High;
-    let l = r.Low;
+    r.GetUserEffectivePermissions;
 });
 
 $REST.Search().postquery({
