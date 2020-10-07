@@ -14,6 +14,7 @@
 //   ../gd-sprest-def/lib/SP/Social/entitytypes
 //   ../gd-sprest-def/lib/SP/Utilities/entitytypes
 //   ../gd-sprest-def/lib/SP/WorkflowServices/entitytypes
+//   ../gd-sprest-def/base
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/SP
@@ -2052,6 +2053,7 @@ declare module 'gd-sprest/helper/listForm' {
 }
 
 declare module 'gd-sprest/helper/listFormField' {
+    import { IODataQuery } from "gd-sprest-def/base";
     import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
     import { ITermInfo } from "gd-sprest/helper/taxonomy";
@@ -2132,7 +2134,7 @@ declare module 'gd-sprest/helper/listFormField' {
             lookupField?: string;
     
             /** Optional OData query to filter the lookup items */
-            lookupFilter?: string;
+            lookupFilter?: string | IODataQuery;
     
             /** The lookup list id */
             lookupListId?: string;
