@@ -346,7 +346,7 @@ export const Request = {
                         callback ? callback(base.response, errorFl) : null;
                     } else {
                         // Update the data object
-                        Request.updateDataObject(base, isBatchRequest);
+                        Request.updateDataObject(base, isBatchRequest, callback as any);
 
                         // Ensure this isn't a batch request
                         if (!isBatchRequest) {
@@ -384,7 +384,7 @@ export const Request = {
             }
 
             // Update the base object
-            Request.updateDataObject(base, isBatchRequest);
+            Request.updateDataObject(base, isBatchRequest, callback as any);
 
             // See if the base is a collection and has more results
             if (base["d"] && base["d"].__next) {
@@ -455,7 +455,7 @@ export const Request = {
     },
 
     // Method to convert the input arguments into an object
-    updateDataObject: (base: IBase, isBatchRequest: boolean = false) => {
+    updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchCallback?: (batchRequests) => void) => {
         // Ensure the request was successful
         if (base.status >= 200 && base.status < 300) {
             // Return if we are expecting a buffer
@@ -499,7 +499,10 @@ export const Request = {
                     // Get the response properties
                     let idxStart = data.indexOf("<m:properties>");
                     let idxEnd = data.indexOf("</m:properties");
+                    let idxDelStart = data.indexOf("<d:DeleteObject");
+                    let idxDelEnd = data.indexOf('m:null="true" />');
                     let properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
+                    properties = properties == null && idxDelEnd > idxDelStart ? data.substr(idxDelStart, idxDelEnd) : properties;
                     if (properties) {
                         // Set the data object
                         objData = Request.parseXML(properties);
@@ -571,8 +574,14 @@ export const Request = {
                 }
             }
 
-            // Clear the batch requests
-            if (isBatchRequest) { base.base.batchRequests = null; }
+            // See if this was a batch request
+            if (isBatchRequest) {
+                // Execute the callback if it exists
+                batchCallback ? batchCallback(base.base.batchRequests) : null;
+
+                // Clear the batch requests
+                base.base.batchRequests = null;
+            }
         }
     },
 

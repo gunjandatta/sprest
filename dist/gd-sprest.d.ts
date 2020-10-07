@@ -14,6 +14,7 @@
 //   ../gd-sprest-def/lib/SP/Social/entitytypes
 //   ../gd-sprest-def/lib/SP/Utilities/entitytypes
 //   ../gd-sprest-def/lib/SP/WorkflowServices/entitytypes
+//   ../gd-sprest-def/base
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/SP
@@ -568,14 +569,32 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Is App Web */
             isAppWeb: boolean;
     
+            /** Is Archived */
+            isArchived: boolean;
+    
             /** Is Email Authentication Guest User */
-            isEmailAuthenticatinoGuesUser: boolean;
+            isEmailAuthenticationGuestUser: boolean;
     
             /** Is External Guest User */
             isExternalGuestUser: boolean;
     
+            /** Is Group Related Site */
+            isGroupRelatedSite: boolean;
+    
+            /** Is Groupify Disabled */
+            isGroupifyDisabled: boolean;
+    
+            /** Is Groupify Menu Button Feature Off */
+            isGroupifyMenuButtonFeatureOff: boolean;
+    
             /** Is Hub Site */
             isHubSite: boolean;
+    
+            /** Is Location Service Available */
+            isLocationserviceAvailable: boolean;
+    
+            /** Is Multi Geo ODB Mode */
+            isMultiGeoODBMode: boolean;
     
             /** Is Multi Geo Tenant */
             isMultiGeoTenant: boolean;
@@ -586,11 +605,26 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Is Site Administrator */
             isSiteAdmin: boolean;
     
+            /** Is Site Owner */
+            isSiteOwner: boolean;
+    
             /** Is SharePoint Online */
             isSPO: boolean;
     
+            /** Is Shared By Link Enabled */
+            isShareByLinkEnabled: boolean;
+    
+            /** Is Teams Channel Site */
+            isTeamsChannelSite: boolean;
+    
+            /** Is Teams Connected Site */
+            isTeamsConnectedSite: boolean;
+    
             /** Is Tenant Development Site */
             isTenantDevSite: boolean;
+    
+            /** Is Unauthorized Tenant */
+            isUnauthorizedTenant: boolean;
     
             /** Is Web Welcome Page */
             isWebWelcomePage: boolean;
@@ -601,11 +635,17 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** List Base Template */
             listBaseTemplate: number;
     
+            /** List Base Type */
+            listBaseType: number;
+    
             /** List Id */
             listId: string;
     
+            /** List Item Count */
+            listItemCount: number;
+    
             /** List Permissions Mask */
-            listPermMask: BasePermissions;
+            listPermsMask: BasePermissions;
     
             /** List Title */
             listTitle: string;
@@ -616,8 +656,23 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Maximum File Size */
             maximumFileSize: number;
     
+            /** Modern Theming Enabled */
+            modernThemingEnabled: boolean;
+    
+            /** MS Graph Endpoint Url */
+            msGraphEndpointUrl: string;
+    
+            /** MS Mru Endpoint Url */
+            msMruEndpointUrl: string;
+    
+            /** Multi Geo Info */
+            multiGeoInfo: Array<any>;
+    
+            /** Navigation Information */
+            navigationInfo: any;
+    
             /** NID */
-            nid: string;
+            nid: number;
     
             /** Open in Client */
             openInClient: boolean;
@@ -629,7 +684,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             pageListId: string;
     
             /** Page Permissions Mask */
-            pagePermMask: BasePermissions;
+            pagePermsMask: BasePermissions;
     
             /** Page Personalization Scope */
             pagePersonalizationScope: number;
@@ -682,11 +737,17 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Site Pages Enabled */
             sitePagesEnabled: boolean;
     
+            /** Site Pages Feature Version */
+            sitePagesFeatureVersion: number;
+    
             /** Site Server Relative Url */
             siteServerRelativeUrl: string;
     
             /** Site Subscription ID */
             siteSubscriptionId: string;
+    
+            /** Social Bar Enabled */
+            socialBarEnabled: boolean;
     
             /** Support Percent Store Page */
             supportPercentStorePage: boolean;
@@ -697,17 +758,23 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** System User Key */
             systemUserKey: string;
     
+            /** Teams Channel Type */
+            teamsChannelType: number;
+    
             /** Tenant App Version */
             tenantAppVersion: string;
+    
+            /** Tenant Display Name */
+            tenantDisplayName: string;
     
             /** Theme Cache Token */
             themeCacheToken: string;
     
             /** Theme CSS Folder Url */
-            themeCssFolderUrl: string;
+            themedCssFolderUrl: string;
     
             /** Theme Image File Names */
-            themeImageFileNames: any;
+            themedImageFileNames: any;
     
             /** Update From Digest Page Loaded */
             updateFromDigestPageLoaded: Date;
@@ -727,11 +794,20 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** User Login Name */
             userLoginName: string;
     
+            /** User Photo Cdn Base Url */
+            userPhotoCdnBaseUrl: string;
+    
+            /** User Principal Name */
+            userPrincipalName: string;
+    
             /** User Time 24 */
             userTime24: boolean;
     
             /** User Time Zone Data */
             userTimeZoneData: any;
+    
+            /** User Voice for Feedback Enabled */
+            userVoiceForFeedbackEnabled: boolean;
     
             /** View ID */
             viewId: string;
@@ -745,6 +821,9 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Web Description */
             webDescription: string;
     
+            /** Web Domain */
+            webDomain: string;
+    
             /** Web First Day of Week */
             webFirstDayOfWeek: number;
     
@@ -754,11 +833,14 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Web Language */
             webLanguage: number;
     
+            /** Web Language Name */
+            webLanguageName: string;
+    
             /** Web Logo Url */
             webLogoUrl: string;
     
             /** Web Permissions Mask */
-            webPermMask: BasePermissions;
+            webPermMasks: BasePermissions;
     
             /** Web Server Relative Url */
             webServerRelativeUrl: string;
@@ -766,8 +848,14 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Web Template */
             webTemplate: string;
     
+            /** Web Template Configuration */
+            webTemplateConfiguration: string;
+    
             /** Web Time 24 */
             webTime24: boolean;
+    
+            /** Web Time Zone Data */
+            webTimeZoneData: object;
     
             /** Web Title */
             webTitle: string;
@@ -1965,6 +2053,7 @@ declare module 'gd-sprest/helper/listForm' {
 }
 
 declare module 'gd-sprest/helper/listFormField' {
+    import { IODataQuery } from "gd-sprest-def/base";
     import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
     import { ITermInfo } from "gd-sprest/helper/taxonomy";
@@ -2043,6 +2132,9 @@ declare module 'gd-sprest/helper/listFormField' {
     
             /** The lookup field */
             lookupField?: string;
+    
+            /** Optional OData query to filter the lookup items */
+            lookupFilter?: string | IODataQuery;
     
             /** The lookup list id */
             lookupListId?: string;
@@ -2951,6 +3043,9 @@ declare module 'gd-sprest/helper/spCfg' {
     export interface IFieldInfoChoice extends IFieldInfo {
             /** The choices */
             choices?: string[];
+    
+            /** Allow users to fill in custom values */
+            fillInChoice?: boolean;
     
             /** The selection format */
             format?: number;
@@ -5763,7 +5858,7 @@ declare module 'gd-sprest/helper/methods/hasPermissions' {
       */
     export const hasPermissions: IhasPermissions;
     export interface IhasPermissions {
-        (permissionMask: any, permissions: Array<number> | number): boolean;
+        (permissionMask: any, permissions: Array<number> | number): PromiseLike<boolean>;
     }
 }
 
@@ -5975,7 +6070,7 @@ declare module 'gd-sprest/utils/request' {
         parseXML(xml: string): IBase;
     
         /** Updates the data object. */
-        updateDataObject(base: IBase, isBatchRequest: boolean);
+        updateDataObject(base: IBase, isBatchRequest: boolean, batchCallback?: (batchResponses: Array<any>) => void);
     
         /** Validates the data collection results. */
         validateDataCollectionResults(base: IBase): PromiseLike<void>;

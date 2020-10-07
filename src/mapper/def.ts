@@ -7760,7 +7760,7 @@ export const Mapper: IMapper = {
 
         getUserEffectivePermissions: {
             argNames: ["userName"],
-            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            name: "getUserEffectivePermissions(@user)?@user='[[userName]]'",
             requestType: RequestType.GetReplace
         },
 
@@ -8426,6 +8426,8 @@ export const Mapper: IMapper = {
 
         getUserEffectivePermissions: {
             argNames: ["userName"],
+            name: "getUserEffectivePermissions(@user)?@user='[[userName]]'",
+            requestType: RequestType.GetReplace
         },
 
         getWOPIFrameUrl: {

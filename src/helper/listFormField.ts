@@ -156,6 +156,33 @@ export const ListFormField: IListFormField = {
                 .openWebById(info.lookupWebId)
                 // Execute the request
                 .execute((web) => {
+                    // See if there is a filter
+                    let query = info.lookupFilter;
+                    if (typeof (query) == "string") {
+                        // Set the filter
+                        query = {
+                            Filter: query
+                        };
+                    }
+
+                    // See if a value exists
+                    if (query.GetAllItems == null) {
+                        // Set the default value
+                        query.GetAllItems = true;
+                    }
+
+                    // See if a value exists
+                    if (query.Select == null) {
+                        // Set the default value
+                        query.Select = ["ID", info.lookupField];
+                    }
+
+                    // See if a value exists
+                    if (query.Top == null) {
+                        // Set the default value
+                        query.Top = queryTop > 0 && queryTop <= 5000 ? queryTop : 500;
+                    }
+
                     // Get the list
                     web.Lists()
                         // Get the list by id
@@ -163,11 +190,7 @@ export const ListFormField: IListFormField = {
                         // Get the items
                         .Items()
                         // Set the query
-                        .query({
-                            GetAllItems: true,
-                            Select: ["ID", info.lookupField],
-                            Top: queryTop > 0 && queryTop <= 5000 ? queryTop : 500
-                        })
+                        .query(query)
                         // Execute the request
                         .execute((items) => {
                             // Resolve the promise

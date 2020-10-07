@@ -1,3 +1,4 @@
+import { IODataQuery } from "gd-sprest-def/base";
 import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
 import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
 import { ITermInfo } from "./taxonomy";
@@ -76,6 +77,9 @@ export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
 
     /** The lookup field */
     lookupField?: string;
+
+    /** Optional OData query to filter the lookup items */
+    lookupFilter?: string | IODataQuery;
 
     /** The lookup list id */
     lookupListId?: string;

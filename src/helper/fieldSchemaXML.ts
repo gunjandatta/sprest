@@ -85,6 +85,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // Set the field type
         props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
 
+        // Set the fill in choice property
+        if (typeof (fieldInfo.fillInChoice) === "boolean") { props["FillInChoice"] = fieldInfo.fillInChoice ? "TRUE" : "FALSE"; }
+
         // Set the result type
         switch (fieldInfo.format) {
             case SPTypes.ChoiceFormatType.Dropdown:

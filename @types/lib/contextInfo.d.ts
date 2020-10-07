@@ -149,14 +149,32 @@ export interface IContextInformation {
     /** Is App Web */
     isAppWeb: boolean;
 
+    /** Is Archived */
+    isArchived: boolean;
+
     /** Is Email Authentication Guest User */
-    isEmailAuthenticatinoGuesUser: boolean;
+    isEmailAuthenticationGuestUser: boolean;
 
     /** Is External Guest User */
     isExternalGuestUser: boolean;
 
+    /** Is Group Related Site */
+    isGroupRelatedSite: boolean;
+
+    /** Is Groupify Disabled */
+    isGroupifyDisabled: boolean;
+
+    /** Is Groupify Menu Button Feature Off */
+    isGroupifyMenuButtonFeatureOff: boolean;
+
     /** Is Hub Site */
     isHubSite: boolean;
+
+    /** Is Location Service Available */
+    isLocationserviceAvailable: boolean;
+
+    /** Is Multi Geo ODB Mode */
+    isMultiGeoODBMode: boolean;
 
     /** Is Multi Geo Tenant */
     isMultiGeoTenant: boolean;
@@ -167,11 +185,26 @@ export interface IContextInformation {
     /** Is Site Administrator */
     isSiteAdmin: boolean;
 
+    /** Is Site Owner */
+    isSiteOwner: boolean;
+
     /** Is SharePoint Online */
     isSPO: boolean;
 
+    /** Is Shared By Link Enabled */
+    isShareByLinkEnabled: boolean;
+
+    /** Is Teams Channel Site */
+    isTeamsChannelSite: boolean;
+
+    /** Is Teams Connected Site */
+    isTeamsConnectedSite: boolean;
+
     /** Is Tenant Development Site */
     isTenantDevSite: boolean;
+
+    /** Is Unauthorized Tenant */
+    isUnauthorizedTenant: boolean;
 
     /** Is Web Welcome Page */
     isWebWelcomePage: boolean;
@@ -182,11 +215,17 @@ export interface IContextInformation {
     /** List Base Template */
     listBaseTemplate: number;
 
+    /** List Base Type */
+    listBaseType: number;
+
     /** List Id */
     listId: string;
 
+    /** List Item Count */
+    listItemCount: number;
+
     /** List Permissions Mask */
-    listPermMask: BasePermissions;
+    listPermsMask: BasePermissions;
 
     /** List Title */
     listTitle: string;
@@ -197,8 +236,23 @@ export interface IContextInformation {
     /** Maximum File Size */
     maximumFileSize: number;
 
+    /** Modern Theming Enabled */
+    modernThemingEnabled: boolean;
+
+    /** MS Graph Endpoint Url */
+    msGraphEndpointUrl: string;
+
+    /** MS Mru Endpoint Url */
+    msMruEndpointUrl: string;
+
+    /** Multi Geo Info */
+    multiGeoInfo: Array<any>;
+
+    /** Navigation Information */
+    navigationInfo: any;
+
     /** NID */
-    nid: string;
+    nid: number;
 
     /** Open in Client */
     openInClient: boolean;
@@ -210,7 +264,7 @@ export interface IContextInformation {
     pageListId: string;
 
     /** Page Permissions Mask */
-    pagePermMask: BasePermissions;
+    pagePermsMask: BasePermissions;
 
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
@@ -263,11 +317,17 @@ export interface IContextInformation {
     /** Site Pages Enabled */
     sitePagesEnabled: boolean;
 
+    /** Site Pages Feature Version */
+    sitePagesFeatureVersion: number;
+
     /** Site Server Relative Url */
     siteServerRelativeUrl: string;
 
     /** Site Subscription ID */
     siteSubscriptionId: string;
+
+    /** Social Bar Enabled */
+    socialBarEnabled: boolean;
 
     /** Support Percent Store Page */
     supportPercentStorePage: boolean;
@@ -278,17 +338,23 @@ export interface IContextInformation {
     /** System User Key */
     systemUserKey: string;
 
+    /** Teams Channel Type */
+    teamsChannelType: number;
+
     /** Tenant App Version */
     tenantAppVersion: string;
+
+    /** Tenant Display Name */
+    tenantDisplayName: string;
 
     /** Theme Cache Token */
     themeCacheToken: string;
 
     /** Theme CSS Folder Url */
-    themeCssFolderUrl: string;
+    themedCssFolderUrl: string;
 
     /** Theme Image File Names */
-    themeImageFileNames: any;
+    themedImageFileNames: any;
 
     /** Update From Digest Page Loaded */
     updateFromDigestPageLoaded: Date;
@@ -308,11 +374,20 @@ export interface IContextInformation {
     /** User Login Name */
     userLoginName: string;
 
+    /** User Photo Cdn Base Url */
+    userPhotoCdnBaseUrl: string;
+
+    /** User Principal Name */
+    userPrincipalName: string;
+
     /** User Time 24 */
     userTime24: boolean;
 
     /** User Time Zone Data */
     userTimeZoneData: any;
+
+    /** User Voice for Feedback Enabled */
+    userVoiceForFeedbackEnabled: boolean;
 
     /** View ID */
     viewId: string;
@@ -326,6 +401,9 @@ export interface IContextInformation {
     /** Web Description */
     webDescription: string;
 
+    /** Web Domain */
+    webDomain: string;
+
     /** Web First Day of Week */
     webFirstDayOfWeek: number;
 
@@ -335,11 +413,14 @@ export interface IContextInformation {
     /** Web Language */
     webLanguage: number;
 
+    /** Web Language Name */
+    webLanguageName: string;
+
     /** Web Logo Url */
     webLogoUrl: string;
 
     /** Web Permissions Mask */
-    webPermMask: BasePermissions;
+    webPermMasks: BasePermissions;
 
     /** Web Server Relative Url */
     webServerRelativeUrl: string;
@@ -347,8 +428,14 @@ export interface IContextInformation {
     /** Web Template */
     webTemplate: string;
 
+    /** Web Template Configuration */
+    webTemplateConfiguration: string;
+
     /** Web Time 24 */
     webTime24: boolean;
+
+    /** Web Time Zone Data */
+    webTimeZoneData: object;
 
     /** Web Title */
     webTitle: string;

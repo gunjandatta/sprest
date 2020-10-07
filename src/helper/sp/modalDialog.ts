@@ -28,6 +28,7 @@ export const ModalDialog: IModalDialog = (() => {
             // Get the title element
             let elDlg = dialog.get_dialogElement();
             let elTitle = elDlg ? elDlg.querySelector(".ms-dlgLoadingTextDiv .ms-core-pageTitle") : null;
+            elTitle = elTitle || elDlg.querySelector(".ms-dlgTitle .ms-dlgTitleText");
             if (elTitle) {
                 // Update the title
                 elTitle.innerHTML = value;
