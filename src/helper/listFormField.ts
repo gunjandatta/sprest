@@ -157,7 +157,7 @@ export const ListFormField: IListFormField = {
                 // Execute the request
                 .execute((web) => {
                     // See if there is a filter
-                    let query = info.lookupFilter;
+                    let query = info.lookupFilter || {};
                     if (typeof (query) == "string") {
                         // Set the filter
                         query = {
