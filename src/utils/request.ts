@@ -260,7 +260,7 @@ export const Request = {
                                 base.base.waitFlags = [];
 
                                 // Reset the base
-                                base.base = base.parent.base || base.base;
+                                base.base = (base.parent ? base.parent.base : null) || base.base;
                             });
 
                             // Do nothing
@@ -277,7 +277,7 @@ export const Request = {
                         base.base.waitFlags = [];
 
                         // Reset the base
-                        base.base = base.parent.base || base.base;
+                        base.base = (base.parent ? base.parent.base : null) || base.base;
                     } else {
                         // Set the wait flag
                         base.base.waitFlags[base.responseIndex] = true;
