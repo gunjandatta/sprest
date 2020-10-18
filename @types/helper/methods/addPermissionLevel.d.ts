@@ -15,5 +15,5 @@ export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformat
  */
 export const addPermissionLevel: IaddPermissionLevel;
 export interface IaddPermissionLevel {
-    (props: Props): PromiseLike<RoleDefinition>;
+    (props: IaddPermissionLevelProps): PromiseLike<RoleDefinition>;
 }

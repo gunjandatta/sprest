@@ -5798,7 +5798,7 @@ declare module 'gd-sprest/helper/methods/addPermissionLevel' {
         */
     export const addPermissionLevel: IaddPermissionLevel;
     export interface IaddPermissionLevel {
-            (props: Props): PromiseLike<RoleDefinition>;
+            (props: IaddPermissionLevelProps): PromiseLike<RoleDefinition>;
     }
 }
 
