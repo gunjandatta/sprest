@@ -51,6 +51,9 @@ $REST.Web().Lists().query({}).execute(lists => {
 $REST.Web().SiteGroups().execute(groups => {
     groups.results[0].Id;
 });
+$REST.Web().SiteGroups("").RoleAssignments().execute(roles => {
+    roles.results[0].PrincipalId;
+})
 
 $REST.HubSites().getById("").execute(h => { h.Title; });
 $REST.GroupSiteManager().canUserCreateGroup().execute(value => {
