@@ -546,7 +546,7 @@ export const ListForm: IListForm = {
                 });
             } else {
                 // Resolve the promise
-                resolve();
+                resolve(null);
             }
         });
     },

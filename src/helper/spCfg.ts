@@ -188,7 +188,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Ensure the content type exists
                         if (cfgContentType.ContentType == null) {
                             // Skip this content type
-                            resolve();
+                            resolve(null);
                             return;
                         }
 
@@ -256,14 +256,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
 
                                     // Resolve this request
-                                    resolve();
+                                    resolve(null);
                                 }, reject);
                             } else {
                                 // Trigger the event
                                 cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
 
                                 // Resolve this request
-                                resolve();
+                                resolve(null);
                             }
                         }, reject);
                     });
@@ -275,7 +275,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     // Method to create the fields`
     let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject): PromiseLike<void> => {
             let newFields = [];
 
             // Ensure fields exist
@@ -298,7 +298,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         cfg.onUpdated ? cfg.onUpdated(field, list) : null;
 
                         // Resolve the promise
-                        resolve();
+                        resolve(null);
                     } else {
                         // Log
                         console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
@@ -335,7 +335,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         cfg.onCreated ? cfg.onCreated(field, list) : null;
 
                                         // Resolve the promise
-                                        resolve();
+                                        resolve(null);
                                     } else {
                                         // Log
                                         console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
@@ -366,7 +366,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Ensure it's for this list
                         if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
                             // Do nothing
-                            resolve();
+                            resolve(null);
                             return;
                         }
                     }
@@ -378,7 +378,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
 
                         // Resolve the promise and do nothing
-                        resolve();
+                        resolve(null);
                         return;
                     }
 
@@ -407,14 +407,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
 
                                         // Resolve the promise
-                                        resolve();
+                                        resolve(null);
                                     });
                                 } else {
                                     // Log
                                     console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
 
                                     // Resolve the promise
-                                    resolve();
+                                    resolve(null);
                                 }
 
                                 // Trigger the event
@@ -425,7 +425,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 console.log("[gd-sprest][List] Error: '" + list.response);
 
                                 // Resolve the promise
-                                resolve();
+                                resolve(null);
                             }
                         }, reject);
                 });
@@ -1105,7 +1105,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         cfg.onUpdated ? cfg.onUpdated(view as any, list) : null;
 
                         // Resolve the promise
-                        resolve();
+                        resolve(null);
                     });
                 });
             }).then(resolve);
@@ -1140,7 +1140,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }, reject);
             } else {
                 // Resolve the promise
-                resolve();
+                resolve(null);
             }
         });
     }
@@ -1218,18 +1218,18 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         console.log("[gd-sprest][Fields] Completed the requests.");
 
                                         // Resolve the promise
-                                        resolve();
+                                        resolve(null);
                                     }, reject);
                                 }, reject);
                             } else {
                                 // Resolve the promise
-                                resolve();
+                                resolve(null);
                             }
                         });
                     }
 
                     // Create the site content types
-                    let createSiteContentTypes = () => {
+                    let createSiteContentTypes = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are creating the content types
@@ -1256,7 +1256,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the site lists
-                    let createSiteLists = () => {
+                    let createSiteLists = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are creating the lists
@@ -1283,7 +1283,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the site webparts
-                    let createSiteWebParts = () => {
+                    let createSiteWebParts = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are creating the webparts
@@ -1307,7 +1307,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the custom actions
-                    let createSiteCollectionCustomActions = () => {
+                    let createSiteCollectionCustomActions = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are targeting the site collection
@@ -1336,7 +1336,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the custom actions
-                    let createSiteCustomActions = () => {
+                    let createSiteCustomActions = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are targeting the web

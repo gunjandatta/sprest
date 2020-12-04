@@ -4,7 +4,7 @@ import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def
  * Properties
  */
 export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
-    BasePermissions: Array<number>;
+    Permissions: Array<number>;
     Name: string;
     WebUrl?: string;
 }
@@ -15,5 +15,5 @@ export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformat
  */
 export const addPermissionLevel: IaddPermissionLevel;
 export interface IaddPermissionLevel {
-    (props: Props): PromiseLike<RoleDefinition>;
+    (props: IaddPermissionLevelProps): PromiseLike<RoleDefinition>;
 }

@@ -129,7 +129,7 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
     }
 
     // Creates the field links
-    let createLinks = (skipFields: Array<FieldLink>) => {
+    let createLinks = (skipFields: Array<FieldLink>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Set the context

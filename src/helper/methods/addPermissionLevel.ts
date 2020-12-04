@@ -16,7 +16,7 @@ export const addPermissionLevel: IaddPermissionLevel = (props: IaddPermissionLev
 
             // Set the base permissions
             let basePermissions = new SP.BasePermissions();
-            let permissions = props.BasePermissions || [];
+            let permissions = props.Permissions || [];
             for (let i = 0; i < permissions.length; i++) {
                 // Set the flag
                 basePermissions.set(permissions[i]);
