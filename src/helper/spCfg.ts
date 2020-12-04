@@ -181,14 +181,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Parse the configuration
                 Executor(cfgContentTypes, cfgContentType => {
                     // Return a promise
-                    return new Promise((resolve, reject): PromiseLike<void> => {
+                    return new Promise((resolve, reject) => {
                         let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
                         let updateFl = false;
 
                         // Ensure the content type exists
                         if (cfgContentType.ContentType == null) {
                             // Skip this content type
-                            resolve();
+                            resolve(null);
                             return;
                         }
 
@@ -256,14 +256,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
 
                                     // Resolve this request
-                                    resolve();
+                                    resolve(null);
                                 }, reject);
                             } else {
                                 // Trigger the event
                                 cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
 
                                 // Resolve this request
-                                resolve();
+                                resolve(null);
                             }
                         }, reject);
                     });
@@ -298,7 +298,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         cfg.onUpdated ? cfg.onUpdated(field, list) : null;
 
                         // Resolve the promise
-                        resolve();
+                        resolve(null);
                     } else {
                         // Log
                         console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
@@ -335,7 +335,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         cfg.onCreated ? cfg.onCreated(field, list) : null;
 
                                         // Resolve the promise
-                                        resolve();
+                                        resolve(null);
                                     } else {
                                         // Log
                                         console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
@@ -360,13 +360,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Execute code against each list configuration
             Executor<ISPCfgListInfo>(cfgLists, cfgList => {
                 // Return a promise
-                return new Promise((resolve): PromiseLike<void> => {
+                return new Promise((resolve) => {
                     // See if the target name exists and matches this list
                     if (_cfgType && _targetName) {
                         // Ensure it's for this list
                         if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
                             // Do nothing
-                            resolve();
+                            resolve(null);
                             return;
                         }
                     }
@@ -378,7 +378,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
 
                         // Resolve the promise and do nothing
-                        resolve();
+                        resolve(null);
                         return;
                     }
 
@@ -407,14 +407,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
 
                                         // Resolve the promise
-                                        resolve();
+                                        resolve(null);
                                     });
                                 } else {
                                     // Log
                                     console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
 
                                     // Resolve the promise
-                                    resolve();
+                                    resolve(null);
                                 }
 
                                 // Trigger the event
@@ -425,7 +425,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 console.log("[gd-sprest][List] Error: '" + list.response);
 
                                 // Resolve the promise
-                                resolve();
+                                resolve(null);
                             }
                         }, reject);
                 });
