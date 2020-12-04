@@ -6,7 +6,7 @@ declare var SP;
  */
 export const hasPermissions: IhasPermissions = (permissionMask: any, permissions: Array<number> | number = []): PromiseLike<boolean> => {
     // Method to ensure the core library is loaded
-    let load = () => {
+    let load = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the core lib is loaded

@@ -181,7 +181,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Parse the configuration
                 Executor(cfgContentTypes, cfgContentType => {
                     // Return a promise
-                    return new Promise((resolve, reject) => {
+                    return new Promise((resolve, reject): PromiseLike<void> => {
                         let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
                         let updateFl = false;
 
@@ -275,7 +275,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     // Method to create the fields`
     let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject): PromiseLike<void> => {
             let newFields = [];
 
             // Ensure fields exist
@@ -360,7 +360,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Execute code against each list configuration
             Executor<ISPCfgListInfo>(cfgLists, cfgList => {
                 // Return a promise
-                return new Promise((resolve) => {
+                return new Promise((resolve): PromiseLike<void> => {
                     // See if the target name exists and matches this list
                     if (_cfgType && _targetName) {
                         // Ensure it's for this list
@@ -1105,7 +1105,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         cfg.onUpdated ? cfg.onUpdated(view as any, list) : null;
 
                         // Resolve the promise
-                        resolve();
+                        resolve(null);
                     });
                 });
             }).then(resolve);
@@ -1140,7 +1140,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }, reject);
             } else {
                 // Resolve the promise
-                resolve();
+                resolve(null);
             }
         });
     }
@@ -1218,18 +1218,18 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         console.log("[gd-sprest][Fields] Completed the requests.");
 
                                         // Resolve the promise
-                                        resolve();
+                                        resolve(null);
                                     }, reject);
                                 }, reject);
                             } else {
                                 // Resolve the promise
-                                resolve();
+                                resolve(null);
                             }
                         });
                     }
 
                     // Create the site content types
-                    let createSiteContentTypes = () => {
+                    let createSiteContentTypes = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are creating the content types
@@ -1256,7 +1256,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the site lists
-                    let createSiteLists = () => {
+                    let createSiteLists = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are creating the lists
@@ -1283,7 +1283,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the site webparts
-                    let createSiteWebParts = () => {
+                    let createSiteWebParts = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are creating the webparts
@@ -1307,7 +1307,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the custom actions
-                    let createSiteCollectionCustomActions = () => {
+                    let createSiteCollectionCustomActions = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are targeting the site collection
@@ -1336,7 +1336,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Create the custom actions
-                    let createSiteCustomActions = () => {
+                    let createSiteCustomActions = (): PromiseLike<void> => {
                         // Return a promise
                         return new Promise((resolve, reject) => {
                             // See if we are targeting the web
