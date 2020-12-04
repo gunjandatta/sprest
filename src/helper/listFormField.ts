@@ -165,19 +165,25 @@ export const ListFormField: IListFormField = {
                         };
                     }
 
-                    // See if a value exists
+                    // Default the value if it hasn't been set
                     if (query.GetAllItems == null) {
                         // Set the default value
                         query.GetAllItems = true;
                     }
 
-                    // See if a value exists
+                    // Default the value if it hasn't been set
+                    if (query.OrderBy == null) {
+                        // Set the default value
+                        query.OrderBy = [info.lookupField];
+                    }
+
+                    // Default the value if it hasn't been set
                     if (query.Select == null) {
                         // Set the default value
                         query.Select = ["ID", info.lookupField];
                     }
 
-                    // See if a value exists
+                    // Default the value if it hasn't been set
                     if (query.Top == null) {
                         // Set the default value
                         query.Top = queryTop > 0 && queryTop <= 5000 ? queryTop : 500;
