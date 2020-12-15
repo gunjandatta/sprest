@@ -317,18 +317,26 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
 
     // Return a promise
     return new Promise((resolve, reject) => {
-        // Ensure fields exist
-        if (ctInfo.fields) {
-            // Clear the links
-            clearLinks().then(skipFields => {
-                // Create the links
-                createLinks(skipFields).then(() => {
-                    // Set the field order
-                    setOrder().then(resolve, reject);
+        // Ensure the SP object exists
+        if (SP) {
+            // Ensure fields exist
+            if (ctInfo.fields) {
+                // Clear the links
+                clearLinks().then(skipFields => {
+                    // Create the links
+                    createLinks(skipFields).then(() => {
+                        // Set the field order
+                        setOrder().then(resolve, reject);
+                    }, reject);
                 }, reject);
-            }, reject);
+            } else {
+                // Resolve the promise
+                resolve();
+            }
+
         } else {
-            // Resolve the promise
+            // Resolve the request
+            // This will cause issues in the SPConfig class
             resolve();
         }
     });
