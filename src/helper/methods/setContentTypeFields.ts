@@ -318,7 +318,7 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
     // Return a promise
     return new Promise((resolve, reject) => {
         // Ensure the SP object exists
-        if (SP) {
+        if (window["SP"]) {
             // Ensure fields exist
             if (ctInfo.fields) {
                 // Clear the links
@@ -333,7 +333,6 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
                 // Resolve the promise
                 resolve();
             }
-
         } else {
             // Resolve the request
             // This will cause issues in the SPConfig class
