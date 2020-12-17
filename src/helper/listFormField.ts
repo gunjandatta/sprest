@@ -201,8 +201,8 @@ export const ListFormField: IListFormField = {
                         .execute((items) => {
                             // Resolve the promise
                             resolve(items.results.sort((a, b) => {
-                                if (a[info.lookupField] < info.lookupField) { return -1; }
-                                if (a[info.lookupField] > info.lookupField) { return 1; }
+                                if (a[info.lookupField] < b[info.lookupField]) { return -1; }
+                                if (a[info.lookupField] > b[info.lookupField]) { return 1; }
                                 return 0;
                             }));
                         }, reject);
