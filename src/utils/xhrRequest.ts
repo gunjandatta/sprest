@@ -187,7 +187,7 @@ export class XHRRequest {
         if (requestDigest == "") {
             // Get the request digest
             requestDigest = ContextInfo.document ? ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
-            requestDigest = requestDigest ? requestDigest.value : "";
+            requestDigest = requestDigest ? requestDigest.value : ContextInfo.formDigestValue;
         }
 
         // See if we are targeting the context endpoint

@@ -173,8 +173,8 @@ export const ListFormField: IListFormField = {
 
                     // Default the value if it hasn't been set
                     if (query.OrderBy == null) {
-                        // Set the default value
-                        query.OrderBy = [info.lookupField];
+                        // Set the default sort
+                        query.OrderBy = ["Title"];
                     }
 
                     // Default the value if it hasn't been set
@@ -200,7 +200,11 @@ export const ListFormField: IListFormField = {
                         // Execute the request
                         .execute((items) => {
                             // Resolve the promise
-                            resolve(items.results);
+                            resolve(items.results.sort((a, b) => {
+                                if (a[info.lookupField] < b[info.lookupField]) { return -1; }
+                                if (a[info.lookupField] > b[info.lookupField]) { return 1; }
+                                return 0;
+                            }));
                         }, reject);
                 }, reject);
         });
