@@ -451,7 +451,7 @@ export const ListForm: IListForm = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Update the query
-            info.query = ListForm.generateODataQuery(info, true);
+            info.query = ListForm.generateODataQuery(info, info.attachments ? true : false);
 
             // Get the item
             info.list.Items(info.item.Id).query(info.query).execute(item => {
