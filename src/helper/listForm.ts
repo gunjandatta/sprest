@@ -460,9 +460,10 @@ export const ListForm: IListForm = {
 
                 // Get the item values
                 info.list.Items(item.Id).query({
-                    Expand: ["FieldValuesAsText"]
+                    Expand: ["FieldValuesAsText", "Folder"]
                 }).execute(item => {
                     // Set the values
+                    info.itemFolder = item.Folder;
                     info.fieldValuesAsText = item.FieldValuesAsText;
                 });
 
