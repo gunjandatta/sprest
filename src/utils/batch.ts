@@ -141,4 +141,23 @@ export class Batch {
         // Return the batch request
         return batch.join("\r\n");
     }
+
+    // Process the batch request callbacks
+    static processCallbacks(requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>> = []) {
+        // Parse the requests
+        for (let i = 0; i < requests.length; i++) {
+            let request = requests[i];
+
+            // Parse the batch request
+            for (let j = 0; j < request.length; j++) {
+                let batchRequest = request[j];
+
+                // See if a callback exists
+                if (batchRequest.callback) {
+                    // Execute the callback
+                    batchRequest.callback(batchRequest.response, batchRequest.targetInfo);
+                }
+            }
+        }
+    }
 }

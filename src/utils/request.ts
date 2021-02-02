@@ -567,15 +567,15 @@ export const Request = {
                     if (batchRequest) {
                         // Set the response object
                         batchRequest.response = obj;
-
-                        // Execute the callback if it exists
-                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
                     }
                 }
             }
 
             // See if this was a batch request
             if (isBatchRequest) {
+                // Process the callbacks
+                Batch.processCallbacks(base.base.batchRequests);
+
                 // Execute the callback if it exists
                 batchCallback ? batchCallback(base.base.batchRequests) : null;
 
