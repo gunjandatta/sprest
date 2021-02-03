@@ -559,8 +559,13 @@ export const Request = {
                         batchIdx++;
                         batchRequestIdx = 0;
 
-                        // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        // Ensure the requests exist
+                        if (base.base.batchRequests[batchIdx]) {
+                            // Update the batch request
+                            let batch = base.base.batchRequests[batchIdx];
+                            batchRequest = batch ? batch[batchRequestIdx++] : null;
+                        }
+                        else { break; }
                     }
 
                     // Ensure the batch request exists
