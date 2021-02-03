@@ -122,20 +122,25 @@ export class Batch {
             batch.push("");
             batch.push(changeset);
             batch.push("");
-        }
-        // Else, ensure a request exists
-        else if (requests[0]) {
-            let targetInfo = requests[0].targetInfo;
+        } else {
+            // Parse the requests
+            for (let i = 0; i < requests.length; i++) {
+                let request = [];
+                let targetInfo = requests[i].targetInfo;
 
-            // Add the request to the batch
-            batch.push("Content-Type: application/http");
-            batch.push("Content-Transfer-Encoding: binary");
-            batch.push("");
-            batch.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
-            batch.push("Accept: application/json;odata=verbose");
-            batch.push("");
-            targetInfo.requestData ? batch.push(targetInfo.requestData) : null;
-            batch.push("");
+                // Create a change set
+                request.push("Content-Type: application/http");
+                request.push("Content-Transfer-Encoding: binary");
+                request.push("");
+                request.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
+                request.push("Accept: application/json;odata=verbose");
+                request.push("");
+                targetInfo.requestData ? request.push(targetInfo.requestData) : null;
+                request.push("");
+
+                // Add the request to the change set
+                batch.push(request.join("\r\n"));
+            }
         }
 
         // Return the batch request
