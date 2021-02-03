@@ -80,68 +80,51 @@ export class Batch {
 
     // Method to generate a batch request
     private static createBatch(batchId: string, requests: Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>) {
-        // Create the batch request
-        let batch = ["--" + batchId];
+        let batch = [];
 
-        // Determine if the batch requires a change set
-        let requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
-        if (requiresChangeset) {
-            let changesets = [];
-            let changesetId = "changeset_" + ContextInfo.generateGUID();
+        // Parse the requests
+        for (let i = 0; i < requests.length; i++) {
+            let request = requests[i];
 
-            // Parse the requests
-            for (let i = 0; i < requests.length; i++) {
-                let request = [];
-                let targetInfo = requests[i].targetInfo;
+            // Create the batch request
+            batch.push("--" + batchId);
 
-                // Create a change set
-                request.push("--" + changesetId);
-                request.push("Content-Type: application/http");
-                request.push("Content-Transfer-Encoding: binary");
-                request.push("");
-                request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
-                request.push("Content-Type: application/json;odata=verbose");
-                request.push("");
-                targetInfo.requestData ? request.push(targetInfo.requestData) : null;
-                request.push("");
-
-                // Add the request to the change set
-                changesets.push(request.join("\r\n"));
-            }
-
-            // End the change set
-            changesets.push("--" + changesetId + "--");
-
-            // Generate the change set
-            let changeset = changesets.join("\r\n");
-
-            // Add the change set information to the batch
-            batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
-            batch.push("Content-Length: " + changeset.length);
-            batch.push("Content-Transfer-Encoding: binary");
-            batch.push("");
-            batch.push(changeset);
-            batch.push("");
-        } else {
-            // Parse the requests
-            for (let i = 0; i < requests.length; i++) {
-                let request = [];
-                let targetInfo = requests[i].targetInfo;
+            // Determine if the batch requires a change set
+            let requiresChangeset = request && request.targetInfo.requestMethod != "GET";
+            if (requiresChangeset) {
+                let changesetId = "changeset_" + ContextInfo.generateGUID();
 
                 // Create a change set
-                request.push("Content-Type: application/http");
-                request.push("Content-Transfer-Encoding: binary");
-                request.push("");
-                request.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
-                request.push("Accept: application/json;odata=verbose");
-                request.push("");
-                targetInfo.requestData ? request.push(targetInfo.requestData) : null;
-                request.push("");
-
-                // Add the request to the change set
-                batch.push(request.join("\r\n"));
+                batch.push("--" + changesetId);
+                batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
+                batch.push("Content-Transfer-Encoding: binary");
+                batch.push("");
+                batch.push("POST " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push("Content-Type: application/json;odata=verbose");
+                batch.push("");
+                request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
+                batch.push("");
+                batch.push("--" + changesetId + "--");
+            } else {
+                // Create a change set
+                batch.push("Content-Type: application/http");
+                batch.push("Content-Transfer-Encoding: binary");
+                batch.push("");
+                batch.push("GET " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push("Accept: application/json;odata=verbose");
+                batch.push("");
+                request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
+                batch.push("");
             }
         }
+
+        // Add the change set information to the batch
+        let batchRequest = batch.join("\r\n");
+        batch.push("Content-Type: multipart/mixed; boundary=" + batchId);
+        batch.push("Content-Length: " + batchRequest.length);
+        batch.push("");
+        batch.push(batchRequest);
+        batch.push("");
 
         // Return the batch request
         return batch.join("\r\n");
