@@ -451,7 +451,7 @@ export const ListForm: IListForm = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Update the query
-            info.query = ListForm.generateODataQuery(info, true);
+            info.query = ListForm.generateODataQuery(info, info.attachments ? true : false);
 
             // Get the item
             info.list.Items(info.item.Id).query(info.query).execute(item => {
@@ -460,9 +460,10 @@ export const ListForm: IListForm = {
 
                 // Get the item values
                 info.list.Items(item.Id).query({
-                    Expand: ["FieldValuesAsText"]
+                    Expand: ["FieldValuesAsText", "Folder"]
                 }).execute(item => {
                     // Set the values
+                    info.itemFolder = item.Folder;
                     info.fieldValuesAsText = item.FieldValuesAsText;
                 });
 

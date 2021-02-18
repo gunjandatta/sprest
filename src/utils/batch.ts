@@ -80,65 +80,75 @@ export class Batch {
 
     // Method to generate a batch request
     private static createBatch(batchId: string, requests: Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>) {
-        // Create the batch request
-        let batch = ["--" + batchId];
+        let batch = [];
 
-        // Determine if the batch requires a change set
-        let requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
-        if (requiresChangeset) {
-            let changesets = [];
-            let changesetId = "changeset_" + ContextInfo.generateGUID();
+        // Parse the requests
+        for (let i = 0; i < requests.length; i++) {
+            let request = requests[i];
 
-            // Parse the requests
-            for (let i = 0; i < requests.length; i++) {
-                let request = [];
-                let targetInfo = requests[i].targetInfo;
+            // Create the batch request
+            batch.push("--" + batchId);
+
+            // Determine if the batch requires a change set
+            let requiresChangeset = request && request.targetInfo.requestMethod != "GET";
+            if (requiresChangeset) {
+                let changesetId = "changeset_" + ContextInfo.generateGUID();
 
                 // Create a change set
-                request.push("--" + changesetId);
-                request.push("Content-Type: application/http");
-                request.push("Content-Transfer-Encoding: binary");
-                request.push("");
-                request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
-                request.push("Content-Type: application/json;odata=verbose");
-                request.push("");
-                targetInfo.requestData ? request.push(targetInfo.requestData) : null;
-                request.push("");
-
-                // Add the request to the change set
-                changesets.push(request.join("\r\n"));
+                batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
+                batch.push("");
+                batch.push("--" + changesetId);
+                batch.push("Content-Type: application/http");
+                batch.push("Content-Transfer-Encoding: binary");
+                batch.push("");
+                batch.push("POST " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push("Content-Type: application/json;odata=verbose");
+                batch.push("");
+                request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
+                batch.push("");
+                batch.push("--" + changesetId + "--");
+            } else {
+                // Create a change set
+                batch.push("Content-Type: application/http");
+                batch.push("Content-Transfer-Encoding: binary");
+                batch.push("");
+                batch.push("GET " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push("Accept: application/json;odata=verbose");
+                batch.push("");
+                request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
+                batch.push("");
             }
-
-            // End the change set
-            changesets.push("--" + changesetId + "--");
-
-            // Generate the change set
-            let changeset = changesets.join("\r\n");
-
-            // Add the change set information to the batch
-            batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
-            batch.push("Content-Length: " + changeset.length);
-            batch.push("Content-Transfer-Encoding: binary");
-            batch.push("");
-            batch.push(changeset);
-            batch.push("");
         }
-        // Else, ensure a request exists
-        else if (requests[0]) {
-            let targetInfo = requests[0].targetInfo;
 
-            // Add the request to the batch
-            batch.push("Content-Type: application/http");
-            batch.push("Content-Transfer-Encoding: binary");
-            batch.push("");
-            batch.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
-            batch.push("Accept: application/json;odata=verbose");
-            batch.push("");
-            targetInfo.requestData ? batch.push(targetInfo.requestData) : null;
-            batch.push("");
-        }
+        // Add the change set information to the batch
+        let batchRequest = batch.join("\r\n");
+        let request = [];
+        request.push("Content-Type: multipart/mixed; boundary=" + batchId);
+        request.push("Content-Length: " + batchRequest.length);
+        request.push("");
+        request.push(batchRequest);
+        request.push("");
 
         // Return the batch request
-        return batch.join("\r\n");
+        return request.join("\r\n");
+    }
+
+    // Process the batch request callbacks
+    static processCallbacks(requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>> = []) {
+        // Parse the requests
+        for (let i = 0; i < requests.length; i++) {
+            let request = requests[i];
+
+            // Parse the batch request
+            for (let j = 0; j < request.length; j++) {
+                let batchRequest = request[j];
+
+                // See if a callback exists
+                if (batchRequest.callback) {
+                    // Execute the callback
+                    batchRequest.callback(batchRequest.response, batchRequest.targetInfo);
+                }
+            }
+        }
     }
 }

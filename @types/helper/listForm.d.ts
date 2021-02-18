@@ -1,5 +1,5 @@
 import { IODataQuery } from "gd-sprest-def/lib/base";
-import { Attachment, ContentType, Field, FieldLink, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
+import { Attachment, ContentType, Field, FieldLink, Folder, List, ListItem, ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
 import * as Types from "../intellisense";
 
 /**
@@ -185,6 +185,9 @@ export interface IListFormResult {
 
     /** The list item. */
     item?: ListItemOData | ListItem;
+
+    /** The list item folder. (Used for document sets) */
+    itemFolder?: Folder;
 
     /** The item query. */
     query?: IODataQuery;

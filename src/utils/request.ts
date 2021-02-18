@@ -559,23 +559,28 @@ export const Request = {
                         batchIdx++;
                         batchRequestIdx = 0;
 
-                        // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        // Ensure the requests exist
+                        if (base.base.batchRequests[batchIdx]) {
+                            // Update the batch request
+                            let batch = base.base.batchRequests[batchIdx];
+                            batchRequest = batch ? batch[batchRequestIdx++] : null;
+                        }
+                        else { break; }
                     }
 
                     // Ensure the batch request exists
                     if (batchRequest) {
                         // Set the response object
                         batchRequest.response = obj;
-
-                        // Execute the callback if it exists
-                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
                     }
                 }
             }
 
             // See if this was a batch request
             if (isBatchRequest) {
+                // Process the callbacks
+                Batch.processCallbacks(base.base.batchRequests);
+
                 // Execute the callback if it exists
                 batchCallback ? batchCallback(base.base.batchRequests) : null;
 
