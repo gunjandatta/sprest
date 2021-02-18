@@ -95,8 +95,10 @@ export class Batch {
                 let changesetId = "changeset_" + ContextInfo.generateGUID();
 
                 // Create a change set
-                batch.push("--" + changesetId);
                 batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
+                batch.push("");
+                batch.push("--" + changesetId);
+                batch.push("Content-Type: application/http");
                 batch.push("Content-Transfer-Encoding: binary");
                 batch.push("");
                 batch.push("POST " + request.targetInfo.requestUrl + " HTTP/1.1");
@@ -120,14 +122,15 @@ export class Batch {
 
         // Add the change set information to the batch
         let batchRequest = batch.join("\r\n");
-        batch.push("Content-Type: multipart/mixed; boundary=" + batchId);
-        batch.push("Content-Length: " + batchRequest.length);
-        batch.push("");
-        batch.push(batchRequest);
-        batch.push("");
+        let request = [];
+        request.push("Content-Type: multipart/mixed; boundary=" + batchId);
+        request.push("Content-Length: " + batchRequest.length);
+        request.push("");
+        request.push(batchRequest);
+        request.push("");
 
         // Return the batch request
-        return batch.join("\r\n");
+        return request.join("\r\n");
     }
 
     // Process the batch request callbacks
