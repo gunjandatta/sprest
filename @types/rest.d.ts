@@ -176,6 +176,11 @@ export interface IREST {
     Web: LibTypes.IWeb;
 
     /**
+     * Use this api to interact with a SharePoint web template extensions.
+     */
+    WebTemplateExtensions: LibTypes.IWebTemplateExtensions;
+
+    /**
      * User this api to interact with the SharePoint 2013 workflow instance service.
      */
     WorkflowInstanceService: LibTypes.IWorkflowInstanceService;

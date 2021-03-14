@@ -18,5 +18,6 @@ export * from "./themeManager";
 export * from "./userProfile";
 export * from "./utility";
 export * from "./web";
+export * from "./webTemplateExtensions";
 export * from "./wfInstanceService";
 export * from "./wfSubscriptionService";
