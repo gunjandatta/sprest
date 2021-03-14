@@ -86,8 +86,13 @@ export const Helper: IBaseHelper = {
         targetInfo.requestDigest = typeof (targetInfo.requestDigest) === "undefined" && base.base && base.base.targetInfo.requestDigest ? base.base.targetInfo.requestDigest : targetInfo.requestDigest;
         targetInfo.requestType = methodConfig.requestType;
 
-        // See if we are replacing the endpoint
-        if (methodInfo.replaceEndpointFl) {
+        // See if we are appending the endpoint
+        if(methodInfo.appendEndpointFl) {
+            // Append to the endpoint
+            targetInfo.endpoint += "." + methodInfo.url;
+        }
+        // Else, see if we are replacing the endpoint
+        else if (methodInfo.replaceEndpointFl) {
             // Replace the endpoint
             targetInfo.endpoint = methodInfo.url;
         }

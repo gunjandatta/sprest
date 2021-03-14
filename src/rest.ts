@@ -37,6 +37,7 @@ export const $REST: IREST = {
     UserProfile: Lib.UserProfile,
     Utility: Lib.Utility,
     Web: Lib.Web,
+    WebTemplateExtensions: Lib.WebTemplateExtensions,
     WorkflowInstanceService: Lib.WorkflowInstanceService,
     WorkflowSubscriptionService: Lib.WorkflowSubscriptionService
 };

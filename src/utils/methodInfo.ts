@@ -26,6 +26,9 @@ export class MethodInfo implements Base.IMethodInfo {
     // Public Properties
     /*********************************************************************************************************************************/
 
+    // Flag to determine if this method replaces the endpoint
+    get appendEndpointFl(): boolean { return this.methodInfo.appendEndpointFl ? true : false; }
+
     // The data passed through the body of the request
     get body(): string { return this.methodData; }
 
