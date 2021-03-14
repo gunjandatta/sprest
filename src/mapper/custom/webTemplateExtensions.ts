@@ -2,43 +2,44 @@ import { RequestType } from "../../utils";
 
 /**
  * Web Template Extensions
+ * https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-rest-api
  */
 export const webtemplateextensions = {
     applySiteDesign: {
         argNames: ["siteDesignId", "webUrl"],
         appendEndpointFl: true,
-        name: "CreateSiteScript",
-        requestType: RequestType.PostWithArgsInQSAsVar // TODO
+        name: "ApplySiteDesign",
+        requestType: RequestType.PostWithArgsInBody
     },
     addSiteDesignTaskToCurrentWeb: {
         argNames: ["siteDesignId"],
         appendEndpointFl: true,
         name: "AddSiteDesignTaskToCurrentWeb",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     createSiteDesign: {
         argNames: ["info"],
         appendEndpointFl: true,
         name: "CreateSiteDesign",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     createSiteScript: {
         argNames: ["title", "content"],
         appendEndpointFl: true,
-        name: "CreateSiteScript",
-        requestType: RequestType.PostBodyNoArgs // TODO
+        name: "CreateSiteScript(@title)?@title='[[title]]",
+        requestType: RequestType.PostReplaceWithData
     },
     deleteSiteDesign: {
         argNames: ["id"],
         appendEndpointFl: true,
         name: "DeleteSiteDesign",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     deleteSiteScript: {
         argNames: ["id"],
         appendEndpointFl: true,
         name: "DeleteSiteScript",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     getSiteDesigns: {
         argNames: [],
@@ -49,8 +50,8 @@ export const webtemplateextensions = {
     getSiteDesignMetadata: {
         argNames: ["id"],
         appendEndpointFl: true,
-        name: "",
-        requestType: RequestType.PostBodyNoArgs
+        name: "GetSiteDesignMetadata",
+        requestType: RequestType.PostWithArgsInBody
     },
     getSiteScripts: {
         argNames: [],
@@ -62,48 +63,48 @@ export const webtemplateextensions = {
         argNames: ["webUrl", "info"],
         appendEndpointFl: true,
         name: "GetSiteScriptFromWeb",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     getSiteScriptFromList: {
         argNames: ["listUrl"],
         appendEndpointFl: true,
         name: "GetSiteScriptFromList",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     getSiteScriptMetadata: {
         argNames: ["id"],
         appendEndpointFl: true,
         name: "GetSiteScriptMetadata",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     getSiteDesignRights: {
         argNames: ["id"],
         appendEndpointFl: true,
         name: "GetSiteDesignRights",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     grantSiteDesignRights: {
         argNames: ["id", "principalNames", "grantedRights"],
         appendEndpointFl: true,
         name: "GrantSiteDesignRights",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     revokeSiteDesignRights: {
         argNames: ["id", "principalNames"],
         appendEndpointFl: true,
         name: "RevokeSiteDesignRights",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     updateSiteDesign: {
         argNames: ["updateInfo"],
         appendEndpointFl: true,
         name: "UpdateSiteDesign",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     },
     updateSiteScript: {
         argNames: ["updateInfo"],
         appendEndpointFl: true,
         name: "UpdateSiteScript",
-        requestType: RequestType.PostBodyNoArgs
+        requestType: RequestType.PostWithArgsInBody
     }
 }
