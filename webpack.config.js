@@ -6,13 +6,14 @@ module.exports = (env, argv) => {
     // Return the configuration
     return {
         entry: [
-            "./node_modules/core-js/features/promise/index.js",
+            "./node_modules/core-js/es/promise/index.js",
             "./build/index.js"
         ],
         output: {
             path: path.resolve(__dirname, "dist"),
             filename: "gd-sprest" + (isDev ? "" : ".min") + ".js"
         },
+        target: ["web", "es5"],
         module: {
             rules: [
                 {
