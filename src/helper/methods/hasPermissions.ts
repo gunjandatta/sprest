@@ -25,7 +25,7 @@ export const hasPermissions: IhasPermissions = (permissionMask: BasePermissions,
         }
 
         // See if the user doesn't have permission
-        if (!(((2 ^ (permission - 1)) | sequence) == sequence)) {
+        if ((sequence & (1 << (permission - 1))) == 0) {
             // Set the flag and break from the loop
             hasPermissions = false;
             break;
