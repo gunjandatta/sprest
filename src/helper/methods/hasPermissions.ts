@@ -12,6 +12,9 @@ export const hasPermissions: IhasPermissions = (permissionMask: BasePermissions,
     // Default the permission flag
     let hasPermissions = true;
 
+    // See if this user has full permissions
+    if (((permissionMask.High & 32767) == 32767) && ((permissionMask.Low & 65535) == 65535)) { return hasPermissions; }
+
     // Parse the requested permissions
     for (let i = 0; i < requestedPermissions.length; i++) {
         let permission = requestedPermissions[i];
