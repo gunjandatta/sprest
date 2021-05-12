@@ -5452,7 +5452,9 @@ export const Mapper: IMapper = {
             requestType: RequestType.PostWithArgsInBody
         },
 
-        getComments: {},
+        getComments: {
+            returnType: "Microsoft.SharePoint.Comments.comment.Collection"
+        },
 
         getUserEffectivePermissions: {
             argNames: ["userName"],
@@ -9165,6 +9167,7 @@ export const Mapper: IMapper = {
         },
 
         getComments: {
+            returnType: "Microsoft.SharePoint.Comments.comment.Collection"
         },
 
         getUserEffectivePermissions: {
