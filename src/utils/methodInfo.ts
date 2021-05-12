@@ -162,7 +162,7 @@ export class MethodInfo implements Base.IMethodInfo {
         // See if the metadata type exists
         if (this.methodInfo.metadataType) {
             // See if parameters exist
-            if (this.methodInfo.argNames && this.methodInfo.requestType != RequestType.PostBodyNoArgs) {
+            if (this.methodInfo.argNames && this.methodInfo.requestType != RequestType.PostBodyNoArgs && typeof ((this.methodData || this.methodParams)[this.methodInfo.argNames[0]]) !== "string") {
                 // Append the metadata to the first parameter, if it doesn't exist
                 (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] =
                     (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] || { "type": this.methodInfo.metadataType };
@@ -181,7 +181,7 @@ export class MethodInfo implements Base.IMethodInfo {
 
         // See if we are deleting the object
         if (this.methodInfo.requestType == RequestType.Delete) {
-            // Update the url
+            // Default the value
             url = "deleteObject";
         }
 
