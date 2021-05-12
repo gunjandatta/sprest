@@ -1244,6 +1244,11 @@ export const Mapper: IMapper = {
     },
 
     "Microsoft.SharePoint.Comments.comment": {
+        delete: {
+            name: "",
+            requestMethod: "DELETE"
+        },
+
         like: {
         },
 
@@ -1255,7 +1260,15 @@ export const Mapper: IMapper = {
     },
 
     "Microsoft.SharePoint.Comments.comment.Collection": {
+        add: {
+            argNames: ["text"],
+            metadataType: "Microsoft.SharePoint.Comments.comment",
+            name: "",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
         deleteAll: {
+            requestType: RequestType.Post
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -5414,7 +5427,7 @@ export const Mapper: IMapper = {
 
     "SP.ListItem": {
         properties: [
-            "AttachmentFiles|SP.Attachment.Collection|('[Name]')|SP.Attachment", "Comments|Microsoft.SharePoint.Comments.comment.Collection",
+            "AttachmentFiles|SP.Attachment.Collection|('[Name]')|SP.Attachment", "Comments|Microsoft.SharePoint.Comments.comment.Collection|('[Name]')|Microsoft.SharePoint.Comments.comment",
             "ContentType|SP.ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
             "File|SP.File", "FirstUniqueAncestorSecurableObject", "Folder|SP.Folder", "GetDlpPolicyTip", "ParentList",
             "Properties", "RoleAssignments|SP.RoleAssignment.Collection|roleassignments|([Name])|SP.RoleAssignment"

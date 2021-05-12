@@ -24,7 +24,7 @@
   },
   "homepage": "https://dattabase.com",
   "dependencies": {
-    "gd-sprest-def": "0.9.9"
+    "gd-sprest-def": "1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
