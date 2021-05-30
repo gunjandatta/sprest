@@ -297,10 +297,9 @@ export const Request = {
                 } else {
                     // Execute the resolve and see if it returns a promise
                     let returnVal = resolve ? resolve(response) : null;
-                    let waitFunc = returnVal ? returnVal.done || returnVal.then : null;
-                    if (waitFunc && typeof (waitFunc) === "function") {
+                    if (returnVal && typeof (returnVal.done) === "function") {
                         // Wait for the promise to complete
-                        waitFunc(() => {
+                        returnVal.done(() => {
                             // Set the wait flag
                             base.base.waitFlags[base.responseIndex] = true;
                         });
