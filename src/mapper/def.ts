@@ -7636,7 +7636,7 @@ export const Mapper: IMapper = {
 
         addUserById: {
             argNames: ["id"],
-            requestType: RequestType.PostBodyNoArgs
+            requestType: RequestType.PostWithArgsValueOnly
         },
 
         getByEmail: {
