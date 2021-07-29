@@ -553,7 +553,7 @@ export const ListForm: IListForm = {
     },
 
     // Method to save a new or existing item
-    saveItem: (info: IListFormResult, formValues: any): PromiseLike<IListFormResult> => {
+    saveItem: (info: IListFormResult, formValues: any = {}): PromiseLike<IListFormResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if this is an existing item
