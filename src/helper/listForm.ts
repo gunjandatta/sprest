@@ -260,7 +260,7 @@ export const ListForm: IListForm = {
                 }
 
                 // Get the web
-                Web(_props.webUrl)
+                Web(_props.webUrl, { disableCache: true })
                     // Get the list
                     .Lists(_props.listName)
                     // Execute the request
