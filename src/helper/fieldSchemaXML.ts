@@ -1,7 +1,7 @@
 import {
     IFieldInfo, IFieldInfoCalculated, IFieldInfoChoice,
-    IFieldInfoCurrency, IFieldInfoDate, IFieldInfoLookup,
-    IFieldInfoMMS, IFieldInfoNote, IFieldInfoNumber, IFieldInfoUrl, IFieldInfoUser
+    IFieldInfoCurrency, IFieldInfoDate, IFieldInfoLookup, IFieldInfoMMS,
+    IFieldInfoNote, IFieldInfoNumber, IFieldInfoText, IFieldInfoUrl, IFieldInfoUser
 } from "../../@types/helper";
 import { ContextInfo, Web } from "../lib";
 import { SPTypes } from "..";
@@ -313,11 +313,14 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
     }
 
     // Returns the schema xml for a text field.
-    let createText = (fieldInfo: IFieldInfo, props: object) => {
+    let createText = (fieldInfo: IFieldInfoText, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
         props["Type"] = "Text";
+
+        // Set the number properties
+        if (fieldInfo.maxLength != null) { props["MaxLength"] = fieldInfo.maxLength; }
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
