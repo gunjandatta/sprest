@@ -2291,6 +2291,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/createContentType";
     export * from "gd-sprest/helper/methods/createDocSet";
     export * from "gd-sprest/helper/methods/hasPermissions";
+    export * from "gd-sprest/helper/methods/loadSPCore";
     export * from "gd-sprest/helper/methods/parse";
     export * from "gd-sprest/helper/methods/request";
     export * from "gd-sprest/helper/methods/setContentTypeFields";
@@ -3154,7 +3155,7 @@ declare module 'gd-sprest/helper/spCfg' {
     /**
         * Note
         */
-    export interface IFieldInfoNote extends IFieldInfo {
+    export interface IFieldInfoNote extends IFieldInfoText {
             /** Flag to append the comments. (This requires versioning to be enabled) */
             appendFl?: boolean;
     
@@ -3180,6 +3181,14 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The number field type */
             numberType?: number;
+    }
+    
+    /**
+        * Text
+        */
+    export interface IFieldInfoText extends IFieldInfo {
+            /** The max length */
+            maxLength?: number;
     }
     
     /**
@@ -5935,6 +5944,17 @@ declare module 'gd-sprest/helper/methods/hasPermissions' {
     export const hasPermissions: IhasPermissions;
     export interface IhasPermissions {
         (permissionMask: any, permissions: Array<number> | number): boolean;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/loadSPCore' {
+    /**
+      * Loads the core SharePoint JavaScript library for JSOM.
+      * @category Helper
+      */
+    export const loadSPCore: IloadSPCore;
+    export interface IloadSPCore {
+        (): PromiseLike<void>;
     }
 }
 
