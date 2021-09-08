@@ -349,6 +349,13 @@ export const ListForm: IListForm = {
         for (let fieldName in info.fields) {
             let field = info.fields[fieldName];
 
+            // See if this is the file leaf ref
+            if (field.InternalName == "FileLeafRef") {
+                // Ensure the field is included
+                query.Select.push("FileLeafRef");
+                continue;
+            }
+
             // Update the query, based on the type
             switch (field.FieldTypeKind) {
                 // Lookup Field
