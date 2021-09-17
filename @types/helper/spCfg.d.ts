@@ -158,6 +158,12 @@ export interface IFieldInfoCurrency extends IFieldInfo {
  * Date Field Information
  */
 export interface IFieldInfoDate extends IFieldInfo {
+    /** The default formula */
+    defaultFormula?: string;
+
+    /** Sets the default value to today's date */
+    defaultToday?: boolean;
+
     /** The display format */
     displayFormat?: number;
 

@@ -157,7 +157,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + ">";
-        if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        if (fieldInfo.defaultToday) { schemaXml += "<Default>[today]</Default>"; }
+        else if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        if (fieldInfo.defaultFormula) { schemaXml += "<DefaultFormula>" + fieldInfo.defaultFormula + "</DefaultFormula>"; }
         schemaXml += "</Field>"
 
         // Resolve the request
