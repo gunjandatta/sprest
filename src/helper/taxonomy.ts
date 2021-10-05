@@ -463,7 +463,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
             // Ensure the core script is loaded
             SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", () => {
                 // Ensure the taxonomy script is loaded
-                SP.SOD.registerSod("sp.taxonomy.js", ContextInfo.webServerRelativeUrl + "_layouts/15/sp.taxonomy.js");
+                SP.SOD.registerSod("sp.taxonomy.js", ContextInfo.webServerRelativeUrl + "/_layouts/15/sp.taxonomy.js");
                 SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", () => {
                     // Resolve the promise
                     resolve();
