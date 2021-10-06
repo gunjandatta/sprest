@@ -196,11 +196,15 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             case SPTypes.RelationshipDeleteBehaviorType.Restrict:
                 props["RelationshipDeleteBehavior"] = "Restrict";
                 break;
+            default:
+                props["RelationshipDeleteBehavior"] = "None";
+                break;
         }
 
         // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }
         if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
+        props["ReadOnly"] = typeof (fieldInfo.readOnly) !== "boolean" ? (fieldInfo.readOnly ? "TRUE" : "FALSE") : "FALSE";
         props["ShowField"] = fieldInfo.showField || "Title";
 
         // See if the lookup name exists
