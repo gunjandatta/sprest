@@ -292,7 +292,7 @@ export const Helper: IBaseHelper = {
     },
 
     // Method to update the expanded collection property
-    updateExpandedCollection: (results: any[]) => {
+    updateExpandedCollection: (base: IBase, results: any[]) => {
         // Parse the results
         for (let i = 0; i < results.length; i++) {
             let result = results[i];
@@ -300,7 +300,7 @@ export const Helper: IBaseHelper = {
             // See if this property was expanded
             if (result["__metadata"]) {
                 // Add the base methods
-                Helper.addBaseMethods(result, result);
+                Helper.addBaseMethods(base, result);
 
                 // Update the metadata
                 Helper.updateMetadata(result, result);
@@ -328,7 +328,7 @@ export const Helper: IBaseHelper = {
                     // See if this is a collection
                     if (prop["results"] && prop["results"].length > 0) {
                         // Update the expanded collection
-                        Helper.updateExpandedCollection(prop.results);
+                        Helper.updateExpandedCollection(base, prop.results);
                     }
                     // Else, see if this property was expanded
                     else if (prop["__metadata"]) {

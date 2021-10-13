@@ -34,7 +34,7 @@ export interface IBaseHelper {
     updateDataCollection(base: IBase, results: Array<IBase>);
 
     /** Updates the expanded data collection for odata query properties. */
-    updateExpandedCollection(results: any[]);
+    updateExpandedCollection(base: IBase, results: any[]);
 
     /** Updates the expanded properties for odata queries. */
     updateExpandedProperties(base: IBase);
