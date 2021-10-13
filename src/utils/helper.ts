@@ -87,7 +87,7 @@ export const Helper: IBaseHelper = {
         targetInfo.requestType = methodConfig.requestType;
 
         // See if we are appending the endpoint
-        if(methodInfo.appendEndpointFl) {
+        if (methodInfo.appendEndpointFl) {
             // Append to the endpoint
             targetInfo.endpoint += "." + methodInfo.url;
         }
@@ -291,6 +291,26 @@ export const Helper: IBaseHelper = {
         }
     },
 
+    // Method to update the expanded collection property
+    updateExpandedCollection: (results: any[]) => {
+        // Parse the results
+        for (let i = 0; i < results.length; i++) {
+            let result = results[i];
+
+            // See if this property was expanded
+            if (result["__metadata"]) {
+                // Add the base methods
+                Helper.addBaseMethods(result, result);
+
+                // Update the metadata
+                Helper.updateMetadata(result, result);
+
+                // Add the methods
+                Request.addMethods(result, result);
+            }
+        }
+    },
+
     // Method to update the expanded properties
     updateExpandedProperties: (base: IBase) => {
         // Ensure this is an OData request
@@ -302,18 +322,25 @@ export const Helper: IBaseHelper = {
 
             // Parse the properties
             for (let key in result) {
+                // Ensure the property exists
                 let prop = result[key];
+                if (prop) {
+                    // See if this is a collection
+                    if (prop["results"] && prop["results"].length > 0) {
+                        // Update the expanded collection
+                        Helper.updateExpandedCollection(prop.results);
+                    }
+                    // Else, see if this property was expanded
+                    else if (prop["__metadata"]) {
+                        // Add the base methods
+                        Helper.addBaseMethods(result, prop);
 
-                // See if this property was expanded
-                if (prop && prop["__metadata"]) {
-                    // Add the base methods
-                    Helper.addBaseMethods(result, prop);
+                        // Update the metadata
+                        Helper.updateMetadata(result, prop);
 
-                    // Update the metadata
-                    Helper.updateMetadata(result, prop);
-
-                    // Add the methods
-                    Request.addMethods(prop, prop);
+                        // Add the methods
+                        Request.addMethods(prop, prop);
+                    }
                 }
             }
         }
