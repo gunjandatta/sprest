@@ -655,41 +655,62 @@ export interface IGetUserEffectivePermissionsResult {
  * List Template Types
 */
 export type IListTemplateType = {
+    /** AccessApp */
+    AccessApp: number;
+
     /** Access Request List */
-    AccessRequest: number,
+    AccessRequest: number;
 
     /** Administrator Tasks */
-    AdminTasks: number,
+    AdminTasks: number;
 
     /** Agenda (Meeting) */
-    Agenda: number,
+    Agenda: number;
+
+    /** Alchemy Approval Workflow */
+    AlchemyApprovalWorkflow: number;
+
+    /** Alchemy Mobile Form */
+    AlchemyMobileForm: number;
+
+    /** App Catalog */
+    AppCatalog: number;
 
     /** App Data Catalog */
-    AppDataCatalog: number,
+    AppDataCatalog: number;
 
     /** Announcements */
-    Announcements: number,
+    Announcements: number;
+
+    /** Asset Library */
+    AssetLibrary: number;
 
     /** Call Track */
-    CallTrack: number,
+    CallTrack: number;
 
     /** Categories (Blog) */
-    Categories: number,
+    Categories: number;
 
     /** Circulation */
-    Circulation: number,
+    Circulation: number;
+
+    /** Client Side Assets */
+    ClientSideAssets: number;
+
+    /** Client Side Component Manifests */
+    ClientSideComponentManifests: number;
 
     /** Comments (Blog) */
-    Comments: number,
+    Comments: number;
 
     /** Contacts */
-    Contacts: number,
+    Contacts: number;
 
     /** Custom grid for a list */
-    CustomGrid: number,
+    CustomGrid: number;
 
     /** Data connection library for sharing information about external data connections */
-    DataConnectionLibrary: number,
+    DataConnectionLibrary: number;
 
     /** Data sources for a site */
     DataSources: number,
@@ -745,6 +766,12 @@ export type IListTemplateType = {
     /** Issue tracking */
     IssueTracking: number,
 
+    /** KPI Status List */
+    KPIStatusList: number,
+
+    /** Languages and Translators List */
+    LanguagesAndTranslatorsList: number,
+
     /** Links */
     Links: number,
 
@@ -766,47 +793,92 @@ export type IListTemplateType = {
     /** Attendees (Meeting) */
     MeetingUser: number,
 
+    /** Micro Feed */
+    MicroFeed: number
+
     /** My Site Document Library */
     MySiteDocumentLibrary: number,
 
+    /** Performance Point Content List */
+    PerformancePointContentList: number,
+
+    /** Performance Point Data Source Library */
+    PerformancePointDataSourceLibrary: number;
+
+    /** Performance Point Data Connections Library */
+    PerformancePointDataConnectionsLibrary: number;
+
+    /** Performance Point Dashboards Library */
+    PerformancePointDashboardsLibrary: number;
+
+    /** Personal Document Library */
+    PersonalDocumentLibrary: number;
+
     /** Posts (Blog) */
-    Posts: number,
+    Posts: number;
+
+    /** Private Document Library */
+    PrivateDocumentLibrary: number;
 
     /** No Code Public Workflow */
-    NoCodePublic: number,
+    NoCodePublic: number;
 
     /** No Code Workflows */
-    NoCodeWorkflows: number,
+    NoCodeWorkflows: number;
 
-    /** Picture library */
-    PictureLibrary: number,
+    /** Page Library */
+    PageLibrary: number;
+
+    /** Picture Library */
+    PictureLibrary: number;
+
+    /** Record Library */
+    RecordLibrary: number;
+
+    /** Report Library */
+    ReportLibrary: number;
+
+    /** Sharing Links */
+    SharingLinks: number;
 
     /** Solutions */
-    SolutionCatalog: number,
+    SolutionCatalog: number;
 
     /** Survey */
-    Survey: number,
+    Survey: number;
 
     /** Tasks */
-    Tasks: number,
+    Tasks: number;
 
     /** Tasks with Timeline and Hierarchy */
-    TasksWithTimelineAndHierarchy: number,
+    TasksWithTimelineAndHierarchy: number;
+
+    /** Tenant Wide Extensions */
+    TenantWideExtensions: number;
 
     /** Text Box (Meeting) */
-    TextBox: number,
+    TextBox: number;
 
     /** Themes */
-    ThemeCatalog: number,
+    ThemeCatalog: number;
 
     /** Things To Bring (Meeting) */
-    ThingsToBring: number,
+    ThingsToBring: number;
 
     /** Timecard */
     Timecard: number,
 
+    /** TranslationManagement Library */
+    TranslationManagementLibrary: number,
+
     /** User Information */
     UserInformation: number,
+
+    /** VisioProcessDiagram Library (Metric) */
+    VisioProcessDiagramMetricLibrary: number,
+
+    /** VisioProcessDiagram Library (US Units) */
+    VisioProcessDiagramUSUnitsLibrary: number,
 
     /** Wiki Page Library */
     WebPageLibrary: number,

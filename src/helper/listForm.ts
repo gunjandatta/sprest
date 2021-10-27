@@ -260,7 +260,7 @@ export const ListForm: IListForm = {
                 }
 
                 // Get the web
-                Web(_props.webUrl)
+                Web(_props.webUrl, { disableCache: true })
                     // Get the list
                     .Lists(_props.listName)
                     // Execute the request
@@ -348,6 +348,13 @@ export const ListForm: IListForm = {
         // Parse the fields
         for (let fieldName in info.fields) {
             let field = info.fields[fieldName];
+
+            // See if this is the file leaf ref
+            if (field.InternalName == "FileLeafRef") {
+                // Ensure the field is included
+                query.Select.push("FileLeafRef");
+                continue;
+            }
 
             // Update the query, based on the type
             switch (field.FieldTypeKind) {
@@ -553,7 +560,7 @@ export const ListForm: IListForm = {
     },
 
     // Method to save a new or existing item
-    saveItem: (info: IListFormResult, formValues: any): PromiseLike<IListFormResult> => {
+    saveItem: (info: IListFormResult, formValues: any = {}): PromiseLike<IListFormResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if this is an existing item

@@ -158,6 +158,12 @@ export interface IFieldInfoCurrency extends IFieldInfo {
  * Date Field Information
  */
 export interface IFieldInfoDate extends IFieldInfo {
+    /** The default formula */
+    defaultFormula?: string;
+
+    /** Sets the default value to today's date */
+    defaultToday?: boolean;
+
     /** The display format */
     displayFormat?: number;
 
@@ -202,7 +208,7 @@ export interface IFieldInfoMMS extends IFieldInfo {
 /**
  * Note
  */
-export interface IFieldInfoNote extends IFieldInfo {
+export interface IFieldInfoNote extends IFieldInfoText {
     /** Flag to append the comments. (This requires versioning to be enabled) */
     appendFl?: boolean;
 
@@ -228,6 +234,14 @@ export interface IFieldInfoNumber extends IFieldInfo {
 
     /** The number field type */
     numberType?: number;
+}
+
+/**
+ * Text
+ */
+export interface IFieldInfoText extends IFieldInfo {
+    /** The max length */
+    maxLength?: number;
 }
 
 /**

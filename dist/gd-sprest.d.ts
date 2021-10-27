@@ -2291,6 +2291,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/createContentType";
     export * from "gd-sprest/helper/methods/createDocSet";
     export * from "gd-sprest/helper/methods/hasPermissions";
+    export * from "gd-sprest/helper/methods/loadSPCore";
     export * from "gd-sprest/helper/methods/parse";
     export * from "gd-sprest/helper/methods/request";
     export * from "gd-sprest/helper/methods/setContentTypeFields";
@@ -3110,6 +3111,12 @@ declare module 'gd-sprest/helper/spCfg' {
         * Date Field Information
         */
     export interface IFieldInfoDate extends IFieldInfo {
+            /** The default formula */
+            defaultFormula?: string;
+    
+            /** Sets the default value to today's date */
+            defaultToday?: boolean;
+    
             /** The display format */
             displayFormat?: number;
     
@@ -3154,7 +3161,7 @@ declare module 'gd-sprest/helper/spCfg' {
     /**
         * Note
         */
-    export interface IFieldInfoNote extends IFieldInfo {
+    export interface IFieldInfoNote extends IFieldInfoText {
             /** Flag to append the comments. (This requires versioning to be enabled) */
             appendFl?: boolean;
     
@@ -3180,6 +3187,14 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The number field type */
             numberType?: number;
+    }
+    
+    /**
+        * Text
+        */
+    export interface IFieldInfoText extends IFieldInfo {
+            /** The max length */
+            maxLength?: number;
     }
     
     /**
@@ -4445,41 +4460,62 @@ declare module 'gd-sprest/sptypes/sptypes' {
         * List Template Types
      */
     export type IListTemplateType = {
+            /** AccessApp */
+            AccessApp: number;
+    
             /** Access Request List */
-            AccessRequest: number,
+            AccessRequest: number;
     
             /** Administrator Tasks */
-            AdminTasks: number,
+            AdminTasks: number;
     
             /** Agenda (Meeting) */
-            Agenda: number,
+            Agenda: number;
+    
+            /** Alchemy Approval Workflow */
+            AlchemyApprovalWorkflow: number;
+    
+            /** Alchemy Mobile Form */
+            AlchemyMobileForm: number;
+    
+            /** App Catalog */
+            AppCatalog: number;
     
             /** App Data Catalog */
-            AppDataCatalog: number,
+            AppDataCatalog: number;
     
             /** Announcements */
-            Announcements: number,
+            Announcements: number;
+    
+            /** Asset Library */
+            AssetLibrary: number;
     
             /** Call Track */
-            CallTrack: number,
+            CallTrack: number;
     
             /** Categories (Blog) */
-            Categories: number,
+            Categories: number;
     
             /** Circulation */
-            Circulation: number,
+            Circulation: number;
+    
+            /** Client Side Assets */
+            ClientSideAssets: number;
+    
+            /** Client Side Component Manifests */
+            ClientSideComponentManifests: number;
     
             /** Comments (Blog) */
-            Comments: number,
+            Comments: number;
     
             /** Contacts */
-            Contacts: number,
+            Contacts: number;
     
             /** Custom grid for a list */
-            CustomGrid: number,
+            CustomGrid: number;
     
             /** Data connection library for sharing information about external data connections */
-            DataConnectionLibrary: number,
+            DataConnectionLibrary: number;
     
             /** Data sources for a site */
             DataSources: number,
@@ -4535,6 +4571,12 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** Issue tracking */
             IssueTracking: number,
     
+            /** KPI Status List */
+            KPIStatusList: number,
+    
+            /** Languages and Translators List */
+            LanguagesAndTranslatorsList: number,
+    
             /** Links */
             Links: number,
     
@@ -4556,47 +4598,92 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** Attendees (Meeting) */
             MeetingUser: number,
     
+            /** Micro Feed */
+            MicroFeed: number
+    
             /** My Site Document Library */
             MySiteDocumentLibrary: number,
     
+            /** Performance Point Content List */
+            PerformancePointContentList: number,
+    
+            /** Performance Point Data Source Library */
+            PerformancePointDataSourceLibrary: number;
+    
+            /** Performance Point Data Connections Library */
+            PerformancePointDataConnectionsLibrary: number;
+    
+            /** Performance Point Dashboards Library */
+            PerformancePointDashboardsLibrary: number;
+    
+            /** Personal Document Library */
+            PersonalDocumentLibrary: number;
+    
             /** Posts (Blog) */
-            Posts: number,
+            Posts: number;
+    
+            /** Private Document Library */
+            PrivateDocumentLibrary: number;
     
             /** No Code Public Workflow */
-            NoCodePublic: number,
+            NoCodePublic: number;
     
             /** No Code Workflows */
-            NoCodeWorkflows: number,
+            NoCodeWorkflows: number;
     
-            /** Picture library */
-            PictureLibrary: number,
+            /** Page Library */
+            PageLibrary: number;
+    
+            /** Picture Library */
+            PictureLibrary: number;
+    
+            /** Record Library */
+            RecordLibrary: number;
+    
+            /** Report Library */
+            ReportLibrary: number;
+    
+            /** Sharing Links */
+            SharingLinks: number;
     
             /** Solutions */
-            SolutionCatalog: number,
+            SolutionCatalog: number;
     
             /** Survey */
-            Survey: number,
+            Survey: number;
     
             /** Tasks */
-            Tasks: number,
+            Tasks: number;
     
             /** Tasks with Timeline and Hierarchy */
-            TasksWithTimelineAndHierarchy: number,
+            TasksWithTimelineAndHierarchy: number;
+    
+            /** Tenant Wide Extensions */
+            TenantWideExtensions: number;
     
             /** Text Box (Meeting) */
-            TextBox: number,
+            TextBox: number;
     
             /** Themes */
-            ThemeCatalog: number,
+            ThemeCatalog: number;
     
             /** Things To Bring (Meeting) */
-            ThingsToBring: number,
+            ThingsToBring: number;
     
             /** Timecard */
             Timecard: number,
     
+            /** TranslationManagement Library */
+            TranslationManagementLibrary: number,
+    
             /** User Information */
             UserInformation: number,
+    
+            /** VisioProcessDiagram Library (Metric) */
+            VisioProcessDiagramMetricLibrary: number,
+    
+            /** VisioProcessDiagram Library (US Units) */
+            VisioProcessDiagramUSUnitsLibrary: number,
     
             /** Wiki Page Library */
             WebPageLibrary: number,
@@ -5938,6 +6025,17 @@ declare module 'gd-sprest/helper/methods/hasPermissions' {
     }
 }
 
+declare module 'gd-sprest/helper/methods/loadSPCore' {
+    /**
+      * Loads the core SharePoint JavaScript library for JSOM.
+      * @category Helper
+      */
+    export const loadSPCore: IloadSPCore;
+    export interface IloadSPCore {
+        (): PromiseLike<void>;
+    }
+}
+
 declare module 'gd-sprest/helper/methods/parse' {
     /**
       * Convert a JSON string to a base object
@@ -6111,6 +6209,9 @@ declare module 'gd-sprest/utils/helper' {
     
         /** Updates the data collection objects. */
         updateDataCollection(base: IBase, results: Array<IBase>);
+    
+        /** Updates the expanded data collection for odata query properties. */
+        updateExpandedCollection(base: IBase, results: any[]);
     
         /** Updates the expanded properties for odata queries. */
         updateExpandedProperties(base: IBase);

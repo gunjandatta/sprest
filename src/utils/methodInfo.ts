@@ -232,7 +232,7 @@ export class MethodInfo implements Base.IMethodInfo {
                 // Parse the parameters
                 for (let name in data) {
                     let value = data[name];
-                    value = typeof (value) === "string" ? "'" + value + "'" : value;
+                    value = typeof (value) === "string" ? "'" + value.replace(/'/g, "''") + "'" : value;
 
                     switch (this.methodInfo.requestType) {
                         // Append the value only
