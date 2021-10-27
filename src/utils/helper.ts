@@ -322,6 +322,9 @@ export const Helper: IBaseHelper = {
 
             // Parse the properties
             for (let key in result) {
+                // Skip the parent property
+                if (key == "parent") { continue; }
+
                 // Ensure the property exists
                 let prop = result[key];
                 if (prop) {
