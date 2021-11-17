@@ -3001,6 +3001,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The field description. */
             description?: string;
     
+            /** True to enforce unique values. */
+            enforceUniqueValues?: boolean;
+    
             /** The group name. */
             group?: string;
     
@@ -3037,8 +3040,11 @@ declare module 'gd-sprest/helper/spCfg' {
             /** Flag to make this field visible in the new form. */
             showInNewForm?: boolean;
     
-            /** Flag to make this field visible in the list views. */
+            /** Flag to make this field visible in the list view. */
             showInViewForms?: boolean;
+    
+            /** Flag to disable sorting from the list view. */
+            sortable?: boolean;
     
             /** The field title */
             title?: string;
@@ -3217,6 +3223,9 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The user selection scope */
             selectionScope?: number;
+    
+            /** The lookup field to show */
+            showField?: string;
     }
     
     /**
@@ -4455,6 +4464,17 @@ declare module 'gd-sprest/sptypes/sptypes' {
         */
     export interface IGetUserEffectivePermissionsResult {
             GetUserEffectivePermissions: BasePermissions
+    }
+    
+    export type IListExperienceOptions = {
+            /** Default set by the tenant */
+            Auto: number,
+    
+            /** Modern experience */
+            NewExperience: number,
+    
+            /** Classic experience */
+            ClassicExperience: number
     }
     
     /**

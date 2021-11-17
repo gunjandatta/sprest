@@ -375,6 +375,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
         if (fieldInfo.selectionMode != null) { props["UserSelectionMode"] = fieldInfo.selectionMode; }
         if (fieldInfo.selectionScope != null) { props["UserSelectionScope"] = fieldInfo.selectionScope; }
+        if (fieldInfo.showField != null) { props["ShowField"] = fieldInfo.showField; }
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + " />";
@@ -419,6 +420,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             // Set the optional properties
             if (typeof (fieldInfo.allowDeletion) !== "undefined") { props["AllowDeletion"] = fieldInfo.allowDeletion ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
+            if (typeof (fieldInfo.enforceUniqueValues) !== "undefined") { props["EnforceUniqueValues"] = fieldInfo.enforceUniqueValues ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
             if (typeof (fieldInfo.jslink) !== "undefined") { props["JSLink"] = fieldInfo.jslink; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }
@@ -430,6 +432,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             if (typeof (fieldInfo.showInListSettings) !== "undefined") { props["ShowInListSettings"] = fieldInfo.showInListSettings ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.showInNewForm) !== "undefined") { props["ShowInNewForm"] = fieldInfo.showInNewForm ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.showInViewForms) !== "undefined") { props["ShowInViewForms"] = fieldInfo.showInViewForms ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.sortable) !== "undefined") { props["Sortable"] = fieldInfo.sortable ? "TRUE" : "FALSE"; }
 
             // Set the type
             switch (fieldInfo.type) {
