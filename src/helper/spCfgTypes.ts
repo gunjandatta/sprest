@@ -10,13 +10,14 @@ export const SPCfgFieldType: ISPCfgFieldType = {
     Currency: 3,
     Date: 4,
     Geolocation: 5,
-    Lookup: 6,
-    MMS: 7,
-    Note: 8,
-    Number: 9,
-    Text: 10,
-    Url: 11,
-    User: 12
+    Guid: 6,
+    Lookup: 7,
+    MMS: 8,
+    Note: 9,
+    Number: 10,
+    Text: 11,
+    Url: 12,
+    User: 13
 }
 
 /**

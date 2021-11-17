@@ -180,6 +180,20 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         _resolve(schemaXml);
     }
 
+    // Returns the schema xml for a guid field.
+    let createGuid = (fieldInfo: IFieldInfo, props: object) => {
+        let schemaXml: string = null;
+
+        // Set the field type
+        props["Type"] = "Guid";
+
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+
+        // Resolve the request
+        _resolve(schemaXml);
+    }
+
     // Returns the schema xml for a lookup field.
     let createLookup = (fieldInfo: IFieldInfoLookup, props: object) => {
         // Set the field type
@@ -442,6 +456,10 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 // Geolocation
                 case SPCfgFieldType.Geolocation:
                     createGeolocation(fieldInfo, props);
+                    break;
+                // Guid
+                case SPCfgFieldType.Guid:
+                    createGuid(fieldInfo, props);
                     break;
                 // Lookup
                 case SPCfgFieldType.Lookup:

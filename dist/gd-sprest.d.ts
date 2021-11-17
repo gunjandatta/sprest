@@ -3452,6 +3452,7 @@ declare module 'gd-sprest/helper/spCfgTypes' {
             Currency: number;
             Date: number;
             Geolocation: number;
+            Guid: number;
             Lookup: number;
             MMS: number;
             Note: number;
