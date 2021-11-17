@@ -360,6 +360,7 @@ declare module 'gd-sprest/sptypes' {
     export interface ISPTypes {
         BasePermissionTypes: Types.IBasePermissionTypes;
         CalendarType: Types.ICalendarType;
+        CheckInType: Types.ICheckInType;
         CheckOutType: Types.ICheckOutType;
         ChoiceFormatType: Types.IChoiceFormatType;
         ClientTemplateUtility: Types.IClientTemplateUtility;
@@ -368,6 +369,7 @@ declare module 'gd-sprest/sptypes' {
         DraftVisibilityType: Types.IDraftVisibilityType;
         EventReceiverType: Types.IEventReceiverType;
         EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+        FieldIndexStatus: Types.IFieldIndexStatus;
         FieldNoteType: Types.IFieldNoteType;
         FieldNumberType: Types.IFieldNumberType;
         FieldResultType: Types.IFieldResultType;
@@ -376,6 +378,8 @@ declare module 'gd-sprest/sptypes' {
         FileLevelType: Types.IFileLevelType;
         FileTemplateType: Types.IFileTemplateType;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
+        GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
+        ListExperienceOptions: Types.IListExperienceOptions;
         ListTemplateType: Types.IListTemplateType;
         LocaleLCIDType: Types.ILocaleLCIDType;
         ModalDialogResult: Types.ModalDialogResult,
@@ -4466,6 +4470,9 @@ declare module 'gd-sprest/sptypes/sptypes' {
             GetUserEffectivePermissions: BasePermissions
     }
     
+    /**
+        * List Experience Options
+        */
     export type IListExperienceOptions = {
             /** Default set by the tenant */
             Auto: number,

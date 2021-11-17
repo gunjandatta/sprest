@@ -8,6 +8,7 @@ export const SPTypes: ISPTypes;
 export interface ISPTypes {
     BasePermissionTypes: Types.IBasePermissionTypes;
     CalendarType: Types.ICalendarType;
+    CheckInType: Types.ICheckInType;
     CheckOutType: Types.ICheckOutType;
     ChoiceFormatType: Types.IChoiceFormatType;
     ClientTemplateUtility: Types.IClientTemplateUtility;
@@ -16,6 +17,7 @@ export interface ISPTypes {
     DraftVisibilityType: Types.IDraftVisibilityType;
     EventReceiverType: Types.IEventReceiverType;
     EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+    FieldIndexStatus: Types.IFieldIndexStatus;
     FieldNoteType: Types.IFieldNoteType;
     FieldNumberType: Types.IFieldNumberType;
     FieldResultType: Types.IFieldResultType;
@@ -24,6 +26,8 @@ export interface ISPTypes {
     FileLevelType: Types.IFileLevelType;
     FileTemplateType: Types.IFileTemplateType;
     FriendlyDateFormat: Types.IFriendlyDateFormat;
+    GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
+    ListExperienceOptions: Types.IListExperienceOptions;
     ListTemplateType: Types.IListTemplateType;
     LocaleLCIDType: Types.ILocaleLCIDType;
     ModalDialogResult: Types.ModalDialogResult,

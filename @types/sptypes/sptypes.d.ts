@@ -651,6 +651,9 @@ export interface IGetUserEffectivePermissionsResult {
     GetUserEffectivePermissions: BasePermissions
 }
 
+/**
+ * List Experience Options
+ */
 export type IListExperienceOptions = {
     /** Default set by the tenant */
     Auto: number,
