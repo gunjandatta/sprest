@@ -671,17 +671,20 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
     // Method to see if an object exists in a collection
     let isInCollection = (key: string, value: string, collection: Array<any>) => {
-        let valueLower = value.toLowerCase();
+        // Ensure a value exists
+        if (value) {
+            let valueLower = value ? value.toLowerCase() : "";
 
-        // Parse the collection
-        for (let i = 0; i < collection.length; i++) {
-            let keyValue = collection[i][key];
-            keyValue = keyValue ? keyValue.toLowerCase() : "";
+            // Parse the collection
+            for (let i = 0; i < collection.length; i++) {
+                let keyValue = collection[i][key];
+                keyValue = keyValue ? keyValue.toLowerCase() : "";
 
-            // See if the item exists
-            if (valueLower == keyValue) {
-                // Return true
-                return collection[i];
+                // See if the item exists
+                if (valueLower == keyValue) {
+                    // Return true
+                    return collection[i];
+                }
             }
         }
 
