@@ -360,6 +360,7 @@ declare module 'gd-sprest/sptypes' {
     export interface ISPTypes {
         BasePermissionTypes: Types.IBasePermissionTypes;
         CalendarType: Types.ICalendarType;
+        CheckInType: Types.ICheckInType;
         CheckOutType: Types.ICheckOutType;
         ChoiceFormatType: Types.IChoiceFormatType;
         ClientTemplateUtility: Types.IClientTemplateUtility;
@@ -368,6 +369,7 @@ declare module 'gd-sprest/sptypes' {
         DraftVisibilityType: Types.IDraftVisibilityType;
         EventReceiverType: Types.IEventReceiverType;
         EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+        FieldIndexStatus: Types.IFieldIndexStatus;
         FieldNoteType: Types.IFieldNoteType;
         FieldNumberType: Types.IFieldNumberType;
         FieldResultType: Types.IFieldResultType;
@@ -376,6 +378,8 @@ declare module 'gd-sprest/sptypes' {
         FileLevelType: Types.IFileLevelType;
         FileTemplateType: Types.IFileTemplateType;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
+        GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
+        ListExperienceOptions: Types.IListExperienceOptions;
         ListTemplateType: Types.IListTemplateType;
         LocaleLCIDType: Types.ILocaleLCIDType;
         ModalDialogResult: Types.ModalDialogResult,
@@ -3001,6 +3005,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The field description. */
             description?: string;
     
+            /** True to enforce unique values. */
+            enforceUniqueValues?: boolean;
+    
             /** The group name. */
             group?: string;
     
@@ -3037,8 +3044,11 @@ declare module 'gd-sprest/helper/spCfg' {
             /** Flag to make this field visible in the new form. */
             showInNewForm?: boolean;
     
-            /** Flag to make this field visible in the list views. */
+            /** Flag to make this field visible in the list view. */
             showInViewForms?: boolean;
+    
+            /** Flag to disable sorting from the list view. */
+            sortable?: boolean;
     
             /** The field title */
             title?: string;
@@ -3217,6 +3227,9 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The user selection scope */
             selectionScope?: number;
+    
+            /** The lookup field to show */
+            showField?: string;
     }
     
     /**
@@ -3452,6 +3465,7 @@ declare module 'gd-sprest/helper/spCfgTypes' {
             Currency: number;
             Date: number;
             Geolocation: number;
+            Guid: number;
             Lookup: number;
             MMS: number;
             Note: number;
@@ -4454,6 +4468,20 @@ declare module 'gd-sprest/sptypes/sptypes' {
         */
     export interface IGetUserEffectivePermissionsResult {
             GetUserEffectivePermissions: BasePermissions
+    }
+    
+    /**
+        * List Experience Options
+        */
+    export type IListExperienceOptions = {
+            /** Default set by the tenant */
+            Auto: number,
+    
+            /** Modern experience */
+            NewExperience: number,
+    
+            /** Classic experience */
+            ClassicExperience: number
     }
     
     /**

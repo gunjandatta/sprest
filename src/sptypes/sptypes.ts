@@ -318,6 +318,15 @@ export const FriendlyDateFormat: SPTypes.IFriendlyDateFormat = {
 }
 
 /**
+ * List Experience Types
+ */
+export const ListExperienceOptions: SPTypes.IListExperienceOptions = {
+    Auto: 0,
+    NewExperience: 1,
+    ClassicExperience: 2
+}
+
+/**
  * List Template Types
 */
 export const ListTemplateType: SPTypes.IListTemplateType = {

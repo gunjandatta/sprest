@@ -652,6 +652,20 @@ export interface IGetUserEffectivePermissionsResult {
 }
 
 /**
+ * List Experience Options
+ */
+export type IListExperienceOptions = {
+    /** Default set by the tenant */
+    Auto: number,
+
+    /** Modern experience */
+    NewExperience: number,
+
+    /** Classic experience */
+    ClassicExperience: number
+}
+
+/**
  * List Template Types
 */
 export type IListTemplateType = {

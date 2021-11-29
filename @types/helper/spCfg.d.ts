@@ -48,6 +48,9 @@ export interface IFieldInfo {
     /** The field description. */
     description?: string;
 
+    /** True to enforce unique values. */
+    enforceUniqueValues?: boolean;
+
     /** The group name. */
     group?: string;
 
@@ -84,8 +87,11 @@ export interface IFieldInfo {
     /** Flag to make this field visible in the new form. */
     showInNewForm?: boolean;
 
-    /** Flag to make this field visible in the list views. */
+    /** Flag to make this field visible in the list view. */
     showInViewForms?: boolean;
+
+    /** Flag to disable sorting from the list view. */
+    sortable?: boolean;
 
     /** The field title */
     title?: string;
@@ -264,6 +270,9 @@ export interface IFieldInfoUser extends IFieldInfo {
 
     /** The user selection scope */
     selectionScope?: number;
+
+    /** The lookup field to show */
+    showField?: string;
 }
 
 /**
