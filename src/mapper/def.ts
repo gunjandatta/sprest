@@ -1484,7 +1484,7 @@ export const Mapper: IMapper = {
 
     "Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.SiteCollectionCorporateCatalogAccessor": {
         properties: [
-            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Id]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
+            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Name]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
         ],
 
         add: {
@@ -1504,7 +1504,7 @@ export const Mapper: IMapper = {
 
     "Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.TenantCorporateCatalogAccessor": {
         properties: [
-            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Id]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
+            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Name]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
         ],
 
         add: {
@@ -8980,7 +8980,7 @@ export const Mapper: IMapper = {
 
     "SP.WebParts.LimitedWebPartManager": {
         properties: [
-            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Id])|SP.WebParts.WebPartDefinition"
+            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Name])|SP.WebParts.WebPartDefinition"
         ],
 
         exportWebPart: {
