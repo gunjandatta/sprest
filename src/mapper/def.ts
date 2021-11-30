@@ -8494,9 +8494,10 @@ export const Mapper: IMapper = {
             "ListTemplates|SP.ListTemplate.Collection|('[Name]')|SP.ListTemplate", "Navigation|SP.Navigation", "ParentWeb",
             "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|SP.RoleAssignment.Collection|([Name])|SP.RoleAssignment",
             "RoleDefinitions|SP.RoleDefinition.Collection|/getByName('[Name]')|SP.RoleDefinition", "RootFolder|SP.Folder|/getByUrl('[Name]')|SP.File",
-            "SiteGroups|SP.Group.Collection|/getByName('[Name]')|SP.Group", "SiteUserInfoList", "SiteUsers|SP.User.Collection|/getById([Name])|SP.User",
-            "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource", "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction",
-            "WebInfos|SP.WebInformation.Collection", "Webs|SP.Web.Collection", "WorkflowAssociations", "WorkflowTemplates"
+            "SiteCollectionAppCatalog|sitecollectionappcatalog", "SiteGroups|SP.Group.Collection|/getByName('[Name]')|SP.Group", "SiteUserInfoList",
+            "SiteUsers|SP.User.Collection|/getById([Name])|SP.User", "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
+            "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction", "WebInfos|SP.WebInformation.Collection",
+            "Webs|SP.Web.Collection", "WorkflowAssociations", "WorkflowTemplates"
         ],
 
         addCrossFarmMessage: {
