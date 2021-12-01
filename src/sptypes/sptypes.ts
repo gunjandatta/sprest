@@ -396,6 +396,7 @@ export const ListTemplateType: SPTypes.IListTemplateType = {
     Survey: 102,
     Tasks: 107,
     TasksWithTimelineAndHierarchy: 171,
+    TenantAppCatalog: 330,
     TenantWideExtensions: 337,
     TextBox: 210,
     ThemeCatalog: 123,

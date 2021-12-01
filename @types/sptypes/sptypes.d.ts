@@ -867,6 +867,9 @@ export type IListTemplateType = {
     /** Tasks with Timeline and Hierarchy */
     TasksWithTimelineAndHierarchy: number;
 
+    /** Tenant App Catalog */
+    TenantAppCatalog: number;
+
     /** Tenant Wide Extensions */
     TenantWideExtensions: number;
 
