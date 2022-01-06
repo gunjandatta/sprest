@@ -5637,9 +5637,9 @@ export const Mapper: IMapper = {
     "SP.ListItem": {
         properties: [
             "AttachmentFiles|SP.Attachment.Collection|('[Name]')|SP.Attachment", "Comments|Microsoft.SharePoint.Comments.comment.Collection|('[Name]')|Microsoft.SharePoint.Comments.comment",
-            "ContentType|SP.ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
-            "File|SP.File", "FirstUniqueAncestorSecurableObject", "Folder|SP.Folder", "GetDlpPolicyTip", "ParentList",
-            "Properties", "RoleAssignments|SP.RoleAssignment.Collection|roleassignments|([Name])|SP.RoleAssignment"
+            "ContentType|SP.ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit", "File|SP.File", "FirstUniqueAncestorSecurableObject",
+            "Folder|SP.Folder", "GetDlpPolicyTip", "ParentList", "Properties", "RoleAssignments|SP.RoleAssignment.Collection|roleassignments|([Name])|SP.RoleAssignment",
+            "Versions|SP.ListItemVersion.Collection"
         ],
         breakRoleInheritance: {
             argNames: ["copyRoleAssignments", "clearSubscopes"],
