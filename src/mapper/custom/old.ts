@@ -29,6 +29,7 @@ export const roledefinition = Mapper["SP.RoleDefinition"];
 export const roledefinitions = Mapper["SP.RoleDefinition.Collection"];
 export const search = Mapper["Microsoft.Office.Server.Search.REST.SearchService"];
 export const site = Mapper["SP.Site"];
+export const sitecollectionappcatalog = Mapper["Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.SiteCollectionCorporateCatalogAccessor"];
 export const tenantapp = Mapper["Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"];
 export const tenantapps = Mapper["Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection"];
 export const tenantappcatalog = Mapper["Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.SiteCollectionCorporateCatalogAccessor"];

@@ -1484,7 +1484,7 @@ export const Mapper: IMapper = {
 
     "Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.SiteCollectionCorporateCatalogAccessor": {
         properties: [
-            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Id]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
+            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Name]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
         ],
 
         add: {
@@ -1504,7 +1504,7 @@ export const Mapper: IMapper = {
 
     "Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.TenantCorporateCatalogAccessor": {
         properties: [
-            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Id]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
+            "AvailableApps|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata.Collection|/getById('[Name]')|Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata"
         ],
 
         add: {
@@ -5637,9 +5637,9 @@ export const Mapper: IMapper = {
     "SP.ListItem": {
         properties: [
             "AttachmentFiles|SP.Attachment.Collection|('[Name]')|SP.Attachment", "Comments|Microsoft.SharePoint.Comments.comment.Collection|('[Name]')|Microsoft.SharePoint.Comments.comment",
-            "ContentType|SP.ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
-            "File|SP.File", "FirstUniqueAncestorSecurableObject", "Folder|SP.Folder", "GetDlpPolicyTip", "ParentList",
-            "Properties", "RoleAssignments|SP.RoleAssignment.Collection|roleassignments|([Name])|SP.RoleAssignment"
+            "ContentType|SP.ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit", "File|SP.File", "FirstUniqueAncestorSecurableObject",
+            "Folder|SP.Folder", "GetDlpPolicyTip", "ParentList", "Properties", "RoleAssignments|SP.RoleAssignment.Collection|roleassignments|([Name])|SP.RoleAssignment",
+            "Versions|SP.ListItemVersion.Collection"
         ],
         breakRoleInheritance: {
             argNames: ["copyRoleAssignments", "clearSubscopes"],
@@ -8494,9 +8494,10 @@ export const Mapper: IMapper = {
             "ListTemplates|SP.ListTemplate.Collection|('[Name]')|SP.ListTemplate", "Navigation|SP.Navigation", "ParentWeb",
             "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|SP.RoleAssignment.Collection|([Name])|SP.RoleAssignment",
             "RoleDefinitions|SP.RoleDefinition.Collection|/getByName('[Name]')|SP.RoleDefinition", "RootFolder|SP.Folder|/getByUrl('[Name]')|SP.File",
-            "SiteGroups|SP.Group.Collection|/getByName('[Name]')|SP.Group", "SiteUserInfoList", "SiteUsers|SP.User.Collection|/getById([Name])|SP.User",
-            "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource", "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction",
-            "WebInfos|SP.WebInformation.Collection", "Webs|SP.Web.Collection", "WorkflowAssociations", "WorkflowTemplates"
+            "SiteCollectionAppCatalog|sitecollectionappcatalog", "SiteGroups|SP.Group.Collection|/getByName('[Name]')|SP.Group", "SiteUserInfoList",
+            "SiteUsers|SP.User.Collection|/getById([Name])|SP.User", "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
+            "UserCustomActions|SP.UserCustomAction.Collection|('[Name]')|SP.UserCustomAction", "WebInfos|SP.WebInformation.Collection",
+            "Webs|SP.Web.Collection", "WorkflowAssociations", "WorkflowTemplates"
         ],
 
         addCrossFarmMessage: {
@@ -8600,8 +8601,7 @@ export const Mapper: IMapper = {
 
         getCatalog: {
             argNames: ["typeCatalog"],
-            requestType: RequestType.GetWithArgsValueOnly,
-            returnType: "SP.List"
+            requestType: RequestType.GetWithArgsValueOnly
         },
 
         getChanges: {
@@ -8980,7 +8980,7 @@ export const Mapper: IMapper = {
 
     "SP.WebParts.LimitedWebPartManager": {
         properties: [
-            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Id])|SP.WebParts.WebPartDefinition"
+            "WebParts|SP.WebParts.WebPartDefinition.Collection|/([Name])|SP.WebParts.WebPartDefinition"
         ],
 
         exportWebPart: {

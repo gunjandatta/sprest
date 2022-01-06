@@ -4686,6 +4686,9 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** Tasks with Timeline and Hierarchy */
             TasksWithTimelineAndHierarchy: number;
     
+            /** Tenant App Catalog */
+            TenantAppCatalog: number;
+    
             /** Tenant Wide Extensions */
             TenantWideExtensions: number;
     
