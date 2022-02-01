@@ -1538,7 +1538,7 @@ export const Mapper: IMapper = {
 
         addAndDeployStoreAppById: {
             argNames: ["CMU", "Overwrite", "SkipFeatureDeployment", "StoreAssetId"],
-            requestType: RequestType.Post
+            requestType: RequestType.PostWithArgs
         },
 
         addStoreApp: {
@@ -1548,17 +1548,17 @@ export const Mapper: IMapper = {
 
         appRequests: {
             argNames: ["AppRequestInfo"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         downloadTeamsSolution: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         downloadTeamsSolutionByUniqueId: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         getAppById: {
@@ -1567,29 +1567,29 @@ export const Mapper: IMapper = {
 
         isAppUpgradeAvailable: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         solutionContainsTeamsComponent: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         syncSolutionToTeams: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         syncSolutionToTeamsByUniqueId: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         updateMyRequestStatus: {
             argNames: ["RequestId", "Status"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         upload: {
