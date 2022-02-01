@@ -1538,22 +1538,27 @@ export const Mapper: IMapper = {
 
         addAndDeployStoreAppById: {
             argNames: ["CMU", "Overwrite", "SkipFeatureDeployment", "StoreAssetId"],
+            requestType: RequestType.Post
         },
 
         addStoreApp: {
-            argNames: ["Content", "Overwrite", "Url", "IconUrl", "Publisher", "ShortDescription", "StoreAssetId"],
+            argNames: ["Url", "Overwrite", "IconUrl", "Publisher", "ShortDescription", "StoreAssetId", "Content"],
+            requestType: RequestType.PostWithArgsAndData
         },
 
         appRequests: {
             argNames: ["AppRequestInfo"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         downloadTeamsSolution: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         downloadTeamsSolutionByUniqueId: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         getAppById: {
@@ -1562,28 +1567,34 @@ export const Mapper: IMapper = {
 
         isAppUpgradeAvailable: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         solutionContainsTeamsComponent: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         syncSolutionToTeams: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         syncSolutionToTeamsByUniqueId: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         updateMyRequestStatus: {
             argNames: ["RequestId", "Status"],
+            requestType: RequestType.PostWithArgsInQS
         },
 
         upload: {
-            argNames: ["Content", "Overwrite", "Url"],
+            argNames: ["Url", "Overwrite", "Content"],
+            requestType: RequestType.PostWithArgsAndData
         },
     },
 
