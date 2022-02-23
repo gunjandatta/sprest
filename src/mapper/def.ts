@@ -9023,9 +9023,8 @@ export const Mapper: IMapper = {
     "SP.Web.Collection": {
         add: {
             argNames: ["parameters"],
-            metadataType: "SP.Web",
-            name: "",
-            requestType: RequestType.PostBodyNoArgs
+            metadataType: "SP.WebCreationInformation",
+            requestType: RequestType.PostWithArgsInBody
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -9035,9 +9034,8 @@ export const Mapper: IMapper = {
     "SP.WebInformation.Collection": {
         add: {
             argNames: ["parameters"],
-            metadataType: "SP.WebCreationInformation",
-            name: "",
-            requestType: RequestType.PostBodyNoArgs
+            metadataType: "SP.WebInfoCreationInformation",
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getById: {
