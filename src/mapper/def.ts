@@ -8670,7 +8670,8 @@ export const Mapper: IMapper = {
 
         getCatalog: {
             argNames: ["typeCatalog"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.List"
         },
 
         getChanges: {
