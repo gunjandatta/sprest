@@ -1,16 +1,15 @@
 import { IsetGroupOwner } from "../../../@types/helper/methods";
-import { ContextInfo } from "../../lib/contextInfo";
 declare var SP;
 
 /**
  * Sets the group owner
  * This uses JSOM to set a site group owner's property to another group. You can only set the owner to a user, using the REST API.
  */
-export const setGroupOwner: IsetGroupOwner = (groupName: string, ownerName: string): PromiseLike<void> => {
+export const setGroupOwner: IsetGroupOwner = (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void> => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the site groups
-        let context = new SP.ClientContext(ContextInfo.webServerRelativeUrl);
+        let context = siteUrl ? new SP.ClientContext(siteUrl) : SP.ClientContext.get_current();
         let siteGroups = context.get_web().get_siteGroups();
 
         // Get the groups
