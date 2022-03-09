@@ -6127,7 +6127,7 @@ declare module 'gd-sprest/helper/methods/setGroupOwner' {
       */
     export const setGroupOwner: IsetGroupOwner;
     export interface IsetGroupOwner {
-        (groupName: string, ownerName: string): PromiseLike<void>;
+        (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
     }
 }
 
