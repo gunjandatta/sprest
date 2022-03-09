@@ -1,4 +1,5 @@
 import { IsetGroupOwner } from "../../../@types/helper/methods";
+import { ContextInfo } from "../../lib/contextInfo";
 declare var SP;
 
 /**
@@ -9,7 +10,7 @@ export const setGroupOwner: IsetGroupOwner = (groupName: string, ownerName: stri
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the site groups
-        let context = new SP.ClientContext();
+        let context = new SP.ClientContext(ContextInfo.webServerRelativeUrl);
         let siteGroups = context.get_web().get_siteGroups();
 
         // Get the groups
