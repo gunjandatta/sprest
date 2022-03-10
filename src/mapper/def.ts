@@ -127,6 +127,10 @@ export const Mapper: IMapper = {
             argNames: ["uniqueId"],
         },
 
+        getExtractorNames: {
+            argNames: ["packageName"],
+        },
+
         getSupportedPrebuiltModels: {},
 
         import: {
@@ -136,7 +140,11 @@ export const Mapper: IMapper = {
         query: { argNames: ["oData"] },
 
         setupContractsSolution: {
-            argNames: ["contractLibraryName"],
+            argNames: ["newLibraryName", "packageName"],
+        },
+
+        setupPrimedLibrary: {
+            argNames: ["primedLibraryName", "packageName"],
         },
 
     },
@@ -638,20 +646,6 @@ export const Mapper: IMapper = {
 
     },
 
-    "Microsoft.Online.SharePoint.PointPublishing.PointPublishingAdmin": {
-        createTopicMagazine: {
-            argNames: ["magazineName"],
-        },
-
-        deleteTopicMagazine: {
-            argNames: ["magazineId"],
-        },
-
-        provisionPointPublishingAsync: {
-        },
-
-    },
-
     "Microsoft.Online.SharePoint.SPLogger.LogExport": {
         getFiles: {
             argNames: ["partitionId", "logType"],
@@ -840,6 +834,10 @@ export const Mapper: IMapper = {
     },
 
     "Microsoft.Online.SharePoint.TenantAdministration.Tenant": {
+        addRecentAdminAction: {
+            argNames: ["tenantAdminRecentAction"],
+        },
+
         addTenantAdminListItem: {
             argNames: ["columnValues", "listName"],
         },
@@ -863,11 +861,17 @@ export const Mapper: IMapper = {
             argNames: ["siteCreationProperties"],
         },
 
+        exportToCSV: {
+            argNames: ["viewXml"],
+        },
+
         getAdminListViews: {},
 
         getFilteredSPListItems: {
             argNames: ["columnName", "columnValue", "listName"],
         },
+
+        getHomeSitesDetails: {},
 
         getIdleSessionSignOutForUnmanagedDevices: {
         },
@@ -987,6 +991,10 @@ export const Mapper: IMapper = {
             argNames: ["parameters"],
         },
 
+        renderRecentAdminActions: {
+            argNames: ["parameters", "overrideParameters"],
+        },
+
         restoreDeletedSite: {
             argNames: ["siteUrl"],
         },
@@ -1040,6 +1048,14 @@ export const Mapper: IMapper = {
         },
 
         update: {
+        },
+
+        updateGroupSiteProperties: {
+            argNames: ["groupId", "siteId", "updateType", "parameters"],
+        },
+
+        updateRecentAdminAction: {
+            argNames: ["listItemId", "tenantAdminRecentAction"],
         },
 
         updateTenantAdminListItem: {
@@ -1107,6 +1123,10 @@ export const Mapper: IMapper = {
         },
 
         getAllTenantThemes: {
+        },
+
+        getCustomFontsMinorVersion: {
+            argNames: ["libUrl"],
         },
 
         getExternalUsers: {
@@ -1470,6 +1490,10 @@ export const Mapper: IMapper = {
             argNames: ["absolutePath"],
         },
 
+        getById: {
+            argNames: ["siteId"],
+        },
+
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         remove: {
@@ -1514,22 +1538,27 @@ export const Mapper: IMapper = {
 
         addAndDeployStoreAppById: {
             argNames: ["CMU", "Overwrite", "SkipFeatureDeployment", "StoreAssetId"],
+            requestType: RequestType.PostWithArgs
         },
 
         addStoreApp: {
-            argNames: ["Content", "Overwrite", "Url", "IconUrl", "Publisher", "ShortDescription", "StoreAssetId"],
+            argNames: ["Url", "Overwrite", "IconUrl", "Publisher", "ShortDescription", "StoreAssetId", "Content"],
+            requestType: RequestType.PostWithArgsAndData
         },
 
         appRequests: {
             argNames: ["AppRequestInfo"],
+            requestType: RequestType.PostWithArgs
         },
 
         downloadTeamsSolution: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgs
         },
 
         downloadTeamsSolutionByUniqueId: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgs
         },
 
         getAppById: {
@@ -1538,24 +1567,34 @@ export const Mapper: IMapper = {
 
         isAppUpgradeAvailable: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgs
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         solutionContainsTeamsComponent: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgs
         },
 
         syncSolutionToTeams: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgs
         },
 
         syncSolutionToTeamsByUniqueId: {
             argNames: ["id"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        updateMyRequestStatus: {
+            argNames: ["RequestId", "Status"],
+            requestType: RequestType.PostWithArgs
         },
 
         upload: {
-            argNames: ["Content", "Overwrite", "Url"],
+            argNames: ["Url", "Overwrite", "Content"],
+            requestType: RequestType.PostWithArgsAndData
         },
     },
 
@@ -1866,6 +1905,10 @@ export const Mapper: IMapper = {
 
         getTeamChannelsEx: {
             argNames: ["teamId"],
+        },
+
+        getTeamChannelsWithSiteUrl: {
+            argNames: ["siteUrl"],
         },
 
         getUserSharedChannelMemberGroups: {
@@ -5303,6 +5346,10 @@ export const Mapper: IMapper = {
         clearBusinessAppMigrationInteractiveData: {
         },
 
+        copyTemplateAndGetMetadata: {
+            argNames: ["Id"],
+        },
+
         createDocumentAndGetEditLink: {
             argNames: ["fileName", "folderPath", "documentTemplateType", "templateUrl"],
             requestType: RequestType.PostWithArgsInBody
@@ -5373,11 +5420,12 @@ export const Mapper: IMapper = {
         getBusinessAppOperationStatus: {
         },
 
-        getCAAESmartTemplateContentTypes: {
-        },
-
         getCAAETemplateMetadata: {
             argNames: ["Name", "Published"],
+        },
+
+        getCAAETemplateMetadataV2: {
+            argNames: ["Id"],
         },
 
         getChanges: {
@@ -5575,6 +5623,10 @@ export const Mapper: IMapper = {
 
         updateCAAETemplate: {
             argNames: ["Name", "updateTemplateInfo"],
+        },
+
+        updateCAAETemplateV2: {
+            argNames: ["Id", "updateTemplateInfo"],
         },
 
         updateFormProcessingModelRetentionLabel: {
@@ -6455,7 +6507,7 @@ export const Mapper: IMapper = {
 
     "SP.Publishing.RichSharing": {
         sharePageByEmail: {
-            argNames: ["url", "message", "recipientEmails"],
+            argNames: ["url", "message", "recipientEmails", "pageContent"],
         },
 
         shareSiteByEmail: {
@@ -6864,6 +6916,10 @@ export const Mapper: IMapper = {
     "SP.Publishing.TopicSitePage.Collection": {
         getByEntityId: {
             argNames: ["entityId"],
+        },
+
+        getByEntityIdAndCulture: {
+            argNames: ["id", "culture"],
         },
 
         isContentTypeAvailable: {
@@ -7477,7 +7533,7 @@ export const Mapper: IMapper = {
         },
 
         setIsContributorOwnerEnabledPropertyForDefaultDocLib: {
-            argNames: ["propertyValue", "forceDocLibActivation"],
+            argNames: ["propertyValue", "forceDocLibActivation", "deleteIfDocLibAlreadyExists"],
         },
 
         unregisterHubSite: {
@@ -8023,6 +8079,12 @@ export const Mapper: IMapper = {
 
     },
 
+    "SP.UserExperienceState": {
+        setFlag: {
+            argNames: ["flag", "reset"],
+        },
+    },
+
     "SP.UserProfiles.FollowedContent": {
         findAndUpdateFollowedGroup: {
             argNames: ["groupId"],
@@ -8505,6 +8567,10 @@ export const Mapper: IMapper = {
             requestType: RequestType.PostWithArgs
         },
 
+        addPlaceholderUser: {
+            argNames: ["listId", "placeholderText"],
+        },
+
         addSupportedUILanguage: {
             argNames: ["lcid"],
             requestType: RequestType.PostWithArgs
@@ -8524,6 +8590,8 @@ export const Mapper: IMapper = {
             argNames: ["copyRoleAssignments", "clearSubscopes"],
             requestType: RequestType.PostWithArgs
         },
+
+        consentToPowerPlatform: {},
 
         createDefaultAssociatedGroups: {
             argNames: ["userLogin", "userLogin2", "groupNameSeed"],
@@ -8572,6 +8640,7 @@ export const Mapper: IMapper = {
         },
 
         getAllClientSideComponents: {
+            argNames: ["languages", "supportsMultiVersion"],
             requestType: RequestType.Post
         },
 
@@ -8601,7 +8670,8 @@ export const Mapper: IMapper = {
 
         getCatalog: {
             argNames: ["typeCatalog"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.List"
         },
 
         getChanges: {
@@ -8826,6 +8896,8 @@ export const Mapper: IMapper = {
         incrementSiteClientTag: {
         },
 
+        listPowerPlatformUserDetails: {},
+
         loadAndInstallApp: {
             argNames: ["appPackageStream"],
             requestType: RequestType.PostBodyNoArgs
@@ -8942,8 +9014,8 @@ export const Mapper: IMapper = {
         },
 
         uploadImage: {
-            argNames: ["listTitle", "imageName", "contentStream", "listId", "itemId", "overwrite"],
-            name: "uploadImage(listTitle=guid'[[listTitle]]', imageName=[[imageName]], listId=[[listId]], itemId=[[itemId]], overwrite=[[overwrite]])",
+            argNames: ["listTitle", "imageName", "contentStream", "listId", "itemId", "fieldId", "overwrite"],
+            name: "uploadImage(listTitle=guid'[[listTitle]]', imageName=[[imageName]], listId=[[listId]], itemId=[[itemId]], fieldId=[[fieldId]], overwrite=[[overwrite]])",
             requestType: RequestType.PostReplaceWithData
         },
 
@@ -8952,9 +9024,8 @@ export const Mapper: IMapper = {
     "SP.Web.Collection": {
         add: {
             argNames: ["parameters"],
-            metadataType: "SP.Web",
-            name: "",
-            requestType: RequestType.PostBodyNoArgs
+            metadataType: "SP.WebCreationInformation",
+            requestType: RequestType.PostWithArgsInBody
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
@@ -8964,9 +9035,8 @@ export const Mapper: IMapper = {
     "SP.WebInformation.Collection": {
         add: {
             argNames: ["parameters"],
-            metadataType: "SP.WebCreationInformation",
-            name: "",
-            requestType: RequestType.PostBodyNoArgs
+            metadataType: "SP.WebInfoCreationInformation",
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getById: {

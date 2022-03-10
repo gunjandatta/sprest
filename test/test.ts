@@ -8,6 +8,9 @@ Web().getUserEffectivePermissions("").execute(perm => {
     perm.GetUserEffectivePermissions;
 });
 
+// See if you can get the root folder of a catalog list/library
+Web().getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
+
 // List
 List("Site Assets").getUserEffectivePermissions("").execute(perm => {
     // Save the permissions
