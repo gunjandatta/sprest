@@ -19,7 +19,6 @@ jobs:
     - name: Build Library using NodeJS ${{ env.node-version }}
       run: |
         npm install
-        npm link typescript
         npm run all
         npm run test --if-present
 
