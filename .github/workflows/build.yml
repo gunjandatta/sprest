@@ -7,19 +7,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ env.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.node-version }}
+
     - name: Build Library using NodeJS ${{ env.node-version }}
       run: |
         # Build the project
         npm install
+        npm link typescript
         npm run all
         npm run test --if-present
+
     - name: Build Artifacts
       uses: actions/upload-artifact@v1
       with:
