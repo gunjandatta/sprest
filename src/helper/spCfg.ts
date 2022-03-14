@@ -1392,6 +1392,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             });
         },
 
+        // Method to update the web url to target
+        setWebUrl: (url: string) => { webUrl = url; },
+
         // Method to uninstall the configuration
         uninstall: (): PromiseLike<void> => {
             // Return a promise

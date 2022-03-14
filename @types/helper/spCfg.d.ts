@@ -442,6 +442,12 @@ export interface ISPConfig {
     install(): PromiseLike<void>;
 
     /**
+     * Sets the web url to install/uninstall the solution to/from.
+     * @param url - The web url.
+     */
+    setWebUrl(url: string);
+
+    /**
      * Method to install the configuration
      */
     uninstall(): PromiseLike<void>;
