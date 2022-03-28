@@ -2292,6 +2292,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/addContentEditorWebPart";
     export * from "gd-sprest/helper/methods/addPermissionLevel";
     export * from "gd-sprest/helper/methods/addScriptEditorWebPart";
+    export * from "gd-sprest/helper/methods/copyPermissionLevel";
     export * from "gd-sprest/helper/methods/createContentType";
     export * from "gd-sprest/helper/methods/createDocSet";
     export * from "gd-sprest/helper/methods/hasPermissions";
@@ -5989,6 +5990,7 @@ declare module 'gd-sprest/helper/methods/addPermissionLevel' {
     export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
             Permissions: Array<number>;
             Name: string;
+            Order?: number;
             WebUrl?: string;
     }
     
@@ -6014,6 +6016,32 @@ declare module 'gd-sprest/helper/methods/addScriptEditorWebPart' {
     export const addScriptEditorWebPart: IaddScriptEditorWebPart;
     export interface IaddScriptEditorWebPart {
         (url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/copyPermissionLevel' {
+    import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def/lib/SP";
+    
+    /**
+        * Properties
+        */
+    export interface IcopyPermissionLevelProps extends RoleDefinitionCreationInformation {
+            AddPermissions?: Array<number>;
+            Description: string;
+            BasePermission: string;
+            Order?: number;
+            Name: string;
+            RemovePermissions?: Array<number>;
+            WebUrl?: string;
+    }
+    
+    /**
+        * Copies a permission level to the current or specified web.
+        * @props properties
+        */
+    export const copyPermissionLevel: IcopyPermissionLevel;
+    export interface IcopyPermissionLevel {
+            (props: IcopyPermissionLevelProps): PromiseLike<RoleDefinition>;
     }
 }
 
