@@ -4,7 +4,11 @@ import { IJSLink } from "./jslink";
 import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "./linkInfo";
 import { IListForm } from "./listForm";
 import { IListFormField } from "./listFormField";
-import { IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType, IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields, IsetGroupOwner } from "./methods";
+import {
+    IRequest, IaddContentEditorWebPart, IaddPermissionLevel, IaddScriptEditorWebPart, IcopyPermissionLevel,
+    IcreateContentType, IcreateDocSet, IhasPermissions, IloadSPCore, Iparse, Irequest, IsetContentTypeFields,
+    IsetGroupOwner
+} from "./methods";
 import { ISPComponents } from "./sp";
 import { ISPConfig, ISPConfigProps, IFieldInfo } from "./spCfg";
 import { ISPCfgFieldType, ISPCfgType } from "./spCfgTypes";
@@ -35,10 +39,13 @@ export interface IHelper {
     /** Methods */
 
     addContentEditorWebPart: IaddContentEditorWebPart,
+    addPermissionLevel: IaddPermissionLevel,
     addScriptEditorWebPart: IaddScriptEditorWebPart,
+    copyPermissionLevel: IcopyPermissionLevel,
     createContentType: IcreateContentType,
     createDocSet: IcreateDocSet,
     hasPermissions: IhasPermissions,
+    loadSPCore: IloadSPCore,
     parse: Iparse,
     request: Irequest,
     setContentTypeFields: IsetContentTypeFields,

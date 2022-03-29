@@ -94,7 +94,11 @@ declare module 'gd-sprest/helper' {
     import { IRibbonLink, ISuiteBarLink, ILinkInfo } from "gd-sprest/helper/linkInfo";
     import { IListForm } from "gd-sprest/helper/listForm";
     import { IListFormField } from "gd-sprest/helper/listFormField";
-    import { IRequest, IaddContentEditorWebPart, IaddScriptEditorWebPart, IcreateContentType, IcreateDocSet, IhasPermissions, Iparse, Irequest, IsetContentTypeFields, IsetGroupOwner } from "gd-sprest/helper/methods";
+    import {
+            IRequest, IaddContentEditorWebPart, IaddPermissionLevel, IaddScriptEditorWebPart, IcopyPermissionLevel,
+            IcreateContentType, IcreateDocSet, IhasPermissions, IloadSPCore, Iparse, Irequest, IsetContentTypeFields,
+            IsetGroupOwner
+    } from "./methods";
     import { ISPComponents } from "gd-sprest/helper/sp";
     import { ISPConfig, ISPConfigProps, IFieldInfo } from "gd-sprest/helper/spCfg";
     import { ISPCfgFieldType, ISPCfgType } from "gd-sprest/helper/spCfgTypes";
@@ -125,10 +129,13 @@ declare module 'gd-sprest/helper' {
     
             /** Methods */
             addContentEditorWebPart: IaddContentEditorWebPart,
+            addPermissionLevel: IaddPermissionLevel,
             addScriptEditorWebPart: IaddScriptEditorWebPart,
+            copyPermissionLevel: IcopyPermissionLevel,
             createContentType: IcreateContentType,
             createDocSet: IcreateDocSet,
             hasPermissions: IhasPermissions,
+            loadSPCore: IloadSPCore,
             parse: Iparse,
             request: Irequest,
             setContentTypeFields: IsetContentTypeFields,
@@ -2288,21 +2295,6 @@ declare module 'gd-sprest/helper/listFormField' {
     }
 }
 
-declare module 'gd-sprest/helper/methods' {
-    export * from "gd-sprest/helper/methods/addContentEditorWebPart";
-    export * from "gd-sprest/helper/methods/addPermissionLevel";
-    export * from "gd-sprest/helper/methods/addScriptEditorWebPart";
-    export * from "gd-sprest/helper/methods/copyPermissionLevel";
-    export * from "gd-sprest/helper/methods/createContentType";
-    export * from "gd-sprest/helper/methods/createDocSet";
-    export * from "gd-sprest/helper/methods/hasPermissions";
-    export * from "gd-sprest/helper/methods/loadSPCore";
-    export * from "gd-sprest/helper/methods/parse";
-    export * from "gd-sprest/helper/methods/request";
-    export * from "gd-sprest/helper/methods/setContentTypeFields";
-    export * from "gd-sprest/helper/methods/setGroupOwner";
-}
-
 declare module 'gd-sprest/helper/sp' {
     /**
         * References to the internal SharePoint libraries.
@@ -3821,6 +3813,21 @@ declare module 'gd-sprest/helper/webpart' {
             /** The target element id to render the webpart to */
             elementId: string;
     }
+}
+
+declare module 'gd-sprest/helper/methods' {
+    export * from "gd-sprest/helper/methods/addContentEditorWebPart";
+    export * from "gd-sprest/helper/methods/addPermissionLevel";
+    export * from "gd-sprest/helper/methods/addScriptEditorWebPart";
+    export * from "gd-sprest/helper/methods/copyPermissionLevel";
+    export * from "gd-sprest/helper/methods/createContentType";
+    export * from "gd-sprest/helper/methods/createDocSet";
+    export * from "gd-sprest/helper/methods/hasPermissions";
+    export * from "gd-sprest/helper/methods/loadSPCore";
+    export * from "gd-sprest/helper/methods/parse";
+    export * from "gd-sprest/helper/methods/request";
+    export * from "gd-sprest/helper/methods/setContentTypeFields";
+    export * from "gd-sprest/helper/methods/setGroupOwner";
 }
 
 declare module 'gd-sprest/sptypes/sptypes' {
