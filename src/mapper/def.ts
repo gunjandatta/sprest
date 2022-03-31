@@ -8711,31 +8711,37 @@ export const Mapper: IMapper = {
         getFileByGuestUrl: {
             argNames: ["guestUrl"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByGuestUrlEnsureAccess: {
             argNames: ["guestUrl", "ensureAccess"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByGuestUrlExtended: {
             argNames: ["guestUrl", "requestSettings"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileById: {
             argNames: ["uniqueId"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByLinkingUrl: {
             argNames: ["linkingUrl"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByServerRelativePath: {
             argNames: ["DecodedUrl"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByServerRelativeUrl: {
@@ -8747,31 +8753,37 @@ export const Mapper: IMapper = {
         getFileByUrl: {
             argNames: ["fileUrl"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByWOPIFrameUrl: {
             argNames: ["wopiFrameUrl"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFolderByGuestUrl: {
             argNames: ["guestUrl", "ensureAccess"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.Folder"
         },
 
         getFolderByGuestUrlExtended: {
             argNames: ["guestUrl", "requestSettings"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.Folder"
         },
 
         getFolderById: {
             argNames: ["uniqueId"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.Folder"
         },
 
         getFolderByServerRelativePath: {
             argNames: ["DecodedUrl"],
             requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.Folder"
         },
 
         getFolderByServerRelativeUrl: {
