@@ -242,7 +242,12 @@ export const ListForm: IListForm = {
                             _resolve(_info);
                         }, _reject);
                     }, _reject);
-            } else {
+            }
+            // Else, this is a new item
+            else {
+                // Default the attachments
+                _info.attachments = _props.loadAttachments ? [] : _info.attachments;
+
                 // Resolve the promise
                 _resolve(_info);
             }
