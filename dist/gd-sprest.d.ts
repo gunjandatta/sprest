@@ -3311,6 +3311,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The title display name. */
             TitleFieldDisplayName?: string;
     
+            /** Flag to index the title field. */
+            TitleFieldIndexed?: boolean;
+    
             /** The user custom actions. */
             UserCustomActions?: Array<UserCustomActionProps>;
     
