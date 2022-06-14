@@ -316,7 +316,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         }
 
                         // Compute the schema xml
-                        FieldSchemaXML(cfg).then(response => {
+                        FieldSchemaXML(cfg, webUrl).then(response => {
                             let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
                             // Parse the fields to add
