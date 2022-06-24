@@ -28,9 +28,44 @@ export const SitePages: ISitePages = ((url?: string, targetInfo?: ITargetInfoPro
 }) as any as ISitePages;
 
 // Static method to create a modern page
-SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<SP.Publishing.SitePage> => {
+SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{
+    file: SP.File;
+    item: SP.ListItem;
+    page: SP.Publishing.SitePage;
+}> => {
     // Return a promise
     return new Promise((resolve, reject) => {
+        // Method called after the updates have completed
+        let onComplete = (itemId, fileUrl) => {
+            let web = Web(url, targetInfo);
+            let results: {
+                file: SP.File;
+                item: SP.ListItem;
+                page: SP.Publishing.SitePage;
+            } = { file: null, item: null, page: null };
+
+            // Get the file
+            web.getFileByUrl(fileUrl).query({ Select: ["*", "ListId"] }).execute(file => {
+                // Set the file
+                results.file = file as any;
+
+                // Get the list
+                web.Lists().getById(file.ListId).Items(itemId).execute(item => {
+                    // Set the item
+                    results.item = item;
+
+                    // Get the page
+                    SitePages(url, targetInfo).Pages(itemId).execute(page => {
+                        // Set the page
+                        results.page = page;
+
+                        // Resolve the request
+                        resolve(results);
+                    }, reject);
+                }, reject);
+            }, reject);
+        }
+
         // Create the page
         SitePages(url, targetInfo).Pages().createAppPage({
             Title: pageTitle,
@@ -42,14 +77,18 @@ SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: stri
             }).execute(
                 // Updated the file name successfully
                 () => {
-                    // Get the page and resolve the request
-                    SitePages(url, targetInfo).Pages(page.Id).execute(resolve, reject);
+                    // Update the file url
+                    let idx = page.Url.lastIndexOf('/');
+                    let fileUrl = page.Url.substring(0, idx + 1) + pageName;
+
+                    // Complete the request
+                    onComplete(page.Id, fileUrl);
                 },
 
                 // Unable to update the file name, but still return the object
                 () => {
-                    // Get the page and resolve the request
-                    SitePages(url, targetInfo).Pages(page.Id).execute(resolve, reject);
+                    // Complete the request
+                    onComplete(page.Id, page.Url);
                 });
         }, reject);
     });

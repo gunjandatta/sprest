@@ -35,5 +35,9 @@ export interface ISitePages {
      * @param title - The title of the page.
      * @param template - The type of page to create.
      */
-    createPage(url:string, title: string, template: string): PromiseLike<SitePage>;
+    createPage(url: string, title: string, template: string): PromiseLike<{
+        file: SP.File;
+        item: SP.ListItem;
+        page: SP.Publishing.SitePage;
+    }>;
 }
