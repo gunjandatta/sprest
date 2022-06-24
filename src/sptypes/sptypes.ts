@@ -87,6 +87,16 @@ export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
 }
 
 /**
+ * Client Side Templates
+ */
+export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
+    Article: "Article",
+    Home: "Home",
+    RepostPage: "RepostPage",
+    SingleWebPartAppPage: "SingleWebPartAppPage"
+}
+
+/**
  * Control Modes
  */
 export const ControlMode: SPTypes.IControlMode = {

@@ -10,6 +10,7 @@
 //   ../gd-sprest-def/lib/SP/UserProfiles/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes
 //   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes
+//   ../gd-sprest-def/lib/SP/Publishing/entitytypes
 //   ../gd-sprest-def/lib/SP/Social/complextypes
 //   ../gd-sprest-def/lib/SP/Social/entitytypes
 //   ../gd-sprest-def/lib/SP/Utilities/entitytypes
@@ -24,10 +25,10 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
+    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
             Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager,
+            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages,
             SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
@@ -77,6 +78,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/search";
     export * from "gd-sprest/lib/site";
     export * from "gd-sprest/lib/siteManager";
+    export * from "gd-sprest/lib/sitePages";
     export * from "gd-sprest/lib/socialFeed";
     export * from "gd-sprest/lib/themeManager";
     export * from "gd-sprest/lib/userProfile";
@@ -298,6 +300,11 @@ declare module 'gd-sprest/rest' {
             SiteManager: LibTypes.ISiteManager;
     
             /**
+                * Use this api to create/edit modern pages.
+                */
+            SitePages: LibTypes.ISitePages;
+    
+            /**
                 * Use this api to see if a site collection exists.
                 * @param url - The absolute url of the site collection.
                 */
@@ -370,6 +377,7 @@ declare module 'gd-sprest/sptypes' {
         CheckInType: Types.ICheckInType;
         CheckOutType: Types.ICheckOutType;
         ChoiceFormatType: Types.IChoiceFormatType;
+        ClientSidePageLayout: Types.IClientSidePageLayout;
         ClientTemplateUtility: Types.IClientTemplateUtility;
         ControlMode: Types.IControlMode;
         DateFormat: Types.IDateFormat;
@@ -1404,6 +1412,48 @@ declare module 'gd-sprest/lib/siteManager' {
                 * @param targetInfo - (Optional) The target information.
                 */
             (url?: string, targetInfo?: ITargetInfoProps): Portal.ISPSiteManager;
+    }
+}
+
+declare module 'gd-sprest/lib/sitePages' {
+    import { SitePage, ISitePageService } from "gd-sprest-def/lib/SP/Publishing/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/sitePages
+        *
+        * #### Get site pages
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * SitePages().execute(sitePages => {
+        *   // TODO
+        * });
+        * ```
+        */
+    export const SitePages: ISitePages;
+    
+    /**
+        * Site Pages
+        * @category Site Pages
+        */
+    export interface ISitePages {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): ISitePageService;
+    
+            /**
+                * Creates a modern page.
+                * @param url - The url of the file to create.
+                * @param title - The title of the page.
+                * @param template - The type of page to create.
+                */
+            createPage(url:string, title: string, template: string): PromiseLike<SitePage>;
     }
 }
 
@@ -3974,6 +4024,16 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** Multi-User Value Delimiter */
             UserMultiValueDelimitString: string
+    }
+    
+    /**
+        * Client Side Page Layouts
+        */
+    export type IClientSidePageLayout = {
+            Article: string;
+            Home: string;
+            SingleWebPartAppPage: string;
+            RepostPage: string;
     }
     
     /**

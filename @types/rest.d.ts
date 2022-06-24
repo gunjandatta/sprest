@@ -132,6 +132,11 @@ export interface IREST {
      * Use this api to create/delete site collections.
      */
     SiteManager: LibTypes.ISiteManager;
+    
+    /**
+     * Use this api to create/edit modern pages.
+     */
+    SitePages: LibTypes.ISitePages;
 
     /**
      * Use this api to see if a site collection exists.

@@ -141,6 +141,16 @@ export type IClientTemplateUtility = {
 }
 
 /**
+ * Client Side Page Layouts
+ */
+export type IClientSidePageLayout = {
+    Article: string;
+    Home: string;
+    SingleWebPartAppPage: string;
+    RepostPage: string;
+}
+
+/**
  * Control Modes
  */
 export type IControlMode = {

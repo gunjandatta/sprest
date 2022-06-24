@@ -1382,6 +1382,7 @@ export const Mapper: IMapper = {
 
         updateWebPartData: {
             argNames: ["webPartDataAsJson"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
     },
@@ -1389,10 +1390,12 @@ export const Mapper: IMapper = {
     "Microsoft.SharePoint.ClientSideComponent.HostedAppsManager": {
         add: {
             argNames: ["webPartDataAsJson", "hostType"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         addEx: {
             argNames: ["webPartDataAsJson", "hostType"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         getById: {
@@ -6552,24 +6555,32 @@ export const Mapper: IMapper = {
         },
 
         checkOut: {
+            requestType: RequestType.Post
         },
 
         checkoutPage: {
+            requestType: RequestType.Post
         },
 
         copy: {
+            requestType: RequestType.Post
         },
 
         copyWithConfiguration: {
             argNames: ["sitePageFlags", "isNews"],
+            requestType: RequestType.Post
         },
 
-        createNewsCopy: {},
+        createNewsCopy: {
+            requestType: RequestType.Post
+        },
 
         demoteFromNews: {
+            requestType: RequestType.Post
         },
 
         discardPage: {
+            requestType: RequestType.Post
         },
 
         getVersion: {
@@ -6577,34 +6588,45 @@ export const Mapper: IMapper = {
         },
 
         promoteToNews: {
+            requestType: RequestType.Post
         },
 
         publish: {
+            requestType: RequestType.Post
         },
 
-        query: { argNames: ["oData"] },
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
+        },
 
         saveDraft: {
             argNames: ["sitePage"],
+            requestType: RequestType.Post
         },
 
         savePage: {
             argNames: ["pageStream"],
+            requestType: RequestType.Post
         },
 
         savePageAsDraft: {
             argNames: ["pageStream"],
+            requestType: RequestType.Post
         },
 
         savePageAsTemplate: {
+            requestType: RequestType.Post
         },
 
         schedulePublish: {
             argNames: ["sitePage"],
+            requestType: RequestType.Post
         },
 
         sharePagePreviewByEmail: {
             argNames: ["message", "recipientEmails"],
+            requestType: RequestType.Post
         },
 
         update: {
@@ -6618,7 +6640,10 @@ export const Mapper: IMapper = {
 
     "SP.Publishing.SitePage.Collection": {
         createAppPage: {
-            argNames: ["webPartDataAsJson"]
+            argNames: ["webPartDataAsJson"],
+            metadataType: "SP.Publishing.SitePage",
+            name: "",
+            requestType: RequestType.PostBodyNoArgs
         },
 
         ensureTitleResource: {
@@ -6662,11 +6687,13 @@ export const Mapper: IMapper = {
         },
 
         updateAppPage: {
-            argNames: ["pageId", "webPartDataAsJson", "title", "includeInNavigation"]
+            argNames: ["pageId", "webPartDataAsJson", "title", "includeInNavigation"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         updateFullPageApp: {
-            argNames: ["serverRelativeUrl", "webPartDataAsJson"]
+            argNames: ["serverRelativeUrl", "webPartDataAsJson"],
+            requestType: RequestType.PostWithArgsInBody
         }
     },
 
@@ -6753,12 +6780,19 @@ export const Mapper: IMapper = {
     },
 
     "SP.Publishing.SitePageService": {
+        properties: [
+            "CommunicationSite|SP.Publishing.CommunicationSite",
+            "Pages|SP.Publishing.SitePage.Collection|('[Name]')|SP.Publishing.SitePage"
+        ],
+
         addImage: {
             argNames: ["pageName", "imageFileName", "imageStream", "pageId"],
+            requestType: RequestType.PostWithArgs
         },
 
         addImageFromExternalUrl: {
             argNames: ["pageName", "imageFileName", "externalUrl", "subFolderName", "pageId"],
+            requestType: RequestType.PostWithArgs
         },
 
         canCreatePage: {

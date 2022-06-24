@@ -13,6 +13,7 @@ export * from "./profileLoader";
 export * from "./search";
 export * from "./site";
 export * from "./siteManager";
+export * from "./sitePages";
 export * from "./socialFeed";
 export * from "./themeManager";
 export * from "./userProfile";

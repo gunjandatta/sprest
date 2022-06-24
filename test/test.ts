@@ -1,5 +1,5 @@
 import {
-    $REST, List, Helper, SiteManager, SPTypes, Types, Web
+    $REST, List, Helper, SiteManager, SitePages, SPTypes, Types, Web
 } from "../@types";
 
 // Web
@@ -7,6 +7,13 @@ Web().getUserEffectivePermissions("").execute(perm => {
     // Save the permissions
     perm.GetUserEffectivePermissions;
 });
+
+SitePages().Pages().createAppPage({
+    PageLayoutType: SPTypes.ClientSidePageLayout.Article,
+    Title: "My Title",
+    Description: "This is the description.",
+    Url: "mydev.aspx"
+})
 
 // See if you can get the root folder of a catalog list/library
 Web().getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
@@ -47,6 +54,7 @@ $REST.Web().Lists("Documents").RoleAssignments().execute(roles => {
 $REST.Web().Lists("Documents").RoleAssignments().execute(roles => { });
 $REST.Web().Lists().getById("").RoleAssignments();
 $REST.Web().Lists().getByTitle("").RoleAssignments();
+$REST.Web().Lists("").RoleAssignments();
 $REST.Web().Lists().query({}).execute(lists => {
     lists.results[0].RoleAssignments.results[0].PrincipalId;
 })
