@@ -5,6 +5,7 @@ export const Mapper: IMapper = {
     "MS.FileServices.File": {
         copyTo: {
             argNames: ["target", "overwrite"],
+            requestType: RequestType.PostWithArgs
         },
 
         delete: {
@@ -96,6 +97,7 @@ export const Mapper: IMapper = {
     "Microsoft.Office.Server.ContentCenter.SPMachineLearningModel": {
         copy: {
             argNames: ["copyTo"],
+            requestType: RequestType.PostWithArgs
         },
 
         delete: {},
@@ -2132,6 +2134,7 @@ export const Mapper: IMapper = {
     "PS.Calendar": {
         copyTo: {
             argNames: ["name"],
+            requestType: RequestType.PostWithArgs
         },
 
         delete: {
@@ -6219,10 +6222,12 @@ export const Mapper: IMapper = {
         },
 
         copy: {
+            requestType: RequestType.Post
         },
 
         copyWithConfiguration: {
             argNames: ["sitePageFlags", "isNews"],
+            requestType: RequestType.Post
         },
 
         createNewsCopy: {
@@ -6444,10 +6449,12 @@ export const Mapper: IMapper = {
         },
 
         copy: {
+            requestType: RequestType.Post
         },
 
         copyWithConfiguration: {
             argNames: ["sitePageFlags", "isNews"],
+            requestType: RequestType.Post
         },
 
         createNewsCopy: {},
@@ -6563,7 +6570,7 @@ export const Mapper: IMapper = {
         },
 
         copy: {
-            requestType: RequestType.Post
+            requestType: RequestType.PostWithArgs
         },
 
         copyWithConfiguration: {
@@ -6709,6 +6716,7 @@ export const Mapper: IMapper = {
         },
 
         copy: {
+            requestType: RequestType.Post
         },
 
         copyWithConfiguration: {
@@ -6894,6 +6902,7 @@ export const Mapper: IMapper = {
         },
 
         copy: {
+            requestType: RequestType.Post
         },
 
         copyWithConfiguration: {
