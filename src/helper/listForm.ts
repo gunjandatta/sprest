@@ -242,7 +242,12 @@ export const ListForm: IListForm = {
                             _resolve(_info);
                         }, _reject);
                     }, _reject);
-            } else {
+            }
+            // Else, this is a new item
+            else {
+                // Default the attachments
+                _info.attachments = _props.loadAttachments ? [] : _info.attachments;
+
                 // Resolve the promise
                 _resolve(_info);
             }
@@ -348,6 +353,9 @@ export const ListForm: IListForm = {
         // Parse the fields
         for (let fieldName in info.fields) {
             let field = info.fields[fieldName];
+
+            // Skip the attachments field
+            if (fieldName == "Attachments") { continue; }
 
             // See if this is the file leaf ref
             if (field.InternalName == "FileLeafRef") {

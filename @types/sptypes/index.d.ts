@@ -11,6 +11,7 @@ export interface ISPTypes {
     CheckInType: Types.ICheckInType;
     CheckOutType: Types.ICheckOutType;
     ChoiceFormatType: Types.IChoiceFormatType;
+    ClientSidePageLayout: Types.IClientSidePageLayout;
     ClientTemplateUtility: Types.IClientTemplateUtility;
     ControlMode: Types.IControlMode;
     DateFormat: Types.IDateFormat;

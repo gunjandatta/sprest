@@ -7,7 +7,7 @@ import { IREST } from "../@types";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 6.89,
+    __ver: 7.01,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
@@ -29,6 +29,7 @@ export const $REST: IREST = {
     Search: Lib.Search,
     Site: Lib.Site,
     SiteManager: Lib.SiteManager,
+    SitePages: Lib.SitePages,
     SiteExists: (url) => { return Lib.Site.exists(url); },
     SiteUrl: (id: string) => { return Lib.Site.getUrlById(id); },
     SPTypes: SPTypes as any,

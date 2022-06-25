@@ -6,6 +6,7 @@ import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def
 export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
     Permissions: Array<number>;
     Name: string;
+    Order?: number;
     WebUrl?: string;
 }
 

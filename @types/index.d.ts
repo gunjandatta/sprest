@@ -1,10 +1,10 @@
 /**
  * Library
  */
-import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "./lib";
+import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "./lib";
 export {
     Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-    List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager,
+    List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages,
     SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
 }
 

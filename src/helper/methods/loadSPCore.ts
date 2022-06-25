@@ -27,9 +27,9 @@ export const loadSPCore: IloadSPCore = () => {
                 // Log
                 console.debug("[gd-sprest] Core library already loaded: " + libName);
             }
-
-            // Resolve the request
-            resolve();
         }
+
+        // Resolve the request
+        resolve();
     });
 }

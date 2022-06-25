@@ -26,8 +26,8 @@ export const addPermissionLevel: IaddPermissionLevel = (props: IaddPermissionLev
             let roleDefInfo = new SP.RoleDefinitionCreationInformation();
             roleDefInfo.set_basePermissions(basePermissions);
             roleDefInfo.set_description(props.Description);
-            roleDefInfo.set_order(props.Order)
             roleDefInfo.set_name(props.Name);
+            roleDefInfo.set_order(props.Order);
 
             // Add the role definition
             let roleDef = ctx.get_site().get_rootWeb().get_roleDefinitions().add(roleDefInfo);

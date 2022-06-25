@@ -316,7 +316,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         }
 
                         // Compute the schema xml
-                        FieldSchemaXML(cfg).then(response => {
+                        FieldSchemaXML(cfg, webUrl).then(response => {
                             let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
                             // Parse the fields to add
@@ -1041,12 +1041,27 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let updateListTitleField = (list: SP.IListQuery, cfgList: ISPCfgListInfo): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // See if the title field is being updated
-            if (cfgList.TitleFieldDisplayName) {
+            // Ensure an update is required
+            if (cfgList.TitleFieldDisplayName || cfgList.TitleFieldIndexed) {
+                let values = {};
+
+                // See if the title field is being updated
+                if (cfgList.TitleFieldDisplayName) {
+                    // Update the values
+                    values["Title"] = cfgList.TitleFieldDisplayName;
+                }
+
+                // See if we are indexing the field
+                if (cfgList.TitleFieldIndexed) {
+                    // Update the values
+                    values["Indexed"] = true;
+                }
+
                 // Update the field name
-                list.Fields.getByInternalNameOrTitle("Title").update({ Title: cfgList.TitleFieldDisplayName }).execute(() => {
+                list.Fields.getByInternalNameOrTitle("Title").update(values).execute(() => {
                     // Log
-                    console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
+                    cfgList.TitleFieldDisplayName ? console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.") : null;
+                    cfgList.TitleFieldIndexed ? console.log("[gd-sprest][List] The 'Title' field's has been indexed.") : null;
 
                     // Resolve the promise
                     resolve();
@@ -1391,6 +1406,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }, reject);
             });
         },
+
+        // Method to update the web url to target
+        setWebUrl: (url: string) => { webUrl = url; },
 
         // Method to uninstall the configuration
         uninstall: (): PromiseLike<void> => {

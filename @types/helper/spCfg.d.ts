@@ -361,6 +361,9 @@ export interface ISPCfgListInfo {
     /** The title display name. */
     TitleFieldDisplayName?: string;
 
+    /** Flag to index the title field. */
+    TitleFieldIndexed?: boolean;
+
     /** The user custom actions. */
     UserCustomActions?: Array<UserCustomActionProps>;
 
@@ -440,6 +443,12 @@ export interface ISPConfig {
      * Method to install the configuration
      */
     install(): PromiseLike<void>;
+
+    /**
+     * Sets the web url to install/uninstall the solution to/from.
+     * @param url - The web url.
+     */
+    setWebUrl(url: string);
 
     /**
      * Method to install the configuration

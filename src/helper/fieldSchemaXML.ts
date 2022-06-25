@@ -11,7 +11,7 @@ import { SPCfgFieldType } from "./spCfg";
  * Field Schema XML
  * Helper class for generating the field schema xml
  */
-export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
+export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): PromiseLike<string> => {
     let _resolve = null;
 
     // Returns the schema xml for a boolean field.
@@ -220,7 +220,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // See if the lookup name exists
         if (fieldInfo.listName) {
             // Get the web containing the list
-            Web(fieldInfo.webUrl, { disableCache: true })
+            Web(fieldInfo.webUrl || targetWebUrl, { disableCache: true })
                 // Get the list
                 .Lists(fieldInfo.listName)
                 // Set the query

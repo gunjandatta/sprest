@@ -356,10 +356,18 @@ export const Request = {
                                 callback ? callback(base, errorFl) : null;
                             } else {
                                 // Validate the data collection
-                                Request.validateDataCollectionResults(base).then(() => {
-                                    // Execute the callback
-                                    callback ? callback(base, errorFl) : null;
-                                });
+                                Request.validateDataCollectionResults(base).then(
+                                    // Success
+                                    () => {
+                                        // Execute the callback
+                                        callback ? callback(base, errorFl) : null;
+                                    },
+                                    // Error
+                                    () => {
+                                        // Execute the callback and set the error flag
+                                        callback ? callback(base, true) : null;
+                                    }
+                                );
                             }
                         }
                     }
@@ -598,8 +606,11 @@ export const Request = {
             let request = (xhr, resolve) => {
                 // Validate the response
                 if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
-                    // Convert the response and ensure the data property exists
-                    let data = JSON.parse(xhr.response);
+                    // Try to convert the response and ensure the data property exists
+                    let data = null;
+                    try { data = JSON.parse(xhr.response); }
+                    // Reject the request
+                    catch { reject(); return; }
 
                     // Set the next item flag
                     base.nextFl = data.d && data.d.__next;
