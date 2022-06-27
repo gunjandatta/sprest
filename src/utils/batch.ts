@@ -54,7 +54,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    static getTargetInfo(requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>): TargetInfo {
+    static getTargetInfo(url: string, requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
@@ -69,6 +69,7 @@ export class Batch {
 
         // Return the target info
         return new TargetInfo({
+            url,
             endpoint: "$batch",
             method: "POST",
             data: batchRequests.join("\r\n"),

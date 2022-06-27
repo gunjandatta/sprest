@@ -324,7 +324,7 @@ export const Request = {
     // Method to execute the request
     executeRequest: (base: IBase, asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void) => {
         let isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
-        let targetInfo = isBatchRequest ? Batch.getTargetInfo(base.base.batchRequests) : new TargetInfo(base.targetInfo);
+        let targetInfo = isBatchRequest ? Batch.getTargetInfo(base.targetInfo.url, base.base.batchRequests) : new TargetInfo(base.targetInfo);
 
         // See if this is an asynchronous request
         if (asyncFl) {
