@@ -54,6 +54,9 @@ function runTests() {
                 case "batch":
                     testBatch();
                     break;
+                case "batch-large":
+                    testBatch(true);
+                    break;
                 case "file":
                     testFile();
                     break;
@@ -147,28 +150,26 @@ function testALM() {
     });
 }
 
-function testBatch() {
-    var web = $REST.Web();
-
+function testBatch(largeList) {
     // Method to create the batch items
-    var createItems = function (list) {
+    var createItems = function () {
         var web = $REST.Web();
 
         // Log
         writeToLog("Batch Create Items", LogType.SubHeader);
 
-        // Loop 10 times
-        var ctr = 0;
-        do {
+        // Loop based on the flag
+        let maxItems = largeList ? 1500 : 50;
+        for (var i = 0; i < maxItems; i++) {
             // Add a new item
             // Batch the new items as one request
             web.Lists("BatchList").Items().add({
-                Title: "Batch Item " + (++ctr)
+                Title: "Batch Item " + (i+1)
             }).batch(function (item) {
                 // Log
                 writeToLog("Item '" + item.Title + "' created.");
-            }, ctr > 1);
-        } while (ctr < 10);
+            }, i > 0 && i % 100 == 0);
+        }
 
         // Get the list
         web.Lists("BatchList").batch(function (list) {
@@ -183,7 +184,7 @@ function testBatch() {
                 // Log
                 writeToLog("Error getting the list.", LogType.Error);
             }
-        });
+        }, true);
 
         // Delete the list
         web.Lists("BatchList").delete().batch(function () {
@@ -204,22 +205,20 @@ function testBatch() {
     // Log
     writeToLog("Get the List.", LogType.SubHeader);
 
-    // Get the list
-    var request = $REST.List("BatchList");
-
     // Execute the request
-    request.execute(
+    $REST.List("BatchList").execute(
         // Exists
         function (list) {
             // Log
             writeToLog("List already exists.", LogType.Info);
 
             // Create the items
-            createItems(list);
+            createItems();
         },
         // Doesn't Exist
         function () {
             // Log
+            writeToLog("Create List", LogType.SubHeader);
             writeToLog("Creating the list.", LogType.Info);
 
             // Create the list
@@ -233,7 +232,7 @@ function testBatch() {
                     writeToLog("List was created.", LogType.Info);
 
                     // Create the items
-                    createItems(list);
+                    createItems();
                 },
                 // Error
                 function () {

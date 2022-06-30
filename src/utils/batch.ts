@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../@types/utils";
+import { IBase, IBatchRequest, ITargetInfo } from "../../@types/utils";
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
 
@@ -8,7 +8,7 @@ import { TargetInfo } from ".";
 export class Batch {
     // Method to execute a batch request
     static execute(base: IBase, args) {
-        let appendFl = false;
+        let createFl = false;
         let callback = null;
 
         // Parse the arguments
@@ -18,8 +18,8 @@ export class Batch {
             // Check the type
             switch (typeof (arg)) {
                 case "boolean":
-                    // Set the append flag
-                    appendFl = arg;
+                    // Set the create flag
+                    createFl = arg;
                     break;
                 case "function":
                     // Set the callback method
@@ -31,22 +31,24 @@ export class Batch {
         // Set the base
         base.base = base.base ? base.base : base;
 
-        // See if we are appending this request
-        if (appendFl && base.base.batchRequests) {
-            // Append the request
-            base.base.batchRequests[base.base.batchRequests.length - 1].push({
-                callback,
-                targetInfo: new TargetInfo(base.targetInfo)
-            });
-        } else {
+        // See if we are creating a new request
+        if (createFl || base.base.batchRequests == null) {
             // Ensure the batch requests exist
             base.base.batchRequests = base.base.batchRequests || [];
 
             // Create the request
             base.base.batchRequests.push([{
                 callback,
+                changesetId: ContextInfo.generateGUID(),
                 targetInfo: new TargetInfo(base.targetInfo)
             }]);
+        } else {
+            // Append the request
+            base.base.batchRequests[base.base.batchRequests.length - 1].push({
+                callback,
+                changesetId: ContextInfo.generateGUID(),
+                targetInfo: new TargetInfo(base.targetInfo)
+            });
         }
 
         // Return this object
@@ -54,20 +56,17 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    static getTargetInfo(url: string, requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>): TargetInfo {
+    static getTargetInfo(url: string, requests: Array<IBatchRequest>): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
-        // Parse the requests
-        for (let i = 0; i < requests.length; i++) {
-            // Create the batch request
-            batchRequests.push(Batch.createBatch(batchId, requests[i]));
-        }
+        // Create the batch request
+        batchRequests.push(Batch.createBatch(batchId, requests));
 
         // End the batch request
         batchRequests.push("--" + batchId + "--");
 
-        // Return the target info
+        // Return the target information
         return new TargetInfo({
             url,
             endpoint: "$batch",
@@ -80,7 +79,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    private static createBatch(batchId: string, requests: Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>) {
+    private static createBatch(batchId: string, requests: Array<IBatchRequest>) {
         let batch = [];
 
         // Parse the requests
@@ -93,12 +92,10 @@ export class Batch {
             // Determine if the batch requires a change set
             let requiresChangeset = request && request.targetInfo.requestMethod != "GET";
             if (requiresChangeset) {
-                let changesetId = "changeset_" + ContextInfo.generateGUID();
-
                 // Create a change set
-                batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
+                batch.push("Content-Type: multipart/mixed; boundary=" + request.changesetId);
                 batch.push("");
-                batch.push("--" + changesetId);
+                batch.push("--" + request.changesetId);
                 batch.push("Content-Type: application/http");
                 batch.push("Content-Transfer-Encoding: binary");
                 batch.push("");
@@ -107,7 +104,7 @@ export class Batch {
                 batch.push("");
                 request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
                 batch.push("");
-                batch.push("--" + changesetId + "--");
+                batch.push("--" + request.changesetId + "--");
             } else {
                 // Create a change set
                 batch.push("Content-Type: application/http");
@@ -135,20 +132,15 @@ export class Batch {
     }
 
     // Process the batch request callbacks
-    static processCallbacks(requests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>> = []) {
+    static processCallbacks(batchRequests: Array<IBatchRequest> = []) {
         // Parse the requests
-        for (let i = 0; i < requests.length; i++) {
-            let request = requests[i];
+        for (let i = 0; i < batchRequests.length; i++) {
+            let batchRequest = batchRequests[i];
 
-            // Parse the batch request
-            for (let j = 0; j < request.length; j++) {
-                let batchRequest = request[j];
-
-                // See if a callback exists
-                if (batchRequest.callback) {
-                    // Execute the callback
-                    batchRequest.callback(batchRequest.response, batchRequest.targetInfo);
-                }
+            // See if a callback exists
+            if (batchRequest.callback) {
+                // Execute the callback
+                batchRequest.callback(batchRequest.response, batchRequest.targetInfo);
             }
         }
     }
