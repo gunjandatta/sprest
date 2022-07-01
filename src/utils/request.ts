@@ -346,7 +346,7 @@ export const Request = {
                             callback ? callback(base.response, errorFl) : null;
                         } else {
                             // Update the data object
-                            Request.updateDataObject(base, isBatchRequest, batchIdx, callback as any);
+                            Request.updateDataObject(base, isBatchRequest, batchIdx);
 
                             // Ensure this isn't a batch request
                             if (!isBatchRequest) {
@@ -395,7 +395,7 @@ export const Request = {
                 }
 
                 // Update the base object
-                Request.updateDataObject(base, isBatchRequest, batchIdx, callback as any);
+                Request.updateDataObject(base, isBatchRequest, batchIdx);
 
                 // See if the base is a collection and has more results
                 if (base["d"] && base["d"].__next) {
@@ -427,6 +427,9 @@ export const Request = {
                     });
                 });
             }).then(() => {
+                // Execute the callback if it exists
+                callback ? callback(base.base.batchRequests, false) : null;
+
                 // Clear the batch requests
                 base.base.batchRequests = null;
             });
@@ -494,7 +497,7 @@ export const Request = {
     },
 
     // Method to convert the input arguments into an object
-    updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchIdx: number = 0, batchCallback?: (batchRequests) => void) => {
+    updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchIdx: number = 0) => {
         // Ensure the request was successful
         if (base.status >= 200 && base.status < 300) {
             // Return if we are expecting a buffer
@@ -618,9 +621,6 @@ export const Request = {
             if (isBatchRequest) {
                 // Process the callbacks
                 Batch.processCallbacks(base.base.batchRequests[batchIdx]);
-
-                // Execute the callback if it exists
-                batchCallback ? batchCallback(base.base.batchRequests) : null;
             }
         }
     },

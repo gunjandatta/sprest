@@ -190,13 +190,15 @@ function testBatch(largeList) {
         web.Lists("BatchList").delete().batch(function () {
             // Log
             writeToLog("Clean Up", LogType.SubHeader);
-
-            // Log
             writeToLog("List was deleted.", LogType.Info);
         });
 
         // Execute the requests
-        web.execute();
+        web.execute(function() {
+            // Log
+            writeToLog("Execution Completion", LogType.SubHeader);
+            writeToLog("The batch job(s) have completed. This should be shown last.", LogType.Info);
+        });
     }
 
     // Log
