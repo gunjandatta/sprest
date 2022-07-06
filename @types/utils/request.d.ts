@@ -20,7 +20,7 @@ export interface IRequest {
     parseXML(xml: string): IBase;
 
     /** Updates the data object. */
-    updateDataObject(base: IBase, isBatchRequest: boolean, batchCallback?: (batchResponses: Array<any>) => void);
+    updateDataObject(base: IBase, isBatchRequest: boolean, batchIdx: number, batchCallback?: (batchResponses: Array<any>) => void);
 
     /** Validates the data collection results. */
     validateDataCollectionResults(base: IBase): PromiseLike<void>;

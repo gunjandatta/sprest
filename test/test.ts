@@ -13,7 +13,7 @@ SitePages().Pages().createAppPage({
     Title: "My Title",
     Description: "This is the description.",
     Url: "mydev.aspx"
-})
+}).execute()
 
 // See if you can get the root folder of a catalog list/library
 Web().getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();

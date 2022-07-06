@@ -2,6 +2,7 @@ import { IBase } from "../../@types/utils";
 import { Base } from "./base";
 import { Batch } from "./batch";
 import { ContextInfo } from "../lib";
+import { Executor } from "../helper/executor";
 import { Helper } from "./helper";
 import { Mapper, Mapper_Custom } from "../mapper";
 import { RequestType } from "./requestType";
@@ -323,85 +324,118 @@ export const Request = {
 
     // Method to execute the request
     executeRequest: (base: IBase, asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void) => {
-        let isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
-        let targetInfo = isBatchRequest ? Batch.getTargetInfo(base.base.batchRequests) : new TargetInfo(base.targetInfo);
+        // Execution method
+        let execute = (targetInfo: TargetInfo, batchIdx?: number, onComplete?: () => void) => {
+            // See if this is an asynchronous request
+            if (asyncFl) {
+                // See if the not a batch request, and it already exists
+                if (base.xhr && !isBatchRequest) {
+                    // Execute the callback
+                    callback ? callback(base, false) : null;
+                } else {
+                    // Create the request
+                    base.xhr = new XHRRequest(asyncFl, targetInfo, () => {
+                        // Update the response and status
+                        base.response = base.xhr.response;
+                        base.status = base.xhr.status;
+                        let errorFl = !(base.status >= 200 && base.status < 300);
 
-        // See if this is an asynchronous request
-        if (asyncFl) {
-            // See if the not a batch request, and it already exists
-            if (base.xhr && !isBatchRequest) {
-                // Execute the callback
-                callback ? callback(base, false) : null;
-            } else {
-                // Create the request
-                base.xhr = new XHRRequest(asyncFl, targetInfo, () => {
-                    // Update the response and status
-                    base.response = base.xhr.response;
-                    base.status = base.xhr.status;
-                    let errorFl = !(base.status >= 200 && base.status < 300);
+                        // See if we are returning a file buffer
+                        if (base.requestType == RequestType.GetBuffer) {
+                            // Execute the callback
+                            callback ? callback(base.response, errorFl) : null;
+                        } else {
+                            // Update the data object
+                            Request.updateDataObject(base, isBatchRequest, batchIdx);
 
-                    // See if we are returning a file buffer
-                    if (base.requestType == RequestType.GetBuffer) {
-                        // Execute the callback
-                        callback ? callback(base.response, errorFl) : null;
-                    } else {
-                        // Update the data object
-                        Request.updateDataObject(base, isBatchRequest, callback as any);
-
-                        // Ensure this isn't a batch request
-                        if (!isBatchRequest) {
-                            // See if this is an xml response
-                            if (base.xml) {
-                                // Execute the callback
-                                callback ? callback(base, errorFl) : null;
-                            } else {
-                                // Validate the data collection
-                                Request.validateDataCollectionResults(base).then(
-                                    // Success
-                                    () => {
-                                        // Execute the callback
-                                        callback ? callback(base, errorFl) : null;
-                                    },
-                                    // Error
-                                    () => {
-                                        // Execute the callback and set the error flag
-                                        callback ? callback(base, true) : null;
-                                    }
-                                );
+                            // Ensure this isn't a batch request
+                            if (!isBatchRequest) {
+                                // See if this is an xml response
+                                if (base.xml) {
+                                    // Execute the callback
+                                    callback ? callback(base, errorFl) : null;
+                                } else {
+                                    // Validate the data collection
+                                    Request.validateDataCollectionResults(base).then(
+                                        // Success
+                                        () => {
+                                            // Execute the callback
+                                            callback ? callback(base, errorFl) : null;
+                                        },
+                                        // Error
+                                        () => {
+                                            // Execute the callback and set the error flag
+                                            callback ? callback(base, true) : null;
+                                        }
+                                    );
+                                }
                             }
                         }
-                    }
-                });
+
+                        // Call the event
+                        onComplete ? onComplete() : null;
+                    });
+                }
+            }
+            // Else, see if we already executed this request
+            else if (base.xhr) { return base; }
+            // Else, we haven't executed this request
+            else {
+                // Create the request
+                base.xhr = new XHRRequest(asyncFl, targetInfo);
+
+                // Update the response and status
+                base.response = base.xhr.response;
+                base.status = base.xhr.status;
+
+                // See if we are returning a file buffer
+                if (base.requestType == RequestType.GetBuffer) {
+                    // Return the response
+                    return base.response;
+                }
+
+                // Update the base object
+                Request.updateDataObject(base, isBatchRequest, batchIdx);
+
+                // See if the base is a collection and has more results
+                if (base["d"] && base["d"].__next) {
+                    // Add the "next" method to get the next set of results
+                    base["next"] = new Function("return this.getNextSetOfResults();");
+                }
+
+                // Call the event
+                onComplete ? onComplete() : null;
+
+                // Return the base object
+                return base;
             }
         }
-        // Else, see if we already executed this request
-        else if (base.xhr) { return base; }
-        // Else, we haven't executed this request
-        else {
-            // Create the request
-            base.xhr = new XHRRequest(asyncFl, targetInfo);
 
-            // Update the response and status
-            base.response = base.xhr.response;
-            base.status = base.xhr.status;
+        // See if this is a batch request
+        let isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
+        if (isBatchRequest) {
+            let batchIdx = 0;
 
-            // See if we are returning a file buffer
-            if (base.requestType == RequestType.GetBuffer) {
-                // Return the response
-                return base.response;
-            }
+            // Parse the requests
+            Executor(base.base.batchRequests, batchRequest => {
+                // Return a promise
+                return new Promise(resolve => {
+                    // Execute the request
+                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest), batchIdx++, () => {
+                        // Resolve the request
+                        resolve(null);
+                    });
+                });
+            }).then(() => {
+                // Execute the callback if it exists
+                callback ? callback(base.base.batchRequests, false) : null;
 
-            // Update the base object
-            Request.updateDataObject(base, isBatchRequest, callback as any);
-
-            // See if the base is a collection and has more results
-            if (base["d"] && base["d"].__next) {
-                // Add the "next" method to get the next set of results
-                base["next"] = new Function("return this.getNextSetOfResults();");
-            }
-
-            // Return the base object
-            return base;
+                // Clear the batch requests
+                base.base.batchRequests = null;
+            });
+        } else {
+            // Execute the request
+            return execute(new TargetInfo(base.targetInfo));
         }
     },
 
@@ -463,14 +497,13 @@ export const Request = {
     },
 
     // Method to convert the input arguments into an object
-    updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchCallback?: (batchRequests) => void) => {
+    updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchIdx: number = 0) => {
         // Ensure the request was successful
         if (base.status >= 200 && base.status < 300) {
             // Return if we are expecting a buffer
             if (base.requestType == RequestType.GetBuffer) { return; }
 
             // Parse the responses
-            let batchIdx = 0;
             let batchRequestIdx = 0;
             let responses = isBatchRequest ? base.response.split("\n") : [base.response];
             for (let i = 0; i < responses.length; i++) {
@@ -587,13 +620,7 @@ export const Request = {
             // See if this was a batch request
             if (isBatchRequest) {
                 // Process the callbacks
-                Batch.processCallbacks(base.base.batchRequests);
-
-                // Execute the callback if it exists
-                batchCallback ? batchCallback(base.base.batchRequests) : null;
-
-                // Clear the batch requests
-                base.base.batchRequests = null;
+                Batch.processCallbacks(base.base.batchRequests[batchIdx]);
             }
         }
     },

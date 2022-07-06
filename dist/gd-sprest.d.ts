@@ -5672,6 +5672,7 @@ declare module 'gd-sprest/intellisense/webTemplateExtensions' {
 
 declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/base";
+    export * from "gd-sprest/utils/batch";
     export * from "gd-sprest/utils/helper";
     export * from "gd-sprest/utils/request";
     export * from "gd-sprest/utils/requestType";
@@ -6254,7 +6255,7 @@ declare module 'gd-sprest/utils/base' {
     
     
             /** The batch requests. */
-            batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
+            batchRequests: Array<Array<IBatchRequest>>;
     
             /** The index of this object in the responses array. */
             responseIndex: number;
@@ -6310,6 +6311,21 @@ declare module 'gd-sprest/utils/base' {
                 * Method to wait for the parent requests to complete
                 */
             waitForRequestsToComplete(callback: () => void, requestIdx?: number);
+    }
+}
+
+declare module 'gd-sprest/utils/batch' {
+    import { IBase } from "gd-sprest/utils/base";
+    import { ITargetInfo } from "gd-sprest/utils/targetInfo";
+    
+    /**
+      * Batch Request
+      */
+    export interface IBatchRequest {
+        callback?: any;
+        changesetId?: string;
+        response?: IBase;
+        targetInfo: ITargetInfo;
     }
 }
 
@@ -6386,7 +6402,7 @@ declare module 'gd-sprest/utils/request' {
         parseXML(xml: string): IBase;
     
         /** Updates the data object. */
-        updateDataObject(base: IBase, isBatchRequest: boolean, batchCallback?: (batchResponses: Array<any>) => void);
+        updateDataObject(base: IBase, isBatchRequest: boolean, batchIdx: number, batchCallback?: (batchResponses: Array<any>) => void);
     
         /** Validates the data collection results. */
         validateDataCollectionResults(base: IBase): PromiseLike<void>;

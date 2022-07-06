@@ -18,7 +18,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
      */
 
     /** The batch requests. */
-    batchRequests: Array<Array<{ callback?: any, response?: IBase, targetInfo: ITargetInfo }>>;
+    batchRequests: Array<Array<IBatchRequest>>;
 
     /** The index of this object in the responses array. */
     responseIndex: number;

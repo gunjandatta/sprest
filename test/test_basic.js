@@ -54,6 +54,9 @@ function runTests() {
                 case "batch":
                     testBatch();
                     break;
+                case "batch-large":
+                    testBatch(true);
+                    break;
                 case "file":
                     testFile();
                     break;
@@ -147,28 +150,31 @@ function testALM() {
     });
 }
 
-function testBatch() {
-    var web = $REST.Web();
+function testBatch(largeList) {
+    var itemIds = [];
 
     // Method to create the batch items
-    var createItems = function (list) {
+    var createItems = function () {
         var web = $REST.Web();
 
         // Log
         writeToLog("Batch Create Items", LogType.SubHeader);
 
-        // Loop 10 times
-        var ctr = 0;
-        do {
+        // Loop based on the flag
+        let maxItems = largeList ? 1500 : 50;
+        for (var i = 0; i < maxItems; i++) {
             // Add a new item
             // Batch the new items as one request
             web.Lists("BatchList").Items().add({
-                Title: "Batch Item " + (++ctr)
+                Title: "Batch Item " + (i + 1)
             }).batch(function (item) {
+                // Add the item id for an update
+                itemIds.push(item.Id);
+
                 // Log
                 writeToLog("Item '" + item.Title + "' created.");
-            }, ctr > 1);
-        } while (ctr < 10);
+            }, i > 0 && i % 100 == 0);
+        }
 
         // Get the list
         web.Lists("BatchList").batch(function (list) {
@@ -183,19 +189,75 @@ function testBatch() {
                 // Log
                 writeToLog("Error getting the list.", LogType.Error);
             }
-        });
+        }, true);
 
-        // Delete the list
-        web.Lists("BatchList").delete().batch(function () {
+        // Execute the request
+        web.execute(function () {
+            var web = $REST.Web();
+
             // Log
-            writeToLog("Clean Up", LogType.SubHeader);
+            writeToLog("Batch Update Items", LogType.SubHeader);
 
-            // Log
-            writeToLog("List was deleted.", LogType.Info);
+            // Loop based on the flag
+            let updateCounter = 0;
+            for (var i = 0; i < 50; i++) {
+                // Update the item
+                web.Lists("BatchList").Items(itemIds[i]).update({
+                    Title: "Batch Item " + (i + 1) + " Updated"
+                }).batch(function () {
+                    // Increment the counter
+                    updateCounter++;
+                }, i == 0);
+            }
+
+            // Get the list items
+            web.Lists("BatchList").Items().query({ Top: 50 }).batch(function (list) {
+                // Log
+                writeToLog("Items Updated: " + updateCounter, LogType.Info);
+
+                // Log
+                writeToLog("Batch Delete Items", LogType.SubHeader);
+            });
+
+            // Parse the item ids
+            let deleteCounter = 0;
+            for (var i = 0; i < itemIds.length; i++) {
+                // Delete the item
+                web.Lists("BatchList").Items(itemIds[i]).delete().batch(function() {
+                    // Increment the counter
+                    deleteCounter++;
+                }, i % 100 == 0);
+            }
+
+            // Get the list
+            web.Lists("BatchList").batch(function (list) {
+                // Log
+                writeToLog("Items Deleted: " + deleteCounter, LogType.Info);
+
+                    // See if no items exist
+                if (list.ItemCount == 0) {
+                    // Log
+                    writeToLog("List contains 0 items.", LogType.Info);
+                } else {
+                    // Log
+                    writeToLog("Error deleting the list items. Item count is " + list.ItemCount, LogType.Error);
+                }
+            }, true);
+
+            // Delete the list
+            web.Lists("BatchList").delete().batch(function () {
+                // Log
+                writeToLog("Clean Up", LogType.SubHeader);
+                writeToLog("List was deleted.", LogType.Info);
+            });
+
+            // Execute the requests
+            web.execute(function () {
+                // Log
+                writeToLog("Execution Completion", LogType.SubHeader);
+                writeToLog("The batch job(s) have completed. This should be shown last.", LogType.Info);
+            });
         });
-
-        // Execute the requests
-        web.execute();
     }
 
     // Log
@@ -204,22 +266,20 @@ function testBatch() {
     // Log
     writeToLog("Get the List.", LogType.SubHeader);
 
-    // Get the list
-    var request = $REST.List("BatchList");
-
     // Execute the request
-    request.execute(
+    $REST.List("BatchList").execute(
         // Exists
         function (list) {
             // Log
             writeToLog("List already exists.", LogType.Info);
 
             // Create the items
-            createItems(list);
+            createItems();
         },
         // Doesn't Exist
         function () {
             // Log
+            writeToLog("Create List", LogType.SubHeader);
             writeToLog("Creating the list.", LogType.Info);
 
             // Create the list
@@ -233,7 +293,7 @@ function testBatch() {
                     writeToLog("List was created.", LogType.Info);
 
                     // Create the items
-                    createItems(list);
+                    createItems();
                 },
                 // Error
                 function () {

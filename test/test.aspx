@@ -16,6 +16,7 @@
     <input type="checkbox" value="All" onclick="cbAll_Click(this);" />Select All<br/>
     <input type="checkbox" name="test" value="alm" />Test ALM<br/>
     <input type="checkbox" name="test" value="batch" />Test Batch<br/>
+    <input type="checkbox" name="test" value="batch-large" />Test Batch (Large List)<br/>
     <input type="checkbox" name="test" value="file" />Test File<br/>
     <input type="checkbox" name="test" value="list" />Test List Synchronous<br/>
     <input type="checkbox" name="test" value="security" />Test Security<br/>
