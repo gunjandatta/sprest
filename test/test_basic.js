@@ -151,6 +151,8 @@ function testALM() {
 }
 
 function testBatch(largeList) {
+    var itemIds = [];
+
     // Method to create the batch items
     var createItems = function () {
         var web = $REST.Web();
@@ -164,8 +166,11 @@ function testBatch(largeList) {
             // Add a new item
             // Batch the new items as one request
             web.Lists("BatchList").Items().add({
-                Title: "Batch Item " + (i+1)
+                Title: "Batch Item " + (i + 1)
             }).batch(function (item) {
+                // Add the item id for an update
+                itemIds.push(item.Id);
+
                 // Log
                 writeToLog("Item '" + item.Title + "' created.");
             }, i > 0 && i % 100 == 0);
@@ -186,18 +191,72 @@ function testBatch(largeList) {
             }
         }, true);
 
-        // Delete the list
-        web.Lists("BatchList").delete().batch(function () {
-            // Log
-            writeToLog("Clean Up", LogType.SubHeader);
-            writeToLog("List was deleted.", LogType.Info);
-        });
+        // Execute the request
+        web.execute(function () {
+            var web = $REST.Web();
 
-        // Execute the requests
-        web.execute(function() {
             // Log
-            writeToLog("Execution Completion", LogType.SubHeader);
-            writeToLog("The batch job(s) have completed. This should be shown last.", LogType.Info);
+            writeToLog("Batch Update Items", LogType.SubHeader);
+
+            // Loop based on the flag
+            let updateCounter = 0;
+            for (var i = 0; i < 50; i++) {
+                // Update the item
+                web.Lists("BatchList").Items(itemIds[i]).update({
+                    Title: "Batch Item " + (i + 1) + " Updated"
+                }).batch(function () {
+                    // Increment the counter
+                    updateCounter++;
+                }, i == 0);
+            }
+
+            // Get the list items
+            web.Lists("BatchList").Items().query({ Top: 50 }).batch(function (list) {
+                // Log
+                writeToLog("Items Updated: " + updateCounter, LogType.Info);
+
+                // Log
+                writeToLog("Batch Delete Items", LogType.SubHeader);
+            });
+
+            // Parse the item ids
+            let deleteCounter = 0;
+            for (var i = 0; i < itemIds.length; i++) {
+                // Delete the item
+                web.Lists("BatchList").Items(itemIds[i]).delete().batch(function() {
+                    // Increment the counter
+                    deleteCounter++;
+                }, i % 100 == 0);
+            }
+
+            // Get the list
+            web.Lists("BatchList").batch(function (list) {
+                // Log
+                writeToLog("Items Deleted: " + deleteCounter, LogType.Info);
+
+                    // See if no items exist
+                if (list.ItemCount == 0) {
+                    // Log
+                    writeToLog("List contains 0 items.", LogType.Info);
+                } else {
+                    // Log
+                    writeToLog("Error deleting the list items. Item count is " + list.ItemCount, LogType.Error);
+                }
+            }, true);
+
+            // Delete the list
+            web.Lists("BatchList").delete().batch(function () {
+                // Log
+                writeToLog("Clean Up", LogType.SubHeader);
+                writeToLog("List was deleted.", LogType.Info);
+            });
+
+            // Execute the requests
+            web.execute(function () {
+                // Log
+                writeToLog("Execution Completion", LogType.SubHeader);
+                writeToLog("The batch job(s) have completed. This should be shown last.", LogType.Info);
+            });
         });
     }
 

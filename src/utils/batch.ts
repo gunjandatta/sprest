@@ -99,8 +99,13 @@ export class Batch {
                 batch.push("Content-Type: application/http");
                 batch.push("Content-Transfer-Encoding: binary");
                 batch.push("");
-                batch.push("POST " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push(request.targetInfo.requestMethod + " " + request.targetInfo.requestUrl + " HTTP/1.1");
                 batch.push("Content-Type: application/json;odata=verbose");
+                // See if we are making a delete/update
+                if (request.targetInfo.requestMethod == "DELETE" || request.targetInfo.requestMethod == "MERGE") {
+                    // Append the header for deleting/updating
+                    batch.push("IF-MATCH: *");
+                }
                 batch.push("");
                 request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
                 batch.push("");
