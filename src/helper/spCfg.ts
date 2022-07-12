@@ -1100,13 +1100,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // See if we are updating the view properties
-                    if (cfg.JSLink || cfg.ViewQuery) {
+                    if (typeof (cfg.Default) === "boolean" || cfg.JSLink || cfg.ViewQuery) {
                         let props = {};
 
                         // Log
                         console.log("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
 
                         // Set the properties
+                        typeof (cfg.Default) === "boolean" ? props["DefaultView"] = cfg.Default : null;
                         cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
                         cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
 
