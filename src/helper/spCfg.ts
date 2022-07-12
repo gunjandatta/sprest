@@ -1052,9 +1052,16 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
 
                 // See if we are indexing the field
-                if (cfgList.TitleFieldIndexed) {
+                // Note - To enforce unique values, the field must be indexed
+                if (cfgList.TitleFieldUniqueValues || cfgList.TitleFieldIndexed) {
                     // Update the values
                     values["Indexed"] = true;
+                }
+
+                // See if we are enforcing unique values
+                if (cfgList.TitleFieldUniqueValues) {
+                    // Update the values
+                    values["EnforceUniqueValues"] = true;
                 }
 
                 // Update the field name
