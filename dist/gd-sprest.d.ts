@@ -3368,6 +3368,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** Flag to index the title field. */
             TitleFieldIndexed?: boolean;
     
+            /** Flag to enforce unique values. */
+            TitleFieldUniqueValues?: boolean;
+    
             /** The user custom actions. */
             UserCustomActions?: Array<UserCustomActionProps>;
     
@@ -3389,6 +3392,9 @@ declare module 'gd-sprest/helper/spCfg' {
         * SharePoint Configuration - View Information
         */
     export interface ISPCfgViewInfo {
+            /** Flag to set the view as the default view. */
+            Default?: boolean;
+    
             /** The JSLink property. */
             JSLink?: string;
     
