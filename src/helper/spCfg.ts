@@ -1045,6 +1045,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             if (cfgList.TitleFieldDisplayName || cfgList.TitleFieldIndexed) {
                 let values = {};
 
+                // See if we are setting a default value
+                if (cfgList.TitleFieldDefaultValue) {
+                    // Update the values
+                    values["DefaultValue"] = cfgList.TitleFieldDefaultValue;
+                }
+
                 // See if the title field is being updated
                 if (cfgList.TitleFieldDisplayName) {
                     // Update the values
@@ -1056,6 +1062,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 if (cfgList.TitleFieldUniqueValues || cfgList.TitleFieldIndexed) {
                     // Update the values
                     values["Indexed"] = true;
+                }
+
+                // See if we are requiring a value
+                if (typeof (cfgList.TitleFieldRequired) === "boolean") {
+                    // Update the values
+                    values["Required"] = cfgList.TitleFieldRequired;
                 }
 
                 // See if we are enforcing unique values

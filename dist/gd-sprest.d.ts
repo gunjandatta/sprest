@@ -3362,11 +3362,17 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The list creation information. */
             ListInformation: ListProps;
     
+            /** The title default value. */
+            TitleFieldDefaultValue?: string;
+    
             /** The title display name. */
             TitleFieldDisplayName?: string;
     
             /** Flag to index the title field. */
             TitleFieldIndexed?: boolean;
+    
+            /** Flag to enfore a value. */
+            TitleFieldRequired?: boolean;
     
             /** Flag to enforce unique values. */
             TitleFieldUniqueValues?: boolean;
