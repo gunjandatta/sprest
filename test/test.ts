@@ -1,5 +1,5 @@
 import {
-    $REST, List, Helper, SiteManager, SitePages, SPTypes, Types, Web
+    $REST, List, Helper, PeopleManager, SitePages, SPTypes, Types, Web
 } from "../@types";
 
 // Web
@@ -17,6 +17,14 @@ SitePages().Pages().createAppPage({
 
 // See if you can get the root folder of a catalog list/library
 Web().getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
+
+// People Manager - User Profile Properties
+PeopleManager().getPropertiesFor("account.name").execute(profile => {
+    profile.UserProfileProperties.results;
+});
+PeopleManager().getUserProfilePropertyFor("account.name", "FirstName").execute(profile => {
+    profile.GetUserProfilePropertyFor;
+});
 
 // List
 List("Site Assets").getUserEffectivePermissions("").execute(perm => {
