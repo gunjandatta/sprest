@@ -1,4 +1,4 @@
-import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+import { IGroupSiteManager as IGroupSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,5 +16,5 @@ export interface IGroupSiteManager {
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): SP.IGroupSiteManager;
+    (targetInfo?: ITargetInfoProps): IGroupSiteManagerCore;
 }

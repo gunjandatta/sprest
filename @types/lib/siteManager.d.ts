@@ -1,5 +1,5 @@
 import { IBaseExecution } from "gd-sprest-def/lib/base";
-import * as Portal from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+import { ISPSiteManager as ISPSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -41,5 +41,5 @@ export interface ISiteManager {
      * @param url - (Optional) The site url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): Portal.ISPSiteManager;
+    (url?: string, targetInfo?: ITargetInfoProps): ISPSiteManagerCore;
 }

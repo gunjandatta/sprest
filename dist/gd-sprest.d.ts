@@ -925,7 +925,7 @@ declare module 'gd-sprest/lib/contextInfo' {
 }
 
 declare module 'gd-sprest/lib/graph' {
-    import * as SP from "gd-sprest/intellisense/graph";
+    import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
     import { ITargetInfo } from "gd-sprest/utils";
     
     /**
@@ -944,17 +944,17 @@ declare module 'gd-sprest/lib/graph' {
                 * @param accessToken - The access token for the graph api request.
                 * @param version - The version of the graph to target.
                 */
-            (accessToken: string, version?: string): SP.IGraph;
+            (accessToken: string, version?: string): IGraphCore;
     
             /**
                 * Method to get the access token from a classic page.
                 */
-            getAccessToken(): Promise<SP.IGraphToken>;
+            getAccessToken(): Promise<IGraphToken>;
     }
 }
 
 declare module 'gd-sprest/lib/groupService' {
-    import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { IGroupService as IGroupServiceCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -972,12 +972,12 @@ declare module 'gd-sprest/lib/groupService' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IGroupService;
+            (targetInfo?: ITargetInfoProps): IGroupServiceCore;
     }
 }
 
 declare module 'gd-sprest/lib/groupSiteManager' {
-    import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { IGroupSiteManager as IGroupSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -995,7 +995,7 @@ declare module 'gd-sprest/lib/groupSiteManager' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IGroupSiteManager;
+            (targetInfo?: ITargetInfoProps): IGroupSiteManagerCore;
     }
 }
 
@@ -1029,7 +1029,7 @@ declare module 'gd-sprest/lib/hubSites' {
 }
 
 declare module 'gd-sprest/lib/hubSitesUtility' {
-    import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ISPHubSitesUtility as ISPHubSitesUtilityCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1047,14 +1047,14 @@ declare module 'gd-sprest/lib/hubSitesUtility' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.ISPHubSitesUtility;
+            (targetInfo?: ITargetInfoProps): ISPHubSitesUtilityCore;
     }
 }
 
 declare module 'gd-sprest/lib/list' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
-    import * as SP from "gd-sprest-def/lib/SP/entitytypes";
+    import { IList as IListCore, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1095,14 +1095,14 @@ declare module 'gd-sprest/lib/list' {
                 * @param listName - The name of the list.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (listName: string, targetInfo?: ITargetInfoProps): SP.IList;
+            (listName: string, targetInfo?: ITargetInfoProps): IListCore;
     
             /**
                 * @category List
                 * A static method to get the list by the entity name.
                 * @param props - The list entity request properties.
                 */
-            getByEntityName(props: IListEntityProps): SP.IList;
+            getByEntityName(props: IListEntityProps): IListCore;
     
             /**
                 * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
@@ -1117,7 +1117,7 @@ declare module 'gd-sprest/lib/list' {
         * List Data Stream
         * @category List
         */
-    export interface IListDataStream<RowProps = SP.ListItem> {
+    export interface IListDataStream<RowProps = ListItem> {
             FilterFields?: string;
             FilterLink: string;
             FirstRow: number;
@@ -1135,7 +1135,7 @@ declare module 'gd-sprest/lib/list' {
         */
     export interface IListEntityProps {
             /** The callback method. */
-            callback?: (list: SP.IList) => void;
+            callback?: (list: IListCore) => void;
     
             /** The list entity name. */
             name: string;
@@ -1173,7 +1173,7 @@ declare module 'gd-sprest/lib/navigation' {
 }
 
 declare module 'gd-sprest/lib/peopleManager' {
-    import * as SP from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { IPeopleManager as IPeopleManagerCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1191,12 +1191,12 @@ declare module 'gd-sprest/lib/peopleManager' {
                 * Creates an instance of the people manager library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IPeopleManager;
+            (targetInfo?: ITargetInfoProps): IPeopleManagerCore;
     }
 }
 
 declare module 'gd-sprest/lib/peoplePicker' {
-    import * as SP from "gd-sprest/intellisense/peoplePicker";
+    import { IPeoplePicker as IPeoplePickerCore } from "gd-sprest/intellisense/peoplePicker";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1214,12 +1214,12 @@ declare module 'gd-sprest/lib/peoplePicker' {
                 * Creates an instance of the people picker library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IPeoplePicker;
+            (targetInfo?: ITargetInfoProps): IPeoplePickerCore;
     }
 }
 
 declare module 'gd-sprest/lib/profileLoader' {
-    import * as SP from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { IProfileLoader as IProfileLoaderCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1237,7 +1237,7 @@ declare module 'gd-sprest/lib/profileLoader' {
                 * Creates an instance of the profile loader library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IProfileLoader;
+            (targetInfo?: ITargetInfoProps): IProfileLoaderCore;
     }
 }
 
@@ -1287,7 +1287,7 @@ declare module 'gd-sprest/lib/search' {
 
 declare module 'gd-sprest/lib/site' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as SP from "gd-sprest-def/lib/SP/entitytypes";
+    import { ISite as ISiteCore } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1329,7 +1329,7 @@ declare module 'gd-sprest/lib/site' {
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.ISite;
+            (url?: string, targetInfo?: ITargetInfoProps): ISiteCore;
     
             /**
                 * Method to check if a site collection exists.
@@ -1369,7 +1369,7 @@ declare module 'gd-sprest/lib/site' {
 
 declare module 'gd-sprest/lib/siteManager' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as Portal from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ISPSiteManager as ISPSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1411,11 +1411,12 @@ declare module 'gd-sprest/lib/siteManager' {
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): Portal.ISPSiteManager;
+            (url?: string, targetInfo?: ITargetInfoProps): ISPSiteManagerCore;
     }
 }
 
 declare module 'gd-sprest/lib/sitePages' {
+    import { File, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
     import { SitePage, ISitePageService } from "gd-sprest-def/lib/SP/Publishing/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
@@ -1453,11 +1454,12 @@ declare module 'gd-sprest/lib/sitePages' {
                 * @param title - The title of the page.
                 * @param template - The type of page to create.
                 * @param url - The url of the web to create the page in.
+                * @param targetInfo - The target information properties.
                 */
-            createPage(fileName: string, title: string, template: string, url?:string): PromiseLike<{
-                    file: SP.File;
-                    item: SP.ListItem;
-                    page: SP.Publishing.SitePage;
+            createPage(fileName: string, title: string, template: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{
+                    file: File;
+                    item: ListItem;
+                    page: SitePage;
             }>;
     }
 }
@@ -1501,7 +1503,7 @@ declare module 'gd-sprest/lib/socialFeed' {
 }
 
 declare module 'gd-sprest/lib/themeManager' {
-    import * as SP from "gd-sprest-def/lib/SP/Utilities/entitytypes";
+    import { IThemeManager as IThemeManagerCore } from "gd-sprest-def/lib/SP/Utilities/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1519,7 +1521,7 @@ declare module 'gd-sprest/lib/themeManager' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IThemeManager;
+            (targetInfo?: ITargetInfoProps): IThemeManagerCore;
     }
 }
 
@@ -1547,7 +1549,7 @@ declare module 'gd-sprest/lib/userProfile' {
 }
 
 declare module 'gd-sprest/lib/utility' {
-    import * as SP from "gd-sprest/intellisense/utility";
+    import { IUtility as IUtilityCore } from "gd-sprest/intellisense/utility";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1566,7 +1568,7 @@ declare module 'gd-sprest/lib/utility' {
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.IUtility;
+            (url?: string, targetInfo?: ITargetInfoProps): IUtilityCore;
     }
 }
 
