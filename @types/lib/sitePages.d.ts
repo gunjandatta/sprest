@@ -31,11 +31,12 @@ export interface ISitePages {
 
     /**
      * Creates a modern page.
-     * @param url - The url of the file to create.
+     * @param fileName - The name of the file to create, including the .aspx extension.
      * @param title - The title of the page.
      * @param template - The type of page to create.
+     * @param url - The url of the web to create the page in.
      */
-    createPage(url: string, title: string, template: string): PromiseLike<{
+    createPage(fileName: string, title: string, template: string, url?:string): PromiseLike<{
         file: SP.File;
         item: SP.ListItem;
         page: SP.Publishing.SitePage;
