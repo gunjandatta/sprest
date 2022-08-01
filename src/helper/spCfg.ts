@@ -272,7 +272,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         });
     }
 
-    // Method to create the fields`
+    // Method to create the fields
     let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject): PromiseLike<void> => {
