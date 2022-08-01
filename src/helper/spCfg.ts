@@ -267,7 +267,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             }
                         }, reject);
                     });
-                }).then(resolve);
+                }).then(resolve, reject);
             }, reject);
         });
     }
@@ -434,8 +434,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 updateLists(cfgLists).then(() => {
                     // Resolve the promise
                     resolve();
-                });
-            })
+                }, reject);
+            });
         });
     }
 

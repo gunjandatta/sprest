@@ -6,6 +6,7 @@
  */
 export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any> {
     let _resolve = null;
+    let _reject = null;
 
     // Method to execute the methods
     let executeMethods = (idx: number = 0) => {
@@ -32,7 +33,7 @@ export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T
                     // Execute the next method
                     executeMethods(idx + 1);
                 }
-            });
+            }, _reject);
         }
         // Else, see if additional methods need to be executed
         else if (idx < methodParams.length) {
@@ -40,16 +41,14 @@ export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T
             executeMethods(idx + 1);
         }
         // Else, resolve the promise
-        else {
-            // Resolve the promise
-            _resolve();
-        }
+        else { _resolve(); }
     }
 
     // Return a promise
     return new Promise((resolve, reject) => {
         // Set the resolve reference
         _resolve = resolve;
+        _reject = reject;
 
         // See if params exist
         if (methodParams.length > 0) {
