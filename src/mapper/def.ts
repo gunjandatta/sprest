@@ -6637,6 +6637,7 @@ export const Mapper: IMapper = {
         },
 
         update: {
+            argNames: ["properties"],
             metadataType: "",
             name: "",
             requestMethod: "MERGE",
