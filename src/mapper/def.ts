@@ -5766,6 +5766,7 @@ export const Mapper: IMapper = {
 
         setCommentsDisabled: {
             argNames: ["value"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         setComplianceTag: {
@@ -6234,6 +6235,7 @@ export const Mapper: IMapper = {
         },
 
         demoteFromNews: {
+            requestType: RequestType.Post
         },
 
         discardPage: {
@@ -6244,6 +6246,7 @@ export const Mapper: IMapper = {
         },
 
         promoteToNews: {
+            requestType: RequestType.Post
         },
 
         publish: {
@@ -6460,6 +6463,7 @@ export const Mapper: IMapper = {
         createNewsCopy: {},
 
         demoteFromNews: {
+            requestType: RequestType.Post
         },
 
         discardPage: {
@@ -6470,6 +6474,7 @@ export const Mapper: IMapper = {
         },
 
         promoteToNews: {
+            requestType: RequestType.Post
         },
 
         publish: {
@@ -6728,6 +6733,7 @@ export const Mapper: IMapper = {
         },
 
         demoteFromNews: {
+            requestType: RequestType.Post
         },
 
         discardPage: {
@@ -6738,6 +6744,7 @@ export const Mapper: IMapper = {
         },
 
         promoteToNews: {
+            requestType: RequestType.Post
         },
 
         publish: {
@@ -6914,6 +6921,7 @@ export const Mapper: IMapper = {
         },
 
         demoteFromNews: {
+            requestType: RequestType.Post
         },
 
         discardPage: {
@@ -6924,6 +6932,7 @@ export const Mapper: IMapper = {
         },
 
         promoteToNews: {
+            requestType: RequestType.Post
         },
 
         publish: {
@@ -9646,6 +9655,7 @@ export const Mapper: IMapper = {
 
         setCommentsDisabled: {
             argNames: ["value"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         setComplianceTag: {
