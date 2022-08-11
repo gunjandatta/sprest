@@ -1,5 +1,5 @@
 import {
-    $REST, List, Helper, PeopleManager, SitePages, SPTypes, Types, Web
+    $REST, Graph, List, Helper, PeopleManager, SitePages, SPTypes, Web
 } from "../@types";
 
 // Web
@@ -30,6 +30,12 @@ PeopleManager().getUserProfilePropertyFor("account.name", "FirstName").execute(p
 List("Site Assets").getUserEffectivePermissions("").execute(perm => {
     // Save the permissions
     perm.GetUserEffectivePermissions;
+});
+
+// Graph
+Graph.getAccessToken().execute(token => {
+    token.access_token;
+    token.expires_on;
 });
 
 let el = document.querySelector("#Element");

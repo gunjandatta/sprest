@@ -1,26 +1,34 @@
+import { IBaseExecution } from "gd-sprest-def/lib/base";
 import { IGraph as IGraphCore, IGraphToken } from "../intellisense/graph";
 import { ITargetInfo } from "../utils";
 
 /**
  * Graph
- * @hidden
  */
 export const Graph: IGraph;
 
+// Graph Properties
+export interface IGraphProperties {
+    accessToken: string;
+    cloud?: string;
+    requestType?: string;
+    url: string;
+    version?: string;
+}
+
 /**
  * Graph
- * @hidden
  */
 export interface IGraph {
     /**
      * Creates an instance of the graph library.
-     * @param accessToken - The access token for the graph api request.
-     * @param version - The version of the graph to target.
+     * @param props - The graph request information.
      */
-    (accessToken: string, version?: string): IGraphCore;
+    (props: IGraphProperties): IGraphCore;
 
     /**
      * Method to get the access token from a classic page.
+     * @param resource - The graph api endpoint.
      */
-    getAccessToken(): Promise<IGraphToken>;
+    getAccessToken(resource?: string): IBaseExecution<IGraphToken>;
 }

@@ -151,6 +151,16 @@ export type IClientSidePageLayout = {
 }
 
 /**
+ * Cloud Environments
+ */
+export type ICloudEnvironment = {
+    China: string;
+    Default: string;
+    USL4: string;
+    USL5: string;
+}
+
+/**
  * Control Modes
  */
 export type IControlMode = {

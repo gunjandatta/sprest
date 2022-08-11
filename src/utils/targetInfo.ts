@@ -16,8 +16,20 @@ export class TargetInfo implements ITargetInfo {
         this.requestHeaders = this.props.requestHeader;
         this.requestMethod = this.props.method ? this.props.method : "GET";
 
-        // Set the request url
-        this.isGraph ? this.setGraphRequestUrl() : this.setRESTRequestUrl();
+        // See if this is a graph request
+        if (this.isGraph) {
+            // Set the request method
+            this.requestMethod = this.props.requestType == RequestType.GraphGet ? "GET" : "POST";
+
+            // Set the security flag
+            this.requestData = { securityEnabledOnly: true };
+
+            // Set the request url
+            this.requestUrl = this.props.endpoint;
+        } else {
+            // Set the request url
+            this.setRESTRequestUrl();
+        }
     }
 
     /*********************************************************************************************************************************/
@@ -95,12 +107,6 @@ export class TargetInfo implements ITargetInfo {
 
         // Key was not found
         return null;
-    }
-
-    // Method to set the request url for the Graph API
-    private setGraphRequestUrl() {
-        // Return the request url
-        this.requestUrl = "https://graph.microsoft.com/" + this.props.endpoint;
     }
 
     // Method to set the request url for the REST API

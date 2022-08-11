@@ -25,9 +25,9 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
+    import { Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
-            Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
+            Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
             List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages,
             SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
@@ -925,31 +925,38 @@ declare module 'gd-sprest/lib/contextInfo' {
 }
 
 declare module 'gd-sprest/lib/graph' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
     import { ITargetInfo } from "gd-sprest/utils";
     
     /**
         * Graph
-        * @hidden
         */
     export const Graph: IGraph;
     
+    export interface IGraphProperties {
+            accessToken: string;
+            cloud?: string;
+            requestType?: string;
+            url: string;
+            version?: string;
+    }
+    
     /**
         * Graph
-        * @hidden
         */
     export interface IGraph {
             /**
                 * Creates an instance of the graph library.
-                * @param accessToken - The access token for the graph api request.
-                * @param version - The version of the graph to target.
+                * @param props - The graph request information.
                 */
-            (accessToken: string, version?: string): IGraphCore;
+            (props: IGraphProperties): IGraphCore;
     
             /**
                 * Method to get the access token from a classic page.
+                * @param resource - The graph api endpoint.
                 */
-            getAccessToken(): Promise<IGraphToken>;
+            getAccessToken(resource?: string): IBaseExecution<IGraphToken>;
     }
 }
 
@@ -4053,6 +4060,16 @@ declare module 'gd-sprest/sptypes/sptypes' {
             Home: string;
             SingleWebPartAppPage: string;
             RepostPage: string;
+    }
+    
+    /**
+        * Cloud Environments
+        */
+    export type ICloudEnvironment = {
+            China: string;
+            Default: string;
+            USL4: string;
+            USL5: string;
     }
     
     /**
