@@ -25,11 +25,11 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
+    import { Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
             Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages,
-            SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
+            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager,
+            SitePages, SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
     /**
@@ -77,6 +77,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/profileLoader";
     export * from "gd-sprest/lib/search";
     export * from "gd-sprest/lib/site";
+    export * from "gd-sprest/lib/siteIconManager";
     export * from "gd-sprest/lib/siteManager";
     export * from "gd-sprest/lib/sitePages";
     export * from "gd-sprest/lib/socialFeed";
@@ -293,6 +294,11 @@ declare module 'gd-sprest/rest' {
                 * Use this api to interact with a SharePoint site collection.
                 */
             Site: LibTypes.ISite;
+    
+            /**
+                * Use this api to get/set the icon for a site.
+                */
+            SiteIconManager: LibTypes.ISiteIconManager;
     
             /**
                 * Use this api to create/delete site collections.
@@ -1371,6 +1377,31 @@ declare module 'gd-sprest/lib/site' {
     export interface ISiteUrl {
             /** The site url. */
             GetUrlById: string;
+    }
+}
+
+declare module 'gd-sprest/lib/siteIconManager' {
+    import { SiteIconManager as SiteIconManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/siteIconManager
+        *
+        */
+    export const SiteIconManager: ISiteIconManager;
+    
+    /**
+        * Site Icon Manager
+        * @category Site Icon Manager
+        */
+    export interface ISiteIconManager {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SiteIconManagerCore;
     }
 }
 

@@ -129,10 +129,15 @@ export interface IREST {
     Site: LibTypes.ISite;
 
     /**
+     * Use this api to get/set the icon for a site.
+     */
+    SiteIconManager: LibTypes.ISiteIconManager;
+
+    /**
      * Use this api to create/delete site collections.
      */
     SiteManager: LibTypes.ISiteManager;
-    
+
     /**
      * Use this api to create/edit modern pages.
      */

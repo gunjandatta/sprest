@@ -1,5 +1,5 @@
 import {
-    $REST, Graph, List, Helper, PeopleManager, SitePages, SPTypes, Web
+    $REST, Graph, List, Helper, PeopleManager, SiteIconManager, SitePages, SPTypes, Web
 } from "../@types";
 
 // Web

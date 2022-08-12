@@ -2040,6 +2040,7 @@ export const Mapper: IMapper = {
 
         setSiteLogo: {
             argNames: ["relativeLogoUrl", "type", "aspect", "focalx", "focaly", "isFocalPatch"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
     },
