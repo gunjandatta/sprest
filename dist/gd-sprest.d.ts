@@ -958,8 +958,14 @@ declare module 'gd-sprest/lib/graph' {
                 */
             (props: IGraphProperties): IGraphCore;
     
+            /** The default cloud environment to use for the requests. */
+            Cloud: string;
+    
             /** The default token to use for the requests. */
             Token: string;
+    
+            /** The default version to use for the requests. */
+            Version: string;
     
             /**
                 * Method to get the access token from a classic page.

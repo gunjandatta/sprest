@@ -1,6 +1,6 @@
 import { IGraph, IGraphProperties } from "../../@types/lib/graph";
 import { SPTypes } from "../sptypes";
-import { Base, Request, RequestType } from "../utils";
+import { Base, RequestType } from "../utils";
 
 // Default Token
 //export const Token
@@ -9,24 +9,24 @@ import { Base, Request, RequestType } from "../utils";
  * Graph
  */
 export const Graph: IGraph = ((props: IGraphProperties) => {
-    let graph = new Base({
-        accessToken: props.accessToken ? props.accessToken : Graph.Token
-    });
+    let graph = new Base({ accessToken: props.accessToken || Graph.Token });
 
     // Default the target information
     graph.targetInfo.requestType = (props.requestType || "").toLowerCase() == "post" ? RequestType.GraphPost : RequestType.GraphGet;
 
     // Set the endpoint
-    graph.targetInfo.endpoint = props.cloud || SPTypes.CloudEnvironment.Default;
-    graph.targetInfo.endpoint += "/" + (props.version || "v1.0");
+    graph.targetInfo.endpoint = props.cloud || Graph.Cloud || SPTypes.CloudEnvironment.Default;
+    graph.targetInfo.endpoint += "/" + (props.version || Graph.Version || "v1.0");
     props.url ? graph.targetInfo.endpoint += "/" + props.url : null;
 
     // Return the graph
     return graph;
 }) as any;
 
-// Default Token
+// Default Values
+Graph.Cloud = "";
 Graph.Token = "";
+Graph.Version = "";
 
 // Method to get the graph token from a classic page
 Graph.getAccessToken = (resource?: string) => {
