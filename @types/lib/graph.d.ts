@@ -26,6 +26,9 @@ export interface IGraph {
      */
     (props: IGraphProperties): IGraphCore;
 
+    /** The default token to use for the requests. */
+    Token: string;
+
     /**
      * Method to get the access token from a classic page.
      * @param resource - The graph api endpoint.
