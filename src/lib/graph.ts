@@ -15,6 +15,7 @@ export const Graph: IGraph = ((props: IGraphProperties) => {
     graph.targetInfo.requestType = (props.requestType || "").toLowerCase() == "post" ? RequestType.GraphPost : RequestType.GraphGet;
 
     // Set the endpoint
+    graph.targetInfo.data = props.data;
     graph.targetInfo.endpoint = props.cloud || Graph.Cloud || SPTypes.CloudEnvironment.Default;
     graph.targetInfo.endpoint += "/" + (props.version || Graph.Version || "v1.0");
     props.url ? graph.targetInfo.endpoint += "/" + props.url : null;

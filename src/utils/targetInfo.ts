@@ -22,7 +22,8 @@ export class TargetInfo implements ITargetInfo {
             this.requestMethod = this.props.requestType == RequestType.GraphGet ? "GET" : "POST";
 
             // Set the security flag
-            this.requestData = { securityEnabledOnly: true };
+            let defaultProps = this.requestData || {};
+            this.requestData = { ...{ securityEnabledOnly: true }, ...defaultProps };
 
             // Set the request url
             this.requestUrl = this.props.endpoint;
