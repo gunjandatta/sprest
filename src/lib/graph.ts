@@ -18,10 +18,15 @@ export const Graph: IGraph = ((props: IGraphProperties) => {
     graph.targetInfo.data = props ? props.data : null;
     graph.targetInfo.endpoint = props && props.cloud ? props.cloud : Graph.Cloud || SPTypes.CloudEnvironment.Default;
     graph.targetInfo.endpoint += "/" + (props && props.version ? props.version : Graph.Version || "v1.0");
-    props && props.url ? graph.targetInfo.endpoint += "/" + props.url : null;
 
-    // Add the methods
-    Request.addMethods(graph, { __metadata: { type: "graph" } });
+    // See if the url is set
+    if (props && props.url) {
+        // Set the endpoint
+        graph.targetInfo.endpoint += "/" + props.url;
+    } else {
+        // Add the default methods
+        Request.addMethods(graph, { __metadata: { type: "graph" } });
+    }
 
     // Return the graph
     return graph;
