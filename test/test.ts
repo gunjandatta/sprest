@@ -38,6 +38,10 @@ Graph.getAccessToken().execute(token => {
     token.expires_on;
 });
 
+Graph().me().execute(user => {
+    user.givenName;
+})
+
 let el = document.querySelector("#Element");
 let a1 = Helper.SP.CalloutManager.createAction({ text: "", onClickCallback: () => { } });
 let m = Helper.SP.CalloutManager.createMenuEntries([{ text: "", onClickCallback: () => { } }]);

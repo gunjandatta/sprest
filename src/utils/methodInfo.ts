@@ -72,7 +72,7 @@ export class MethodInfo implements Base.IMethodInfo {
     private get passDataInQS(): boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQS || this.methodInfo.requestType == RequestType.PostWithArgsInQS; }
     private get passDataInQSAsVar(): boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQSAsVar || this.methodInfo.requestType == RequestType.PostWithArgsInQSAsVar; }
     private get isTemplate(): boolean { return this.methodInfo.data ? true : false; }
-    private get replace(): boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
+    private get replace(): boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.GraphGetReplace || this.methodInfo.requestType == RequestType.PostReplace || this.methodInfo.requestType == RequestType.GraphPostReplace; }
     private methodData: any;
     private methodInfo: Base.IMethodInfo;
     private methodParams: any;

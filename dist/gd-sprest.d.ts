@@ -5,6 +5,7 @@
 //   ../gd-sprest-def/lib/SP/entitytypes
 //   ../gd-sprest-def
 //   ../gd-sprest-def/lib/Microsoft/AppServices/entitytypes
+//   ../gd-sprest-def/lib/microsoft
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes
 //   ../gd-sprest-def/lib/SP/UserProfiles/entitytypes
@@ -722,6 +723,9 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Page Personalization Scope */
             pagePersonalizationScope: number;
     
+            /** Portal URL */
+            portalUrl: string;
+    
             /** Prefer User Time Zone */
             preferUserTimeZone: boolean;
     
@@ -932,6 +936,7 @@ declare module 'gd-sprest/lib/contextInfo' {
 
 declare module 'gd-sprest/lib/graph' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { graph } from "gd-sprest-def/lib/microsoft";
     import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
     import { ITargetInfo } from "gd-sprest/utils";
     
@@ -964,6 +969,21 @@ declare module 'gd-sprest/lib/graph' {
     }
     
     /**
+        * Graph EndPoints
+        */
+    export interface IGraphCustom extends IGraphCore {
+            me(): IBaseExecution<graph.user>;
+            group(id: string): IBaseExecution<graph.group>;
+            groups(): IBaseExecution<graph.groupCollections>;
+            list(siteId: string, id: string): IBaseExecution<graph.list>;
+            lists(siteId: string): IBaseExecution<graph.listCollections>;
+            site(id: string): IBaseExecution<graph.site>;
+            sites(): IBaseExecution<graph.siteCollections>;
+            user(id: string): IBaseExecution<graph.user>;
+            users(): IBaseExecution<graph.userCollections>;
+    }
+    
+    /**
         * Graph
         */
     export interface IGraph {
@@ -971,7 +991,7 @@ declare module 'gd-sprest/lib/graph' {
                 * Creates an instance of the graph library.
                 * @param props - The graph request information.
                 */
-            (props: IGraphProperties): IGraphCore;
+            (props?: IGraphProperties): IGraphCustom;
     
             /** The default cloud environment to use for the requests. */
             Cloud: string;
@@ -6522,7 +6542,9 @@ declare module 'gd-sprest/utils/requestType' {
     
         // Graph Requests
         GraphGet: number;
+        GraphGetReplace: number;
         GraphPost: number;
+        GraphPostReplace: number;
     
         // Post Requests
         Post: number;

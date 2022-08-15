@@ -1,4 +1,5 @@
 import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { graph } from "gd-sprest-def/lib/microsoft";
 import { IGraph as IGraphCore, IGraphToken } from "../intellisense/graph";
 import { ITargetInfo } from "../utils";
 
@@ -31,6 +32,21 @@ export interface IGraphProperties {
 }
 
 /**
+ * Graph EndPoints
+ */
+export interface IGraphCustom extends IGraphCore {
+    me(): IBaseExecution<graph.user>;
+    group(id: string): IBaseExecution<graph.group>;
+    groups(): IBaseExecution<graph.groupCollections>;
+    list(siteId: string, id: string): IBaseExecution<graph.list>;
+    lists(siteId: string): IBaseExecution<graph.listCollections>;
+    site(id: string): IBaseExecution<graph.site>;
+    sites(): IBaseExecution<graph.siteCollections>;
+    user(id: string): IBaseExecution<graph.user>;
+    users(): IBaseExecution<graph.userCollections>;
+}
+
+/**
  * Graph
  */
 export interface IGraph {
@@ -38,7 +54,7 @@ export interface IGraph {
      * Creates an instance of the graph library.
      * @param props - The graph request information.
      */
-    (props: IGraphProperties): IGraphCore;
+    (props?: IGraphProperties): IGraphCustom;
 
     /** The default cloud environment to use for the requests. */
     Cloud: string;

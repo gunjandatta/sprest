@@ -19,7 +19,7 @@ export class TargetInfo implements ITargetInfo {
         // See if this is a graph request
         if (this.isGraph) {
             // Set the request method
-            this.requestMethod = this.props.requestType == RequestType.GraphGet ? "GET" : "POST";
+            this.requestMethod = this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphGetReplace ? "GET" : "POST";
 
             // Set the security flag
             let defaultProps = this.requestData || {};
@@ -44,7 +44,10 @@ export class TargetInfo implements ITargetInfo {
     get isBatchRequest(): boolean { return this.props.endpoint == "$batch"; }
 
     // Flag to determine if this is a graph request
-    get isGraph(): boolean { return this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost; }
+    get isGraph(): boolean {
+        return this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
+            this.props.requestType == RequestType.GraphGetReplace || this.props.requestType == RequestType.GraphPostReplace;
+    }
 
     // The request data
     requestData: any;

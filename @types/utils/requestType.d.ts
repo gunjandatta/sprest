@@ -20,7 +20,9 @@ export type IRequestType = {
 
     // Graph Requests
     GraphGet: number;
+    GraphGetReplace: number;
     GraphPost: number;
+    GraphPostReplace: number;
 
     // Post Requests
     Post: number;

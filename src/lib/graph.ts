@@ -1,6 +1,6 @@
 import { IGraph, IGraphProperties } from "../../@types/lib/graph";
 import { SPTypes } from "../sptypes";
-import { Base, RequestType } from "../utils";
+import { Base, Request, RequestType } from "../utils";
 
 // Default Token
 //export const Token
@@ -9,16 +9,19 @@ import { Base, RequestType } from "../utils";
  * Graph
  */
 export const Graph: IGraph = ((props: IGraphProperties) => {
-    let graph = new Base({ accessToken: props.accessToken || Graph.Token });
+    let graph = new Base({ accessToken: props && props.accessToken ? props.accessToken : Graph.Token });
 
     // Default the target information
-    graph.targetInfo.requestType = (props.requestType || "").toLowerCase() == "post" ? RequestType.GraphPost : RequestType.GraphGet;
+    graph.targetInfo.requestType = (props && props.requestType ? props.requestType : "").toLowerCase() == "post" ? RequestType.GraphPost : RequestType.GraphGet;
 
     // Set the endpoint
-    graph.targetInfo.data = props.data;
-    graph.targetInfo.endpoint = props.cloud || Graph.Cloud || SPTypes.CloudEnvironment.Default;
-    graph.targetInfo.endpoint += "/" + (props.version || Graph.Version || "v1.0");
-    props.url ? graph.targetInfo.endpoint += "/" + props.url : null;
+    graph.targetInfo.data = props ? props.data : null;
+    graph.targetInfo.endpoint = props && props.cloud ? props.cloud : Graph.Cloud || SPTypes.CloudEnvironment.Default;
+    graph.targetInfo.endpoint += "/" + (props && props.version ? props.version : Graph.Version || "v1.0");
+    props && props.url ? graph.targetInfo.endpoint += "/" + props.url : null;
+
+    // Add the methods
+    Request.addMethods(graph, { __metadata: { type: "graph" } });
 
     // Return the graph
     return graph;

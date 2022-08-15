@@ -586,7 +586,22 @@ export const Request = {
 
                     // Update the expanded properties
                     Helper.updateExpandedProperties(obj);
-                } else {
+                }
+                // Else, see if this is a graph request
+                else if (data["@odata.context"]) {
+                    // Save a reference to it
+                    obj["d"] = data;
+
+                    // Update the base object's properties
+                    Request.addProperties(obj, data);
+
+                    // Add the methods
+                    Request.addMethods(obj, data, data["@odata.context"]);
+
+                    // Update the data collection
+                    Helper.updateDataCollection(obj, data.value);
+                }
+                else {
                     // Update the base object's properties
                     Request.addProperties(obj, data);
                 }

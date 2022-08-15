@@ -269,6 +269,9 @@ export interface IContextInformation {
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
 
+    /** Portal URL */
+    portalUrl: string;
+
     /** Prefer User Time Zone */
     preferUserTimeZone: boolean;
 

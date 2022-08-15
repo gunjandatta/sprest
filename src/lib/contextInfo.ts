@@ -114,6 +114,7 @@ class _ContextInfo {
     static get pagePersonalizationScope() { return this._contextInfo.pagePersonalizationScope; }
     static get preferUserTimeZone() { return this._contextInfo.preferUserTimeZone; }
     static get PreviewFeaturesEnabled() { return this._contextInfo.PreviewFeaturesEnabled; }
+    static get portalUrl() { return this._contextInfo.portalUrl; }
     static get profileUrl() { return this._contextInfo.profileUrl; }
     static get PublishingFeatureOn() { return this._contextInfo.PublishingFeatureOn; }
     static get RecycleBinItemCount() { return this._contextInfo.RecycleBinItemCount; }
