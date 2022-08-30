@@ -394,6 +394,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     lists.add(listInfo)
                         // Execute the request
                         .execute((list) => {
+                            cfgList["_list"] = list;
+
                             // Restore the list name in the configuration
                             listInfo.Title = listName;
 
@@ -418,7 +420,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 }
 
                                 // Trigger the event
-                                cfgList.onCreated ? cfgList.onCreated(list) : null;
+                                cfgList.onCreating ? cfgList.onCreating(list) : null;
                             } else {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
@@ -432,6 +434,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }).then(() => {
                 // Update the lists
                 updateLists(cfgLists).then(() => {
+                    // Parse the lists
+                    for (let i = 0; i < cfgLists.length; i++) {
+                        let cfgList = cfgLists[i];
+
+                        // Trigger the event
+                        cfgList.onCreated ? cfgList.onCreated(cfgList["_list"]) : null;
+                    }
+
                     // Resolve the promise
                     resolve();
                 }, reject);

@@ -380,9 +380,14 @@ export interface ISPCfgListInfo {
     ViewInformation?: Array<ISPCfgViewInfo>;
 
     /**
-     * Event triggered after the list is created or updated.
+     * Event triggered after the list is created and configured.
      */
     onCreated?: (list: List) => void;
+
+    /**
+     * Event triggered after the list is created.
+     */
+    onCreating?: (list: List) => void;
 
     /**
      * Event triggered after the list is updated.
