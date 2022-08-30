@@ -5321,6 +5321,7 @@ export const Mapper: IMapper = {
         },
 
         addItem: {
+            name: "Items",
             argNames: ["parameters"],
             requestType: RequestType.PostWithArgsInBody
         },
