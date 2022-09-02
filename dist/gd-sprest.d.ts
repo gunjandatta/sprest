@@ -2239,7 +2239,7 @@ declare module 'gd-sprest/helper/listForm' {
 
 declare module 'gd-sprest/helper/listFormField' {
     import { IODataQuery } from "gd-sprest-def/base";
-    import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
+    import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, Folder, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
     import { ITermInfo } from "gd-sprest/helper/taxonomy";
     
@@ -2435,7 +2435,7 @@ declare module 'gd-sprest/helper/listFormField' {
             create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
     
             /** Method to get or create the associated folder for a list's image field. */
-            getOrCreateImageFolder(info: IListFormResult): PromiseLike<SP.Folder>;
+            getOrCreateImageFolder(info: IListFormResult): PromiseLike<Folder>;
     
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;
