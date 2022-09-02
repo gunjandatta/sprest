@@ -2435,7 +2435,7 @@ declare module 'gd-sprest/helper/listFormField' {
             create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
     
             /** Method to get or create the associated folder for a list's image field. */
-            getOrCreateImageFolder(info: IListFormImageFieldInfo): PromiseLike<SP.Folder>;
+            getOrCreateImageFolder(info: IListFormResult): PromiseLike<SP.Folder>;
     
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;

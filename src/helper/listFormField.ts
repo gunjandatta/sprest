@@ -2,7 +2,7 @@ import {
     IListFormField, IListFormFieldInfo, IListFormImageFieldInfo,
     IListFormLookupFieldInfo, IListFormMMSFieldInfo, IListFormDateFieldInfo,
     IListFormTextFieldInfo, IListFormUserFieldInfo, IListFormChoiceFieldInfo,
-    IListFormNumberFieldInfo, ITermInfo
+    IListFormNumberFieldInfo, ITermInfo, IListFormResult
 } from "../../@types/helper";
 import { SP } from "gd-sprest-def";
 import { Helper, Site, SPTypes, Web } from "..";
@@ -147,7 +147,7 @@ export const ListFormField: IListFormField = {
     },
 
     // Method to get the folder to store the image field file in
-    getOrCreateImageFolder: (info: IListFormImageFieldInfo): PromiseLike<SP.Folder> => {
+    getOrCreateImageFolder: (info: IListFormResult): PromiseLike<SP.Folder> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the site assets library
@@ -177,7 +177,7 @@ export const ListFormField: IListFormField = {
                 });
             })().then((siteAssets: SP.List) => {
                 // Get the list id folder
-                siteAssets.RootFolder().Folders(info.listId).execute(
+                siteAssets.RootFolder().Folders(info.list.Id).execute(
                     // Exists
                     folder => {
                         // Resolve the request
@@ -187,7 +187,7 @@ export const ListFormField: IListFormField = {
                     // Doesn't Exist
                     () => {
                         // Create the folder
-                        siteAssets.RootFolder().Folders().add(info.listId).execute(folder => {
+                        siteAssets.RootFolder().Folders().add(info.list.Id).execute(folder => {
                             // Resolve the request
                             resolve(folder);
                         }, reject);
