@@ -1,5 +1,5 @@
 import { IBaseExecution } from "gd-sprest-def/lib/base";
-import { graph } from "gd-sprest-def/lib/microsoft";
+import { Graph as GraphCore } from "gd-sprest-def/lib/microsoft";
 import { IGraph as IGraphCore, IGraphToken } from "../intellisense/graph";
 import { ITargetInfo } from "../utils";
 
@@ -35,15 +35,15 @@ export interface IGraphProperties {
  * Graph EndPoints
  */
 export interface IGraphCustom extends IGraphCore {
-    me(): IBaseExecution<graph.user>;
-    group(id: string): IBaseExecution<graph.group>;
-    groups(): IBaseExecution<graph.groupCollections>;
-    list(siteId: string, id: string): IBaseExecution<graph.list>;
-    lists(siteId: string): IBaseExecution<graph.listCollections>;
-    site(id: string): IBaseExecution<graph.site>;
-    sites(): IBaseExecution<graph.siteCollections>;
-    user(id: string): IBaseExecution<graph.user>;
-    users(): IBaseExecution<graph.userCollections>;
+    me(): IBaseExecution<GraphCore.user>;
+    group(id: string): IBaseExecution<GraphCore.group>;
+    groups(): IBaseExecution<GraphCore.groupCollections>;
+    list(siteId: string, id: string): IBaseExecution<GraphCore.list>;
+    lists(siteId: string): IBaseExecution<GraphCore.listCollections>;
+    site(id: string): IBaseExecution<GraphCore.site>;
+    sites(): IBaseExecution<GraphCore.siteCollections>;
+    user(id: string): IBaseExecution<GraphCore.user>;
+    users(): IBaseExecution<GraphCore.userCollections>;
 }
 
 /**

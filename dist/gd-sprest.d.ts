@@ -936,7 +936,7 @@ declare module 'gd-sprest/lib/contextInfo' {
 
 declare module 'gd-sprest/lib/graph' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { graph } from "gd-sprest-def/lib/microsoft";
+    import { Graph as GraphCore } from "gd-sprest-def/lib/microsoft";
     import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
     import { ITargetInfo } from "gd-sprest/utils";
     
@@ -972,15 +972,15 @@ declare module 'gd-sprest/lib/graph' {
         * Graph EndPoints
         */
     export interface IGraphCustom extends IGraphCore {
-            me(): IBaseExecution<graph.user>;
-            group(id: string): IBaseExecution<graph.group>;
-            groups(): IBaseExecution<graph.groupCollections>;
-            list(siteId: string, id: string): IBaseExecution<graph.list>;
-            lists(siteId: string): IBaseExecution<graph.listCollections>;
-            site(id: string): IBaseExecution<graph.site>;
-            sites(): IBaseExecution<graph.siteCollections>;
-            user(id: string): IBaseExecution<graph.user>;
-            users(): IBaseExecution<graph.userCollections>;
+            me(): IBaseExecution<GraphCore.user>;
+            group(id: string): IBaseExecution<GraphCore.group>;
+            groups(): IBaseExecution<GraphCore.groupCollections>;
+            list(siteId: string, id: string): IBaseExecution<GraphCore.list>;
+            lists(siteId: string): IBaseExecution<GraphCore.listCollections>;
+            site(id: string): IBaseExecution<GraphCore.site>;
+            sites(): IBaseExecution<GraphCore.siteCollections>;
+            user(id: string): IBaseExecution<GraphCore.user>;
+            users(): IBaseExecution<GraphCore.userCollections>;
     }
     
     /**
@@ -2309,6 +2309,17 @@ declare module 'gd-sprest/helper/listFormField' {
     }
     
     /**
+        * List Form Image Field Information
+        */
+    export interface IListFormImageFieldInfo extends IListFormFieldInfo {
+            /** The list id field. */
+            listId?: string;
+    
+            /** The web containing the list. */
+            webUrl?: string;
+    }
+    
+    /**
         * List Form Lookup Field Information
         */
     export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
@@ -2422,6 +2433,9 @@ declare module 'gd-sprest/helper/listFormField' {
                 * @param props - The list form field properties
                 */
             create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+    
+            /** Method to get or create the associated folder for a list's image field. */
+            getOrCreateImageFolder(info: IListFormImageFieldInfo): PromiseLike<SP.Folder>;
     
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;
@@ -3469,9 +3483,14 @@ declare module 'gd-sprest/helper/spCfg' {
             ViewInformation?: Array<ISPCfgViewInfo>;
     
             /**
-                * Event triggered after the list is created or updated.
+                * Event triggered after the list is created and configured.
                 */
             onCreated?: (list: List) => void;
+    
+            /**
+                * Event triggered after the list is created.
+                */
+            onCreating?: (list: List) => void;
     
             /**
                 * Event triggered after the list is updated.
@@ -3619,6 +3638,7 @@ declare module 'gd-sprest/helper/spCfgTypes' {
             Date: number;
             Geolocation: number;
             Guid: number;
+            Image: number;
             Lookup: number;
             MMS: number;
             Note: number;

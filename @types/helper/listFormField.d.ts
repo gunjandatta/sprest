@@ -69,6 +69,17 @@ export interface IListFormDateFieldInfo extends IListFormFieldInfo {
 }
 
 /**
+ * List Form Image Field Information
+ */
+export interface IListFormImageFieldInfo extends IListFormFieldInfo {
+    /** The list id field. */
+    listId?: string;
+
+    /** The web containing the list. */
+    webUrl?: string;
+}
+
+/**
  * List Form Lookup Field Information
  */
 export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
@@ -182,6 +193,9 @@ export interface IListFormField {
      * @param props - The list form field properties
      */
     create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+
+    /** Method to get or create the associated folder for a list's image field. */
+    getOrCreateImageFolder(info: IListFormImageFieldInfo): PromiseLike<SP.Folder>;
 
     /** Method to load the lookup data */
     loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;

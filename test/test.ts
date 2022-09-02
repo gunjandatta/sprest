@@ -40,6 +40,9 @@ Graph.getAccessToken().execute(token => {
 
 Graph().me().execute(user => {
     user.givenName;
+    user.drive().execute(drive => {
+        drive.root;
+    })
 })
 
 let el = document.querySelector("#Element");
