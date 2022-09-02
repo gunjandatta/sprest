@@ -294,6 +294,7 @@ export const FieldType: SPTypes.IFieldType = {
     Geolocation: 31,
     GridChoice: 16,
     Guid: 14,
+    Image: 34,
     Integer: 1,
     Invalid: 0,
     Lookup: 7,

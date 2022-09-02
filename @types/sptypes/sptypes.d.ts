@@ -559,6 +559,9 @@ export type IFieldType = {
     /** Specifies that the field contains a GUID value. */
     Guid: number,
 
+    /** Specifies that the field is an image. */
+    Image: number,
+
     /** Specifies that the field contains an integer value. */
     Integer: number,
 
