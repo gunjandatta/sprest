@@ -2989,6 +2989,35 @@ declare module 'gd-sprest/helper/sp' {
     }
     
     /**
+        * Ribbon
+        */
+    export interface IRibbon {
+            PageState: {
+                    Handlers: {
+                            isApproveEnabled: boolean;
+                            isCancelApprovalEnabled: boolean;
+                            isCheckinEnabled: boolean;
+                            isCheckoutEnabled: boolean;
+                            isDeleteEnabled: boolean;
+                            isDiscardcheckoutEnabled: boolean;
+                            isDontSaveAndStopEnabled: boolean;
+                            isEditEnabled: boolean;
+                            isInEditMode: boolean;
+                            isOverrideCheckoutEnabled: boolean;
+                            isPublishEnabled: boolean;
+                            isRejectEnabled: boolean;
+                            isSaveAndStopEditEnabled: boolean;
+                            isSaveEnabled: boolean;
+                            isSubmitForApprovalEnabled: boolean;
+                            isUnpublishEnabled: boolean;
+                            onCancelButton: (...args) => void;
+                            onOkButton: (...args) => void;
+                            showStateChangeDialog: boolean;
+                    }
+            }
+    }
+    
+    /**
         * Script on Demand (SOD)
         */
     export interface ISOD {
