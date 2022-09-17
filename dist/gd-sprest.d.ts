@@ -391,6 +391,7 @@ declare module 'gd-sprest/sptypes' {
         DraftVisibilityType: Types.IDraftVisibilityType;
         EventReceiverType: Types.IEventReceiverType;
         EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+        EnvironmentType: Types.IEnvironmentType;
         FieldIndexStatus: Types.IFieldIndexStatus;
         FieldNoteType: Types.IFieldNoteType;
         FieldNumberType: Types.IFieldNumberType;
@@ -399,6 +400,7 @@ declare module 'gd-sprest/sptypes' {
         FieldUserSelectionType: Types.IFieldUserSelectionType;
         FileLevelType: Types.IFileLevelType;
         FileTemplateType: Types.IFileTemplateType;
+        FormDisplayMode: Types.IFormDisplayMode;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
         GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
         ListExperienceOptions: Types.IListExperienceOptions;
@@ -4454,6 +4456,16 @@ declare module 'gd-sprest/sptypes/sptypes' {
     };
     
     /**
+        * Environment Type
+        */
+    export type IEnvironmentType = {
+            ClassicSharePoint: number,
+            Local: number,
+            SharePoint: number,
+            Test: number
+    }
+    
+    /**
         * Field Index Status
         */
     export type IFieldIndexStatus = {
@@ -4659,6 +4671,15 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** export typeeration whose value specifies default wiki template. */
             WikiPage: number
     };
+    
+    /**
+        * Form Display Mode
+        */
+    export type IFormDisplayMode = {
+            Display: number,
+            Edit: number,
+            New: number
+    }
     
     /**
         * Friendly Date Format

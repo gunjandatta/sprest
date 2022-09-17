@@ -18,6 +18,7 @@ export interface ISPTypes {
     DraftVisibilityType: Types.IDraftVisibilityType;
     EventReceiverType: Types.IEventReceiverType;
     EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+    EnvironmentType: Types.IEnvironmentType;
     FieldIndexStatus: Types.IFieldIndexStatus;
     FieldNoteType: Types.IFieldNoteType;
     FieldNumberType: Types.IFieldNumberType;
@@ -26,6 +27,7 @@ export interface ISPTypes {
     FieldUserSelectionType: Types.IFieldUserSelectionType;
     FileLevelType: Types.IFileLevelType;
     FileTemplateType: Types.IFileTemplateType;
+    FormDisplayMode: Types.IFormDisplayMode;
     FriendlyDateFormat: Types.IFriendlyDateFormat;
     GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
     ListExperienceOptions: Types.IListExperienceOptions;

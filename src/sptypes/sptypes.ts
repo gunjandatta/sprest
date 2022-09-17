@@ -214,9 +214,19 @@ export const EventReceiverType: SPTypes.IEventReceiverType = {
 };
 
 /**
+ * Environment Type
+ */
+export const EnvironmentType: SPTypes.IEnvironmentType = {
+    ClassicSharePoint: 3,
+    Local: 1,
+    SharePoint: 2,
+    Test: 0
+}
+
+/**
  * Field Index Status
  */
-export type IFieldIndexStatus = {
+export const FieldIndexStatus: SPTypes.IFieldIndexStatus = {
     None: 0,
     Indexed: 1,
     Enabling: 2,
@@ -328,6 +338,15 @@ export const FileLevelType: SPTypes.IFileLevelType = { Published: 1, Draft: 2, C
  * File Template Types
 */
 export const FileTemplateType: SPTypes.IFileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
+
+/**
+ * Form Display Mode
+ */
+export const IFormDisplayMode: SPTypes.IFormDisplayMode = {
+    Display: 4,
+    Edit: 6,
+    New: 8
+}
 
 /**
  * Friendly Date Format

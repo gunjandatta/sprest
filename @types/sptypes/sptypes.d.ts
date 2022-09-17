@@ -447,6 +447,16 @@ export type IEventReceiverSynchronizationType = {
 };
 
 /**
+ * Environment Type
+ */
+export type IEnvironmentType = {
+    ClassicSharePoint: number,
+    Local: number,
+    SharePoint: number,
+    Test: number
+}
+
+/**
  * Field Index Status
  */
 export type IFieldIndexStatus = {
@@ -652,6 +662,15 @@ export type IFileTemplateType = {
     /** export typeeration whose value specifies default wiki template. */
     WikiPage: number
 };
+
+/**
+ * Form Display Mode
+ */
+export type IFormDisplayMode = {
+    Display: number,
+    Edit: number,
+    New: number
+}
 
 /**
  * Friendly Date Format
