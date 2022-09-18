@@ -342,7 +342,7 @@ export const FileTemplateType: SPTypes.IFileTemplateType = { StandardPage: 0, Wi
 /**
  * Form Display Mode
  */
-export const IFormDisplayMode: SPTypes.IFormDisplayMode = {
+export const FormDisplayMode: SPTypes.IFormDisplayMode = {
     Display: 4,
     Edit: 6,
     New: 8
