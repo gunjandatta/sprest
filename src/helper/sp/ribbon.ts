@@ -4,6 +4,7 @@ import { IRibbon } from "../../../@types/helper/sp";
  * Ribbon
  */
 export const Ribbon: IRibbon = {
+    get exists(): boolean { return window["Ribbon"] != null && window["Ribbon"].PageState != null; },
     PageState: {
         Handlers: {
             get isApproveEnabled(): boolean { return window["Ribbon"] && window["Ribbon"].PageState && window["Ribbon"].PageState.Handlers ? window["Ribbon"].PageState.Handlers.isApproveEnabled : null; },

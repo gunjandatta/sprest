@@ -43,6 +43,11 @@ export interface ISPComponents {
     Notify: INotify,
 
     /**
+     * Ribbon
+     */
+    Ribbon: IRibbon,
+
+    /**
      * ### How to wait for a library to be loaded
      * ```ts
      * Helper.SP.SOD.executeOrDelayUntilScriptLoaded(() => {
@@ -539,6 +544,7 @@ export interface INotify {
  * Ribbon
  */
 export interface IRibbon {
+    exists: boolean;
     PageState: {
         Handlers: {
             isApproveEnabled: boolean;

@@ -2496,6 +2496,11 @@ declare module 'gd-sprest/helper/sp' {
             Notify: INotify,
     
             /**
+                * Ribbon
+                */
+            Ribbon: IRibbon,
+    
+            /**
                 * ### How to wait for a library to be loaded
                 * ```ts
                 * Helper.SP.SOD.executeOrDelayUntilScriptLoaded(() => {
@@ -2992,6 +2997,7 @@ declare module 'gd-sprest/helper/sp' {
         * Ribbon
         */
     export interface IRibbon {
+            exists: boolean;
             PageState: {
                     Handlers: {
                             isApproveEnabled: boolean;
