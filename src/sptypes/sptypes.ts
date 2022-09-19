@@ -718,6 +718,30 @@ export const PrincipalTypes: SPTypes.IPrincipalTypes = {
 }
 
 /**
+ * Property Pane Types
+ */
+export const PropertyPaneType: SPTypes.IPropertyPaneType = {
+    Button: 11,
+    CheckBox: 2,
+    ChoiceGroup: 10,
+    Custom: 1,
+    Dropdown: 6,
+    DynamicField: 14,
+    DynamicFieldSet: 16,
+    DynamicTextField: 15,
+    Heading: 9,
+    HorizontalRule: 12,
+    IconPicker: 19,
+    Label: 7,
+    Link: 13,
+    Slider: 8,
+    SpinButton: 17,
+    TextField: 3,
+    ThumbnailPicker: 18,
+    Toggle: 5
+}
+
+/**
  * Relationship Delete Behavior Types
  */
 export const RelationshipDeleteBehaviorType: SPTypes.IRelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };

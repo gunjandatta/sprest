@@ -1271,6 +1271,30 @@ export type IPrincipalTypes = {
 }
 
 /**
+ * Property Pane Types
+ */
+export type IPropertyPaneType = {
+    Button: number,
+    CheckBox: number,
+    ChoiceGroup: number,
+    Custom: number,
+    Dropdown: number,
+    DynamicField: number,
+    DynamicFieldSet: number,
+    DynamicTextField: number,
+    Heading: number,
+    HorizontalRule: number,
+    IconPicker: number,
+    Label: number,
+    Link: number,
+    Slider: number,
+    SpinButton: number,
+    TextField: number,
+    ThumbnailPicker: number,
+    Toggle: number
+}
+
+/**
  * Relationship Delete Behavior Types
  */
 export type IRelationshipDeleteBehaviorType = {

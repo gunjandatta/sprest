@@ -40,6 +40,7 @@ export interface ISPTypes {
     PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
     PrincipalSources: Types.IPrincipalSources;
     PrincipalTypes: Types.IPrincipalTypes;
+    PropertyPaneType: Types.IPropertyPaneType;
     RelationshipDeleteBehaviorType: Types.IRelationshipDeleteBehaviorType;
     RenderListDataOptions: Types.IRenderListDataOptions;
     ReorderingRuleMatchType: Types.IReorderingRuleMatchType;

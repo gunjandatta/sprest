@@ -413,6 +413,7 @@ declare module 'gd-sprest/sptypes' {
         PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
         PrincipalSources: Types.IPrincipalSources;
         PrincipalTypes: Types.IPrincipalTypes;
+        PropertyPaneType: Types.IPropertyPaneType;
         RelationshipDeleteBehaviorType: Types.IRelationshipDeleteBehaviorType;
         RenderListDataOptions: Types.IRenderListDataOptions;
         ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
@@ -5312,6 +5313,30 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** Return user entity types. */
             User: number
+    }
+    
+    /**
+        * Property Pane Types
+        */
+    export type IPropertyPaneType = {
+            Button: number,
+            CheckBox: number,
+            ChoiceGroup: number,
+            Custom: number,
+            Dropdown: number,
+            DynamicField: number,
+            DynamicFieldSet: number,
+            DynamicTextField: number,
+            Heading: number,
+            HorizontalRule: number,
+            IconPicker: number,
+            Label: number,
+            Link: number,
+            Slider: number,
+            SpinButton: number,
+            TextField: number,
+            ThumbnailPicker: number,
+            Toggle: number
     }
     
     /**
