@@ -388,6 +388,7 @@ declare module 'gd-sprest/sptypes' {
         ClientTemplateUtility: Types.IClientTemplateUtility;
         ControlMode: Types.IControlMode;
         DateFormat: Types.IDateFormat;
+        DisplayMode: Types.IDisplayMode;
         DraftVisibilityType: Types.IDraftVisibilityType;
         EventReceiverType: Types.IEventReceiverType;
         EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
@@ -4237,6 +4238,14 @@ declare module 'gd-sprest/sptypes/sptypes' {
     }
     
     /**
+        * Display Mode
+        */
+    export type IDisplayMode = {
+            Edit: number,
+            Read: number
+    }
+    
+    /**
         * Draft Visibility Types
         */
     export type IDraftVisibilityType = {
@@ -4712,8 +4721,9 @@ declare module 'gd-sprest/sptypes/sptypes' {
         * Form Display Mode
         */
     export type IFormDisplayMode = {
+            Display: number,
             Edit: number,
-            Read: number
+            New: number
     }
     
     /**

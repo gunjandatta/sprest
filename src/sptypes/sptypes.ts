@@ -123,6 +123,14 @@ export const ControlMode: SPTypes.IControlMode = {
 export const DateFormat: SPTypes.IDateFormat = { DateOnly: 0, DateTime: 1 };
 
 /**
+ * Display Mode
+ */
+export const DisplayMode: SPTypes.IDisplayMode = {
+    Edit: 2,
+    Read: 1
+}
+
+/**
  * Draft Visibility Types
  */
 export const DraftVisibilityType: SPTypes.IDraftVisibilityType = { Reader: 0, Author: 1, Approver: 2 };
@@ -343,8 +351,9 @@ export const FileTemplateType: SPTypes.IFileTemplateType = { StandardPage: 0, Wi
  * Form Display Mode
  */
 export const FormDisplayMode: SPTypes.IFormDisplayMode = {
-    Edit: 2,
-    Read: 1
+    Display: 4,
+    Edit: 6,
+    New: 8
 }
 
 /**

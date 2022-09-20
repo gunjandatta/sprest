@@ -192,6 +192,14 @@ export type IDateFormat = {
 }
 
 /**
+ * Display Mode
+ */
+export type IDisplayMode = {
+    Edit: number,
+    Read: number
+}
+
+/**
  * Draft Visibility Types
  */
 export type IDraftVisibilityType = {
@@ -667,8 +675,9 @@ export type IFileTemplateType = {
  * Form Display Mode
  */
 export type IFormDisplayMode = {
+    Display: number,
     Edit: number,
-    Read: number
+    New: number
 }
 
 /**

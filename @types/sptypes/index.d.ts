@@ -15,6 +15,7 @@ export interface ISPTypes {
     ClientTemplateUtility: Types.IClientTemplateUtility;
     ControlMode: Types.IControlMode;
     DateFormat: Types.IDateFormat;
+    DisplayMode: Types.IDisplayMode;
     DraftVisibilityType: Types.IDraftVisibilityType;
     EventReceiverType: Types.IEventReceiverType;
     EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
