@@ -667,9 +667,8 @@ export type IFileTemplateType = {
  * Form Display Mode
  */
 export type IFormDisplayMode = {
-    Display: number,
     Edit: number,
-    New: number
+    Read: number
 }
 
 /**

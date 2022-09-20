@@ -4712,9 +4712,8 @@ declare module 'gd-sprest/sptypes/sptypes' {
         * Form Display Mode
         */
     export type IFormDisplayMode = {
-            Display: number,
             Edit: number,
-            New: number
+            Read: number
     }
     
     /**
