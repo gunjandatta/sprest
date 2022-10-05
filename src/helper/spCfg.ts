@@ -388,7 +388,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Update the list name and remove spaces
                     let listInfo = cfgList.ListInformation;
                     let listName = listInfo.Title;
-                    listInfo.Title = listName.replace(/ /g, "");
+                    listInfo.Title = cfgList.ListUrlName || listName.replace(/ /g, "");
 
                     // Add the list
                     lists.add(listInfo)

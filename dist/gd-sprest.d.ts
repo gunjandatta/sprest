@@ -3500,6 +3500,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The list creation information. */
             ListInformation: ListProps;
     
+            /** The list url name. */
+            ListUrlName?: string;
+    
             /** The title default value. */
             TitleFieldDefaultValue?: string;
     
