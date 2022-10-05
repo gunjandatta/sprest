@@ -12,6 +12,7 @@ export * from "./peoplePicker";
 export * from "./profileLoader";
 export * from "./search";
 export * from "./site";
+export * from "./siteIconManager";
 export * from "./siteManager";
 export * from "./sitePages";
 export * from "./socialFeed";

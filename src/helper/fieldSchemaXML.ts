@@ -194,6 +194,20 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
         _resolve(schemaXml);
     }
 
+    // Returns the schema xml for a image field.
+    let createImage = (fieldInfo: IFieldInfo, props: object) => {
+        let schemaXml: string = null;
+
+        // Set the field type
+        props["Type"] = "Thumbnail";
+
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+
+        // Resolve the request
+        _resolve(schemaXml);
+    }
+
     // Returns the schema xml for a lookup field.
     let createLookup = (fieldInfo: IFieldInfoLookup, props: object) => {
         // Set the field type
@@ -463,6 +477,10 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
                 // Guid
                 case SPCfgFieldType.Guid:
                     createGuid(fieldInfo, props);
+                    break;
+                // Image
+                case SPCfgFieldType.Image:
+                    createImage(fieldInfo, props);
                     break;
                 // Lookup
                 case SPCfgFieldType.Lookup:

@@ -1,40 +1,51 @@
-import { IGraphToken } from "../../@types/intellisense/graph";
-import { IGraph } from "../../@types/lib/graph";
+import { IGraph, IGraphProperties } from "../../@types/lib/graph";
+import { SPTypes } from "../sptypes";
 import { Base, Request, RequestType } from "../utils";
+
+// Default Token
+//export const Token
 
 /**
  * Graph
  */
-export const Graph: IGraph = ((accessToken: string, version?: string) => {
-    let graph = new Base({ accessToken });
+export const Graph: IGraph = ((props: IGraphProperties) => {
+    let graph = new Base({ accessToken: props && props.accessToken ? props.accessToken : Graph.Token });
 
     // Default the target information
-    graph.targetInfo.endpoint = version || "v1.0";
-    graph.targetInfo.requestType = RequestType.GraphGet;
+    graph.targetInfo.requestType = (props && props.requestType ? props.requestType : "").toLowerCase() == "post" ? RequestType.GraphPost : RequestType.GraphGet;
 
-    // Add the methods
-    Request.addMethods(graph, { __metadata: { type: "graph" } });
+    // Set the endpoint
+    graph.targetInfo.data = props ? props.data : null;
+    graph.targetInfo.endpoint = props && props.cloud ? props.cloud : Graph.Cloud || SPTypes.CloudEnvironment.Default;
+    graph.targetInfo.endpoint += "/" + (props && props.version ? props.version : Graph.Version || "v1.0");
+
+    // See if the url is set
+    if (props && props.url) {
+        // Set the endpoint
+        graph.targetInfo.endpoint += "/" + props.url;
+    } else {
+        // Add the default methods
+        Request.addMethods(graph, { __metadata: { type: "graph" } });
+    }
 
     // Return the graph
     return graph;
 }) as any;
 
-// Method to get the graph token from a classic page
-Graph.getAccessToken = (scope?: string): Promise<IGraphToken> => {
-    // Return a promise
-    return new Promise((resolve, reject) => {
-        // Set the data 
-        let data = { "resource": "https://graph.microsoft.com" };
-        scope ? data["scope"] = scope : null;
+// Default Values
+Graph.Cloud = "";
+Graph.Token = "";
+Graph.Version = "";
 
-        // Get the access token
-        (new Base({
-            endpoint: "SP.OAuth.Token/Acquire",
-            data,
-            method: "POST"
-        })).execute(token => {
-            // Resolve the promise
-            resolve(token);
-        });
-    });
+// Method to get the graph token from a classic page
+Graph.getAccessToken = (resource?: string) => {
+    // Set the data 
+    let data = { "resource": resource || SPTypes.CloudEnvironment.Default };
+
+    // Get the access token
+    return new Base({
+        endpoint: "SP.OAuth.Token/Acquire",
+        method: "POST",
+        data
+    }) as any;
 }

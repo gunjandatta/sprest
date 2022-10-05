@@ -22,7 +22,9 @@ export const RequestType: IRequestType = {
 
     // Graph Requests
     GraphGet: 20,
-    GraphPost: 21,
+    GraphGetReplace: 21,
+    GraphPost: 22,
+    GraphPostReplace: 23,
 
     // Post Requests
     Post: 30,

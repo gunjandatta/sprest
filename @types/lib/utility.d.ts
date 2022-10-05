@@ -1,4 +1,4 @@
-import * as SP from "../intellisense/utility";
+import { IUtility as IUtilityCore } from "../intellisense/utility";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -17,5 +17,5 @@ export interface IUtility {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    (url?: string, targetInfo?: ITargetInfoProps): SP.IUtility;
+    (url?: string, targetInfo?: ITargetInfoProps): IUtilityCore;
 }

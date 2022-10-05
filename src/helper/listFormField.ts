@@ -1,8 +1,8 @@
 import {
-    IListFormField, IListFormFieldInfo, IListFormLookupFieldInfo,
-    IListFormMMSFieldInfo, IListFormDateFieldInfo,
+    IListFormField, IListFormFieldInfo, IListFormImageFieldInfo,
+    IListFormLookupFieldInfo, IListFormMMSFieldInfo, IListFormDateFieldInfo,
     IListFormTextFieldInfo, IListFormUserFieldInfo, IListFormChoiceFieldInfo,
-    IListFormNumberFieldInfo, ITermInfo
+    IListFormNumberFieldInfo, ITermInfo, IListFormResult
 } from "../../@types/helper";
 import { SP } from "gd-sprest-def";
 import { Helper, Site, SPTypes, Web } from "..";
@@ -143,6 +143,57 @@ export const ListFormField: IListFormField = {
                 // Load the field
                 load();
             }
+        });
+    },
+
+    // Method to get the folder to store the image field file in
+    getOrCreateImageFolder: (info: IListFormResult): PromiseLike<SP.Folder> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the site assets library
+            (() => {
+                return new Promise(resolve => {
+                    Web(info.webUrl).Lists("Site Assets").execute(
+                        // Exists
+                        lib => {
+                            // Resolve the request
+                            resolve(lib);
+                        },
+                        // Doesn't Exist
+                        () => {
+                            // Create the list
+                            Web(info.webUrl).Lists().add({
+                                Title: "SiteAssets",
+                                BaseTemplate: SPTypes.ListTemplateType.DocumentLibrary
+                            }).execute(lib => {
+                                // Update the title
+                                lib.update({ Title: "Site Assets" }).execute(() => {
+                                    // Resolve the request
+                                    resolve(lib);
+                                }, reject);
+                            });
+                        }
+                    );
+                });
+            })().then((siteAssets: SP.List) => {
+                // Get the list id folder
+                siteAssets.RootFolder().Folders(info.list.Id).execute(
+                    // Exists
+                    folder => {
+                        // Resolve the request
+                        resolve(folder);
+                    },
+
+                    // Doesn't Exist
+                    () => {
+                        // Create the folder
+                        siteAssets.RootFolder().Folders().add(info.list.Id).execute(folder => {
+                            // Resolve the request
+                            resolve(folder);
+                        }, reject);
+                    }
+                );
+            });
         });
     },
 

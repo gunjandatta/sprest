@@ -358,11 +358,23 @@ export interface ISPCfgListInfo {
     /** The list creation information. */
     ListInformation: ListProps;
 
+    /** The list url name. */
+    ListUrlName?: string;
+
+    /** The title default value. */
+    TitleFieldDefaultValue?: string;
+
     /** The title display name. */
     TitleFieldDisplayName?: string;
 
     /** Flag to index the title field. */
     TitleFieldIndexed?: boolean;
+
+    /** Flag to enfore a value. */
+    TitleFieldRequired?: boolean;
+
+    /** Flag to enforce unique values. */
+    TitleFieldUniqueValues?: boolean;
 
     /** The user custom actions. */
     UserCustomActions?: Array<UserCustomActionProps>;
@@ -371,9 +383,14 @@ export interface ISPCfgListInfo {
     ViewInformation?: Array<ISPCfgViewInfo>;
 
     /**
-     * Event triggered after the list is created or updated.
+     * Event triggered after the list is created and configured.
      */
     onCreated?: (list: List) => void;
+
+    /**
+     * Event triggered after the list is created.
+     */
+    onCreating?: (list: List) => void;
 
     /**
      * Event triggered after the list is updated.
@@ -385,6 +402,9 @@ export interface ISPCfgListInfo {
  * SharePoint Configuration - View Information
  */
 export interface ISPCfgViewInfo {
+    /** Flag to set the view as the default view. */
+    Default?: boolean;
+
     /** The JSLink property. */
     JSLink?: string;
 

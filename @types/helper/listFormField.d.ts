@@ -1,5 +1,5 @@
 import { IODataQuery } from "gd-sprest-def/base";
-import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
+import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, Folder, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
 import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
 import { ITermInfo } from "./taxonomy";
 
@@ -66,6 +66,17 @@ export interface IListFormDateFieldInfo extends IListFormFieldInfo {
 
     /** Flag determining if we are displaying time */
     showTime?: boolean;
+}
+
+/**
+ * List Form Image Field Information
+ */
+export interface IListFormImageFieldInfo extends IListFormFieldInfo {
+    /** The list id field. */
+    listId?: string;
+
+    /** The web containing the list. */
+    webUrl?: string;
 }
 
 /**
@@ -182,6 +193,9 @@ export interface IListFormField {
      * @param props - The list form field properties
      */
     create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+
+    /** Method to get or create the associated folder for a list's image field. */
+    getOrCreateImageFolder(info: IListFormResult): PromiseLike<Folder>;
 
     /** Method to load the lookup data */
     loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;

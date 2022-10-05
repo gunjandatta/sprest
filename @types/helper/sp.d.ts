@@ -43,6 +43,11 @@ export interface ISPComponents {
     Notify: INotify,
 
     /**
+     * Ribbon
+     */
+    Ribbon: IRibbon,
+
+    /**
      * ### How to wait for a library to be loaded
      * ```ts
      * Helper.SP.SOD.executeOrDelayUntilScriptLoaded(() => {
@@ -533,6 +538,36 @@ export interface INotify {
      * @param id - The notification to remove from the page.
      */
     removeNotification(id: string);
+}
+
+/**
+ * Ribbon
+ */
+export interface IRibbon {
+    exists: boolean;
+    PageState: {
+        Handlers: {
+            isApproveEnabled: boolean;
+            isCancelApprovalEnabled: boolean;
+            isCheckinEnabled: boolean;
+            isCheckoutEnabled: boolean;
+            isDeleteEnabled: boolean;
+            isDiscardcheckoutEnabled: boolean;
+            isDontSaveAndStopEnabled: boolean;
+            isEditEnabled: boolean;
+            isInEditMode: boolean;
+            isOverrideCheckoutEnabled: boolean;
+            isPublishEnabled: boolean;
+            isRejectEnabled: boolean;
+            isSaveAndStopEditEnabled: boolean;
+            isSaveEnabled: boolean;
+            isSubmitForApprovalEnabled: boolean;
+            isUnpublishEnabled: boolean;
+            onCancelButton: (...args) => void;
+            onOkButton: (...args) => void;
+            showStateChangeDialog: boolean;
+        }
+    }
 }
 
 /**

@@ -1,4 +1,5 @@
 const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = (env, argv) => {
     var isDev = argv.mode === "development";
@@ -14,6 +15,10 @@ module.exports = (env, argv) => {
             filename: "gd-sprest" + (isDev ? "" : ".min") + ".js"
         },
         target: ["web", "es5"],
+        optimization: {
+            minimize: true,
+            minimizer: [new TerserPlugin()]
+        },
         module: {
             rules: [
                 {

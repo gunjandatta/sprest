@@ -1,4 +1,5 @@
 import * as WebPartTypes from "../../@types/helper/webpart";
+import { Ribbon } from "./sp/ribbon";
 declare var MSOWebPartPageFormName;
 
 /**
@@ -248,7 +249,11 @@ class _WebPart {
      * Method to detect if a page is being edited
      */
     static isEditMode = () => {
-        let formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
+        // See if the ribbon page state exists
+        if (Ribbon.PageState.Handlers.isInEditMode != null) {
+            // Return the mode
+            return Ribbon.PageState.Handlers.isInEditMode;
+        }
 
         // Get the form
         let form = document.forms[MSOWebPartPageFormName];

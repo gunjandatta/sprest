@@ -1,4 +1,4 @@
-import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+import { ISPHubSitesUtility as ISPHubSitesUtilityCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -16,5 +16,5 @@ export interface IHubSitesUtility {
      * Creates an instance of the user profile library.
      * @param targetInfo - (Optional) The target information.
      */
-    (targetInfo?: ITargetInfoProps): SP.ISPHubSitesUtility;
+    (targetInfo?: ITargetInfoProps): ISPHubSitesUtilityCore;
 }

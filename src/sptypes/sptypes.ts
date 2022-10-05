@@ -97,6 +97,16 @@ export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
 }
 
 /**
+ * Cloud Environments
+ */
+export const CloudEnvironment: SPTypes.ICloudEnvironment = {
+    Default: "https://graph.microsoft.com",
+    China: "https://microsoftgraph.chinacloudapi.cn",
+    USL4: "https://graph.microsoft.us",
+    USL5: "https://dod-graph.microsoft.us"
+}
+
+/**
  * Control Modes
  */
 export const ControlMode: SPTypes.IControlMode = {
@@ -111,6 +121,14 @@ export const ControlMode: SPTypes.IControlMode = {
  * Date Format
  */
 export const DateFormat: SPTypes.IDateFormat = { DateOnly: 0, DateTime: 1 };
+
+/**
+ * Display Mode
+ */
+export const DisplayMode: SPTypes.IDisplayMode = {
+    Edit: 2,
+    Read: 1
+}
 
 /**
  * Draft Visibility Types
@@ -204,9 +222,19 @@ export const EventReceiverType: SPTypes.IEventReceiverType = {
 };
 
 /**
+ * Environment Type
+ */
+export const EnvironmentType: SPTypes.IEnvironmentType = {
+    ClassicSharePoint: 3,
+    Local: 1,
+    SharePoint: 2,
+    Test: 0
+}
+
+/**
  * Field Index Status
  */
-export type IFieldIndexStatus = {
+export const FieldIndexStatus: SPTypes.IFieldIndexStatus = {
     None: 0,
     Indexed: 1,
     Enabling: 2,
@@ -284,6 +312,7 @@ export const FieldType: SPTypes.IFieldType = {
     Geolocation: 31,
     GridChoice: 16,
     Guid: 14,
+    Image: 34,
     Integer: 1,
     Invalid: 0,
     Lookup: 7,
@@ -317,6 +346,15 @@ export const FileLevelType: SPTypes.IFileLevelType = { Published: 1, Draft: 2, C
  * File Template Types
 */
 export const FileTemplateType: SPTypes.IFileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
+
+/**
+ * Form Display Mode
+ */
+export const FormDisplayMode: SPTypes.IFormDisplayMode = {
+    Display: 4,
+    Edit: 6,
+    New: 8
+}
 
 /**
  * Friendly Date Format
@@ -685,6 +723,30 @@ export const PrincipalTypes: SPTypes.IPrincipalTypes = {
     SecurityGroup: 4,
     SharePointGroup: 8,
     User: 1
+}
+
+/**
+ * Property Pane Types
+ */
+export const PropertyPaneType: SPTypes.IPropertyPaneType = {
+    Button: 11,
+    CheckBox: 2,
+    ChoiceGroup: 10,
+    Custom: 1,
+    Dropdown: 6,
+    DynamicField: 14,
+    DynamicFieldSet: 16,
+    DynamicTextField: 15,
+    Heading: 9,
+    HorizontalRule: 12,
+    IconPicker: 19,
+    Label: 7,
+    Link: 13,
+    Slider: 8,
+    SpinButton: 17,
+    TextField: 3,
+    ThumbnailPicker: 18,
+    Toggle: 5
 }
 
 /**

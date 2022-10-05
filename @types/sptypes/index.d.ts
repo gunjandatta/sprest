@@ -15,9 +15,11 @@ export interface ISPTypes {
     ClientTemplateUtility: Types.IClientTemplateUtility;
     ControlMode: Types.IControlMode;
     DateFormat: Types.IDateFormat;
+    DisplayMode: Types.IDisplayMode;
     DraftVisibilityType: Types.IDraftVisibilityType;
     EventReceiverType: Types.IEventReceiverType;
     EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+    EnvironmentType: Types.IEnvironmentType;
     FieldIndexStatus: Types.IFieldIndexStatus;
     FieldNoteType: Types.IFieldNoteType;
     FieldNumberType: Types.IFieldNumberType;
@@ -26,6 +28,7 @@ export interface ISPTypes {
     FieldUserSelectionType: Types.IFieldUserSelectionType;
     FileLevelType: Types.IFileLevelType;
     FileTemplateType: Types.IFileTemplateType;
+    FormDisplayMode: Types.IFormDisplayMode;
     FriendlyDateFormat: Types.IFriendlyDateFormat;
     GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
     ListExperienceOptions: Types.IListExperienceOptions;
@@ -38,6 +41,7 @@ export interface ISPTypes {
     PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
     PrincipalSources: Types.IPrincipalSources;
     PrincipalTypes: Types.IPrincipalTypes;
+    PropertyPaneType: Types.IPropertyPaneType;
     RelationshipDeleteBehaviorType: Types.IRelationshipDeleteBehaviorType;
     RenderListDataOptions: Types.IRenderListDataOptions;
     ReorderingRuleMatchType: Types.IReorderingRuleMatchType;

@@ -11,13 +11,14 @@ export const SPCfgFieldType: ISPCfgFieldType = {
     Date: 4,
     Geolocation: 5,
     Guid: 6,
-    Lookup: 7,
-    MMS: 8,
-    Note: 9,
-    Number: 10,
-    Text: 11,
-    Url: 12,
-    User: 13
+    Image: 7,
+    Lookup: 8,
+    MMS: 9,
+    Note: 10,
+    Number: 11,
+    Text: 12,
+    Url: 13,
+    User: 14
 }
 
 /**

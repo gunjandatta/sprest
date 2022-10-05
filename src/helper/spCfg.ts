@@ -267,12 +267,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             }
                         }, reject);
                     });
-                }).then(resolve);
+                }).then(resolve, reject);
             }, reject);
         });
     }
 
-    // Method to create the fields`
+    // Method to create the fields
     let createFields = (fields: SP.IFieldCollection, cfgFields: Array<ISPCfgFieldInfo>, list?: SP.List): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject): PromiseLike<void> => {
@@ -388,12 +388,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Update the list name and remove spaces
                     let listInfo = cfgList.ListInformation;
                     let listName = listInfo.Title;
-                    listInfo.Title = listName.replace(/ /g, "");
+                    listInfo.Title = cfgList.ListUrlName || listName.replace(/ /g, "");
 
                     // Add the list
                     lists.add(listInfo)
                         // Execute the request
                         .execute((list) => {
+                            cfgList["_list"] = list;
+
                             // Restore the list name in the configuration
                             listInfo.Title = listName;
 
@@ -418,7 +420,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 }
 
                                 // Trigger the event
-                                cfgList.onCreated ? cfgList.onCreated(list) : null;
+                                cfgList.onCreating ? cfgList.onCreating(list) : null;
                             } else {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
@@ -432,10 +434,18 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }).then(() => {
                 // Update the lists
                 updateLists(cfgLists).then(() => {
+                    // Parse the lists
+                    for (let i = 0; i < cfgLists.length; i++) {
+                        let cfgList = cfgLists[i];
+
+                        // Trigger the event
+                        cfgList.onCreated ? cfgList.onCreated(cfgList["_list"]) : null;
+                    }
+
                     // Resolve the promise
                     resolve();
-                });
-            })
+                }, reject);
+            });
         });
     }
 
@@ -1045,6 +1055,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             if (cfgList.TitleFieldDisplayName || cfgList.TitleFieldIndexed) {
                 let values = {};
 
+                // See if we are setting a default value
+                if (cfgList.TitleFieldDefaultValue) {
+                    // Update the values
+                    values["DefaultValue"] = cfgList.TitleFieldDefaultValue;
+                }
+
                 // See if the title field is being updated
                 if (cfgList.TitleFieldDisplayName) {
                     // Update the values
@@ -1052,9 +1068,22 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 }
 
                 // See if we are indexing the field
-                if (cfgList.TitleFieldIndexed) {
+                // Note - To enforce unique values, the field must be indexed
+                if (cfgList.TitleFieldUniqueValues || cfgList.TitleFieldIndexed) {
                     // Update the values
                     values["Indexed"] = true;
+                }
+
+                // See if we are requiring a value
+                if (typeof (cfgList.TitleFieldRequired) === "boolean") {
+                    // Update the values
+                    values["Required"] = cfgList.TitleFieldRequired;
+                }
+
+                // See if we are enforcing unique values
+                if (cfgList.TitleFieldUniqueValues) {
+                    // Update the values
+                    values["EnforceUniqueValues"] = true;
                 }
 
                 // Update the field name
@@ -1100,13 +1129,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // See if we are updating the view properties
-                    if (cfg.JSLink || cfg.ViewQuery) {
+                    if (typeof (cfg.Default) === "boolean" || cfg.JSLink || cfg.ViewQuery) {
                         let props = {};
 
                         // Log
                         console.log("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
 
                         // Set the properties
+                        typeof (cfg.Default) === "boolean" ? props["DefaultView"] = cfg.Default : null;
                         cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
                         cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
 

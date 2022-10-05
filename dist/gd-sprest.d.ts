@@ -5,6 +5,7 @@
 //   ../gd-sprest-def/lib/SP/entitytypes
 //   ../gd-sprest-def
 //   ../gd-sprest-def/lib/Microsoft/AppServices/entitytypes
+//   ../gd-sprest-def/lib/microsoft
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes
 //   ../gd-sprest-def/lib/SP/UserProfiles/entitytypes
@@ -25,11 +26,11 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
+    import { Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
     export {
-            Apps, ContextInfo, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteManager, SitePages,
-            SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
+            Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
+            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager,
+            SitePages, SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
     /**
@@ -77,6 +78,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/profileLoader";
     export * from "gd-sprest/lib/search";
     export * from "gd-sprest/lib/site";
+    export * from "gd-sprest/lib/siteIconManager";
     export * from "gd-sprest/lib/siteManager";
     export * from "gd-sprest/lib/sitePages";
     export * from "gd-sprest/lib/socialFeed";
@@ -295,6 +297,11 @@ declare module 'gd-sprest/rest' {
             Site: LibTypes.ISite;
     
             /**
+                * Use this api to get/set the icon for a site.
+                */
+            SiteIconManager: LibTypes.ISiteIconManager;
+    
+            /**
                 * Use this api to create/delete site collections.
                 */
             SiteManager: LibTypes.ISiteManager;
@@ -381,9 +388,11 @@ declare module 'gd-sprest/sptypes' {
         ClientTemplateUtility: Types.IClientTemplateUtility;
         ControlMode: Types.IControlMode;
         DateFormat: Types.IDateFormat;
+        DisplayMode: Types.IDisplayMode;
         DraftVisibilityType: Types.IDraftVisibilityType;
         EventReceiverType: Types.IEventReceiverType;
         EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+        EnvironmentType: Types.IEnvironmentType;
         FieldIndexStatus: Types.IFieldIndexStatus;
         FieldNoteType: Types.IFieldNoteType;
         FieldNumberType: Types.IFieldNumberType;
@@ -392,6 +401,7 @@ declare module 'gd-sprest/sptypes' {
         FieldUserSelectionType: Types.IFieldUserSelectionType;
         FileLevelType: Types.IFileLevelType;
         FileTemplateType: Types.IFileTemplateType;
+        FormDisplayMode: Types.IFormDisplayMode;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
         GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
         ListExperienceOptions: Types.IListExperienceOptions;
@@ -404,6 +414,7 @@ declare module 'gd-sprest/sptypes' {
         PersonalSiteCapabilities: Types.IPersonalSiteCapabilities;
         PrincipalSources: Types.IPrincipalSources;
         PrincipalTypes: Types.IPrincipalTypes;
+        PropertyPaneType: Types.IPropertyPaneType;
         RelationshipDeleteBehaviorType: Types.IRelationshipDeleteBehaviorType;
         RenderListDataOptions: Types.IRenderListDataOptions;
         ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
@@ -716,6 +727,9 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Page Personalization Scope */
             pagePersonalizationScope: number;
     
+            /** Portal URL */
+            portalUrl: string;
+    
             /** Prefer User Time Zone */
             preferUserTimeZone: boolean;
     
@@ -925,36 +939,83 @@ declare module 'gd-sprest/lib/contextInfo' {
 }
 
 declare module 'gd-sprest/lib/graph' {
-    import * as SP from "gd-sprest/intellisense/graph";
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { Graph as GraphCore } from "gd-sprest-def/lib/microsoft";
+    import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
     import { ITargetInfo } from "gd-sprest/utils";
     
     /**
         * Graph
-        * @hidden
         */
     export const Graph: IGraph;
     
     /**
+        * Graph Properties
+        */
+    export interface IGraphProperties {
+            /** The access token. Defaults to the Graph.Token value if not set. */
+            accessToken?: string;
+    
+            /** The cloud environment. Defaults to the Graph.Cloud or commercial environment if not set. */
+            cloud?: string;
+    
+            /** The data to be sent in the body of the request. */
+            data?: string;
+    
+            /** The request type GET or POST. */
+            requestType?: string;
+    
+            /** The url of the graph api request. */
+            url: string;
+    
+            /** The version of the graph api to use. */
+            version?: string;
+    }
+    
+    /**
+        * Graph EndPoints
+        */
+    export interface IGraphCustom extends IGraphCore {
+            me(): IBaseExecution<GraphCore.user>;
+            group(id: string): IBaseExecution<GraphCore.group>;
+            groups(): IBaseExecution<GraphCore.groupCollections>;
+            list(siteId: string, id: string): IBaseExecution<GraphCore.list>;
+            lists(siteId: string): IBaseExecution<GraphCore.listCollections>;
+            site(id: string): IBaseExecution<GraphCore.site>;
+            sites(): IBaseExecution<GraphCore.siteCollections>;
+            user(id: string): IBaseExecution<GraphCore.user>;
+            users(): IBaseExecution<GraphCore.userCollections>;
+    }
+    
+    /**
         * Graph
-        * @hidden
         */
     export interface IGraph {
             /**
                 * Creates an instance of the graph library.
-                * @param accessToken - The access token for the graph api request.
-                * @param version - The version of the graph to target.
+                * @param props - The graph request information.
                 */
-            (accessToken: string, version?: string): SP.IGraph;
+            (props?: IGraphProperties): IGraphCustom;
+    
+            /** The default cloud environment to use for the requests. */
+            Cloud: string;
+    
+            /** The default token to use for the requests. */
+            Token: string;
+    
+            /** The default version to use for the requests. */
+            Version: string;
     
             /**
                 * Method to get the access token from a classic page.
+                * @param resource - The graph api endpoint.
                 */
-            getAccessToken(): Promise<SP.IGraphToken>;
+            getAccessToken(resource?: string): IBaseExecution<IGraphToken>;
     }
 }
 
 declare module 'gd-sprest/lib/groupService' {
-    import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { IGroupService as IGroupServiceCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -972,12 +1033,12 @@ declare module 'gd-sprest/lib/groupService' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IGroupService;
+            (targetInfo?: ITargetInfoProps): IGroupServiceCore;
     }
 }
 
 declare module 'gd-sprest/lib/groupSiteManager' {
-    import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { IGroupSiteManager as IGroupSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -995,7 +1056,7 @@ declare module 'gd-sprest/lib/groupSiteManager' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IGroupSiteManager;
+            (targetInfo?: ITargetInfoProps): IGroupSiteManagerCore;
     }
 }
 
@@ -1029,7 +1090,7 @@ declare module 'gd-sprest/lib/hubSites' {
 }
 
 declare module 'gd-sprest/lib/hubSitesUtility' {
-    import * as SP from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ISPHubSitesUtility as ISPHubSitesUtilityCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1047,14 +1108,14 @@ declare module 'gd-sprest/lib/hubSitesUtility' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.ISPHubSitesUtility;
+            (targetInfo?: ITargetInfoProps): ISPHubSitesUtilityCore;
     }
 }
 
 declare module 'gd-sprest/lib/list' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
-    import * as SP from "gd-sprest-def/lib/SP/entitytypes";
+    import { IList as IListCore, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1095,14 +1156,14 @@ declare module 'gd-sprest/lib/list' {
                 * @param listName - The name of the list.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (listName: string, targetInfo?: ITargetInfoProps): SP.IList;
+            (listName: string, targetInfo?: ITargetInfoProps): IListCore;
     
             /**
                 * @category List
                 * A static method to get the list by the entity name.
                 * @param props - The list entity request properties.
                 */
-            getByEntityName(props: IListEntityProps): SP.IList;
+            getByEntityName(props: IListEntityProps): IListCore;
     
             /**
                 * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
@@ -1117,7 +1178,7 @@ declare module 'gd-sprest/lib/list' {
         * List Data Stream
         * @category List
         */
-    export interface IListDataStream<RowProps = SP.ListItem> {
+    export interface IListDataStream<RowProps = ListItem> {
             FilterFields?: string;
             FilterLink: string;
             FirstRow: number;
@@ -1135,7 +1196,7 @@ declare module 'gd-sprest/lib/list' {
         */
     export interface IListEntityProps {
             /** The callback method. */
-            callback?: (list: SP.IList) => void;
+            callback?: (list: IListCore) => void;
     
             /** The list entity name. */
             name: string;
@@ -1173,7 +1234,7 @@ declare module 'gd-sprest/lib/navigation' {
 }
 
 declare module 'gd-sprest/lib/peopleManager' {
-    import * as SP from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { IPeopleManager as IPeopleManagerCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1191,12 +1252,12 @@ declare module 'gd-sprest/lib/peopleManager' {
                 * Creates an instance of the people manager library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IPeopleManager;
+            (targetInfo?: ITargetInfoProps): IPeopleManagerCore;
     }
 }
 
 declare module 'gd-sprest/lib/peoplePicker' {
-    import * as SP from "gd-sprest/intellisense/peoplePicker";
+    import { IPeoplePicker as IPeoplePickerCore } from "gd-sprest/intellisense/peoplePicker";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1214,12 +1275,12 @@ declare module 'gd-sprest/lib/peoplePicker' {
                 * Creates an instance of the people picker library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IPeoplePicker;
+            (targetInfo?: ITargetInfoProps): IPeoplePickerCore;
     }
 }
 
 declare module 'gd-sprest/lib/profileLoader' {
-    import * as SP from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { IProfileLoader as IProfileLoaderCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1237,7 +1298,7 @@ declare module 'gd-sprest/lib/profileLoader' {
                 * Creates an instance of the profile loader library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IProfileLoader;
+            (targetInfo?: ITargetInfoProps): IProfileLoaderCore;
     }
 }
 
@@ -1287,7 +1348,7 @@ declare module 'gd-sprest/lib/search' {
 
 declare module 'gd-sprest/lib/site' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as SP from "gd-sprest-def/lib/SP/entitytypes";
+    import { ISite as ISiteCore } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1329,7 +1390,7 @@ declare module 'gd-sprest/lib/site' {
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.ISite;
+            (url?: string, targetInfo?: ITargetInfoProps): ISiteCore;
     
             /**
                 * Method to check if a site collection exists.
@@ -1367,9 +1428,34 @@ declare module 'gd-sprest/lib/site' {
     }
 }
 
+declare module 'gd-sprest/lib/siteIconManager' {
+    import { SiteIconManager as SiteIconManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/siteIconManager
+        *
+        */
+    export const SiteIconManager: ISiteIconManager;
+    
+    /**
+        * Site Icon Manager
+        * @category Site Icon Manager
+        */
+    export interface ISiteIconManager {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SiteIconManagerCore;
+    }
+}
+
 declare module 'gd-sprest/lib/siteManager' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as Portal from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ISPSiteManager as ISPSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1411,11 +1497,12 @@ declare module 'gd-sprest/lib/siteManager' {
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): Portal.ISPSiteManager;
+            (url?: string, targetInfo?: ITargetInfoProps): ISPSiteManagerCore;
     }
 }
 
 declare module 'gd-sprest/lib/sitePages' {
+    import { File, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
     import { SitePage, ISitePageService } from "gd-sprest-def/lib/SP/Publishing/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
@@ -1449,14 +1536,16 @@ declare module 'gd-sprest/lib/sitePages' {
     
             /**
                 * Creates a modern page.
-                * @param url - The url of the file to create.
+                * @param fileName - The name of the file to create, including the .aspx extension.
                 * @param title - The title of the page.
                 * @param template - The type of page to create.
+                * @param url - The url of the web to create the page in.
+                * @param targetInfo - The target information properties.
                 */
-            createPage(url: string, title: string, template: string): PromiseLike<{
-                    file: SP.File;
-                    item: SP.ListItem;
-                    page: SP.Publishing.SitePage;
+            createPage(fileName: string, title: string, template: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{
+                    file: File;
+                    item: ListItem;
+                    page: SitePage;
             }>;
     }
 }
@@ -1500,7 +1589,7 @@ declare module 'gd-sprest/lib/socialFeed' {
 }
 
 declare module 'gd-sprest/lib/themeManager' {
-    import * as SP from "gd-sprest-def/lib/SP/Utilities/entitytypes";
+    import { IThemeManager as IThemeManagerCore } from "gd-sprest-def/lib/SP/Utilities/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1518,7 +1607,7 @@ declare module 'gd-sprest/lib/themeManager' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): SP.IThemeManager;
+            (targetInfo?: ITargetInfoProps): IThemeManagerCore;
     }
 }
 
@@ -1546,7 +1635,7 @@ declare module 'gd-sprest/lib/userProfile' {
 }
 
 declare module 'gd-sprest/lib/utility' {
-    import * as SP from "gd-sprest/intellisense/utility";
+    import { IUtility as IUtilityCore } from "gd-sprest/intellisense/utility";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -1565,7 +1654,7 @@ declare module 'gd-sprest/lib/utility' {
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.IUtility;
+            (url?: string, targetInfo?: ITargetInfoProps): IUtilityCore;
     }
 }
 
@@ -2154,7 +2243,7 @@ declare module 'gd-sprest/helper/listForm' {
 
 declare module 'gd-sprest/helper/listFormField' {
     import { IODataQuery } from "gd-sprest-def/base";
-    import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
+    import { Field, FieldChoice, FieldCurrency, FieldDateTime, FieldLookup, FieldMultiChoice, FieldMultiLineText, FieldNumber, FieldOData, FieldText, FieldUrl, FieldUser, Folder, IListItemQuery } from "gd-sprest-def/lib/SP/entitytypes";
     import { ITaxonomyField, TaxonomyField } from "gd-sprest-def/lib/SP/Taxonomy/entitytypes";
     import { ITermInfo } from "gd-sprest/helper/taxonomy";
     
@@ -2221,6 +2310,17 @@ declare module 'gd-sprest/helper/listFormField' {
     
             /** Flag determining if we are displaying time */
             showTime?: boolean;
+    }
+    
+    /**
+        * List Form Image Field Information
+        */
+    export interface IListFormImageFieldInfo extends IListFormFieldInfo {
+            /** The list id field. */
+            listId?: string;
+    
+            /** The web containing the list. */
+            webUrl?: string;
     }
     
     /**
@@ -2338,6 +2438,9 @@ declare module 'gd-sprest/helper/listFormField' {
                 */
             create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
     
+            /** Method to get or create the associated folder for a list's image field. */
+            getOrCreateImageFolder(info: IListFormResult): PromiseLike<Folder>;
+    
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<IListItemQuery>>;
     
@@ -2393,6 +2496,11 @@ declare module 'gd-sprest/helper/sp' {
                 * ```
                 */
             Notify: INotify,
+    
+            /**
+                * Ribbon
+                */
+            Ribbon: IRibbon,
     
             /**
                 * ### How to wait for a library to be loaded
@@ -2888,6 +2996,36 @@ declare module 'gd-sprest/helper/sp' {
     }
     
     /**
+        * Ribbon
+        */
+    export interface IRibbon {
+            exists: boolean;
+            PageState: {
+                    Handlers: {
+                            isApproveEnabled: boolean;
+                            isCancelApprovalEnabled: boolean;
+                            isCheckinEnabled: boolean;
+                            isCheckoutEnabled: boolean;
+                            isDeleteEnabled: boolean;
+                            isDiscardcheckoutEnabled: boolean;
+                            isDontSaveAndStopEnabled: boolean;
+                            isEditEnabled: boolean;
+                            isInEditMode: boolean;
+                            isOverrideCheckoutEnabled: boolean;
+                            isPublishEnabled: boolean;
+                            isRejectEnabled: boolean;
+                            isSaveAndStopEditEnabled: boolean;
+                            isSaveEnabled: boolean;
+                            isSubmitForApprovalEnabled: boolean;
+                            isUnpublishEnabled: boolean;
+                            onCancelButton: (...args) => void;
+                            onOkButton: (...args) => void;
+                            showStateChangeDialog: boolean;
+                    }
+            }
+    }
+    
+    /**
         * Script on Demand (SOD)
         */
     export interface ISOD {
@@ -3362,11 +3500,23 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The list creation information. */
             ListInformation: ListProps;
     
+            /** The list url name. */
+            ListUrlName?: string;
+    
+            /** The title default value. */
+            TitleFieldDefaultValue?: string;
+    
             /** The title display name. */
             TitleFieldDisplayName?: string;
     
             /** Flag to index the title field. */
             TitleFieldIndexed?: boolean;
+    
+            /** Flag to enfore a value. */
+            TitleFieldRequired?: boolean;
+    
+            /** Flag to enforce unique values. */
+            TitleFieldUniqueValues?: boolean;
     
             /** The user custom actions. */
             UserCustomActions?: Array<UserCustomActionProps>;
@@ -3375,9 +3525,14 @@ declare module 'gd-sprest/helper/spCfg' {
             ViewInformation?: Array<ISPCfgViewInfo>;
     
             /**
-                * Event triggered after the list is created or updated.
+                * Event triggered after the list is created and configured.
                 */
             onCreated?: (list: List) => void;
+    
+            /**
+                * Event triggered after the list is created.
+                */
+            onCreating?: (list: List) => void;
     
             /**
                 * Event triggered after the list is updated.
@@ -3389,6 +3544,9 @@ declare module 'gd-sprest/helper/spCfg' {
         * SharePoint Configuration - View Information
         */
     export interface ISPCfgViewInfo {
+            /** Flag to set the view as the default view. */
+            Default?: boolean;
+    
             /** The JSLink property. */
             JSLink?: string;
     
@@ -3522,6 +3680,7 @@ declare module 'gd-sprest/helper/spCfgTypes' {
             Date: number;
             Geolocation: number;
             Guid: number;
+            Image: number;
             Lookup: number;
             MMS: number;
             Note: number;
@@ -4041,6 +4200,16 @@ declare module 'gd-sprest/sptypes/sptypes' {
     }
     
     /**
+        * Cloud Environments
+        */
+    export type ICloudEnvironment = {
+            China: string;
+            Default: string;
+            USL4: string;
+            USL5: string;
+    }
+    
+    /**
         * Control Modes
         */
     export type IControlMode = {
@@ -4069,6 +4238,14 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** Displays the date and time. */
             DateTime: number
+    }
+    
+    /**
+        * Display Mode
+        */
+    export type IDisplayMode = {
+            Edit: number,
+            Read: number
     }
     
     /**
@@ -4327,6 +4504,16 @@ declare module 'gd-sprest/sptypes/sptypes' {
     };
     
     /**
+        * Environment Type
+        */
+    export type IEnvironmentType = {
+            ClassicSharePoint: number,
+            Local: number,
+            SharePoint: number,
+            Test: number
+    }
+    
+    /**
         * Field Index Status
         */
     export type IFieldIndexStatus = {
@@ -4439,6 +4626,9 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** Specifies that the field contains a GUID value. */
             Guid: number,
     
+            /** Specifies that the field is an image. */
+            Image: number,
+    
             /** Specifies that the field contains an integer value. */
             Integer: number,
     
@@ -4529,6 +4719,15 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** export typeeration whose value specifies default wiki template. */
             WikiPage: number
     };
+    
+    /**
+        * Form Display Mode
+        */
+    export type IFormDisplayMode = {
+            Display: number,
+            Edit: number,
+            New: number
+    }
     
     /**
         * Friendly Date Format
@@ -5126,6 +5325,30 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** Return user entity types. */
             User: number
+    }
+    
+    /**
+        * Property Pane Types
+        */
+    export type IPropertyPaneType = {
+            Button: number,
+            CheckBox: number,
+            ChoiceGroup: number,
+            Custom: number,
+            Dropdown: number,
+            DynamicField: number,
+            DynamicFieldSet: number,
+            DynamicTextField: number,
+            Heading: number,
+            HorizontalRule: number,
+            IconPicker: number,
+            Label: number,
+            Link: number,
+            Slider: number,
+            SpinButton: number,
+            TextField: number,
+            ThumbnailPicker: number,
+            Toggle: number
     }
     
     /**
@@ -6435,7 +6658,9 @@ declare module 'gd-sprest/utils/requestType' {
     
         // Graph Requests
         GraphGet: number;
+        GraphGetReplace: number;
         GraphPost: number;
+        GraphPostReplace: number;
     
         // Post Requests
         Post: number;

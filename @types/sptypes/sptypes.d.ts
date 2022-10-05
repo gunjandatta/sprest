@@ -151,6 +151,16 @@ export type IClientSidePageLayout = {
 }
 
 /**
+ * Cloud Environments
+ */
+export type ICloudEnvironment = {
+    China: string;
+    Default: string;
+    USL4: string;
+    USL5: string;
+}
+
+/**
  * Control Modes
  */
 export type IControlMode = {
@@ -179,6 +189,14 @@ export type IDateFormat = {
 
     /** Displays the date and time. */
     DateTime: number
+}
+
+/**
+ * Display Mode
+ */
+export type IDisplayMode = {
+    Edit: number,
+    Read: number
 }
 
 /**
@@ -437,6 +455,16 @@ export type IEventReceiverSynchronizationType = {
 };
 
 /**
+ * Environment Type
+ */
+export type IEnvironmentType = {
+    ClassicSharePoint: number,
+    Local: number,
+    SharePoint: number,
+    Test: number
+}
+
+/**
  * Field Index Status
  */
 export type IFieldIndexStatus = {
@@ -549,6 +577,9 @@ export type IFieldType = {
     /** Specifies that the field contains a GUID value. */
     Guid: number,
 
+    /** Specifies that the field is an image. */
+    Image: number,
+
     /** Specifies that the field contains an integer value. */
     Integer: number,
 
@@ -639,6 +670,15 @@ export type IFileTemplateType = {
     /** export typeeration whose value specifies default wiki template. */
     WikiPage: number
 };
+
+/**
+ * Form Display Mode
+ */
+export type IFormDisplayMode = {
+    Display: number,
+    Edit: number,
+    New: number
+}
 
 /**
  * Friendly Date Format
@@ -1236,6 +1276,30 @@ export type IPrincipalTypes = {
 
     /** Return user entity types. */
     User: number
+}
+
+/**
+ * Property Pane Types
+ */
+export type IPropertyPaneType = {
+    Button: number,
+    CheckBox: number,
+    ChoiceGroup: number,
+    Custom: number,
+    Dropdown: number,
+    DynamicField: number,
+    DynamicFieldSet: number,
+    DynamicTextField: number,
+    Heading: number,
+    HorizontalRule: number,
+    IconPicker: number,
+    Label: number,
+    Link: number,
+    Slider: number,
+    SpinButton: number,
+    TextField: number,
+    ThumbnailPicker: number,
+    Toggle: number
 }
 
 /**

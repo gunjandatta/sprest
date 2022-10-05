@@ -18,6 +18,7 @@ export type ISPCfgFieldType = {
     Date: number;
     Geolocation: number;
     Guid: number;
+    Image: number;
     Lookup: number;
     MMS: number;
     Note: number;
