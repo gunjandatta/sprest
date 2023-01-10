@@ -154,8 +154,10 @@ export type IClientSidePageLayout = {
  * Cloud Environments
  */
 export type ICloudEnvironment = {
-    China: string;
     Default: string;
+    China: string;
+    Flow: string;
+    Office: string;
     USL4: string;
     USL5: string;
 }

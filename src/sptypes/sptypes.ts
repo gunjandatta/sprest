@@ -100,8 +100,10 @@ export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
  * Cloud Environments
  */
 export const CloudEnvironment: SPTypes.ICloudEnvironment = {
-    Default: "https://graph.microsoft.com",
     China: "https://microsoftgraph.chinacloudapi.cn",
+    Default: "https://graph.microsoft.com",
+    Flow: "https://service.flow.microsoft.com/",
+    Office: "https://substrate.office.com",
     USL4: "https://graph.microsoft.us",
     USL5: "https://dod-graph.microsoft.us"
 }
