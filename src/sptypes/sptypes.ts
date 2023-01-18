@@ -79,14 +79,6 @@ export const CheckOutType: SPTypes.ICheckOutType = { Online: 0, Offline: 1, None
 export const ChoiceFormatType: SPTypes.IChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
 
 /**
- * Client Template Utility
- */
-export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
-    UserLookupDelimitString: ";#",
-    UserMultiValueDelimitString: ",#"
-}
-
-/**
  * Client Side Templates
  */
 export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
@@ -94,6 +86,14 @@ export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
     Home: "Home",
     RepostPage: "RepostPage",
     SingleWebPartAppPage: "SingleWebPartAppPage"
+}
+
+/**
+ * Client Template Utility
+ */
+ export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
+    UserLookupDelimitString: ";#",
+    UserMultiValueDelimitString: ",#"
 }
 
 /**
