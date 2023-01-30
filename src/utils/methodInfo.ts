@@ -190,7 +190,7 @@ export class MethodInfo implements Base.IMethodInfo {
             let data = this.methodData || this.methodParams;
 
             // Stringify the data to be passed in the body
-            this.methodData = JSON.stringify(data);
+            this.methodData = data ? JSON.stringify(data) : null;
         }
 
         // See if we are passing the data in the query string as a variable

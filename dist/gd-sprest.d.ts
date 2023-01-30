@@ -4207,6 +4207,8 @@ declare module 'gd-sprest/sptypes/sptypes' {
             Default: string;
             China: string;
             Flow: string;
+            FlowL4: string;
+            FlowL5: string;
             Office: string;
             USL4: string;
             USL5: string;

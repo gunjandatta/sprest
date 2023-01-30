@@ -8852,13 +8852,15 @@ export const Mapper: IMapper = {
 
         getList: {
             argNames: ["strUrl"],
-            requestType: RequestType.GetWithArgsValueOnly,
+            name: "getList(@l)?@l='[[strUrl]]'",
+            requestType: RequestType.GetReplace,
             returnType: "SP.List"
         },
 
         getListItem: {
             argNames: ["strUrl"],
-            requestType: RequestType.GetWithArgsValueOnly,
+            name: "getListItem(@l)?@l='[[strUrl]]'",
+            requestType: RequestType.GetReplace,
         },
 
         getListItemByResourceId: {
