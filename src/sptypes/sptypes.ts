@@ -103,6 +103,8 @@ export const CloudEnvironment: SPTypes.ICloudEnvironment = {
     China: "https://microsoftgraph.chinacloudapi.cn",
     Default: "https://graph.microsoft.com",
     Flow: "https://service.flow.microsoft.com/",
+    FlowL4: "https://gov.service.flow.microsoft.us/",
+    FlowL5: "https://high.service.flow.microsoft.us/",
     Office: "https://substrate.office.com",
     USL4: "https://graph.microsoft.us",
     USL5: "https://dod-graph.microsoft.us"
