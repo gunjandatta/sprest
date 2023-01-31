@@ -157,8 +157,12 @@ export type ICloudEnvironment = {
     Default: string;
     China: string;
     Flow: string;
-    FlowL4: string;
-    FlowL5: string;
+    FlowChina: string;
+    FlowDoD: string;
+    FlowGov: string;
+    FlowHigh: string;
+    FlowUSNat: string;
+    FlowUSSec: string;
     Office: string;
     USL4: string;
     USL5: string;

@@ -91,7 +91,7 @@ export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
 /**
  * Client Template Utility
  */
- export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
+export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
     UserLookupDelimitString: ";#",
     UserMultiValueDelimitString: ",#"
 }
@@ -103,8 +103,12 @@ export const CloudEnvironment: SPTypes.ICloudEnvironment = {
     China: "https://microsoftgraph.chinacloudapi.cn",
     Default: "https://graph.microsoft.com",
     Flow: "https://service.flow.microsoft.com/",
-    FlowL4: "https://gov.service.flow.microsoft.us/",
-    FlowL5: "https://high.service.flow.microsoft.us/",
+    FlowChina: "https://service.powerautomate.cn/",
+    FlowDoD: "https://service.flow.appsplatform.us/",
+    FlowGov: "https://gov.service.flow.microsoft.us/",
+    FlowHigh: "https://high.service.flow.microsoft.us/",
+    FlowUSNat: "https://service.flow.eaglex.ic.gov/",
+    FlowUSSec: "https://service.flow.microsoft.scloud/",
     Office: "https://substrate.office.com",
     USL4: "https://graph.microsoft.us",
     USL5: "https://dod-graph.microsoft.us"
