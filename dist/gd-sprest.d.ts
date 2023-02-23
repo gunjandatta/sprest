@@ -4045,6 +4045,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/request";
     export * from "gd-sprest/helper/methods/setContentTypeFields";
     export * from "gd-sprest/helper/methods/setGroupOwner";
+    export * from "gd-sprest/helper/methods/stringify";
 }
 
 declare module 'gd-sprest/sptypes/sptypes' {
@@ -6476,6 +6477,17 @@ declare module 'gd-sprest/helper/methods/setGroupOwner' {
     export const setGroupOwner: IsetGroupOwner;
     export interface IsetGroupOwner {
         (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/stringify' {
+    /**
+      * Convert an object to a string
+      * @category Helper
+      */
+    export const stringify: IStringify;
+    export interface IStringify {
+        (obj: any): string;
     }
 }
 
