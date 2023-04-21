@@ -4271,6 +4271,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/copyPermissionLevel";
     export * from "gd-sprest/helper/methods/createContentType";
     export * from "gd-sprest/helper/methods/createDocSet";
+    export * from "gd-sprest/helper/methods/getCurrentTheme";
     export * from "gd-sprest/helper/methods/hasPermissions";
     export * from "gd-sprest/helper/methods/loadSPCore";
     export * from "gd-sprest/helper/methods/parse";
@@ -6623,6 +6624,17 @@ declare module 'gd-sprest/helper/methods/createDocSet' {
     export const createDocSet: IcreateDocSet;
     export interface IcreateDocSet {
         (name: string, listName: string, webUrl?: string): PromiseLike<ListItem>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/getCurrentTheme' {
+    /**
+      * Gets the current theme information for a classic page.
+      * @category Helper
+      */
+    export const getCurrentTheme: PromiseLike<{ [key: string]: string }>;
+    export interface IgetCurrentTheme {
+        (): PromiseLike<{ [key: string]: string }>;
     }
 }
 

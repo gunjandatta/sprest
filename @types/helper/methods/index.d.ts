@@ -4,6 +4,7 @@ export * from "./addScriptEditorWebPart";
 export * from "./copyPermissionLevel";
 export * from "./createContentType";
 export * from "./createDocSet";
+export * from "./getCurrentTheme";
 export * from "./hasPermissions";
 export * from "./loadSPCore";
 export * from "./parse";
