@@ -55,7 +55,7 @@ const getThemeInfo = (url: string = ""): PromiseLike<{ [key: string]: string }> 
                     let color = colors[i];
 
                     // Add the color information
-                    themeInfo[color.getAttribute("name")] = color.getAttribute("value");
+                    themeInfo[color.getAttribute("name")] = "#" + color.getAttribute("value");
                 }
 
                 // Resolve the request
