@@ -8807,7 +8807,8 @@ export const Mapper: IMapper = {
 
         getFileByUrl: {
             argNames: ["fileUrl"],
-            requestType: RequestType.GetWithArgsValueOnly,
+            name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
+            requestType: RequestType.GetReplace,
             returnType: "SP.File"
         },
 
