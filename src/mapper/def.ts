@@ -7230,18 +7230,26 @@ export const Mapper: IMapper = {
     "SP.RemoteWeb": {
         getFileByServerRelativePath: {
             argNames: ["serverRelatvieFilePath"],
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByServerRelativeUrl: {
             argNames: ["serverRelativeFileUrl"],
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByUrl: {
             argNames: ["fileUrl"],
+            name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
+            requestType: RequestType.GetReplace
         },
 
         getFolderByServerRelativeUrl: {
             argNames: ["serverRelativeUrl"],
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.Folder"
         },
 
         getGroupById: {
@@ -8808,8 +8816,7 @@ export const Mapper: IMapper = {
         getFileByUrl: {
             argNames: ["fileUrl"],
             name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
-            requestType: RequestType.GetReplace,
-            returnType: "SP.File"
+            requestType: RequestType.GetReplace
         },
 
         getFileByWOPIFrameUrl: {
