@@ -53,9 +53,17 @@ const getThemeInfo = (url: string = ""): PromiseLike<{ [key: string]: string }> 
                 let colors = xmlDoc.getElementsByTagName("s:color");
                 for (let i = 0; i < colors.length; i++) {
                     let color = colors[i];
+                    let key = color.getAttribute("name");
+                    let value = color.getAttribute("value");
+
+                    // See if the length is > 6 characters
+                    if (value.length > 6) {
+                        // Convert the value
+                        value = value.slice(2, 8) + value[0] + value[1];
+                    }
 
                     // Add the color information
-                    themeInfo[color.getAttribute("name")] = "#" + color.getAttribute("value");
+                    themeInfo[key] = "#" + value;
                 }
 
                 // Resolve the request
