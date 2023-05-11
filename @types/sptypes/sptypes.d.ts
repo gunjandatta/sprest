@@ -154,8 +154,23 @@ export type IClientSidePageLayout = {
  * Cloud Environments
  */
 export type ICloudEnvironment = {
-    China: string;
     Default: string;
+    China: string;
+    Flow: string;
+    FlowAPI: string;
+    FlowChina: string;
+    FlowChinaAPI: string;
+    FlowDoD: string;
+    FlowDoDAPI: string;
+    FlowGov: string;
+    FlowGovAPI: string;
+    FlowHigh: string;
+    FlowHighAPI: string;
+    FlowUSNat: string;
+    FlowUSNatAPI: string;
+    FlowUSSec: string;
+    FlowUSSecAPI: string;
+    Office: string;
     USL4: string;
     USL5: string;
 }

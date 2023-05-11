@@ -7230,18 +7230,26 @@ export const Mapper: IMapper = {
     "SP.RemoteWeb": {
         getFileByServerRelativePath: {
             argNames: ["serverRelatvieFilePath"],
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByServerRelativeUrl: {
             argNames: ["serverRelativeFileUrl"],
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.File"
         },
 
         getFileByUrl: {
             argNames: ["fileUrl"],
+            name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
+            requestType: RequestType.GetReplace
         },
 
         getFolderByServerRelativeUrl: {
             argNames: ["serverRelativeUrl"],
+            requestType: RequestType.GetWithArgsValueOnly,
+            returnType: "SP.Folder"
         },
 
         getGroupById: {
@@ -8807,8 +8815,8 @@ export const Mapper: IMapper = {
 
         getFileByUrl: {
             argNames: ["fileUrl"],
-            requestType: RequestType.GetWithArgsValueOnly,
-            returnType: "SP.File"
+            name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
+            requestType: RequestType.GetReplace
         },
 
         getFileByWOPIFrameUrl: {
@@ -8852,13 +8860,15 @@ export const Mapper: IMapper = {
 
         getList: {
             argNames: ["strUrl"],
-            requestType: RequestType.GetWithArgsValueOnly,
+            name: "getList(@l)?@l='[[strUrl]]'",
+            requestType: RequestType.GetReplace,
             returnType: "SP.List"
         },
 
         getListItem: {
             argNames: ["strUrl"],
-            requestType: RequestType.GetWithArgsValueOnly,
+            name: "getListItem(@l)?@l='[[strUrl]]'",
+            requestType: RequestType.GetReplace,
         },
 
         getListItemByResourceId: {

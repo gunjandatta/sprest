@@ -79,14 +79,6 @@ export const CheckOutType: SPTypes.ICheckOutType = { Online: 0, Offline: 1, None
 export const ChoiceFormatType: SPTypes.IChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
 
 /**
- * Client Template Utility
- */
-export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
-    UserLookupDelimitString: ";#",
-    UserMultiValueDelimitString: ",#"
-}
-
-/**
  * Client Side Templates
  */
 export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
@@ -97,11 +89,34 @@ export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
 }
 
 /**
+ * Client Template Utility
+ */
+export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
+    UserLookupDelimitString: ";#",
+    UserMultiValueDelimitString: ",#"
+}
+
+/**
  * Cloud Environments
  */
 export const CloudEnvironment: SPTypes.ICloudEnvironment = {
-    Default: "https://graph.microsoft.com",
     China: "https://microsoftgraph.chinacloudapi.cn",
+    Default: "https://graph.microsoft.com",
+    Flow: "https://service.flow.microsoft.com/",
+    FlowAPI: "https://api.flow.microsoft.com/",
+    FlowChina: "https://service.powerautomate.cn/",
+    FlowChinaAPI: "https://api.powerautomate.cn/",
+    FlowDoD: "https://service.flow.appsplatform.us/",
+    FlowDoDAPI: "https://api.flow.appsplatform.us/",
+    FlowGov: "https://gov.service.flow.microsoft.us/",
+    FlowGovAPI: "https://gov.api.flow.microsoft.us/",
+    FlowHigh: "https://high.service.flow.microsoft.us/",
+    FlowHighAPI: "https://high.api.flow.microsoft.us/",
+    FlowUSNat: "https://service.flow.eaglex.ic.gov/",
+    FlowUSNatAPI: "https://api.flow.eaglex.ic.gov/",
+    FlowUSSec: "https://service.flow.microsoft.scloud/",
+    FlowUSSecAPI: "https://api.flow.microsoft.scloud/",
+    Office: "https://substrate.office.com",
     USL4: "https://graph.microsoft.us",
     USL5: "https://dod-graph.microsoft.us"
 }

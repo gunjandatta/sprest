@@ -13,12 +13,13 @@ export interface ISPTypes {
     ChoiceFormatType: Types.IChoiceFormatType;
     ClientSidePageLayout: Types.IClientSidePageLayout;
     ClientTemplateUtility: Types.IClientTemplateUtility;
+    CloudEnvironment: Types.ICloudEnvironment;
     ControlMode: Types.IControlMode;
     DateFormat: Types.IDateFormat;
     DisplayMode: Types.IDisplayMode;
     DraftVisibilityType: Types.IDraftVisibilityType;
-    EventReceiverType: Types.IEventReceiverType;
     EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+    EventReceiverType: Types.IEventReceiverType;
     EnvironmentType: Types.IEnvironmentType;
     FieldIndexStatus: Types.IFieldIndexStatus;
     FieldNoteType: Types.IFieldNoteType;
@@ -30,7 +31,7 @@ export interface ISPTypes {
     FileTemplateType: Types.IFileTemplateType;
     FormDisplayMode: Types.IFormDisplayMode;
     FriendlyDateFormat: Types.IFriendlyDateFormat;
-    GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
+    //GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
     ListExperienceOptions: Types.IListExperienceOptions;
     ListTemplateType: Types.IListTemplateType;
     LocaleLCIDType: Types.ILocaleLCIDType;

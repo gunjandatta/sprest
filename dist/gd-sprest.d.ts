@@ -386,12 +386,13 @@ declare module 'gd-sprest/sptypes' {
         ChoiceFormatType: Types.IChoiceFormatType;
         ClientSidePageLayout: Types.IClientSidePageLayout;
         ClientTemplateUtility: Types.IClientTemplateUtility;
+        CloudEnvironment: Types.ICloudEnvironment;
         ControlMode: Types.IControlMode;
         DateFormat: Types.IDateFormat;
         DisplayMode: Types.IDisplayMode;
         DraftVisibilityType: Types.IDraftVisibilityType;
-        EventReceiverType: Types.IEventReceiverType;
         EventReceiverSynchronizationType: Types.IEventReceiverSynchronizationType;
+        EventReceiverType: Types.IEventReceiverType;
         EnvironmentType: Types.IEnvironmentType;
         FieldIndexStatus: Types.IFieldIndexStatus;
         FieldNoteType: Types.IFieldNoteType;
@@ -403,7 +404,7 @@ declare module 'gd-sprest/sptypes' {
         FileTemplateType: Types.IFileTemplateType;
         FormDisplayMode: Types.IFormDisplayMode;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
-        GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
+        //GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
         ListExperienceOptions: Types.IListExperienceOptions;
         ListTemplateType: Types.IListTemplateType;
         LocaleLCIDType: Types.ILocaleLCIDType;
@@ -808,6 +809,9 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Tenant Display Name */
             tenantDisplayName: string;
     
+            /** The current theme State */
+            theme: IThemeState;
+    
             /** Theme Cache Token */
             themeCacheToken: string;
     
@@ -935,6 +939,235 @@ declare module 'gd-sprest/lib/contextInfo' {
                 * @param spfxPageContext - The page context information variable from a SPFx project.
                 */
             setPageContext(spfxPageContext: any);
+    }
+    
+    export interface IThemeState {
+            accent: string;
+            accentButtonBackground: string;
+            accentButtonText: string;
+            actionLink: string;
+            actionLinkHovered: string;
+            black: string;
+            blackTranslucent40: string;
+            blockingBackground: string;
+            blockingIcon: string;
+            blue: string;
+            blueDark: string;
+            blueLight: string;
+            blueMid: string;
+            bodyBackground: string;
+            bodyBackgroundChecked: string;
+            bodyBackgroundHovered: string;
+            bodyDivider: string;
+            bodyFrameBackground: string;
+            bodyFrameDivider: string;
+            bodyStandoutBackground: string;
+            bodySubtext: string;
+            bodyText: string;
+            bodyTextChecked: string;
+            buttonBackground: string;
+            buttonBackgroundChecked: string;
+            buttonBackgroundCheckedHovered: string;
+            buttonBackgroundDisabled: string;
+            buttonBackgroundHovered: string;
+            buttonBackgroundPressed: string;
+            buttonBorder: string;
+            buttonBorderDisabled: string;
+            buttonText: string;
+            buttonTextChecked: string;
+            buttonTextCheckedHovered: string;
+            buttonTextDisabled: string;
+            buttonTextHovered: string;
+            buttonTextPressed: string;
+            cardShadow: string;
+            cardShadowHovered: string;
+            cardStandoutBackground: string;
+            defaultStateBackground: string;
+            disabledBackground: string;
+            disabledBodySubtext: string;
+            disabledBodyText: string;
+            disabledBorder: string;
+            disabledSubtext: string;
+            disabledText: string;
+            elevation4: string;
+            elevation8: string;
+            elevation16: string;
+            elevation64: string;
+            errorBackground: string;
+            errorIcon: string;
+            errorText: string;
+            focusBorder: string;
+            green: string;
+            greenDark: string;
+            greenLight: string;
+            infoBackground: string;
+            infoIcon: string;
+            inputBackground: string;
+            inputBackgroundChecked: string;
+            inputBackgroundCheckedHovered: string;
+            inputBorder: string;
+            inputBorderHovered: string;
+            inputFocusBorderAlt: string;
+            inputForegroundChecked: string;
+            inputIcon: string;
+            inputIconDisabled: string;
+            inputIconHovered: string;
+            inputPlaceholderBackgroundChecked: string;
+            inputPlaceholderText: string;
+            inputText: string;
+            inputTextHovered: string;
+            largeFontFamily: string;
+            largeFontSize: string;
+            largeFontWeight: string;
+            largeMozOsxFontSmoothing: string;
+            largeWebkitFontSmoothing: string;
+            link: string;
+            linkHovered: string;
+            listBackground: string;
+            listHeaderBackgroundHovered: string;
+            listHeaderBackgroundPressed: string;
+            listItemBackgroundChecked: string;
+            listItemBackgroundCheckedHovered: string;
+            listItemBackgroundHovered: string;
+            listText: string;
+            listTextColor: string;
+            magenta: string;
+            magentaDark: string;
+            magentaLight: string;
+            mediumFontFamily: string;
+            mediumFontSize: string;
+            mediumFontWeight: string;
+            mediumMozOsxFontSmoothing: string;
+            mediumPlusFontFamily: string;
+            mediumPlusFontSize: string;
+            mediumPlusFontWeight: string;
+            mediumPlusMozOsxFontSmoothing: string;
+            mediumPlusWebkitFontSmoothing: string;
+            mediumWebkitFontSmoothing: string;
+            megaFontFamily: string;
+            megaFontSize: string;
+            megaFontWeight: string;
+            megaMozOsxFontSmoothing: string;
+            megaWebkitFontSmoothing: string;
+            menuBackground: string;
+            menuDivider: string;
+            menuHeader: string;
+            menuIcon: string;
+            menuItemBackgroundChecked: string;
+            menuItemBackgroundHovered: string;
+            menuItemBackgroundPressed: string;
+            menuItemText: string;
+            menuItemTextHovered: string;
+            messageLink: string;
+            messageLinkHovered: string;
+            messageText: string;
+            neutralDark: string;
+            neutralLight: string;
+            neutralLighter: string;
+            neutralLighterAlt: string;
+            neutralPrimary: string;
+            neutralPrimaryAlt: string;
+            neutralQuaternary: string;
+            neutralQuaternaryAlt: string;
+            neutralSecondary: string;
+            neutralSecondaryAlt: string;
+            neutralTertiary: string;
+            neutralTertiaryAlt: string;
+            orange: string;
+            orangeLight: string;
+            orangeLighter: string;
+            primaryButtonBackground: string;
+            primaryButtonBackgroundDisabled: string;
+            primaryButtonBackgroundHovered: string;
+            primaryButtonBackgroundPressed: string;
+            primaryButtonBorder: string;
+            primaryButtonText: string;
+            primaryButtonTextDisabled: string;
+            primaryButtonTextHovered: string;
+            primaryButtonTextPressed: string;
+            purple: string;
+            purpleDark: string;
+            purpleLight: string;
+            red: string;
+            redDark: string;
+            roundedCorner2: string;
+            roundedCorner4: string;
+            roundedCorner6: string;
+            severeWarningBackground: string;
+            severeWarningIcon: string;
+            smallFontFamily: string;
+            smallFontSize: string;
+            smallFontWeight: string;
+            smallInputBorder: string;
+            smallMozOsxFontSmoothing: string;
+            smallPlusFontFamily: string;
+            smallPlusFontSize: string;
+            smallPlusFontWeight: string;
+            smallPlusMozOsxFontSmoothing: string;
+            smallPlusWebkitFontSmoothing: string;
+            smallWebkitFontSmoothing: string;
+            successBackground: string;
+            successIcon: string;
+            successText: string;
+            superLargeFontFamily: string;
+            superLargeFontSize: string;
+            superLargeFontWeight: string;
+            superLargeMozOsxFontSmoothing: string;
+            superLargeWebkitFontSmoothing: string;
+            teal: string;
+            tealDark: string;
+            tealLight: string;
+            themeAccentTranslucent10: string;
+            themeDark: string;
+            themeDarkAlt: string;
+            themeDarker: string;
+            themeLight: string;
+            themeLighter: string;
+            themeLighterAlt: string;
+            themePrimary: string;
+            themeSecondary: string;
+            themeTertiary: string;
+            tinyFontFamily: string;
+            tinyFontSize: string;
+            tinyFontWeight: string;
+            tinyMozOsxFontSmoothing: string;
+            tinyWebkitFontSmoothing: string;
+            variantBorder: string;
+            variantBorderHovered: string;
+            warningBackground: string;
+            warningHighlight: string;
+            warningIcon: string;
+            warningText: string;
+            white: string;
+            whiteTranslucent40: string;
+            xLargeFontFamily: string;
+            xLargeFontSize: string;
+            xLargeFontWeight: string;
+            xLargeMozOsxFontSmoothing: string;
+            xLargePlusFontFamily: string;
+            xLargePlusFontSize: string;
+            xLargePlusFontWeight: string;
+            xLargePlusMozOsxFontSmoothing: string;
+            xLargePlusWebkitFontSmoothing: string;
+            xLargeWebkitFontSmoothing: string;
+            xSmallFontFamily: string;
+            xSmallFontSize: string;
+            xSmallFontWeight: string;
+            xSmallMozOsxFontSmoothing: string;
+            xSmallWebkitFontSmoothing: string;
+            xxLargeFontFamily: string;
+            xxLargeFontSize: string;
+            xxLargeFontWeight: string;
+            xxLargeMozOsxFontSmoothing: string;
+            xxLargePlusFontFamily: string;
+            xxLargePlusFontSize: string;
+            xxLargePlusFontWeight: string;
+            xxLargePlusMozOsxFontSmoothing: string;
+            xxLargePlusWebkitFontSmoothing: string;
+            xxLargeWebkitFontSmoothing: string;
+            yellow: string;
+            yellowDark: string;
+            yellowLight: string;
     }
 }
 
@@ -4038,12 +4271,14 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/copyPermissionLevel";
     export * from "gd-sprest/helper/methods/createContentType";
     export * from "gd-sprest/helper/methods/createDocSet";
+    export * from "gd-sprest/helper/methods/getCurrentTheme";
     export * from "gd-sprest/helper/methods/hasPermissions";
     export * from "gd-sprest/helper/methods/loadSPCore";
     export * from "gd-sprest/helper/methods/parse";
     export * from "gd-sprest/helper/methods/request";
     export * from "gd-sprest/helper/methods/setContentTypeFields";
     export * from "gd-sprest/helper/methods/setGroupOwner";
+    export * from "gd-sprest/helper/methods/stringify";
 }
 
 declare module 'gd-sprest/sptypes/sptypes' {
@@ -4203,8 +4438,23 @@ declare module 'gd-sprest/sptypes/sptypes' {
         * Cloud Environments
         */
     export type ICloudEnvironment = {
-            China: string;
             Default: string;
+            China: string;
+            Flow: string;
+            FlowAPI: string;
+            FlowChina: string;
+            FlowChinaAPI: string;
+            FlowDoD: string;
+            FlowDoDAPI: string;
+            FlowGov: string;
+            FlowGovAPI: string;
+            FlowHigh: string;
+            FlowHighAPI: string;
+            FlowUSNat: string;
+            FlowUSNatAPI: string;
+            FlowUSSec: string;
+            FlowUSSecAPI: string;
+            Office: string;
             USL4: string;
             USL5: string;
     }
@@ -6377,6 +6627,17 @@ declare module 'gd-sprest/helper/methods/createDocSet' {
     }
 }
 
+declare module 'gd-sprest/helper/methods/getCurrentTheme' {
+    /**
+      * Gets the current theme information for a classic page.
+      * @category Helper
+      */
+    export const getCurrentTheme: IgetCurrentTheme;
+    export interface IgetCurrentTheme {
+        (): PromiseLike<{ [key: string]: string }>;
+    }
+}
+
 declare module 'gd-sprest/helper/methods/hasPermissions' {
     /**
       * Determines if the user has permissions, based on the permission kind value
@@ -6460,6 +6721,17 @@ declare module 'gd-sprest/helper/methods/setGroupOwner' {
     export const setGroupOwner: IsetGroupOwner;
     export interface IsetGroupOwner {
         (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/stringify' {
+    /**
+      * Convert an object to a string
+      * @category Helper
+      */
+    export const stringify: IStringify;
+    export interface IStringify {
+        (obj: any): string;
     }
 }
 

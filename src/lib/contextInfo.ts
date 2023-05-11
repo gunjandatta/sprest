@@ -139,6 +139,7 @@ class _ContextInfo {
     static get teamsChannelType() { return this._contextInfo.teamsChannelType; }
     static get tenantAppVersion() { return this._contextInfo.tenantAppVersion; }
     static get tenantDisplayName() { return this._contextInfo.tenantDisplayName; }
+    static get theme() { return (this.window && this.window["__themeState__"] ? this.window["__themeState__"].theme : null) || {}; }
     static get themeCacheToken() { return this._contextInfo.themeCacheToken; }
     static get themedCssFolderUrl() { return this._contextInfo.themedCssFolderUrl; }
     static get themedImageFileNames() { return this._contextInfo.themedImageFileNames; }
