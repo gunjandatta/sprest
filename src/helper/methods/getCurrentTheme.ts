@@ -117,6 +117,6 @@ const waitForModernTheme = (): PromiseLike<void> => {
                 // Reject the request
                 reject();
             }
-        }, 10);
+        }, 25);
     });
 }
