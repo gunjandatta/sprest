@@ -2351,6 +2351,9 @@ declare module 'gd-sprest/helper/listForm' {
     
             /** The name of the file */
             name: string;
+    
+            /** The source file */
+            src: any;
     }
     
     /**

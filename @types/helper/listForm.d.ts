@@ -77,6 +77,9 @@ export interface IListFormAttachmentInfo {
 
     /** The name of the file */
     name: string;
+
+    /** The source file */
+    src: any;
 }
 
 /**

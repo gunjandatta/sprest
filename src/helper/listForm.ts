@@ -607,9 +607,9 @@ export const ListForm: IListForm = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Method to add an attachment
-            let addAttachment = (name, data) => {
+            let addAttachment = (name, data, src) => {
                 // Call the save event
-                onSave ? onSave({ name, data }) : null;
+                onSave ? onSave({ name, data, src }) : null;
 
                 // Get the list
                 info.list
@@ -649,7 +649,7 @@ export const ListForm: IListForm = {
                         // See if the info exists
                         if (info) {
                             // Add the attachment
-                            addAttachment(srcFile.name, ev.target.result);
+                            addAttachment(srcFile.name, ev.target.result, srcFile);
                         } else {
                             // Remove the element
                             document.body.removeChild(el);
@@ -657,7 +657,8 @@ export const ListForm: IListForm = {
                             // Resolve the promise with the file information
                             resolve({
                                 data: ev.target.result,
-                                name: srcFile.name
+                                name: srcFile.name,
+                                src: srcFile
                             });
                         }
                     }
