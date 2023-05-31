@@ -55,8 +55,6 @@ export interface IListForm {
 
     /**
      * Method to show the file dialog.
-     * @param info - The list form information.
-     * @param onSave - The save event triggered when a file is uploaded to the item.
      */
     showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
 
@@ -66,7 +64,7 @@ export interface IListForm {
      * @param info - The list form information.
      * @param onSave - The save event triggered when a file is uploaded to the item.
      */
-    showFileDialog(accept?: string[], info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
+    showFileDialog(accept?: string[], info?: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
 }
 
 /**
