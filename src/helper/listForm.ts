@@ -603,7 +603,7 @@ export const ListForm: IListForm = {
     },
 
     // Method to show a file dialog
-    showFileDialog: (info?: IListFormResult, onSave?: (fileInfo: IListFormAttachmentInfo) => void): PromiseLike<any> => {
+    showFileDialog: (accept?: string[], info?: IListFormResult, onSave?: (fileInfo: IListFormAttachmentInfo) => void): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Method to add an attachment
@@ -683,6 +683,7 @@ export const ListForm: IListForm = {
                 el = document.createElement("input");
 
                 // Set the properties
+                el.accept = accept ? accept.join(',') : null;
                 el.id = "listform-attachment";
                 el.type = "file";
                 el.hidden = true;

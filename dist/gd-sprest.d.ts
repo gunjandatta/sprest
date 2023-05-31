@@ -2336,10 +2336,11 @@ declare module 'gd-sprest/helper/listForm' {
     
             /**
                 * Method to show the file dialog.
+                * @param accept - The acceptable file extensions to allow.
                 * @param info - The list form information.
                 * @param onSave - The save event triggered when a file is uploaded to the item.
                 */
-            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
+            showFileDialog(accept?: string[], info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
     }
     
     /**
