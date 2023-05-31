@@ -55,8 +55,9 @@ export interface IListForm {
 
     /**
      * Method to show the file dialog.
+     * @param accept - The acceptable file extensions to allow.
      */
-    showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
+    showFileDialog(accept?: string[]): PromiseLike<IListFormAttachmentInfo>;
 
     /**
      * Method to show the file dialog.
