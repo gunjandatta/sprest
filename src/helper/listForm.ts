@@ -641,8 +641,6 @@ export const ListForm: IListForm = {
 
                     // Set the file loaded event
                     reader.onloadend = (ev: any) => {
-                        let attachment = null;
-
                         let ext = srcFile.name.split(".") as any;
                         ext = ext[ext.length - 1].toLowerCase();
 
