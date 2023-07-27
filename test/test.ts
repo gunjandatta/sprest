@@ -181,6 +181,8 @@ $REST.Search().postquery({
             Value: { StrVal: "ACTOR(ME,action:1013)" }
         }
     ]
+}).execute(results => {
+    results.postquery.PrimaryQueryResult;
 });
 
 $REST.Helper.SPConfig({
