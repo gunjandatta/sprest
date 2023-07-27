@@ -1,6 +1,15 @@
 import {
-    $REST, Graph, List, Helper, PeopleManager, SiteIconManager, SitePages, SPTypes, Web
+    $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, SitePages, SPTypes, Web
 } from "../@types";
+
+// Hub Sites
+HubSites().execute(sites => {
+    sites.results[0].ID;
+})
+
+HubSitesUtility().getHubSites().execute(sites => {
+    sites.results[0].Description
+})
 
 // Web
 Web().getUserEffectivePermissions("").execute(perm => {
