@@ -43,7 +43,7 @@ export interface IFieldInfo {
     allowDeletion?: boolean;
 
     /** The JSON property for applying a custom format to the field. */
-    customFormatter?: string;
+    customFormatter?: object;
 
     /** The default value of the field. */
     defaultValue?: string;

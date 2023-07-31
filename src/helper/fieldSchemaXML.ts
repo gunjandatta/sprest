@@ -434,7 +434,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
 
             // Set the optional properties
             if (typeof (fieldInfo.allowDeletion) !== "undefined") { props["AllowDeletion"] = fieldInfo.allowDeletion ? "TRUE" : "FALSE"; }
-            if (typeof (fieldInfo.customFormatter) !== "undefined") { props["CustomFormatter"] = fieldInfo.customFormatter; }
+            if (typeof (fieldInfo.customFormatter) !== "undefined") { props["CustomFormatter"] = JSON.stringify(fieldInfo.customFormatter).replace(/"/g, "&quot;"); }
             if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
             if (typeof (fieldInfo.enforceUniqueValues) !== "undefined") { props["EnforceUniqueValues"] = fieldInfo.enforceUniqueValues ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
