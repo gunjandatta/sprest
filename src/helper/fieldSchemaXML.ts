@@ -311,6 +311,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == SPTypes.FieldNoteType.RichText) { props["RichText"] = "TRUE"; }
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText) { props["RichTextMode"] = "FullHtml"; }
         if (fieldInfo.numberOfLines > 0) { props["NumLines"] = fieldInfo.numberOfLines; }
+        if (fieldInfo.unlimited) { props["UnlimitedLengthInDocumentLibrary"] = "TRUE"; }
 
         // Generate the schema
         schemaXml = "<Field " + toString(props) + " />";
@@ -433,6 +434,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
 
             // Set the optional properties
             if (typeof (fieldInfo.allowDeletion) !== "undefined") { props["AllowDeletion"] = fieldInfo.allowDeletion ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.customFormatter) !== "undefined") { props["CustomFormatter"] = fieldInfo.customFormatter; }
             if (typeof (fieldInfo.description) !== "undefined") { props["Description"] = fieldInfo.description; }
             if (typeof (fieldInfo.enforceUniqueValues) !== "undefined") { props["EnforceUniqueValues"] = fieldInfo.enforceUniqueValues ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }

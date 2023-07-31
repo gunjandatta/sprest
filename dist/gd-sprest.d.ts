@@ -3420,6 +3420,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** True, to allow deletion of the field. */
             allowDeletion?: boolean;
     
+            /** The JSON property for applying a custom format to the field. */
+            customFormatter?: string;
+    
             /** The default value of the field. */
             defaultValue?: string;
     
@@ -3601,6 +3604,9 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The number of lines */
             numberOfLines?: number;
+    
+            /** Allow unlimited length for document libraries. */
+            unlimited?: boolean;
     }
     
     /**

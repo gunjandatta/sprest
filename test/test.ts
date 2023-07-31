@@ -1,5 +1,5 @@
 import {
-    $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, SitePages, SPTypes, Web
+    $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, Search, SitePages, SPTypes, Web
 } from "../@types";
 
 // Hub Sites
@@ -9,6 +9,10 @@ HubSites().execute(sites => {
 
 HubSitesUtility().getHubSites().execute(sites => {
     sites.results[0].Description
+})
+
+Search().postquery({}).execute(results => {
+    results.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results[0].Cells.results[0];
 })
 
 // Web
