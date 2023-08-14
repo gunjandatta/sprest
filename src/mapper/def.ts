@@ -7243,7 +7243,8 @@ export const Mapper: IMapper = {
         getFileByUrl: {
             argNames: ["fileUrl"],
             name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
-            requestType: RequestType.GetReplace
+            requestType: RequestType.GetReplace,
+            returnType: "SP.File"
         },
 
         getFolderByServerRelativeUrl: {
@@ -8816,7 +8817,8 @@ export const Mapper: IMapper = {
         getFileByUrl: {
             argNames: ["fileUrl"],
             name: "getFileByUrl(@url)?@url='[[fileUrl]]'",
-            requestType: RequestType.GetReplace
+            requestType: RequestType.GetReplace,
+            returnType: "SP.File"
         },
 
         getFileByWOPIFrameUrl: {
