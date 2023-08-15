@@ -31,3 +31,12 @@ Web.getRemoteWeb = ((requestUrl: string) => {
         method: "POST"
     });
 }) as any;
+
+// Static method to get the url of a web from a page url
+Web.getWebUrlFromPageUrl = ((pageUrl: string) => {
+    // Return the remote web information
+    return new Base({
+        endpoint: "SP.Web.GetWebUrlFromPageUrl(@v)?@v='" + pageUrl + "'",
+        method: "POST"
+    });
+}) as any;

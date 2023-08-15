@@ -50,4 +50,10 @@ export interface IWeb {
      * @param requestUrl - The absolute url of the remote web.
      */
     getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+
+    /**
+     * Method to get the web url from a page url. (SPO Only)
+     * @param pageUrl - The absolute url of the page.
+     */
+    getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
 }

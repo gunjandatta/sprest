@@ -40,6 +40,11 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
+     * Use this api to get the web url from a page url.
+     */
+    GetWebUrlFromPageUrl: (pageUrl: string) => IBaseExecution<{ GetWebUrlFromPageUrl: string }>
+
+    /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
     Graph: LibTypes.IGraph;

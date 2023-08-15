@@ -208,6 +208,11 @@ declare module 'gd-sprest/rest' {
             DefaultRequestToHostFl: boolean;
     
             /**
+                * Use this api to get the web url from a page url.
+                */
+            GetWebUrlFromPageUrl: (pageUrl: string) => IBaseExecution<{ GetWebUrlFromPageUrl: string }>
+    
+            /**
                 * Use this api to interact with the Graph API. (Still In Development)
                 */
             Graph: LibTypes.IGraph;
@@ -1944,6 +1949,12 @@ declare module 'gd-sprest/lib/web' {
                 * @param requestUrl - The absolute url of the remote web.
                 */
             getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+    
+            /**
+                * Method to get the web url from a page url. (SPO Only)
+                * @param pageUrl - The absolute url of the page.
+                */
+            getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
     }
 }
 
