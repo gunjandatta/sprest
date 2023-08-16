@@ -55,17 +55,17 @@ export interface IListForm {
 
     /**
      * Method to show the file dialog.
-     * @param info - The list form information.
-     * @param onSave - The save event triggered when a file is uploaded to the item.
+     * @param accept - The acceptable file extensions to allow.
      */
-    showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
+    showFileDialog(accept?: string[]): PromiseLike<IListFormAttachmentInfo>;
 
     /**
      * Method to show the file dialog.
+     * @param accept - The acceptable file extensions to allow.
      * @param info - The list form information.
      * @param onSave - The save event triggered when a file is uploaded to the item.
      */
-    showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
+    showFileDialog(accept?: string[], info?: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
 }
 
 /**
@@ -77,6 +77,9 @@ export interface IListFormAttachmentInfo {
 
     /** The name of the file */
     name: string;
+
+    /** The source file */
+    src: any;
 }
 
 /**
@@ -94,7 +97,7 @@ export interface IListFormDisplay {
  */
 export interface IListFormDisplayProps {
     /** The element to render the form to. */
-    el?: Element;
+    el?: HTMLElement;
 
     /** The fields to exclude from the form. */
     excludeFields?: Array<string>;

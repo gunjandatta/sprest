@@ -259,19 +259,19 @@ export interface ICalloutOptions {
     beakOrientation?: string;
 
     /** */
-    boundingBox?: Element;
+    boundingBox?: HTMLElement;
 
     /** The html to be displayed in the callout. */
     content?: string;
 
     /** Element to be displayed in the callout. */
-    contentElement?: Element;
+    contentElement?: HTMLElement;
 
     /** The width in pixels. Default - 350px */
     contentWidth?: number;
 
     /** The element to apply the callout to. */
-    launchPoint: Element;
+    launchPoint: HTMLElement;
 
     /** Event triggered after the callout is closed. */
     onClosedCallback?(callout: ICallout);
@@ -329,7 +329,7 @@ export interface IDialogOptions {
     height?: number;
 
     /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
-    html?: Element;
+    html?: HTMLElement;
 
     /** A Boolean value that specifies whether the Close button appears on the dialog. */
     showClose?: boolean;

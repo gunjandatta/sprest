@@ -7,28 +7,40 @@ import { Site, Web } from "../../lib";
 export const getCurrentTheme: IgetCurrentTheme = (): PromiseLike<{ [key: string]: string }> => {
     // Return a promise
     return new Promise((resolve, reject) => {
-        // Get the current theme info
-        Web().Lists("Composed Looks").Items().query({
-            Filter: "DisplayOrder eq 0 or Title eq 'Office'",
-            OrderBy: ["DisplayOrder"],
-            Select: ["DisplayOrder", "MasterPageUrl", "ThemeUrl", "Title"]
-        }).execute(items => {
-            let currentItem = items.results[0];
-            let defaultItem = items.results[1];
+        // Wait for the modern theme information to be loaded
+        waitForModernTheme().then(
+            // Success
+            () => {
+                // Resolve the request with the theme information
+                resolve(window["__themeState__"].theme);
+            },
 
-            // See if the current theme info exists
-            if (currentItem && currentItem["ThemeUrl"]) {
-                // Get the theme information
-                getThemeInfo(currentItem["ThemeUrl"].Url).then(resolve, reject);
+            // Error
+            () => {
+                // Get the current theme info
+                Web().Lists("Composed Looks").Items().query({
+                    Filter: "DisplayOrder eq 0 or Title eq 'Office'",
+                    OrderBy: ["DisplayOrder"],
+                    Select: ["DisplayOrder", "MasterPageUrl", "ThemeUrl", "Title"]
+                }).execute(items => {
+                    let currentItem = items.results[0];
+                    let defaultItem = items.results[1];
+
+                    // See if the current theme info exists
+                    if (currentItem && currentItem["ThemeUrl"]) {
+                        // Get the theme information
+                        getThemeInfo(currentItem["ThemeUrl"].Url).then(resolve, reject);
+                    }
+                    else if (defaultItem && defaultItem["ThemeUrl"]) {
+                        // Get the theme information
+                        getThemeInfo(defaultItem["ThemeUrl"].Url).then(resolve, reject);
+                    } else {
+                        // Unable to determine the theme
+                        reject();
+                    }
+                }, reject)
             }
-            else if (defaultItem && defaultItem["ThemeUrl"]) {
-                // Get the theme information
-                getThemeInfo(defaultItem["ThemeUrl"].Url).then(resolve, reject);
-            } else {
-                // Unable to determine the theme
-                reject();
-            }
-        }, reject)
+        )
     });
 }
 
@@ -70,5 +82,41 @@ const getThemeInfo = (url: string = ""): PromiseLike<{ [key: string]: string }> 
                 resolve(themeInfo);
             }, reject);
         }, reject);
+    });
+}
+
+// Waits for the modern theme information to be loaded
+const waitForModernTheme = (): PromiseLike<void> => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        let counter = 0;
+        let maxAttempts = 50;
+
+        // See if the modern theme exists
+        if (window["__themeState__"] != null && window["__themeState__"].theme != null) {
+            // Theme is loaded
+            resolve();
+            return;
+        }
+
+        // Wait for the theme to be loaded
+        let loopId = setInterval(() => {
+            // See if the modern theme exists
+            if (window["__themeState__"] != null && window["__themeState__"].theme != null) {
+                // Stop the loop
+                clearInterval(loopId);
+
+                // Resolve the request
+                resolve();
+            }
+            // Else, see if we have hit the max attempts
+            else if (++counter >= maxAttempts) {
+                // Stop the loop
+                clearInterval(loopId);
+
+                // Reject the request
+                reject();
+            }
+        }, 25);
     });
 }

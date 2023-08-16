@@ -42,6 +42,9 @@ export interface IFieldInfo {
     /** True, to allow deletion of the field. */
     allowDeletion?: boolean;
 
+    /** The JSON property for applying a custom format to the field. */
+    customFormatter?: object;
+
     /** The default value of the field. */
     defaultValue?: string;
 
@@ -223,6 +226,9 @@ export interface IFieldInfoNote extends IFieldInfoText {
 
     /** The number of lines */
     numberOfLines?: number;
+
+    /** Allow unlimited length for document libraries. */
+    unlimited?: boolean;
 }
 
 /**

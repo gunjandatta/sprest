@@ -208,6 +208,11 @@ declare module 'gd-sprest/rest' {
             DefaultRequestToHostFl: boolean;
     
             /**
+                * Use this api to get the web url from a page url.
+                */
+            GetWebUrlFromPageUrl: (pageUrl: string) => IBaseExecution<{ GetWebUrlFromPageUrl: string }>
+    
+            /**
                 * Use this api to interact with the Graph API. (Still In Development)
                 */
             Graph: LibTypes.IGraph;
@@ -1313,7 +1318,7 @@ declare module 'gd-sprest/lib/hubSites' {
                 * Creates an instance of the user profile library.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (targetInfo?: ITargetInfoProps): IHubSiteCollection;
+            (targetInfo?: ITargetInfoProps): IBaseExecution<IHubSiteCollection>;
     
             /**
                 * A static method to see if the current user can create a hub site.
@@ -1944,6 +1949,12 @@ declare module 'gd-sprest/lib/web' {
                 * @param requestUrl - The absolute url of the remote web.
                 */
             getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+    
+            /**
+                * Method to get the web url from a page url. (SPO Only)
+                * @param pageUrl - The absolute url of the page.
+                */
+            getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
     }
 }
 
@@ -2329,17 +2340,17 @@ declare module 'gd-sprest/helper/listForm' {
     
             /**
                 * Method to show the file dialog.
-                * @param info - The list form information.
-                * @param onSave - The save event triggered when a file is uploaded to the item.
+                * @param accept - The acceptable file extensions to allow.
                 */
-            showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
+            showFileDialog(accept?: string[]): PromiseLike<IListFormAttachmentInfo>;
     
             /**
                 * Method to show the file dialog.
+                * @param accept - The acceptable file extensions to allow.
                 * @param info - The list form information.
                 * @param onSave - The save event triggered when a file is uploaded to the item.
                 */
-            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
+            showFileDialog(accept?: string[], info?: IListFormResult, onSave?: (IListFormAttachmentInfo) => void): PromiseLike<IListFormResult>;
     }
     
     /**
@@ -2351,6 +2362,9 @@ declare module 'gd-sprest/helper/listForm' {
     
             /** The name of the file */
             name: string;
+    
+            /** The source file */
+            src: any;
     }
     
     /**
@@ -2368,7 +2382,7 @@ declare module 'gd-sprest/helper/listForm' {
         */
     export interface IListFormDisplayProps {
             /** The element to render the form to. */
-            el?: Element;
+            el?: HTMLElement;
     
             /** The fields to exclude from the form. */
             excludeFields?: Array<string>;
@@ -2947,19 +2961,19 @@ declare module 'gd-sprest/helper/sp' {
             beakOrientation?: string;
     
             /** */
-            boundingBox?: Element;
+            boundingBox?: HTMLElement;
     
             /** The html to be displayed in the callout. */
             content?: string;
     
             /** Element to be displayed in the callout. */
-            contentElement?: Element;
+            contentElement?: HTMLElement;
     
             /** The width in pixels. Default - 350px */
             contentWidth?: number;
     
             /** The element to apply the callout to. */
-            launchPoint: Element;
+            launchPoint: HTMLElement;
     
             /** Event triggered after the callout is closed. */
             onClosedCallback?(callout: ICallout);
@@ -3017,7 +3031,7 @@ declare module 'gd-sprest/helper/sp' {
             height?: number;
     
             /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
-            html?: Element;
+            html?: HTMLElement;
     
             /** A Boolean value that specifies whether the Close button appears on the dialog. */
             showClose?: boolean;
@@ -3417,6 +3431,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** True, to allow deletion of the field. */
             allowDeletion?: boolean;
     
+            /** The JSON property for applying a custom format to the field. */
+            customFormatter?: object;
+    
             /** The default value of the field. */
             defaultValue?: string;
     
@@ -3598,6 +3615,9 @@ declare module 'gd-sprest/helper/spCfg' {
     
             /** The number of lines */
             numberOfLines?: number;
+    
+            /** Allow unlimited length for document libraries. */
+            unlimited?: boolean;
     }
     
     /**

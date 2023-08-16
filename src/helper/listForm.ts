@@ -603,13 +603,13 @@ export const ListForm: IListForm = {
     },
 
     // Method to show a file dialog
-    showFileDialog: (info?: IListFormResult, onSave?: (fileInfo: IListFormAttachmentInfo) => void): PromiseLike<any> => {
+    showFileDialog: (accept?: string[], info?: IListFormResult, onSave?: (fileInfo: IListFormAttachmentInfo) => void): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Method to add an attachment
-            let addAttachment = (name, data) => {
+            let addAttachment = (name, data, src) => {
                 // Call the save event
-                onSave ? onSave({ name, data }) : null;
+                onSave ? onSave({ name, data, src }) : null;
 
                 // Get the list
                 info.list
@@ -641,15 +641,13 @@ export const ListForm: IListForm = {
 
                     // Set the file loaded event
                     reader.onloadend = (ev: any) => {
-                        let attachment = null;
-
                         let ext = srcFile.name.split(".") as any;
                         ext = ext[ext.length - 1].toLowerCase();
 
                         // See if the info exists
                         if (info) {
                             // Add the attachment
-                            addAttachment(srcFile.name, ev.target.result);
+                            addAttachment(srcFile.name, ev.target.result, srcFile);
                         } else {
                             // Remove the element
                             document.body.removeChild(el);
@@ -657,7 +655,8 @@ export const ListForm: IListForm = {
                             // Resolve the promise with the file information
                             resolve({
                                 data: ev.target.result,
-                                name: srcFile.name
+                                name: srcFile.name,
+                                src: srcFile
                             });
                         }
                     }
@@ -682,6 +681,7 @@ export const ListForm: IListForm = {
                 el = document.createElement("input");
 
                 // Set the properties
+                el.accept = accept ? accept.join(',') : null;
                 el.id = "listform-attachment";
                 el.type = "file";
                 el.hidden = true;

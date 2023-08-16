@@ -107,8 +107,14 @@ export const Helper: IBaseHelper = {
                 targetInfo.endpoint += "/";
             }
 
-            // Append the url
-            targetInfo.endpoint += methodInfo.url;
+            // See if we already have a qs defined and appending another qs
+            if (methodInfo.url.indexOf("?") == 0 && targetInfo.endpoint.indexOf('?') > 0) {
+                // Append the url
+                targetInfo.endpoint += '&' + methodInfo.url.substring(1);
+            } else {
+                // Append the url
+                targetInfo.endpoint += methodInfo.url;
+            }
         }
 
         // Create a new object

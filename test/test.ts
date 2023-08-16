@@ -1,6 +1,19 @@
 import {
-    $REST, Graph, List, Helper, PeopleManager, SiteIconManager, SitePages, SPTypes, Web
+    $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, Search, SitePages, SPTypes, Web
 } from "../@types";
+
+// Hub Sites
+HubSites().execute(sites => {
+    sites.results[0].ID;
+})
+
+HubSitesUtility().getHubSites().execute(sites => {
+    sites.results[0].Description
+})
+
+Search().postquery({}).execute(results => {
+    results.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results[0].Cells.results[0];
+})
 
 // Web
 Web().getUserEffectivePermissions("").execute(perm => {
@@ -172,6 +185,8 @@ $REST.Search().postquery({
             Value: { StrVal: "ACTOR(ME,action:1013)" }
         }
     ]
+}).execute(results => {
+    results.postquery.PrimaryQueryResult;
 });
 
 $REST.Helper.SPConfig({
