@@ -3,6 +3,7 @@ import { ISitePages } from "../../@types/lib";
 import { ITargetInfoProps } from "../../@types/utils";
 import { Web } from "./web";
 import { Base, Request } from "../utils";
+import { ContextInfo } from "./contextInfo";
 
 /**
  * Site Pages
@@ -26,6 +27,57 @@ export const SitePages: ISitePages = ((url?: string, targetInfo?: ITargetInfoPro
     // Return the site pages
     return sitePages;
 }) as any as ISitePages;
+
+// Static method to convert a modern page type
+SitePages.convertPage = (pageUrl: string, layout: string, webUrl?: string): PromiseLike<void> => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Get the page
+        let getPage = (pageUrl: string): PromiseLike<SP.ListItemOData> => {
+            // Return a promise
+            return new Promise((resolve, reject) => {
+                // See if the web url is specified
+                if (webUrl) {
+                    // Get the context info
+                    ContextInfo.getWeb(webUrl).execute(context => {
+                        // Get the page
+                        Web(webUrl, {
+                            requestDigest: context.GetContextWebInformation.FormDigestValue
+                        }).Lists("Site Pages").Items().query({
+                            Filter: "FileLeafRef eq '" + pageUrl + "'"
+                        }).execute(items => {
+                            // Resolve the request
+                            resolve(items.results[0]);
+                        }, reject);
+                    }, reject);
+                } else {
+                    // Get the page
+                    Web().Lists("Site Pages").Items().query({
+                        Filter: "FileLeafRef eq '" + pageUrl + "'"
+                    }).execute(items => {
+                        // Resolve the request
+                        resolve(items.results[0]);
+                    }, reject);
+                }
+            });
+        }
+
+        // Get the page
+        getPage(pageUrl).then(
+            item => {
+                // Update the item
+                item.update({ PageLayoutType: layout }).execute(resolve, reject);
+            },
+            () => {
+                // Log
+                console.error("Unable to get the page: " + pageUrl);
+
+                // Reject the request
+                reject();
+            }
+        )
+    });
+}
 
 // Static method to create a modern page
 SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{

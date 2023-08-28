@@ -1773,6 +1773,14 @@ declare module 'gd-sprest/lib/sitePages' {
             (url?: string, targetInfo?: ITargetInfoProps): ISitePageService;
     
             /**
+                * Converts the modern page layout type.
+                * @param pageUrl - The url of the page.
+                * @param layout - The page layout type.
+                * @param webUrl - The url containing the page, if it's not within the same web.
+                */
+            convertPage(pageUrl: string, layout: string, webUrl?: string): PromiseLike<void>;
+    
+            /**
                 * Creates a modern page.
                 * @param fileName - The name of the file to create, including the .aspx extension.
                 * @param title - The title of the page.
@@ -4449,9 +4457,12 @@ declare module 'gd-sprest/sptypes/sptypes' {
         */
     export type IClientSidePageLayout = {
             Article: string;
+            HeaderlessSearchResults: string;
             Home: string;
-            SingleWebPartAppPage: string;
             RepostPage: string;
+            SingleWebPartAppPage: string;
+            Spaces: string;
+            Topic: string;
     }
     
     /**
