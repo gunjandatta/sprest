@@ -83,9 +83,12 @@ export const ChoiceFormatType: SPTypes.IChoiceFormatType = { Dropdown: 0, RadioB
  */
 export const ClientSidePageLayout: SPTypes.IClientSidePageLayout = {
     Article: "Article",
+    HeaderlessSearchResults: "HeaderlessSearchResults",
     Home: "Home",
     RepostPage: "RepostPage",
-    SingleWebPartAppPage: "SingleWebPartAppPage"
+    SingleWebPartAppPage: "SingleWebPartAppPage",
+    Spaces: "Spaces",
+    Topic: "Topic"
 }
 
 /**
