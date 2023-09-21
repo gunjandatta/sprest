@@ -57,6 +57,11 @@ export interface IList {
      * @param parameters - The optional list data parameters.
      */
     getDataAsStream(listFullUrl: string, parameters?: RenderListDataParameters): IBaseExecution<IListDataStream>;
+
+    /**
+     * Runs a flow against a list item.
+     */
+    runFlow(props: IRunFlow): PromiseLike<IRunFlowResult>;
 }
 
 /**
@@ -91,4 +96,26 @@ export interface IListEntityProps {
 
     /** The relative url of the web containing the list. */
     url?: string;
+}
+
+/**
+ * Properties for running a flow
+ */
+export interface IRunFlow {
+    cloudEnv?: string;
+    data: object;
+    id?: string;
+    list: string;
+    token?: string;
+    webUrl?: string;
+}
+
+/**
+ * Flow execution result
+ */
+export interface IRunFlowResult {
+    errorDetails?: object;
+    errorMessage?: string;
+    executed: boolean;
+    flowToken?: string;
 }
