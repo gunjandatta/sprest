@@ -108,7 +108,7 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
                         // See if the cloud environment was provided
                         if (props.cloudEnv) {
                             // Set the url
-                            let authUrl = `${props.cloudEnv}${flowInfo.properties.environment.id}/users/me/onBehalfOfTokenBundle?app-version=2016-11-01`;
+                            let authUrl = `${props.cloudEnv}${flowInfo.properties.environment.id}/users/me/onBehalfOfTokenBundle?api-version=2016-11-01`;
 
                             // Execute the request
                             new Base({
