@@ -440,28 +440,60 @@ export const Request = {
     },
 
     // Method to parse the xml
-    parseXML: (xml: Document | ChildNode, objData: object = {}): any => {
+    parseXML: (xml: Element, objData: object = {}): any => {
         let results = null;
 
         // See if the element has children
         if (xml.hasChildNodes()) {
             // Parse the child nodes
             for (let i = 0; i < xml.childNodes.length; i++) {
-                let childNode = xml.childNodes[i];
+                let childNode = xml.childNodes[i] as Element;
                 let childPropName = childNode.nodeName.replace("d:", "");
+
+                // See if this is a text element
                 if (childPropName == "#text") {
                     // Return the value
                     return childNode.nodeValue;
-                } else if (childPropName == "element") {
+                }
+                // Else, see if this is a collection
+                else if (childPropName == "element") {
                     // Ensure the results exist
                     results = results || [];
 
                     // Append the object
-                    results.push(Request.parseXML(xml.childNodes[i]));
+                    results.push(Request.parseXML(childNode));
                 }
                 else {
+                    // Read the value properties
+                    let childType = childNode.getAttribute("m:type");
+
+                    // Get the value
+                    let value = Request.parseXML(childNode);
+                    if (value) {
+                        // Update the value based on the type
+                        switch (childType) {
+                            // Boolean
+                            case "Edm.Boolean":
+                                value = value ? true : false;
+                                break;
+
+                            // Float
+                            case "Edm.Decimal":
+                            case "Edm.Double":
+                                value = parseFloat(value);
+                                break;
+
+                            // Integer
+                            case "Edm.Int16":
+                            case "Edm.Int32":
+                            case "Edm.Int64":
+                                value = parseInt(value);
+                                break;
+                        }
+                    }
+
                     // Parse the node
-                    objData[childPropName] = Request.parseXML(xml.childNodes[i]);
+                    objData[childPropName] = value;
                 }
             }
         } else {
@@ -516,7 +548,7 @@ export const Request = {
 
                     // Convert the xml to an object
                     let parser = new DOMParser();
-                    let xmlDoc = parser.parseFromString(data, "application/xml").firstChild;
+                    let xmlDoc = parser.parseFromString(data, "application/xml").firstChild as Element;
                     objData[xmlDoc.nodeName.replace("d:", "")] = Request.parseXML(xmlDoc);
 
                     // See if this is a REST request
