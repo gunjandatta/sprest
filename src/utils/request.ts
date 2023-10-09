@@ -471,68 +471,6 @@ export const Request = {
 
         // Return the collection if it exists, otherwise the object
         return results ? results : objData;
-
-        /*
-        // Parse the properties
-        do {
-            // Get the index of the property
-            let idxStart = xml.indexOf("<d:");
-            let idxEnd = xml.indexOf(">", idxStart);
-            if (idxEnd > idxStart && idxStart > -1) {
-                // Get the property
-                let propName = xml.substring(idxStart + 3, idxEnd - idxStart);
-                propName = propName.split(' ')[0];
-
-                // Skip the "element" property
-                if (propName == "element") {
-                    // Get the object information
-                    let propIdxEnd = xml.indexOf("</d:" + propName);
-                    objData = Request.parseXML(xml.substring(idxEnd + 1, propIdxEnd));
-                    if (objData) {
-                        // Ensure results exist and append the results
-                        results = results || [];
-                        results.push(objData);
-                    }
-
-                    // Get the next element
-                    xml = xml.substring(xml.indexOf('>', propIdxEnd) + 1);
-                    continue;
-                }
-
-                // See if this is a null value
-                if (xml[idxEnd - 1] == "/") {
-                    // Set the value
-                    objData[propName] = null;
-
-                    // Clear this property
-                    xml = xml.substr(idxEnd + 1);
-                } else {
-                    // Get the value
-                    idxStart = idxEnd;
-                    idxEnd = xml.indexOf("</d:" + propName, idxStart);
-
-                    // Set the value
-                    let value = xml.substr(idxStart + 1, idxEnd - idxStart - 1);
-                    if (value.indexOf("<d:") == 0 && idxEnd > idxStart) {
-                        // Set the value
-                        objData[propName] = Request.parseXML(value);
-                    } else {
-                        // Set the value
-                        objData[propName] = value;
-                    }
-
-                    // Clear this property
-                    idxEnd = xml.indexOf(">", idxStart + 1);
-                    xml = xml.substr(idxEnd + 1);
-                }
-            }
-            // Else, break from the loop
-            else { break; }
-        } while (xml.length > 0);
-        */
-
-        // Return the base object
-        //return results ? results : objData;
     },
 
     // Method to convert the input arguments into an object
@@ -604,66 +542,6 @@ export const Request = {
                         // Update the object
                         obj = { ...obj, ...objData };
                     }
-
-                    /*
-                    // Get the response properties
-                    let idxStart = data.indexOf("<m:properties>");
-                    let idxEnd = data.indexOf("</m:properties");
-                    let idxDelStart = data.indexOf("<d:DeleteObject");
-                    let idxDelEnd = data.indexOf('m:null="true" />');
-                    let properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
-                    properties = properties == null && idxDelStart > -1 && idxDelEnd > idxDelStart ? data.substr(idxDelStart, idxDelEnd) : properties;
-                    if (properties) {
-                        // Set the data object
-                        objData = Request.parseXML(properties);
-
-                        // Update the metadata
-                        Helper.updateMetadata(obj, objData);
-
-                        // Update the base object's properties
-                        Request.addProperties(obj, objData);
-
-                        // Add the methods
-                        Request.addMethods(obj, objData, objData["@odata.context"]);
-
-                        // Update the data collection
-                        Helper.updateDataCollection(obj, objData["results"]);
-
-                        // Update the expanded properties
-                        Helper.updateExpandedProperties(obj);
-                    } else {
-                        // Get the first element
-                        idxStart = data.indexOf('<d:');
-                        let propName = idxStart > -1 ? data.substr(idxStart + 3, data.indexOf(' ', idxStart) - idxStart - 3) : null;
-                        idxEnd = data.indexOf('</d:' + propName, idxStart);
-                        let propData = idxStart > -1 && idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
-
-                        // Ensure the element data exists
-                        debugger;
-                        if (propData) {
-                            // Set the data object
-                            objData = Request.parseXML(propData);
-
-                            // Update the metadata
-                            Helper.updateMetadata(obj, objData);
-
-                            // Update the base object's properties
-                            Request.addProperties(obj, objData);
-
-                            // Add the methods
-                            Request.addMethods(obj, objData, objData["@odata.context"]);
-
-                            // Update the data collection
-                            Helper.updateDataCollection(obj, objData["results"]);
-
-                            // Update the expanded properties
-                            Helper.updateExpandedProperties(obj);
-                        }
-
-                        // Update the object to the raw data
-                        obj = data;
-                    }
-                    */
                 }
                 // Else, see if the data properties exists
                 else if (data.d) {
