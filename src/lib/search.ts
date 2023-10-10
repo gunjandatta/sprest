@@ -62,15 +62,18 @@ Search.postQuery = (props: ISearchPostQuery) => {
             request => {
                 // Updates the table
                 let updateRequest = (searchResult: Microsoft.Office.Server.Search.REST.SearchResult) => {
-                    // Call the event
-                    props.onQueryCompleted ? props.onQueryCompleted(searchResult) : null;
+                    // Ensure the results exist
+                    if (searchResult) {
+                        // Call the event
+                        props.onQueryCompleted ? props.onQueryCompleted(searchResult) : null;
 
-                    // Parse rows
-                    for (let i = 0; i < searchResult.PrimaryQueryResult.RelevantResults.Table.Rows.results.length; i++) {
-                        let row = searchResult.PrimaryQueryResult.RelevantResults.Table.Rows.results[i];
+                        // Parse rows
+                        for (let i = 0; i < searchResult.PrimaryQueryResult.RelevantResults.Table.Rows.results.length; i++) {
+                            let row = searchResult.PrimaryQueryResult.RelevantResults.Table.Rows.results[i];
 
-                        // Append the row
-                        request.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results.push(row);
+                            // Append the row
+                            request.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results.push(row);
+                        }
                     }
                 }
 
