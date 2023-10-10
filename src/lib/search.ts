@@ -56,6 +56,16 @@ Search.postQuery = (props: ISearchPostQuery) => {
     return new Promise((resolve, reject) => {
         let queryProps = props.query;
 
+        // Compute the row count
+        let rowCount = 500;
+        if (typeof (queryProps.RowLimit) === "number") {
+            // Set the custom limit
+            rowCount = queryProps.RowLimit;
+        } else {
+            // Default to the max size
+            queryProps.RowLimit = rowCount;
+        }
+
         // Query the first batch
         Search(props.url, props.targetInfo).postquery(queryProps).execute(
             // Success
@@ -86,21 +96,11 @@ Search.postQuery = (props: ISearchPostQuery) => {
                     let search = Search(props.url, props.targetInfo);
                     let useBatch = typeof (props.useBatch) === "boolean" ? props.useBatch : true;
 
-                    // Compute the row count
-                    let rowCount = 500;
-                    if (typeof (queryProps.RowLimit) === "number") {
-                        // Set the custom limit
-                        rowCount = queryProps.RowLimit;
-                    } else {
-                        // Default to the max size
-                        queryProps.RowLimit = rowCount;
-                    }
-
                     // Compute the total # of requests that we need to make
                     let totalPages = Math.ceil(results.TotalRows / rowCount);
 
                     // Loop for the total # of requests
-                    for (let i = 0; i < totalPages; i++) {
+                    for (let i = 1; i < totalPages; i++) {
                         // Set the start row
                         queryProps.StartRow = i * rowCount;
 
