@@ -9,7 +9,7 @@
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes
 //   ../gd-sprest-def/lib/SP/UserProfiles/entitytypes
-//   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes
+//   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST
 //   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes
 //   ../gd-sprest-def/lib/SP/Publishing/entitytypes
 //   ../gd-sprest-def/lib/SP/Social/complextypes
@@ -1569,7 +1569,7 @@ declare module 'gd-sprest/lib/profileLoader' {
 
 declare module 'gd-sprest/lib/search' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { SearchRequest } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
+    import { SearchRequest, SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST";
     import { ISearchService } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
@@ -1578,6 +1578,17 @@ declare module 'gd-sprest/lib/search' {
         * _api/search
         */
     export const Search: ISearch;
+    
+    /**
+        * Search Post Query
+        */
+    export interface ISearchPostQuery {
+            onQueryCompleted?: (results: SearchResult) => void;
+            query: SearchRequest
+            targetInfo?: ITargetInfoProps;
+            url?: string;
+            useBatch?: boolean;
+    }
     
     /**
         * Search
@@ -1601,13 +1612,19 @@ declare module 'gd-sprest/lib/search' {
                 * Method to get the query from the search parameters.
                 * @param parameters - The search parameters.
                 */
-            getQuery: (parameters: SearchRequest /* | Microsoft.Office.Server.Search.REST.SearchSuggestion*/) => Array<string>;
+            getQuery(parameters: SearchRequest): Array<string>;
     
             /**
                 * Method to get the url of a site, by its id.
                 * @param id - The site id.
                 */
             getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
+    
+            /**
+                * Method to execute a post query
+                * @param 
+                */
+            postQuery(props: ISearchPostQuery): PromiseLike<SearchResult>;
     }
 }
 

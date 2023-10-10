@@ -502,7 +502,7 @@ export const Request = {
         }
 
         // Return the collection if it exists, otherwise the object
-        return results ? results : objData;
+        return results ? { results } : objData;
     },
 
     // Method to convert the input arguments into an object
