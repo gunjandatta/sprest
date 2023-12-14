@@ -3861,6 +3861,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The JSLink property. */
             JSLink?: string;
     
+            /** The row limit property. */
+            RowLimit?: number;
+    
             /** The view fields. */
             ViewFields?: Array<string>;
     

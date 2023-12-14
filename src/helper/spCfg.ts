@@ -532,6 +532,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Add the view
                     views.add({
                         Title: cfg.ViewName,
+                        RowLimit: cfg.RowLimit,
                         ViewQuery: cfg.ViewQuery
                     }).execute((view) => {
                         // Ensure it exists
@@ -1129,7 +1130,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // See if we are updating the view properties
-                    if (typeof (cfg.Default) === "boolean" || cfg.JSLink || cfg.ViewQuery) {
+                    if (typeof (cfg.Default) === "boolean" || cfg.JSLink || cfg.RowLimit > 0 || cfg.ViewQuery) {
                         let props = {};
 
                         // Log
@@ -1138,6 +1139,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Set the properties
                         typeof (cfg.Default) === "boolean" ? props["DefaultView"] = cfg.Default : null;
                         cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
+                        cfg.RowLimit > 0 ? props["RowLimit"] = cfg.RowLimit : null;
                         cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
 
                         // Update the view
