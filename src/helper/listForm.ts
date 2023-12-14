@@ -26,7 +26,8 @@ export const ListForm: IListForm = {
             // Clear the information
             _info = {
                 item: _props.item,
-                query: _props.query || {}
+                query: _props.query || {},
+                requestDigest: _props.requestDigest
             } as any;
 
             // Load the list data
@@ -265,7 +266,7 @@ export const ListForm: IListForm = {
                 }
 
                 // Get the web
-                Web(_props.webUrl, { disableCache: true })
+                Web(_props.webUrl, { disableCache: true, requestDigest: _props.requestDigest })
                     // Get the list
                     .Lists(_props.listName)
                     // Execute the request
@@ -435,7 +436,7 @@ export const ListForm: IListForm = {
             let itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                Web(info.webUrl)
+                Web(info.webUrl, { requestDigest: info.requestDigest })
                     // Get the list
                     .Lists(info.listName)
                     // Get the item
@@ -507,7 +508,7 @@ export const ListForm: IListForm = {
                     let attachment = info.attachments[i];
                     if (attachment.FileName == fileName) {
                         // Get the web
-                        Web(info.webUrl)
+                        Web(info.webUrl, { requestDigest: info.requestDigest })
                             // Get the file
                             .getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
                             // Delete the file
@@ -539,7 +540,7 @@ export const ListForm: IListForm = {
             let itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                let attachments = Web(info.webUrl)
+                let attachments = Web(info.webUrl, { requestDigest: info.requestDigest })
                     // Get the lists
                     .Lists(info.listName)
                     // Get the item
