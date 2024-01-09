@@ -3915,6 +3915,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The configuration. */
             _configuration: ISPConfigProps;
     
+            /** Gets the web url for the solution assets. */
+            getWebUrl(): string;
+    
             /**
                 * Method to install the configuration
                 */
