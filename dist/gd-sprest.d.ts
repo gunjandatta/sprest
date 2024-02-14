@@ -18,6 +18,7 @@
 //   ../gd-sprest-def/lib/SP/WorkflowServices/entitytypes
 //   ../gd-sprest-def/base
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
+//   ../gd-sprest-def/lib/Microsoft/Graph/entityTypes
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Utilities
 //   ../gd-sprest-def/lib/SP
@@ -44,6 +45,12 @@ declare module 'gd-sprest' {
         */
     import * as Lib from "gd-sprest/lib";
     export { Lib }
+    
+    /**
+        * V2 Library Components
+        */
+    import * as LibV2 from "gd-sprest/v2";
+    export { LibV2 }
     
     /**
         * $REST Global Variable
@@ -165,6 +172,10 @@ declare module 'gd-sprest/helper' {
     }
 }
 
+declare module 'gd-sprest/v2' {
+    export * from "gd-sprest/v2/sites";
+}
+
 declare module 'gd-sprest/rest' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
@@ -172,6 +183,7 @@ declare module 'gd-sprest/rest' {
     import { IHelper } from "gd-sprest/helper";
     import { ISPTypes } from "gd-sprest/sptypes";
     import * as LibTypes from "gd-sprest/lib";
+    import * as LibV2Types from "gd-sprest/v2";
     
     /**
         * SharePoint REST Library
@@ -300,6 +312,11 @@ declare module 'gd-sprest/rest' {
                 * Use this api to interact with a SharePoint site collection.
                 */
             Site: LibTypes.ISite;
+    
+            /**
+                * The graph sites endpoint.
+                */
+            Sites: LibV2Types.ISites;
     
             /**
                 * Use this api to get/set the icon for a site.
@@ -1637,7 +1654,7 @@ declare module 'gd-sprest/lib/site' {
         * #### REST API
         * _api/site
         *
-        * #### Get list from the current site collection
+        * #### Get the current site collection
         *
         * ```typescript
         * import { Site } from "gd-sprest";
@@ -1648,7 +1665,7 @@ declare module 'gd-sprest/lib/site' {
         * ```
         * 
         *
-        * #### Query a list to include various collections
+        * #### Query a site collection to include various collections
         *
         * ```typescript
         * import { Site } from "gd-sprest";
@@ -4363,6 +4380,55 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/setContentTypeFields";
     export * from "gd-sprest/helper/methods/setGroupOwner";
     export * from "gd-sprest/helper/methods/stringify";
+}
+
+declare module 'gd-sprest/v2/sites' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { site } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/v2.0/sites
+        *
+        * #### Get list from the current site collection
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().execute(site => {
+        *   let hubSiteId = site.HubSiteId;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().query({
+        *  Expand: ["UserCustomActions"]
+        * }).execute(list => {
+        *   let actions = site.UserCustomActions.results;
+        * });
+        * ```
+        */
+    export const Sites: ISites;
+    
+    /**
+        * Sites
+        * The v2.0 REST endpoint.
+        * @category Sites
+        */
+    export interface ISites {
+            /**
+                * Creates an instance of the site library.
+                * @param id - (Optional) The site id to target.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (id?: string, targetInfo?: ITargetInfoProps): site;
+    }
 }
 
 declare module 'gd-sprest/sptypes/sptypes' {

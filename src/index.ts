@@ -31,3 +31,4 @@ export { Helper }
 export * from "./lib";
 export * from "./rest";
 export * from "./sptypes";
+export * from "./v2";

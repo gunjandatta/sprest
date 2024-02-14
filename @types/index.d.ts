@@ -21,6 +21,12 @@ import * as Lib from "./lib";
 export { Lib }
 
 /**
+ * V2 Library Components
+ */
+import * as LibV2 from "./v2";
+export { LibV2 }
+
+/**
  * $REST Global Variable
  */
 export * from "./rest";

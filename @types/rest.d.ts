@@ -4,6 +4,7 @@ import { IList, RemoteWeb } from "gd-sprest-def/lib/SP/entitytypes";
 import { IHelper } from "./helper";
 import { ISPTypes } from "./sptypes";
 import * as LibTypes from "./lib";
+import * as LibV2Types from "./v2";
 
 /**
  * SharePoint REST Library
@@ -132,6 +133,11 @@ export interface IREST {
      * Use this api to interact with a SharePoint site collection.
      */
     Site: LibTypes.ISite;
+
+    /**
+     * The graph sites endpoint.
+     */
+    Sites: LibV2Types.ISites;
 
     /**
      * Use this api to get/set the icon for a site.

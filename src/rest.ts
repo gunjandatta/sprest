@@ -1,6 +1,7 @@
 import * as Helper from "./helper";
 import * as Lib from "./lib";
 import { SPTypes } from "./sptypes";
+import * as LibV2 from "./v2";
 import { IREST } from "../@types";
 
 /**
@@ -29,6 +30,7 @@ export const $REST: IREST = {
     RemoteWeb: (requestUrl) => { return Lib.Web.getRemoteWeb(requestUrl); },
     Search: Lib.Search,
     Site: Lib.Site,
+    Sites: LibV2.Sites,
     SiteIconManager: Lib.SiteIconManager,
     SiteManager: Lib.SiteManager,
     SitePages: Lib.SitePages,

@@ -2,6 +2,11 @@ import {
     $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, Search, SitePages, SPTypes, Web
 } from "../@types";
 
+import { Sites } from "../@types/v2/index";
+
+Sites().lists().execute(list => {
+})
+
 // Hub Sites
 HubSites().execute(sites => {
     sites.results[0].ID;

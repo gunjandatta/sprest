@@ -41,7 +41,8 @@ export class TargetInfo implements ITargetInfo {
 
     // Flag to determine if this is a graph request
     get isGraph(): boolean {
-        return this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
+        return this.props.endpoint?.startsWith("v2.0/") ||
+            this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
             this.props.requestType == RequestType.GraphGetReplace || this.props.requestType == RequestType.GraphPostReplace;
     }
 
