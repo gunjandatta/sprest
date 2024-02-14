@@ -6,7 +6,7 @@ import { ITargetInfoProps } from "../utils";
  * #### REST API
  * _api/site
  *
- * #### Get list from the current site collection
+ * #### Get the current site collection
  *
  * ```typescript
  * import { Site } from "gd-sprest";
@@ -17,7 +17,7 @@ import { ITargetInfoProps } from "../utils";
  * ```
  * 
  *
- * #### Query a list to include various collections
+ * #### Query a site collection to include various collections
  *
  * ```typescript
  * import { Site } from "gd-sprest";
