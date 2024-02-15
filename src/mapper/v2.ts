@@ -107,7 +107,7 @@ export const MapperV2 = {
             requestType: RequestType.Get
         }
     },
-    items: {
+    listItems: {
         add: {
             args: ["values"],
             name: "",
@@ -115,6 +115,25 @@ export const MapperV2 = {
         }
     },
     list: {
+        activities: {
+            requestType: RequestType.Get
+        },
+        columns: {
+            requestType: RequestType.Get,
+            returnType: "columns",
+        },
+        contentTypes: {
+            requestType: RequestType.Get,
+            returnType: "contentTypes"
+        },
+        drive: {
+            requestType: RequestType.Get,
+            returnType: "drive"
+        },
+        items: {
+            requestType: RequestType.Get,
+            returnType: "listItems"
+        },
         update: {
             args: ["values"],
             name: "",
@@ -127,7 +146,8 @@ export const MapperV2 = {
             returnType: "activities"
         },
         analytics: {
-            requestType: RequestType.Get
+            requestType: RequestType.Get,
+            returnType: "analytics"
         },
         driveItem: {
             requestType: RequestType.Get,

@@ -15,6 +15,7 @@ Drives().execute(drives => {
 Sites().lists().execute(value => {
     value.results[0].items().execute(items => {
         items.results[0].id;
+        items.add({}).execute();
     });
     value.results[0].contentTypes().execute(cts => {
         cts.add({}).execute();
