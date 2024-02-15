@@ -1,4 +1,5 @@
-import { drives } from "gd-sprest-def/lib/Microsoft/Graph/api";
+import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { driveCollection } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
 import { ITargetInfoProps } from "../utils";
 
 /**
@@ -28,5 +29,5 @@ export interface IDrives {
      * @param id - (Optional) The site id to target, current by default.
      * @param targetInfo - (Optional) The target information.
      */
-    (id?: string, targetInfo?: ITargetInfoProps): drives;
+    (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<driveCollection>;
 }

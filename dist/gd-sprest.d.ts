@@ -4396,6 +4396,7 @@ declare module 'gd-sprest/helper/methods' {
 }
 
 declare module 'gd-sprest/v2/drive' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { drive } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
@@ -4426,12 +4427,13 @@ declare module 'gd-sprest/v2/drive' {
                 * @param id - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (id?: string, targetInfo?: ITargetInfoProps): drive;
+            (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<drive>;
     }
 }
 
 declare module 'gd-sprest/v2/drives' {
-    import { drives } from "gd-sprest-def/lib/Microsoft/Graph/api";
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { driveCollection } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -4461,13 +4463,14 @@ declare module 'gd-sprest/v2/drives' {
                 * @param id - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (id?: string, targetInfo?: ITargetInfoProps): drives;
+            (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<driveCollection>;
     }
 }
 
 declare module 'gd-sprest/v2/sites' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { site } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { sites } from "gd-sprest-def/lib/Microsoft/Graph/api";
+    import { siteMethods } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -4497,7 +4500,7 @@ declare module 'gd-sprest/v2/sites' {
                 * @param id - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (id?: string, targetInfo?: ITargetInfoProps): site;
+            (id?: string, targetInfo?: ITargetInfoProps): siteMethods & sites;
     }
 }
 

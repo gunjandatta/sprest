@@ -4,7 +4,7 @@ import { Batch } from "./batch";
 import { ContextInfo } from "../lib";
 import { Executor } from "../helper/executor";
 import { Helper } from "./helper";
-import { Mapper, Mapper_Custom } from "../mapper";
+import { Mapper, MapperV2, Mapper_Custom } from "../mapper";
 import { RequestType } from "./requestType";
 import { TargetInfo } from "./targetInfo";
 import { XHRRequest } from "./xhrRequest";
@@ -17,7 +17,6 @@ export const Request = {
     addMethods: (base: IBase, data, graphType?: string) => {
         let obj = base;
         let isCollection = data.results && data.results.length > 0;
-        let isV2 = obj["@odata.context"] ? true : false;
         let methods = null;
 
         // Determine the metadata
@@ -25,12 +24,18 @@ export const Request = {
 
         // Get the object type
         let objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
+        let isV2 = obj?.parent?.targetInfo?.endpoint.startsWith("_api/v2.0/") ||
+            obj["@odata.context"] || objType.startsWith("@odata.context") ? true : false;
         if (isV2) {
-            objType = obj["@odata.context"].split("_api/v2.0/$metadata#")[1];
-        }
+            let values = (obj["@odata.context"] || objType).split("_api/v2.0/$metadata#");
+            objType = values[values.length > 1 ? 1 : 0];
 
-        // Get the methods from the default mapper, otherwise get it from the custom mapper
-        if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
+            // Get the methods for this object type
+            methods = MapperV2[objType];
+            console.log("[gd-sprest] v2 response detected. Type is: " + objType, methods);
+        }
+        // Else, get the methods from the default mapper, otherwise get it from the custom mapper
+        else if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
             // Determine the object type
             objType = objType.split('/');
             objType = (objType[objType.length - 1]);
@@ -41,12 +46,6 @@ export const Request = {
             // See if this is a graph request
             if (/^graph/.test(objType)) {
                 // Do nothing
-            }
-            // Else, see if this is the v2 api
-            else if (isV2) {
-                // TODO - The object type should be set
-                console.log("[gd-sprest] v2 response detected. Type is: " + objType);
-                debugger;
             }
             // Else, see if the base is a field
             else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {

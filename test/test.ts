@@ -2,10 +2,24 @@ import {
     $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, Search, SitePages, SPTypes, Web
 } from "../@types";
 
-import { Sites } from "../@types/v2/index";
+import { Sites, Drive, Drives } from "../@types/v2/index";
+
+Drive().execute(drive => {
+    drive.id;
+})
+
+Drives().execute(drives => {
+    drives.results[0].id;
+})
 
 Sites().lists().execute(value => {
-})
+    value.results[0].items().execute(items => {
+        items.results[0].id;
+    });
+    value.results[0].contentTypes().execute(cts => {
+        cts.add({}).execute();
+    })
+});
 
 // Hub Sites
 HubSites().execute(sites => {
