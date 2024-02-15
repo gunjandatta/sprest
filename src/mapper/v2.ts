@@ -13,8 +13,10 @@ export const MapperV2 = {
             requestType: RequestType.Get,
             returnType: "listItem"
         },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     column: {
+        query: { argNames: ["oData"], requestType: RequestType.OData },
         update: {
             args: ["values"],
             name: "",
@@ -26,9 +28,11 @@ export const MapperV2 = {
             args: ["values"],
             name: "",
             requestType: RequestType.PostBodyNoArgs
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     contentType: {
+        query: { argNames: ["oData"], requestType: RequestType.OData },
         update: {
             args: ["values"],
             name: "",
@@ -40,7 +44,8 @@ export const MapperV2 = {
             args: ["values"],
             name: "",
             requestType: RequestType.PostBodyNoArgs
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     drive: {
         activities: {
@@ -63,6 +68,7 @@ export const MapperV2 = {
             requestType: RequestType.Get,
             returnType: "list"
         },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
         special: {
             requestType: RequestType.Get
         },
@@ -98,6 +104,7 @@ export const MapperV2 = {
         listItem: {
             requestType: RequestType.Get
         },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
         update: {
             args: ["values"],
             name: "",
@@ -112,7 +119,8 @@ export const MapperV2 = {
             args: ["values"],
             name: "",
             requestType: RequestType.PostBodyNoArgs
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     list: {
         activities: {
@@ -138,7 +146,8 @@ export const MapperV2 = {
             args: ["values"],
             name: "",
             requestType: RequestType.PostBodyNoArgs
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     listItem: {
         activities: {
@@ -161,11 +170,13 @@ export const MapperV2 = {
             requestType: RequestType.GetWithArgsValueOnly,
             returnType: "versions"
         },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     listItemVersion: {
         fields: {
             requestType: RequestType.Get,
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     lists: {
         add: {
@@ -203,22 +214,25 @@ export const MapperV2 = {
         },
         items: {
             requestType: RequestType.GetWithArgsValueOnly,
-            returnType: "items"
-        }
+            returnType: "listItems"
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     permission: {
         update: {
             args: ["values"],
             name: "",
             requestType: RequestType.PostBodyNoArgs
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     permissions: {
         add: {
             args: ["values"],
             name: "",
             requestType: RequestType.PostBodyNoArgs
-        }
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     sites: {
         add: {
@@ -248,12 +262,13 @@ export const MapperV2 = {
         },
         items: {
             requestType: RequestType.GetWithArgsValueOnly,
-            returnType: "items"
+            returnType: "listItems"
         },
         lists: {
             requestType: RequestType.GetWithArgsValueOnly,
             returnType: "lists"
         },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
         permissions: {
             requestType: RequestType.GetWithArgsValueOnly,
             returnType: "permissions"

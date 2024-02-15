@@ -23,7 +23,8 @@ export class TargetInfo implements ITargetInfo {
                 this.props.requestType == RequestType.GetReplace ||
                 this.props.requestType == RequestType.GetWithArgsValueOnly ||
                 this.props.requestType == RequestType.GraphGet ||
-                this.props.requestType == RequestType.GraphGetReplace ? "GET" : "POST";
+                this.props.requestType == RequestType.GraphGetReplace ||
+                this.props.requestType == RequestType.OData ? "GET" : "POST";
 
             // Set the request url
             this.requestUrl = this.props.endpoint;
