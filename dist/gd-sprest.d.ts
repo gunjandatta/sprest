@@ -4391,26 +4391,13 @@ declare module 'gd-sprest/v2/sites' {
         * #### REST API
         * _api/v2.0/sites
         *
-        * #### Get list from the current site collection
+        * #### Get the current site
         *
         * ```typescript
-        * import { Site } from "gd-sprest";
+        * import { Sites } from "gd-sprest";
         * 
-        * Site().execute(site => {
-        *   let hubSiteId = site.HubSiteId;
-        * });
-        * ```
-        * 
-        *
-        * #### Query a list to include various collections
-        *
-        * ```typescript
-        * import { Site } from "gd-sprest";
-        * 
-        * Site().query({
-        *  Expand: ["UserCustomActions"]
-        * }).execute(list => {
-        *   let actions = site.UserCustomActions.results;
+        * Sites().execute(site => {
+        *   let siteTitle = site.title;
         * });
         * ```
         */
@@ -4424,7 +4411,7 @@ declare module 'gd-sprest/v2/sites' {
     export interface ISites {
             /**
                 * Creates an instance of the site library.
-                * @param id - (Optional) The site id to target.
+                * @param id - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
             (id?: string, targetInfo?: ITargetInfoProps): site;

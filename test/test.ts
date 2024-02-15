@@ -4,7 +4,7 @@ import {
 
 import { Sites } from "../@types/v2/index";
 
-Sites().lists().execute(list => {
+Sites().lists().execute(value => {
 })
 
 // Hub Sites
