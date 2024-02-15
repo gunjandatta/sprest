@@ -21,6 +21,7 @@ export class TargetInfo implements ITargetInfo {
             // Set the request method
             this.requestMethod = this.props.requestType == RequestType.Get ||
                 this.props.requestType == RequestType.GetReplace ||
+                this.props.requestType == RequestType.GetWithArgsValueOnly ||
                 this.props.requestType == RequestType.GraphGet ||
                 this.props.requestType == RequestType.GraphGetReplace ? "GET" : "POST";
 

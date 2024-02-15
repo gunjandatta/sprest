@@ -56,7 +56,7 @@ export const MapperV2 = {
             requestType: RequestType.Get
         },
         items: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "items"
         },
         list: {
@@ -119,11 +119,11 @@ export const MapperV2 = {
             requestType: RequestType.Get
         },
         columns: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "columns",
         },
         contentTypes: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "contentTypes"
         },
         drive: {
@@ -131,7 +131,7 @@ export const MapperV2 = {
             returnType: "drive"
         },
         items: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "listItems"
         },
         update: {
@@ -142,11 +142,11 @@ export const MapperV2 = {
     },
     listItem: {
         activities: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "activities"
         },
         analytics: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "analytics"
         },
         driveItem: {
@@ -158,7 +158,7 @@ export const MapperV2 = {
             returnType: "fields"
         },
         versions: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "versions"
         },
     },
@@ -174,15 +174,15 @@ export const MapperV2 = {
             requestType: RequestType.PostBodyNoArgs
         },
         analytics: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "analytics"
         },
         columns: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "columns"
         },
         contentTypes: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "contentTypes"
         },
         drive: {
@@ -202,7 +202,7 @@ export const MapperV2 = {
             returnType: "list"
         },
         items: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "items"
         }
     },
@@ -227,15 +227,15 @@ export const MapperV2 = {
             requestType: RequestType.PostBodyNoArgs
         },
         analytics: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "analytics"
         },
         columns: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "columns"
         },
         contentTypes: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "contentTypes"
         },
         drive: {
@@ -243,23 +243,23 @@ export const MapperV2 = {
             returnType: "drive"
         },
         drives: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "drives"
         },
         items: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "items"
         },
         lists: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "lists"
         },
         permissions: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "permissions"
         },
         sites: {
-            requestType: RequestType.Get,
+            requestType: RequestType.GetWithArgsValueOnly,
             returnType: "sites"
         }
     }

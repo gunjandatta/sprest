@@ -12,6 +12,11 @@ Drives().execute(drives => {
     drives.results[0].id;
 })
 
+Sites().lists("293874-239478-238479-32847987").execute(list => {
+    list.items().execute(items => {
+        items.results[0].id;
+    });
+});
 Sites().lists().execute(value => {
     value.results[0].items().execute(items => {
         items.results[0].id;
