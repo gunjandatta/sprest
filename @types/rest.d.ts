@@ -41,6 +41,16 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
+     * The default library for a site.
+     */
+    Drive: LibV2Types.IDrive;
+
+    /**
+     * The libraries for a site.
+     */
+    Drives: LibV2Types.IDrives;
+
+    /**
      * Use this api to get the web url from a page url.
      */
     GetWebUrlFromPageUrl: (pageUrl: string) => IBaseExecution<{ GetWebUrlFromPageUrl: string }>
@@ -135,11 +145,6 @@ export interface IREST {
     Site: LibTypes.ISite;
 
     /**
-     * The graph sites endpoint.
-     */
-    Sites: LibV2Types.ISites;
-
-    /**
      * Use this api to get/set the icon for a site.
      */
     SiteIconManager: LibTypes.ISiteIconManager;
@@ -159,6 +164,11 @@ export interface IREST {
      * @param url - The absolute url of the site collection.
      */
     SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
+
+    /**
+     * The graph sites endpoint.
+     */
+    Sites: LibV2Types.ISites;
 
     /**
      * Use this api to get the url of a site, by its id.

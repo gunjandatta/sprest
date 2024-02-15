@@ -17,6 +17,7 @@ export const Request = {
     addMethods: (base: IBase, data, graphType?: string) => {
         let obj = base;
         let isCollection = data.results && data.results.length > 0;
+        let isV2 = obj["@odata.context"] ? true : false;
         let methods = null;
 
         // Determine the metadata
@@ -24,6 +25,9 @@ export const Request = {
 
         // Get the object type
         let objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
+        if (isV2) {
+            objType = obj["@odata.context"].split("_api/v2.0/$metadata#")[1];
+        }
 
         // Get the methods from the default mapper, otherwise get it from the custom mapper
         if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
@@ -37,6 +41,12 @@ export const Request = {
             // See if this is a graph request
             if (/^graph/.test(objType)) {
                 // Do nothing
+            }
+            // Else, see if this is the v2 api
+            else if (isV2) {
+                // TODO - The object type should be set
+                console.log("[gd-sprest] v2 response detected. Type is: " + objType);
+                debugger;
             }
             // Else, see if the base is a field
             else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {

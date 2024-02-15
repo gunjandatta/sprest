@@ -19,6 +19,7 @@
 //   ../gd-sprest-def/base
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/Graph/entityTypes
+//   ../gd-sprest-def/lib/Microsoft/Graph/api
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Utilities
 //   ../gd-sprest-def/lib/SP
@@ -173,6 +174,8 @@ declare module 'gd-sprest/helper' {
 }
 
 declare module 'gd-sprest/v2' {
+    export * from "gd-sprest/v2/drive";
+    export * from "gd-sprest/v2/drives";
     export * from "gd-sprest/v2/sites";
 }
 
@@ -218,6 +221,16 @@ declare module 'gd-sprest/rest' {
                 * False by default.
                 */
             DefaultRequestToHostFl: boolean;
+    
+            /**
+                * The default library for a site.
+                */
+            Drive: LibV2Types.IDrive;
+    
+            /**
+                * The libraries for a site.
+                */
+            Drives: LibV2Types.IDrives;
     
             /**
                 * Use this api to get the web url from a page url.
@@ -314,11 +327,6 @@ declare module 'gd-sprest/rest' {
             Site: LibTypes.ISite;
     
             /**
-                * The graph sites endpoint.
-                */
-            Sites: LibV2Types.ISites;
-    
-            /**
                 * Use this api to get/set the icon for a site.
                 */
             SiteIconManager: LibTypes.ISiteIconManager;
@@ -338,6 +346,11 @@ declare module 'gd-sprest/rest' {
                 * @param url - The absolute url of the site collection.
                 */
             SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
+    
+            /**
+                * The graph sites endpoint.
+                */
+            Sites: LibV2Types.ISites;
     
             /**
                 * Use this api to get the url of a site, by its id.
@@ -4380,6 +4393,76 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/setContentTypeFields";
     export * from "gd-sprest/helper/methods/setGroupOwner";
     export * from "gd-sprest/helper/methods/stringify";
+}
+
+declare module 'gd-sprest/v2/drive' {
+    import { drive } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/v2.0/drive
+        *
+        * #### Get the default library for a site.
+        *
+        * ```typescript
+        * import { Drives } from "gd-sprest";
+        * 
+        * Drives().execute(drives => {
+        *   drives.forEach(...);
+        * });
+        * ```
+        */
+    export const Drive: IDrive;
+    
+    /**
+        * Drive
+        * The v2.0 REST endpoint.
+        * @category Drive
+        */
+    export interface IDrive {
+            /**
+                * Get the default library for a site.
+                * @param id - (Optional) The site id to target, current by default.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (id?: string, targetInfo?: ITargetInfoProps): drive;
+    }
+}
+
+declare module 'gd-sprest/v2/drives' {
+    import { drives } from "gd-sprest-def/lib/Microsoft/Graph/api";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/v2.0/drives
+        *
+        * #### Get the libraries for a site.
+        *
+        * ```typescript
+        * import { Drives } from "gd-sprest";
+        * 
+        * Drives().execute(drives => {
+        *   drives.forEach(...);
+        * });
+        * ```
+        */
+    export const Drives: IDrives;
+    
+    /**
+        * Drives
+        * The v2.0 REST endpoint.
+        * @category Drives
+        */
+    export interface IDrives {
+            /**
+                * Get the libraries for a site.
+                * @param id - (Optional) The site id to target, current by default.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (id?: string, targetInfo?: ITargetInfoProps): drives;
+    }
 }
 
 declare module 'gd-sprest/v2/sites' {
