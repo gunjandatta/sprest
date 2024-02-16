@@ -14,7 +14,7 @@ import { XHRRequest } from "./xhrRequest";
  */
 export const Request = {
     // Method to add the methods to base object
-    addMethods: (base: IBase, data, graphType?: string) => {
+    addMethods: (base: IBase, data, resultsObjType?: string) => {
         let obj = base;
         let isCollection = data.results && data.results.length > 0;
         let methods = null;
@@ -27,8 +27,21 @@ export const Request = {
         let isV2 = obj?.parent?.targetInfo?.endpoint.startsWith("_api/v2.0/") ||
             obj["@odata.context"] || objType.startsWith("@odata.context") ? true : false;
         if (isV2) {
-            let values = (obj["@odata.context"] || objType).split("_api/v2.0/$metadata#");
-            objType = values[values.length > 1 ? 1 : 0];
+            // See if we are overriding the object type
+            if (resultsObjType) {
+                // Set the object type
+                objType = resultsObjType;
+            } else {
+                // Get the object type from the context
+                let metadataType = (obj["@odata.context"] || objType);
+                let values = metadataType.split("_api/v2.0/$metadata#");
+                if (values.length > 1) {
+                    objType = values[1];
+                } else {
+                    values = metadataType.split("/");
+                    objType = values[values.length - 1].split("?")[0];
+                }
+            }
 
             // Get the methods for this object type
             methods = MapperV2[objType];
@@ -37,10 +50,10 @@ export const Request = {
         // Else, get the methods from the default mapper, otherwise get it from the custom mapper
         else if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
             // Determine the object type
-            objType = objType.split('/');
-            objType = (objType[objType.length - 1]);
-            objType = objType.split('.');
-            objType = (objType[objType.length - 1]).toLowerCase();
+            let values = objType.split('/');
+            objType = values[values.length - 1];
+            values = objType.split('.');
+            objType = (values[values.length - 1]).toLowerCase();
             objType += isCollection ? "s" : "";
 
             // See if this is a graph request

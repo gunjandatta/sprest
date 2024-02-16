@@ -282,6 +282,23 @@ export const Helper: IBaseHelper = {
             if (obj["results"].length > 0) {
                 let results = obj["results"];
 
+                // See if this is a v2 request, and set the default object type
+                let objType = null;
+                if (obj["@odata.context"]) {
+                    // Get the object type
+                    let metadataType = (obj["@odata.context"] || objType);
+                    let values = metadataType.split("_api/v2.0/$metadata#");
+                    if (values.length > 1) {
+                        objType = values[1];
+                    } else {
+                        values = metadataType.split("/");
+                        objType = values[values.length - 1].split("?")[0];
+                    }
+
+                    // Ensure its not the collection type
+                    objType = objType.replace(/s$/, '');
+                }
+
                 // Parse the results
                 for (let result of results) {
                     // Add the base methods
@@ -291,7 +308,7 @@ export const Helper: IBaseHelper = {
                     Helper.updateMetadata(obj, result);
 
                     // Add the methods
-                    Request.addMethods(result, result);
+                    Request.addMethods(result, result, objType);
                 }
             }
         }

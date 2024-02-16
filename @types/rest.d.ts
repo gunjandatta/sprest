@@ -43,12 +43,12 @@ export interface IREST {
     /**
      * The default library for a site.
      */
-    Drive: LibV2Types.IDrive;
+    drive: LibV2Types.Idrive;
 
     /**
      * The libraries for a site.
      */
-    Drives: LibV2Types.IDrives;
+    drives: LibV2Types.Idrives;
 
     /**
      * Use this api to get the web url from a page url.
@@ -168,7 +168,7 @@ export interface IREST {
     /**
      * The graph sites endpoint.
      */
-    Sites: LibV2Types.ISites;
+    sites: LibV2Types.Isites;
 
     /**
      * Use this api to get the url of a site, by its id.

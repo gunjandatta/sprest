@@ -16,14 +16,14 @@ import { ITargetInfoProps } from "../utils";
  * });
  * ```
  */
-export const Drives: IDrives;
+export const drives: Idrives;
 
 /**
  * Drives
  * The v2.0 REST endpoint.
  * @category Drives
  */
-export interface IDrives {
+export interface Idrives {
     /**
      * Get the libraries for a site.
      * @param id - (Optional) The site id to target, current by default.

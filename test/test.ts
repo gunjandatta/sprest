@@ -2,22 +2,27 @@ import {
     $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, Search, SitePages, SPTypes, Web
 } from "../@types";
 
-import { Sites, Drive, Drives } from "../@types/v2/index";
+import { v2 } from "../@types";
 
-Drive().execute(drive => {
+v2.drive().execute(drive => {
     drive.id;
 })
 
-Drives().execute(drives => {
+v2.drives().execute(drives => {
     drives.results[0].id;
 })
 
-Sites().lists("293874-239478-238479-32847987").execute(list => {
+v2.sites.getCurrentWeb();
+v2.sites.getList("Test").items().execute(items => {
+    items.results[0].fields();
+});
+
+v2.sites().lists("293874-239478-238479-32847987").execute(list => {
     list.items().execute(items => {
-        items.results[0].id;
+        items.results[0].update({});
     });
 });
-Sites().lists().execute(value => {
+v2.sites().lists().execute(value => {
     value.results[0].items().execute(items => {
         items.results[0].id;
         items.add({}).execute();

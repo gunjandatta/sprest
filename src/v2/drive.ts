@@ -1,4 +1,4 @@
-import { IDrive } from "../../@types/v2";
+import { Idrive } from "../../@types/v2";
 import { ITargetInfoProps } from "../../@types/utils";
 import { ContextInfo } from "../lib/contextInfo";
 import { Base, RequestType } from "../utils";
@@ -7,7 +7,7 @@ import { Base, RequestType } from "../utils";
  * Drive
  * Returns the default library for a site.
  */
-export const Drive: IDrive = ((id?: string, targetInfo?: ITargetInfoProps) => {
+export const drive: Idrive = ((id?: string, targetInfo?: ITargetInfoProps) => {
     let drive = new Base(targetInfo);
 
     // Default the properties
@@ -25,4 +25,4 @@ export const Drive: IDrive = ((id?: string, targetInfo?: ITargetInfoProps) => {
 
     // Return the default library
     return drive;
-}) as any as IDrive;
+}) as any as Idrive;

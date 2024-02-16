@@ -1,5 +1,5 @@
-import { ISites } from "../../@types/v2";
 import { ITargetInfoProps } from "../../@types/utils";
+import { Isites } from "../../@types/v2";
 import { ContextInfo } from "../lib/contextInfo";
 import { Base, Request, RequestType } from "../utils";
 
@@ -7,7 +7,7 @@ import { Base, Request, RequestType } from "../utils";
  * Sites
  * The sites graph endpoint.
  */
-export const Sites: ISites = ((id?: string, targetInfo?: ITargetInfoProps) => {
+export const sites: Isites = ((id?: string, targetInfo?: ITargetInfoProps) => {
     let sites = new Base(targetInfo);
 
     // Default the properties
@@ -20,4 +20,10 @@ export const Sites: ISites = ((id?: string, targetInfo?: ITargetInfoProps) => {
 
     // Return the sites
     return sites;
-}) as any as ISites;
+}) as any as Isites;
+
+/** Returns the current web. */
+sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId) as any }
+
+/** Returns a list by its title from the current web. */
+sites.getList = (title: string) => { return sites().lists(title); }

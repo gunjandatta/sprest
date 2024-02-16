@@ -50,8 +50,8 @@ declare module 'gd-sprest' {
     /**
         * V2 Library Components
         */
-    import * as LibV2 from "gd-sprest/v2";
-    export { LibV2 }
+    import * as v2 from "gd-sprest/v2";
+    export { v2 }
     
     /**
         * $REST Global Variable
@@ -225,12 +225,12 @@ declare module 'gd-sprest/rest' {
             /**
                 * The default library for a site.
                 */
-            Drive: LibV2Types.IDrive;
+            drive: LibV2Types.Idrive;
     
             /**
                 * The libraries for a site.
                 */
-            Drives: LibV2Types.IDrives;
+            drives: LibV2Types.Idrives;
     
             /**
                 * Use this api to get the web url from a page url.
@@ -350,7 +350,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * The graph sites endpoint.
                 */
-            Sites: LibV2Types.ISites;
+            sites: LibV2Types.Isites;
     
             /**
                 * Use this api to get the url of a site, by its id.
@@ -4414,14 +4414,14 @@ declare module 'gd-sprest/v2/drive' {
         * });
         * ```
         */
-    export const Drive: IDrive;
+    export const drive: Idrive;
     
     /**
         * Drive
         * The v2.0 REST endpoint.
         * @category Drive
         */
-    export interface IDrive {
+    export interface Idrive {
             /**
                 * Get the default library for a site.
                 * @param id - (Optional) The site id to target, current by default.
@@ -4450,14 +4450,14 @@ declare module 'gd-sprest/v2/drives' {
         * });
         * ```
         */
-    export const Drives: IDrives;
+    export const drives: Idrives;
     
     /**
         * Drives
         * The v2.0 REST endpoint.
         * @category Drives
         */
-    export interface IDrives {
+    export interface Idrives {
             /**
                 * Get the libraries for a site.
                 * @param id - (Optional) The site id to target, current by default.
@@ -4470,7 +4470,7 @@ declare module 'gd-sprest/v2/drives' {
 declare module 'gd-sprest/v2/sites' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { sites } from "gd-sprest-def/lib/Microsoft/Graph/api";
-    import { siteMethods } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { list, listMethods, siteMethods } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
@@ -4487,20 +4487,26 @@ declare module 'gd-sprest/v2/sites' {
         * });
         * ```
         */
-    export const Sites: ISites;
+    export const sites: Isites;
     
     /**
         * Sites
         * The v2.0 REST endpoint.
         * @category Sites
         */
-    export interface ISites {
+    export interface Isites {
             /**
                 * Creates an instance of the site library.
                 * @param id - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
             (id?: string, targetInfo?: ITargetInfoProps): siteMethods & sites;
+    
+            /** Returns the current web. */
+            static getCurrentWeb(): IBaseExecution<sites> & siteMethods;
+    
+            /** Returns a list from the current web. */
+            static getList(title: string): IBaseExecution<list> & listMethods;
     }
 }
 

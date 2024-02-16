@@ -30,5 +30,5 @@ import * as Helper from "./helper"
 export * from "./lib";
 export * from "./rest";
 export * from "./sptypes";
-import * as V2 from "./v2";
-export { Helper, V2 }
+import * as v2 from "./v2";
+export { Helper, v2 }
