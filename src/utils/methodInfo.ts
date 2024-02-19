@@ -29,6 +29,9 @@ export class MethodInfo implements Base.IMethodInfo {
     // Flag to determine if this method replaces the endpoint
     get appendEndpointFl(): boolean { return this.methodInfo.appendEndpointFl ? true : false; }
 
+    // Flag to determine if we are appending the name or adding a "/" to the request url
+    get appendRequest(): boolean { return this.methodInfo.appendRequest; }
+
     // The data passed through the body of the request
     get body(): string { return this.methodData; }
 

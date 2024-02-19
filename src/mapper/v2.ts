@@ -155,8 +155,9 @@ export const MapperV2 = {
             returnType: "driveItem"
         },
         fields: {
-            requestType: RequestType.GetReplace,
-            name: "items(@parent.id)/fields",
+            appendRequest: true,
+            requestType: RequestType.Get,
+            name: "([base.id])/fields",
             returnType: "fields"
         },
         query: { argNames: ["oData"], requestType: RequestType.OData },

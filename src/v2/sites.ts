@@ -23,7 +23,7 @@ export const sites: Isites = ((id?: string, targetInfo?: ITargetInfoProps) => {
 }) as any as Isites;
 
 /** Returns the current web. */
-sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId) as any }
+sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')) as any }
 
 /** Returns a list by its title from the current web. */
 sites.getList = (title: string) => { return sites().lists(title); }
