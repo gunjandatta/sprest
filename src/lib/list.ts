@@ -74,7 +74,7 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
             // Return a promise
             return new Promise(resolveAuth => {
                 // Get the graph token
-                Graph.getAccessToken(SPTypes.CloudEnvironment.Flow).execute(
+                Graph.getAccessToken(props.cloudEnv).execute(
                     auth => {
                         // Resolve the request
                         resolveAuth(auth.access_token);
@@ -105,39 +105,50 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
                 else {
                     // Get the graph token
                     getGraphToken().then(token => {
-                        // See if the cloud environment was provided
-                        if (props.cloudEnv) {
-                            // Set the url
-                            let authUrl = `${props.cloudEnv}${flowInfo.properties.environment.id}/users/me/onBehalfOfTokenBundle?api-version=2016-11-01`;
+                        // Determine the flow url
+                        let flowUrl = "";
+                        switch (props.cloudEnv) {
+                            case SPTypes.CloudEnvironment.USL4:
+                                flowUrl = SPTypes.CloudEnvironment.FlowHigh;
+                                break;
 
-                            // Execute the request
-                            new Base({
-                                endpoint: authUrl,
-                                method: "POST",
-                                requestType: RequestType.GraphPost,
-                                requestHeader: {
-                                    "authorization": "Bearer " + token
-                                }
-                            }).execute(
-                                (tokenInfo) => {
-                                    // Resolve the request
-                                    resolveAuth(tokenInfo.audienceToToken["https://" + flowInfo.properties.connectionReferences.shared_sharepointonline.swagger.host] || token);
-                                },
+                            case SPTypes.CloudEnvironment.USL5:
+                                flowUrl = SPTypes.CloudEnvironment.FlowDoD;
+                                break;
 
-                                // Error
-                                (ex) => {
-                                    // Resolve the request
-                                    resolve({
-                                        executed: false,
-                                        errorDetails: ex.response,
-                                        errorMessage: `Auth Error: Unable to get the flow token for cloud: ${props.cloudEnv}`
-                                    });
-                                }
-                            )
-                        } else {
-                            // Resolve the request
-                            resolveAuth(token);
+                            // Default
+                            default:
+                                flowUrl = SPTypes.CloudEnvironment.Flow;
+                                break;
                         }
+
+                        // Set the url
+                        let authUrl = `${flowUrl}${flowInfo.properties.environment.id}/users/me/onBehalfOfTokenBundle?api-version=2016-11-01`;
+
+                        // Execute the request
+                        new Base({
+                            endpoint: authUrl,
+                            method: "POST",
+                            requestType: RequestType.GraphPost,
+                            requestHeader: {
+                                "authorization": "Bearer " + token
+                            }
+                        }).execute(
+                            (tokenInfo) => {
+                                // Resolve the request
+                                resolveAuth(tokenInfo.audienceToToken["https://" + flowInfo.properties.connectionReferences.shared_sharepointonline.swagger.host] || token);
+                            },
+
+                            // Error
+                            (ex) => {
+                                // Resolve the request
+                                resolve({
+                                    executed: false,
+                                    errorDetails: ex.response,
+                                    errorMessage: `Auth Error: Unable to get the flow token for cloud: ${props.cloudEnv}`
+                                });
+                            }
+                        )
                     });
                 }
             });

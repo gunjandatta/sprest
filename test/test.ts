@@ -233,3 +233,6 @@ $REST.Helper.SPConfig({
         }
     }]
 }).install();
+
+Helper.Executor([""], s => {
+})
