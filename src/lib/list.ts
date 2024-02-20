@@ -67,6 +67,27 @@ List.getDataAsStream = ((listFullUrl: string, parameters: SP.RenderListDataParam
 
 // Static method for executing a flow against a list item
 List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
+    // Determine the urls
+    let authUrl = "";
+    let flowUrl = "";
+    switch (props.cloudEnv) {
+        case SPTypes.CloudEnvironment.USL4:
+            authUrl = SPTypes.CloudEnvironment.FlowHigh;
+            flowUrl = SPTypes.CloudEnvironment.FlowHighAPI;
+            break;
+
+        case SPTypes.CloudEnvironment.USL5:
+            authUrl = SPTypes.CloudEnvironment.FlowDoD;
+            flowUrl = SPTypes.CloudEnvironment.FlowDoDAPI;
+            break;
+
+        // Default
+        default:
+            authUrl = SPTypes.CloudEnvironment.Flow;
+            flowUrl = SPTypes.CloudEnvironment.FlowAPI;
+            break;
+    }
+
     // Return a promise
     return new Promise((resolve) => {
         // Gets the graph token
@@ -74,7 +95,7 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
             // Return a promise
             return new Promise(resolveAuth => {
                 // Get the graph token
-                Graph.getAccessToken(props.cloudEnv).execute(
+                Graph.getAccessToken(authUrl).execute(
                     auth => {
                         // Resolve the request
                         resolveAuth(auth.access_token);
@@ -105,27 +126,10 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
                 else {
                     // Get the graph token
                     getGraphToken().then(token => {
-                        // Determine the flow url
-                        let flowUrl = "";
-                        switch (props.cloudEnv) {
-                            case SPTypes.CloudEnvironment.USL4:
-                                flowUrl = SPTypes.CloudEnvironment.FlowHigh;
-                                break;
-
-                            case SPTypes.CloudEnvironment.USL5:
-                                flowUrl = SPTypes.CloudEnvironment.FlowDoD;
-                                break;
-
-                            // Default
-                            default:
-                                flowUrl = SPTypes.CloudEnvironment.Flow;
-                                break;
-                        }
-
                         // Set the url
                         let authUrl = `${flowUrl}${flowInfo.properties.environment.id}/users/me/onBehalfOfTokenBundle?api-version=2016-11-01`;
 
-                        // Execute the request
+                        // Get the graph token from SharePoint
                         new Base({
                             endpoint: authUrl,
                             method: "POST",
