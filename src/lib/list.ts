@@ -164,40 +164,48 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
             flow => {
                 // Get the flow information
                 let flowInfo = JSON.parse(flow.SynchronizationData);
+                if (flowInfo) {
+                    // Get the flow token
+                    getFlowToken(flowInfo).then(token => {
+                        // Trigger the flow
+                        new Base({
+                            accessToken: token,
+                            requestType: RequestType.GraphPost,
+                            endpoint: flowInfo.properties.flowTriggerUri,
+                            data: {
+                                rows: [{
+                                    entity: props.data
+                                }]
+                            }
+                        }).execute(
+                            // Success
+                            () => {
+                                // Resolve the request
+                                resolve({
+                                    executed: true,
+                                    flowToken: token
+                                });
+                            },
 
-                // Get the flow token
-                getFlowToken(flowInfo).then(token => {
-                    // Trigger the flow
-                    new Base({
-                        accessToken: token,
-                        requestType: RequestType.GraphPost,
-                        endpoint: flowInfo.properties.flowTriggerUri,
-                        data: {
-                            rows: [{
-                                entity: props.data
-                            }]
-                        }
-                    }).execute(
-                        // Success
-                        () => {
-                            // Resolve the request
-                            resolve({
-                                executed: true,
-                                flowToken: token
-                            });
-                        },
-
-                        // Error
-                        (ex) => {
-                            // Resolve the request
-                            resolve({
-                                executed: false,
-                                errorDetails: ex.response,
-                                errorMessage: "Error triggering the flow."
-                            });
-                        }
-                    )
-                });
+                            // Error
+                            (ex) => {
+                                // Resolve the request
+                                resolve({
+                                    executed: false,
+                                    errorDetails: ex.response,
+                                    errorMessage: "Error triggering the flow."
+                                });
+                            }
+                        )
+                    });
+                } else {
+                    // Resolve the request
+                    resolve({
+                        executed: false,
+                        errorDetails: "The flow with id " + props.id + " doesn't exist." as any,
+                        errorMessage: "Error getting the flow instance."
+                    });
+                }
             },
 
             // Error
