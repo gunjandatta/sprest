@@ -85,6 +85,19 @@ SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: stri
     item: SP.ListItem;
     page: SP.Publishing.SitePage;
 }> => {
+    let getContext = (): PromiseLike<string> => {
+        return new Promise(resolve => {
+            // See if the web url doesn't exists
+            if (url == null) { resolve(null); }
+
+            // Get the context of target web
+            ContextInfo.getWeb(url).execute(context => {
+                // Resolve the request
+                resolve(context.GetContextWebInformation.FormDigestValue);
+            });
+        });
+    };
+
     // Return a promise
     return new Promise((resolve, reject) => {
         // Method called after the updates have completed
@@ -118,30 +131,36 @@ SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: stri
             }, reject);
         }
 
-        // Create the page
-        SitePages(url, targetInfo).Pages().createAppPage({
-            Title: pageTitle,
-            PageLayoutType: pageTemplate
-        }).execute(page => {
-            // Update the file name
-            Web(url, targetInfo).Lists("Site Pages").Items(page.Id).update({
-                FileLeafRef: pageName
-            }).execute(
-                // Updated the file name successfully
-                () => {
-                    // Update the file url
-                    let idx = page.Url.lastIndexOf('/');
-                    let fileUrl = page.Url.substring(0, idx + 1) + pageName;
+        // Get the context information
+        getContext().then(requestDigest => {
+            // Set the target information
+            targetInfo = { ...{ requestDigest }, ...targetInfo };
 
-                    // Complete the request
-                    onComplete(page.Id, fileUrl);
-                },
+            // Create the page
+            SitePages(url, targetInfo).Pages().createAppPage({
+                Title: pageTitle,
+                PageLayoutType: pageTemplate
+            }).execute(page => {
+                // Update the file name
+                Web(url, targetInfo).Lists("Site Pages").Items(page.Id).update({
+                    FileLeafRef: pageName
+                }).execute(
+                    // Updated the file name successfully
+                    () => {
+                        // Update the file url
+                        let idx = page.Url.lastIndexOf('/');
+                        let fileUrl = page.Url.substring(0, idx + 1) + pageName;
 
-                // Unable to update the file name, but still return the object
-                () => {
-                    // Complete the request
-                    onComplete(page.Id, page.Url);
-                });
-        }, reject);
+                        // Complete the request
+                        onComplete(page.Id, fileUrl);
+                    },
+
+                    // Unable to update the file name, but still return the object
+                    () => {
+                        // Complete the request
+                        onComplete(page.Id, page.Url);
+                    });
+            }, reject);
+        });
     });
 });
