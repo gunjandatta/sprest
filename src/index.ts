@@ -27,7 +27,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 import * as Helper from "./helper"
-export { Helper }
 export * from "./lib";
 export * from "./rest";
 export * from "./sptypes";
+import * as v2 from "./v2";
+export { Helper, v2 }

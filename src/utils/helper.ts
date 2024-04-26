@@ -75,6 +75,20 @@ export const Helper: IBaseHelper = {
             targetInfo = Object.create(base.targetInfo);
         }
 
+        // See if the method config name has a base reference
+        let startIdx = methodConfig?.name?.indexOf("[base.");
+        if (startIdx >= 0) {
+            // Get the property name
+            let endIdx = methodConfig.name.indexOf("]", startIdx);
+            let propName = methodConfig.name.substring(startIdx, endIdx).split(".")[1];
+
+            // Get the property value
+            let propValue = base[propName] || "";
+
+            // Update the method name
+            methodConfig.name = methodConfig.name.replace("[base." + propName + "]", propValue);
+        }
+
         // Get the method information
         var methodInfo = new MethodInfo(methodName, methodConfig, args);
 
@@ -104,7 +118,7 @@ export const Helper: IBaseHelper = {
             // See if the endpoint exists, and the method is not a query string
             if (targetInfo.endpoint && methodInfo.url && methodInfo.url.indexOf("?") != 0) {
                 // Add a "/" separator to the url
-                targetInfo.endpoint += "/";
+                targetInfo.endpoint += methodInfo.appendRequest ? "" : "/";
             }
 
             // See if we already have a qs defined and appending another qs
@@ -282,6 +296,23 @@ export const Helper: IBaseHelper = {
             if (obj["results"].length > 0) {
                 let results = obj["results"];
 
+                // See if this is a v2 request, and set the default object type
+                let objType = null;
+                if (obj["@odata.context"]) {
+                    // Get the object type
+                    let metadataType = (obj["@odata.context"] || objType);
+                    let values = metadataType.split("_api/v2.0/$metadata#");
+                    if (values.length > 1) {
+                        objType = values[1];
+                    } else {
+                        values = metadataType.split("/");
+                        objType = values[values.length - 1].split("?")[0];
+                    }
+
+                    // Ensure its not the collection type
+                    objType = objType.replace(/s$/, '');
+                }
+
                 // Parse the results
                 for (let result of results) {
                     // Add the base methods
@@ -291,7 +322,7 @@ export const Helper: IBaseHelper = {
                     Helper.updateMetadata(obj, result);
 
                     // Add the methods
-                    Request.addMethods(result, result);
+                    Request.addMethods(result, result, objType);
                 }
             }
         }

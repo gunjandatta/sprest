@@ -4,7 +4,7 @@ import { Batch } from "./batch";
 import { ContextInfo } from "../lib";
 import { Executor } from "../helper/executor";
 import { Helper } from "./helper";
-import { Mapper, Mapper_Custom } from "../mapper";
+import { Mapper, MapperV2, Mapper_Custom } from "../mapper";
 import { RequestType } from "./requestType";
 import { TargetInfo } from "./targetInfo";
 import { XHRRequest } from "./xhrRequest";
@@ -14,7 +14,7 @@ import { XHRRequest } from "./xhrRequest";
  */
 export const Request = {
     // Method to add the methods to base object
-    addMethods: (base: IBase, data, graphType?: string) => {
+    addMethods: (base: IBase, data, resultsObjType?: string) => {
         let obj = base;
         let isCollection = data.results && data.results.length > 0;
         let methods = null;
@@ -24,14 +24,36 @@ export const Request = {
 
         // Get the object type
         let objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
+        let isV2 = obj?.parent?.targetInfo?.endpoint.startsWith("_api/v2.0/") ||
+            obj["@odata.context"] || objType.startsWith("@odata.context") ? true : false;
+        if (isV2) {
+            // See if we are overriding the object type
+            if (resultsObjType) {
+                // Set the object type
+                objType = resultsObjType;
+            } else {
+                // Get the object type from the context
+                let metadataType = (obj["@odata.context"] || objType);
+                let values = metadataType.split("_api/v2.0/$metadata#");
+                if (values.length > 1) {
+                    objType = values[1];
+                } else {
+                    values = metadataType.split("/");
+                    objType = values[values.length - 1].split("?")[0];
+                }
+            }
 
-        // Get the methods from the default mapper, otherwise get it from the custom mapper
-        if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
+            // Get the methods for this object type
+            methods = MapperV2[objType];
+            console.log("[gd-sprest] v2 response detected. Type is: " + objType, methods);
+        }
+        // Else, get the methods from the default mapper, otherwise get it from the custom mapper
+        else if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
             // Determine the object type
-            objType = objType.split('/');
-            objType = (objType[objType.length - 1]);
-            objType = objType.split('.');
-            objType = (objType[objType.length - 1]).toLowerCase();
+            let values = objType.split('/');
+            objType = values[values.length - 1];
+            values = objType.split('.');
+            objType = (values[values.length - 1]).toLowerCase();
             objType += isCollection ? "s" : "";
 
             // See if this is a graph request
@@ -119,7 +141,7 @@ export const Request = {
                 }
 
                 // Add the method to the object
-                obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                obj[methodName] = obj[methodName] || new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     },
@@ -440,60 +462,69 @@ export const Request = {
     },
 
     // Method to parse the xml
-    parseXML: (xml: string): any => {
-        let objData = {};
+    parseXML: (xml: Element, objData: object = {}): any => {
+        let results = null;
 
-        // Parse the properties
-        do {
-            // Get the index of the property
-            let idxStart = xml.indexOf("<d:");
-            let idxEnd = xml.indexOf(">", idxStart);
-            if (idxEnd > idxStart && idxStart > -1) {
-                // Get the property
-                let propName = xml.substr(idxStart + 3, idxEnd - idxStart - 3);
-                propName = propName.split(' ')[0];
+        // See if the element has children
+        if (xml.hasChildNodes()) {
+            // Parse the child nodes
+            for (let i = 0; i < xml.childNodes.length; i++) {
+                let childNode = xml.childNodes[i] as Element;
+                let childPropName = childNode.nodeName.replace("d:", "");
 
-                // Skip the "element" property
-                if (propName == "element") {
-                    // Skip this element
-                    idxEnd = xml.indexOf("</d:" + propName, idxStart);
-                    xml = xml.substr(idxEnd + propName.length + 4);
-                    continue;
+                // See if this is a text element
+                if (childPropName == "#text") {
+                    // Return the value
+                    return childNode.nodeValue;
                 }
+                // Else, see if this is a collection
+                else if (childPropName == "element") {
+                    // Ensure the results exist
+                    results = results || [];
 
-                // See if this is a null value
-                if (xml[idxEnd - 1] == "/") {
-                    // Set the value
-                    objData[propName] = null;
+                    // Append the object
+                    results.push(Request.parseXML(childNode));
+                }
+                else {
+                    // Read the value properties
+                    let childType = childNode.getAttribute("m:type");
 
-                    // Clear this property
-                    xml = xml.substr(idxEnd + 1);
-                } else {
                     // Get the value
-                    idxStart = idxEnd;
-                    idxEnd = xml.indexOf("</d:" + propName, idxStart);
+                    let value = Request.parseXML(childNode);
+                    if (value) {
+                        // Update the value based on the type
+                        switch (childType) {
+                            // Boolean
+                            case "Edm.Boolean":
+                                value = value ? true : false;
+                                break;
 
-                    // Set the value
-                    let value = xml.substr(idxStart + 1, idxEnd - idxStart - 1);
-                    if (value.indexOf("<d:") == 0 && idxEnd > idxStart) {
-                        // Set the value
-                        objData[propName] = Request.parseXML(value);
-                    } else {
-                        // Set the value
-                        objData[propName] = value;
+                            // Float
+                            case "Edm.Decimal":
+                            case "Edm.Double":
+                                value = parseFloat(value);
+                                break;
+
+                            // Integer
+                            case "Edm.Int16":
+                            case "Edm.Int32":
+                            case "Edm.Int64":
+                                value = parseInt(value);
+                                break;
+                        }
                     }
 
-                    // Clear this property
-                    idxEnd = xml.indexOf(">", idxStart + 1);
-                    xml = xml.substr(idxEnd + 1);
+                    // Parse the node
+                    objData[childPropName] = value;
                 }
             }
-            // Else, break from the loop
-            else { break; }
-        } while (xml.length > 0);
+        } else {
+            // Return the property value
+            return xml.nodeValue;
+        }
 
-        // Return the base object
-        return objData;
+        // Return the collection if it exists, otherwise the object
+        return results ? { results } : objData;
     },
 
     // Method to convert the input arguments into an object
@@ -524,7 +555,7 @@ export const Request = {
                 }
 
                 // Try to convert the response
-                try { data = isXML ? response : JSON.parse(response); }
+                try { data = isXML ? response.replace(/\r/g, '') : JSON.parse(response); }
                 catch (ex) { continue; }
 
                 // Set the object based on the request type
@@ -535,18 +566,17 @@ export const Request = {
 
                 // See if this is xml
                 if (isXML) {
-                    let objData;
+                    let objData: any = {};
 
-                    // Get the response properties
-                    let idxStart = data.indexOf("<m:properties>");
-                    let idxEnd = data.indexOf("</m:properties");
-                    let idxDelStart = data.indexOf("<d:DeleteObject");
-                    let idxDelEnd = data.indexOf('m:null="true" />');
-                    let properties = idxEnd > idxStart ? data.substr(idxStart, idxEnd) : null;
-                    properties = properties == null && idxDelEnd > idxDelStart ? data.substr(idxDelStart, idxDelEnd) : properties;
-                    if (properties) {
-                        // Set the data object
-                        objData = Request.parseXML(properties);
+                    // Convert the xml to an object
+                    let parser = new DOMParser();
+                    let xmlDoc = parser.parseFromString(data, "application/xml").firstChild as Element;
+                    objData[xmlDoc.nodeName.replace("d:", "")] = Request.parseXML(xmlDoc);
+
+                    // See if this is a REST request
+                    if (objData.entry && objData.entry.content && objData.entry.content["m:properties"]) {
+                        // Set the object to the properties
+                        objData = objData.entry.content["m:properties"];
 
                         // Update the metadata
                         Helper.updateMetadata(obj, objData);
@@ -563,8 +593,8 @@ export const Request = {
                         // Update the expanded properties
                         Helper.updateExpandedProperties(obj);
                     } else {
-                        // Update the object to the raw data
-                        obj = data;
+                        // Update the object
+                        obj = { ...obj, ...objData };
                     }
                 }
                 // Else, see if the data properties exists

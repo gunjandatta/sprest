@@ -90,7 +90,7 @@ const waitForModernTheme = (): PromiseLike<void> => {
     // Return a promise
     return new Promise((resolve, reject) => {
         let counter = 0;
-        let maxAttempts = 50;
+        let maxAttempts = 100;
 
         // See if the modern theme exists
         if (window["__themeState__"] != null && window["__themeState__"].theme != null) {
@@ -117,6 +117,6 @@ const waitForModernTheme = (): PromiseLike<void> => {
                 // Reject the request
                 reject();
             }
-        }, 25);
+        }, 50);
     });
 }

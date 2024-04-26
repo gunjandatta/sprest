@@ -2,6 +2,37 @@ import {
     $REST, Graph, List, Helper, HubSites, HubSitesUtility, PeopleManager, Search, SitePages, SPTypes, Web
 } from "../@types";
 
+import { v2 } from "../@types";
+
+v2.drive().execute(drive => {
+    drive.id;
+})
+
+v2.drives().execute(drives => {
+    drives.results[0].id;
+})
+
+v2.sites.getCurrentWeb();
+v2.sites.getList("Test").items().execute(items => {
+    items.results[0].fields();
+});
+
+v2.sites().lists("").items();
+v2.sites().lists("293874-239478-238479-32847987").execute(list => {
+    list.items().execute(items => {
+        items.results[0].update({});
+    });
+});
+v2.sites().lists().execute(value => {
+    value.results[0].items().execute(items => {
+        items.results[0].id;
+        items.add({}).execute();
+    });
+    value.results[0].contentTypes().execute(cts => {
+        cts.add({}).execute();
+    })
+});
+
 // Hub Sites
 HubSites().execute(sites => {
     sites.results[0].ID;
@@ -202,3 +233,6 @@ $REST.Helper.SPConfig({
         }
     }]
 }).install();
+
+Helper.Executor([""], s => {
+})

@@ -19,7 +19,12 @@ export class TargetInfo implements ITargetInfo {
         // See if this is a graph request
         if (this.isGraph) {
             // Set the request method
-            this.requestMethod = this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphGetReplace ? "GET" : "POST";
+            this.requestMethod = this.props.requestType == RequestType.Get ||
+                this.props.requestType == RequestType.GetReplace ||
+                this.props.requestType == RequestType.GetWithArgsValueOnly ||
+                this.props.requestType == RequestType.GraphGet ||
+                this.props.requestType == RequestType.GraphGetReplace ||
+                this.props.requestType == RequestType.OData ? "GET" : "POST";
 
             // Set the request url
             this.requestUrl = this.props.endpoint;
@@ -41,7 +46,8 @@ export class TargetInfo implements ITargetInfo {
 
     // Flag to determine if this is a graph request
     get isGraph(): boolean {
-        return this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
+        return this.props.endpoint?.startsWith("_api/v2.0/") ||
+            this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
             this.props.requestType == RequestType.GraphGetReplace || this.props.requestType == RequestType.GraphPostReplace;
     }
 

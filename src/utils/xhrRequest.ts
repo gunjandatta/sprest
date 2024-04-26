@@ -156,9 +156,16 @@ export class XHRRequest {
 
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
-            // Set the authorization
-            this.xhr ? this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken) : null;
-            this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
+            // Ensure the access token exists
+            if (this.targetInfo.props.accessToken) {
+                // Set the authorization
+                this.xhr ? this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken) : null;
+                this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
+            } else {
+                // Set the request digest
+                this.xhr ? this.xhr.setRequestHeader("X-RequestDigest", requestDigest) : null;
+                requestDigest ? this.headers["X-RequestDigest"] = requestDigest : null;
+            }
         } else {
             // See if custom headers were not defined
             if (this.targetInfo.requestHeaders == null) {

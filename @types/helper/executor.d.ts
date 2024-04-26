@@ -10,5 +10,5 @@ export const Executor: IExecutor;
  * Executor
  */
 export interface IExecutor {
-    <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any>;
+    <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any | undefined> | void, onExecuted?: (...args) => PromiseLike<any | undefined> | void): PromiseLike<any | undefined>;
 }

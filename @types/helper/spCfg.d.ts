@@ -414,6 +414,9 @@ export interface ISPCfgViewInfo {
     /** The JSLink property. */
     JSLink?: string;
 
+    /** The row limit property. */
+    RowLimit?: number;
+
     /** The view fields. */
     ViewFields?: Array<string>;
 
@@ -464,6 +467,9 @@ export interface ISPCfgWebPartInfo {
 export interface ISPConfig {
     /** The configuration. */
     _configuration: ISPConfigProps;
+
+    /** Gets the web url for the solution assets. */
+    getWebUrl(): string;
 
     /**
      * Method to install the configuration

@@ -9,7 +9,7 @@
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes
 //   ../gd-sprest-def/lib/SP/UserProfiles/entitytypes
-//   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes
+//   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST
 //   ../gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes
 //   ../gd-sprest-def/lib/SP/Publishing/entitytypes
 //   ../gd-sprest-def/lib/SP/Social/complextypes
@@ -18,6 +18,8 @@
 //   ../gd-sprest-def/lib/SP/WorkflowServices/entitytypes
 //   ../gd-sprest-def/base
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
+//   ../gd-sprest-def/lib/Microsoft/Graph/entityTypes
+//   ../gd-sprest-def/lib/Microsoft/Graph/api
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Utilities
 //   ../gd-sprest-def/lib/SP
@@ -44,6 +46,12 @@ declare module 'gd-sprest' {
         */
     import * as Lib from "gd-sprest/lib";
     export { Lib }
+    
+    /**
+        * V2 Library Components
+        */
+    import * as v2 from "gd-sprest/v2";
+    export { v2 }
     
     /**
         * $REST Global Variable
@@ -165,6 +173,12 @@ declare module 'gd-sprest/helper' {
     }
 }
 
+declare module 'gd-sprest/v2' {
+    export * from "gd-sprest/v2/drive";
+    export * from "gd-sprest/v2/drives";
+    export * from "gd-sprest/v2/sites";
+}
+
 declare module 'gd-sprest/rest' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
     import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
@@ -172,6 +186,7 @@ declare module 'gd-sprest/rest' {
     import { IHelper } from "gd-sprest/helper";
     import { ISPTypes } from "gd-sprest/sptypes";
     import * as LibTypes from "gd-sprest/lib";
+    import * as LibV2Types from "gd-sprest/v2";
     
     /**
         * SharePoint REST Library
@@ -206,6 +221,16 @@ declare module 'gd-sprest/rest' {
                 * False by default.
                 */
             DefaultRequestToHostFl: boolean;
+    
+            /**
+                * The default library for a site.
+                */
+            drive: LibV2Types.Idrive;
+    
+            /**
+                * The libraries for a site.
+                */
+            drives: LibV2Types.Idrives;
     
             /**
                 * Use this api to get the web url from a page url.
@@ -321,6 +346,11 @@ declare module 'gd-sprest/rest' {
                 * @param url - The absolute url of the site collection.
                 */
             SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
+    
+            /**
+                * The graph sites endpoint.
+                */
+            sites: LibV2Types.Isites;
     
             /**
                 * Use this api to get the url of a site, by its id.
@@ -1410,6 +1440,11 @@ declare module 'gd-sprest/lib/list' {
                 * @param parameters - The optional list data parameters.
                 */
             getDataAsStream(listFullUrl: string, parameters?: RenderListDataParameters): IBaseExecution<IListDataStream>;
+    
+            /**
+                * Runs a flow against a list item.
+                */
+            runFlow(props: IRunFlow): PromiseLike<IRunFlowResult>;
     }
     
     /**
@@ -1444,6 +1479,28 @@ declare module 'gd-sprest/lib/list' {
     
             /** The relative url of the web containing the list. */
             url?: string;
+    }
+    
+    /**
+        * Properties for running a flow
+        */
+    export interface IRunFlow {
+            cloudEnv?: string;
+            data: object;
+            id?: string;
+            list: string;
+            token?: string;
+            webUrl?: string;
+    }
+    
+    /**
+        * Flow execution result
+        */
+    export interface IRunFlowResult {
+            errorDetails?: object;
+            errorMessage?: string;
+            executed: boolean;
+            flowToken?: string;
     }
 }
 
@@ -1542,7 +1599,7 @@ declare module 'gd-sprest/lib/profileLoader' {
 
 declare module 'gd-sprest/lib/search' {
     import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { SearchRequest } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
+    import { SearchRequest, SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST";
     import { ISearchService } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
@@ -1551,6 +1608,17 @@ declare module 'gd-sprest/lib/search' {
         * _api/search
         */
     export const Search: ISearch;
+    
+    /**
+        * Search Post Query
+        */
+    export interface ISearchPostQuery {
+            onQueryCompleted?: (results: SearchResult) => void;
+            query: SearchRequest
+            targetInfo?: ITargetInfoProps;
+            url?: string;
+            useBatch?: boolean;
+    }
     
     /**
         * Search
@@ -1574,13 +1642,19 @@ declare module 'gd-sprest/lib/search' {
                 * Method to get the query from the search parameters.
                 * @param parameters - The search parameters.
                 */
-            getQuery: (parameters: SearchRequest /* | Microsoft.Office.Server.Search.REST.SearchSuggestion*/) => Array<string>;
+            getQuery(parameters: SearchRequest): Array<string>;
     
             /**
                 * Method to get the url of a site, by its id.
                 * @param id - The site id.
                 */
             getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
+    
+            /**
+                * Method to execute a post query
+                * @param 
+                */
+            postQuery(props: ISearchPostQuery): PromiseLike<SearchResult>;
     }
 }
 
@@ -1593,7 +1667,7 @@ declare module 'gd-sprest/lib/site' {
         * #### REST API
         * _api/site
         *
-        * #### Get list from the current site collection
+        * #### Get the current site collection
         *
         * ```typescript
         * import { Site } from "gd-sprest";
@@ -1604,7 +1678,7 @@ declare module 'gd-sprest/lib/site' {
         * ```
         * 
         *
-        * #### Query a list to include various collections
+        * #### Query a site collection to include various collections
         *
         * ```typescript
         * import { Site } from "gd-sprest";
@@ -1771,6 +1845,14 @@ declare module 'gd-sprest/lib/sitePages' {
                 * @param targetInfo - (Optional) The target information.
                 */
             (url?: string, targetInfo?: ITargetInfoProps): ISitePageService;
+    
+            /**
+                * Converts the modern page layout type.
+                * @param pageUrl - The url of the page.
+                * @param layout - The page layout type.
+                * @param webUrl - The url containing the page, if it's not within the same web.
+                */
+            convertPage(pageUrl: string, layout: string, webUrl?: string): PromiseLike<void>;
     
             /**
                 * Creates a modern page.
@@ -2043,7 +2125,7 @@ declare module 'gd-sprest/helper/executor' {
         * Executor
         */
     export interface IExecutor {
-            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any>;
+            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any | undefined> | void, onExecuted?: (...args) => PromiseLike<any | undefined> | void): PromiseLike<any | undefined>;
     }
 }
 
@@ -2445,6 +2527,9 @@ declare module 'gd-sprest/helper/listForm' {
             /** OData query used when loading an item */
             query?: IODataQuery;
     
+            /** The request digest value to use w/ the requests */
+            requestDigest?: string;
+    
             /** The relative web url containing the list */
             webUrl?: string;
     }
@@ -2482,6 +2567,9 @@ declare module 'gd-sprest/helper/listForm' {
     
             /** The list. */
             list: List;
+    
+            /** The request digest value to use w/ the requests */
+            requestDigest?: string;
     
             /** The relative web url containing the list. */
             webUrl?: string;
@@ -3803,6 +3891,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The JSLink property. */
             JSLink?: string;
     
+            /** The row limit property. */
+            RowLimit?: number;
+    
             /** The view fields. */
             ViewFields?: Array<string>;
     
@@ -3853,6 +3944,9 @@ declare module 'gd-sprest/helper/spCfg' {
     export interface ISPConfig {
             /** The configuration. */
             _configuration: ISPConfigProps;
+    
+            /** Gets the web url for the solution assets. */
+            getWebUrl(): string;
     
             /**
                 * Method to install the configuration
@@ -4301,6 +4395,121 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/stringify";
 }
 
+declare module 'gd-sprest/v2/drive' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { drive } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/v2.0/drive
+        *
+        * #### Get the default library for a site.
+        *
+        * ```typescript
+        * import { Drives } from "gd-sprest";
+        * 
+        * Drives().execute(drives => {
+        *   drives.forEach(...);
+        * });
+        * ```
+        */
+    export const drive: Idrive;
+    
+    /**
+        * Drive
+        * The v2.0 REST endpoint.
+        * @category Drive
+        */
+    export interface Idrive {
+            /**
+                * Get the default library for a site.
+                * @param id - (Optional) The site id to target, current by default.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<drive>;
+    }
+}
+
+declare module 'gd-sprest/v2/drives' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { driveCollection } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/v2.0/drives
+        *
+        * #### Get the libraries for a site.
+        *
+        * ```typescript
+        * import { Drives } from "gd-sprest";
+        * 
+        * Drives().execute(drives => {
+        *   drives.forEach(...);
+        * });
+        * ```
+        */
+    export const drives: Idrives;
+    
+    /**
+        * Drives
+        * The v2.0 REST endpoint.
+        * @category Drives
+        */
+    export interface Idrives {
+            /**
+                * Get the libraries for a site.
+                * @param id - (Optional) The site id to target, current by default.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<driveCollection>;
+    }
+}
+
+declare module 'gd-sprest/v2/sites' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { sites } from "gd-sprest-def/lib/Microsoft/Graph/api";
+    import { list, listMethods, siteMethods } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/v2.0/sites
+        *
+        * #### Get the current site
+        *
+        * ```typescript
+        * import { Sites } from "gd-sprest";
+        * 
+        * Sites().execute(site => {
+        *   let siteTitle = site.title;
+        * });
+        * ```
+        */
+    export const sites: Isites;
+    
+    /**
+        * Sites
+        * The v2.0 REST endpoint.
+        * @category Sites
+        */
+    export interface Isites {
+            /**
+                * Creates an instance of the site library.
+                * @param id - (Optional) The site id to target, current by default.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (id?: string, targetInfo?: ITargetInfoProps): siteMethods & sites;
+    
+            /** Returns the current web. */
+            static getCurrentWeb(): IBaseExecution<sites> & siteMethods;
+    
+            /** Returns a list from the current web. */
+            static getList(title: string): IBaseExecution<list> & listMethods;
+    }
+}
+
 declare module 'gd-sprest/sptypes/sptypes' {
     import { BasePermissions } from "gd-sprest-def/lib/SP/complextypes";
     
@@ -4449,9 +4658,12 @@ declare module 'gd-sprest/sptypes/sptypes' {
         */
     export type IClientSidePageLayout = {
             Article: string;
+            HeaderlessSearchResults: string;
             Home: string;
-            SingleWebPartAppPage: string;
             RepostPage: string;
+            SingleWebPartAppPage: string;
+            Spaces: string;
+            Topic: string;
     }
     
     /**

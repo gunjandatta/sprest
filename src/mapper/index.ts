@@ -6,4 +6,5 @@
 // 5) Remove the mapper files and code used as a backup
 import * as Mapper_Custom from "./custom";
 import { Mapper } from "./def";
-export { Mapper, Mapper_Custom }
+import { MapperV2 } from "./v2";
+export { Mapper, MapperV2, Mapper_Custom }

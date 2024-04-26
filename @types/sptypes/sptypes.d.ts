@@ -145,9 +145,12 @@ export type IClientTemplateUtility = {
  */
 export type IClientSidePageLayout = {
     Article: string;
+    HeaderlessSearchResults: string;
     Home: string;
-    SingleWebPartAppPage: string;
     RepostPage: string;
+    SingleWebPartAppPage: string;
+    Spaces: string;
+    Topic: string;
 }
 
 /**

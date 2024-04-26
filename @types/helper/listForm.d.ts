@@ -160,6 +160,9 @@ export interface IListFormProps {
     /** OData query used when loading an item */
     query?: IODataQuery;
 
+    /** The request digest value to use w/ the requests */
+    requestDigest?: string;
+
     /** The relative web url containing the list */
     webUrl?: string;
 }
@@ -197,6 +200,9 @@ export interface IListFormResult {
 
     /** The list. */
     list: List;
+
+    /** The request digest value to use w/ the requests */
+    requestDigest?: string;
 
     /** The relative web url containing the list. */
     webUrl?: string;

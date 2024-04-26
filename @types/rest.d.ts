@@ -4,6 +4,7 @@ import { IList, RemoteWeb } from "gd-sprest-def/lib/SP/entitytypes";
 import { IHelper } from "./helper";
 import { ISPTypes } from "./sptypes";
 import * as LibTypes from "./lib";
+import * as LibV2Types from "./v2";
 
 /**
  * SharePoint REST Library
@@ -38,6 +39,16 @@ export interface IREST {
      * False by default.
      */
     DefaultRequestToHostFl: boolean;
+
+    /**
+     * The default library for a site.
+     */
+    drive: LibV2Types.Idrive;
+
+    /**
+     * The libraries for a site.
+     */
+    drives: LibV2Types.Idrives;
 
     /**
      * Use this api to get the web url from a page url.
@@ -153,6 +164,11 @@ export interface IREST {
      * @param url - The absolute url of the site collection.
      */
     SiteExists: (url: string) => IBaseExecution<LibTypes.ISiteExists>;
+
+    /**
+     * The graph sites endpoint.
+     */
+    sites: LibV2Types.Isites;
 
     /**
      * Use this api to get the url of a site, by its id.

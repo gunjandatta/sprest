@@ -1,5 +1,6 @@
 import * as Helper from "./helper";
 import * as Lib from "./lib";
+import * as LibV2 from "./v2";
 import { SPTypes } from "./sptypes";
 import { IREST } from "../@types";
 
@@ -7,11 +8,13 @@ import { IREST } from "../@types";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 7.66,
+    __ver: 7.89,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
+    drive: LibV2.drive,
+    drives: LibV2.drives,
     GetWebUrlFromPageUrl: Lib.Web.getWebUrlFromPageUrl,
     Graph: Lib.Graph,
     GroupService: Lib.GroupService,
@@ -33,6 +36,7 @@ export const $REST: IREST = {
     SiteManager: Lib.SiteManager,
     SitePages: Lib.SitePages,
     SiteExists: (url) => { return Lib.Site.exists(url); },
+    sites: LibV2.sites,
     SiteUrl: (id: string) => { return Lib.Site.getUrlById(id); },
     SPTypes: SPTypes as any,
     SocialFeed: Lib.SocialFeed,

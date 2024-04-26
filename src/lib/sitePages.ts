@@ -3,6 +3,7 @@ import { ISitePages } from "../../@types/lib";
 import { ITargetInfoProps } from "../../@types/utils";
 import { Web } from "./web";
 import { Base, Request } from "../utils";
+import { ContextInfo } from "./contextInfo";
 
 /**
  * Site Pages
@@ -27,12 +28,76 @@ export const SitePages: ISitePages = ((url?: string, targetInfo?: ITargetInfoPro
     return sitePages;
 }) as any as ISitePages;
 
+// Static method to convert a modern page type
+SitePages.convertPage = (pageUrl: string, layout: string, webUrl?: string): PromiseLike<void> => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Get the page
+        let getPage = (pageUrl: string): PromiseLike<SP.ListItemOData> => {
+            // Return a promise
+            return new Promise((resolve, reject) => {
+                // See if the web url is specified
+                if (webUrl) {
+                    // Get the context info
+                    ContextInfo.getWeb(webUrl).execute(context => {
+                        // Get the page
+                        Web(webUrl, {
+                            requestDigest: context.GetContextWebInformation.FormDigestValue
+                        }).Lists("Site Pages").Items().query({
+                            Filter: "FileLeafRef eq '" + pageUrl + "'"
+                        }).execute(items => {
+                            // Resolve the request
+                            resolve(items.results[0]);
+                        }, reject);
+                    }, reject);
+                } else {
+                    // Get the page
+                    Web().Lists("Site Pages").Items().query({
+                        Filter: "FileLeafRef eq '" + pageUrl + "'"
+                    }).execute(items => {
+                        // Resolve the request
+                        resolve(items.results[0]);
+                    }, reject);
+                }
+            });
+        }
+
+        // Get the page
+        getPage(pageUrl).then(
+            item => {
+                // Update the item
+                item.update({ PageLayoutType: layout }).execute(resolve, reject);
+            },
+            () => {
+                // Log
+                console.error("Unable to get the page: " + pageUrl);
+
+                // Reject the request
+                reject();
+            }
+        )
+    });
+}
+
 // Static method to create a modern page
 SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{
     file: SP.File;
     item: SP.ListItem;
     page: SP.Publishing.SitePage;
 }> => {
+    let getContext = (): PromiseLike<string> => {
+        return new Promise(resolve => {
+            // See if the web url doesn't exists
+            if (url == null) { resolve(null); }
+
+            // Get the context of target web
+            ContextInfo.getWeb(url).execute(context => {
+                // Resolve the request
+                resolve(context.GetContextWebInformation.FormDigestValue);
+            });
+        });
+    };
+
     // Return a promise
     return new Promise((resolve, reject) => {
         // Method called after the updates have completed
@@ -66,30 +131,36 @@ SitePages.createPage = ((pageName: string, pageTitle: string, pageTemplate: stri
             }, reject);
         }
 
-        // Create the page
-        SitePages(url, targetInfo).Pages().createAppPage({
-            Title: pageTitle,
-            PageLayoutType: pageTemplate
-        }).execute(page => {
-            // Update the file name
-            Web(url, targetInfo).Lists("Site Pages").Items(page.Id).update({
-                FileLeafRef: pageName
-            }).execute(
-                // Updated the file name successfully
-                () => {
-                    // Update the file url
-                    let idx = page.Url.lastIndexOf('/');
-                    let fileUrl = page.Url.substring(0, idx + 1) + pageName;
+        // Get the context information
+        getContext().then(requestDigest => {
+            // Set the target information
+            targetInfo = { ...{ requestDigest }, ...targetInfo };
 
-                    // Complete the request
-                    onComplete(page.Id, fileUrl);
-                },
+            // Create the page
+            SitePages(url, targetInfo).Pages().createAppPage({
+                Title: pageTitle,
+                PageLayoutType: pageTemplate
+            }).execute(page => {
+                // Update the file name
+                Web(url, targetInfo).Lists("Site Pages").Items(page.Id).update({
+                    FileLeafRef: pageName
+                }).execute(
+                    // Updated the file name successfully
+                    () => {
+                        // Update the file url
+                        let idx = page.Url.lastIndexOf('/');
+                        let fileUrl = page.Url.substring(0, idx + 1) + pageName;
 
-                // Unable to update the file name, but still return the object
-                () => {
-                    // Complete the request
-                    onComplete(page.Id, page.Url);
-                });
-        }, reject);
+                        // Complete the request
+                        onComplete(page.Id, fileUrl);
+                    },
+
+                    // Unable to update the file name, but still return the object
+                    () => {
+                        // Complete the request
+                        onComplete(page.Id, page.Url);
+                    });
+            }, reject);
+        });
     });
 });
