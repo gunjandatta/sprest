@@ -141,7 +141,7 @@ export const Request = {
                 }
 
                 // Add the method to the object
-                obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                obj[methodName] = obj[methodName] || new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     },
