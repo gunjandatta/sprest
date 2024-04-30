@@ -18,6 +18,7 @@ v2.sites.getList("Test").items().execute(items => {
 });
 
 v2.sites().lists("").items();
+v2.sites().lists("").items();
 v2.sites().lists("293874-239478-238479-32847987").execute(list => {
     list.items().execute(items => {
         items.results[0].update({});
@@ -75,6 +76,8 @@ List("Site Assets").getUserEffectivePermissions("").execute(perm => {
     // Save the permissions
     perm.GetUserEffectivePermissions;
 });
+
+Web().Lists("").Items().query({});
 
 // Graph
 Graph.getAccessToken().execute(token => {
