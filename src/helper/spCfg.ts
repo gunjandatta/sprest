@@ -7,7 +7,7 @@ import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
     createContentType, setContentTypeFields, Executor, FieldSchemaXML,
-    SPCfgType, SPCfgFieldType
+    loadSPCore, SPCfgType, SPCfgFieldType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -1244,201 +1244,214 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
         // Method to install the configuration
         install: (): PromiseLike<void> => {
+            let initSPLib = () => {
+                return new Promise(resolve => {
+                    // See if the SP lib exists
+                    if (window["SP"]) { resolve(null); return; }
+
+                    // Load the core lib
+                    loadSPCore().then(() => { resolve(null); });
+                });
+            }
+
             // Return a promise
             return new Promise((resolve, reject) => {
-                // Set the request digest
-                setRequestDigest().then(() => {
-                    // Log
-                    console.log("[gd-sprest] Installing the web assets...");
+                // Ensure the SP core lib exists
+                initSPLib().then(() => {
+                    // Set the request digest
+                    setRequestDigest().then(() => {
+                        // Log
+                        console.log("[gd-sprest] Installing the web assets...");
 
-                    // Get the web
-                    let web = Web(webUrl, { disableCache: true, requestDigest: _requestDigest });
+                        // Get the web
+                        let web = Web(webUrl, { disableCache: true, requestDigest: _requestDigest });
 
-                    // Create the site fields
-                    let createSiteFields = () => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating fields
-                            if (cfg.Fields && cfg.Fields.length > 0) {
-                                // Log
-                                console.log("[gd-sprest][Fields] Starting the requests.");
-
-                                // Get the fields
-                                web.Fields().execute(fields => {
-                                    // Create the fields
-                                    createFields(fields, cfg.Fields).then(() => {
-                                        // Log
-                                        console.log("[gd-sprest][Fields] Completed the requests.");
-
-                                        // Resolve the promise
-                                        resolve(null);
-                                    }, reject);
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve(null);
-                            }
-                        });
-                    }
-
-                    // Create the site content types
-                    let createSiteContentTypes = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating the content types
-                            if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
-                                // Log
-                                console.log("[gd-sprest][Content Types] Starting the requests.");
-
-                                // Get the content types
-                                web.ContentTypes().execute(contentTypes => {
-                                    // Create the content types
-                                    createContentTypes(contentTypes, cfg.ContentTypes).then(() => {
-                                        // Log
-                                        console.log("[gd-sprest][Content Types] Completed the requests.");
-
-                                        // Resolve the promise
-                                        resolve();
-                                    }, reject);
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
-
-                    // Create the site lists
-                    let createSiteLists = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating the lists
-                            if (cfg.ListCfg && cfg.ListCfg.length) {
-                                // Log
-                                console.log("[gd-sprest][Lists] Starting the requests.");
-
-                                // Get the lists
-                                web.Lists().execute(lists => {
-                                    // Create the lists
-                                    createLists(lists, cfg.ListCfg).then(() => {
-                                        // Log
-                                        console.log("[gd-sprest][Lists] Completed the requests.");
-
-                                        // Resolve the promise
-                                        resolve();
-                                    }, reject);
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
-
-                    // Create the site webparts
-                    let createSiteWebParts = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating the webparts
-                            if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
-                                // Log
-                                console.log("[gd-sprest][WebParts] Starting the requests.");
-
-                                // Create the webparts
-                                createWebParts().then(() => {
+                        // Create the site fields
+                        let createSiteFields = () => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating fields
+                                if (cfg.Fields && cfg.Fields.length > 0) {
                                     // Log
-                                    console.log("[gd-sprest][WebParts] Completed the requests.");
+                                    console.log("[gd-sprest][Fields] Starting the requests.");
 
-                                    // Resolve the promise
-                                    resolve();
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
-
-                    // Create the custom actions
-                    let createSiteCollectionCustomActions = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are targeting the site collection
-                            if (cfg.CustomActionCfg && cfg.CustomActionCfg.Site) {
-                                // Log
-                                console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
-
-                                // Get the site
-                                Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
-                                    // Get the user custom actions
-                                    .UserCustomActions().execute(customActions => {
-                                        // Create the user custom actions
-                                        createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(() => {
+                                    // Get the fields
+                                    web.Fields().execute(fields => {
+                                        // Create the fields
+                                        createFields(fields, cfg.Fields).then(() => {
                                             // Log
-                                            console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+                                            console.log("[gd-sprest][Fields] Completed the requests.");
+
+                                            // Resolve the promise
+                                            resolve(null);
+                                        }, reject);
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve(null);
+                                }
+                            });
+                        }
+
+                        // Create the site content types
+                        let createSiteContentTypes = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating the content types
+                                if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
+                                    // Log
+                                    console.log("[gd-sprest][Content Types] Starting the requests.");
+
+                                    // Get the content types
+                                    web.ContentTypes().execute(contentTypes => {
+                                        // Create the content types
+                                        createContentTypes(contentTypes, cfg.ContentTypes).then(() => {
+                                            // Log
+                                            console.log("[gd-sprest][Content Types] Completed the requests.");
 
                                             // Resolve the promise
                                             resolve();
                                         }, reject);
                                     }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
 
-                    // Create the custom actions
-                    let createSiteCustomActions = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are targeting the web
-                            if (cfg.CustomActionCfg && cfg.CustomActionCfg.Web) {
-                                // Log
-                                console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
+                        // Create the site lists
+                        let createSiteLists = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating the lists
+                                if (cfg.ListCfg && cfg.ListCfg.length) {
+                                    // Log
+                                    console.log("[gd-sprest][Lists] Starting the requests.");
 
-                                // Get the user custom actions
-                                web.UserCustomActions().execute(customActions => {
-                                    // Create the user custom actions
-                                    createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(() => {
+                                    // Get the lists
+                                    web.Lists().execute(lists => {
+                                        // Create the lists
+                                        createLists(lists, cfg.ListCfg).then(() => {
+                                            // Log
+                                            console.log("[gd-sprest][Lists] Completed the requests.");
+
+                                            // Resolve the promise
+                                            resolve();
+                                        }, reject);
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+
+                        // Create the site webparts
+                        let createSiteWebParts = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating the webparts
+                                if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
+                                    // Log
+                                    console.log("[gd-sprest][WebParts] Starting the requests.");
+
+                                    // Create the webparts
+                                    createWebParts().then(() => {
                                         // Log
-                                        console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
+                                        console.log("[gd-sprest][WebParts] Completed the requests.");
 
                                         // Resolve the promise
                                         resolve();
-                                    });
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
 
-                    // Create the site fields
-                    createSiteFields().then(() => {
-                        // Create the site content types
-                        createSiteContentTypes().then(() => {
-                            // Create the site lists
-                            createSiteLists().then(() => {
-                                // Create the webparts
-                                createSiteWebParts().then(() => {
-                                    // Create the site collection custom actions
-                                    createSiteCollectionCustomActions().then(() => {
-                                        // Create the site custom actions
-                                        createSiteCustomActions().then(() => {
+                        // Create the custom actions
+                        let createSiteCollectionCustomActions = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are targeting the site collection
+                                if (cfg.CustomActionCfg && cfg.CustomActionCfg.Site) {
+                                    // Log
+                                    console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
+
+                                    // Get the site
+                                    Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
+                                        // Get the user custom actions
+                                        .UserCustomActions().execute(customActions => {
+                                            // Create the user custom actions
+                                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(() => {
+                                                // Log
+                                                console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+
+                                                // Resolve the promise
+                                                resolve();
+                                            }, reject);
+                                        }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+
+                        // Create the custom actions
+                        let createSiteCustomActions = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are targeting the web
+                                if (cfg.CustomActionCfg && cfg.CustomActionCfg.Web) {
+                                    // Log
+                                    console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
+
+                                    // Get the user custom actions
+                                    web.UserCustomActions().execute(customActions => {
+                                        // Create the user custom actions
+                                        createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(() => {
                                             // Log
-                                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                                            console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
 
-                                            // Resolve the request
+                                            // Resolve the promise
                                             resolve();
+                                        });
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+
+                        // Create the site fields
+                        createSiteFields().then(() => {
+                            // Create the site content types
+                            createSiteContentTypes().then(() => {
+                                // Create the site lists
+                                createSiteLists().then(() => {
+                                    // Create the webparts
+                                    createSiteWebParts().then(() => {
+                                        // Create the site collection custom actions
+                                        createSiteCollectionCustomActions().then(() => {
+                                            // Create the site custom actions
+                                            createSiteCustomActions().then(() => {
+                                                // Log
+                                                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+
+                                                // Resolve the request
+                                                resolve();
+                                            }, reject);
                                         }, reject);
                                     }, reject);
                                 }, reject);
                             }, reject);
                         }, reject);
                     }, reject);
-                }, reject);
+                });
             });
         },
 
