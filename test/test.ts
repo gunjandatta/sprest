@@ -61,7 +61,7 @@ SitePages().Pages().createAppPage({
 }).execute()
 
 // See if you can get the root folder of a catalog list/library
-Web().getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
+Web(null, {requestDigest: ""}).getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
 
 // People Manager - User Profile Properties
 PeopleManager().getPropertiesFor("account.name").execute(profile => {
@@ -225,10 +225,28 @@ $REST.Search().postquery({
 
 $REST.Helper.SPConfig({
     ListCfg: [{
+        TitleFieldRequired: false,
         CustomFields: [
             { name: "TestField1", title: "Test Field 1", type: $REST.Helper.SPCfgFieldType.Text },
             { name: "TestField2", title: "Test Field 2", type: $REST.Helper.SPCfgFieldType.Text },
-            { name: "TestField3", title: "Test Field 3", type: $REST.Helper.SPCfgFieldType.Text }
+            { name: "TestField3", title: "Test Field 3", type: $REST.Helper.SPCfgFieldType.Text },
+            {
+                name: "",
+                title: "",
+                noteType: $REST.SPTypes.FieldNoteType.TextOnly,
+            } as Helper.IFieldInfoNote,
+            {
+                name: "",
+                title: "",
+                type: $REST.Helper.SPCfgFieldType.Choice,
+                format: $REST.SPTypes.ChoiceFormatType.RadioButtons
+            } as Helper.IFieldInfoChoice,
+            {
+                name: "",
+                title: "",
+                type: $REST.Helper.SPCfgFieldType.Date,
+                format: $REST.SPTypes.DateFormat.DateOnly
+            } as Helper.IFieldInfoDate,
         ],
         ListInformation: {
             BaseTemplate: 100,
