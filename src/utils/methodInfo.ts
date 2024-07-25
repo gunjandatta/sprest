@@ -143,8 +143,12 @@ export class MethodInfo implements Base.IMethodInfo {
                     this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"').replace(/\n/g, ""));
                 }
 
+                // For custom format properties of fields, we need to escape \\quot;
+                // Replace \\&quot; with \\\\&quot;
+                let methodData = this.methodInfo.data.replace(/\\&quot;/g, '\\\\&quot;');
+
                 // Set the method data
-                this.methodData = JSON.parse(this.methodInfo.data);
+                this.methodData = JSON.parse(methodData);
             }
         }
 
