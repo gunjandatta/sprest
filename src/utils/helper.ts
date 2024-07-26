@@ -439,7 +439,7 @@ export const Helper: IBaseHelper = {
         if (results == null || results.PrimaryQueryResult == null) { return; }
 
         // Clear the results
-        base["results"] = base["results"] || [];
+        base["postquery"].results = base["postquery"].results || [];
 
         // Parse the results
         for (let i = 0; i < results.PrimaryQueryResult.RelevantResults.RowCount; i++) {
@@ -455,7 +455,7 @@ export const Helper: IBaseHelper = {
             }
 
             // Append the result
-            base["results"]?.push(data);
+            base["postquery"].results.push(data);
         }
     }
 }
