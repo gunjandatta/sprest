@@ -1,3 +1,4 @@
+import { SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
 import { IMethodInfo, IRequestInfo } from "gd-sprest-def/base";
 import { IBase, IBaseHelper, ITargetInfoProps } from "../../@types/utils";
 import { ContextInfo } from "../lib";
@@ -428,6 +429,33 @@ export const Helper: IBaseHelper = {
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + base["ID"] + "')";
+        }
+    },
+
+    // Method to update the search results
+    updateSearchResults: (base: IBase) => {
+        // See if this contains search results
+        let results: SearchResult = base["postquery"] && base["postquery"].results;
+        if (results == null) { return; }
+
+        // Clear the results
+        base["results"] = base["results"] || [];
+
+        // Parse the results
+        for (let i = 0; i < results.PrimaryQueryResult.RelevantResults.RowCount; i++) {
+            let data = {};
+            let result = results.PrimaryQueryResult.RelevantResults.Table.Rows.results[i];
+
+            // Parse the cells
+            for (let j = 0; j < result.Cells.results.length; j++) {
+                let cell = result.Cells.results[j];
+
+                // Add the key/value
+                data[cell.Key] = cell.Value;
+            }
+
+            // Append the result
+            base["results"]?.push(data);
         }
     }
 }

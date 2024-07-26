@@ -44,4 +44,7 @@ export interface IBaseHelper {
 
     /** Updates the metdata uri. */
     updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
+
+    /** Updates the search results. */
+    updateSearchResults(base: IBase);
 }

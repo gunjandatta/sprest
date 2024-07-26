@@ -616,6 +616,9 @@ export const Request = {
 
                     // Update the expanded properties
                     Helper.updateExpandedProperties(obj);
+
+                    // Update the search results
+                    Helper.updateSearchResults(obj);
                 }
                 // Else, see if this is a graph request
                 else if (data["@odata.context"]) {

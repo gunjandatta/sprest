@@ -1654,7 +1654,7 @@ declare module 'gd-sprest/lib/search' {
                 * Method to execute a post query
                 * @param 
                 */
-            postQuery(props: ISearchPostQuery): PromiseLike<SearchResult>;
+            postQuery<T = any>(props: ISearchPostQuery): PromiseLike<SearchResult<T>>;
     }
 }
 
@@ -7103,6 +7103,9 @@ declare module 'gd-sprest/utils/helper' {
     
         /** Updates the metdata uri. */
         updateMetadataUri(base: IBase, metadata, targetInfo: ITargetInfoProps);
+    
+        /** Updates the search results. */
+        updateSearchResults(base: IBase);
     }
 }
 
