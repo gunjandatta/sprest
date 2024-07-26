@@ -435,7 +435,7 @@ export const Helper: IBaseHelper = {
     // Method to update the search results
     updateSearchResults: (base: IBase) => {
         // See if this contains search results
-        let results: SearchResult = base["postquery"] && base["postquery"].results;
+        let results: SearchResult = base["postquery"] && base["postquery"].PrimaryQueryResult;
         if (results == null) { return; }
 
         // Clear the results
