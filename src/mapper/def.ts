@@ -6687,7 +6687,7 @@ export const Mapper: IMapper = {
             "AttachmentFiles|SP.Attachment.Collection|('[Name]')|SP.Attachment", "Comments|Microsoft.SharePoint.Comments.comment.Collection|('[Name]')|Microsoft.SharePoint.Comments.comment",
             "ContentType|SP.ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit", "File|SP.File", "FirstUniqueAncestorSecurableObject",
             "Folder|SP.Folder", "GetDlpPolicyTip", "ParentList", "Properties", "RoleAssignments|SP.RoleAssignment.Collection|roleassignments|([Name])|SP.RoleAssignment",
-            "Versions|SP.ListItemVersion.Collection|(Name)|SPListItemVersion"
+            "Versions|SP.ListItemVersion.Collection|([Name])|SPListItemVersion"
         ],
         addThumbnailFieldData: {
             argNames: ["imageStream", "imageName", "fieldInternalName"],
@@ -6870,6 +6870,7 @@ export const Mapper: IMapper = {
 
     "SP.ListItemVersion.Collection": {
         deleteAll: {
+            requestType: RequestType.Post
         },
 
         getById: {
