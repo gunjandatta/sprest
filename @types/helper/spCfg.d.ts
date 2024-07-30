@@ -417,6 +417,12 @@ export interface ISPCfgViewInfo {
     /** Flag to set the view as hidden. */
     Hidden?: boolean;
 
+    /** Flag to set the default mobile view. */
+    MobileDefaultView?: boolean;
+
+    /** Flag to set the view for mobile. */
+    MobileView?: boolean;
+
     /** The row limit property. */
     RowLimit?: number;
     
