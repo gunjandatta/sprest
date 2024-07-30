@@ -3891,8 +3891,14 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The JSLink property. */
             JSLink?: string;
     
+            /** Flag to set the view as hidden. */
+            Hidden?: boolean;
+    
             /** The row limit property. */
             RowLimit?: number;
+    
+            /** Flag to enable the tabular view option. */
+            Tabular?: boolean;
     
             /** The view fields. */
             ViewFields?: Array<string>;

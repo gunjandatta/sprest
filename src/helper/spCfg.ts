@@ -531,6 +531,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 } else {
                     // Add the view
                     views.add({
+                        DefaultView: cfg.Default,
+                        Hidden: cfg.Hidden,
+                        TabularView: cfg.Tabular,
                         Title: cfg.ViewName,
                         RowLimit: cfg.RowLimit,
                         ViewQuery: cfg.ViewQuery
@@ -1130,7 +1133,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // See if we are updating the view properties
-                    if (typeof (cfg.Default) === "boolean" || cfg.JSLink || cfg.RowLimit > 0 || cfg.ViewQuery) {
+                    if (typeof (cfg.Default) === "boolean" || typeof (cfg.Hidden) === "boolean" ||
+                        typeof (cfg.Tabular) === "boolean" || cfg.JSLink || cfg.RowLimit > 0 || cfg.ViewQuery) {
                         let props = {};
 
                         // Log
@@ -1138,6 +1142,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                         // Set the properties
                         typeof (cfg.Default) === "boolean" ? props["DefaultView"] = cfg.Default : null;
+                        typeof (cfg.Hidden) === "boolean" ? props["Hidden"] = cfg.Hidden : null;
+                        typeof (cfg.Tabular) === "boolean" ? props["TabularView"] = cfg.Tabular : null;
                         cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
                         cfg.RowLimit > 0 ? props["RowLimit"] = cfg.RowLimit : null;
                         cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
