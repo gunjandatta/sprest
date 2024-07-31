@@ -13,6 +13,7 @@ import { SPCfgFieldType } from "./spCfg";
  */
 export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): PromiseLike<string> => {
     let _resolve = null;
+    let _reject = null;
 
     // Returns the schema xml for a boolean field.
     let createBoolean = (fieldInfo: IFieldInfo, props: object) => {
@@ -249,6 +250,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
 
                     // Resolve the request
                     _resolve("<Field " + toString(props) + " />");
+                }, () => {
+                    // Error getting the lookup list
+                    _reject("Error getting the lookup list.");
                 });
         } else {
             // Set the list id
@@ -417,8 +421,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
 
     // Return a promise
     return new Promise((resolve, reject) => {
-        // Set the resolve method
+        // Set the resolve/reject methods
         _resolve = resolve;
+        _reject = reject;
 
         // See if the schema xml has been defined
         if (fieldInfo.schemaXml) {

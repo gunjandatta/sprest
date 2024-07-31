@@ -287,7 +287,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
             // Parse the configuration
             Executor<ISPCfgFieldInfo>(cfgFields, cfg => {
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
                     // See if this field already exists
                     let field = isInCollection("InternalName", cfg.name, fields.results);
                     if (field) {
@@ -346,11 +346,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     }
                                 });
                             }
-                        });
+                        }, reject);
                     }
                 });
             }).then(resolve);
-        })
+        });
     }
 
     // Method to create the lists
