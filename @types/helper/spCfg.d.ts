@@ -60,6 +60,9 @@ export interface IFieldInfo {
     /** True for hidden fields. */
     hidden?: boolean;
 
+    /** The guid of the field. */
+    id?: string;
+
     /** True to index the field. */
     indexed?: boolean;
 

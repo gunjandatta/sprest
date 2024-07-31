@@ -3537,6 +3537,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** True for hidden fields. */
             hidden?: boolean;
     
+            /** The guid of the field. */
+            id?: string;
+    
             /** True to index the field. */
             indexed?: boolean;
     

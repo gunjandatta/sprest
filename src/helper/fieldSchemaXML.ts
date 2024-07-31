@@ -427,7 +427,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
         } else {
             // Set the base properties
             let props = {};
-            props["ID"] = "{" + ContextInfo.generateGUID() + "}";
+            props["ID"] = fieldInfo.id || "{" + ContextInfo.generateGUID() + "}";
             props["Name"] = fieldInfo.name;
             props["StaticName"] = fieldInfo.name;
             props["DisplayName"] = fieldInfo.title || fieldInfo.name;
