@@ -428,7 +428,7 @@ export interface ISPCfgViewInfo {
 
     /** The row limit property. */
     RowLimit?: number;
-    
+
     /** Flag to enable the tabular view option. */
     Tabular?: boolean;
 
@@ -518,6 +518,9 @@ export interface ISPConfigProps {
 
     /** The list configuration. */
     ListCfg?: Array<ISPCfgListInfo>;
+
+    /** Event for the logging of the configuration. */
+    onLogMessage?: (msg: string) => void;
 
     /** The web part configuration. */
     WebPartCfg?: Array<ISPCfgWebPartInfo>;
