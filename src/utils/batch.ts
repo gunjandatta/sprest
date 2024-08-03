@@ -56,7 +56,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    static getTargetInfo(url: string, requests: Array<IBatchRequest>): TargetInfo {
+    static getTargetInfo(url: string, requests: Array<IBatchRequest>, requestDigest: string): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
@@ -72,6 +72,7 @@ export class Batch {
             endpoint: "$batch",
             method: "POST",
             data: batchRequests.join("\r\n"),
+            requestDigest,
             requestHeader: {
                 "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
             }

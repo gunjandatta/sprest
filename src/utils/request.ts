@@ -443,7 +443,7 @@ export const Request = {
                 // Return a promise
                 return new Promise(resolve => {
                     // Execute the request
-                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest), batchIdx++, () => {
+                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest, base.targetInfo.requestDigest), batchIdx++, () => {
                         // Resolve the request
                         resolve(null);
                     });
