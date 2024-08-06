@@ -18,11 +18,16 @@ export const loadSPCore: IloadSPCore = () => {
                 // Log
                 console.debug("[gd-sprest] Loading the core library: " + libName);
 
-                // Load the library
+                // Create the script element to load the library
                 let elScript = document.createElement("script");
                 elScript.title = libName;
                 elScript.src = document.location.origin + "/_layouts/15/" + libName + ".js";
-                document.head.appendChild(elScript);
+
+                // Wait for the previous library to load
+                setTimeout(() => {
+                    // Load the script
+                    document.head.appendChild(elScript);
+                }, 10 * i);
             } else {
                 // Log
                 console.debug("[gd-sprest] Core library already loaded: " + libName);
