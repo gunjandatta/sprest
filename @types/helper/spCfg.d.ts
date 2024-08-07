@@ -520,7 +520,7 @@ export interface ISPConfigProps {
     ListCfg?: Array<ISPCfgListInfo>;
 
     /** Event for the logging of the configuration. */
-    onLogMessage?: (msg: string) => void;
+    onLogMessage?: (msg: string, isError?: boolean) => void;
 
     /** The web part configuration. */
     WebPartCfg?: Array<ISPCfgWebPartInfo>;

@@ -37,7 +37,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         }
 
         // Call the event
-        cfg.onLogMessage ? cfg.onLogMessage(message) : null;
+        cfg.onLogMessage ? cfg.onLogMessage(message, isError) : null;
     }
 
     /**
