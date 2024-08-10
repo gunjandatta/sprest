@@ -6,7 +6,7 @@ import { SP } from "gd-sprest-def";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
-    createContentType, setContentTypeFields, Executor, FieldSchemaXML,
+    setContentTypeFields, Executor, FieldSchemaXML,
     loadSPCore, SPCfgType, SPCfgFieldType
 } from ".";
 export * from "./spCfgTypes";
@@ -53,6 +53,26 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Resolve the promise
                 resolve();
                 return;
+            }
+
+            // Method to add an existing content type
+            let addParentCT = (cfg: ISPCfgContentTypeInfo, parentInfo: { Id: string, Url: string }): PromiseLike<SP.ContentType> => {
+                // Return a promise
+                return new Promise((resolve, reject) => {
+                    // Add the content type
+                    let contentTypes = list ? Web(webUrl).Lists(list.Title).ContentTypes() : Web(webUrl).ContentTypes();
+                    contentTypes.add({
+                        Description: cfg.Description,
+                        Group: cfg.Group,
+                        Name: cfg.Name,
+                        Id: {
+                            __metadata: {
+                                type: "SP.ContentTypeId"
+                            },
+                            StringValue: parentInfo.Id + ContextInfo.generateGUID().replace(/-/g, "")
+                        } as any
+                    }).execute(resolve, reject);
+                });
             }
 
             // Method to get the parent content type
@@ -113,11 +133,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Success
                             parentInfo => {
                                 // Add the content type
-                                createContentType({
-                                    Description: cfg.Description,
-                                    Group: cfg.Group,
-                                    Name: cfg.Name
-                                }, parentInfo, webUrl, list ? list.Title : null).then(
+                                addParentCT(cfg, parentInfo).then(
                                     // Success
                                     ct => {
                                         // Log

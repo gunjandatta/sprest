@@ -57,6 +57,9 @@ function runTests() {
                 case "batch-large":
                     testBatch(true);
                     break;
+                case "configuration":
+                    testConfiguration();
+                    break;
                 case "file":
                     testFile();
                     break;
@@ -223,7 +226,7 @@ function testBatch(largeList) {
             let deleteCounter = 0;
             for (var i = 0; i < itemIds.length; i++) {
                 // Delete the item
-                web.Lists("BatchList").Items(itemIds[i]).delete().batch(function() {
+                web.Lists("BatchList").Items(itemIds[i]).delete().batch(function () {
                     // Increment the counter
                     deleteCounter++;
                 }, i % 100 == 0);
@@ -234,7 +237,7 @@ function testBatch(largeList) {
                 // Log
                 writeToLog("Items Deleted: " + deleteCounter, LogType.Info);
 
-                    // See if no items exist
+                // See if no items exist
                 if (list.ItemCount == 0) {
                     // Log
                     writeToLog("List contains 0 items.", LogType.Info);
@@ -301,6 +304,38 @@ function testBatch(largeList) {
                     writeToLog("Failed to create the list.", LogType.Error);
                 }
             );
+        }
+    );
+}
+
+function testConfiguration() {
+    // Log
+    writeToLog("Configuration", LogType.Header);
+
+    // Log
+    writeToLog("Running the configuration", LogType.SubHeader);
+
+    // Create the configuration
+    var cfg = $REST.Helper.SPConfig(spCfg);
+
+    // Install it
+    cfg.install().then(
+        // Success
+        function () {
+            // Log
+            writeToLog("Configuration installed successfully.", LogType.Info);
+
+            // Uninstall it
+            cfg.uninstall().then(function () {
+                // Log
+                writeToLog("Configuration uninstalled successfully.", LogType.Info);
+            });
+        },
+
+        // Error
+        function () {
+            // Log
+            writeToLog("Error installing the configuration.", LogType.Error);
         }
     );
 }
