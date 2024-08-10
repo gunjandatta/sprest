@@ -60,7 +60,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Return a promise
                 return new Promise((resolve, reject) => {
                     // Add the content type
-                    let contentTypes = list ? Web(webUrl).Lists(list.Title).ContentTypes() : Web(webUrl).ContentTypes();
+                    let contentTypes = list ? Web(webUrl, { disableCache: true, requestDigest: _requestDigest }).Lists(list.Title).ContentTypes() : Web(webUrl).ContentTypes();
                     contentTypes.add({
                         Description: cfg.Description,
                         Group: cfg.Group,
