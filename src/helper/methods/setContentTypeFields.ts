@@ -1,4 +1,4 @@
-import { IContentType, FieldLink, FieldLinkProps } from "gd-sprest-def/lib/SP";
+import { IContentType, FieldLink, FieldLinkProps, FieldLookup } from "gd-sprest-def/lib/SP";
 import { IsetContentTypeFields } from "../../../@types/helper/methods";
 import { ContextInfo, Web } from "../../lib";
 declare var SP;
@@ -254,12 +254,52 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
                 ct = Web(ctInfo.webUrl).ContentTypes(ctInfo.id);
             }
 
-            // Query the field links
+            // Query the fields
+            ct.query({
+                Expand: ["Fields", "FieldLinks"],
+                Select: [
+                    "FieldLinks/DisplayName", "FieldLinks/Id", "FieldLinks/Name",
+                    "FieldLinks/Required", "FieldLinks/ReadOnly", "FieldLinks/ShowInDisplayForm",
+                    "Fields/InternalName", "Fields/IsDependentLookup"
+                ]
+            }).execute(ct => {
+                let fieldRefs = [];
+
+                // Associated lookup fields error when removing from content types
+                // They may get removed when removing the main lookup field
+
+                // Parse the field links
+                for (let i = 0; i < ct.FieldLinks.results.length; i++) {
+                    let addField = true;
+                    let fieldLink = ct.FieldLinks.results[i];
+
+                    // Find the field
+                    for (let j = 0; j < ct.Fields.results.length; j++) {
+                        let field = ct.Fields.results[j];
+
+                        // See if this is the target field
+                        if (field.InternalName == fieldLink.Name) {
+                            // See if this is an associated lookup field
+                            if ((field as FieldLookup).IsDependentLookup) {
+                                // Set the flag
+                                addField = false;
+                            }
+
+                            // Break from the loop
+                            break;
+                        }
+                    }
+
+                    // Add the field link
+                    if (addField) { fieldRefs.push(fieldLink); }
+                }
+
+                // Resolve the request
+                resolve(fieldRefs);
+            }, reject);
             ct.FieldLinks().query({
                 Select: ["DisplayName", "Id", "Name", "Required", "ReadOnly", "ShowInDisplayForm"]
             }).execute(fieldLinks => {
-                // Resolve the request
-                resolve(fieldLinks.results);
             }, reject);
         });
     }
