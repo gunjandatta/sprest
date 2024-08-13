@@ -1,4 +1,4 @@
-import { IContentType, FieldLink, FieldLinkProps } from "gd-sprest-def/lib/SP";
+import { ContextWebInformation, IContentType, FieldLink, FieldLinkProps } from "gd-sprest-def/lib/SP";
 import { IsetContentTypeFields } from "../../../@types/helper/methods";
 import { ContextInfo, Web } from "../../lib";
 declare var SP;
@@ -15,19 +15,11 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
             // Get the links
             getLinks().then(fieldLinks => {
                 let skipFields: Array<FieldLink> = [];
+                let ct = Web(webContext.WebFullUrl).Lists(ctInfo.listName).ContentTypes(ctInfo.id);
 
                 // See if we need to remove any fields
                 if (fieldLinks.length > 0) {
                     let updateFl = false;
-
-                    // Set the context
-                    let ctx = ctInfo.webUrl ? new SP.ClientContext(ctInfo.webUrl) : new SP.ClientContext(ContextInfo.webServerRelativeUrl);
-
-                    // Get the source
-                    let src = ctInfo.listName ? ctx.get_web().get_lists().getByTitle(ctInfo.listName) : ctx.get_web();
-
-                    // Get the content type
-                    let contentType = src.get_contentTypes().getById(ctInfo.id);
 
                     // Parse the content type field links
                     for (let i = 0; i < fieldLinks.length; i++) {
@@ -78,24 +70,31 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
 
                         // See if we are removing the field
                         if (removeFl) {
+                            // Log
+                            console.log("[gd-sprest][Set Content Type Fields] Removing the field link: " + fieldLink.Name);
+
                             // Remove the field link
-                            contentType.get_fieldLinks().getById(fieldLink.Id).deleteObject();
+                            ct.Fields().getById(fieldLink.Id).delete().execute(
+                                // Success
+                                () => {
+                                    // Log
+                                    console.log("[gd-sprest][Set Content Type Fields] Field link '" + fieldLink.Name + "' was removed successfully.");
+                                },
+                                // Error
+                                () => {
+                                    // Log
+                                    console.log("[gd-sprest][Set Content Type Fields] Error removing the field link: " + fieldLink.Name);
+                                }, true);
 
                             // Set the flag
                             updateFl = true;
-
-                            // Log
-                            console.log("[gd-sprest][Set Content Type Fields] Removing the field link: " + fieldLink.Name);
                         }
                     }
 
-                    // See if an update is required
+                    // See if we are updating the content type
                     if (updateFl) {
-                        // Update the content type
-                        contentType.update(false);
-
-                        // Execute the request
-                        ctx.executeQueryAsync(
+                        // Wait for the requests to complete
+                        ct.done(
                             // Success
                             () => {
                                 // Log
@@ -103,16 +102,8 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
 
                                 // Resolve the request
                                 resolve(skipFields);
-                            },
-
-                            // Error
-                            (sender, args) => {
-                                // Log
-                                console.log("[gd-sprest][Set Content Type Fields] Error removing the field links.");
-
-                                // Reject the request
-                                reject();
-                            });
+                            }
+                        );
                     } else {
                         // Log
                         console.log("[gd-sprest][Set Content Type Fields] No fields need to be removed.");
@@ -264,6 +255,22 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
         });
     }
 
+    // Sets the context for the target site
+    let webContext: ContextWebInformation = null;
+    let setContext = (): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the context information of the target web
+            ContextInfo.getWeb(ctInfo.webUrl || ContextInfo.webServerRelativeUrl).execute(context => {
+                // Set the web context info
+                webContext = context.GetContextWebInformation;
+
+                // Resolve the request
+                resolve();
+            }, reject);
+        });
+    }
+
     // Set the order of the field references
     let setOrder = (): PromiseLike<void> => {
         // Return a promise
@@ -321,12 +328,15 @@ export const setContentTypeFields: IsetContentTypeFields = (ctInfo: { id: string
         if (window["SP"]) {
             // Ensure fields exist
             if (ctInfo.fields) {
-                // Clear the links
-                clearLinks().then(skipFields => {
-                    // Create the links
-                    createLinks(skipFields).then(() => {
-                        // Set the field order
-                        setOrder().then(resolve, reject);
+                // Set the context
+                setContext().then(() => {
+                    // Clear the links
+                    clearLinks().then(skipFields => {
+                        // Create the links
+                        createLinks(skipFields).then(() => {
+                            // Set the field order
+                            setOrder().then(resolve, reject);
+                        }, reject);
                     }, reject);
                 }, reject);
             } else {
