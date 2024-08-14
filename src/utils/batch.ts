@@ -43,12 +43,22 @@ export class Batch {
                 targetInfo: new TargetInfo(base.targetInfo)
             }]);
         } else {
-            // Append the request
-            base.base.batchRequests[base.base.batchRequests.length - 1].push({
-                callback,
-                changesetId: ContextInfo.generateGUID(),
-                targetInfo: new TargetInfo(base.targetInfo)
-            });
+            // Batch requests are limited to 100 per execution, so we need to add a check for this
+            if (base.base.batchRequests[base.base.batchRequests.length - 1].length == 100) {
+                // Create a new request
+                base.base.batchRequests.push([{
+                    callback,
+                    changesetId: ContextInfo.generateGUID(),
+                    targetInfo: new TargetInfo(base.targetInfo)
+                }]);
+            } else {
+                // Append the request
+                base.base.batchRequests[base.base.batchRequests.length - 1].push({
+                    callback,
+                    changesetId: ContextInfo.generateGUID(),
+                    targetInfo: new TargetInfo(base.targetInfo)
+                });
+            }
         }
 
         // Return this object
