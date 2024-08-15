@@ -69,7 +69,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             __metadata: {
                                 type: "SP.ContentTypeId"
                             },
-                            StringValue: parentInfo.Id + ContextInfo.generateGUID().replace(/-/g, "")
+                            StringValue: parentInfo.Id + (list ? "00" : "") + ContextInfo.generateGUID().replace(/-/g, "")
                         } as any
                     }).execute(resolve, reject);
                 });
