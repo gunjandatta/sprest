@@ -6906,7 +6906,7 @@ declare module 'gd-sprest/helper/methods/loadSPCore' {
       */
     export const loadSPCore: IloadSPCore;
     export interface IloadSPCore {
-        (): PromiseLike<void>;
+        (additionalLibs?: string[]): PromiseLike<void>;
     }
 }
 

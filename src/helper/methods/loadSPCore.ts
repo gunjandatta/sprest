@@ -4,11 +4,17 @@ import { Executor } from "../executor";
 /**
  * Loads the core SharePoint JavaScript library for JSOM.
  */
-export const loadSPCore: IloadSPCore = () => {
+export const loadSPCore: IloadSPCore = (additionalLibs?: string[]) => {
     // Return a promise
     return new Promise((resolve) => {
         // Define the core libraries to load
         let libs = ["init", "MicrosoftAjax", "SP.Runtime", "SP", "SP.Init"];
+
+        // See if we are loading additional libraries
+        if (additionalLibs && additionalLibs.length > 0) {
+            // Append the libs
+            libs = libs.concat(additionalLibs);
+        }
 
         // Parse the libraries
         let counter = 0;

@@ -1292,8 +1292,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // See if the SP lib exists
                     if (window["SP"]) { resolve(null); return; }
 
-                    // Load the core lib
-                    loadSPCore().then(() => { resolve(null); });
+                    // Load the core and taxonomy libraries
+                    loadSPCore(["sp.taxonomy"]).then(() => { resolve(null); });
                 });
             }
 
