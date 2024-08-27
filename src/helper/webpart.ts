@@ -256,7 +256,8 @@ class _WebPart {
         }
 
         // Get the form
-        let form = MSOWebPartPageFormName ? document.forms[MSOWebPartPageFormName] : null;
+        let formName = window["MSOWebPartPageFormName"];
+        let form = formName ? document.forms[formName] : null;
         if (form) {
             // Get the wiki page mode
             let wikiPageMode: any = form._wikiPageMode ? form._wikiPageMode.value : null;
