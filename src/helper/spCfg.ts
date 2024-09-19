@@ -238,6 +238,15 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                              * See if we need to update the properties
                              */
 
+                            // Custom form formatter
+                            if (cfgContentType.ClientFormCustomFormatter != null && cfgContentType.ContentType.ClientFormCustomFormatter != cfgContentType.ClientFormCustomFormatter) {
+                                // Update the configuration
+                                cfgUpdate.ClientFormCustomFormatter = cfgContentType.ClientFormCustomFormatter;
+
+                                // Set the flag
+                                updateFl = true;
+                            }
+
                             // Description
                             if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
                                 // Update the configuration
@@ -1181,6 +1190,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         typeof (cfg.MobileDefaultView) === "boolean" ? props["MobileDefaultView"] = cfg.MobileDefaultView : null;
                         typeof (cfg.MobileView) === "boolean" ? props["MobileView"] = cfg.MobileView : null;
                         typeof (cfg.Tabular) === "boolean" ? props["TabularView"] = cfg.Tabular : null;
+                        cfg.CustomFormatter ? props["CustomFormatter"] = cfg.CustomFormatter : null;
                         cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
                         cfg.RowLimit > 0 ? props["RowLimit"] = cfg.RowLimit : null;
                         cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;

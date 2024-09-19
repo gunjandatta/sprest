@@ -3766,6 +3766,11 @@ declare module 'gd-sprest/helper/spCfg' {
         */
     export interface ISPCfgContentTypeInfo extends ContentTypeCreationInformation {
             /**
+                * The client form custom formatter.
+                */
+            ClientFormCustomFormatter?: string;
+    
+            /**
                 * The content type. (This value is set internally.)
                 */
             ContentType?: ContentType;
@@ -3888,6 +3893,9 @@ declare module 'gd-sprest/helper/spCfg' {
         * SharePoint Configuration - View Information
         */
     export interface ISPCfgViewInfo {
+            /** Custom formatter */
+            CustomFormatter?: string;
+    
             /** Flag to set the view as the default view. */
             Default?: boolean;
     
