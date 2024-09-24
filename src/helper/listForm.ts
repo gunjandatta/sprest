@@ -581,7 +581,7 @@ export const ListForm: IListForm = {
                         // Resolve the promise
                         resolve(info);
                     }, reject);
-                });
+                }, reject);
             } else {
                 // Set the metadata type
                 formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
@@ -597,7 +597,7 @@ export const ListForm: IListForm = {
                         ListForm.refreshItem(info).then(info => {
                             // Resolve the promise
                             resolve(info);
-                        });
+                        }, reject);
                     }, reject);
             }
         });
