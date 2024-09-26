@@ -34,6 +34,9 @@ export interface IListForm {
      */
     refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
 
+    /** Method to refresh the request digest value. */
+    refreshRequestDigest(info: IListFormResult): PromiseLike<void>;
+
     /**
      * Method to remove attachment from an item.
      */
