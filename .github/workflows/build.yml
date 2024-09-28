@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     steps:
     - uses: actions/checkout@v2
 
@@ -23,7 +23,7 @@ jobs:
         npm run test --if-present
 
     - name: Build Artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: dist
         path: dist

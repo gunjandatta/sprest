@@ -37,7 +37,7 @@ export const createContentType: IcreateContentType = (ctInfo: ContentTypeCreatio
             // Success
             () => {
                 // Set the content type collection
-                let cts = (listName ? Web().Lists(listName) : Web()).ContentTypes();
+                let cts = (listName ? Web(webUrl).Lists(listName) : Web(webUrl)).ContentTypes();
 
                 // Find the content type
                 cts.query({ Filter: "Name eq '" + ctInfo.Name + "'" }).execute(cts => {

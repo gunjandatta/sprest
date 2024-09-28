@@ -3,7 +3,7 @@ import {
     IListFormResult, IListFormProps
 } from "../../@types/helper";
 import { IODataQuery, SP } from "gd-sprest-def";
-import { SPTypes, Web } from "..";
+import { ContextInfo, SPTypes, Web } from "..";
 import { Types } from "../../@types";
 
 /**
@@ -496,6 +496,22 @@ export const ListForm: IListForm = {
         });
     },
 
+    // Method to refresh the request digest value
+    refreshRequestDigest: (info: IListFormResult): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the context info
+            ContextInfo.getWeb(info.webUrl).execute(context => {
+                // Update the request digest value
+                info.item.updateRequestDigest(context.GetContextWebInformation.FormDigestValue);
+                info.list.updateRequestDigest(context.GetContextWebInformation.FormDigestValue);
+
+                // Resolve the request
+                resolve();
+            }, reject);
+        });
+    },
+
     // Method to remove attachments from an item
     removeAttachment: (info: IListFormResult, fileName: string): PromiseLike<IListFormResult> => {
         // Return a promise
@@ -581,7 +597,7 @@ export const ListForm: IListForm = {
                         // Resolve the promise
                         resolve(info);
                     }, reject);
-                });
+                }, reject);
             } else {
                 // Set the metadata type
                 formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
@@ -597,7 +613,7 @@ export const ListForm: IListForm = {
                         ListForm.refreshItem(info).then(info => {
                             // Resolve the promise
                             resolve(info);
-                        });
+                        }, reject);
                     }, reject);
             }
         });

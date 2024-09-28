@@ -60,6 +60,9 @@ export interface IFieldInfo {
     /** True for hidden fields. */
     hidden?: boolean;
 
+    /** The guid of the field. */
+    id?: string;
+
     /** True to index the field. */
     indexed?: boolean;
 
@@ -286,6 +289,11 @@ export interface IFieldInfoUser extends IFieldInfo {
  */
 export interface ISPCfgContentTypeInfo extends ContentTypeCreationInformation {
     /**
+     * The client form custom formatter.
+     */
+    ClientFormCustomFormatter?: string;
+
+    /**
      * The content type. (This value is set internally.)
      */
     ContentType?: ContentType;
@@ -408,14 +416,29 @@ export interface ISPCfgListInfo {
  * SharePoint Configuration - View Information
  */
 export interface ISPCfgViewInfo {
+    /** Custom formatter */
+    CustomFormatter?: string;
+
     /** Flag to set the view as the default view. */
     Default?: boolean;
 
     /** The JSLink property. */
     JSLink?: string;
 
+    /** Flag to set the view as hidden. */
+    Hidden?: boolean;
+
+    /** Flag to set the default mobile view. */
+    MobileDefaultView?: boolean;
+
+    /** Flag to set the view for mobile. */
+    MobileView?: boolean;
+
     /** The row limit property. */
     RowLimit?: number;
+
+    /** Flag to enable the tabular view option. */
+    Tabular?: boolean;
 
     /** The view fields. */
     ViewFields?: Array<string>;
@@ -503,6 +526,9 @@ export interface ISPConfigProps {
 
     /** The list configuration. */
     ListCfg?: Array<ISPCfgListInfo>;
+
+    /** Event for the logging of the configuration. */
+    onLogMessage?: (msg: string, isError?: boolean) => void;
 
     /** The web part configuration. */
     WebPartCfg?: Array<ISPCfgWebPartInfo>;

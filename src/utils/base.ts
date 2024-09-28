@@ -51,7 +51,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     batch(...args) { return Batch.execute(this, args); }
 
     // Method to wait for the requests to complete
-    done<T=IBase>(resolve: (value?: T) => void) { return Helper.done(this, resolve); }
+    done<T = IBase>(resolve: (value?: T) => void) { return Helper.done(this, resolve); }
 
     // Method to execute the request
     execute(...args) { return Request.execute(this, args); }
@@ -79,6 +79,9 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
 
     // Method to update the metadata uri
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps) { return Helper.updateMetadataUri(this, metadata, targetInfo); }
+
+    // Method to update the request digest value
+    updateRequestDigest(value: string) { this.targetInfo.requestDigest = value; }
 
     // Method to wait for the parent requests to complete
     waitForRequestsToComplete(callback: () => void, requestIdx?: number) { Request.waitForRequestsToComplete(this, callback, requestIdx); }

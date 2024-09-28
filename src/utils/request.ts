@@ -443,7 +443,7 @@ export const Request = {
                 // Return a promise
                 return new Promise(resolve => {
                     // Execute the request
-                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest), batchIdx++, () => {
+                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest, base.targetInfo.requestDigest), batchIdx++, () => {
                         // Resolve the request
                         resolve(null);
                     });
@@ -616,6 +616,9 @@ export const Request = {
 
                     // Update the expanded properties
                     Helper.updateExpandedProperties(obj);
+
+                    // Update the search results
+                    Helper.updateSearchResults(obj);
                 }
                 // Else, see if this is a graph request
                 else if (data["@odata.context"]) {

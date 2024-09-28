@@ -1,35 +1,52 @@
 import { IloadSPCore } from "../../../@types/helper/methods";
+import { Executor } from "../executor";
 
 /**
  * Loads the core SharePoint JavaScript library for JSOM.
  */
-export const loadSPCore: IloadSPCore = () => {
+export const loadSPCore: IloadSPCore = (additionalLibs?: string[]) => {
     // Return a promise
     return new Promise((resolve) => {
         // Define the core libraries to load
-        let libs = ["init", "MicrosoftAjax", "SP.Runtime", "SP"];
+        let libs = ["init", "MicrosoftAjax", "SP.Runtime", "SP", "SP.Init"];
 
-        // Parse the libraries
-        for (let i = 0; i < libs.length; i++) {
-            let libName = libs[i];
-
-            // See if a script already exists
-            if (document.querySelector("script[title='" + libName + "']") == null) {
-                // Log
-                console.debug("[gd-sprest] Loading the core library: " + libName);
-
-                // Load the library
-                let elScript = document.createElement("script");
-                elScript.title = libName;
-                elScript.src = document.location.origin + "/_layouts/15/" + libName + ".js";
-                document.head.appendChild(elScript);
-            } else {
-                // Log
-                console.debug("[gd-sprest] Core library already loaded: " + libName);
-            }
+        // See if we are loading additional libraries
+        if (additionalLibs && additionalLibs.length > 0) {
+            // Append the libs
+            libs = libs.concat(additionalLibs);
         }
 
-        // Resolve the request
-        resolve();
+        // Parse the libraries
+        let counter = 0;
+        Executor(libs, libName => {
+            // Return a promise
+            return new Promise(resolve => {
+                // See if a script already exists
+                if (document.querySelector("script[title='" + libName + "']") == null) {
+                    // Log
+                    console.debug("[gd-sprest] Loading the core library: " + libName);
+
+                    // Create the script element to load the library
+                    let elScript = document.createElement("script");
+                    elScript.title = libName;
+                    elScript.src = document.location.origin + "/_layouts/15/" + libName + ".js";
+
+                    // Wait for the previous library to load
+                    setTimeout(() => {
+                        // Load the script
+                        document.head.appendChild(elScript);
+
+                        // Resolve the request
+                        resolve(null);
+                    }, 10 * counter++);
+                } else {
+                    // Log
+                    console.debug("[gd-sprest] Core library already loaded: " + libName);
+                }
+            }).then(() => {
+                // Resolve the request after all the libraries have been requested
+                resolve();
+            });
+        });
     });
 }

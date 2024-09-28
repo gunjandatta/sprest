@@ -43,12 +43,22 @@ export class Batch {
                 targetInfo: new TargetInfo(base.targetInfo)
             }]);
         } else {
-            // Append the request
-            base.base.batchRequests[base.base.batchRequests.length - 1].push({
-                callback,
-                changesetId: ContextInfo.generateGUID(),
-                targetInfo: new TargetInfo(base.targetInfo)
-            });
+            // Batch requests are limited to 100 per execution, so we need to add a check for this
+            if (base.base.batchRequests[base.base.batchRequests.length - 1].length == 100) {
+                // Create a new request
+                base.base.batchRequests.push([{
+                    callback,
+                    changesetId: ContextInfo.generateGUID(),
+                    targetInfo: new TargetInfo(base.targetInfo)
+                }]);
+            } else {
+                // Append the request
+                base.base.batchRequests[base.base.batchRequests.length - 1].push({
+                    callback,
+                    changesetId: ContextInfo.generateGUID(),
+                    targetInfo: new TargetInfo(base.targetInfo)
+                });
+            }
         }
 
         // Return this object
@@ -56,7 +66,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    static getTargetInfo(url: string, requests: Array<IBatchRequest>): TargetInfo {
+    static getTargetInfo(url: string, requests: Array<IBatchRequest>, requestDigest: string): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
@@ -72,6 +82,7 @@ export class Batch {
             endpoint: "$batch",
             method: "POST",
             data: batchRequests.join("\r\n"),
+            requestDigest,
             requestHeader: {
                 "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
             }

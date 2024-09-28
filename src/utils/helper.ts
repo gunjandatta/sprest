@@ -1,3 +1,4 @@
+import { SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
 import { IMethodInfo, IRequestInfo } from "gd-sprest-def/base";
 import { IBase, IBaseHelper, ITargetInfoProps } from "../../@types/utils";
 import { ContextInfo } from "../lib";
@@ -58,6 +59,7 @@ export const Helper: IBaseHelper = {
         if (metadata && metadata.uri) {
             // Create the target information and use the url defined for the base object
             targetInfo = {
+                requestDigest: base.targetInfo?.requestDigest,
                 url: metadata.uri
             };
 
@@ -428,6 +430,33 @@ export const Helper: IBaseHelper = {
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + base["ID"] + "')";
+        }
+    },
+
+    // Method to update the search results
+    updateSearchResults: (base: IBase) => {
+        // See if this contains search results
+        let results: SearchResult = base["postquery"];
+        if (results == null || results.PrimaryQueryResult == null) { return; }
+
+        // Clear the results
+        base["postquery"].results = base["postquery"].results || [];
+
+        // Parse the results
+        for (let i = 0; i < results.PrimaryQueryResult.RelevantResults.RowCount; i++) {
+            let data = {};
+            let result = results.PrimaryQueryResult.RelevantResults.Table.Rows.results[i];
+
+            // Parse the cells
+            for (let j = 0; j < result.Cells.results.length; j++) {
+                let cell = result.Cells.results[j];
+
+                // Add the key/value
+                data[cell.Key] = cell.Value;
+            }
+
+            // Append the result
+            base["postquery"].results.push(data);
         }
     }
 }

@@ -6,8 +6,8 @@ import { SP } from "gd-sprest-def";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
-    createContentType, setContentTypeFields, Executor, FieldSchemaXML,
-    SPCfgType, SPCfgFieldType
+    setContentTypeFields, Executor, FieldSchemaXML,
+    loadSPCore, SPCfgType, SPCfgFieldType
 } from ".";
 export * from "./spCfgTypes";
 
@@ -25,6 +25,22 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let _targetName: string;
 
     /**
+     * Logging
+     */
+    let logMessage = (message: string, isError: boolean = false) => {
+        // See if this is an error
+        if (isError) {
+            // Log the error
+            console.error(message);
+        } else {
+            console.log(message);
+        }
+
+        // Call the event
+        cfg.onLogMessage ? cfg.onLogMessage(message, isError) : null;
+    }
+
+    /**
      * Methods
      */
 
@@ -37,6 +53,26 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Resolve the promise
                 resolve();
                 return;
+            }
+
+            // Method to add an existing content type
+            let addParentCT = (cfg: ISPCfgContentTypeInfo, parentInfo: { Id: string, Url: string }): PromiseLike<SP.ContentType> => {
+                // Return a promise
+                return new Promise((resolve, reject) => {
+                    // Add the content type
+                    let contentTypes = list ? Web(webUrl, { disableCache: true, requestDigest: _requestDigest }).Lists(list.Title).ContentTypes() : Web(webUrl).ContentTypes();
+                    contentTypes.add({
+                        Description: cfg.Description,
+                        Group: cfg.Group,
+                        Name: cfg.Name,
+                        Id: {
+                            __metadata: {
+                                type: "SP.ContentTypeId"
+                            },
+                            StringValue: parentInfo.Id + (list ? "00" : "") + ContextInfo.generateGUID().replace(/-/g, "")
+                        } as any
+                    }).execute(resolve, reject);
+                });
             }
 
             // Method to get the parent content type
@@ -78,7 +114,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     let ct = isInCollection("Name", cfg.Name, contentTypes.results);
                     if (ct) {
                         // Log
-                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' already exists.");
+                        logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' already exists.");
 
                         // Update the configuration
                         cfg.ContentType = ct;
@@ -89,7 +125,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Log
-                    console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Creating the '" + cfg.Name + "' content type.");
+                    logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Creating the '" + cfg.Name + "' content type.");
 
                     // See if the parent name exists
                     if (cfg.ParentName) {
@@ -97,15 +133,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Success
                             parentInfo => {
                                 // Add the content type
-                                createContentType({
-                                    Description: cfg.Description,
-                                    Group: cfg.Group,
-                                    Name: cfg.Name
-                                }, parentInfo, webUrl, list ? list.Title : null).then(
+                                addParentCT(cfg, parentInfo).then(
                                     // Success
                                     ct => {
                                         // Log
-                                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
+                                        logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
 
                                         // Update the configuration
                                         cfg.ContentType = ct;
@@ -120,7 +152,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     // Error
                                     error => {
                                         // Log
-                                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.", error);
+                                        logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.", error);
 
                                         // Reject the promise
                                         reject(error);
@@ -131,7 +163,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Error
                             () => {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The parent content type '" + cfg.ParentName + "' was not found.");
+                                logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The parent content type '" + cfg.ParentName + "' was not found.");
 
                                 // Reject the promise
                                 reject(ct.response);
@@ -153,7 +185,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Success
                             (ct) => {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
+                                logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' was created successfully.");
 
                                 // Update the configuration
                                 cfg.ContentType = ct;
@@ -168,8 +200,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Error
                             error => {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.");
-                                console.error("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Error: " + error.response);
+                                logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] The content type '" + cfg.Name + "' failed to be created.");
+                                logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Error: " + error.response, true);
 
                                 // Reject the promise
                                 reject(error.response);
@@ -193,7 +225,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         }
 
                         // Log
-                        console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Updating the field references for: " + cfgContentType.Name);
+                        logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type] Updating the field references for: " + cfgContentType.Name);
 
                         // Create the field refs
                         setContentTypeFields({
@@ -205,6 +237,15 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             /**
                              * See if we need to update the properties
                              */
+
+                            // Custom form formatter
+                            if (cfgContentType.ClientFormCustomFormatter != null && cfgContentType.ContentType.ClientFormCustomFormatter != cfgContentType.ClientFormCustomFormatter) {
+                                // Update the configuration
+                                cfgUpdate.ClientFormCustomFormatter = cfgContentType.ClientFormCustomFormatter;
+
+                                // Set the flag
+                                updateFl = true;
+                            }
 
                             // Description
                             if (cfgContentType.Description != null && cfgContentType.ContentType.Description != cfgContentType.Description) {
@@ -245,12 +286,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // See if an update is needed
                             if (updateFl) {
                                 // Log
-                                console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
+                                logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Updating the content type.");
 
                                 // Update the content type
                                 cfgContentType.ContentType.update(cfgUpdate).execute(() => {
                                     // Log
-                                    console.log("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                    logMessage("[gd-sprest]" + (list ? "[" + list.Title + " List]" : "") + "[Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
 
                                     // Trigger the event
                                     cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
@@ -287,12 +328,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
             // Parse the configuration
             Executor<ISPCfgFieldInfo>(cfgFields, cfg => {
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
                     // See if this field already exists
                     let field = isInCollection("InternalName", cfg.name, fields.results);
                     if (field) {
                         // Log
-                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
+                        logMessage("[gd-sprest][Field] The field '" + cfg.name + "' already exists.");
 
                         // Trigger the event
                         cfg.onUpdated ? cfg.onUpdated(field, list) : null;
@@ -301,7 +342,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         resolve(null);
                     } else {
                         // Log
-                        console.log("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
+                        logMessage("[gd-sprest][Field] Creating the '" + cfg.name + "' field.");
 
                         // See if this is an associated lookup field
                         let cfgLookup = cfg as IFieldInfoLookup;
@@ -326,7 +367,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     // See if it was successful
                                     if (field.InternalName) {
                                         // Log
-                                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                                        logMessage("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
 
                                         // Save a reference to the field
                                         newFields.push(field);
@@ -338,19 +379,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                         resolve(null);
                                     } else {
                                         // Log
-                                        console.log("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
-                                        console.error("[gd-sprest][Field] Error: " + field.response);
+                                        logMessage("[gd-sprest][Field] The field '" + cfg.name + "' failed to be created.");
+                                        logMessage("[gd-sprest][Field] Error: " + field.response, true);
 
                                         // Reject the promise
                                         reject();
                                     }
                                 });
                             }
-                        });
+                        }, reject);
                     }
                 });
             }).then(resolve);
-        })
+        });
     }
 
     // Method to create the lists
@@ -375,7 +416,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     let list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                     if (list) {
                         // Log
-                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
+                        logMessage("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
 
                         // Resolve the promise and do nothing
                         resolve(null);
@@ -383,7 +424,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // Log
-                    console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
+                    logMessage("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
 
                     // Update the list name and remove spaces
                     let listInfo = cfgList.ListInformation;
@@ -406,14 +447,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     // Update the list
                                     list.update({ Title: listName }).execute(() => {
                                         // Log
-                                        console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                        logMessage("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
 
                                         // Resolve the promise
                                         resolve(null);
                                     });
                                 } else {
                                     // Log
-                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                    logMessage("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
 
                                     // Resolve the promise
                                     resolve(null);
@@ -423,8 +464,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 cfgList.onCreating ? cfgList.onCreating(list) : null;
                             } else {
                                 // Log
-                                console.log("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
-                                console.log("[gd-sprest][List] Error: '" + list.response);
+                                logMessage("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
+                                logMessage("[gd-sprest][List] Error: '" + list.response);
 
                                 // Resolve the promise
                                 resolve(null);
@@ -485,7 +526,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // See if this custom action already exists
                 if (isInCollection("Name", cfg.Name, customActions.results)) {
                     // Log
-                    console.log("[gd-sprest][Custom Action] The custom action '" + cfg.Name + "' already exists.");
+                    logMessage("[gd-sprest][Custom Action] The custom action '" + cfg.Name + "' already exists.");
                 } else {
                     // See if rights exist
                     if (cfg.Rights) {
@@ -498,11 +539,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Ensure it exists
                         if (ca.existsFl) {
                             // Log
-                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
+                            logMessage("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
                         } else {
                             // Log
-                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
-                            console.log("[gd-sprest][Custom Action] Error: " + ca.response);
+                            logMessage("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
+                            logMessage("[gd-sprest][Custom Action] Error: " + ca.response);
                         }
                     }, reject, true);
                 }
@@ -527,10 +568,15 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 let view: SP.View = isInCollection("Title", cfg.ViewName, views.results);
                 if (view) {
                     // Log
-                    console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' already exists.");
+                    logMessage("[gd-sprest][View] The view '" + cfg.ViewName + "' already exists.");
                 } else {
                     // Add the view
                     views.add({
+                        DefaultView: cfg.Default,
+                        Hidden: cfg.Hidden,
+                        MobileDefaultView: cfg.MobileDefaultView,
+                        MobileView: cfg.MobileView,
+                        TabularView: cfg.Tabular,
                         Title: cfg.ViewName,
                         RowLimit: cfg.RowLimit,
                         ViewQuery: cfg.ViewQuery
@@ -538,14 +584,14 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Ensure it exists
                         if (view.existsFl) {
                             // Log
-                            console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' was created successfully.");
+                            logMessage("[gd-sprest][View] The view '" + cfg.ViewName + "' was created successfully.");
 
                             // Trigger the event
                             cfg.onCreated ? cfg.onCreated(view, list) : null;
                         } else {
                             // Log
-                            console.log("[gd-sprest][View] The view '" + cfg.ViewName + "' failed to be created.");
-                            console.log("[gd-sprest][View] Error: " + view.response);
+                            logMessage("[gd-sprest][View] The view '" + cfg.ViewName + "' failed to be created.");
+                            logMessage("[gd-sprest][View] Error: " + view.response);
                         }
                     }, reject, true);
                 }
@@ -573,7 +619,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Log
-            console.log("[gd-sprest][WebPart] Creating the web parts.");
+            logMessage("[gd-sprest][WebPart] Creating the web parts.");
 
             // Get the web
             Web(webUrl, { disableCache: true, requestDigest: _requestDigest })
@@ -615,7 +661,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         let file: SP.File = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
                         if (file.Name) {
                             // Log
-                            console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
+                            logMessage("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
 
                             // Trigger the event
                             cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
@@ -659,7 +705,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     }
 
                                     // Log
-                                    console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                                    logMessage("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
 
                                     // Trigger the event
                                     cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
@@ -668,7 +714,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // Error
                                 () => {
                                     // Log
-                                    console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file upload failed.");
+                                    logMessage("[gd-sprest][WebPart] The '" + file.Name + "' webpart file upload failed.");
 
                                     // Skip this webpart
                                     resolve();
@@ -722,7 +768,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Remove the field
                     ct.delete().execute(() => {
                         // Log
-                        console.log("[gd-sprest][Content Type] The content type '" + ct.Name + "' was removed.");
+                        logMessage("[gd-sprest][Content Type] The content type '" + ct.Name + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);
@@ -748,7 +794,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Remove the field
                     field.delete().execute(() => {
                         // Log
-                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
+                        logMessage("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);
@@ -793,7 +839,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Remove the list
                     list.delete().execute(() => {
                         // Log
-                        console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
+                        logMessage("[gd-sprest][List] The list '" + list.Title + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);
@@ -838,7 +884,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Remove the custom action
                     ca.delete().execute(() => {
                         // Log
-                        console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
+                        logMessage("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
                     }, reject, true);
                 }
             }).then(resolve);
@@ -869,7 +915,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Log
-            console.log("[gd-sprest][WebPart] Removing the web parts.");
+            logMessage("[gd-sprest][WebPart] Removing the web parts.");
 
             // Get the webpart gallery from the root web
             site.RootWeb().getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
@@ -898,7 +944,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Remove the file
                             file.delete().execute(() => {
                                 // Log
-                                console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
+                                logMessage("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
                             }, true);
                         }
                     }
@@ -1090,8 +1136,8 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Update the field name
                 list.Fields.getByInternalNameOrTitle("Title").update(values).execute(() => {
                     // Log
-                    cfgList.TitleFieldDisplayName ? console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.") : null;
-                    cfgList.TitleFieldIndexed ? console.log("[gd-sprest][List] The 'Title' field's has been indexed.") : null;
+                    cfgList.TitleFieldDisplayName ? logMessage("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.") : null;
+                    cfgList.TitleFieldIndexed ? logMessage("[gd-sprest][List] The 'Title' field's has been indexed.") : null;
 
                     // Resolve the promise
                     resolve();
@@ -1117,7 +1163,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // See if the view fields are defined
                     if (cfg.ViewFields && cfg.ViewFields.length > 0) {
                         // Log
-                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfg.ViewName + "' view.");
+                        logMessage("[gd-sprest][View] Updating the view fields for the '" + cfg.ViewName + "' view.");
 
                         // Clear the view fields
                         view.ViewFields().removeAllViewFields().execute(true);
@@ -1130,14 +1176,21 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // See if we are updating the view properties
-                    if (typeof (cfg.Default) === "boolean" || cfg.JSLink || cfg.RowLimit > 0 || cfg.ViewQuery) {
+                    if (typeof (cfg.Default) === "boolean" || typeof (cfg.Hidden) === "boolean" ||
+                        typeof (cfg.MobileDefaultView) === "boolean" || typeof (cfg.MobileView) === "boolean" ||
+                        typeof (cfg.Tabular) === "boolean" || cfg.JSLink || cfg.RowLimit > 0 || cfg.ViewQuery) {
                         let props = {};
 
                         // Log
-                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
+                        logMessage("[gd-sprest][View] Updating the view properties for the '" + cfg.ViewName + "' view.");
 
                         // Set the properties
                         typeof (cfg.Default) === "boolean" ? props["DefaultView"] = cfg.Default : null;
+                        typeof (cfg.Hidden) === "boolean" ? props["Hidden"] = cfg.Hidden : null;
+                        typeof (cfg.MobileDefaultView) === "boolean" ? props["MobileDefaultView"] = cfg.MobileDefaultView : null;
+                        typeof (cfg.MobileView) === "boolean" ? props["MobileView"] = cfg.MobileView : null;
+                        typeof (cfg.Tabular) === "boolean" ? props["TabularView"] = cfg.Tabular : null;
+                        cfg.CustomFormatter ? props["CustomFormatter"] = cfg.CustomFormatter : null;
                         cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
                         cfg.RowLimit > 0 ? props["RowLimit"] = cfg.RowLimit : null;
                         cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
@@ -1149,7 +1202,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Wait for the requests to complete
                     view.done((...args) => {
                         // Log
-                        console.log("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
+                        logMessage("[gd-sprest][View] The updates for the '" + cfg.ViewName + "' view has completed.");
 
                         // Trigger the event
                         cfg.onUpdated ? cfg.onUpdated(view as any, list) : null;
@@ -1169,7 +1222,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             // Ensure we need to complete this request
             if ((cfg.CustomActionCfg != null && cfg.CustomActionCfg.Site != null) || cfg.WebPartCfg != null) {
                 // Log
-                console.log("[gd-sprest][uninstall] Loading the site information...");
+                logMessage("[gd-sprest][uninstall] Loading the site information...");
 
                 // Get the site
                 Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
@@ -1202,7 +1255,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             let Expand: Array<string> = [];
 
             // Log
-            console.log("[gd-sprest][uninstall] Loading the web information...");
+            logMessage("[gd-sprest][uninstall] Loading the web information...");
 
             // Set the query
             if (cfg.ContentTypes) { Expand.push("ContentTypes"); }
@@ -1244,201 +1297,214 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
         // Method to install the configuration
         install: (): PromiseLike<void> => {
+            let initSPLib = () => {
+                return new Promise(resolve => {
+                    // See if the SP lib exists
+                    if (window["SP"]) { resolve(null); return; }
+
+                    // Load the core and taxonomy libraries
+                    loadSPCore(["sp.taxonomy"]).then(() => { resolve(null); });
+                });
+            }
+
             // Return a promise
             return new Promise((resolve, reject) => {
-                // Set the request digest
-                setRequestDigest().then(() => {
-                    // Log
-                    console.log("[gd-sprest] Installing the web assets...");
+                // Ensure the SP core lib exists
+                initSPLib().then(() => {
+                    // Set the request digest
+                    setRequestDigest().then(() => {
+                        // Log
+                        logMessage("[gd-sprest] Installing the web assets...");
 
-                    // Get the web
-                    let web = Web(webUrl, { disableCache: true, requestDigest: _requestDigest });
+                        // Get the web
+                        let web = Web(webUrl, { disableCache: true, requestDigest: _requestDigest });
 
-                    // Create the site fields
-                    let createSiteFields = () => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating fields
-                            if (cfg.Fields && cfg.Fields.length > 0) {
-                                // Log
-                                console.log("[gd-sprest][Fields] Starting the requests.");
-
-                                // Get the fields
-                                web.Fields().execute(fields => {
-                                    // Create the fields
-                                    createFields(fields, cfg.Fields).then(() => {
-                                        // Log
-                                        console.log("[gd-sprest][Fields] Completed the requests.");
-
-                                        // Resolve the promise
-                                        resolve(null);
-                                    }, reject);
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve(null);
-                            }
-                        });
-                    }
-
-                    // Create the site content types
-                    let createSiteContentTypes = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating the content types
-                            if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
-                                // Log
-                                console.log("[gd-sprest][Content Types] Starting the requests.");
-
-                                // Get the content types
-                                web.ContentTypes().execute(contentTypes => {
-                                    // Create the content types
-                                    createContentTypes(contentTypes, cfg.ContentTypes).then(() => {
-                                        // Log
-                                        console.log("[gd-sprest][Content Types] Completed the requests.");
-
-                                        // Resolve the promise
-                                        resolve();
-                                    }, reject);
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
-
-                    // Create the site lists
-                    let createSiteLists = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating the lists
-                            if (cfg.ListCfg && cfg.ListCfg.length) {
-                                // Log
-                                console.log("[gd-sprest][Lists] Starting the requests.");
-
-                                // Get the lists
-                                web.Lists().execute(lists => {
-                                    // Create the lists
-                                    createLists(lists, cfg.ListCfg).then(() => {
-                                        // Log
-                                        console.log("[gd-sprest][Lists] Completed the requests.");
-
-                                        // Resolve the promise
-                                        resolve();
-                                    }, reject);
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
-
-                    // Create the site webparts
-                    let createSiteWebParts = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are creating the webparts
-                            if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
-                                // Log
-                                console.log("[gd-sprest][WebParts] Starting the requests.");
-
-                                // Create the webparts
-                                createWebParts().then(() => {
+                        // Create the site fields
+                        let createSiteFields = () => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating fields
+                                if (cfg.Fields && cfg.Fields.length > 0) {
                                     // Log
-                                    console.log("[gd-sprest][WebParts] Completed the requests.");
+                                    logMessage("[gd-sprest][Fields] Starting the requests.");
 
-                                    // Resolve the promise
-                                    resolve();
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
-
-                    // Create the custom actions
-                    let createSiteCollectionCustomActions = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are targeting the site collection
-                            if (cfg.CustomActionCfg && cfg.CustomActionCfg.Site) {
-                                // Log
-                                console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
-
-                                // Get the site
-                                Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
-                                    // Get the user custom actions
-                                    .UserCustomActions().execute(customActions => {
-                                        // Create the user custom actions
-                                        createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(() => {
+                                    // Get the fields
+                                    web.Fields().execute(fields => {
+                                        // Create the fields
+                                        createFields(fields, cfg.Fields).then(() => {
                                             // Log
-                                            console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+                                            logMessage("[gd-sprest][Fields] Completed the requests.");
+
+                                            // Resolve the promise
+                                            resolve(null);
+                                        }, reject);
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve(null);
+                                }
+                            });
+                        }
+
+                        // Create the site content types
+                        let createSiteContentTypes = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating the content types
+                                if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
+                                    // Log
+                                    logMessage("[gd-sprest][Content Types] Starting the requests.");
+
+                                    // Get the content types
+                                    web.ContentTypes().execute(contentTypes => {
+                                        // Create the content types
+                                        createContentTypes(contentTypes, cfg.ContentTypes).then(() => {
+                                            // Log
+                                            logMessage("[gd-sprest][Content Types] Completed the requests.");
 
                                             // Resolve the promise
                                             resolve();
                                         }, reject);
                                     }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
 
-                    // Create the custom actions
-                    let createSiteCustomActions = (): PromiseLike<void> => {
-                        // Return a promise
-                        return new Promise((resolve, reject) => {
-                            // See if we are targeting the web
-                            if (cfg.CustomActionCfg && cfg.CustomActionCfg.Web) {
-                                // Log
-                                console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
+                        // Create the site lists
+                        let createSiteLists = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating the lists
+                                if (cfg.ListCfg && cfg.ListCfg.length) {
+                                    // Log
+                                    logMessage("[gd-sprest][Lists] Starting the requests.");
 
-                                // Get the user custom actions
-                                web.UserCustomActions().execute(customActions => {
-                                    // Create the user custom actions
-                                    createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(() => {
+                                    // Get the lists
+                                    web.Lists().execute(lists => {
+                                        // Create the lists
+                                        createLists(lists, cfg.ListCfg).then(() => {
+                                            // Log
+                                            logMessage("[gd-sprest][Lists] Completed the requests.");
+
+                                            // Resolve the promise
+                                            resolve();
+                                        }, reject);
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+
+                        // Create the site webparts
+                        let createSiteWebParts = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are creating the webparts
+                                if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
+                                    // Log
+                                    logMessage("[gd-sprest][WebParts] Starting the requests.");
+
+                                    // Create the webparts
+                                    createWebParts().then(() => {
                                         // Log
-                                        console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
+                                        logMessage("[gd-sprest][WebParts] Completed the requests.");
 
                                         // Resolve the promise
                                         resolve();
-                                    });
-                                }, reject);
-                            } else {
-                                // Resolve the promise
-                                resolve();
-                            }
-                        });
-                    }
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
 
-                    // Create the site fields
-                    createSiteFields().then(() => {
-                        // Create the site content types
-                        createSiteContentTypes().then(() => {
-                            // Create the site lists
-                            createSiteLists().then(() => {
-                                // Create the webparts
-                                createSiteWebParts().then(() => {
-                                    // Create the site collection custom actions
-                                    createSiteCollectionCustomActions().then(() => {
-                                        // Create the site custom actions
-                                        createSiteCustomActions().then(() => {
+                        // Create the custom actions
+                        let createSiteCollectionCustomActions = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are targeting the site collection
+                                if (cfg.CustomActionCfg && cfg.CustomActionCfg.Site) {
+                                    // Log
+                                    logMessage("[gd-sprest][Site Custom Actions] Starting the requests.");
+
+                                    // Get the site
+                                    Site(webUrl, { disableCache: true, requestDigest: _requestDigest })
+                                        // Get the user custom actions
+                                        .UserCustomActions().execute(customActions => {
+                                            // Create the user custom actions
+                                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(() => {
+                                                // Log
+                                                logMessage("[gd-sprest][Site Custom Actions] Completed the requests.");
+
+                                                // Resolve the promise
+                                                resolve();
+                                            }, reject);
+                                        }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+
+                        // Create the custom actions
+                        let createSiteCustomActions = (): PromiseLike<void> => {
+                            // Return a promise
+                            return new Promise((resolve, reject) => {
+                                // See if we are targeting the web
+                                if (cfg.CustomActionCfg && cfg.CustomActionCfg.Web) {
+                                    // Log
+                                    logMessage("[gd-sprest][Web Custom Actions] Starting the requests.");
+
+                                    // Get the user custom actions
+                                    web.UserCustomActions().execute(customActions => {
+                                        // Create the user custom actions
+                                        createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(() => {
                                             // Log
-                                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                                            logMessage("[gd-sprest][Web Custom Actions] Completed the requests.");
 
-                                            // Resolve the request
+                                            // Resolve the promise
                                             resolve();
+                                        });
+                                    }, reject);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
+                            });
+                        }
+
+                        // Create the site fields
+                        createSiteFields().then(() => {
+                            // Create the site content types
+                            createSiteContentTypes().then(() => {
+                                // Create the site lists
+                                createSiteLists().then(() => {
+                                    // Create the webparts
+                                    createSiteWebParts().then(() => {
+                                        // Create the site collection custom actions
+                                        createSiteCollectionCustomActions().then(() => {
+                                            // Create the site custom actions
+                                            createSiteCustomActions().then(() => {
+                                                // Log
+                                                logMessage("[gd-sprest] The configuration script completed, but some requests may still be running.");
+
+                                                // Resolve the request
+                                                resolve();
+                                            }, reject);
                                         }, reject);
                                     }, reject);
                                 }, reject);
                             }, reject);
                         }, reject);
                     }, reject);
-                }, reject);
+                });
             });
         },
 
@@ -1456,7 +1522,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Uninstall the site components
                         uninstallSite().then(() => {
                             // Log
-                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                            logMessage("[gd-sprest] The configuration script completed, but some requests may still be running.");
 
                             // Resolve the promise
                             resolve();
