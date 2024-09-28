@@ -59,6 +59,7 @@ export const Helper: IBaseHelper = {
         if (metadata && metadata.uri) {
             // Create the target information and use the url defined for the base object
             targetInfo = {
+                requestDigest: base.targetInfo?.requestDigest,
                 url: metadata.uri
             };
 
