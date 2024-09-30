@@ -598,6 +598,9 @@ export const Request = {
                     } else {
                         // Update the object
                         obj = { ...obj, ...objData };
+
+                        // Update the search results
+                        Helper.updateSearchResults(obj);
                     }
                 }
                 // Else, see if the data properties exists
