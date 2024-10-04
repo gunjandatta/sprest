@@ -3858,6 +3858,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The title default value. */
             TitleFieldDefaultValue?: string;
     
+            /** The title description. */
+            TitleFieldDescription?: string;
+    
             /** The title display name. */
             TitleFieldDisplayName?: string;
     

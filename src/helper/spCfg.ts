@@ -1099,13 +1099,20 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure an update is required
-            if (cfgList.TitleFieldDisplayName || cfgList.TitleFieldIndexed) {
+            if (cfgList.TitleFieldDefaultValue || cfgList.TitleFieldDescription || cfgList.TitleFieldDisplayName ||
+                cfgList.TitleFieldIndexed || cfgList.TitleFieldRequired || cfgList.TitleFieldUniqueValues) {
                 let values = {};
 
                 // See if we are setting a default value
                 if (cfgList.TitleFieldDefaultValue) {
                     // Update the values
                     values["DefaultValue"] = cfgList.TitleFieldDefaultValue;
+                }
+
+                // See if we are setting the description
+                if (cfgList.TitleFieldDescription) {
+                    // Update the values
+                    values["Description"] = cfgList.TitleFieldDescription;
                 }
 
                 // See if the title field is being updated
@@ -1136,8 +1143,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Update the field name
                 list.Fields.getByInternalNameOrTitle("Title").update(values).execute(() => {
                     // Log
+                    cfgList.TitleFieldDefaultValue ? logMessage("[gd-sprest][List] The 'Title' field's default value was updated to '" + cfgList.TitleFieldDefaultValue + "'.") : null;
+                    cfgList.TitleFieldDescription ? logMessage("[gd-sprest][List] The 'Title' field's description was updated to '" + cfgList.TitleFieldDescription + "'.") : null;
                     cfgList.TitleFieldDisplayName ? logMessage("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.") : null;
                     cfgList.TitleFieldIndexed ? logMessage("[gd-sprest][List] The 'Title' field's has been indexed.") : null;
+                    cfgList.TitleFieldRequired ? logMessage("[gd-sprest][List] The 'Title' field's required flag was updated to '" + cfgList.TitleFieldRequired + "'.") : null;
+                    cfgList.TitleFieldUniqueValues ? logMessage("[gd-sprest][List] The 'Title' field's unique values flag was updated to '" + cfgList.TitleFieldUniqueValues + "'.") : null;
 
                     // Resolve the promise
                     resolve();
