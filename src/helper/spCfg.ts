@@ -1181,6 +1181,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                         // Parse the view fields
                         for (let i = 0; i < cfg.ViewFields.length; i++) {
+                            // Log
+                            logMessage("[gd-sprest][View] Add view field '" + cfg.ViewFields[i] + "' to the view.");
+
                             // Add the view field
                             view.ViewFields().addViewField(cfg.ViewFields[i]).execute(true);
                         }
