@@ -2125,7 +2125,7 @@ declare module 'gd-sprest/helper/executor' {
         * Executor
         */
     export interface IExecutor {
-            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any | undefined> | void, onExecuted?: (...args) => PromiseLike<any | undefined> | void): PromiseLike<any | undefined>;
+            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any | void> | void, onExecuted?: (...args) => PromiseLike<any | undefined> | void): PromiseLike<any | undefined>;
     }
 }
 
