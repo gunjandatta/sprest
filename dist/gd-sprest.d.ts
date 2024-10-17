@@ -1613,6 +1613,7 @@ declare module 'gd-sprest/lib/search' {
         * Search Post Query
         */
     export interface ISearchPostQuery {
+            getAllItems?: boolean;
             onQueryCompleted?: (results: SearchResult) => void;
             query: SearchRequest
             targetInfo?: ITargetInfoProps;

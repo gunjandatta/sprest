@@ -56,6 +56,9 @@ Search.postQuery = (props: ISearchPostQuery) => {
     return new Promise((resolve, reject) => {
         let queryProps = props.query;
 
+        // Set the get all items flag
+        let getAllItems = typeof (props.getAllItems) === "boolean" ? props.getAllItems : false;
+
         // Compute the row count
         let rowCount = 500;
         if (typeof (queryProps.RowLimit) === "number") {
@@ -92,7 +95,7 @@ Search.postQuery = (props: ISearchPostQuery) => {
 
                 // See if more results exist
                 let results = request.postquery.PrimaryQueryResult.RelevantResults;
-                if (results.TotalRows > results.RowCount) {
+                if (getAllItems && results.TotalRows > results.RowCount) {
                     let search = Search(props.url, props.targetInfo);
                     let useBatch = typeof (props.useBatch) === "boolean" ? props.useBatch : true;
 
