@@ -4425,6 +4425,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/request";
     export * from "gd-sprest/helper/methods/setContentTypeFields";
     export * from "gd-sprest/helper/methods/setGroupOwner";
+    export * from "gd-sprest/helper/methods/setWebProperty";
     export * from "gd-sprest/helper/methods/stringify";
 }
 
@@ -6986,6 +6987,20 @@ declare module 'gd-sprest/helper/methods/setGroupOwner' {
     export const setGroupOwner: IsetGroupOwner;
     export interface IsetGroupOwner {
         (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setWebProperty' {
+    /**
+      * Adds or updates a key/value pair for a web's property bag
+      * This uses JSOM to set a web's property. The REST API doesn't support this at the moment.
+      * @param key The property key.
+      * @param value The property value.
+      * @param siteUrl The site url to apply the property to. If blank, it will default to the current web.
+      */
+    export const setWebProperty: IsetWebProperty;
+    export interface IsetWebProperty {
+        (key: string, value: string, siteUrl?: string): PromiseLike<void>;
     }
 }
 
