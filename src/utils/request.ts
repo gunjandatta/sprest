@@ -152,8 +152,15 @@ export const Request = {
         for (var key in data) {
             let value = data[key];
 
-            // Skip properties
-            if (key == "__metadata" || key == "results") { continue; }
+            // Skip the results
+            if (key == "results") { continue; }
+
+            // See if this is the metadata
+            if (key == "__metadata") {
+                // Set the etag value and continue
+                base["etag"] = value["etag"];
+                continue;
+            }
 
             // See if the base is a collection property
             if (value && value.__deferred && value.__deferred.uri) {
@@ -592,9 +599,15 @@ export const Request = {
 
                         // Update the expanded properties
                         Helper.updateExpandedProperties(obj);
+
+                        // Update the search results
+                        Helper.updateSearchResults(obj);
                     } else {
                         // Update the object
                         obj = { ...obj, ...objData };
+
+                        // Update the search results
+                        Helper.updateSearchResults(obj);
                     }
                 }
                 // Else, see if the data properties exists

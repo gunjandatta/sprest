@@ -4,7 +4,7 @@
  * @param method - The method to execute for each method parameter provided.
  * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
  */
-export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any> {
+export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T) => PromiseLike<any | void> | void, onExecuted?: (...args) => PromiseLike<any> | void): PromiseLike<any> {
     let _resolve = null;
     let _reject = null;
 

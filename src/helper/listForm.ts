@@ -5,6 +5,7 @@ import {
 import { IODataQuery, SP } from "gd-sprest-def";
 import { ContextInfo, SPTypes, Web } from "..";
 import { Types } from "../../@types";
+import { ITargetInfoProps } from "../../@types/utils";
 
 /**
  * List Form
@@ -585,13 +586,18 @@ export const ListForm: IListForm = {
     },
 
     // Method to save a new or existing item
-    saveItem: (info: IListFormResult, formValues: any = {}): PromiseLike<IListFormResult> => {
+    saveItem: (info: IListFormResult, formValues: any = {}, checkItemVersion?: boolean): PromiseLike<IListFormResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if this is an existing item
             if (info.item && info.item.update) {
+                // Set the request properties if we are checking the item version
+                let requestProps: ITargetInfoProps = checkItemVersion && info.item.etag ? {
+                    requestHeader: { "IF-MATCH": info.item.etag }
+                } : null;
+
                 // Update the item
-                info.item.update(formValues).execute(response => {
+                Web(info.webUrl, requestProps).Lists(info.list.Title).Items(info.item.Id).update(formValues).execute(response => {
                     // Refresh the item
                     ListForm.refreshItem(info).then(info => {
                         // Resolve the promise
@@ -603,18 +609,16 @@ export const ListForm: IListForm = {
                 formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
 
                 // Add the item
-                info.list.Items().add(formValues)
-                    // Execute the request
-                    .execute(item => {
-                        // Update the info
-                        info.item = item;
+                info.list.Items().add(formValues).execute(item => {
+                    // Update the info
+                    info.item = item;
 
-                        // Refresh the item
-                        ListForm.refreshItem(info).then(info => {
-                            // Resolve the promise
-                            resolve(info);
-                        }, reject);
+                    // Refresh the item
+                    ListForm.refreshItem(info).then(info => {
+                        // Resolve the promise
+                        resolve(info);
                     }, reject);
+                }, reject);
             }
         });
     },

@@ -13,6 +13,7 @@ export const Search: ISearch;
  * Search Post Query
  */
 export interface ISearchPostQuery {
+    getAllItems?: boolean;
     onQueryCompleted?: (results: SearchResult) => void;
     query: SearchRequest
     targetInfo?: ITargetInfoProps;

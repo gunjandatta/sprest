@@ -1613,6 +1613,7 @@ declare module 'gd-sprest/lib/search' {
         * Search Post Query
         */
     export interface ISearchPostQuery {
+            getAllItems?: boolean;
             onQueryCompleted?: (results: SearchResult) => void;
             query: SearchRequest
             targetInfo?: ITargetInfoProps;
@@ -2125,7 +2126,7 @@ declare module 'gd-sprest/helper/executor' {
         * Executor
         */
     export interface IExecutor {
-            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any | undefined> | void, onExecuted?: (...args) => PromiseLike<any | undefined> | void): PromiseLike<any | undefined>;
+            <T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any | void> | void, onExecuted?: (...args) => PromiseLike<any | undefined> | void): PromiseLike<any | undefined>;
     }
 }
 
@@ -2421,7 +2422,7 @@ declare module 'gd-sprest/helper/listForm' {
                 * @param info - The list form information.
                 * @param itemValues - The list item values.
                 */
-            saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
+            saveItem(info: IListFormResult, formValues: any, checkItemVersion?: boolean): PromiseLike<IListFormResult>;
     
             /**
                 * Method to show the file dialog.
@@ -3858,6 +3859,9 @@ declare module 'gd-sprest/helper/spCfg' {
             /** The title default value. */
             TitleFieldDefaultValue?: string;
     
+            /** The title description. */
+            TitleFieldDescription?: string;
+    
             /** The title display name. */
             TitleFieldDisplayName?: string;
     
@@ -4421,6 +4425,7 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/request";
     export * from "gd-sprest/helper/methods/setContentTypeFields";
     export * from "gd-sprest/helper/methods/setGroupOwner";
+    export * from "gd-sprest/helper/methods/setWebProperty";
     export * from "gd-sprest/helper/methods/stringify";
 }
 
@@ -6982,6 +6987,20 @@ declare module 'gd-sprest/helper/methods/setGroupOwner' {
     export const setGroupOwner: IsetGroupOwner;
     export interface IsetGroupOwner {
         (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setWebProperty' {
+    /**
+      * Adds or updates a key/value pair for a web's property bag
+      * This uses JSOM to set a web's property. The REST API doesn't support this at the moment.
+      * @param key The property key.
+      * @param value The property value.
+      * @param siteUrl The site url to apply the property to. If blank, it will default to the current web.
+      */
+    export const setWebProperty: IsetWebProperty;
+    export interface IsetWebProperty {
+        (key: string, value: string, siteUrl?: string): PromiseLike<void>;
     }
 }
 

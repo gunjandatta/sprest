@@ -9939,16 +9939,27 @@ export const Mapper: IMapper = {
 
         setShowInDisplayForm: {
             argNames: ["value"],
+            requestType: RequestType.PostWithArgsValueOnly
         },
 
         setShowInEditForm: {
             argNames: ["value"],
+            requestType: RequestType.PostWithArgsValueOnly
         },
 
         setShowInNewForm: {
             argNames: ["value"],
+            requestType: RequestType.PostWithArgsValueOnly
         },
 
+        update: {
+            argNames: ["properties"],
+            inheritMetadataType: true,
+            metadataType: "SP.Field",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostBodyNoArgs
+        },
     },
 
     "SP.TenantSettings": {

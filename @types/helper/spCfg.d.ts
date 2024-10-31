@@ -378,6 +378,9 @@ export interface ISPCfgListInfo {
     /** The title default value. */
     TitleFieldDefaultValue?: string;
 
+    /** The title description. */
+    TitleFieldDescription?: string;
+
     /** The title display name. */
     TitleFieldDisplayName?: string;
 
