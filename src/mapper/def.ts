@@ -7611,6 +7611,72 @@ export const Mapper: IMapper = {
         sitesReference: {}
     },
 
+    "SP.PropertyValues.Collection": {
+        add: {
+            argNames: ["key", "value"],
+            name: "_vti_bin/client.svc/ProcessQuery",
+            replaceEndpointFl: true,
+            requestType: RequestType.PostReplace,
+            data: `<Request xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009" SchemaVersion="15.0.0.0" LibraryVersion="16.0.0.0" ApplicationName="Javascript Library">
+                <Actions>
+                    <ObjectPath Id="1" ObjectPathId="0" />
+                    <ObjectPath Id="3" ObjectPathId="2" />
+                    <ObjectPath Id="5" ObjectPathId="4" />
+                    <Method Name="SetFieldValue" Id="6" ObjectPathId="4">
+                    <Parameters>
+                        <Parameter Type="String">[[key]]</Parameter>
+                        <Parameter Type="String">[[value]]</Parameter>
+                    </Parameters>
+                    </Method>
+                    <Query Id="7" ObjectPathId="2">
+                        <Query SelectAllProperties="true">
+                            <Properties />
+                        </Query>
+                    </Query>
+                    <Method Name="Update" Id="8" ObjectPathId="2" />
+                </Actions>
+                <ObjectPaths>
+                    <StaticProperty Id="0" TypeId="{3747adcd-a3c3-41b9-bfab-4a64dd2f1e0a}" Name="Current" />
+                    <Property Id="2" ParentId="0" Name="Web" />
+                    <Property Id="4" ParentId="2" Name="AllProperties" />
+                </ObjectPaths>
+            </Request>`
+        },
+
+        query: { argNames: ["oData"], requestType: RequestType.OData },
+
+        remove: {
+            argNames: ["key"],
+            name: "_vti_bin/client.svc/ProcessQuery",
+            replaceEndpointFl: true,
+            requestType: RequestType.PostReplace,
+            data: `<Request xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009" SchemaVersion="15.0.0.0" LibraryVersion="16.0.0.0" ApplicationName="Javascript Library">
+                <Actions>
+                    <ObjectPath Id="1" ObjectPathId="0" />
+                    <ObjectPath Id="3" ObjectPathId="2" />
+                    <ObjectPath Id="5" ObjectPathId="4" />
+                    <Method Name="SetFieldValue" Id="6" ObjectPathId="4">
+                    <Parameters>
+                        <Parameter Type="String">[[key]]</Parameter>
+                        <Parameter Type="Null" />
+                    </Parameters>
+                    </Method>
+                    <Query Id="7" ObjectPathId="2">
+                        <Query SelectAllProperties="true">
+                            <Properties />
+                        </Query>
+                    </Query>
+                    <Method Name="Update" Id="8" ObjectPathId="2" />
+                </Actions>
+                <ObjectPaths>
+                    <StaticProperty Id="0" TypeId="{3747adcd-a3c3-41b9-bfab-4a64dd2f1e0a}" Name="Current" />
+                    <Property Id="2" ParentId="0" Name="Web" />
+                    <Property Id="4" ParentId="2" Name="AllProperties" />
+                </ObjectPaths>
+            </Request>`
+        },
+    },
+
     "SP.Publishing.AnnouncementsController": {
         active: {
         },
@@ -10647,7 +10713,7 @@ export const Mapper: IMapper = {
 
     "SP.Web": {
         properties: [
-            "AllProperties", "AppTiles", "AssociatedMemberGroup|SP.Group", "AssociatedOwnerGroup|SP.Group",
+            "AllProperties|SP.PropertyValues.Collection", "AppTiles", "AssociatedMemberGroup|SP.Group", "AssociatedOwnerGroup|SP.Group",
             "AssociatedVisitorGroup|SP.Group", "Author|SP.User", "AvailableContentTypes|SP.ContentType.Collection", "AvailableFields|SP.Field.Collection",
             "ClientWebParts", "ContentTypes|SP.ContentType.Collection|('[Name]')|SP.ContentType", "CurrentUser|SP.User", "DataLeakagePreventionStatusInfo",
             "DescriptionResource", "EffectiveBasePermissions", "EventReceivers|SP.EventReceiverDefinition.Collection|('[Name]')|SP.EventReceiverDefinition",

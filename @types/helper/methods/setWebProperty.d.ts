@@ -7,5 +7,5 @@
  */
 export const setWebProperty: IsetWebProperty;
 export interface IsetWebProperty {
-    (key: string, value: string, siteUrl?: string): PromiseLike<void>;
+    (key: string, value: string, indexed?: boolean, siteUrl?: string): PromiseLike<void>;
 }
