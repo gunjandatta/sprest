@@ -51,13 +51,14 @@ export class MethodInfo implements Base.IMethodInfo {
             case RequestType.Delete:
             case RequestType.Post:
             case RequestType.PostBodyNoArgs:
+            case RequestType.PostReplace:
+            case RequestType.PostReplaceWithData:
             case RequestType.PostWithArgs:
             case RequestType.PostWithArgsAndData:
             case RequestType.PostWithArgsInBody:
             case RequestType.PostWithArgsInQS:
             case RequestType.PostWithArgsInQSAsVar:
             case RequestType.PostWithArgsValueOnly:
-            case RequestType.PostReplace:
                 return "POST";
             default:
                 return "GET";
@@ -148,7 +149,7 @@ export class MethodInfo implements Base.IMethodInfo {
                 let methodData = this.methodInfo.data.replace(/\\&quot;/g, '\\\\&quot;');
 
                 // Set the method data
-                this.methodData = JSON.parse(methodData);
+                this.methodData = typeof (methodData) === "string" ? methodData : JSON.parse(methodData);
             }
         }
 

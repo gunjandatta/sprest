@@ -120,7 +120,14 @@ export class TargetInfo implements ITargetInfo {
         let endpoint = this.props.endpoint ? "/" + this.props.endpoint : "";
         let hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         let qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
-        let template = "{{Url}}" + (this.props.endpoint ? "/_api/{{EndPoint}}{{TargetUrl}}" : "");
+        let template = "{{Url}}";
+
+        // See if the template is targeting the _vti_bin
+        if (endpoint.indexOf("_vti_bin") >= 0) {
+            template += "/{{EndPoint}}{{TargetUrl}}"
+        } else {
+            template += this.props.endpoint ? "/_api/{{EndPoint}}{{TargetUrl}}" : "";
+        }
 
         // See if we are defaulting the url for the app web
         if (ContextInfo.existsFl && ContextInfo.window.$REST && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.props.overrideDefaultRequestToHostFl && this.props.url == null) {
