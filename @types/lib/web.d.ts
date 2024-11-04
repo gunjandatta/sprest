@@ -56,4 +56,11 @@ export interface IWeb {
      * @param pageUrl - The absolute url of the page.
      */
     getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
+
+    /**
+     * 
+     * @param query - The process query.
+     * @param webUrl - The web url to execute the request against.
+     */
+    processQuery(query: string, webUrl?: string): PromiseLike<void>;
 }

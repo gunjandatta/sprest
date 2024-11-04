@@ -2038,6 +2038,13 @@ declare module 'gd-sprest/lib/web' {
                 * @param pageUrl - The absolute url of the page.
                 */
             getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
+    
+            /**
+                * 
+                * @param query - The process query.
+                * @param webUrl - The web url to execute the request against.
+                */
+            processQuery(query: string, webUrl?: string): PromiseLike<void>;
     }
 }
 
@@ -6864,16 +6871,29 @@ declare module 'gd-sprest/helper/methods/createContentType' {
     import { ContentType } from "gd-sprest-def/lib/SP/entitytypes";
     
     /**
-      * Creates a content type in a web or specified list.
-      * @category Helper
-      * @param ctInfo - The content type information.
-      * @param parentInfo - The parent content type id and url containing it.
-      * @param webUrl - The relative url to create the content type in.
-      * @param listName - The list name to add the content type to.
-      */
+        * Creates a content type in a web or specified list.
+        * @category Helper
+        * @param props - The content type creation properties.
+        */
     export const createContentType: IcreateContentType;
     export interface IcreateContentType {
-        (ctInfo: ContentTypeCreationInformation, parentInfo: { Id: string, Url?: string }, webUrl?: string, listName?: string): PromiseLike<ContentType>;
+            (props: IcreateContentTypeProps): PromiseLike<ContentType>;
+    }
+    
+    /**
+        * The create content type properties
+        * @category Helper
+        * @param ctInfo - The content type information.
+        * @param parentInfo - The parent content type id and url containing it.
+        * @param webUrl - The relative url to create the content type in.
+        * @param listName - The list name to add the content type to.
+        */
+    export interface IcreateContentTypeProps {
+            ctInfo: ContentTypeCreationInformation;
+            listName?: string;
+            parentContentTypeId?: string;
+            parentContentTypeUrl?: string;
+            webUrl?: string;
     }
 }
 
