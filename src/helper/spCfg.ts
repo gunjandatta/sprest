@@ -6,7 +6,7 @@ import { SP } from "gd-sprest-def";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
-    setContentTypeFields, Executor, FieldSchemaXML,
+    createContentType, setContentTypeFields, Executor, FieldSchemaXML,
     loadSPCore, SPCfgType, SPCfgFieldType
 } from ".";
 export * from "./spCfgTypes";
@@ -133,7 +133,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Success
                             parentInfo => {
                                 // Add the content type
-                                addParentCT(cfg, parentInfo).then(
+                                createContentType({
+                                    ctInfo: cfg,
+                                    listName: list ? list.Title : null,
+                                    parentContentTypeId: parentInfo.Id,
+                                    parentContentTypeUrl: parentInfo.Url,
+                                    webUrl
+                                }).then(
                                     // Success
                                     ct => {
                                         // Log
@@ -171,17 +177,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         );
                     } else {
                         // Create the content type
-                        contentTypes.add({
-                            Description: cfg.Description,
-                            Group: cfg.Group,
-                            Name: cfg.Name,
-                            Id: {
-                                __metadata: {
-                                    type: "SP.ContentTypeId"
-                                },
-                                StringValue: cfg.Id || "0x0100" + ContextInfo.generateGUID().replace(/-/g, "")
-                            } as any
-                        }).execute(
+                        createContentType({
+                            ctInfo: cfg,
+                            listName: list ? list.Title : null,
+                            parentContentTypeId: cfg.Id,
+                            webUrl
+                        }).then(
                             // Success
                             (ct) => {
                                 // Log
