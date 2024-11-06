@@ -40,7 +40,7 @@ Graph.Version = "";
 // Method to get the graph token from a classic page
 Graph.getAccessToken = (resource?: string) => {
     // Set the data 
-    let data = { "resource": resource || SPTypes.CloudEnvironment.Default };
+    let data = { "resource": resource || Graph.Cloud || SPTypes.CloudEnvironment.Default };
 
     // Get the access token
     return new Base({
