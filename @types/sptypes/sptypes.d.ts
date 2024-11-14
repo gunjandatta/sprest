@@ -1399,6 +1399,23 @@ export type IRoleType = {
 };
 
 /**
+ * Search Scope
+ */
+export interface ISearchScope {
+    /* Default behavior for the site */
+    Default: number,
+
+    /* Across all sites in the hub */
+    Hub: number,
+
+    /* The site */
+    Site: number,
+
+    /* Across all sites in the tenant */
+    Tenant: number
+}
+
+/**
  * Status Pri Color
  */
 export interface IStatusPriColor {

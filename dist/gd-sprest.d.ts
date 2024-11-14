@@ -5953,6 +5953,19 @@ declare module 'gd-sprest/sptypes/sptypes' {
     };
     
     /**
+        * Search Scope
+        */
+    export interface ISearchScope {
+            Default: number,
+    
+            Hub: number,
+    
+            Site: number,
+    
+            Tenant: number
+    }
+    
+    /**
         * Status Pri Color
         */
     export interface IStatusPriColor {
