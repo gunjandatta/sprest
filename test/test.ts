@@ -200,6 +200,8 @@ $REST.Web().Lists().execute(r => {
     });
 })
 
+$REST.Web().SiteCollectionAppCatalog().add('App Catalog').execute();
+
 $REST.List("").execute(l => {
     l.getItemById(3).execute(item => {
         let file = item.File;

@@ -2513,8 +2513,8 @@ export const Mapper: IMapper = {
         ],
 
         add: {
-            argNames: ["Url", "Overwrite", "Content"],
-            requestType: RequestType.PostWithArgsAndData
+            argNames: ["Title", "Url", "Description"] as any,
+            requestType: RequestType.PostWithArgsInBody
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
