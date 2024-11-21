@@ -23,10 +23,13 @@ export const hasPermissions: IhasPermissions = (permissionMask: BasePermissions,
             let a = permission - 1;
             let b = 1;
             if (a >= 0 && a < 32) {
+                b = b << a;
                 hasPermission = 0 !== (permissionMask.Low & b);
             } else if (a >= 32 && a < 64) {
                 b = b << a - 32;
                 hasPermission = 0 !== (permissionMask.High & b);
+            } else {
+                hasPermission = false;
             }
         }
 
