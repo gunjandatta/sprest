@@ -30,11 +30,11 @@ export interface Isites {
      * @param id - (Optional) The site id to target, current by default.
      * @param targetInfo - (Optional) The target information.
      */
-    (props?: { id?: string, targetInfo?: ITargetInfoProps }): siteMethods & sites;
+    (props?: { siteId?: string, targetInfo?: ITargetInfoProps }): siteMethods & sites;
 
     /** Returns the current web. */
     static getCurrentWeb(): IBaseExecution<sites> & siteMethods;
 
     /** Returns a list from the current web. */
-    static getList(title: string): IBaseExecution<list> & listMethods;
+    static getList(props: { siteId?: string, title: string }): IBaseExecution<list> & listMethods;
 }
