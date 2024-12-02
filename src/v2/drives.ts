@@ -1,14 +1,14 @@
 import { ITargetInfoProps } from "../../@types/utils";
 import { Idrives } from "../../@types/v2";
 import { ContextInfo } from "../lib/contextInfo";
-import { Base, RequestType } from "../utils";
+import { Base, Request, RequestType } from "../utils";
 
 /**
  * Drives
  * Returns the libraries for a site.
  */
-export const drives: Idrives = ((id?: string, targetInfo?: ITargetInfoProps) => {
-    let drives = new Base(targetInfo);
+export const drives: Idrives = ((props: { siteId?: string, driveId?: string, targetInfo?: ITargetInfoProps } = {}) => {
+    let drives = new Base(props.targetInfo);
 
     // Default the properties
     drives.targetInfo.defaultToWebFl = true;
@@ -17,10 +17,19 @@ export const drives: Idrives = ((id?: string, targetInfo?: ITargetInfoProps) => 
     // See if an endpoint is not defined
     if (drives.targetInfo.endpoint == undefined) {
         // Default the endpoint
-        drives.targetInfo.endpoint = "_api/v2.0/sites/" + (id || ContextInfo?.siteId?.replace(/[{}]/g, '') + "/drives");
+        drives.targetInfo.endpoint = "_api/v2.0/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, '') + "/drives");
 
-        // Add the methods
-        // TODO
+        // See if the drive id was provided
+        if (props.driveId) {
+            // Append the id
+            drives.targetInfo.endpoint += "/" + props.driveId;
+
+            // Add the methods
+            Request.addMethods(drives, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#drive" } });
+        } else {
+            // Add the methods
+            Request.addMethods(drives, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#drives" } });
+        }
     }
 
     // Return the libraries

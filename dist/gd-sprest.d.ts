@@ -4465,10 +4465,10 @@ declare module 'gd-sprest/v2/drive' {
     export interface Idrive {
             /**
                 * Get the default library for a site.
-                * @param id - (Optional) The site id to target, current by default.
+                * @param siteId - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<drive>;
+            (props?: { siteId?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<drive>;
     }
 }
 
@@ -4501,10 +4501,11 @@ declare module 'gd-sprest/v2/drives' {
     export interface Idrives {
             /**
                 * Get the libraries for a site.
-                * @param id - (Optional) The site id to target, current by default.
+                * @param id - (Optional) The drive id to target.
+                * @param siteId - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<driveCollection>;
+            (props?: { id?: string, siteId?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<driveCollection>;
     }
 }
 
@@ -4541,7 +4542,7 @@ declare module 'gd-sprest/v2/sites' {
                 * @param id - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (id?: string, targetInfo?: ITargetInfoProps): siteMethods & sites;
+            (props?: { id?: string, targetInfo?: ITargetInfoProps }): siteMethods & sites;
     
             /** Returns the current web. */
             static getCurrentWeb(): IBaseExecution<sites> & siteMethods;

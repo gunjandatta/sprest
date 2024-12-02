@@ -7,12 +7,12 @@ import { Base, Request, RequestType } from "../utils";
  * Sites
  * The sites graph endpoint.
  */
-export const sites: Isites = ((id?: string, targetInfo?: ITargetInfoProps) => {
-    let sites = new Base(targetInfo);
+export const sites: Isites = ((props: { siteId?: string, targetInfo?: ITargetInfoProps } = {}) => {
+    let sites = new Base(props.targetInfo);
 
     // Default the properties
     sites.targetInfo.defaultToWebFl = true;
-    sites.targetInfo.endpoint = "_api/v2.0/sites/" + (id || ContextInfo?.siteId?.replace(/[{}]/g, ''));
+    sites.targetInfo.endpoint = "_api/v2.0/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, ''));
     sites.targetInfo.requestType = RequestType.GraphGet;
 
     // Add the methods

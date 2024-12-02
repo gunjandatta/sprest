@@ -117,6 +117,14 @@ export const MapperV2 = {
             requestType: RequestType.Get
         }
     },
+    items: {
+        add: {
+            args: ["values"],
+            name: "",
+            requestType: RequestType.PostBodyNoArgs
+        },
+        query: { argNames: ["oData"], requestType: RequestType.OData },
+    },
     list: {
         activities: {
             requestType: RequestType.Get
@@ -152,6 +160,10 @@ export const MapperV2 = {
         analytics: {
             requestType: RequestType.GetWithArgsValueOnly,
             returnType: "analytics"
+        },
+        assignSensitivityLabel: {
+            argNames: ["values"],
+            requestType: RequestType.PostBodyNoArgs
         },
         driveItem: {
             requestType: RequestType.Get,
