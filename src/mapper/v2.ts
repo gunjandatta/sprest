@@ -76,6 +76,9 @@ export const MapperV2 = {
             requestType: RequestType.Get
         }
     },
+    drives: {
+        query: { argNames: ["oData"], requestType: RequestType.OData }
+    },
     item: {
         permissions: {
             requestType: RequestType.Get
