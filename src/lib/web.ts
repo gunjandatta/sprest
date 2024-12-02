@@ -74,6 +74,7 @@ Web.processQuery = (query: string, webUrl?: string) => {
                         method: "POST",
                         requestDigest: ctx.GetContextWebInformation.FormDigestValue,
                         requestType: RequestType.Post,
+                        url: webUrl
                     })).execute(processResponse, reject);
                 },
 

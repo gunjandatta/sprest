@@ -55,26 +55,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 return;
             }
 
-            // Method to add an existing content type
-            let addParentCT = (cfg: ISPCfgContentTypeInfo, parentInfo: { Id: string, Url: string }): PromiseLike<SP.ContentType> => {
-                // Return a promise
-                return new Promise((resolve, reject) => {
-                    // Add the content type
-                    let contentTypes = list ? Web(webUrl, { disableCache: true, requestDigest: _requestDigest }).Lists(list.Title).ContentTypes() : Web(webUrl).ContentTypes();
-                    contentTypes.add({
-                        Description: cfg.Description,
-                        Group: cfg.Group,
-                        Name: cfg.Name,
-                        Id: {
-                            __metadata: {
-                                type: "SP.ContentTypeId"
-                            },
-                            StringValue: parentInfo.Id + (list ? "00" : "") + ContextInfo.generateGUID().replace(/-/g, "")
-                        } as any
-                    }).execute(resolve, reject);
-                });
-            }
-
             // Method to get the parent content type
             let getParentCT = (ctName: string, url: string): PromiseLike<{ Id: string, Url: string }> => {
                 // Return a promise
