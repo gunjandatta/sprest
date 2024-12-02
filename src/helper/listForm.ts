@@ -592,9 +592,15 @@ export const ListForm: IListForm = {
             // See if this is an existing item
             if (info.item && info.item.update) {
                 // Set the request properties if we are checking the item version
-                let requestProps: ITargetInfoProps = checkItemVersion && info.item.etag ? {
-                    requestHeader: { "IF-MATCH": info.item.etag }
-                } : null;
+                let requestProps: ITargetInfoProps = {
+                    requestDigest: info.item.getRequestDigest()
+                };
+
+                // See if we are checking the item versions
+                if (checkItemVersion && info.item.etag) {
+                    // Set the etag value
+                    requestProps.requestHeader = { "IF-MATCH": info.item.etag };
+                }
 
                 // Update the item
                 Web(info.webUrl, requestProps).Lists(info.list.Title).Items(info.item.Id).update(formValues).execute(response => {
