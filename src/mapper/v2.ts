@@ -163,11 +163,16 @@ export const MapperV2 = {
         },
         assignSensitivityLabel: {
             argNames: ["values"],
+            name: "[base.eTag]/assignSensitivityLabel",
             requestType: RequestType.PostBodyNoArgs
         },
         driveItem: {
             requestType: RequestType.Get,
             returnType: "driveItem"
+        },
+        extractSensitivityLabels: {
+            name: "[base.eTag]/extractSensitivityLabel",
+            requestType: RequestType.Post
         },
         fields: {
             appendRequest: true,

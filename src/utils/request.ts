@@ -29,19 +29,22 @@ export const Request = {
         if (isV2) {
             // See if we are overriding the object type
             if (resultsObjType) {
-                // Set the object type
+                // Update the object type
                 objType = resultsObjType;
-            } else {
-                // Get the object type from the context
-                let metadataType = (obj["@odata.context"] || objType);
-                let values = metadataType.split("_api/v2.0/$metadata#");
-                if (values.length > 1) {
-                    objType = values[1];
-                } else {
-                    values = metadataType.split("/");
-                    objType = values[values.length - 1].split("?")[0];
-                }
             }
+
+            // Get the object type from the context
+            let metadataType = (obj["@odata.context"] || objType);
+            let values = metadataType.split("_api/v2.0/$metadata#");
+            if (values.length > 1) {
+                objType = values[1];
+            } else {
+                values = metadataType.split("/");
+                objType = values[values.length - 1].split("?")[0];
+            }
+
+            // Update the object type if it's a single instance
+            objType = objType.replace("s/$entity", "");
 
             // Get the methods for this object type
             methods = MapperV2[objType];

@@ -17,7 +17,7 @@ export const drives: Idrives = ((props: { siteId?: string, driveId?: string, tar
     // See if an endpoint is not defined
     if (drives.targetInfo.endpoint == undefined) {
         // Default the endpoint
-        drives.targetInfo.endpoint = "_api/v2.0/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, '') + "/drives");
+        drives.targetInfo.endpoint = `_api/v2.0/sites/${props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, '')}/drives`;
 
         // See if the drive id was provided
         if (props.driveId) {

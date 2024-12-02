@@ -17,7 +17,7 @@ export const drive: Idrive = ((props: { siteId?: string, targetInfo?: ITargetInf
     // See if an endpoint is not defined
     if (drive.targetInfo.endpoint == undefined) {
         // Default the endpoint
-        drive.targetInfo.endpoint = "_api/v2.0/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, '') + "/drive");
+        drive.targetInfo.endpoint = `_api/v2.0/sites/${props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, '')}/drive`;
 
         // Add the methods
         Request.addMethods(drive, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#drive" } });

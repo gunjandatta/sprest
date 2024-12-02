@@ -85,7 +85,7 @@ export const Helper: IBaseHelper = {
             let propName = methodConfig.name.substring(startIdx, endIdx).split(".")[1];
 
             // Get the property value
-            let propValue = base[propName] || "";
+            let propValue = (base[propName] || "").replace(/"/g, '').split(',')[0];
 
             // Update the method name
             methodConfig.name = methodConfig.name.replace("[base." + propName + "]", propValue);
