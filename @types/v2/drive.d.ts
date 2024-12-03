@@ -29,5 +29,5 @@ export interface Idrive {
      * @param siteId - (Optional) The site id to target, current by default.
      * @param targetInfo - (Optional) The target information.
      */
-    (props?: { siteId?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<drive>;
+    (props?: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<drive>;
 }

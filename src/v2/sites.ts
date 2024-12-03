@@ -26,7 +26,55 @@ export const sites: Isites = ((props: { siteId?: string, targetInfo?: ITargetInf
 /** Returns the current web. */
 sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')) as any }
 
-/** Returns a list by its title from the current web. */
+/** Returns a drive */
+sites.getDrive = ((props: { siteId?: string, siteUrl?: string, libName?: string }) => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Method to get the drive id
+        let getDriveId = (siteId: string, libName: string): PromiseLike<string> => {
+            // Return a promise
+            return new Promise((resolve, reject) => {
+                // Get the drives
+                sites({ siteId }).drives().query({ Select: ["id", "name"] }).execute(drives => {
+                    // Parse the drives
+                    for (let i = 0; i < drives.results.length; i++) {
+                        let drive = drives.results[i];
+
+                        // See if this is the target library
+                        if (drive["name"] == libName) {
+                            // Resolve the request
+                            resolve(drive.id);
+                            return;
+                        }
+                    }
+
+                    // Not found
+                    reject();
+                }, reject);
+            });
+        }
+
+        // See if the site id exists
+        if (props.siteId) {
+            // Get the drive id
+            getDriveId(props.siteId, props.libName).then(driveId => {
+                // Resolve the request
+                resolve(sites({ siteId: props.siteId }).drives(driveId));
+            }, reject);
+        } else {
+            // Get the site
+            Site(props.siteUrl).query({ Select: ["Id"] }).execute(site => {
+                // Get the drive id
+                getDriveId(site.Id, props.libName).then(driveId => {
+                    // Resolve the request
+                    resolve(sites({ siteId: site.Id }).drives(driveId));
+                }, reject);
+            }, reject);
+        }
+    });
+}) as any;
+
+/** Returns a list */
 sites.getList = ((props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }) => {
     // Return a promise
     return new Promise((resolve, reject) => {

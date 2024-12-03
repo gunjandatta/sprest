@@ -27,7 +27,7 @@ export const sites: Isites;
 export interface Isites {
     /**
      * Creates an instance of the site library.
-     * @param id - (Optional) The site id to target, current by default.
+     * @param siteId - (Optional) The site id to target, current by default.
      * @param targetInfo - (Optional) The target information.
      */
     (props?: { siteId?: string, targetInfo?: ITargetInfoProps }): siteMethods & sites;
@@ -35,6 +35,9 @@ export interface Isites {
     /** Returns the current web. */
     static getCurrentWeb(): IBaseExecution<sites> & siteMethods;
 
-    /** Returns a list for a web. */
+    /** Returns a drive for a site. */
+    static getDrive(props: { siteId?: string, siteUrl?: string, libName?: string }): IBaseExecution<list> & listMethods;
+
+    /** Returns a list for a site. */
     static getList(props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }): IBaseExecution<list> & listMethods;
 }

@@ -7,17 +7,23 @@ import { Base, Request, RequestType } from "../utils";
  * Drives
  * Returns the libraries for a site.
  */
-export const drives: Idrives = ((props: { siteId?: string, driveId?: string, targetInfo?: ITargetInfoProps } = {}) => {
+export const drives: Idrives = ((props: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps } = {}) => {
     let drives = new Base(props.targetInfo);
 
     // Default the properties
     drives.targetInfo.defaultToWebFl = true;
     drives.targetInfo.requestType = RequestType.GraphGet;
 
+    // See if the web url exists
+    if (props.siteUrl) {
+        // Set the settings
+        drives.targetInfo.url = props.siteUrl;
+    }
+
     // See if an endpoint is not defined
     if (drives.targetInfo.endpoint == undefined) {
         // Default the endpoint
-        drives.targetInfo.endpoint = `_api/v2.0/sites/${props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, '')}/drives`;
+        drives.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') : ""}drives`;
 
         // See if the drive id was provided
         if (props.driveId) {
