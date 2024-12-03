@@ -48,6 +48,10 @@ export const MapperV2 = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     drive: {
+        properties: [
+            "drives|drives|('[Name]')|drive", "items|items|([Name])|item",
+            "lists|lists|('[Name]')|list"
+        ],
         activities: {
             requestType: RequestType.Get
         },
@@ -86,6 +90,10 @@ export const MapperV2 = {
         children: {
             requestType: RequestType.Get
         },
+        extractSensitivityLabel: {
+            name: "[base.eTag]/extractSensitivityLabel",
+            requestType: RequestType.Post
+        },
         subscriptions: {
             requestType: RequestType.Get
         },
@@ -108,6 +116,12 @@ export const MapperV2 = {
             requestType: RequestType.Get
         },
         query: { argNames: ["oData"], requestType: RequestType.OData },
+        setSensitivityLabel: {
+            argNames: ["values"],
+            name: "[base.eTag]/setSensitivityLabel",
+            requestType: RequestType.PostBodyNoArgs,
+            useToken: true
+        },
         update: {
             args: ["values"],
             name: "",
@@ -164,18 +178,9 @@ export const MapperV2 = {
             requestType: RequestType.GetWithArgsValueOnly,
             returnType: "analytics"
         },
-        assignSensitivityLabel: {
-            argNames: ["values"],
-            name: "[base.eTag]/assignSensitivityLabel",
-            requestType: RequestType.PostBodyNoArgs
-        },
         driveItem: {
             requestType: RequestType.Get,
             returnType: "driveItem"
-        },
-        extractSensitivityLabels: {
-            name: "[base.eTag]/extractSensitivityLabel",
-            requestType: RequestType.Post
         },
         fields: {
             appendRequest: true,
@@ -186,6 +191,11 @@ export const MapperV2 = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
         permissions: {
             requestType: RequestType.Get
+        },
+        setSensitivityLabel: {
+            argNames: ["values"],
+            name: "[base.eTag]/setSensitivityLabel",
+            requestType: RequestType.PostBodyNoArgs
         },
         update: {
             args: ["values"],

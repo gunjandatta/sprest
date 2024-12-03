@@ -1,7 +1,7 @@
 import { SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
 import { IMethodInfo, IRequestInfo } from "gd-sprest-def/base";
 import { IBase, IBaseHelper, ITargetInfoProps } from "../../@types/utils";
-import { ContextInfo } from "../lib";
+import { ContextInfo, Graph } from "../lib";
 import { Base, MethodInfo, Request, RequestType, TargetInfo } from ".";
 import { XHRRequest } from "./xhrRequest";
 
@@ -95,6 +95,7 @@ export const Helper: IBaseHelper = {
         var methodInfo = new MethodInfo(methodName, methodConfig, args);
 
         // Update the target information
+        targetInfo.accessToken = methodInfo.useToken ? Graph.Token : null;
         targetInfo.bufferFl = methodConfig.requestType == RequestType.GetBuffer;
         targetInfo.data = methodInfo.body;
         targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && base.base ? base.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
@@ -303,7 +304,7 @@ export const Helper: IBaseHelper = {
                 if (obj["@odata.context"]) {
                     // Get the object type
                     let metadataType = (obj["@odata.context"] || objType);
-                    let values = metadataType.split("_api/v2.0/$metadata#");
+                    let values = metadataType.split("_api/v2.1/$metadata#");
                     if (values.length > 1) {
                         objType = values[1];
                     } else {

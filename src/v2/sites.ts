@@ -3,6 +3,7 @@ import { Isites } from "../../@types/v2";
 import { ContextInfo } from "../lib/contextInfo";
 import { Site } from "../lib/site";
 import { Base, Request, RequestType } from "../utils";
+import { init } from "./common";
 
 /**
  * Sites
@@ -11,23 +12,26 @@ import { Base, Request, RequestType } from "../utils";
 export const sites: Isites = ((props: { siteId?: string, targetInfo?: ITargetInfoProps } = {}) => {
     let sites = new Base(props.targetInfo);
 
+    // Call the init event
+    init();
+
     // Default the properties
     sites.targetInfo.defaultToWebFl = true;
-    sites.targetInfo.endpoint = "_api/v2.0/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, ''));
+    sites.targetInfo.endpoint = "_api/v2.1/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, ''));
     sites.targetInfo.requestType = RequestType.GraphGet;
 
     // Add the methods
-    Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#sites" } });
+    Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.1/$metadata#sites" } });
 
     // Return the sites
     return sites;
 }) as any as Isites;
 
 /** Returns the current web. */
-sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')) as any }
+sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')); }
 
 /** Returns a drive */
-sites.getDrive = ((props: { siteId?: string, siteUrl?: string, libName?: string }) => {
+sites.getDrive = (props: { siteId?: string, siteUrl?: string, libName?: string }) => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Method to get the drive id
@@ -72,7 +76,24 @@ sites.getDrive = ((props: { siteId?: string, siteUrl?: string, libName?: string 
             }, reject);
         }
     });
-}) as any;
+}
+
+/** Returns a file */
+sites.getFile = (props: { fileName: string, siteId?: string, siteUrl?: string, libName?: string }) => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Get the library
+        sites.getDrive(props).then(drive => {
+            // Get the file
+            drive.items().query({ Filter: "name eq '" + props.fileName + "'" }).execute(resp => {
+                let file = resp.results[0];
+
+                // Resolve the request
+                resolve(file ? drive.items(file.id) : null);
+            }, reject);
+        }, reject);
+    });
+}
 
 /** Returns a list */
 sites.getList = ((props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }) => {

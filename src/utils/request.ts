@@ -24,7 +24,7 @@ export const Request = {
 
         // Get the object type
         let objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
-        let isV2 = obj?.parent?.targetInfo?.endpoint.startsWith("_api/v2.0/") ||
+        let isV2 = obj?.parent?.targetInfo?.endpoint.startsWith("_api/v2.1/") ||
             obj["@odata.context"] || objType.startsWith("@odata.context") ? true : false;
         if (isV2) {
             // See if we are overriding the object type
@@ -34,7 +34,7 @@ export const Request = {
             } else {
                 // Get the object type from the context
                 let metadataType = (obj["@odata.context"] || objType);
-                let values = metadataType.split("_api/v2.0/$metadata#");
+                let values = metadataType.split("_api/v2.1/$metadata#");
                 if (values.length > 1) {
                     objType = values[1];
                 } else {

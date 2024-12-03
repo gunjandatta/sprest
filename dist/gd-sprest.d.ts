@@ -4443,7 +4443,7 @@ declare module 'gd-sprest/v2/drive' {
     
     /**
         * #### REST API
-        * _api/v2.0/drive
+        * _api/v2.1/drive
         *
         * #### Get the default library for a site.
         *
@@ -4459,7 +4459,7 @@ declare module 'gd-sprest/v2/drive' {
     
     /**
         * Drive
-        * The v2.0 REST endpoint.
+        * The v2.1 REST endpoint.
         * @category Drive
         */
     export interface Idrive {
@@ -4479,7 +4479,7 @@ declare module 'gd-sprest/v2/drives' {
     
     /**
         * #### REST API
-        * _api/v2.0/drives
+        * _api/v2.1/drives
         *
         * #### Get the libraries for a site.
         *
@@ -4495,7 +4495,7 @@ declare module 'gd-sprest/v2/drives' {
     
     /**
         * Drives
-        * The v2.0 REST endpoint.
+        * The v2.1 REST endpoint.
         * @category Drives
         */
     export interface Idrives {
@@ -4511,14 +4511,17 @@ declare module 'gd-sprest/v2/drives' {
 }
 
 declare module 'gd-sprest/v2/sites' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { IBaseExecution, IBaseQuery } from "gd-sprest-def/lib/base";
     import { sites } from "gd-sprest-def/lib/Microsoft/Graph/api";
-    import { list, listMethods, siteMethods } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
+    import {
+            drive, driveMethods, listItem, listItemMethods,
+            list, listMethods, siteMethods
+    } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
     /**
         * #### REST API
-        * _api/v2.0/sites
+        * _api/v2.1/sites
         *
         * #### Get the current site
         *
@@ -4534,7 +4537,7 @@ declare module 'gd-sprest/v2/sites' {
     
     /**
         * Sites
-        * The v2.0 REST endpoint.
+        * The v2.1 REST endpoint.
         * @category Sites
         */
     export interface Isites {
@@ -4546,13 +4549,16 @@ declare module 'gd-sprest/v2/sites' {
             (props?: { siteId?: string, targetInfo?: ITargetInfoProps }): siteMethods & sites;
     
             /** Returns the current web. */
-            static getCurrentWeb(): IBaseExecution<sites> & siteMethods;
+            static getCurrentWeb(): IBaseQuery<site> & siteMethods;
     
             /** Returns a drive for a site. */
-            static getDrive(props: { siteId?: string, siteUrl?: string, libName?: string }): IBaseExecution<list> & listMethods;
+            static getDrive(props: { siteId?: string, siteUrl?: string, libName?: string }): PromiseLike<IBaseQuery<drive> & driveMethods>;
+    
+            /** Returns a drive for a site. */
+            static getFile(props: { fileName: string, siteId?: string, siteUrl?: string, libName?: string }): PromiseLike<IBaseQuery<item> & itemMethods>;
     
             /** Returns a list for a site. */
-            static getList(props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }): IBaseExecution<list> & listMethods;
+            static getList(props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }): PromiseLike<IBaseQuery<list> & listMethods>;
     }
 }
 

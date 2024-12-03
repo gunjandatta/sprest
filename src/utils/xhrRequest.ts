@@ -159,8 +159,8 @@ export class XHRRequest {
             // Ensure the access token exists
             if (this.targetInfo.props.accessToken) {
                 // Set the authorization
-                this.xhr ? this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken) : null;
-                this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
+                this.xhr ? this.xhr.setRequestHeader("Authorization", "bearer " + this.targetInfo.props.accessToken) : null;
+                this.headers["Authorization"] = "bearer " + this.targetInfo.props.accessToken;
             } else {
                 // Set the request digest
                 this.xhr ? this.xhr.setRequestHeader("X-RequestDigest", requestDigest) : null;

@@ -68,6 +68,9 @@ export class MethodInfo implements Base.IMethodInfo {
     // The url of the method and parameters
     get url(): string { return this.methodUrl; }
 
+    // Flag to determine if the token should be used
+    get useToken(): boolean { return this.methodInfo.useToken ? true : false }
+
     /*********************************************************************************************************************************/
     // Private Variables
     /*********************************************************************************************************************************/
