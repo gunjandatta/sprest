@@ -31,20 +31,20 @@ export const Request = {
             if (resultsObjType) {
                 // Update the object type
                 objType = resultsObjType;
-            }
-
-            // Get the object type from the context
-            let metadataType = (obj["@odata.context"] || objType);
-            let values = metadataType.split("_api/v2.0/$metadata#");
-            if (values.length > 1) {
-                objType = values[1];
             } else {
-                values = metadataType.split("/");
-                objType = values[values.length - 1].split("?")[0];
-            }
+                // Get the object type from the context
+                let metadataType = (obj["@odata.context"] || objType);
+                let values = metadataType.split("_api/v2.0/$metadata#");
+                if (values.length > 1) {
+                    objType = values[1];
+                } else {
+                    values = metadataType.split("/");
+                    objType = values[values.length - 1].split("?")[0];
+                }
 
-            // Update the object type if it's a single instance
-            objType = objType.replace("s/$entity", "");
+                // Update the object type if it's a single instance
+                objType = objType.replace("s/$entity", "");
+            }
 
             // Get the methods for this object type
             methods = MapperV2[objType];
@@ -151,6 +151,8 @@ export const Request = {
 
     // Method to add properties to the base object
     addProperties: (base, data) => {
+        let isV2 = data["@odata.context"] ? true : false;
+
         // Parse the data properties
         for (var key in data) {
             let value = data[key];
@@ -162,6 +164,13 @@ export const Request = {
             if (key == "__metadata") {
                 // Set the etag value and continue
                 base["etag"] = value["etag"];
+                continue;
+            }
+
+            // See if this is the etag
+            if (key == "@odata.etag") {
+                // Set the etag value and continue
+                base["etag"] = value[key];
                 continue;
             }
 

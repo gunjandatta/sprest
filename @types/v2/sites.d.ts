@@ -35,6 +35,6 @@ export interface Isites {
     /** Returns the current web. */
     static getCurrentWeb(): IBaseExecution<sites> & siteMethods;
 
-    /** Returns a list from the current web. */
-    static getList(props: { siteId?: string, title: string }): IBaseExecution<list> & listMethods;
+    /** Returns a list for a web. */
+    static getList(props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }): IBaseExecution<list> & listMethods;
 }

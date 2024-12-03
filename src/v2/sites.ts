@@ -1,6 +1,7 @@
 import { ITargetInfoProps } from "../../@types/utils";
 import { Isites } from "../../@types/v2";
 import { ContextInfo } from "../lib/contextInfo";
+import { Site } from "../lib/site";
 import { Base, Request, RequestType } from "../utils";
 
 /**
@@ -26,4 +27,19 @@ export const sites: Isites = ((props: { siteId?: string, targetInfo?: ITargetInf
 sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')) as any }
 
 /** Returns a list by its title from the current web. */
-sites.getList = (props: { siteId?: string, title: string }) => { return sites({ siteId: props.siteId }).lists(props.title); }
+sites.getList = ((props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }) => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // See if the site id exists
+        if (props.siteId) {
+            // Resolve the request
+            resolve(sites({ siteId: props.siteId }).lists(props.listId || props.listName));
+        } else {
+            // Get the site
+            Site(props.siteUrl).query({ Select: ["Id"] }).execute(site => {
+                // Resolve the request
+                resolve(sites({ siteId: site.Id }).lists(props.listId || props.listName));
+            }, reject);
+        }
+    });
+}) as any;

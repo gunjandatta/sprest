@@ -126,6 +126,9 @@ export const MapperV2 = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     list: {
+        properties: [
+            "items|listItems|([Name])|listItem"
+        ],
         activities: {
             requestType: RequestType.Get
         },
@@ -209,6 +212,9 @@ export const MapperV2 = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     lists: {
+        properties: [
+            "lists|lists|('[Name]')|list"
+        ],
         add: {
             args: ["values"],
             name: "",
@@ -265,6 +271,10 @@ export const MapperV2 = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
     },
     sites: {
+        properties: [
+            "drives|drives|('[Name]')|drive", "items|listItems|([Name])|listItem",
+            "lists|lists|('[Name]')|list"
+        ],
         add: {
             args: ["values"],
             name: "",
