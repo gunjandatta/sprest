@@ -101,6 +101,9 @@ c.addAction(a2);
 
 $REST.Web().getFileByServerRelativeUrl("").getLimitedWebPartManager().WebParts().execute(wpMgr => {
 });
+$REST.Web().getFileByUrl("").ListItemAllFields().query({}).execute(item => {
+    item.ParentList;
+});
 $REST.Web().CurrentUser().execute(user => {
     user.LoginName;
 })

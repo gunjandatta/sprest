@@ -5927,7 +5927,7 @@ export const Mapper: IMapper = {
     "SP.File": {
         properties: [
             "Author|SP.User", "CheckedOutByUser|SP.User", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-            "ListItemAllFields", "LockedByUser|SP.User", "ModifiedBy|SP.User", "Properties", "VersionEvents", "Versions|SP.FileVersion.Collection"
+            "ListItemAllFields|odata", "LockedByUser|SP.User", "ModifiedBy|SP.User", "Properties", "VersionEvents", "Versions|SP.FileVersion.Collection"
         ],
 
         addClientActivities: {
@@ -6279,7 +6279,7 @@ export const Mapper: IMapper = {
 
     "SP.Folder": {
         properties: [
-            "Files|SP.File.Collection|/getByUrl('[Name]')|SP.File", "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder", "ListItemAllFields",
+            "Files|SP.File.Collection|/getByUrl('[Name]')|SP.File", "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder", "ListItemAllFields|odata",
             "ParentFolder|SP.Folder", "Properties", "StorageMetrics"
         ],
 
@@ -6350,7 +6350,7 @@ export const Mapper: IMapper = {
 
     "SP.Folder.Collection": {
         properties: [
-            "Files|SP.File.Collection|/getByUrl('[Name]')|SP.File", "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder", "ListItemAllFields",
+            "Files|SP.File.Collection|/getByUrl('[Name]')|SP.File", "Folders|SP.Folder.Collection|/getByUrl('[Name]')|SP.Folder",
             "ParentFolder", "StorageMetrics"
         ],
 
