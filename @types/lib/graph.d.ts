@@ -68,6 +68,7 @@ export interface IGraph {
     /**
      * Method to get the access token from a classic page.
      * @param resource - The graph api endpoint.
+     * @param tokenType - The token type.
      */
-    getAccessToken(resource?: string): IBaseExecution<IGraphToken>;
+    getAccessToken(resource?: string, tokenType?: string): IBaseExecution<IGraphToken>;
 }

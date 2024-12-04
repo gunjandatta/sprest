@@ -8,7 +8,7 @@ export function init() {
     if (Graph.Token) { return; }
 
     // Set the cloud access token
-    Graph.getAccessToken(Graph.Cloud).execute(auth => {
+    Graph.getAccessToken(Graph.Cloud, "SPO").execute(auth => {
         // Set the access token
         Graph.Token = auth.access_token;
     });
