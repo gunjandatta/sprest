@@ -2,6 +2,7 @@ import { ITargetInfoProps } from "../../@types/utils";
 import { Isites } from "../../@types/v2";
 import { ContextInfo } from "../lib/contextInfo";
 import { Site } from "../lib/site";
+import { Web } from "../lib/web";
 import { Base, Request, RequestType } from "../utils";
 import { init } from "./common";
 
@@ -79,17 +80,44 @@ sites.getDrive = (props: { siteId?: string, siteUrl?: string, libName?: string }
 }
 
 /** Returns a file */
-sites.getFile = (props: { fileName: string, siteId?: string, siteUrl?: string, libName?: string }) => {
+sites.getFile = (props: { fileUrl: string, siteId?: string, siteUrl?: string, libName?: string }) => {
+    let getWebUrl = (): PromiseLike<string> => {
+        return new Promise((resolve, reject) => {
+            // See if the site id exists
+            if (props.siteId) {
+                // Get the url for this site
+                Site.getUrlById(props.siteId).execute(siteInfo => {
+                    // Resolve the request
+                    resolve(siteInfo.GetUrlById);
+                });
+            } else {
+                // Resolve the request
+                resolve(props.siteUrl);
+            }
+        });
+    }
+
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the library
         sites.getDrive(props).then(drive => {
-            // Get the file
-            drive.items().query({ Filter: "name eq '" + props.fileName + "'" }).execute(resp => {
-                let file = resp.results[0];
+            // Get the web url
+            getWebUrl().then(webUrl => {
+                // Get the file
+                Web(webUrl).getFileByUrl(props.fileUrl).execute(file => {
+                    // Get the item for this file
+                    file.ListItemAllFields().query({ Expand: ["ParentList"] }).execute(item => {
+                        drive.items().query({
+                            Expand: ["listItem"],
+                            Filter: "listItem/id eq '" + item.Id + "'"
+                        }).execute(resp => {
+                            let file = resp.results[0];
 
-                // Resolve the request
-                resolve(file ? drive.items(file.id) : null);
+                            // Resolve the request
+                            resolve(file ? drive.items(file.id) : null);
+                        }, reject);
+                    });
+                });
             }, reject);
         }, reject);
     });
