@@ -49,7 +49,7 @@ export const MapperV2 = {
     },
     drive: {
         properties: [
-            "drives|drives|('[Name]')|drive", "items|items|([Name])|item",
+            "drives|drives|/[Name]|drive", "items|items|/[Name]|item",
             "lists|lists|('[Name]')|list"
         ],
         activities: {
@@ -141,7 +141,7 @@ export const MapperV2 = {
     },
     list: {
         properties: [
-            "items|listItems|([Name])|listItem"
+            "items|listItems|/[Name]|listItem"
         ],
         activities: {
             requestType: RequestType.Get
@@ -282,7 +282,7 @@ export const MapperV2 = {
     },
     sites: {
         properties: [
-            "drives|drives|('[Name]')|drive", "items|listItems|([Name])|listItem",
+            "drives|drives|/[Name]|drive", "items|listItems|/[Name]|listItem",
             "lists|lists|('[Name]')|list"
         ],
         add: {
