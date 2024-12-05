@@ -95,18 +95,8 @@ sites.getFile = (props: { fileUrl: string, siteId?: string, siteUrl?: string, li
             sites.getDrive({ siteId: info.siteId, webId: info.webId, libName: props.libName }).then(drive => {
                 // Get the file
                 Web(info.webUrl).getFileByUrl(props.fileUrl).execute(file => {
-                    // Get the item for this file
-                    file.ListItemAllFields().query({ Expand: ["ParentList"] }).execute(item => {
-                        drive.items().query({
-                            Expand: ["listItem"],
-                            Filter: "listItem/id eq '" + item.Id + "'"
-                        }).execute(resp => {
-                            let file = resp.results[0];
-
-                            // Resolve the request
-                            resolve(file ? drive.items(file.id) : null);
-                        }, reject);
-                    });
+                    // Resolve the request
+                    resolve(drive.items(file.UniqueId));
                 });
             }, reject);
         }, reject);
