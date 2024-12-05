@@ -118,7 +118,6 @@ export const MapperV2 = {
         query: { argNames: ["oData"], requestType: RequestType.OData },
         setSensitivityLabel: {
             argNames: ["values"],
-            name: "[base.eTag]/setSensitivityLabel",
             requestType: RequestType.PostBodyNoArgs,
             useToken: true
         },
@@ -194,7 +193,6 @@ export const MapperV2 = {
         },
         setSensitivityLabel: {
             argNames: ["values"],
-            name: "[base.eTag]/setSensitivityLabel",
             requestType: RequestType.PostBodyNoArgs
         },
         update: {
