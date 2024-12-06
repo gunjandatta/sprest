@@ -13,14 +13,14 @@ v2.drives().execute(drives => {
 })
 
 v2.sites.getList({}).then(l => {
-    l.items(3).update({
-        
-    })
+    l.items(3).setSensitivityLabel({}).execute();
 })
 
 v2.sites.getCurrentWeb();
-v2.sites.getList("Test").items().execute(items => {
-    items.results[0].fields();
+v2.sites.getList("Test").then(list => {
+    list.items().execute(items => {
+        items.results[0].fields();
+    });
 });
 
 v2.sites().lists("").items();
@@ -66,7 +66,7 @@ SitePages().Pages().createAppPage({
 }).execute()
 
 // See if you can get the root folder of a catalog list/library
-Web(null, {requestDigest: ""}).getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
+Web(null, { requestDigest: "" }).getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
 
 // People Manager - User Profile Properties
 PeopleManager().getPropertiesFor("account.name").execute(profile => {

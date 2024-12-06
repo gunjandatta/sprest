@@ -91,7 +91,7 @@ export const MapperV2 = {
             requestType: RequestType.Get
         },
         extractSensitivityLabel: {
-            name: "[base.eTag]/extractSensitivityLabel",
+            name: "extractSensitivityLabel",
             requestType: RequestType.Post
         },
         subscriptions: {
@@ -180,6 +180,10 @@ export const MapperV2 = {
         driveItem: {
             requestType: RequestType.Get,
             returnType: "driveItem"
+        },
+        extractSensitivityLabel: {
+            name: "extractSensitivityLabel",
+            requestType: RequestType.Post
         },
         fields: {
             appendRequest: true,
