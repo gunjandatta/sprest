@@ -22,6 +22,28 @@ import { ITargetInfoProps } from "../utils";
  */
 export const sites: Isites;
 
+export interface IsiteGetDriveProps {
+    listName: string;
+    siteId?: string;
+    siteUrl?: string;
+    webId?: string;
+}
+
+export interface IsiteProps {
+    listName?: string;
+    siteId?: string;
+    siteUrl?: string;
+    webId?: string;
+}
+
+export interface IsiteIdResult {
+    digestValue: string;
+    siteId: string;
+    siteUrl: string;
+    webId: string;
+    webUrl: string;
+}
+
 /**
  * Sites
  * The v2.1 REST endpoint.
@@ -40,14 +62,14 @@ export interface Isites {
     static getCurrentWeb(): IBaseQuery<site> & siteMethods;
 
     /** Returns a drive for a site. */
-    static getDrive(props: { siteId?: string, siteUrl?: string, libName?: string, webId?: string }): PromiseLike<IBaseQuery<drive> & driveMethods>;
+    static getDrive(props: IsiteGetDriveProps): PromiseLike<IBaseQuery<drive> & driveMethods>;
 
     /** Returns a drive for a site. */
-    static getFile(props: { fileUrl: string, siteId?: string, siteUrl?: string, libName?: string }): PromiseLike<IBaseQuery<item> & itemMethods>;
+    static getFile(props: IsiteProps & { fileUrl: string }): PromiseLike<IBaseQuery<item> & itemMethods>;
 
     /** Returns a list for a site. */
-    static getList(props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }): PromiseLike<IBaseQuery<list> & listMethods>;
+    static getList(props: IsiteProps & { listId?: string }): PromiseLike<IBaseQuery<list> & listMethods>;
 
-    /** Returns the site and web ids. */
-    static getIdByUrl(siteUrl: string): PromiseLike<{ siteId: string, siteUrl: string, webId: string, webUrl: string }>;
+    /** Returns the url to the site, web, list or file. */
+    static getIdByUrl(url: string): PromiseLike<IsiteIdResult>;
 }

@@ -38,7 +38,7 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
 sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')); }
 
 /** Returns a drive */
-sites.getDrive = (props: { siteId?: string, siteUrl?: string, libName?: string, webId?: string }) => {
+sites.getDrive = (props) => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Method to get the drive id
@@ -68,7 +68,7 @@ sites.getDrive = (props: { siteId?: string, siteUrl?: string, libName?: string, 
         // See if the site id exists
         if (props.siteId) {
             // Get the drive id
-            getDriveId(props.siteId, props.webId, props.libName).then(driveId => {
+            getDriveId(props.siteId, props.webId, props.listName).then(driveId => {
                 // Resolve the request
                 resolve(sites({ siteId: props.siteId }).drives(driveId));
             }, reject);
@@ -76,7 +76,7 @@ sites.getDrive = (props: { siteId?: string, siteUrl?: string, libName?: string, 
             // Get the site/web ids
             sites.getIdByUrl(props.siteUrl).then(info => {
                 // Get the drive id
-                getDriveId(info.siteId, info.webId, props.libName).then(driveId => {
+                getDriveId(info.siteId, info.webId, props.listName).then(driveId => {
                     // Resolve the request
                     resolve(sites({ siteId: info.siteId, webId: info.webId }).drives(driveId));
                 }, reject);
@@ -86,25 +86,47 @@ sites.getDrive = (props: { siteId?: string, siteUrl?: string, libName?: string, 
 }
 
 /** Returns a file */
-sites.getFile = (props: { fileUrl: string, siteId?: string, siteUrl?: string, libName?: string }) => {
+sites.getFile = (props) => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the site/web info
         sites.getIdByUrl(props.fileUrl).then(info => {
-            // Get the drive
-            sites.getDrive({ siteId: info.siteId, webId: info.webId, libName: props.libName }).then(drive => {
-                // Get the file
-                Web(info.webUrl).getFileByUrl(props.fileUrl).execute(file => {
-                    // Resolve the request
-                    resolve(drive.items(file.UniqueId));
-                });
-            }, reject);
+            // Get the file
+            Web(info.webUrl, { requestDigest: info.digestValue }).getFileByUrl(props.fileUrl).execute(file => {
+                // See if the library was provided
+                if (props.listName) {
+                    // Get the drive
+                    sites.getDrive({
+                        listName: props.listName,
+                        siteId: info.siteId,
+                        siteUrl: info.siteUrl,
+                        webId: info.webId
+                    }).then(drive => {
+                        // Resolve the request
+                        resolve(drive.items(file.UniqueId));
+                    }, reject);
+                } else {
+                    // Get the list information
+                    file.ListItemAllFields().query({ Expand: ["ParentList"], Select: ["ParentList/Title"] }).execute(item => {
+                        // Get the drive
+                        sites.getDrive({
+                            listName: item.ParentList.Title,
+                            siteId: info.siteId,
+                            siteUrl: info.siteUrl,
+                            webId: info.webId
+                        }).then(drive => {
+                            // Resolve the request
+                            resolve(drive.items(file.UniqueId));
+                        }, reject);
+                    })
+                }
+            });
         }, reject);
     });
 }
 
 /** Returns a list */
-sites.getList = ((props: { siteId?: string, siteUrl?: string, listId?: string, listName?: string }) => {
+sites.getList = (props) => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // See if the site id exists
@@ -119,20 +141,21 @@ sites.getList = ((props: { siteId?: string, siteUrl?: string, listId?: string, l
             }, reject);
         }
     });
-}) as any;
+}
 
 /** Gets the site and web id from a url */
-sites.getIdByUrl = (siteUrl: string) => {
+sites.getIdByUrl = (url) => {
     // Return a promise
     return new Promise((resolve, reject) => {
         // Get the context information
-        ContextInfo.getWeb(siteUrl).execute(context => {
+        ContextInfo.getWeb(url).execute(context => {
             // Get the site id
             Site(context.GetContextWebInformation.SiteFullUrl).query({ Select: ["Id"] }).execute(site => {
                 // Get the web id
                 Web(context.GetContextWebInformation.WebFullUrl).query({ Select: ["Id"] }).execute(web => {
                     // Resolve the request
                     resolve({
+                        digestValue: context.GetContextWebInformation.FormDigestValue,
                         siteId: site.Id,
                         siteUrl: context.GetContextWebInformation.SiteFullUrl,
                         webId: web.Id,

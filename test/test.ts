@@ -12,6 +12,12 @@ v2.drives().execute(drives => {
     drives.results[0].id;
 })
 
+v2.sites.getList({}).then(l => {
+    l.items(3).update({
+        
+    })
+})
+
 v2.sites.getCurrentWeb();
 v2.sites.getList("Test").items().execute(items => {
     items.results[0].fields();
