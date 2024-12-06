@@ -120,7 +120,7 @@ sites.getFile = (props) => {
                         }, reject);
                     })
                 }
-            });
+            }, reject);
         }, reject);
     });
 }
