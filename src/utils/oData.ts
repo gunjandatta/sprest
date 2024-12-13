@@ -12,6 +12,7 @@ export class OData {
     private _filter?: string;
     private _getAllItems?: boolean;
     private _orderBy?: Array<string>;
+    private _search?: string;
     private _select?: Array<string>;
     private _skip?: number;
     private _top?: number;
@@ -28,6 +29,7 @@ export class OData {
         this._filter = oData && oData.Filter ? oData.Filter : null;
         this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
         this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
+        this._search = oData && oData.Search ? oData.Search : null;
         this._select = oData && oData.Select ? oData.Select : [];
         this._skip = oData && oData.Skip ? oData.Skip : null;
         this._top = oData && oData.Top ? oData.Top : null;
@@ -83,6 +85,10 @@ export class OData {
         // Return the query string
         return qs;
     }
+
+    // Search
+    get Search(): string { return this._search; }
+    set Search(value: string) { this._search = value; }
 
     // Select
     get Select(): Array<string> { return this._select; }
