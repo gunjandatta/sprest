@@ -26,7 +26,7 @@ export const drives: Idrives = ((props: { driveId?: string, siteId?: string, sit
     // See if an endpoint is not defined
     if (drives.targetInfo.endpoint == undefined) {
         // Default the endpoint
-        drives.targetInfo.endpoint = `_api/v2.1/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') : ""}drives`;
+        drives.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') : ""}drives`;
 
         // See if the drive id was provided
         if (props.driveId) {
@@ -34,10 +34,10 @@ export const drives: Idrives = ((props: { driveId?: string, siteId?: string, sit
             drives.targetInfo.endpoint += "/" + props.driveId;
 
             // Add the methods
-            Request.addMethods(drives, { __metadata: { type: "@odata.context/_api/v2.1/$metadata#drive" } });
+            Request.addMethods(drives, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#drive" } });
         } else {
             // Add the methods
-            Request.addMethods(drives, { __metadata: { type: "@odata.context/_api/v2.1/$metadata#drives" } });
+            Request.addMethods(drives, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#drives" } });
         }
     }
 

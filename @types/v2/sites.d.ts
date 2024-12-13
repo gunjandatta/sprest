@@ -7,7 +7,7 @@ import { ITargetInfoProps } from "../utils";
 
 /**
  * #### REST API
- * _api/v2.1/sites
+ * _api/v2.0/sites
  *
  * #### Get the current site
  *
@@ -45,7 +45,7 @@ export interface IsiteIdResult {
 
 /**
  * Sites
- * The v2.1 REST endpoint.
+ * The v2.0 REST endpoint.
  * @category Sites
  */
 export interface Isites {

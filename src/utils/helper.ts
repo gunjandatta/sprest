@@ -304,7 +304,7 @@ export const Helper: IBaseHelper = {
                 if (obj["@odata.context"]) {
                     // Get the object type
                     let metadataType = (obj["@odata.context"] || objType);
-                    let values = metadataType.split("_api/v2.1/$metadata#");
+                    let values = metadataType.split("_api/v2.0/$metadata#");
                     if (values.length > 1) {
                         objType = values[1];
                     } else {

@@ -17,6 +17,10 @@ v2.sites.getList({}).then(l => {
     l.items(3).setSensitivityLabel({}).execute();
 })
 
+v2.sites({ targetInfo: { url: "" } }).query({ Search: "*"}).execute(s => {
+    s.siteCollection.root;
+});
+v2.sites.getCurrentSite();
 v2.sites.getCurrentWeb();
 v2.sites.getList({ listName: "Test" }).then(list => {
     list.items.add({}).execute();

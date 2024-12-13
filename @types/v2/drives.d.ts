@@ -4,7 +4,7 @@ import { ITargetInfoProps } from "../utils";
 
 /**
  * #### REST API
- * _api/v2.1/drives
+ * _api/v2.0/drives
  *
  * #### Get the libraries for a site.
  *
@@ -20,7 +20,7 @@ export const drives: Idrives;
 
 /**
  * Drives
- * The v2.1 REST endpoint.
+ * The v2.0 REST endpoint.
  * @category Drives
  */
 export interface Idrives {

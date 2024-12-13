@@ -4443,7 +4443,7 @@ declare module 'gd-sprest/v2/drive' {
     
     /**
         * #### REST API
-        * _api/v2.1/drive
+        * _api/v2.0/drive
         *
         * #### Get the default library for a site.
         *
@@ -4459,7 +4459,7 @@ declare module 'gd-sprest/v2/drive' {
     
     /**
         * Drive
-        * The v2.1 REST endpoint.
+        * The v2.0 REST endpoint.
         * @category Drive
         */
     export interface Idrive {
@@ -4479,7 +4479,7 @@ declare module 'gd-sprest/v2/drives' {
     
     /**
         * #### REST API
-        * _api/v2.1/drives
+        * _api/v2.0/drives
         *
         * #### Get the libraries for a site.
         *
@@ -4495,7 +4495,7 @@ declare module 'gd-sprest/v2/drives' {
     
     /**
         * Drives
-        * The v2.1 REST endpoint.
+        * The v2.0 REST endpoint.
         * @category Drives
         */
     export interface Idrives {
@@ -4520,7 +4520,7 @@ declare module 'gd-sprest/v2/sites' {
     
     /**
         * #### REST API
-        * _api/v2.1/sites
+        * _api/v2.0/sites
         *
         * #### Get the current site
         *
@@ -4558,7 +4558,7 @@ declare module 'gd-sprest/v2/sites' {
     
     /**
         * Sites
-        * The v2.1 REST endpoint.
+        * The v2.0 REST endpoint.
         * @category Sites
         */
     export interface Isites {

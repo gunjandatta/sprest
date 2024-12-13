@@ -18,7 +18,7 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
 
     // Default the properties
     sites.targetInfo.defaultToWebFl = true;
-    sites.targetInfo.endpoint = "_api/v2.1/sites" + (props.siteId ? "/" + props.siteId : "");
+    sites.targetInfo.endpoint = "_api/v2.0/sites" + (props.siteId ? "/" + props.siteId : "");
     sites.targetInfo.requestType = RequestType.GraphGet;
 
     // See if the site id was provided
@@ -34,7 +34,7 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
     }
 
     // Add the methods
-    Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.1/$metadata#sites" } });
+    Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#sites" } });
 
     // Return the sites
     return sites;
