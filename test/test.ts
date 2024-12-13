@@ -13,14 +13,19 @@ v2.drives().execute(drives => {
 })
 
 v2.sites.getList({}).then(l => {
+    l;
     l.items(3).setSensitivityLabel({}).execute();
 })
 
 v2.sites.getCurrentWeb();
-v2.sites.getList("Test").then(list => {
+v2.sites.getList({ listName: "Test" }).then(list => {
+    list.items.add({}).execute();
     list.items().execute(items => {
         items.results[0].fields();
     });
+    list.items().query({}).execute(items => {
+        items.results[0].fields.id;
+    })
 });
 
 v2.sites().lists("").items();
@@ -97,7 +102,7 @@ Graph().me().execute(user => {
     })
 })
 
-let el = document.querySelector("#Element");
+let el = document.querySelector("#Element") as HTMLElement;
 let a1 = Helper.SP.CalloutManager.createAction({ text: "", onClickCallback: () => { } });
 let m = Helper.SP.CalloutManager.createMenuEntries([{ text: "", onClickCallback: () => { } }]);
 let a2 = Helper.SP.CalloutManager.createAction({ text: "", menuEntries: m })
@@ -147,43 +152,6 @@ $REST.GroupSiteManager().canUserCreateGroup().execute(value => {
     value
 })
 
-// Add attachments
-let addAttachments = () => {
-    const upInc = Number(100 / this.state.files.length).toFixed(2);
-    this.setState({
-        uploadInc: upInc,
-        uploadCont: upInc
-    });
-
-    // Get the list item
-    let item = List("TaskTracker").Items(this.state.newReqID);
-
-    // Parse the files
-    const currentFiles = this.state.files;
-    for (let i = 0; i < currentFiles.length; i++) {
-        let file = currentFiles[i];
-
-        // Read the file
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            // Upload the file
-            item.AttachmentFiles().add(file.name, reader.result).execute(info => {
-                const uploadedFiles = this.state.fileCount + 1;
-                this.setState({ fileCount: uploadedFiles }, () => {
-                    // ...
-                });
-            }, true);
-        }
-        reader.onerror = () => console.error("file reading has failed");
-        reader.readAsArrayBuffer(file);
-    }
-
-    // Wait for the files to be uploaded
-    item.done(() => {
-        // Do something
-    });
-}
-
 $REST.Helper.SP.ModalDialog.showWaitScreenWithNoClose("");
 
 $REST.Helper.SP.SOD.registerSod("gd-sprest", "/siteassets/gd-sprest.min.js");
@@ -223,12 +191,14 @@ $REST.Web().getUserEffectivePermissions("").execute(r => {
 
 $REST.Search().postquery({
     Querytext: "*",
-    Properties: [
-        {
-            Name: "GraphQuery",
-            Value: { StrVal: "ACTOR(ME,action:1013)" }
-        }
-    ]
+    Properties: {
+        results: [
+            {
+                Name: "GraphQuery",
+                Value: { StrVal: "ACTOR(ME,action:1013)" }
+            }
+        ]
+    }
 }).execute(results => {
     results.postquery.PrimaryQueryResult;
 });

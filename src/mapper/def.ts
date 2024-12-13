@@ -914,6 +914,10 @@ export const Mapper: IMapper = {
             argNames: ["reportId"],
         },
 
+        getSPODataAccessGovernanceInsightV2: {
+            argNames: ["reportEntity"],
+        },
+
         removeDataAccessGovernanceReport: {
             argNames: ["reportId"],
         },
@@ -938,6 +942,10 @@ export const Mapper: IMapper = {
 
         remove: {
             argNames: ["source"],
+        },
+
+        updateScriptSources: {
+            argNames: ["added", "removed"],
         },
 
     },
@@ -1112,9 +1120,6 @@ export const Mapper: IMapper = {
 
         addToOrgAssetsLibWithConfig: {
             argNames: ["cdnType", "libUrl", "thumbnailUrl", "orgAssetType", "defaultOriginAdded", "configParam"],
-        },
-
-        appHasAdminSitePermission: {
         },
 
         archiveSiteById: {
@@ -1409,6 +1414,9 @@ export const Mapper: IMapper = {
 
         getTenantAllOrCompatibleIBSegments: {
             argNames: ["segments"],
+        },
+
+        getTenantSendFromAddress: {
         },
 
         getTenantSiteCreationSource: {
@@ -1780,11 +1788,11 @@ export const Mapper: IMapper = {
         },
 
         updateRansomwareActivity: {
-            argNames: ["listItemId", "columnValues"],
+            argNames: ["listItemId", "columnValues", "category"],
         },
 
         updateRansomwareEvent: {
-            argNames: ["listItemId", "columnValues", "forceResolveActivity"],
+            argNames: ["listItemId", "columnValues", "forceResolveActivity", "category"],
         },
 
         updateSPOContainerUserRole: {
@@ -2048,15 +2056,20 @@ export const Mapper: IMapper = {
             argNames: ["lockRequestor", "lockType", "leaseDurationInMinutes"],
         },
 
-        clearState: {
+        clearSiteRelocationMarker: {
         },
 
         extendSystemSiteLockExpiration: {
             argNames: ["leaseDurationInMinute"],
         },
 
-        getChecksumForTable: {
-            argNames: ["schemaName", "tableName", "partitionColumnName", "columnsToChecksum"],
+        getCPSChangeToken: {
+        },
+
+        getCPSSiteDeleteReason: {
+        },
+
+        getDataChunks: {
         },
 
         getDataReader: {
@@ -2069,8 +2082,19 @@ export const Mapper: IMapper = {
         getMarker: {
         },
 
-        getRowCountForTable: {
-            argNames: ["schemaName", "tableName", "partitionColumnName"],
+        getEventCacheDataChunk: {
+            argNames: ["lastCopiedId", "searchChangeToken"],
+        },
+
+        getEventCacheExColumns: {
+        },
+
+        getEventCacheExDataChunk: {
+            argNames: ["lastCopiedId"],
+        },
+
+        getEventCacheIds: {
+            argNames: ["lastCopiedId"],
         },
 
         getScalarValue: {
@@ -2086,11 +2110,21 @@ export const Mapper: IMapper = {
         getTenantWorkflows: {
         },
 
+        getValidationChunks: {
+        },
+
         isDbReadOnly: {
         },
 
         isSystemSiteLocked: {
             argNames: ["lockRequestor"],
+        },
+
+        lockSite: {
+        },
+
+        pauseCrawling: {
+            argNames: ["originalCPSDeleteReason"],
         },
 
         processStorageMetricsChanges: {
@@ -2100,8 +2134,16 @@ export const Mapper: IMapper = {
             argNames: ["lockRequestor"],
         },
 
+        resumeCrawling: {
+            argNames: ["originalCPSDeleteReason"],
+        },
+
         sourceCleanupAfterMove: {
             argNames: ["isDeleted"],
+        },
+
+        unlockSiteOnFailure: {
+            argNames: ["originalLockFlags"],
         },
 
     },
@@ -2332,7 +2374,10 @@ export const Mapper: IMapper = {
         },
 
         isDoclibContributorOwnerEnabled: {
-        }
+        },
+
+        isSuspended: {
+        },
     },
 
     "Microsoft.SharePoint.Convergence.OdcMetadataCleanedUpApi": {
@@ -2398,6 +2443,12 @@ export const Mapper: IMapper = {
 
     "Microsoft.SharePoint.IR.IRMigration": {
         deleteAndRecreateIRList: {
+        },
+
+    },
+
+    "Microsoft.SharePoint.IdentityModel.SPAllOrgSGManager": {
+        createAllOrgSecurityGroup: {
         },
 
     },
@@ -2630,6 +2681,10 @@ export const Mapper: IMapper = {
         },
 
         delete: { requestType: RequestType.Delete },
+
+        file: {
+            argNames: ["folderName", "fileName", "file", "overwrite"],
+        },
 
         parseUrl: {
             argNames: ["destinationUrl", "retrieveAllLists", "retrieveFoldersForAllLists", "forceMySiteDefaultList", "migrationType"],
@@ -4559,6 +4614,10 @@ export const Mapper: IMapper = {
 
         updateTenantTheme: {
             argNames: ["themeData"],
+        },
+
+        validateSiteThemeName: {
+            argNames: ["name"],
         },
 
         validateTenantThemeName: {
@@ -6659,11 +6718,6 @@ export const Mapper: IMapper = {
             requestType: RequestType.PostWithArgsInBody
         },
 
-        createRule: {
-            argNames: ["condition", "outcome", "title", "triggerType", "emailField", "actionType", "ruleTemplateId"],
-            requestType: RequestType.PostWithArgsInBody
-        },
-
         createRuleEx: {
             argNames: ["condition", "title", "triggerType", "action", "ruleTemplateId"],
             requestType: RequestType.PostWithArgsInBody
@@ -7017,10 +7071,6 @@ export const Mapper: IMapper = {
 
         updateFormProcessingModelSettings: {
             argNames: ["retentionLabel", "linkedList"],
-        },
-
-        updateRule: {
-            argNames: ["ruleId", "condition", "outcome", "title", "emailField", "status", "actionType", "triggerType"],
         },
 
         updateRuleEx: {
@@ -7738,6 +7788,10 @@ export const Mapper: IMapper = {
         demoteFromNews: {
         },
 
+        discardCoAuth: {
+            argNames: ["lockId"],
+        },
+
         discardPage: {
         },
 
@@ -7776,6 +7830,10 @@ export const Mapper: IMapper = {
         },
 
         publish: {
+        },
+
+        publishAsBot: {
+            argNames: ["tenantId", "channelIds", "message"],
         },
 
         publishCoAuth: {
@@ -7828,7 +7886,7 @@ export const Mapper: IMapper = {
         },
 
         saveStreams: {
-            argNames: ["contentStream"],
+            argNames: ["contentStream", "sharedLockId"],
         },
 
         schedulePublication: {
@@ -7872,6 +7930,9 @@ export const Mapper: IMapper = {
 
         updateSharePointPublishingStatus: {
             argNames: ["destinationSiteId", "destinationUrl", "sharePointPublishingStatus", "sharePointPublishingErrorCode"],
+        },
+
+        validate: {
         },
 
     },
@@ -7929,6 +7990,10 @@ export const Mapper: IMapper = {
             requestType: RequestType.Post
         },
 
+        discardCoAuth: {
+            argNames: ["lockId"],
+        },
+
         discardPage: {
         },
 
@@ -7991,7 +8056,7 @@ export const Mapper: IMapper = {
         },
 
         saveStreams: {
-            argNames: ["contentStream"],
+            argNames: ["contentStream", "sharedLockId"],
         },
 
         schedulePublish: {
@@ -8210,6 +8275,10 @@ export const Mapper: IMapper = {
             requestType: RequestType.Post
         },
 
+        discardCoAuth: {
+            argNames: ["lockId"],
+        },
+
         discardPage: {
         },
 
@@ -8272,7 +8341,7 @@ export const Mapper: IMapper = {
         },
 
         saveStreams: {
-            argNames: ["contentStream"],
+            argNames: ["contentStream", "sharedLockId"],
         },
 
         schedulePublish: {
@@ -8388,6 +8457,10 @@ export const Mapper: IMapper = {
             requestType: RequestType.Post
         },
 
+        discardCoAuth: {
+            argNames: ["lockId"],
+        },
+
         discardPage: {
             requestType: RequestType.Post
         },
@@ -8461,7 +8534,7 @@ export const Mapper: IMapper = {
         },
 
         saveStreams: {
-            argNames: ["contentStream"],
+            argNames: ["contentStream", "sharedLockId"],
         },
 
         schedulePublish: {
@@ -8603,6 +8676,10 @@ export const Mapper: IMapper = {
             requestType: RequestType.Post
         },
 
+        discardCoAuth: {
+            argNames: ["lockId"],
+        },
+
         discardPage: {
         },
 
@@ -8665,7 +8742,7 @@ export const Mapper: IMapper = {
         },
 
         saveStreams: {
-            argNames: ["contentStream"],
+            argNames: ["contentStream", "sharedLockId"],
         },
 
         schedulePublish: {
@@ -8731,6 +8808,9 @@ export const Mapper: IMapper = {
         },
 
         canCreatePromotedPage: {
+        },
+
+        enableAmplifyFromAnywhere: {
         },
 
         enableAnnouncements: {
@@ -8855,6 +8935,10 @@ export const Mapper: IMapper = {
             requestType: RequestType.Post
         },
 
+        discardCoAuth: {
+            argNames: ["lockId"],
+        },
+
         discardPage: {
         },
 
@@ -8917,7 +9001,7 @@ export const Mapper: IMapper = {
         },
 
         saveStreams: {
-            argNames: ["contentStream"],
+            argNames: ["contentStream", "sharedLockId"],
         },
 
         schedulePublish: {
@@ -11217,7 +11301,7 @@ export const Mapper: IMapper = {
         },
 
         setChromeOptions: {
-            argNames: ["headerLayout", "headerEmphasis", "megaMenuEnabled", "footerEnabled", "footerLayout", "footerEmphasis", "hideTitleInHeader", "logoAlignment", "horizontalQuickLaunch"],
+            argNames: ["headerLayout", "headerEmphasis", "megaMenuEnabled", "footerEnabled", "footerLayout", "footerEmphasis", "hideTitleInHeader", "logoAlignment", "horizontalQuickLaunch", "headerColorIndexInLightMode", "headerColorIndexInDarkMode", "footerColorIndexInLightMode", "footerColorIndexInDarkMode"],
             requestType: RequestType.PostWithArgs
         },
 
