@@ -19,7 +19,6 @@
 //   ../gd-sprest-def/base
 //   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/Graph/entityTypes
-//   ../gd-sprest-def/lib/Microsoft/Graph/api
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Utilities
 //   ../gd-sprest-def/lib/SP
@@ -4513,10 +4512,9 @@ declare module 'gd-sprest/v2/drives' {
 
 declare module 'gd-sprest/v2/sites' {
     import { IBaseExecution, IBaseQuery } from "gd-sprest-def/lib/base";
-    import { sites } from "gd-sprest-def/lib/Microsoft/Graph/api";
     import {
-            drive, driveMethods, listItem, listItemMethods,
-            list, listMethods, siteMethods
+            drive, driveMethods, list, listMethods,
+            listItem, listItemMethods, site, siteMethods
     } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
     import { ITargetInfoProps } from "gd-sprest/utils";
     
@@ -4570,7 +4568,7 @@ declare module 'gd-sprest/v2/sites' {
                 * @param webId - (Optional) The sub-site id to target.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (props?: { siteId?: string, webId?: string, targetInfo?: ITargetInfoProps }): siteMethods & sites;
+            (props?: { siteId?: string, webId?: string, targetInfo?: ITargetInfoProps }): IBaseQuery<site> & siteMethods;
     
             /** Returns the current web. */
             static getCurrentWeb(): IBaseQuery<site> & siteMethods;
@@ -4579,7 +4577,7 @@ declare module 'gd-sprest/v2/sites' {
             static getDrive(props: IsiteGetDriveProps): PromiseLike<IBaseQuery<drive> & driveMethods>;
     
             /** Returns a drive for a site. */
-            static getFile(props: IsiteProps & { fileUrl: string }): PromiseLike<IBaseQuery<item> & itemMethods>;
+            static getFile(props: IsiteProps & { fileUrl: string }): PromiseLike<IBaseQuery<driveItem> & driveItemMethods>;
     
             /** Returns a list for a site. */
             static getList(props: IsiteProps & { listId?: string }): PromiseLike<IBaseQuery<list> & listMethods>;
