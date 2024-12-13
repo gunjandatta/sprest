@@ -1,5 +1,6 @@
 import { ITargetInfoProps } from "../../@types/utils";
 import { Idrives } from "../../@types/v2";
+import { ContextInfo } from "../lib/contextInfo";
 import { Base, Request, RequestType } from "../utils";
 import { init } from "./common";
 
@@ -17,11 +18,8 @@ export const drives: Idrives = ((props: { driveId?: string, siteId?: string, sit
     drives.targetInfo.defaultToWebFl = true;
     drives.targetInfo.requestType = RequestType.GraphGet;
 
-    // See if the web url exists
-    if (props.siteUrl) {
-        // Set the settings
-        drives.targetInfo.url = props.siteUrl;
-    }
+    // Default the url
+    drives.targetInfo.url = props.siteUrl || props?.targetInfo?.url || ContextInfo.webServerRelativeUrl;
 
     // See if an endpoint is not defined
     if (drives.targetInfo.endpoint == undefined) {

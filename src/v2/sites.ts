@@ -1,4 +1,4 @@
-import { ITargetInfoProps } from "../../@types/utils";
+import { ITargetInfoProps, TargetInfo } from "../../@types/utils";
 import { Isites } from "../../@types/v2";
 import { ContextInfo } from "../lib/contextInfo";
 import { Site } from "../lib/site";
@@ -21,15 +21,18 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
     sites.targetInfo.endpoint = "_api/v2.0/sites" + (props.siteId ? "/" + props.siteId : "");
     sites.targetInfo.requestType = RequestType.GraphGet;
 
+    // Default the url
+    sites.targetInfo.url = props?.targetInfo?.url || ContextInfo.webServerRelativeUrl;
+
     // See if the site id was provided
     if (props.siteId) {
         // Append the site id
-        sites.targetInfo.endpoint += "/" + props.siteId;
+        sites.targetInfo.endpoint += "/" + props.siteId.replace(/^\{|\}$/g, '');
 
         // See if the web id is provided
         if (props.webId) {
             // Append the web id
-            sites.targetInfo.endpoint += "," + props.webId;
+            sites.targetInfo.endpoint += "," + props.webId.replace(/^\{|\}$/g, '');
         }
     }
 
