@@ -27,7 +27,10 @@ export class TargetInfo implements ITargetInfo {
                 this.props.requestType == RequestType.OData ? "GET" : "POST";
 
             // Set the request url
-            this.requestUrl = this.props.endpoint;
+            this.requestUrl = [
+                this.props.url || "",
+                this.props.endpoint
+            ].join('/').replace(/\/\//g, '/');
         } else {
             // Set the request url
             this.setRESTRequestUrl();
