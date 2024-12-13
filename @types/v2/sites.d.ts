@@ -57,6 +57,9 @@ export interface Isites {
      */
     (props?: { siteId?: string, webId?: string, targetInfo?: ITargetInfoProps }): IBaseQuery<site> & siteMethods;
 
+    /** Returns the current site. */
+    static getCurrentSite(): IBaseQuery<site> & siteMethods;
+
     /** Returns the current web. */
     static getCurrentWeb(): IBaseQuery<site> & siteMethods;
 

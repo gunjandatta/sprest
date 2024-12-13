@@ -18,13 +18,19 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
 
     // Default the properties
     sites.targetInfo.defaultToWebFl = true;
-    sites.targetInfo.endpoint = "_api/v2.1/sites/" + (props.siteId || ContextInfo?.siteId?.replace(/[{}]/g, ''));
+    sites.targetInfo.endpoint = "_api/v2.1/sites" + (props.siteId ? "/" + props.siteId : "");
     sites.targetInfo.requestType = RequestType.GraphGet;
 
-    // See if the web id is provided
-    if (props.webId) {
-        // Append the web id
-        sites.targetInfo.endpoint += "," + props.webId;
+    // See if the site id was provided
+    if (props.siteId) {
+        // Append the site id
+        sites.targetInfo.endpoint += "/" + props.siteId;
+
+        // See if the web id is provided
+        if (props.webId) {
+            // Append the web id
+            sites.targetInfo.endpoint += "," + props.webId;
+        }
     }
 
     // Add the methods
@@ -34,8 +40,20 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
     return sites;
 }) as any as Isites;
 
+/** Returns the current site. */
+sites.getCurrentSite = () => {
+    return sites({
+        siteId: ContextInfo.siteId
+    });
+}
+
 /** Returns the current web. */
-sites.getCurrentWeb = () => { return sites().sites(ContextInfo.webId.replace(/^\{|\}$/g, '')); }
+sites.getCurrentWeb = () => {
+    return sites({
+        siteId: ContextInfo.siteId,
+        webId: ContextInfo.webId
+    });
+}
 
 /** Returns a drive */
 sites.getDrive = (props) => {
