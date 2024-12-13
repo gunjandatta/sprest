@@ -70,6 +70,7 @@ export class OData {
         this._top ? values.push("$top=" + this._top) : null;
         this._skip ? values.push("$skip=" + this._skip) : null;
         this._filter ? values.push("$filter=" + this._filter) : null;
+        this._search ? values.push("$search=" + this._search) : null;
         values.push(this.getQSValue("$expand", this._expand));
         this._custom ? values.push(this._custom) : null;
 
