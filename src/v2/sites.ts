@@ -18,7 +18,7 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
 
     // Default the properties
     sites.targetInfo.defaultToWebFl = true;
-    sites.targetInfo.endpoint = "_api/v2.0/sites" + (props.siteId ? "/" + props.siteId : "");
+    sites.targetInfo.endpoint = "_api/v2.0/sites";
     sites.targetInfo.requestType = RequestType.GraphGet;
 
     // Default the url
@@ -44,14 +44,7 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
 }) as any as Isites;
 
 /** Returns the current site. */
-sites.getCurrentSite = () => {
-    return sites({
-        siteId: ContextInfo.siteId
-    });
-}
-
-/** Returns the current web. */
-sites.getCurrentWeb = () => {
+sites.getCurrent = () => {
     return sites({
         siteId: ContextInfo.siteId,
         webId: ContextInfo.webId
@@ -139,7 +132,7 @@ sites.getFile = (props) => {
                             // Resolve the request
                             resolve(drive.items(file.UniqueId));
                         }, reject);
-                    })
+                    });
                 }
             }, reject);
         }, reject);
@@ -186,4 +179,11 @@ sites.getIdByUrl = (url) => {
             }, reject);
         });
     })
+}
+
+/** Returns the root site of the current site. */
+sites.getRoot = () => {
+    return sites({
+        siteId: ContextInfo.siteId
+    });
 }

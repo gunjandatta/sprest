@@ -58,10 +58,7 @@ export interface Isites {
     (props?: { siteId?: string, webId?: string, targetInfo?: ITargetInfoProps }): IBaseQuery<site> & siteMethods;
 
     /** Returns the current site. */
-    static getCurrentSite(): IBaseQuery<site> & siteMethods;
-
-    /** Returns the current web. */
-    static getCurrentWeb(): IBaseQuery<site> & siteMethods;
+    static getCurrent(): IBaseQuery<site> & siteMethods;
 
     /** Returns a drive for a site. */
     static getDrive(props: IsiteGetDriveProps): PromiseLike<IBaseQuery<drive> & driveMethods>;
@@ -74,4 +71,7 @@ export interface Isites {
 
     /** Returns the url to the site, web, list or file. */
     static getIdByUrl(url: string): PromiseLike<IsiteIdResult>;
+
+    /** Returns the root site of the current site. */
+    static getRoot(): IBaseQuery<site> & siteMethods;
 }
