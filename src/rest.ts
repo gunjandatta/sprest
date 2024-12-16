@@ -1,7 +1,7 @@
 import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as LibV2 from "./v2";
-import { SPTypes } from "./sptypes";
+import { GraphTypes, SPTypes } from "./sptypes";
 import { IREST } from "../@types";
 
 /**
@@ -17,6 +17,7 @@ export const $REST: IREST = {
     drives: LibV2.drives,
     GetWebUrlFromPageUrl: Lib.Web.getWebUrlFromPageUrl,
     Graph: Lib.Graph,
+    GraphTypes,
     GroupService: Lib.GroupService,
     GroupSiteManager: Lib.GroupSiteManager,
     Helper,

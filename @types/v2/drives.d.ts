@@ -31,5 +31,5 @@ export interface Idrives {
      * @param siteUrl - (Optional) The site url to target, current by default.
      * @param targetInfo - (Optional) The target information.
      */
-    (props?: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<driveCollection>;
+    (props?: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): driveCollection;
 }

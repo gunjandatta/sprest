@@ -21,9 +21,9 @@ v2.sites({ targetInfo: { url: "" } }).query({ Search: "*" }).execute(s => {
     s.siteCollection.root;
 });
 v2.sites.getRoot();
-v2.sites.getCurrent()..query({ Expand: ["permissions"] });
+v2.sites.getCurrent().query({ Expand: ["permissions"] });
 v2.sites.getList({ listName: "Test" }).then(list => {
-    list.items.add({}).execute();
+    list.items().add({}).execute();
     list.items().execute(items => {
         items.results[0].fields();
     });

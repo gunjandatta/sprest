@@ -1,4 +1,5 @@
 import { IBaseExecution } from "gd-sprest-def/lib/base";
+import * as GraphTypes from "gd-sprest-def/lib/Microsoft/Graph/enumTypes";
 import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
 import { IList, RemoteWeb } from "gd-sprest-def/lib/SP/entitytypes";
 import { IHelper } from "./helper";
@@ -59,6 +60,9 @@ export interface IREST {
      * Use this api to interact with the Graph API. (Still In Development)
      */
     Graph: LibTypes.IGraph;
+
+    /** The graph enum types. */
+    GraphTypes,
 
     /**
      * A reference to the _api/groupservice endpoint.
