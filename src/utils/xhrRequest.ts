@@ -1,5 +1,5 @@
 import { Base } from "gd-sprest-def";
-import { ContextInfo } from "../lib";
+import { ContextInfo, Graph } from "../lib";
 import { TargetInfo } from ".";
 declare var ActiveXObject;
 
@@ -157,10 +157,11 @@ export class XHRRequest {
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
             // Ensure the access token exists
-            if (this.targetInfo.props.accessToken) {
+            let accessToken = this.targetInfo.props.accessToken || Graph.Token;
+            if (accessToken) {
                 // Set the authorization
-                this.xhr ? this.xhr.setRequestHeader("Authorization", "bearer " + this.targetInfo.props.accessToken) : null;
-                this.headers["Authorization"] = "bearer " + this.targetInfo.props.accessToken;
+                this.xhr ? this.xhr.setRequestHeader("Authorization", "bearer " + accessToken) : null;
+                this.headers["Authorization"] = "bearer " + accessToken;
             } else {
                 // Set the request digest
                 this.xhr ? this.xhr.setRequestHeader("X-RequestDigest", requestDigest) : null;

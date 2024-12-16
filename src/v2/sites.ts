@@ -141,17 +141,56 @@ sites.getFile = (props) => {
 
 /** Returns a list */
 sites.getList = (props) => {
+    // Finds the list
+    let findList = (siteId: string, listName: string): PromiseLike<string> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            sites({ siteId }).lists().query({
+                Filter: "displayName eq '" + listName + "'",
+                Select: ["id"]
+            }).execute(sites => {
+                // See if the list id exists
+                let list = sites.results[0];
+                if (list?.id) {
+                    // Resolve the request
+                    resolve(list?.id);
+                } else {
+                    // Reject the request
+                    reject("List was not found.");
+                }
+            }, reject);
+        });
+    }
+
     // Return a promise
     return new Promise((resolve, reject) => {
         // See if the site id exists
         if (props.siteId) {
-            // Resolve the request
-            resolve(sites({ siteId: props.siteId }).lists(props.listId || props.listName));
+            // See if the id was given
+            if (props.listId) {
+                // Resolve the request
+                resolve(sites({ siteId: props.siteId }).lists(props.listId));
+            } else {
+                // Find the list
+                findList(props.siteId, props.listName).then(listId => {
+                    // Resolve the request
+                    resolve(sites({ siteId: props.siteId }).lists(listId));
+                }, reject);
+            }
         } else {
             // Get the ids
             sites.getIdByUrl(props.siteUrl).then(info => {
-                // Resolve the request
-                resolve(sites({ siteId: info.siteId, webId: info.webId }).lists(props.listId || props.listName));
+                // See if the id was given
+                if (props.listId) {
+                    // Resolve the request
+                    resolve(sites({ siteId: info.siteId, webId: info.webId }).lists(props.listId));
+                } else {
+                    // Find the list
+                    findList(info.siteId, props.listName).then(listId => {
+                        // Resolve the request
+                        resolve(sites({ siteId: props.siteId }).lists(listId));
+                    }, reject);
+                }
             }, reject);
         }
     });

@@ -95,7 +95,6 @@ export const Helper: IBaseHelper = {
         var methodInfo = new MethodInfo(methodName, methodConfig, args);
 
         // Update the target information
-        targetInfo.accessToken = methodInfo.useToken ? Graph.Token : null;
         targetInfo.bufferFl = methodConfig.requestType == RequestType.GetBuffer;
         targetInfo.data = methodInfo.body;
         targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && base.base ? base.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;

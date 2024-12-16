@@ -151,8 +151,6 @@ export const Request = {
 
     // Method to add properties to the base object
     addProperties: (base, data) => {
-        let isV2 = data["@odata.context"] ? true : false;
-
         // Parse the data properties
         for (var key in data) {
             let value = data[key];
