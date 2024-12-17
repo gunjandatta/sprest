@@ -75,6 +75,12 @@ export const Helper: IBaseHelper = {
         else {
             // Copy the target information
             targetInfo = Object.create(base.targetInfo);
+
+            // See if this is a graph request and an id exists for the parent
+            if (base["@odata.etag"] && base["id"]) {
+                // Append the id
+                targetInfo.endpoint += "/" + base["id"];
+            }
         }
 
         // See if the method config name has a base reference
