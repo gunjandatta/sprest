@@ -33,6 +33,12 @@ export class XHRRequest {
     // Public Properties
     /*********************************************************************************************************************************/
 
+    // Flag indicating if this is a batch request
+    get isBatch(): boolean { return this.targetInfo.isBatchRequest; }
+
+    // Flag indicating if this is a graph request
+    get isGraph(): boolean { return this.targetInfo.isGraph; }
+
     // Flag indicating the request has completed
     get completedFl(): boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
 

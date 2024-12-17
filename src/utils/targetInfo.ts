@@ -30,7 +30,7 @@ export class TargetInfo implements ITargetInfo {
             this.requestUrl = [
                 this.props.url || "",
                 this.props.endpoint
-            ].join('/').replace(/\/\//g, '/');
+            ].join('/').replace(/\/\//g, '/').replace(/\/$/, '');
         } else {
             // Set the request url
             this.setRESTRequestUrl();
@@ -49,7 +49,7 @@ export class TargetInfo implements ITargetInfo {
 
     // Flag to determine if this is a graph request
     get isGraph(): boolean {
-        return this.props.endpoint?.startsWith("_api/v2.0/") ||
+        return this.props.endpoint?.startsWith("_api/v2.0/") || this.props.url?.indexOf("_api/v2.0/") >= 0 ||
             this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
             this.props.requestType == RequestType.GraphGetReplace || this.props.requestType == RequestType.GraphPostReplace;
     }

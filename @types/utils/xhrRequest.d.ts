@@ -12,6 +12,12 @@ export interface IXHRRequest {
     // Flag indicating the request has completed
     completedFl: boolean;
 
+    // Flag indicating if this is a batch request
+    isBatch: boolean;
+
+    // Flag indicating if this is a graph request
+    isGraph: boolean;
+
     // The response
     response: string;
 

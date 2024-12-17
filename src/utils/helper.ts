@@ -196,8 +196,9 @@ export const Helper: IBaseHelper = {
     getNextSetOfResults: (base: IBase) => {
         // Create the target information to query the next set of results
         let targetInfo: ITargetInfoProps = Object.create(base.targetInfo);
+        targetInfo.accessToken = base.targetInfo.accessToken || (base.xhr.isGraph ? Graph.Token : null);
         targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
+        targetInfo.url = base["@odata.nextLink"] || base["d"].__next;
 
         // Create a new object
         let obj = new Base(targetInfo);

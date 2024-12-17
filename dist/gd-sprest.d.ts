@@ -7406,6 +7406,12 @@ declare module 'gd-sprest/utils/xhrRequest' {
             // Flag indicating the request has completed
             completedFl: boolean;
     
+            // Flag indicating if this is a batch request
+            isBatch: boolean;
+    
+            // Flag indicating if this is a graph request
+            isGraph: boolean;
+    
             // The response
             response: string;
     

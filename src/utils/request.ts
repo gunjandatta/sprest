@@ -1,7 +1,7 @@
 import { IBase } from "../../@types/utils";
 import { Base } from "./base";
 import { Batch } from "./batch";
-import { ContextInfo } from "../lib";
+import { ContextInfo, Graph } from "../lib";
 import { Executor } from "../helper/executor";
 import { Helper } from "./helper";
 import { Mapper, MapperV2, Mapper_Custom } from "../mapper";
@@ -437,7 +437,7 @@ export const Request = {
                 Request.updateDataObject(base, isBatchRequest, batchIdx);
 
                 // See if the base is a collection and has more results
-                if (base["d"] && base["d"].__next) {
+                if (base["@odata.nextLink"] || (base["d"] && base["d"].__next)) {
                     // Add the "next" method to get the next set of results
                     base["next"] = new Function("return this.getNextSetOfResults();");
                 }
@@ -711,7 +711,7 @@ export const Request = {
                     catch { reject(); return; }
 
                     // Set the next item flag
-                    base.nextFl = data.d && data.d.__next;
+                    base.nextFl = data["@odata.nextLink"] || (data.d && data.d.__next);
 
                     // See if there are more items to get
                     if (base.nextFl) {
@@ -719,22 +719,27 @@ export const Request = {
                         if (base.getAllItemsFl) {
                             // Create the target information to query the next set of results
                             let targetInfo = Object.create(base.targetInfo);
+                            targetInfo.accessToken = base.targetInfo.accessToken || (base.xhr.isGraph ? Graph.Token : null);
                             targetInfo.endpoint = "";
-                            targetInfo.url = data.d.__next;
+                            targetInfo.url = data["@odata.nextLink"] || data.d.__next;
 
                             // Create a new object
                             new XHRRequest(true, new TargetInfo(targetInfo), (xhr) => {
-                                // Convert the response and ensure the data property exists
+                                // Convert the response and see if values were returned
                                 let data = JSON.parse(xhr.response);
-                                if (data.d) {
+                                if (data.d || data.value) {
                                     // Update the data collection
-                                    Helper.updateDataCollection(base as any, data.d.results);
+                                    Helper.updateDataCollection(base as any, data.d?.results || data.value);
 
                                     // Update the expanded properties
                                     Helper.updateExpandedProperties(base);
 
                                     // Append the raw data results
-                                    base["d"].results = base["d"].results.concat(data.d.results);
+                                    if (base["d"]?.results) {
+                                        base["d"].results = base["d"].results.concat(data.d?.results);
+                                    } else {
+                                        base["value"] = base["value"].concat(data.value);
+                                    }
 
                                     // Validate the data collection
                                     request(xhr, resolve);
