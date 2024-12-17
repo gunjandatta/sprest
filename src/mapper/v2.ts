@@ -6673,6 +6673,14 @@ export const MapperV2: IMapper = {
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 	},
 	site: {
+		properties: [
+            "columns|columns|/[Name]|columnDefinition", "drives|drives|/[Name]|drive",
+			"externalColumns|externalColumns|/[Name]|columnDefinition",
+			"items|listItems|/[Name]|listItem", "lists|lists|/[Name]|list",
+			"operations|operations|/[Name]|operation", "pages|pages|/[Name]|baseSitePage",
+			"permissions|permissions|/[Name]|permission", "sites|sites|/[Name]|site",
+			"termStores|termStores|/[Name]|termStore"
+        ],
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		analytics: {
 			returnType: "itemAnalytics"
@@ -6769,10 +6777,6 @@ export const MapperV2: IMapper = {
 		},
 	},
 	sites: {
-		properties: [
-            "drives|drives|/[Name]|drive", "items|listItems|/[Name]|listItem",
-            "lists|lists|/[Name]|list"
-        ],
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		add: {
 			argNames: ["values"],

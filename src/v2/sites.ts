@@ -37,7 +37,11 @@ export const sites: Isites = ((props: { siteId?: string, webId?: string, targetI
     }
 
     // Add the methods
-    Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#sites" } });
+    if (props.siteId || props.webId) {
+        Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#site" } });
+    } else {
+        Request.addMethods(sites, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#sites" } });
+    }
 
     // Return the sites
     return sites;
