@@ -74,4 +74,7 @@ export interface Isites {
 
     /** Returns the root site of the current site. */
     static getRoot(): IBaseQuery<site> & siteMethods;
+
+    /** Returns a site by url. */
+    static getSite(url: string): PromiseLike<IBaseQuery<site> & siteMethods>;
 }

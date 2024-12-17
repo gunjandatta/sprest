@@ -226,3 +226,18 @@ sites.getRoot = () => {
         siteId: ContextInfo.siteId
     });
 }
+
+/** Returns a site by url */
+sites.getSite = (url: string) => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Get the site info
+        sites.getIdByUrl(url).then(info => {
+            // Resolve the request
+            resolve(sites({
+                siteId: info.siteId,
+                webId: info.webId
+            }));
+        }, reject);
+    });
+}
