@@ -70,7 +70,7 @@ sites.getDrive = (props) => {
                         let drive = drives.results[i];
 
                         // See if this is the target library
-                        if (drive["name"] == libName) {
+                        if (drive["name"].toLowerCase() == libName.toLowerCase()) {
                             // Resolve the request
                             resolve(drive.id);
                             return;
