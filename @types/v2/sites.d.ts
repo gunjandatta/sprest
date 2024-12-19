@@ -1,7 +1,7 @@
 import { IBaseExecution, IBaseQuery } from "gd-sprest-def/lib/base";
 import {
-    drive, driveMethods, list, listMethods,
-    listItem, listItemMethods, site, siteMethods
+    drive, driveMethods, driveItem, driveItemMethods, list,
+    listMethods, listItem, listItemMethods, site, siteMethods
 } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
 import { ITargetInfoProps } from "../utils";
 
@@ -58,23 +58,23 @@ export interface Isites {
     (props?: { siteId?: string, webId?: string, targetInfo?: ITargetInfoProps }): IBaseQuery<site> & siteMethods;
 
     /** Returns the current site. */
-    static getCurrent(): IBaseQuery<site> & siteMethods;
+    getCurrent(): IBaseQuery<site> & siteMethods;
 
     /** Returns a drive for a site. */
-    static getDrive(props: IsiteGetDriveProps): PromiseLike<IBaseQuery<drive> & driveMethods>;
+    getDrive(props: IsiteGetDriveProps): PromiseLike<IBaseQuery<drive> & driveMethods>;
 
     /** Returns a drive for a site. */
-    static getFile(props: IsiteProps & { fileUrl: string }): PromiseLike<IBaseQuery<driveItem> & driveItemMethods>;
+    getFile(props: IsiteProps & { fileUrl: string }): PromiseLike<IBaseQuery<driveItem> & driveItemMethods>;
 
     /** Returns a list for a site. */
-    static getList(props: IsiteProps & { listId?: string }): PromiseLike<IBaseQuery<list> & listMethods>;
+    getList(props: IsiteProps & { listId?: string }): PromiseLike<IBaseQuery<list> & listMethods>;
 
     /** Returns the url to the site, web, list or file. */
-    static getIdByUrl(url: string): PromiseLike<IsiteIdResult>;
+    getIdByUrl(url: string): PromiseLike<IsiteIdResult>;
 
     /** Returns the root site of the current site. */
-    static getRoot(): IBaseQuery<site> & siteMethods;
+    getRoot(): IBaseQuery<site> & siteMethods;
 
     /** Returns a site by url. */
-    static getSite(url: string): PromiseLike<IBaseQuery<site> & siteMethods>;
+    getSite(url: string): PromiseLike<IBaseQuery<site> & siteMethods>;
 }
