@@ -193,6 +193,17 @@ $REST.Web().getUserEffectivePermissions("").execute(r => {
     r.GetUserEffectivePermissions;
 });
 
+$REST.Search.postQuery<{
+    Path: string;
+    WebId: string;
+}>({
+    query: {
+        Querytext: "contentClass:STS_Web",
+        SelectProperties: { results: ["Path", "WebId"] }
+    }
+}).then(search => {
+    search.results[0].Path;
+})
 $REST.Search().postquery({
     Querytext: "*",
     Properties: {
@@ -203,8 +214,8 @@ $REST.Search().postquery({
             }
         ]
     }
-}).execute(results => {
-    results.postquery.PrimaryQueryResult;
+}).execute(search => {
+    search.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results[0].Cells.results[0].Key;
 });
 
 $REST.Helper.SPConfig({
