@@ -10,3 +10,14 @@ export interface IBatchRequest {
     response?: IBase;
     targetInfo: ITargetInfo;
 }
+
+/**
+ * V2 Batch Request
+ */
+export interface IBatchRequestV2 {
+    body?: object | string;
+    headers?: { [key: string]: string };
+    id: string;
+    method: string;
+    url: string;
+}

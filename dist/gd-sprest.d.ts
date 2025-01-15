@@ -7174,13 +7174,24 @@ declare module 'gd-sprest/utils/batch' {
     import { ITargetInfo } from "gd-sprest/utils/targetInfo";
     
     /**
-      * Batch Request
-      */
+        * Batch Request
+        */
     export interface IBatchRequest {
-        callback?: any;
-        changesetId?: string;
-        response?: IBase;
-        targetInfo: ITargetInfo;
+            callback?: any;
+            changesetId?: string;
+            response?: IBase;
+            targetInfo: ITargetInfo;
+    }
+    
+    /**
+        * V2 Batch Request
+        */
+    export interface IBatchRequestV2 {
+            body?: object | string;
+            headers?: { [key: string]: string };
+            id: string;
+            method: string;
+            url: string;
     }
 }
 
