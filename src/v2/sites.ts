@@ -192,7 +192,7 @@ sites.getList = (props) => {
                     // Find the list
                     findList(info.siteId, info.webId, props.listName).then(listId => {
                         // Resolve the request
-                        resolve(sites({ siteId: info.siteId }).lists(listId));
+                        resolve(sites({ siteId: info.siteId, webId: info.webId }).lists(listId));
                     }, reject);
                 }
             }, reject);
