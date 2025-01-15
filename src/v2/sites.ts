@@ -190,7 +190,7 @@ sites.getList = (props) => {
                     resolve(sites({ siteId: info.siteId, webId: info.webId }).lists(props.listId));
                 } else {
                     // Find the list
-                    findList(info.siteId, props.webId, props.listName).then(listId => {
+                    findList(info.siteId, info.webId, props.listName).then(listId => {
                         // Resolve the request
                         resolve(sites({ siteId: info.siteId }).lists(listId));
                     }, reject);
