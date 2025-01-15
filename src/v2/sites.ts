@@ -146,10 +146,10 @@ sites.getFile = (props) => {
 /** Returns a list */
 sites.getList = (props) => {
     // Finds the list
-    let findList = (siteId: string, listName: string): PromiseLike<string> => {
+    let findList = (siteId: string, webId: string, listName: string): PromiseLike<string> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            sites({ siteId }).lists().query({
+            sites({ siteId, webId }).lists().query({
                 Filter: "displayName eq '" + listName + "'",
                 Select: ["id"]
             }).execute(sites => {
@@ -173,12 +173,12 @@ sites.getList = (props) => {
             // See if the id was given
             if (props.listId) {
                 // Resolve the request
-                resolve(sites({ siteId: props.siteId }).lists(props.listId));
+                resolve(sites({ siteId: props.siteId, webId: props.webId }).lists(props.listId));
             } else {
                 // Find the list
-                findList(props.siteId, props.listName).then(listId => {
+                findList(props.siteId, props.webId, props.listName).then(listId => {
                     // Resolve the request
-                    resolve(sites({ siteId: props.siteId }).lists(listId));
+                    resolve(sites({ siteId: props.siteId, webId: props.webId }).lists(listId));
                 }, reject);
             }
         } else {
@@ -190,7 +190,7 @@ sites.getList = (props) => {
                     resolve(sites({ siteId: info.siteId, webId: info.webId }).lists(props.listId));
                 } else {
                     // Find the list
-                    findList(info.siteId, props.listName).then(listId => {
+                    findList(info.siteId, props.webId, props.listName).then(listId => {
                         // Resolve the request
                         resolve(sites({ siteId: info.siteId }).lists(listId));
                     }, reject);
