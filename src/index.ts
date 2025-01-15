@@ -28,7 +28,6 @@ SOFTWARE.
 ***************************************************************************************************/
 import * as Helper from "./helper"
 export * from "./lib";
-export * from "./mapper";
 export * from "./rest";
 export * from "./sptypes";
 import * as v2 from "./v2";
