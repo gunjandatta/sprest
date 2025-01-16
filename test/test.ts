@@ -16,7 +16,8 @@ v2.sites.getList({}).then(l => {
 })
 
 v2.sites().permissions().execute(permissions => {
-    permissions.results[0].delete();
+    permissions.results[0].delete()
+    permissions.results[0].update({ roles: [] })
 })
 v2.sites({ targetInfo: { url: "" } }).query({ Search: "*" }).execute(s => {
     s.siteCollection.root;
@@ -42,7 +43,7 @@ v2.sites().lists("293874-239478-238479-32847987").execute(list => {
 v2.sites().lists().execute(value => {
     value.results[0].items().execute(items => {
         items.results[0].id;
-        items.add({}).execute();
+        items.add().execute();
     });
     value.results[0].contentTypes().execute(cts => {
         cts.add({}).execute();
