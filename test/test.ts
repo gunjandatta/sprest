@@ -13,10 +13,11 @@ v2.drives().execute(drives => {
 })
 
 v2.sites.getList({}).then(l => {
-    l;
-    l.items(3).setSensitivityLabel({}).execute();
 })
 
+v2.sites().permissions().execute(permissions => {
+    permissions.results[0].delete();
+})
 v2.sites({ targetInfo: { url: "" } }).query({ Search: "*" }).execute(s => {
     s.siteCollection.root;
 });

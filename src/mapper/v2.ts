@@ -2323,6 +2323,7 @@ export const MapperV2: IMapper = {
 		properties: [
 
 		],
+		delete: { requestType: RequestType.Delete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		sourceColumn: {
 			returnType: "columnDefinition"
@@ -2529,6 +2530,7 @@ export const MapperV2: IMapper = {
 		properties: [
 			"baseTypes|contentTypes|/[Name]|contentType", "columnLinks|columnLinks|/[Name]|columnLink", "columnPositions|columnDefinitions|/[Name]|columnDefinition", "columns|columnDefinitions|/[Name]|columnDefinition"
 		],
+		delete: { requestType: RequestType.Delete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		base: {
 			returnType: "contentType"
@@ -4046,6 +4048,7 @@ export const MapperV2: IMapper = {
 		properties: [
 			"children|driveItems|/[Name]|driveItem", "permissions|permissions|/[Name]|permission", "subscriptions|subscriptions|/[Name]|subscription", "thumbnails|thumbnailSets|/[Name]|thumbnailSet", "versions|driveItemVersions|/[Name]|driveItemVersion"
 		],
+		delete: { requestType: RequestType.Delete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		workbook: {
 			returnType: "workbook"
@@ -6305,6 +6308,7 @@ export const MapperV2: IMapper = {
 			requestType: RequestType.Get,
 			returnType: "contentTypes"
 		},
+		delete: { requestType: RequestType.Delete },
 		drive: {
 			returnType: "drive"
 		},
@@ -6335,6 +6339,7 @@ export const MapperV2: IMapper = {
 		analytics: {
 			returnType: "itemAnalytics"
 		},
+		delete: { requestType: RequestType.Delete },
 		documentSetVersions: {
 			requestType: RequestType.Get,
 			returnType: "documentSetVersions"
@@ -7867,6 +7872,7 @@ export const MapperV2: IMapper = {
 		properties: [
 
 		],
+		delete: { requestType: RequestType.Delete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		update: {
 			argNames: ["values"],
