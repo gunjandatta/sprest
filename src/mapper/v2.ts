@@ -7876,6 +7876,9 @@ export const MapperV2: IMapper = {
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		update: {
 			argNames: ["values"],
+			name: "",
+            requestMethod: "MERGE",
+			requestType: RequestType.PostBodyNoArgs
 		},
 		grant: {
 			argNames: ["roles", "recipients"],
@@ -7887,7 +7890,7 @@ export const MapperV2: IMapper = {
 		add: {
 			argNames: ["values"],
 			name: "",
-			requestType: RequestType.PostWithArgsInBody
+			requestType: RequestType.PostBodyNoArgs
 		},
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 	},
