@@ -7884,7 +7884,11 @@ export const MapperV2: IMapper = {
 		},
 	},
 	permissions: {
-		add: { argNames: ["values"], requestType: RequestType.PostWithArgsInBody },
+		add: {
+			argNames: ["values"],
+			name: "",
+			requestType: RequestType.PostWithArgsInBody
+		},
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 	},
 	permissionGrantConditionSet: {
