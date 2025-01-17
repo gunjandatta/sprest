@@ -48,7 +48,11 @@ export class MethodInfo implements Base.IMethodInfo {
 
         // Determine the request method, based on the request type
         switch (this.methodInfo.requestType) {
+            case RequestType.GraphDelete:
+                return "DELETE";
             case RequestType.Delete:
+            case RequestType.GraphPost:
+            case RequestType.GraphPostReplace:
             case RequestType.Post:
             case RequestType.PostBodyNoArgs:
             case RequestType.PostReplace:

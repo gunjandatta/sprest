@@ -7303,6 +7303,7 @@ declare module 'gd-sprest/utils/requestType' {
         GetReplace: number;
     
         // Graph Requests
+        GraphDelete: number;
         GraphGet: number;
         GraphGetReplace: number;
         GraphPost: number;

@@ -2323,13 +2323,16 @@ export const MapperV2: IMapper = {
 		properties: [
 
 		],
-		delete: { requestType: RequestType.Delete },
+		delete: { requestType: RequestType.GraphDelete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		sourceColumn: {
 			returnType: "columnDefinition"
 		},
 		update: {
 			argNames: ["values"],
+			name: "",
+			requestMethod: "PATCH",
+			requestType: RequestType.PostBodyNoArgs
 		},
 	},
 	columnDefinitions: {
@@ -2530,7 +2533,7 @@ export const MapperV2: IMapper = {
 		properties: [
 			"baseTypes|contentTypes|/[Name]|contentType", "columnLinks|columnLinks|/[Name]|columnLink", "columnPositions|columnDefinitions|/[Name]|columnDefinition", "columns|columnDefinitions|/[Name]|columnDefinition"
 		],
-		delete: { requestType: RequestType.Delete },
+		delete: { requestType: RequestType.GraphDelete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		base: {
 			returnType: "contentType"
@@ -2553,6 +2556,9 @@ export const MapperV2: IMapper = {
 		},
 		update: {
 			argNames: ["values"],
+			name: "",
+			requestMethod: "PATCH",
+			requestType: RequestType.PostBodyNoArgs
 		},
 		publish: {
 			requestType: RequestType.PostWithArgsInBody,
@@ -4048,7 +4054,7 @@ export const MapperV2: IMapper = {
 		properties: [
 			"children|driveItems|/[Name]|driveItem", "permissions|permissions|/[Name]|permission", "subscriptions|subscriptions|/[Name]|subscription", "thumbnails|thumbnailSets|/[Name]|thumbnailSet", "versions|driveItemVersions|/[Name]|driveItemVersion"
 		],
-		delete: { requestType: RequestType.Delete },
+		delete: { requestType: RequestType.GraphDelete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		workbook: {
 			returnType: "workbook"
@@ -6308,7 +6314,7 @@ export const MapperV2: IMapper = {
 			requestType: RequestType.Get,
 			returnType: "contentTypes"
 		},
-		delete: { requestType: RequestType.Delete },
+		delete: { requestType: RequestType.GraphDelete },
 		drive: {
 			returnType: "drive"
 		},
@@ -6326,6 +6332,9 @@ export const MapperV2: IMapper = {
 		},
 		update: {
 			argNames: ["values"],
+			name: "",
+			requestMethod: "PATCH",
+			requestType: RequestType.PostBodyNoArgs
 		},
 	},
 	lists: {
@@ -6339,7 +6348,7 @@ export const MapperV2: IMapper = {
 		analytics: {
 			returnType: "itemAnalytics"
 		},
-		delete: { requestType: RequestType.Delete },
+		delete: { requestType: RequestType.GraphDelete },
 		documentSetVersions: {
 			requestType: RequestType.Get,
 			returnType: "documentSetVersions"
@@ -6356,6 +6365,9 @@ export const MapperV2: IMapper = {
 		},
 		update: {
 			argNames: ["values"],
+			name: "",
+			requestMethod: "PATCH",
+			requestType: RequestType.PostBodyNoArgs
 		},
 		createLink: {
 			argNames: ["type", "scope", "expirationDateTime", "password", "message", "recipients", "retainInheritedPermissions", "sendNotification"],
@@ -7872,12 +7884,12 @@ export const MapperV2: IMapper = {
 		properties: [
 
 		],
-		delete: { requestType: RequestType.Delete },
+		delete: { requestType: RequestType.GraphDelete },
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		update: {
 			argNames: ["values"],
 			name: "",
-            requestMethod: "MERGE",
+			requestMethod: "PATCH",
 			requestType: RequestType.PostBodyNoArgs
 		},
 		grant: {

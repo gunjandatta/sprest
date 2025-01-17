@@ -234,7 +234,11 @@ export class XHRRequest {
         if (this.xhr == null) { return null; }
 
         // Open the request
-        this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
+        if(this.isGraph) {
+            this.xhr.open(this.targetInfo.requestMethod, this.targetInfo.requestUrl, this.asyncFl);
+        } else {
+            this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
+        }
 
         // See if we are making an asynchronous request
         if (this.asyncFl) {
