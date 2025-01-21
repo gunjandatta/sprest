@@ -6,7 +6,7 @@ import { SP } from "gd-sprest-def";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes } from "..";
 import {
-    setContentTypeFields, Executor, FieldSchemaXML,
+    createContentType, setContentTypeFields, Executor, FieldSchemaXML,
     loadSPCore, SPCfgType, SPCfgFieldType
 } from ".";
 export * from "./spCfgTypes";
@@ -53,26 +53,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Resolve the promise
                 resolve();
                 return;
-            }
-
-            // Method to add an existing content type
-            let addParentCT = (cfg: ISPCfgContentTypeInfo, parentInfo: { Id: string, Url: string }): PromiseLike<SP.ContentType> => {
-                // Return a promise
-                return new Promise((resolve, reject) => {
-                    // Add the content type
-                    let contentTypes = list ? Web(webUrl, { disableCache: true, requestDigest: _requestDigest }).Lists(list.Title).ContentTypes() : Web(webUrl).ContentTypes();
-                    contentTypes.add({
-                        Description: cfg.Description,
-                        Group: cfg.Group,
-                        Name: cfg.Name,
-                        Id: {
-                            __metadata: {
-                                type: "SP.ContentTypeId"
-                            },
-                            StringValue: parentInfo.Id + (list ? "00" : "") + ContextInfo.generateGUID().replace(/-/g, "")
-                        } as any
-                    }).execute(resolve, reject);
-                });
             }
 
             // Method to get the parent content type
@@ -133,7 +113,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Success
                             parentInfo => {
                                 // Add the content type
-                                addParentCT(cfg, parentInfo).then(
+                                createContentType({
+                                    ctInfo: cfg,
+                                    listName: list ? list.Title : null,
+                                    parentContentTypeId: parentInfo.Id,
+                                    parentContentTypeUrl: parentInfo.Url,
+                                    webUrl
+                                }).then(
                                     // Success
                                     ct => {
                                         // Log
@@ -171,17 +157,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         );
                     } else {
                         // Create the content type
-                        contentTypes.add({
-                            Description: cfg.Description,
-                            Group: cfg.Group,
-                            Name: cfg.Name,
-                            Id: {
-                                __metadata: {
-                                    type: "SP.ContentTypeId"
-                                },
-                                StringValue: cfg.Id || "0x0100" + ContextInfo.generateGUID().replace(/-/g, "")
-                            } as any
-                        }).execute(
+                        createContentType({
+                            ctInfo: cfg,
+                            listName: list ? list.Title : null,
+                            parentContentTypeId: cfg.Id,
+                            webUrl
+                        }).then(
                             // Success
                             (ct) => {
                                 // Log

@@ -690,7 +690,7 @@ function testListItem(list) {
     }
 
     // Add an attachment to the item
-    var attachment = item.AttachmentFiles().add(file.Name, buffer).executeAndWait();
+    var attachment = item.AttachmentFiles().add("test.txt", buffer).executeAndWait();
 
     // Test
     assert(attachment, "add attachment", "existsFl", true);

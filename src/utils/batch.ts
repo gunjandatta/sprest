@@ -1,4 +1,4 @@
-import { IBase, IBatchRequest, ITargetInfo } from "../../@types/utils";
+import { IBase, IBatchRequest, IBatchRequestV2 } from "../../@types/utils";
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
 
@@ -66,25 +66,31 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    static getTargetInfo(url: string, requests: Array<IBatchRequest>, requestDigest: string): TargetInfo {
+    static getTargetInfo(url: string, requests: Array<IBatchRequest>, requestDigest: string, isV2: boolean = false): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
-        // Create the batch request
-        batchRequests.push(Batch.createBatch(batchId, requests));
+        // See if this is v2
+        if (isV2) {
+            // Create the batch requests
+            batchRequests = Batch.createBatchV2(requests);
+        } else {
+            // Create the batch requests
+            batchRequests.push(Batch.createBatch(batchId, requests));
 
-        // End the batch request
-        batchRequests.push("--" + batchId + "--");
+            // End the batch request
+            batchRequests.push("--" + batchId + "--");
+        }
 
         // Return the target information
         return new TargetInfo({
             url,
-            endpoint: "$batch",
+            endpoint: (isV2 ? "_api/v2.0/" : "") + "$batch",
             method: "POST",
-            data: batchRequests.join("\r\n"),
+            data: isV2 ? { requests: batchRequests } : batchRequests.join("\r\n"),
             requestDigest,
             requestHeader: {
-                "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
+                "Content-Type": isV2 ? "application/json" : 'multipart/mixed; boundary="' + batchId + '"'
             }
         });
     }
@@ -145,6 +151,37 @@ export class Batch {
 
         // Return the batch request
         return request.join("\r\n");
+    }
+
+    // Method to generate a batch request
+    private static createBatchV2(requests: Array<IBatchRequest>) {
+        let batch: IBatchRequestV2[] = [];
+
+        // Parse the requests
+        for (let i = 0; i < requests.length; i++) {
+            let request = requests[i];
+
+            // Create the batch request
+            let batchRequest: IBatchRequestV2 = {
+                id: (i + 1).toString(),
+                method: request.targetInfo.requestMethod,
+                url: request.targetInfo.requestUrl
+            };
+
+            // See if a body is set
+            if (request.targetInfo.requestData) {
+                batchRequest.body = request.targetInfo.requestData;
+                batchRequest.headers = {
+                    "Content-Type": "application/json"
+                };
+            }
+
+            // Add the batch request
+            batch.push(batchRequest);
+        }
+
+        // Return the batch requests
+        return batch;
     }
 
     // Process the batch request callbacks

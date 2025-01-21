@@ -84,9 +84,12 @@ Search.postQuery = (props: ISearchPostQuery) => {
                         for (let i = 0; i < searchResult.PrimaryQueryResult.RelevantResults.Table.Rows.results.length; i++) {
                             let row = searchResult.PrimaryQueryResult.RelevantResults.Table.Rows.results[i];
 
-                            // Append the row
+                            // Append the result
                             request.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results.push(row);
                         }
+
+                        // Append the results
+                        request.postquery["results"] = request.postquery["results"].concat(searchResult["results"]);
                     }
                 }
 
@@ -140,18 +143,18 @@ Search.postQuery = (props: ISearchPostQuery) => {
                         // Execute the batch requests
                         search.execute(() => {
                             // Resolve the request
-                            resolve(request.postquery);
+                            resolve(request.postquery as any);
                         }, reject);
                     } else {
                         // Wait for the requests to complete
                         search.done(() => {
                             // Resolve the request
-                            resolve(request.postquery);
+                            resolve(request.postquery as any);
                         });
                     }
                 } else {
                     // Resolve the request
-                    resolve(request.postquery);
+                    resolve(request.postquery as any);
                 }
             },
 

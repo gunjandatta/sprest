@@ -26,8 +26,8 @@ export const drive: Idrive;
 export interface Idrive {
     /**
      * Get the default library for a site.
-     * @param id - (Optional) The site id to target, current by default.
+     * @param siteId - (Optional) The site id to target, current by default.
      * @param targetInfo - (Optional) The target information.
      */
-    (id?: string, targetInfo?: ITargetInfoProps): IBaseExecution<drive>;
+    (props?: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<drive>;
 }

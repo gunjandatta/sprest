@@ -1,7 +1,7 @@
 import { SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/complextypes";
 import { IMethodInfo, IRequestInfo } from "gd-sprest-def/base";
 import { IBase, IBaseHelper, ITargetInfoProps } from "../../@types/utils";
-import { ContextInfo } from "../lib";
+import { ContextInfo, Graph } from "../lib";
 import { Base, MethodInfo, Request, RequestType, TargetInfo } from ".";
 import { XHRRequest } from "./xhrRequest";
 
@@ -75,6 +75,12 @@ export const Helper: IBaseHelper = {
         else {
             // Copy the target information
             targetInfo = Object.create(base.targetInfo);
+
+            // See if this is a graph request and an id exists for the parent
+            if (base["@odata.etag"] && base["id"]) {
+                // Append the id
+                targetInfo.endpoint += "/" + base["id"];
+            }
         }
 
         // See if the method config name has a base reference
@@ -85,7 +91,7 @@ export const Helper: IBaseHelper = {
             let propName = methodConfig.name.substring(startIdx, endIdx).split(".")[1];
 
             // Get the property value
-            let propValue = base[propName] || "";
+            let propValue = (base[propName] || "").replace(/"/g, '').split(',')[0];
 
             // Update the method name
             methodConfig.name = methodConfig.name.replace("[base." + propName + "]", propValue);
@@ -196,8 +202,9 @@ export const Helper: IBaseHelper = {
     getNextSetOfResults: (base: IBase) => {
         // Create the target information to query the next set of results
         let targetInfo: ITargetInfoProps = Object.create(base.targetInfo);
+        targetInfo.accessToken = base.targetInfo.accessToken || (base.xhr.isGraph ? Graph.Token : null);
         targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
+        targetInfo.url = base["@odata.nextLink"] || base["d"].__next;
 
         // Create a new object
         let obj = new Base(targetInfo);

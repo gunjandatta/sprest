@@ -1,7 +1,7 @@
 import { IBase } from "../../@types/utils";
 import { Base } from "./base";
 import { Batch } from "./batch";
-import { ContextInfo } from "../lib";
+import { ContextInfo, Graph } from "../lib";
 import { Executor } from "../helper/executor";
 import { Helper } from "./helper";
 import { Mapper, MapperV2, Mapper_Custom } from "../mapper";
@@ -29,7 +29,7 @@ export const Request = {
         if (isV2) {
             // See if we are overriding the object type
             if (resultsObjType) {
-                // Set the object type
+                // Update the object type
                 objType = resultsObjType;
             } else {
                 // Get the object type from the context
@@ -41,6 +41,9 @@ export const Request = {
                     values = metadataType.split("/");
                     objType = values[values.length - 1].split("?")[0];
                 }
+
+                // Update the object type if it's a single instance
+                objType = objType.replace("s/$entity", "");
             }
 
             // Get the methods for this object type
@@ -159,6 +162,13 @@ export const Request = {
             if (key == "__metadata") {
                 // Set the etag value and continue
                 base["etag"] = value["etag"];
+                continue;
+            }
+
+            // See if this is the etag
+            if (key == "@odata.etag") {
+                // Set the etag value and continue
+                base["etag"] = value[key];
                 continue;
             }
 
@@ -427,7 +437,7 @@ export const Request = {
                 Request.updateDataObject(base, isBatchRequest, batchIdx);
 
                 // See if the base is a collection and has more results
-                if (base["d"] && base["d"].__next) {
+                if (base["@odata.nextLink"] || (base["d"] && base["d"].__next)) {
                     // Add the "next" method to get the next set of results
                     base["next"] = new Function("return this.getNextSetOfResults();");
                 }
@@ -450,7 +460,7 @@ export const Request = {
                 // Return a promise
                 return new Promise(resolve => {
                     // Execute the request
-                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest, base.targetInfo.requestDigest), batchIdx++, () => {
+                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest, base.targetInfo.requestDigest, base.targetInfo.endpoint.indexOf("_api/v2") >= 0), batchIdx++, () => {
                         // Resolve the request
                         resolve(null);
                     });
@@ -701,7 +711,7 @@ export const Request = {
                     catch { reject(); return; }
 
                     // Set the next item flag
-                    base.nextFl = data.d && data.d.__next;
+                    base.nextFl = data["@odata.nextLink"] || (data.d && data.d.__next);
 
                     // See if there are more items to get
                     if (base.nextFl) {
@@ -709,22 +719,27 @@ export const Request = {
                         if (base.getAllItemsFl) {
                             // Create the target information to query the next set of results
                             let targetInfo = Object.create(base.targetInfo);
+                            targetInfo.accessToken = base.targetInfo.accessToken || (base.xhr.isGraph ? Graph.Token : null);
                             targetInfo.endpoint = "";
-                            targetInfo.url = data.d.__next;
+                            targetInfo.url = data["@odata.nextLink"] || data.d.__next;
 
                             // Create a new object
                             new XHRRequest(true, new TargetInfo(targetInfo), (xhr) => {
-                                // Convert the response and ensure the data property exists
+                                // Convert the response and see if values were returned
                                 let data = JSON.parse(xhr.response);
-                                if (data.d) {
+                                if (data.d || data.value) {
                                     // Update the data collection
-                                    Helper.updateDataCollection(base as any, data.d.results);
+                                    Helper.updateDataCollection(base as any, data.d?.results || data.value);
 
                                     // Update the expanded properties
                                     Helper.updateExpandedProperties(base);
 
                                     // Append the raw data results
-                                    base["d"].results = base["d"].results.concat(data.d.results);
+                                    if (base["d"]?.results) {
+                                        base["d"].results = base["d"].results.concat(data.d?.results);
+                                    } else {
+                                        base["value"] = base["value"].concat(data.value);
+                                    }
 
                                     // Validate the data collection
                                     request(xhr, resolve);

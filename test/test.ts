@@ -12,9 +12,26 @@ v2.drives().execute(drives => {
     drives.results[0].id;
 })
 
-v2.sites.getCurrentWeb();
-v2.sites.getList("Test").items().execute(items => {
-    items.results[0].fields();
+v2.sites.getList({}).then(l => {
+})
+
+v2.sites().permissions().execute(permissions => {
+    permissions.results[0].delete()
+    permissions.results[0].update({ roles: [] })
+})
+v2.sites({ targetInfo: { url: "" } }).query({ Search: "*" }).execute(s => {
+    s.siteCollection.root;
+});
+v2.sites.getRoot();
+v2.sites.getCurrent().query({ Expand: ["permissions"] });
+v2.sites.getList({ listName: "Test" }).then(list => {
+    list.items().add({}).execute();
+    list.items().execute(items => {
+        items.results[0].fields();
+    });
+    list.items().query({}).execute(items => {
+        items.results[0].fields.id;
+    })
 });
 
 v2.sites().lists("").items();
@@ -26,7 +43,7 @@ v2.sites().lists("293874-239478-238479-32847987").execute(list => {
 v2.sites().lists().execute(value => {
     value.results[0].items().execute(items => {
         items.results[0].id;
-        items.add({}).execute();
+        items.add().execute();
     });
     value.results[0].contentTypes().execute(cts => {
         cts.add({}).execute();
@@ -60,7 +77,7 @@ SitePages().Pages().createAppPage({
 }).execute()
 
 // See if you can get the root folder of a catalog list/library
-Web(null, {requestDigest: ""}).getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
+Web(null, { requestDigest: "" }).getCatalog(SPTypes.ListTemplateType.WebPartCatalog).RootFolder();
 
 // People Manager - User Profile Properties
 PeopleManager().getPropertiesFor("account.name").execute(profile => {
@@ -91,7 +108,7 @@ Graph().me().execute(user => {
     })
 })
 
-let el = document.querySelector("#Element");
+let el = document.querySelector("#Element") as HTMLElement;
 let a1 = Helper.SP.CalloutManager.createAction({ text: "", onClickCallback: () => { } });
 let m = Helper.SP.CalloutManager.createMenuEntries([{ text: "", onClickCallback: () => { } }]);
 let a2 = Helper.SP.CalloutManager.createAction({ text: "", menuEntries: m })
@@ -100,6 +117,9 @@ c.addAction(a1);
 c.addAction(a2);
 
 $REST.Web().getFileByServerRelativeUrl("").getLimitedWebPartManager().WebParts().execute(wpMgr => {
+});
+$REST.Web().getFileByUrl("").ListItemAllFields().query({}).execute(item => {
+    item.ParentList;
 });
 $REST.Web().CurrentUser().execute(user => {
     user.LoginName;
@@ -138,43 +158,6 @@ $REST.GroupSiteManager().canUserCreateGroup().execute(value => {
     value
 })
 
-// Add attachments
-let addAttachments = () => {
-    const upInc = Number(100 / this.state.files.length).toFixed(2);
-    this.setState({
-        uploadInc: upInc,
-        uploadCont: upInc
-    });
-
-    // Get the list item
-    let item = List("TaskTracker").Items(this.state.newReqID);
-
-    // Parse the files
-    const currentFiles = this.state.files;
-    for (let i = 0; i < currentFiles.length; i++) {
-        let file = currentFiles[i];
-
-        // Read the file
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            // Upload the file
-            item.AttachmentFiles().add(file.name, reader.result).execute(info => {
-                const uploadedFiles = this.state.fileCount + 1;
-                this.setState({ fileCount: uploadedFiles }, () => {
-                    // ...
-                });
-            }, true);
-        }
-        reader.onerror = () => console.error("file reading has failed");
-        reader.readAsArrayBuffer(file);
-    }
-
-    // Wait for the files to be uploaded
-    item.done(() => {
-        // Do something
-    });
-}
-
 $REST.Helper.SP.ModalDialog.showWaitScreenWithNoClose("");
 
 $REST.Helper.SP.SOD.registerSod("gd-sprest", "/siteassets/gd-sprest.min.js");
@@ -200,6 +183,8 @@ $REST.Web().Lists().execute(r => {
     });
 })
 
+$REST.Web().SiteCollectionAppCatalog().add('App Catalog').execute();
+
 $REST.List("").execute(l => {
     l.getItemById(3).execute(item => {
         let file = item.File;
@@ -210,16 +195,29 @@ $REST.Web().getUserEffectivePermissions("").execute(r => {
     r.GetUserEffectivePermissions;
 });
 
+$REST.Search.postQuery<{
+    Path: string;
+    WebId: string;
+}>({
+    query: {
+        Querytext: "contentClass:STS_Web",
+        SelectProperties: { results: ["Path", "WebId"] }
+    }
+}).then(search => {
+    search.results[0].Path;
+})
 $REST.Search().postquery({
     Querytext: "*",
-    Properties: [
-        {
-            Name: "GraphQuery",
-            Value: { StrVal: "ACTOR(ME,action:1013)" }
-        }
-    ]
-}).execute(results => {
-    results.postquery.PrimaryQueryResult;
+    Properties: {
+        results: [
+            {
+                Name: "GraphQuery",
+                Value: { StrVal: "ACTOR(ME,action:1013)" }
+            }
+        ]
+    }
+}).execute(search => {
+    search.postquery.PrimaryQueryResult.RelevantResults.Table.Rows.results[0].Cells.results[0].Key;
 });
 
 $REST.Helper.SPConfig({

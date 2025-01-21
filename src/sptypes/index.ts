@@ -1,2 +1,3 @@
+import * as GraphTypes from "./graphtypes";
 import * as SPTypes from "./sptypes";
-export { SPTypes }
+export { GraphTypes, SPTypes }

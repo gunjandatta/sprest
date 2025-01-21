@@ -135,7 +135,7 @@ List.runFlow = (props: IRunFlow): PromiseLike<IRunFlowResult> => {
                             method: "POST",
                             requestType: RequestType.GraphPost,
                             requestHeader: {
-                                "authorization": "Bearer " + token
+                                "authorization": "bearer " + token
                             }
                         }).execute(
                             (tokenInfo) => {

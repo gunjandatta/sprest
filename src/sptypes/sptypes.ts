@@ -824,6 +824,16 @@ export const RoleType: SPTypes.IRoleType = {
 };
 
 /**
+ * Search Scope
+ */
+export const SearchScope: SPTypes.ISearchScope = {
+    Default: 0,
+    Tenant: 1,
+    Hub: 2,
+    Site: 3
+}
+
+/**
  * Status Pri Color
  */
 export const StatusPriColor: SPTypes.IStatusPriColor = {

@@ -1,5 +1,5 @@
 import { Base } from "gd-sprest-def";
-import { ContextInfo } from "../lib";
+import { ContextInfo, Graph } from "../lib";
 import { TargetInfo } from ".";
 declare var ActiveXObject;
 
@@ -32,6 +32,12 @@ export class XHRRequest {
     /*********************************************************************************************************************************/
     // Public Properties
     /*********************************************************************************************************************************/
+
+    // Flag indicating if this is a batch request
+    get isBatch(): boolean { return this.targetInfo.isBatchRequest; }
+
+    // Flag indicating if this is a graph request
+    get isGraph(): boolean { return this.targetInfo.isGraph; }
 
     // Flag indicating the request has completed
     get completedFl(): boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
@@ -157,10 +163,11 @@ export class XHRRequest {
         // See if this is a graph request
         if (this.targetInfo.isGraph) {
             // Ensure the access token exists
-            if (this.targetInfo.props.accessToken) {
+            let accessToken = this.targetInfo.props.accessToken || Graph.Token;
+            if (accessToken) {
                 // Set the authorization
-                this.xhr ? this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.props.accessToken) : null;
-                this.headers["Authorization"] = "Bearer " + this.targetInfo.props.accessToken;
+                this.xhr ? this.xhr.setRequestHeader("Authorization", "bearer " + accessToken) : null;
+                this.headers["Authorization"] = "bearer " + accessToken;
             } else {
                 // Set the request digest
                 this.xhr ? this.xhr.setRequestHeader("X-RequestDigest", requestDigest) : null;
@@ -227,7 +234,11 @@ export class XHRRequest {
         if (this.xhr == null) { return null; }
 
         // Open the request
-        this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
+        if(this.isGraph) {
+            this.xhr.open(this.targetInfo.requestMethod, this.targetInfo.requestUrl, this.asyncFl);
+        } else {
+            this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
+        }
 
         // See if we are making an asynchronous request
         if (this.asyncFl) {

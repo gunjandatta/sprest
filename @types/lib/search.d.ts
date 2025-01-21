@@ -55,5 +55,5 @@ export interface ISearch {
      * Method to execute a post query
      * @param 
      */
-    postQuery<T = any>(props: ISearchPostQuery): PromiseLike<SearchResult<T>>;
+    postQuery<T = any>(props: ISearchPostQuery): PromiseLike<SearchResult & { results: T[] }>;
 }

@@ -6,30 +6,36 @@ declare var SP;
  * Determines if the user has permissions, based on the permission kind value
  */
 export const hasPermissions: IhasPermissions = (permissionMask: BasePermissions, permissions: Array<number> | number = []): boolean => {
-    // Set the permissions
-    let requestedPermissions = typeof (permissions) === "number" ? [permissions] : permissions;
-
-    // Default the permission flag
     let hasPermissions = true;
 
-    // See if this user has full permissions
-    if (((permissionMask.High & 32767) == 32767) && ((permissionMask.Low & 65535) == 65535)) { return hasPermissions; }
+    // Set the permissions
+    let requestedPermissions = typeof (permissions) === "number" ? [permissions] : permissions;
 
     // Parse the requested permissions
     for (let i = 0; i < requestedPermissions.length; i++) {
         let permission = requestedPermissions[i];
+        let hasPermission = false;
 
-        // Determine the value to use
-        let sequence = permissionMask.Low;
-        if (permission >= 32) {
-            // Update the sequence
-            sequence = permissionMask.High;
-            permission -= 32;
+        // Use the logic from SP.js
+        if (permission === 65) {
+            hasPermission = (permissionMask.High & 32767) === 32767 && permissionMask.Low === 65535;
+        } else {
+            let a = permission - 1;
+            let b = 1;
+            if (a >= 0 && a < 32) {
+                b = b << a;
+                hasPermission = 0 !== (permissionMask.Low & b);
+            } else if (a >= 32 && a < 64) {
+                b = b << a - 32;
+                hasPermission = 0 !== (permissionMask.High & b);
+            } else {
+                hasPermission = false;
+            }
         }
 
-        // See if the user doesn't have permission
-        if ((sequence & (1 << (permission - 1))) == 0) {
-            // Set the flag and break from the loop
+        // See if they don't have permission
+        if (!hasPermission) {
+            // Update the flag
             hasPermissions = false;
             break;
         }

@@ -12,8 +12,10 @@ export class OData {
     private _filter?: string;
     private _getAllItems?: boolean;
     private _orderBy?: Array<string>;
+    private _search?: string;
     private _select?: Array<string>;
     private _skip?: number;
+    private _skipToken?: number;
     private _top?: number;
 
     /*********************************************************************************************************************************/
@@ -28,8 +30,10 @@ export class OData {
         this._filter = oData && oData.Filter ? oData.Filter : null;
         this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
         this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
+        this._search = oData && oData.Search ? oData.Search : null;
         this._select = oData && oData.Select ? oData.Select : [];
         this._skip = oData && oData.Skip ? oData.Skip : null;
+        this._skipToken = oData && oData.SkipToken ? oData.SkipToken : null;
         this._top = oData && oData.Top ? oData.Top : null;
     }
 
@@ -67,7 +71,9 @@ export class OData {
         values.push(this.getQSValue("$orderby", this._orderBy));
         this._top ? values.push("$top=" + this._top) : null;
         this._skip ? values.push("$skip=" + this._skip) : null;
+        this._skipToken ? values.push("$skipToken=" + encodeURIComponent("Paged=TRUE&p_ID=" + this._skipToken)) : null;
         this._filter ? values.push("$filter=" + this._filter) : null;
+        this._search ? values.push("$search=" + this._search) : null;
         values.push(this.getQSValue("$expand", this._expand));
         this._custom ? values.push(this._custom) : null;
 
@@ -84,6 +90,10 @@ export class OData {
         return qs;
     }
 
+    // Search
+    get Search(): string { return this._search; }
+    set Search(value: string) { this._search = value; }
+
     // Select
     get Select(): Array<string> { return this._select; }
     set Select(value: Array<string>) { this._select = value; }
@@ -91,6 +101,10 @@ export class OData {
     // Skip
     get Skip(): number { return this._skip; }
     set Skip(value: number) { this._skip = value; }
+
+    // Skip Token
+    get SkipToken(): number { return this._skipToken; }
+    set SkipToken(value: number) { this._skipToken = value; }
 
     // Top
     get Top(): number { return this._top; }

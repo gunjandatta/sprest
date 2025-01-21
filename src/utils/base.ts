@@ -74,6 +74,9 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     // Method to return a property of the base object
     getProperty(propertyName: string, requestType?: string) { return Helper.getProperty(this, propertyName, requestType); }
 
+    // Method to get the request digest value
+    getRequestDigest() { return this.targetInfo.requestDigest; }
+
     // Method to stringify the object
     stringify(): string { return Helper.stringify(this); }
 

@@ -19,15 +19,18 @@ export class TargetInfo implements ITargetInfo {
         // See if this is a graph request
         if (this.isGraph) {
             // Set the request method
-            this.requestMethod = this.props.requestType == RequestType.Get ||
+            this.requestMethod = this.requestMethod || (this.props.requestType == RequestType.Get ||
                 this.props.requestType == RequestType.GetReplace ||
                 this.props.requestType == RequestType.GetWithArgsValueOnly ||
                 this.props.requestType == RequestType.GraphGet ||
                 this.props.requestType == RequestType.GraphGetReplace ||
-                this.props.requestType == RequestType.OData ? "GET" : "POST";
+                this.props.requestType == RequestType.OData ? "GET" : "POST");
 
             // Set the request url
-            this.requestUrl = this.props.endpoint;
+            this.requestUrl = [
+                this.props.url || "",
+                this.props.endpoint
+            ].join('/').replace(/\/\//g, '/').replace(/\/$/, '');
         } else {
             // Set the request url
             this.setRESTRequestUrl();
@@ -46,7 +49,7 @@ export class TargetInfo implements ITargetInfo {
 
     // Flag to determine if this is a graph request
     get isGraph(): boolean {
-        return this.props.endpoint?.startsWith("_api/v2.0/") ||
+        return this.props.endpoint?.startsWith("_api/v2.0/") || this.props.url?.indexOf("_api/v2.0/") >= 0 ||
             this.props.requestType == RequestType.GraphGet || this.props.requestType == RequestType.GraphPost ||
             this.props.requestType == RequestType.GraphGetReplace || this.props.requestType == RequestType.GraphPostReplace;
     }

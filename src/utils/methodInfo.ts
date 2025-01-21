@@ -48,7 +48,11 @@ export class MethodInfo implements Base.IMethodInfo {
 
         // Determine the request method, based on the request type
         switch (this.methodInfo.requestType) {
+            case RequestType.GraphDelete:
+                return "DELETE";
             case RequestType.Delete:
+            case RequestType.GraphPost:
+            case RequestType.GraphPostReplace:
             case RequestType.Post:
             case RequestType.PostBodyNoArgs:
             case RequestType.PostReplace:
@@ -198,7 +202,7 @@ export class MethodInfo implements Base.IMethodInfo {
             let data = this.methodData || this.methodParams;
 
             // Stringify the data to be passed in the body
-            this.methodData = data ? JSON.stringify(data) : null;
+            this.methodData = data ? (typeof (data) === "string" ? data : JSON.stringify(data)) : null;
         }
 
         // See if we are passing the data in the query string as a variable
