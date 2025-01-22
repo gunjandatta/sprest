@@ -9600,7 +9600,8 @@ export const Mapper: IMapper = {
 
         getWebTemplates: {
             argNames: ["LCID", "overrideCompatLevel"],
-            requestType: RequestType.PostWithArgs
+            requestType: RequestType.PostWithArgs,
+            returnType: "SP.WebTemplate.Collection"
         },
 
         invalidate: {
@@ -10950,7 +10951,8 @@ export const Mapper: IMapper = {
 
         getAvailableWebTemplates: {
             argNames: ["lcid", "doIncludeCrossLanguage"],
-            requestType: RequestType.GetWithArgs
+            requestType: RequestType.GetWithArgs,
+            returnType: "SP.WebTemplate.Collection"
         },
 
         getCatalog: {

@@ -252,5 +252,7 @@ $REST.Helper.SPConfig({
     }]
 }).install();
 
-Helper.Executor([""], s => {
+$REST.Web().execute(web => {
+    web.WebTemplate;
+    web.getAvailableWebTemplates(1033).getByName
 })
