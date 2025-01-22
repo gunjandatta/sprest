@@ -384,11 +384,8 @@ export const Request = {
                             // Execute the callback
                             callback ? callback(base.response, errorFl) : null;
                         } else {
-                            // See if we are not bypassing the processing of the response
-                            if (base.targetInfo.disableProcessing != true) {
-                                // Update the data object
-                                Request.updateDataObject(base, isBatchRequest, batchIdx);
-                            }
+                            // Update the data object
+                            Request.updateDataObject(base, isBatchRequest, batchIdx);
 
                             // Ensure this isn't a batch request
                             if (!isBatchRequest) {
@@ -436,11 +433,8 @@ export const Request = {
                     return base.response;
                 }
 
-                // See if we are not bypassing the processing of the response
-                if (base.targetInfo.disableProcessing != true) {
-                    // Update the base object
-                    Request.updateDataObject(base, isBatchRequest, batchIdx);
-                }
+                // Update the base object
+                Request.updateDataObject(base, isBatchRequest, batchIdx);
 
                 // See if the base is a collection and has more results
                 if (base["@odata.nextLink"] || (base["d"] && base["d"].__next)) {
@@ -610,11 +604,14 @@ export const Request = {
                         // Add the methods
                         Request.addMethods(obj, objData, objData["@odata.context"]);
 
-                        // Update the data collection
-                        Helper.updateDataCollection(obj, objData["results"]);
+                        // See if we are not bypassing the processing of the response
+                        if (base.targetInfo.disableProcessing != true) {
+                            // Update the data collection
+                            Helper.updateDataCollection(obj, objData["results"]);
 
-                        // Update the expanded properties
-                        Helper.updateExpandedProperties(obj);
+                            // Update the expanded properties
+                            Helper.updateExpandedProperties(obj);
+                        }
 
                         // Update the search results
                         Helper.updateSearchResults(obj);
@@ -640,11 +637,14 @@ export const Request = {
                     // Add the methods
                     Request.addMethods(obj, data.d, data["@odata.context"]);
 
-                    // Update the data collection
-                    Helper.updateDataCollection(obj, data.d.results);
+                    // See if we are not bypassing the processing of the response
+                    if (base.targetInfo.disableProcessing != true) {
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, data.d.results);
 
-                    // Update the expanded properties
-                    Helper.updateExpandedProperties(obj);
+                        // Update the expanded properties
+                        Helper.updateExpandedProperties(obj);
+                    }
 
                     // Update the search results
                     Helper.updateSearchResults(obj);
@@ -660,8 +660,11 @@ export const Request = {
                     // Add the methods
                     Request.addMethods(obj, data, data["@odata.context"]);
 
-                    // Update the data collection
-                    Helper.updateDataCollection(obj, data.value);
+                    // See if we are not bypassing the processing of the response
+                    if (base.targetInfo.disableProcessing != true) {
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, data.value);
+                    }
                 }
                 else {
                     // Update the base object's properties
