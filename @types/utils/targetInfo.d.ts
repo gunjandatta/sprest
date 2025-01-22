@@ -54,6 +54,9 @@ export interface ITargetInfoProps {
     /** Sets the Cache-Control header to no-cache */
     disableCache?: boolean;
 
+    /** True to not process the response, when dealing with querying large lists. */
+    disableProcessing?: boolean;
+
     /** The endpoint of the request. */
     endpoint?: string;
 

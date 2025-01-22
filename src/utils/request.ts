@@ -384,8 +384,11 @@ export const Request = {
                             // Execute the callback
                             callback ? callback(base.response, errorFl) : null;
                         } else {
-                            // Update the data object
-                            Request.updateDataObject(base, isBatchRequest, batchIdx);
+                            // See if we are not bypassing the processing of the response
+                            if (base.targetInfo.disableProcessing != true) {
+                                // Update the data object
+                                Request.updateDataObject(base, isBatchRequest, batchIdx);
+                            }
 
                             // Ensure this isn't a batch request
                             if (!isBatchRequest) {
@@ -433,8 +436,11 @@ export const Request = {
                     return base.response;
                 }
 
-                // Update the base object
-                Request.updateDataObject(base, isBatchRequest, batchIdx);
+                // See if we are not bypassing the processing of the response
+                if (base.targetInfo.disableProcessing != true) {
+                    // Update the base object
+                    Request.updateDataObject(base, isBatchRequest, batchIdx);
+                }
 
                 // See if the base is a collection and has more results
                 if (base["@odata.nextLink"] || (base["d"] && base["d"].__next)) {
@@ -728,11 +734,14 @@ export const Request = {
                                 // Convert the response and see if values were returned
                                 let data = JSON.parse(xhr.response);
                                 if (data.d || data.value) {
-                                    // Update the data collection
-                                    Helper.updateDataCollection(base as any, data.d?.results || data.value);
+                                    // See if we are not bypassing the processing of the response
+                                    if (base.targetInfo.disableProcessing != true) {
+                                        // Update the data collection
+                                        Helper.updateDataCollection(base as any, data.d?.results || data.value);
 
-                                    // Update the expanded properties
-                                    Helper.updateExpandedProperties(base);
+                                        // Update the expanded properties
+                                        Helper.updateExpandedProperties(base);
+                                    }
 
                                     // Append the raw data results
                                     if (base["d"]?.results) {
