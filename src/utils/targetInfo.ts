@@ -26,11 +26,17 @@ export class TargetInfo implements ITargetInfo {
                 this.props.requestType == RequestType.GraphGetReplace ||
                 this.props.requestType == RequestType.OData ? "GET" : "POST");
 
-            // Set the request url
-            this.requestUrl = [
-                this.props.url || "",
-                this.props.endpoint
-            ].join('/').replace(/\/\//g, '/').replace(/\/$/, '');
+            // Check the endpoint
+            if (this.props.endpoint.indexOf("http") == 0) {
+                // Set the request url
+                this.requestUrl = this.props.endpoint;
+            } else {
+                // Set the request url
+                this.requestUrl = [
+                    this.props.url || "",
+                    this.props.endpoint
+                ].join('/').replace(/\/\//g, '/').replace(/\/$/, '');
+            }
         } else {
             // Set the request url
             this.setRESTRequestUrl();
