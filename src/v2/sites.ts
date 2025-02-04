@@ -220,7 +220,7 @@ sites.getIdByUrl = (url) => {
                     });
                 });
             }, reject);
-        });
+        }, reject);
     })
 }
 
