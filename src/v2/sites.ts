@@ -136,7 +136,7 @@ sites.getFile = (props) => {
                             // Resolve the request
                             resolve(drive.items(file.UniqueId));
                         }, reject);
-                    });
+                    }, reject);
                 }
             }, reject);
         }, reject);
