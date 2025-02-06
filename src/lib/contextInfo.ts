@@ -197,45 +197,29 @@ class _ContextInfo {
         });
     }
 
-    // Refresh the token
-    static refreshToken(url?: string, onComplete?: () => void) {
-        // Create the request
-        let request = this.getWeb(url);
-
-        // See if we are doing an async request
-        if (onComplete) {
-            // Execute the request
-            request.execute(context => {
-                // Update the token
-                this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
-                this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
-
-                // Resolve the request
-                onComplete();
-            }, onComplete);
-        } else {
-            // Execute the request
-            let context = request.executeAndWait() as any;
-
-            // Update the token
-            this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
-            this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
-        }
-    }
-
     // Method to set the page context information from an SPFX project
     static setPageContext = (spfxPageContext: any) => { ContextInfo["_spfxPageContext"] = spfxPageContext; }
 
+    // Method to update the token
+    static updateToken(digestValue: string, timeout: number) {
+        // Update the context information
+        this._contextInfo.formDigestTimeoutSeconds = timeout;
+        this._contextInfo.formDigestValue = digestValue;
+    }
+
     // Method to validate the token
-    static validateToken(digestValue: string): boolean {
+    static validateToken(digestValue: string = this._contextInfo.formDigestValue): boolean {
         // See if no value exists
         if (digestValue == null) {
             return false;
         }
 
-        // Get the current token and return true if it's still valid
+        // Get the current token expiration time
         let dtToken = new Date(digestValue.split(',')[1]);
-        return Date.now() < dtToken.getTime();
+        let timeout = this.formDigestTimeoutSeconds || 0;
+
+        // Return true if it's still valid
+        return Date.now() < dtToken.getTime() + timeout * 1000;
     }
 }
 export const ContextInfo: IContextInformation = _ContextInfo as any;

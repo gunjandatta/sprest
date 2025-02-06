@@ -974,23 +974,23 @@ declare module 'gd-sprest/lib/contextInfo' {
             getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
     
             /**
-                * Refreshes the form digest value used for the requests.
-                * @param url Optional url to target, otherwise the current web is used.
-                * @param onComplete Method to call after the token is refreshed. If not supplied, then the token is refreshed synchronously.
-                */
-            refreshToken(url?: string, onComplete?: () => void);
-    
-            /**
                 * Sets the page context information for modern pages.
                 * @param spfxPageContext - The page context information variable from a SPFx project.
                 */
             setPageContext(spfxPageContext: any);
     
             /**
-                * Validates the date/time of a form digest value to ensure it's still valid.
-                * @param digestValue The request digest form value.
+                * Updates the form digest context information.
+                * @param digestValue The form digest value.
+                * @param timeout The timeout value in seconds.
                 */
-            validateToken(digestValue: string): boolean;
+            updateToken(digestValue: string, timeout: number);
+    
+            /**
+                * Validates the date/time of a form digest value to ensure it's still valid.
+                * @param digestValue The request digest form value. The default context info for the page is used, if a value isn't given.
+                */
+            validateToken(digestValue?: string): boolean;
     }
     
     export interface IThemeState {

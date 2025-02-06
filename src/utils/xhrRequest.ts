@@ -98,7 +98,7 @@ export class XHRRequest {
     /*********************************************************************************************************************************/
 
     // Method to create the xml http request
-    private createXHR() {
+    private createXHR(): XMLHttpRequest {
         // See if the generic object doesn't exist
         if (typeof (XMLHttpRequest) !== "undefined") {
             // Create an instance of the xml http request object
@@ -238,10 +238,10 @@ export class XHRRequest {
             // See if this is an async request
             if (this.asyncFl) {
                 // Refresh the request digest value and then process the request
-                ContextInfo.refreshToken(this.targetInfo.props.url, processRequest);
+                this.refreshToken(requestDigest, processRequest);
             } else {
                 // Refresh the request digest value
-                ContextInfo.refreshToken(this.targetInfo.props.url);
+                this.refreshToken(requestDigest);
 
                 // Process the request
                 processRequest();
@@ -297,6 +297,53 @@ export class XHRRequest {
         if (this.executeFl) {
             // Execute the request
             this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        }
+    }
+
+    // Method to refresh the token
+    private refreshToken(requestDigest: string, onComplete?: () => void) {
+        // Process the response
+        let processResponse = () => {
+            // Get the response
+            let context = JSON.parse(xhr.response);
+
+            // Update the context information
+            ContextInfo.updateToken(context.GetContextWebInformation.FormDigestValue, context.GetContextWebInformation.FormDigestTimeoutSeconds);
+        }
+
+        // Create the request
+        let xhr = this.createXHR();
+        let url = (this.targetInfo.props.url || ContextInfo.webAbsoluteUrl) + "/_api/context";
+        xhr.open("POST", url, onComplete ? true : false);
+
+        // Set the headers
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("X-RequestDigest", requestDigest);
+        xhr.setRequestHeader("X-HTTP-Method", "POST");
+
+        // See if we are making an asynchronous request
+        if (onComplete) {
+            // Set the state change event
+            xhr.onreadystatechange = () => {
+                // See if the request has finished
+                if (xhr.readyState == 4) {
+                    // Update the context information
+                    processResponse();
+
+                    // Call the complete method
+                    onComplete();
+                }
+            }
+
+            // Execute the request
+            xhr.send();
+        } else {
+            // Execute the request
+            xhr.send();
+
+            // Process the response
+            processResponse();
         }
     }
 }
