@@ -196,6 +196,32 @@ export class XHRRequest {
 
     // Method to execute the xml http request
     private execute() {
+        // Executes the request
+        let processRequest = () => {
+            // See if we are targeting the context endpoint
+            if (this.targetInfo.props.endpoint == "contextinfo") {
+                // Execute the request
+                this.executeRequest(requestDigest);
+            }
+            // See if this is a post request and the request digest does not exist
+            else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
+                // See if this is a synchronous request
+                if (!this.asyncFl) {
+                    // Log
+                    console.info("[gd-sprest] POST requests must include the request digest information for synchronous requests. This is due to the modern page not including this information on the page.");
+                } else {
+                    // Get the context information
+                    ContextInfo.getWeb(this.targetInfo.props.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(contextInfo => {
+                        // Execute the request
+                        this.executeRequest(contextInfo.GetContextWebInformation.FormDigestValue);
+                    });
+                }
+            } else {
+                // Execute the request
+                this.executeRequest(requestDigest);
+            }
+        }
+
         // Set the request digest
         let requestDigest: any | string = this.targetInfo.props.requestDigest || "";
         if (requestDigest == "") {
@@ -204,27 +230,25 @@ export class XHRRequest {
             requestDigest = requestDigest ? requestDigest.value : ContextInfo.formDigestValue;
         }
 
-        // See if we are targeting the context endpoint
-        if (this.targetInfo.props.endpoint == "contextinfo") {
-            // Execute the request
-            this.executeRequest(requestDigest);
-        }
-        // See if this is a post request and the request digest does not exist
-        else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
-            // See if this is a synchronous request
-            if (!this.asyncFl) {
-                // Log
-                console.info("[gd-sprest] POST requests must include the request digest information for synchronous requests. This is due to the modern page not including this information on the page.");
+        // See if we need to update the request digest
+        if (requestDigest && ContextInfo.validateToken(requestDigest) == false) {
+            // Log
+            console.info("[gd-sprest] Token has expired. Trying to refresh the token.");
+
+            // See if this is an async request
+            if (this.asyncFl) {
+                // Refresh the request digest value and then process the request
+                ContextInfo.refreshToken(this.targetInfo.props.url, processRequest);
             } else {
-                // Get the context information
-                ContextInfo.getWeb(this.targetInfo.props.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(contextInfo => {
-                    // Execute the request
-                    this.executeRequest(contextInfo.GetContextWebInformation.FormDigestValue);
-                });
+                // Refresh the request digest value
+                ContextInfo.refreshToken(this.targetInfo.props.url);
+
+                // Process the request
+                processRequest();
             }
         } else {
-            // Execute the request
-            this.executeRequest(requestDigest);
+            // Process the request
+            processRequest();
         }
     }
 
@@ -234,7 +258,7 @@ export class XHRRequest {
         if (this.xhr == null) { return null; }
 
         // Open the request
-        if(this.isGraph) {
+        if (this.isGraph) {
             this.xhr.open(this.targetInfo.requestMethod, this.targetInfo.requestUrl, this.asyncFl);
         } else {
             this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);

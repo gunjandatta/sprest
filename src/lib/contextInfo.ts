@@ -188,7 +188,7 @@ class _ContextInfo {
     }
 
     // Method to get the context information for a web
-    static getWeb = (url?: string) => {
+    static getWeb(url?: string) {
         // Create a new base object
         return new Base({
             endpoint: "contextinfo",
@@ -197,7 +197,45 @@ class _ContextInfo {
         });
     }
 
+    // Refresh the token
+    static refreshToken(url?: string, onComplete?: () => void) {
+        // Create the request
+        let request = this.getWeb(url);
+
+        // See if we are doing an async request
+        if (onComplete) {
+            // Execute the request
+            request.execute(context => {
+                // Update the token
+                this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
+                this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
+
+                // Resolve the request
+                onComplete();
+            }, onComplete);
+        } else {
+            // Execute the request
+            let context = request.executeAndWait() as any;
+
+            // Update the token
+            this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
+            this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
+        }
+    }
+
     // Method to set the page context information from an SPFX project
     static setPageContext = (spfxPageContext: any) => { ContextInfo["_spfxPageContext"] = spfxPageContext; }
+
+    // Method to validate the token
+    static validateToken(digestValue: string): boolean {
+        // See if no value exists
+        if (digestValue == null) {
+            return false;
+        }
+
+        // Get the current token and return true if it's still valid
+        let dtToken = new Date(digestValue.split(',')[1]);
+        return Date.now() < dtToken.getTime();
+    }
 }
 export const ContextInfo: IContextInformation = _ContextInfo as any;
