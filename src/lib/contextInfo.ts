@@ -206,7 +206,7 @@ class _ContextInfo {
         this.enableRefreshToken();
     }
 
-    private static _loopId: number = null;
+    private static _loopId = null;
     static enableRefreshToken() {
         // See if the request digest exists
         if (this.formDigestValue == null) { return; }
