@@ -253,7 +253,8 @@ class _ContextInfo {
         let timeout = this.formDigestTimeoutSeconds || 0;
 
         // Return true if it's still valid
-        return Date.now() < dtToken.getTime() + timeout * 1000;
+        // Time the token was granted + Timeout in seconds - 1 min (60000)
+        return Date.now() < dtToken.getTime() + timeout * 1000 - 60000;
     }
 }
 export const ContextInfo: IContextInformation = _ContextInfo as any;
