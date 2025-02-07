@@ -8,7 +8,7 @@ import { IREST } from "../@types";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 9.04,
+    __ver: 9.05,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
@@ -55,6 +55,9 @@ let global = Lib.ContextInfo.window.$REST;
 if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = $REST;
+
+    // Enable the refresh token
+    Lib.ContextInfo.enableRefreshToken();
 
     // Ensure the SP lib exists
     if (Lib.ContextInfo.window.SP) {

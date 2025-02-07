@@ -198,13 +198,47 @@ class _ContextInfo {
     }
 
     // Method to set the page context information from an SPFX project
-    static setPageContext = (spfxPageContext: any) => { ContextInfo["_spfxPageContext"] = spfxPageContext; }
+    static setPageContext = (spfxPageContext: any) => {
+        // Set the page context information
+        ContextInfo["_spfxPageContext"] = spfxPageContext;
 
-    // Method to update the token
-    static updateToken(digestValue: string, timeout: number) {
-        // Update the context information
-        this._contextInfo.formDigestTimeoutSeconds = timeout;
-        this._contextInfo.formDigestValue = digestValue;
+        // Enable the refresh token
+        this.enableRefreshToken();
+    }
+
+    private static _loopId: number = null;
+    static enableRefreshToken() {
+        // See if the request digest exists
+        if (this.formDigestValue == null) { return; }
+
+        // See if we already have a loop method
+        if (this._loopId) { return; }
+
+        // Create a loop
+        this._loopId = setInterval(() => {
+            // See if the digest is valid
+            if (this.validateToken()) { return; }
+
+            // Log
+            console.info("[gd-sprest] Token has expired. Trying to refresh the token.");
+
+            // Get the context
+            this.getWeb().execute(context => {
+                // Log
+                console.info("[gd-sprest] Successfully updated the token information.");
+
+                // Update the context info
+                this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
+                this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
+            }, () => {
+                // Log
+                console.info("[gd-sprest] Unable to get the context information to refresh the token.");
+
+                // Stop the loop
+                clearInterval(this._loopId);
+                this._loopId = null;
+            });
+        }, 500);
     }
 
     // Method to validate the token

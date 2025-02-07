@@ -960,6 +960,11 @@ declare module 'gd-sprest/lib/contextInfo' {
     
     
             /**
+                * Runs a loop to ensure the digest value doesn't expire.
+                */
+            enableRefreshToken();
+    
+            /**
                 * Generates a guid.
                 * @returns A GUID as a string value.
                 */
@@ -978,19 +983,6 @@ declare module 'gd-sprest/lib/contextInfo' {
                 * @param spfxPageContext - The page context information variable from a SPFx project.
                 */
             setPageContext(spfxPageContext: any);
-    
-            /**
-                * Updates the form digest context information.
-                * @param digestValue The form digest value.
-                * @param timeout The timeout value in seconds.
-                */
-            updateToken(digestValue: string, timeout: number);
-    
-            /**
-                * Validates the date/time of a form digest value to ensure it's still valid.
-                * @param digestValue The request digest form value. The default context info for the page is used, if a value isn't given.
-                */
-            validateToken(digestValue?: string): boolean;
     }
     
     export interface IThemeState {

@@ -196,32 +196,6 @@ export class XHRRequest {
 
     // Method to execute the xml http request
     private execute() {
-        // Executes the request
-        let processRequest = () => {
-            // See if we are targeting the context endpoint
-            if (this.targetInfo.props.endpoint == "contextinfo") {
-                // Execute the request
-                this.executeRequest(requestDigest);
-            }
-            // See if this is a post request and the request digest does not exist
-            else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
-                // See if this is a synchronous request
-                if (!this.asyncFl) {
-                    // Log
-                    console.info("[gd-sprest] POST requests must include the request digest information for synchronous requests. This is due to the modern page not including this information on the page.");
-                } else {
-                    // Get the context information
-                    ContextInfo.getWeb(this.targetInfo.props.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(contextInfo => {
-                        // Execute the request
-                        this.executeRequest(contextInfo.GetContextWebInformation.FormDigestValue);
-                    });
-                }
-            } else {
-                // Execute the request
-                this.executeRequest(requestDigest);
-            }
-        }
-
         // Set the request digest
         let requestDigest: any | string = this.targetInfo.props.requestDigest || "";
         if (requestDigest == "") {
@@ -230,25 +204,27 @@ export class XHRRequest {
             requestDigest = requestDigest ? requestDigest.value : ContextInfo.formDigestValue;
         }
 
-        // See if we need to update the request digest
-        if (requestDigest && ContextInfo.validateToken(requestDigest) == false) {
-            // Log
-            console.info("[gd-sprest] Token has expired. Trying to refresh the token.");
-
-            // See if this is an async request
-            if (this.asyncFl) {
-                // Refresh the request digest value and then process the request
-                this.refreshToken(requestDigest, processRequest);
+        // See if we are targeting the context endpoint
+        if (this.targetInfo.props.endpoint == "contextinfo") {
+            // Execute the request
+            this.executeRequest(requestDigest);
+        }
+        // See if this is a post request and the request digest does not exist
+        else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
+            // See if this is a synchronous request
+            if (!this.asyncFl) {
+                // Log
+                console.info("[gd-sprest] POST requests must include the request digest information for synchronous requests. This is due to the modern page not including this information on the page.");
             } else {
-                // Refresh the request digest value
-                this.refreshToken(requestDigest);
-
-                // Process the request
-                processRequest();
+                // Get the context information
+                ContextInfo.getWeb(this.targetInfo.props.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(contextInfo => {
+                    // Execute the request
+                    this.executeRequest(contextInfo.GetContextWebInformation.FormDigestValue);
+                });
             }
         } else {
-            // Process the request
-            processRequest();
+            // Execute the request
+            this.executeRequest(requestDigest);
         }
     }
 
@@ -297,53 +273,6 @@ export class XHRRequest {
         if (this.executeFl) {
             // Execute the request
             this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
-        }
-    }
-
-    // Method to refresh the token
-    private refreshToken(requestDigest: string, onComplete?: () => void) {
-        // Process the response
-        let processResponse = () => {
-            // Get the response
-            let context = JSON.parse(xhr.response);
-
-            // Update the context information
-            ContextInfo.updateToken(context.GetContextWebInformation.FormDigestValue, context.GetContextWebInformation.FormDigestTimeoutSeconds);
-        }
-
-        // Create the request
-        let xhr = this.createXHR();
-        let url = (this.targetInfo.props.url || ContextInfo.webAbsoluteUrl) + "/_api/context";
-        xhr.open("POST", url, onComplete ? true : false);
-
-        // Set the headers
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("X-RequestDigest", requestDigest);
-        xhr.setRequestHeader("X-HTTP-Method", "POST");
-
-        // See if we are making an asynchronous request
-        if (onComplete) {
-            // Set the state change event
-            xhr.onreadystatechange = () => {
-                // See if the request has finished
-                if (xhr.readyState == 4) {
-                    // Update the context information
-                    processResponse();
-
-                    // Call the complete method
-                    onComplete();
-                }
-            }
-
-            // Execute the request
-            xhr.send();
-        } else {
-            // Execute the request
-            xhr.send();
-
-            // Process the response
-            processResponse();
         }
     }
 }
