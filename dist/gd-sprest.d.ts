@@ -979,6 +979,11 @@ declare module 'gd-sprest/lib/contextInfo' {
             getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
     
             /**
+                * Value in minutes, to refresh the token prior to it expiring
+                */
+            refreshToken: number;
+    
+            /**
                 * Sets the page context information for modern pages.
                 * @param spfxPageContext - The page context information variable from a SPFx project.
                 */

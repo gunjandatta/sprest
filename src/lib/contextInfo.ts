@@ -241,6 +241,12 @@ class _ContextInfo {
         }, 500);
     }
 
+    // Value in minutes to refresh the token
+    // Default is 5 minutes prior to it expiring
+    private static _refreshToken = 5;
+    static get refreshToken() { return this._refreshToken; }
+    static set refreshToken(value: number) { this._refreshToken = value; }
+
     // Method to validate the token
     static validateToken(digestValue: string = this._contextInfo.formDigestValue): boolean {
         // See if no value exists
@@ -253,8 +259,8 @@ class _ContextInfo {
         let timeout = this.formDigestTimeoutSeconds || 0;
 
         // Return true if it's still valid
-        // Time the token was granted + Timeout in seconds - 1 min (60000)
-        return Date.now() < dtToken.getTime() + timeout * 1000 - 60000;
+        // Time the token was granted + Timeout in seconds - (1 min (60000) * refresh token value)
+        return Date.now() < dtToken.getTime() + timeout * 1000 - (60000 * this.refreshToken);
     }
 }
 export const ContextInfo: IContextInformation = _ContextInfo as any;
