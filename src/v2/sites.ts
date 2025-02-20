@@ -4,7 +4,6 @@ import { ContextInfo } from "../lib/contextInfo";
 import { Site } from "../lib/site";
 import { Web } from "../lib/web";
 import { Base, Request, RequestType } from "../utils";
-import { init } from "./common";
 
 /**
  * Sites
@@ -12,9 +11,6 @@ import { init } from "./common";
  */
 export const sites: Isites = ((props: { siteId?: string, webId?: string, targetInfo?: ITargetInfoProps } = {}) => {
     let sites = new Base(props.targetInfo);
-
-    // Call the init event
-    init();
 
     // Default the properties
     sites.targetInfo.defaultToWebFl = true;

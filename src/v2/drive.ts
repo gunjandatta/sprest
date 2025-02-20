@@ -2,7 +2,6 @@ import { Idrive } from "../../@types/v2";
 import { ITargetInfoProps } from "../../@types/utils";
 import { ContextInfo } from "../lib/contextInfo";
 import { Base, Request, RequestType } from "../utils";
-import { init } from "./common";
 
 /**
  * Drive
@@ -10,9 +9,6 @@ import { init } from "./common";
  */
 export const drive: Idrive = ((props: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps } = {}) => {
     let drive = new Base(props.targetInfo);
-
-    // Call the init event
-    init();
 
     // Default the properties
     drive.targetInfo.defaultToWebFl = true;

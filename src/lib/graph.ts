@@ -35,6 +35,7 @@ export const Graph: IGraph = ((props: IGraphProperties) => {
 // Default Values
 Graph.Cloud = "";
 Graph.Token = "";
+Graph.TokenExpiration = null;
 Graph.Version = "";
 
 // Method to get the graph token from a classic page

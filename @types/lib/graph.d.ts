@@ -62,6 +62,9 @@ export interface IGraph {
     /** The default token to use for the requests. */
     Token: string;
 
+    /** The default token's expiration. */
+    TokenExpiration: number;
+
     /** The default version to use for the requests. */
     Version: string;
 

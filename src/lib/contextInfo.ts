@@ -1,5 +1,6 @@
 import { IContextInformation } from "../../@types/lib";
 import { Base } from "../utils";
+import { Graph } from "./graph";
 
 /**
  * Context Information
@@ -211,11 +212,11 @@ class _ContextInfo {
         // See if the request digest exists
         if (this.formDigestValue == null) { return; }
 
-        // See if we already have a loop method
+        // See if we already have a loop
         if (this._loopId) { return; }
 
-        // Create a loop
-        this._loopId = setInterval(() => {
+        // Refresh method for REST
+        let refreshREST = () => {
             // See if the digest is valid
             if (this.validateToken()) { return; }
 
@@ -238,7 +239,45 @@ class _ContextInfo {
                 clearInterval(this._loopId);
                 this._loopId = null;
             });
-        }, 500);
+        }
+
+        // Refresh method for Graph
+        let refreshGraph = () => {
+            // Ensure we have a token
+            if (Graph.TokenExpiration) {
+                // See if the digest is valid
+                if (Date.now() < Graph.TokenExpiration - (60000 * ContextInfo.refreshToken)) { return; }
+            }
+
+            // Log
+            console.info("[gd-sprest] Graph Token has expired. Trying to refresh the token.");
+
+            // Get the cloud access token
+            Graph.getAccessToken(Graph.Cloud, "SPO").execute(auth => {
+                // Log
+                console.info("[gd-sprest] Successfully updated the graph token.");
+
+                // Set the access token and expiration
+                Graph.Token = auth.access_token;
+                Graph.TokenExpiration = parseInt(auth.expires_on) * 1000;
+            }, () => {
+                // Log
+                console.info("[gd-sprest] Unable to refresh the graph token.");
+
+                // Stop the loop
+                clearInterval(this._loopId);
+                this._loopId = null;
+            });
+        }
+
+        // Create a loop
+        this._loopId = setInterval(() => {
+            // Refresh the REST API token
+            refreshREST();
+
+            // Refresh the Graph API token
+            refreshGraph();
+        }, 1000);
     }
 
     // Value in minutes to refresh the token
