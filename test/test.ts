@@ -139,7 +139,7 @@ $REST.Web().Lists("Documents").RoleAssignments().execute(roles => {
     roles.results[0].PrincipalId;
 });
 $REST.Web().Lists("Documents").RoleAssignments().execute(roles => { });
-$REST.Web().Lists().getById("").RoleAssignments();
+$REST.Web().Lists().getById("").getSharingInformation;
 $REST.Web().Lists().getByTitle("").RoleAssignments();
 $REST.Web().Lists("").RoleAssignments();
 $REST.Web().Lists().query({}).execute(lists => {

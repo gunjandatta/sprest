@@ -36,6 +36,12 @@ export class TargetInfo implements ITargetInfo {
                     this.props.url || "",
                     this.props.endpoint
                 ].join('/').replace(/\/\//g, '/').replace(/\/$/, '');
+
+                // Fix the url from above, it will remove a '/' from the beginning
+                if (this.requestUrl.indexOf("https://") != this.requestUrl.indexOf("https:/")) {
+                    // Fix the beginning of the url
+                    this.requestUrl = this.requestUrl.replace("https:/", "https://");
+                }
             }
         } else {
             // Set the request url
