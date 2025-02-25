@@ -3630,6 +3630,7 @@ export const managedDeviceOwnerType: GraphTypes.managedDeviceOwnerType = {
 	unknown: 0,
 	company: 1,
 	personal: 2,
+	unknownFutureValue: 3,
 }
 
 /** managedDevicePartnerReportedHealthState types */
@@ -6518,6 +6519,10 @@ export const workforceIntegrationSupportedEntities: GraphTypes.workforceIntegrat
 	openShiftRequest: 32,
 	offerShiftRequest: 64,
 	unknownFutureValue: 1024,
+	timeCard: 2048,
+	timeOffReason: 4096,
+	timeOff: 8192,
+	timeOffRequest: 16384,
 }
 
 /** mailDestinationRoutingReason types */
