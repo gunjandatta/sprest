@@ -4483,10 +4483,11 @@ declare module 'gd-sprest/v2/drive' {
     export interface Idrive {
             /**
                 * Get the default library for a site.
+                * @param driveId - (Optional) Sets the drive to get, otherwise gets the default drive for the site.
                 * @param siteId - (Optional) The site id to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (props?: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<drive>;
+            (props?: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): IBaseExecution<drive>;
     }
 }
 
@@ -4524,7 +4525,7 @@ declare module 'gd-sprest/v2/drives' {
                 * @param siteUrl - (Optional) The site url to target, current by default.
                 * @param targetInfo - (Optional) The target information.
                 */
-            (props?: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): driveCollection;
+            (props?: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): driveCollection;
     }
 }
 

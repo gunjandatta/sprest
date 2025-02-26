@@ -7,7 +7,7 @@ import { Base, Request, RequestType } from "../utils";
  * Drive
  * Returns the default library for a site.
  */
-export const drive: Idrive = ((props: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps } = {}) => {
+export const drive: Idrive = ((props: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps } = {}) => {
     let drive = new Base(props.targetInfo);
 
     // Default the properties
@@ -19,8 +19,13 @@ export const drive: Idrive = ((props: { siteId?: string, siteUrl?: string, targe
 
     // See if an endpoint is not defined
     if (drive.targetInfo.endpoint == undefined) {
-        // Default the endpoint
-        drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') : ""}drive`;
+        if (props.driveId) {
+            // Set the endpoint
+            drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') + "/" : ""}drives/${props.driveId}`;
+        } else {
+            // Default the endpoint
+            drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') + "/" : ""}drive`;
+        }
 
         // Add the methods
         Request.addMethods(drive, { __metadata: { type: "@odata.context/_api/v2.0/$metadata#drive" } });
