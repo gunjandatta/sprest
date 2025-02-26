@@ -7,7 +7,9 @@ import { v2 } from "../@types";
 v2.drive().execute(drive => {
     drive.id;
     drive.getFolder("");
-    drive.root();
+    drive.root().children().execute(items => {
+        items.results[0].sensitivityLabel;
+    });
 })
 
 v2.drives().execute(drives => {
