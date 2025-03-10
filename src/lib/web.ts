@@ -1,6 +1,7 @@
+import { IODataQuery } from "gd-sprest-def";
 import { IWeb } from "../../@types/lib";
 import { ContextInfo } from "./contextInfo";
-import { Base, Request, RequestType } from "../utils";
+import { Base, OData, Request, RequestType } from "../utils";
 
 export const Web: IWeb = ((url?, targetInfo?) => {
     let web = new Base(targetInfo);
@@ -29,6 +30,25 @@ Web.getRemoteWeb = ((requestUrl: string) => {
         data: { requestUrl },
         defaultToWebFl: true,
         endpoint: "SP.RemoteWeb?$expand=Web",
+        method: "POST"
+    });
+}) as any;
+
+// Static method to get the sharing settings
+Web.getSharingSettings = ((data: { objectUrl: string, groupId?: number, useSimplifiedRoles?: boolean }, query?: IODataQuery) => {
+    // See if we are querying the information
+    if (query) {
+        let oData = new OData(query);
+
+        // Update the url
+        data.objectUrl += "?" + oData.QueryString;
+    }
+
+    // Return the sharing settings
+    return new Base({
+        data,
+        defaultToWebFl: true,
+        endpoint: "SP.Web.GetObjectSharingSettings",
         method: "POST"
     });
 }) as any;

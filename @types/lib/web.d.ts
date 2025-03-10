@@ -1,4 +1,4 @@
-import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { IBaseExecution, IODataQuery } from "gd-sprest-def/lib/base";
 import * as SP from "gd-sprest-def/lib/SP/entitytypes";
 import { ITargetInfoProps } from "../utils";
 
@@ -50,6 +50,14 @@ export interface IWeb {
      * @param requestUrl - The absolute url of the remote web.
      */
     getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+
+    /**
+     * Method to get the sharing settings.
+     * @param objectUrl - The web url.
+     * @param groupId - The group id.
+     * @param useSimplifiedRoles - True to return simplified role information.
+     */
+    getSharingSettings(props: { objectUrl: string, groupId?: number, useSimplifiedRoles?: boolean }, odata?: IODataQuery): IBaseExecution<SP.ObjectSharingSettings>;
 
     /**
      * Method to get the web url from a page url. (SPO Only)

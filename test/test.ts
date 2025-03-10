@@ -72,6 +72,9 @@ Web().getUserEffectivePermissions("").execute(perm => {
     // Save the permissions
     perm.GetUserEffectivePermissions;
 });
+Web.getSharingSettings({objectUrl: ""}).execute(web => {
+    web.IsUserSiteAdmin;
+})
 
 SitePages().Pages().createAppPage({
     PageLayoutType: SPTypes.ClientSidePageLayout.Article,
