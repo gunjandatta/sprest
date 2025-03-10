@@ -42,6 +42,11 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
+     * A reference to the _api/sp.directory.directorysession endpoint.
+     */
+    DirectorySession: LibTypes.IDirectorySession;
+
+    /**
      * The default library for a site.
      */
     drive: LibV2Types.Idrive;

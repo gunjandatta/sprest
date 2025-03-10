@@ -6,6 +6,7 @@
 //   ../gd-sprest-def/lib/SP/entitytypes
 //   ../gd-sprest-def
 //   ../gd-sprest-def/lib/Microsoft/AppServices/entitytypes
+//   ../gd-sprest-def/lib/SP/Directory/entitytypes
 //   ../gd-sprest-def/lib/microsoft
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes
@@ -74,6 +75,7 @@ declare module 'gd-sprest' {
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/apps";
     export * from "gd-sprest/lib/contextInfo";
+    export * from "gd-sprest/lib/directorySession";
     export * from "gd-sprest/lib/graph";
     export * from "gd-sprest/lib/groupService";
     export * from "gd-sprest/lib/groupSiteManager";
@@ -222,6 +224,11 @@ declare module 'gd-sprest/rest' {
                 * False by default.
                 */
             DefaultRequestToHostFl: boolean;
+    
+            /**
+                * A reference to the _api/sp.directory.directorysession endpoint.
+                */
+            DirectorySession: LibTypes.IDirectorySession;
     
             /**
                 * The default library for a site.
@@ -1217,6 +1224,29 @@ declare module 'gd-sprest/lib/contextInfo' {
             yellow: string;
             yellowDark: string;
             yellowLight: string;
+    }
+}
+
+declare module 'gd-sprest/lib/directorySession' {
+    import { IDirectorySession as IDirectorySessionCore } from "gd-sprest-def/lib/SP/Directory/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.Directory.DirectorySession
+        */
+    export const DirectorySession: IDirectorySession;
+    
+    /**
+        * Directory Session
+        * @category Directory Session
+        */
+    export interface IDirectorySession {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IDirectorySessionCore;
     }
 }
 

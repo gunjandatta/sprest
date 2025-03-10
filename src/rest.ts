@@ -8,11 +8,12 @@ import { IREST } from "../@types";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 9.17,
+    __ver: 9.18,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     Apps: Lib.Apps,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
+    DirectorySession: Lib.DirectorySession,
     drive: LibV2.drive,
     drives: LibV2.drives,
     GetWebUrlFromPageUrl: Lib.Web.getWebUrlFromPageUrl,

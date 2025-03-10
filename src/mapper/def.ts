@@ -5113,18 +5113,22 @@ export const Mapper: IMapper = {
     "SP.Directory.DirectorySession": {
         getGraphUser: {
             argNames: ["principalName"],
+            returnType: "SP.Directory.User"
         },
 
         getSharePointDataForUser: {
             argNames: ["userId"],
+            returnType: "SP.Directory.User"
         },
 
         group: {
             argNames: ["groupId", "alias"],
+            returnType: "SP.Directory.Group"
         },
 
         joinGroup: {
             argNames: ["groupId"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         me: {
@@ -5132,6 +5136,7 @@ export const Mapper: IMapper = {
 
         user: {
             argNames: ["id", "principalName"],
+            returnType: "SP.Directory.User"
         },
 
         validateGroupName: {
@@ -5220,12 +5225,14 @@ export const Mapper: IMapper = {
     "SP.Directory.User.Collection": {
         add: {
             argNames: ["objectId", "principalName"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         remove: {
             argNames: ["objectId"],
+            requestType: RequestType.PostWithArgsInBody
         },
 
     },
