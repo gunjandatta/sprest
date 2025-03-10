@@ -5,6 +5,8 @@
 //   ../gd-sprest-def/lib/SP/complextypes
 //   ../gd-sprest-def/lib/SP/entitytypes
 //   ../gd-sprest-def
+//   ../gd-sprest-def/base
+//   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/AppServices/entitytypes
 //   ../gd-sprest-def/lib/SP/Directory/entitytypes
 //   ../gd-sprest-def/lib/microsoft
@@ -18,8 +20,6 @@
 //   ../gd-sprest-def/lib/SP/Social/entitytypes
 //   ../gd-sprest-def/lib/SP/Utilities/entitytypes
 //   ../gd-sprest-def/lib/SP/WorkflowServices/entitytypes
-//   ../gd-sprest-def/base
-//   ../gd-sprest-def/lib/SP/Taxonomy/entitytypes
 //   ../gd-sprest-def/lib/Microsoft/Graph/entityTypes
 //   ../gd-sprest-def/lib/SP/UI/ApplicationPages/complextypes
 //   ../gd-sprest-def/lib/Microsoft/SharePoint/Utilities
@@ -29,11 +29,17 @@ declare module 'gd-sprest' {
     /**
         * Library
         */
-    import { Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "gd-sprest/lib";
+    import {
+            Apps, ContextInfo, DirectorySession, Graph, GroupService, GroupSiteManager, HubSites,
+            HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search,
+            Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
+            Utility, Web, WebTemplateExtensions, WorkflowInstanceService, WorkflowSubscriptionService
+    } from "./lib";
     export {
-            Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-            List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager,
-            SitePages, SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
+            Apps, ContextInfo, DirectorySession, Graph, GroupService, GroupSiteManager, HubSites,
+            HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search,
+            Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
+            Utility, Web, WebTemplateExtensions, WorkflowInstanceService, WorkflowSubscriptionService
     }
     
     /**
@@ -70,35 +76,6 @@ declare module 'gd-sprest' {
         */
     import * as Types from "gd-sprest/intellisense";
     export { Types }
-}
-
-declare module 'gd-sprest/lib' {
-    export * from "gd-sprest/lib/apps";
-    export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/directorySession";
-    export * from "gd-sprest/lib/graph";
-    export * from "gd-sprest/lib/groupService";
-    export * from "gd-sprest/lib/groupSiteManager";
-    export * from "gd-sprest/lib/hubSites";
-    export * from "gd-sprest/lib/hubSitesUtility";
-    export * from "gd-sprest/lib/list";
-    export * from "gd-sprest/lib/navigation";
-    export * from "gd-sprest/lib/peopleManager";
-    export * from "gd-sprest/lib/peoplePicker";
-    export * from "gd-sprest/lib/profileLoader";
-    export * from "gd-sprest/lib/search";
-    export * from "gd-sprest/lib/site";
-    export * from "gd-sprest/lib/siteIconManager";
-    export * from "gd-sprest/lib/siteManager";
-    export * from "gd-sprest/lib/sitePages";
-    export * from "gd-sprest/lib/socialFeed";
-    export * from "gd-sprest/lib/themeManager";
-    export * from "gd-sprest/lib/userProfile";
-    export * from "gd-sprest/lib/utility";
-    export * from "gd-sprest/lib/web";
-    export * from "gd-sprest/lib/webTemplateExtensions";
-    export * from "gd-sprest/lib/wfInstanceService";
-    export * from "gd-sprest/lib/wfSubscriptionService";
 }
 
 declare module 'gd-sprest/helper' {
@@ -173,6 +150,35 @@ declare module 'gd-sprest/helper' {
             Taxonomy: ITaxonomy;
             WebPart: IWebPart;
     }
+}
+
+declare module 'gd-sprest/lib' {
+    export * from "gd-sprest/lib/apps";
+    export * from "gd-sprest/lib/contextInfo";
+    export * from "gd-sprest/lib/directorySession";
+    export * from "gd-sprest/lib/graph";
+    export * from "gd-sprest/lib/groupService";
+    export * from "gd-sprest/lib/groupSiteManager";
+    export * from "gd-sprest/lib/hubSites";
+    export * from "gd-sprest/lib/hubSitesUtility";
+    export * from "gd-sprest/lib/list";
+    export * from "gd-sprest/lib/navigation";
+    export * from "gd-sprest/lib/peopleManager";
+    export * from "gd-sprest/lib/peoplePicker";
+    export * from "gd-sprest/lib/profileLoader";
+    export * from "gd-sprest/lib/search";
+    export * from "gd-sprest/lib/site";
+    export * from "gd-sprest/lib/siteIconManager";
+    export * from "gd-sprest/lib/siteManager";
+    export * from "gd-sprest/lib/sitePages";
+    export * from "gd-sprest/lib/socialFeed";
+    export * from "gd-sprest/lib/themeManager";
+    export * from "gd-sprest/lib/userProfile";
+    export * from "gd-sprest/lib/utility";
+    export * from "gd-sprest/lib/web";
+    export * from "gd-sprest/lib/webTemplateExtensions";
+    export * from "gd-sprest/lib/wfInstanceService";
+    export * from "gd-sprest/lib/wfSubscriptionService";
 }
 
 declare module 'gd-sprest/v2' {
@@ -480,1692 +486,6 @@ declare module 'gd-sprest/intellisense' {
     export * from "gd-sprest/intellisense/peoplePicker";
     export * from "gd-sprest/intellisense/utility";
     export * from "gd-sprest/intellisense/webTemplateExtensions";
-}
-
-declare module 'gd-sprest/lib/apps' {
-    import { IAppCollection } from "gd-sprest-def/lib/Microsoft/AppServices/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/Microsoft.AppServices.AppCollection
-        */
-    export const Apps: IApps;
-    
-    /**
-        * Apps
-        * @category Apps
-        */
-    export interface IApps {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IAppCollection;
-    }
-}
-
-declare module 'gd-sprest/lib/contextInfo' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
-    
-    /**
-        * A reference to the _spPageContextInfo global variable.
-        * 
-        * ### How to get the context information of another web
-        * This is required for making POST requests on webs in different site collections.
-        * ```ts
-        * // Get the context information of the root web
-        * ContextInfo.getWeb("/").execute((contextInfo) => {
-        *     // Get the root web
-        *     Web("/", { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
-        *         // Get the 'Site Assets' library
-        *         .Lists("Site Assets")
-        *         // Query for the items
-        *         .getItemsByQuery("<Query><OrderBy><FieldRef Name='ID' /></OrderBy></Query>")
-        *         // Execute the request
-        *         .execute(items => {
-        *             // Parse the items
-        *             for(let i=0; i<items.results.length; i++) {
-        *                 let item = items.results[i];
-        *             }
-        *         });
-        * });
-        */
-    export const ContextInfo: IContextInformation;
-    
-    /**
-        * Context Information
-        * @category Context Information
-        */
-    export interface IContextInformation {
-    
-            /** AAD Instance Url */
-            aadInstanceUrl: string;
-    
-            /** AAD Tenant Id */
-            aadTenantId: string;
-    
-            /** Alerts Enabled */
-            alertsEnabled: boolean;
-    
-            /** Allow Silverlight Prompt */
-            allowSilverlightPrompt: boolean;
-    
-            /** Block Downloads Experience Enabled */
-            blockDownloadsExperienceEnabled: boolean;
-    
-            /** Can User Create Microsoft Form */
-            canUserCreateMicrosoftForm: boolean;
-    
-            /** Can User Create Visio Drawing */
-            canUserCreateVisioDrawing: boolean;
-    
-            /** CDN Prefix */
-            cdnPrefix: string;
-    
-            /** Client Server Time Delta */
-            clientServerTimeDelta: number;
-    
-            /** Correlation ID */
-            CorrelationId: string;
-    
-            /** Cross Domain Photos Enabled */
-            crossDomainPhotosEnabled: boolean;
-    
-            /** Current Culture LCID */
-            currentCultureLCID: string;
-    
-            /** Current Culture Name */
-            currentCultureName: string;
-    
-            /** Current Language */
-            currentLanguage: string;
-    
-            /** Current UI Culture Name */
-            currentUICultureName: string;
-    
-            /** Department ID */
-            departmentId: string;
-    
-            /** Design Package ID */
-            DesignPackageId: string;
-    
-            /** Disable App Views */
-            disableAppViews: boolean;
-    
-            /** Disable Flows */
-            disableFlows: boolean;
-    
-            /** Document */
-            document: HTMLDocument;
-    
-            /** Environment */
-            env: string;
-    
-            /** True if the _spPageContextInfo object exists, flase otherwise. */
-            existsFl: boolean;
-    
-            /** Farm Label */
-            farmLabel: string;
-    
-            /** FID */
-            fid: string;
-    
-            /** Form Digest Timeout Seconds */
-            formDigestTimeoutSeconds: number;
-    
-            /** Form Digest Value */
-            formDigestValue: string;
-    
-            /** Group Color */
-            groupColor: string;
-    
-            /** Group Has Homepage */
-            groupHasHomepage: boolean;
-    
-            /** Group ID */
-            groupId: string;
-    
-            /** Group Type */
-            groupType: string;
-    
-            /** Guests Enabled */
-            guestsEnabled: boolean;
-    
-            /** Has Manage Web Permissions */
-            hasManageWebPermissions: boolean;
-    
-            /** Has Pending Web Template Extension */
-            hasPendingWebTemplateExtension: boolean;
-    
-            /** Hide Sync Button On ODB */
-            hideSyncButtonOnODB: boolean;
-    
-            /** Hub Site ID */
-            hubSiteId: boolean;
-    
-            /** IDLE Session Sign Out Enabled */
-            idleSessionSignOutEnabled: boolean;
-    
-            /** Is Anonymous Guest User */
-            isAnonymousGuestUser: boolean;
-    
-            /** Is App Web */
-            isAppWeb: boolean;
-    
-            /** Is Archived */
-            isArchived: boolean;
-    
-            /** Is Email Authentication Guest User */
-            isEmailAuthenticationGuestUser: boolean;
-    
-            /** Is External Guest User */
-            isExternalGuestUser: boolean;
-    
-            /** Is Group Related Site */
-            isGroupRelatedSite: boolean;
-    
-            /** Is Groupify Disabled */
-            isGroupifyDisabled: boolean;
-    
-            /** Is Groupify Menu Button Feature Off */
-            isGroupifyMenuButtonFeatureOff: boolean;
-    
-            /** Is Hub Site */
-            isHubSite: boolean;
-    
-            /** Is Location Service Available */
-            isLocationserviceAvailable: boolean;
-    
-            /** Is Multi Geo ODB Mode */
-            isMultiGeoODBMode: boolean;
-    
-            /** Is Multi Geo Tenant */
-            isMultiGeoTenant: boolean;
-    
-            /** Is No-Script Enabled */
-            isNoScriptEnabled: boolean;
-    
-            /** Is Site Administrator */
-            isSiteAdmin: boolean;
-    
-            /** Is Site Owner */
-            isSiteOwner: boolean;
-    
-            /** Is SharePoint Online */
-            isSPO: boolean;
-    
-            /** Is Shared By Link Enabled */
-            isShareByLinkEnabled: boolean;
-    
-            /** Is Teams Channel Site */
-            isTeamsChannelSite: boolean;
-    
-            /** Is Teams Connected Site */
-            isTeamsConnectedSite: boolean;
-    
-            /** Is Tenant Development Site */
-            isTenantDevSite: boolean;
-    
-            /** Is Unauthorized Tenant */
-            isUnauthorizedTenant: boolean;
-    
-            /** Is Web Welcome Page */
-            isWebWelcomePage: boolean;
-    
-            /** Layouts Url */
-            layoutsUrl: string;
-    
-            /** List Base Template */
-            listBaseTemplate: number;
-    
-            /** List Base Type */
-            listBaseType: number;
-    
-            /** List Id */
-            listId: string;
-    
-            /** List Item Count */
-            listItemCount: number;
-    
-            /** List Permissions Mask */
-            listPermsMask: BasePermissions;
-    
-            /** List Title */
-            listTitle: string;
-    
-            /** List Url */
-            listUrl: string;
-    
-            /** Maximum File Size */
-            maximumFileSize: number;
-    
-            /** Modern Theming Enabled */
-            modernThemingEnabled: boolean;
-    
-            /** MS Graph Endpoint Url */
-            msGraphEndpointUrl: string;
-    
-            /** MS Mru Endpoint Url */
-            msMruEndpointUrl: string;
-    
-            /** Multi Geo Info */
-            multiGeoInfo: Array<any>;
-    
-            /** Navigation Information */
-            navigationInfo: any;
-    
-            /** NID */
-            nid: number;
-    
-            /** Open in Client */
-            openInClient: boolean;
-    
-            /** Page Item Id */
-            pageItemId: number;
-    
-            /** Page List Id */
-            pageListId: string;
-    
-            /** Page Permissions Mask */
-            pagePermsMask: BasePermissions;
-    
-            /** Page Personalization Scope */
-            pagePersonalizationScope: number;
-    
-            /** Portal URL */
-            portalUrl: string;
-    
-            /** Prefer User Time Zone */
-            preferUserTimeZone: boolean;
-    
-            /** Preview Features Enabled */
-            PreviewFeaturesEnabled: boolean;
-    
-            /** Profile Url */
-            profileUrl: string;
-    
-            /** Publishing Feature On */
-            PublishingFeatureOn: boolean;
-    
-            /** Recycle Bin Item Count */
-            RecycleBinItemCount: number;
-    
-            /** Server Redirected Url */
-            serverRedirectedUrl: string;
-    
-            /** Server Request Path */
-            serverRequestPath: string;
-    
-            /** Server Time */
-            serverTime: string;
-    
-            /** Show NGSC Dialog for Sync on ODB */
-            showNGSCDialogForSyncOnODB: boolean;
-    
-            /** Show NGSC Dialog for Sync on TS */
-            showNGSCDialogForSyncOnTS: boolean;
-    
-            /** Site Absolute Url */
-            siteAbsoluteUrl: string;
-    
-            /** Site Classification */
-            siteClassification: string;
-    
-            /** Site Client Tag */
-            siteClientTag: string;
-    
-            /** Site Color */
-            siteColor: string;
-    
-            /** Site ID */
-            siteId: string;
-    
-            /** Site Pages Enabled */
-            sitePagesEnabled: boolean;
-    
-            /** Site Pages Feature Version */
-            sitePagesFeatureVersion: number;
-    
-            /** Site Server Relative Url */
-            siteServerRelativeUrl: string;
-    
-            /** Site Subscription ID */
-            siteSubscriptionId: string;
-    
-            /** Social Bar Enabled */
-            socialBarEnabled: boolean;
-    
-            /** Support Percent Store Page */
-            supportPercentStorePage: boolean;
-    
-            /** Support Pound Store Path */
-            supportPoundStorePath: boolean;
-    
-            /** System User Key */
-            systemUserKey: string;
-    
-            /** Teams Channel Type */
-            teamsChannelType: number;
-    
-            /** Tenant App Version */
-            tenantAppVersion: string;
-    
-            /** Tenant Display Name */
-            tenantDisplayName: string;
-    
-            /** The current theme State */
-            theme: IThemeState;
-    
-            /** Theme Cache Token */
-            themeCacheToken: string;
-    
-            /** Theme CSS Folder Url */
-            themedCssFolderUrl: string;
-    
-            /** Theme Image File Names */
-            themedImageFileNames: any;
-    
-            /** Update From Digest Page Loaded */
-            updateFromDigestPageLoaded: Date;
-    
-            /** User Display Name */
-            userDisplayName: string;
-    
-            /** User EMail */
-            userEmail: string;
-    
-            /** User First Day of Week */
-            userFirstDayOfWeek: any;
-    
-            /** User Id */
-            userId: number;
-    
-            /** User Login Name */
-            userLoginName: string;
-    
-            /** User Photo Cdn Base Url */
-            userPhotoCdnBaseUrl: string;
-    
-            /** User Principal Name */
-            userPrincipalName: string;
-    
-            /** User Time 24 */
-            userTime24: boolean;
-    
-            /** User Time Zone Data */
-            userTimeZoneData: any;
-    
-            /** User Voice for Feedback Enabled */
-            userVoiceForFeedbackEnabled: boolean;
-    
-            /** View ID */
-            viewId: string;
-    
-            /** View Only Experience Enabled */
-            viewOnlyExperienceEnabled: boolean;
-    
-            /** Web Absolute Url */
-            webAbsoluteUrl: string;
-    
-            /** Web Description */
-            webDescription: string;
-    
-            /** Web Domain */
-            webDomain: string;
-    
-            /** Web First Day of Week */
-            webFirstDayOfWeek: number;
-    
-            /** Web ID */
-            webId: string;
-    
-            /** Web Language */
-            webLanguage: number;
-    
-            /** Web Language Name */
-            webLanguageName: string;
-    
-            /** Web Logo Url */
-            webLogoUrl: string;
-    
-            /** Web Permissions Mask */
-            webPermMasks: BasePermissions;
-    
-            /** Web Server Relative Url */
-            webServerRelativeUrl: string;
-    
-            /** Web Template */
-            webTemplate: string;
-    
-            /** Web Template Configuration */
-            webTemplateConfiguration: string;
-    
-            /** Web Time 24 */
-            webTime24: boolean;
-    
-            /** Web Time Zone Data */
-            webTimeZoneData: object;
-    
-            /** Web Title */
-            webTitle: string;
-    
-            /** Web UI Version */
-            webUIVersion: number;
-    
-            /** Window */
-            window: {
-                    $REST: any;
-                    addEventListener: any;
-                    clearInterval: any;
-                    document: HTMLDocument;
-                    setInterval: any;
-                    SP: any;
-                    SPClientTemplates: any;
-            };
-    
-    
-            /**
-                * Runs a loop to ensure the digest value doesn't expire.
-                */
-            enableRefreshToken();
-    
-            /**
-                * Generates a guid.
-                * @returns A GUID as a string value.
-                */
-            generateGUID: () => string;
-    
-            /**
-                * Gets the context information of another web.
-                * This is required for making POST requests on other site collections.
-                * @param url The relative url of the web.
-                * @return The context information of the web.
-                */
-            getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
-    
-            /**
-                * Value in minutes, to refresh the token prior to it expiring
-                */
-            refreshToken: number;
-    
-            /**
-                * Sets the page context information for modern pages.
-                * @param spfxPageContext - The page context information variable from a SPFx project.
-                */
-            setPageContext(spfxPageContext: any);
-    }
-    
-    export interface IThemeState {
-            accent: string;
-            accentButtonBackground: string;
-            accentButtonText: string;
-            actionLink: string;
-            actionLinkHovered: string;
-            black: string;
-            blackTranslucent40: string;
-            blockingBackground: string;
-            blockingIcon: string;
-            blue: string;
-            blueDark: string;
-            blueLight: string;
-            blueMid: string;
-            bodyBackground: string;
-            bodyBackgroundChecked: string;
-            bodyBackgroundHovered: string;
-            bodyDivider: string;
-            bodyFrameBackground: string;
-            bodyFrameDivider: string;
-            bodyStandoutBackground: string;
-            bodySubtext: string;
-            bodyText: string;
-            bodyTextChecked: string;
-            buttonBackground: string;
-            buttonBackgroundChecked: string;
-            buttonBackgroundCheckedHovered: string;
-            buttonBackgroundDisabled: string;
-            buttonBackgroundHovered: string;
-            buttonBackgroundPressed: string;
-            buttonBorder: string;
-            buttonBorderDisabled: string;
-            buttonText: string;
-            buttonTextChecked: string;
-            buttonTextCheckedHovered: string;
-            buttonTextDisabled: string;
-            buttonTextHovered: string;
-            buttonTextPressed: string;
-            cardShadow: string;
-            cardShadowHovered: string;
-            cardStandoutBackground: string;
-            defaultStateBackground: string;
-            disabledBackground: string;
-            disabledBodySubtext: string;
-            disabledBodyText: string;
-            disabledBorder: string;
-            disabledSubtext: string;
-            disabledText: string;
-            elevation4: string;
-            elevation8: string;
-            elevation16: string;
-            elevation64: string;
-            errorBackground: string;
-            errorIcon: string;
-            errorText: string;
-            focusBorder: string;
-            green: string;
-            greenDark: string;
-            greenLight: string;
-            infoBackground: string;
-            infoIcon: string;
-            inputBackground: string;
-            inputBackgroundChecked: string;
-            inputBackgroundCheckedHovered: string;
-            inputBorder: string;
-            inputBorderHovered: string;
-            inputFocusBorderAlt: string;
-            inputForegroundChecked: string;
-            inputIcon: string;
-            inputIconDisabled: string;
-            inputIconHovered: string;
-            inputPlaceholderBackgroundChecked: string;
-            inputPlaceholderText: string;
-            inputText: string;
-            inputTextHovered: string;
-            largeFontFamily: string;
-            largeFontSize: string;
-            largeFontWeight: string;
-            largeMozOsxFontSmoothing: string;
-            largeWebkitFontSmoothing: string;
-            link: string;
-            linkHovered: string;
-            listBackground: string;
-            listHeaderBackgroundHovered: string;
-            listHeaderBackgroundPressed: string;
-            listItemBackgroundChecked: string;
-            listItemBackgroundCheckedHovered: string;
-            listItemBackgroundHovered: string;
-            listText: string;
-            listTextColor: string;
-            magenta: string;
-            magentaDark: string;
-            magentaLight: string;
-            mediumFontFamily: string;
-            mediumFontSize: string;
-            mediumFontWeight: string;
-            mediumMozOsxFontSmoothing: string;
-            mediumPlusFontFamily: string;
-            mediumPlusFontSize: string;
-            mediumPlusFontWeight: string;
-            mediumPlusMozOsxFontSmoothing: string;
-            mediumPlusWebkitFontSmoothing: string;
-            mediumWebkitFontSmoothing: string;
-            megaFontFamily: string;
-            megaFontSize: string;
-            megaFontWeight: string;
-            megaMozOsxFontSmoothing: string;
-            megaWebkitFontSmoothing: string;
-            menuBackground: string;
-            menuDivider: string;
-            menuHeader: string;
-            menuIcon: string;
-            menuItemBackgroundChecked: string;
-            menuItemBackgroundHovered: string;
-            menuItemBackgroundPressed: string;
-            menuItemText: string;
-            menuItemTextHovered: string;
-            messageLink: string;
-            messageLinkHovered: string;
-            messageText: string;
-            neutralDark: string;
-            neutralLight: string;
-            neutralLighter: string;
-            neutralLighterAlt: string;
-            neutralPrimary: string;
-            neutralPrimaryAlt: string;
-            neutralQuaternary: string;
-            neutralQuaternaryAlt: string;
-            neutralSecondary: string;
-            neutralSecondaryAlt: string;
-            neutralTertiary: string;
-            neutralTertiaryAlt: string;
-            orange: string;
-            orangeLight: string;
-            orangeLighter: string;
-            primaryButtonBackground: string;
-            primaryButtonBackgroundDisabled: string;
-            primaryButtonBackgroundHovered: string;
-            primaryButtonBackgroundPressed: string;
-            primaryButtonBorder: string;
-            primaryButtonText: string;
-            primaryButtonTextDisabled: string;
-            primaryButtonTextHovered: string;
-            primaryButtonTextPressed: string;
-            purple: string;
-            purpleDark: string;
-            purpleLight: string;
-            red: string;
-            redDark: string;
-            roundedCorner2: string;
-            roundedCorner4: string;
-            roundedCorner6: string;
-            severeWarningBackground: string;
-            severeWarningIcon: string;
-            smallFontFamily: string;
-            smallFontSize: string;
-            smallFontWeight: string;
-            smallInputBorder: string;
-            smallMozOsxFontSmoothing: string;
-            smallPlusFontFamily: string;
-            smallPlusFontSize: string;
-            smallPlusFontWeight: string;
-            smallPlusMozOsxFontSmoothing: string;
-            smallPlusWebkitFontSmoothing: string;
-            smallWebkitFontSmoothing: string;
-            successBackground: string;
-            successIcon: string;
-            successText: string;
-            superLargeFontFamily: string;
-            superLargeFontSize: string;
-            superLargeFontWeight: string;
-            superLargeMozOsxFontSmoothing: string;
-            superLargeWebkitFontSmoothing: string;
-            teal: string;
-            tealDark: string;
-            tealLight: string;
-            themeAccentTranslucent10: string;
-            themeDark: string;
-            themeDarkAlt: string;
-            themeDarker: string;
-            themeLight: string;
-            themeLighter: string;
-            themeLighterAlt: string;
-            themePrimary: string;
-            themeSecondary: string;
-            themeTertiary: string;
-            tinyFontFamily: string;
-            tinyFontSize: string;
-            tinyFontWeight: string;
-            tinyMozOsxFontSmoothing: string;
-            tinyWebkitFontSmoothing: string;
-            variantBorder: string;
-            variantBorderHovered: string;
-            warningBackground: string;
-            warningHighlight: string;
-            warningIcon: string;
-            warningText: string;
-            white: string;
-            whiteTranslucent40: string;
-            xLargeFontFamily: string;
-            xLargeFontSize: string;
-            xLargeFontWeight: string;
-            xLargeMozOsxFontSmoothing: string;
-            xLargePlusFontFamily: string;
-            xLargePlusFontSize: string;
-            xLargePlusFontWeight: string;
-            xLargePlusMozOsxFontSmoothing: string;
-            xLargePlusWebkitFontSmoothing: string;
-            xLargeWebkitFontSmoothing: string;
-            xSmallFontFamily: string;
-            xSmallFontSize: string;
-            xSmallFontWeight: string;
-            xSmallMozOsxFontSmoothing: string;
-            xSmallWebkitFontSmoothing: string;
-            xxLargeFontFamily: string;
-            xxLargeFontSize: string;
-            xxLargeFontWeight: string;
-            xxLargeMozOsxFontSmoothing: string;
-            xxLargePlusFontFamily: string;
-            xxLargePlusFontSize: string;
-            xxLargePlusFontWeight: string;
-            xxLargePlusMozOsxFontSmoothing: string;
-            xxLargePlusWebkitFontSmoothing: string;
-            xxLargeWebkitFontSmoothing: string;
-            yellow: string;
-            yellowDark: string;
-            yellowLight: string;
-    }
-}
-
-declare module 'gd-sprest/lib/directorySession' {
-    import { IDirectorySession as IDirectorySessionCore } from "gd-sprest-def/lib/SP/Directory/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.Directory.DirectorySession
-        */
-    export const DirectorySession: IDirectorySession;
-    
-    /**
-        * Directory Session
-        * @category Directory Session
-        */
-    export interface IDirectorySession {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IDirectorySessionCore;
-    }
-}
-
-declare module 'gd-sprest/lib/graph' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { Graph as GraphCore } from "gd-sprest-def/lib/microsoft";
-    import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
-    import { ITargetInfo } from "gd-sprest/utils";
-    
-    /**
-        * Graph
-        */
-    export const Graph: IGraph;
-    
-    /**
-        * Graph Properties
-        */
-    export interface IGraphProperties {
-            /** The access token. Defaults to the Graph.Token value if not set. */
-            accessToken?: string;
-    
-            /** The cloud environment. Defaults to the Graph.Cloud or commercial environment if not set. */
-            cloud?: string;
-    
-            /** The data to be sent in the body of the request. */
-            data?: string;
-    
-            /** The request type GET or POST. */
-            requestType?: string;
-    
-            /** The url of the graph api request. */
-            url: string;
-    
-            /** The version of the graph api to use. */
-            version?: string;
-    }
-    
-    /**
-        * Graph EndPoints
-        */
-    export interface IGraphCustom extends IGraphCore {
-            me(): IBaseExecution<GraphCore.user>;
-            group(id: string): IBaseExecution<GraphCore.group>;
-            groups(): IBaseExecution<GraphCore.groupCollections>;
-            list(siteId: string, id: string): IBaseExecution<GraphCore.list>;
-            lists(siteId: string): IBaseExecution<GraphCore.listCollections>;
-            site(id: string): IBaseExecution<GraphCore.site>;
-            sites(): IBaseExecution<GraphCore.siteCollections>;
-            user(id: string): IBaseExecution<GraphCore.user>;
-            users(): IBaseExecution<GraphCore.userCollections>;
-    }
-    
-    /**
-        * Graph
-        */
-    export interface IGraph {
-            /**
-                * Creates an instance of the graph library.
-                * @param props - The graph request information.
-                */
-            (props?: IGraphProperties): IGraphCustom;
-    
-            /** The default cloud environment to use for the requests. */
-            Cloud: string;
-    
-            /** The default token to use for the requests. */
-            Token: string;
-    
-            /** The default token's expiration. */
-            TokenExpiration: number;
-    
-            /** The default version to use for the requests. */
-            Version: string;
-    
-            /**
-                * Method to get the access token from a classic page.
-                * @param resource - The graph api endpoint.
-                * @param tokenType - The token type.
-                */
-            getAccessToken(resource?: string, tokenType?: string): IBaseExecution<IGraphToken>;
-    }
-}
-
-declare module 'gd-sprest/lib/groupService' {
-    import { IGroupService as IGroupServiceCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/Microsoft.SharePoint.Portal.GroupService
-        */
-    export const GroupService: IGroupService;
-    
-    /**
-        * Group Service
-        * @category Group Site
-        */
-    export interface IGroupService {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IGroupServiceCore;
-    }
-}
-
-declare module 'gd-sprest/lib/groupSiteManager' {
-    import { IGroupSiteManager as IGroupSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/Microsoft.SharePoint.Portal.GroupSiteManager
-        */
-    export const GroupSiteManager: IGroupSiteManager;
-    
-    /**
-        * Group Site Manager
-        * @category Group Site
-        */
-    export interface IGroupSiteManager {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IGroupSiteManagerCore;
-    }
-}
-
-declare module 'gd-sprest/lib/hubSites' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { IHubSiteCollection } from "gd-sprest-def/lib/SP/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.HubSite.Collection
-        */
-    export const HubSites: IHubSites;
-    
-    /**
-        * Hub Sites
-        * @category Hub Site
-        */
-    export interface IHubSites {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IBaseExecution<IHubSiteCollection>;
-    
-            /**
-                * A static method to see if the current user can create a hub site.
-                */
-            canCreate(): IBaseExecution<{ CanCreate: boolean }>;
-    }
-}
-
-declare module 'gd-sprest/lib/hubSitesUtility' {
-    import { ISPHubSitesUtility as ISPHubSitesUtilityCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/HubSitesUtility
-        */
-    export const HubSitesUtility: IHubSitesUtility;
-    
-    /**
-        * Hub Sites Utility
-        * @category Hub Site
-        */
-    export interface IHubSitesUtility {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): ISPHubSitesUtilityCore;
-    }
-}
-
-declare module 'gd-sprest/lib/list' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
-    import { IList as IListCore, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/web/lists/getByTitle('listName')
-        *
-        * #### Get list from the current web
-        *
-        * ```typescript
-        * List("Site Assets").execute(list => {
-        *   let title = list.Title;
-        * });
-        * ```
-        * 
-        *
-        * #### Query a list to include various collections
-        *
-        * ```typescript
-        * List("Site Assets").query({
-        *  Expand: ["ContentTypes", "Fields", "Views"]
-        * }).execute(list => {
-        *   let contentTypes = list.ContentTypes.results;
-        *   let fields = list.Fields.results;
-        *   let views = list.Views.results;
-        * });
-        * ```
-        */
-    export const List: IList;
-    
-    /**
-        * List
-        * @category List
-        */
-    export interface IList {
-            /**
-                * Creates an instance of the library.
-                * @category List
-                * @param listName - The name of the list.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (listName: string, targetInfo?: ITargetInfoProps): IListCore;
-    
-            /**
-                * @category List
-                * A static method to get the list by the entity name.
-                * @param props - The list entity request properties.
-                */
-            getByEntityName(props: IListEntityProps): IListCore;
-    
-            /**
-                * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
-                * @category List
-                * @param listFullUrl - The absolute url of the list.
-                * @param parameters - The optional list data parameters.
-                */
-            getDataAsStream(listFullUrl: string, parameters?: RenderListDataParameters): IBaseExecution<IListDataStream>;
-    
-            /**
-                * Runs a flow against a list item.
-                */
-            runFlow(props: IRunFlow): PromiseLike<IRunFlowResult>;
-    }
-    
-    /**
-        * List Data Stream
-        * @category List
-        */
-    export interface IListDataStream<RowProps = ListItem> {
-            FilterFields?: string;
-            FilterLink: string;
-            FirstRow: number;
-            FolderPermissions: string;
-            ForceNoHierarchy: string;
-            HierarchyHasIndention: string;
-            LastRow: number;
-            Row: Array<RowProps>;
-            RowLimit: number;
-    }
-    
-    /**
-        * List Entity Properties
-        * @category List
-        */
-    export interface IListEntityProps {
-            /** The callback method. */
-            callback?: (list: IListCore) => void;
-    
-            /** The list entity name. */
-            name: string;
-    
-            /** The target information to pass to the web request. */
-            targetInfo?: ITargetInfoProps;
-    
-            /** The relative url of the web containing the list. */
-            url?: string;
-    }
-    
-    /**
-        * Properties for running a flow
-        */
-    export interface IRunFlow {
-            cloudEnv?: string;
-            data: object;
-            id?: string;
-            list: string;
-            token?: string;
-            webUrl?: string;
-    }
-    
-    /**
-        * Flow execution result
-        */
-    export interface IRunFlowResult {
-            errorDetails?: object;
-            errorMessage?: string;
-            executed: boolean;
-            flowToken?: string;
-    }
-}
-
-declare module 'gd-sprest/lib/navigation' {
-    import { INavigationServiceRest } from "gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/navigation
-        */
-    export const Navigation: INavigation;
-    
-    /**
-        * Navigation
-        * @category Navigation
-        */
-    export interface INavigation {
-            /**
-                * Creates an instance of the navigation library.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): INavigationServiceRest;
-    }
-}
-
-declare module 'gd-sprest/lib/peopleManager' {
-    import { IPeopleManager as IPeopleManagerCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.UserProfiles.PeopleManager
-        */
-    export const PeopleManager: IPeopleManager;
-    
-    /**
-        * People Manager
-        * @category People Manager
-        */
-    export interface IPeopleManager {
-            /**
-                * Creates an instance of the people manager library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IPeopleManagerCore;
-    }
-}
-
-declare module 'gd-sprest/lib/peoplePicker' {
-    import { IPeoplePicker as IPeoplePickerCore } from "gd-sprest/intellisense/peoplePicker";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface
-        */
-    export const PeoplePicker: IPeoplePicker;
-    
-    /**
-        * People Picker
-        * @category People Picker
-        */
-    export interface IPeoplePicker {
-            /**
-                * Creates an instance of the people picker library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IPeoplePickerCore;
-    }
-}
-
-declare module 'gd-sprest/lib/profileLoader' {
-    import { IProfileLoader as IProfileLoaderCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.UserProfiles.ProfileLoader.getProfileLoader
-        */
-    export const ProfileLoader: IProfileLoader;
-    
-    /**
-        * Profile Loader
-        * @category Profile Loader
-        */
-    export interface IProfileLoader {
-            /**
-                * Creates an instance of the profile loader library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IProfileLoaderCore;
-    }
-}
-
-declare module 'gd-sprest/lib/search' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { SearchRequest, SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST";
-    import { ISearchService } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/search
-        */
-    export const Search: ISearch;
-    
-    /**
-        * Search Post Query
-        */
-    export interface ISearchPostQuery {
-            getAllItems?: boolean;
-            onQueryCompleted?: (results: SearchResult) => void;
-            query: SearchRequest
-            targetInfo?: ITargetInfoProps;
-            url?: string;
-            useBatch?: boolean;
-    }
-    
-    /**
-        * Search
-        * @category Search
-        */
-    export interface ISearch {
-            /**
-                * Creates an instance of the search library.
-                * @param url - The optional url to execute the search against.
-                * @param targetInfo - The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): ISearchService;
-    
-            /**
-                * Method to get the app context information.
-                * @param siteUrl - The absolute url of the site.
-                */
-            getAppContext(siteUrl: string): IBaseExecution;
-    
-            /**
-                * Method to get the query from the search parameters.
-                * @param parameters - The search parameters.
-                */
-            getQuery(parameters: SearchRequest): Array<string>;
-    
-            /**
-                * Method to get the url of a site, by its id.
-                * @param id - The site id.
-                */
-            getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
-    
-            /**
-                * Method to execute a post query
-                * @param 
-                */
-            postQuery<T = any>(props: ISearchPostQuery): PromiseLike<SearchResult & { results: T[] }>;
-    }
-}
-
-declare module 'gd-sprest/lib/site' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { ISite as ISiteCore } from "gd-sprest-def/lib/SP/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/site
-        *
-        * #### Get the current site collection
-        *
-        * ```typescript
-        * import { Site } from "gd-sprest";
-        * 
-        * Site().execute(site => {
-        *   let hubSiteId = site.HubSiteId;
-        * });
-        * ```
-        * 
-        *
-        * #### Query a site collection to include various collections
-        *
-        * ```typescript
-        * import { Site } from "gd-sprest";
-        * 
-        * Site().query({
-        *  Expand: ["UserCustomActions"]
-        * }).execute(list => {
-        *   let actions = site.UserCustomActions.results;
-        * });
-        * ```
-        */
-    export const Site: ISite;
-    
-    /**
-        * Site
-        * @category Site
-        */
-    export interface ISite {
-            /**
-                * Creates an instance of the site library.
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): ISiteCore;
-    
-            /**
-                * Method to check if a site collection exists.
-                * @param url - The absolute url of the site collection.
-                */
-            exists(url: string): IBaseExecution<ISiteExists>;
-    
-            /**
-                * Method to get the app context information.
-                * @param siteUrl - The absolute url of the site.
-                */
-            getAppContext(siteUrl: string): IBaseExecution;
-    
-            /**
-                * Method to get the url of a site, by its id.
-                * @param id - The site id.
-                */
-            getUrlById(id: string): IBaseExecution<ISiteUrl>;
-    }
-    
-    /**
-        * Site Exists
-        */
-    export interface ISiteExists {
-            /** True if the site collection exists, false otherwise. */
-            Exists: boolean;
-    }
-    
-    /**
-        * Site Url
-        */
-    export interface ISiteUrl {
-            /** The site url. */
-            GetUrlById: string;
-    }
-}
-
-declare module 'gd-sprest/lib/siteIconManager' {
-    import { SiteIconManager as SiteIconManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/siteIconManager
-        *
-        */
-    export const SiteIconManager: ISiteIconManager;
-    
-    /**
-        * Site Icon Manager
-        * @category Site Icon Manager
-        */
-    export interface ISiteIconManager {
-            /**
-                * Creates an instance of the site library.
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): SiteIconManagerCore;
-    }
-}
-
-declare module 'gd-sprest/lib/siteManager' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { ISPSiteManager as ISPSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/siteManager
-        *
-        * #### Get list from the current site collection
-        *
-        * ```typescript
-        * import { Site } from "gd-sprest";
-        * 
-        * Site().execute(site => {
-        *   let hubSiteId = site.HubSiteId;
-        * });
-        * ```
-        * 
-        *
-        * #### Query a list to include various collections
-        *
-        * ```typescript
-        * import { Site } from "gd-sprest";
-        * 
-        * Site().query({
-        *  Expand: ["UserCustomActions"]
-        * }).execute(list => {
-        *   let actions = site.UserCustomActions.results;
-        * });
-        * ```
-        */
-    export const SiteManager: ISiteManager;
-    
-    /**
-        * Site Manager
-        * @category Site Manager
-        */
-    export interface ISiteManager {
-            /**
-                * Creates an instance of the site library.
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): ISPSiteManagerCore;
-    }
-}
-
-declare module 'gd-sprest/lib/sitePages' {
-    import { File, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
-    import { SitePage, ISitePageService } from "gd-sprest-def/lib/SP/Publishing/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/sitePages
-        *
-        * #### Get site pages
-        *
-        * ```typescript
-        * import { Site } from "gd-sprest";
-        * 
-        * SitePages().execute(sitePages => {
-        *   // TODO
-        * });
-        * ```
-        */
-    export const SitePages: ISitePages;
-    
-    /**
-        * Site Pages
-        * @category Site Pages
-        */
-    export interface ISitePages {
-            /**
-                * Creates an instance of the site library.
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): ISitePageService;
-    
-            /**
-                * Converts the modern page layout type.
-                * @param pageUrl - The url of the page.
-                * @param layout - The page layout type.
-                * @param webUrl - The url containing the page, if it's not within the same web.
-                */
-            convertPage(pageUrl: string, layout: string, webUrl?: string): PromiseLike<void>;
-    
-            /**
-                * Creates a modern page.
-                * @param fileName - The name of the file to create, including the .aspx extension.
-                * @param title - The title of the page.
-                * @param template - The type of page to create.
-                * @param url - The url of the web to create the page in.
-                * @param targetInfo - The target information properties.
-                */
-            createPage(fileName: string, title: string, template: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{
-                    file: File;
-                    item: ListItem;
-                    page: SitePage;
-            }>;
-    }
-}
-
-declare module 'gd-sprest/lib/socialFeed' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import { SocialPostCreationData } from "gd-sprest-def/lib/SP/Social/complextypes";
-    import { ISocialRestThread, SocialRestThread } from "gd-sprest-def/lib/SP/Social/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/Social.Feed
-        */
-    export const SocialFeed: ISocialFeed;
-    
-    /**
-        * Social Feed
-        * @cateogry Social Feed
-        */
-    export interface ISocialFeed {
-            /**
-                * Creates an instance of the social feed library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): ISocialRestThread;
-    
-            /**
-                * Posts to a feed.
-                * @param accountName - The account name to post to.
-                * @param postInfo - The post information.
-                */
-            postToFeed(accountName: string, postInfo: SocialPostCreationData): IBaseExecution<SocialRestThread>;
-    
-            /**
-                * Post to the current user's feed.
-                * @param postInfo - The post information.
-                */
-            postToMyFeed(postInfo: SocialPostCreationData): IBaseExecution<SocialRestThread>;
-    }
-}
-
-declare module 'gd-sprest/lib/themeManager' {
-    import { IThemeManager as IThemeManagerCore } from "gd-sprest-def/lib/SP/Utilities/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/ThemeManager
-        */
-    export const ThemeManager: IThemeManager;
-    
-    /**
-        * Theme Manager
-        * @category Theme Manager
-        */
-    export interface IThemeManager {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IThemeManagerCore;
-    }
-}
-
-declare module 'gd-sprest/lib/userProfile' {
-    import { IProfileLoader } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.UserProfiles.ProfileLoader.getProfileLoader/getUserProfile
-        */
-    export const UserProfile: IUserProfile;
-    
-    /**
-        * User Profile
-        * @category User Profile
-        */
-    export interface IUserProfile {
-            /**
-                * Creates an instance of the user profile library.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (targetInfo?: ITargetInfoProps): IProfileLoader;
-    }
-}
-
-declare module 'gd-sprest/lib/utility' {
-    import { IUtility as IUtilityCore } from "gd-sprest/intellisense/utility";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.Utilities.Utility
-        */
-    export const Utility: IUtility;
-    
-    /**
-        * Utility
-        * @category Utility
-        */
-    export interface IUtility {
-            /**
-                * Creates an instance of the utility library.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): IUtilityCore;
-    }
-}
-
-declare module 'gd-sprest/lib/web' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as SP from "gd-sprest-def/lib/SP/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/web
-        *
-        * #### Get current web
-        *
-        * ```typescript
-        * import { Web } from "gd-sprest";
-        * 
-        * Web().execute(web => {
-        *   let title = web.Title;
-        * });
-        * ```
-        * 
-        *
-        * #### Query a list to include various collections
-        *
-        * ```typescript
-        * import { Web } from "gd-sprest";
-        * 
-        * Web().query({
-        *  Expand: ["ContentTypes", "Fields", "Lists", "RootFolder"]
-        * }).execute(web => {
-        *   let contentTypes = web.ContentTypes.results;
-        *   let fields = web.Fields.results;
-        *   let lists = web.Lists.results;
-        *   let rootFolder = web.RootFolder;
-        * });
-        * ```
-        */
-    export const Web: IWeb;
-    
-    /**
-        * Web
-        */
-    export interface IWeb {
-            /**
-                * Creates an instance of the web library.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.IWeb;
-    
-            /**
-                * Method to get a remote web.
-                * @param requestUrl - The absolute url of the remote web.
-                */
-            getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
-    
-            /**
-                * Method to get the web url from a page url. (SPO Only)
-                * @param pageUrl - The absolute url of the page.
-                */
-            getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
-    
-            /**
-                * 
-                * @param query - The process query.
-                * @param webUrl - The web url to execute the request against.
-                */
-            processQuery(query: string, webUrl?: string): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/lib/webTemplateExtensions' {
-    import * as SP from "gd-sprest/intellisense/webTemplateExtensions";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/Microsoft.SharePoint.Utilities.WebTemplateExtensions
-        */
-    export const WebTemplateExtensions: IWebTemplateExtensions;
-    
-    /**
-        * Web Template Extensions
-        * @category WebTemplateExtensions
-        */
-    export interface IWebTemplateExtensions {
-            /**
-                * Creates an instance of the utility library.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.IWebTemplateExtensions;
-    }
-}
-
-declare module 'gd-sprest/lib/wfInstanceService' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as SP from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.WorkflowServices.WorkflowInstanceService.Current
-        */
-    export const WorkflowInstanceService: IWorkflowInstanceService;
-    
-    /**
-        * Workflow Instance Service
-        */
-    export interface IWorkflowInstanceService {
-            /**
-                * Creates an instance of the web library.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.IWorkflowInstanceService;
-    }
-}
-
-declare module 'gd-sprest/lib/wfSubscriptionService' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
-    import * as SP from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
-    import { ITargetInfoProps } from "gd-sprest/utils";
-    
-    /**
-        * #### REST API
-        * _api/SP.WorkflowServices.WorkflowSubscriptionService.Current
-        */
-    export const WorkflowSubscriptionService: IWorkflowSubscriptionService;
-    
-    /**
-        * Workflow Subscription Service
-        */
-    export interface IWorkflowSubscriptionService {
-            /**
-                * Creates an instance of the web library.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            (url?: string, targetInfo?: ITargetInfoProps): SP.IWorkflowSubscriptionService;
-    }
 }
 
 declare module 'gd-sprest/helper/executor' {
@@ -4484,6 +2804,1692 @@ declare module 'gd-sprest/helper/methods' {
     export * from "gd-sprest/helper/methods/stringify";
 }
 
+declare module 'gd-sprest/lib/apps' {
+    import { IAppCollection } from "gd-sprest-def/lib/Microsoft/AppServices/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/Microsoft.AppServices.AppCollection
+        */
+    export const Apps: IApps;
+    
+    /**
+        * Apps
+        * @category Apps
+        */
+    export interface IApps {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IAppCollection;
+    }
+}
+
+declare module 'gd-sprest/lib/contextInfo' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
+    
+    /**
+        * A reference to the _spPageContextInfo global variable.
+        * 
+        * ### How to get the context information of another web
+        * This is required for making POST requests on webs in different site collections.
+        * ```ts
+        * // Get the context information of the root web
+        * ContextInfo.getWeb("/").execute((contextInfo) => {
+        *     // Get the root web
+        *     Web("/", { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
+        *         // Get the 'Site Assets' library
+        *         .Lists("Site Assets")
+        *         // Query for the items
+        *         .getItemsByQuery("<Query><OrderBy><FieldRef Name='ID' /></OrderBy></Query>")
+        *         // Execute the request
+        *         .execute(items => {
+        *             // Parse the items
+        *             for(let i=0; i<items.results.length; i++) {
+        *                 let item = items.results[i];
+        *             }
+        *         });
+        * });
+        */
+    export const ContextInfo: IContextInformation;
+    
+    /**
+        * Context Information
+        * @category Context Information
+        */
+    export interface IContextInformation {
+    
+            /** AAD Instance Url */
+            aadInstanceUrl: string;
+    
+            /** AAD Tenant Id */
+            aadTenantId: string;
+    
+            /** Alerts Enabled */
+            alertsEnabled: boolean;
+    
+            /** Allow Silverlight Prompt */
+            allowSilverlightPrompt: boolean;
+    
+            /** Block Downloads Experience Enabled */
+            blockDownloadsExperienceEnabled: boolean;
+    
+            /** Can User Create Microsoft Form */
+            canUserCreateMicrosoftForm: boolean;
+    
+            /** Can User Create Visio Drawing */
+            canUserCreateVisioDrawing: boolean;
+    
+            /** CDN Prefix */
+            cdnPrefix: string;
+    
+            /** Client Server Time Delta */
+            clientServerTimeDelta: number;
+    
+            /** Correlation ID */
+            CorrelationId: string;
+    
+            /** Cross Domain Photos Enabled */
+            crossDomainPhotosEnabled: boolean;
+    
+            /** Current Culture LCID */
+            currentCultureLCID: string;
+    
+            /** Current Culture Name */
+            currentCultureName: string;
+    
+            /** Current Language */
+            currentLanguage: string;
+    
+            /** Current UI Culture Name */
+            currentUICultureName: string;
+    
+            /** Department ID */
+            departmentId: string;
+    
+            /** Design Package ID */
+            DesignPackageId: string;
+    
+            /** Disable App Views */
+            disableAppViews: boolean;
+    
+            /** Disable Flows */
+            disableFlows: boolean;
+    
+            /** Document */
+            document: HTMLDocument;
+    
+            /** Environment */
+            env: string;
+    
+            /** True if the _spPageContextInfo object exists, flase otherwise. */
+            existsFl: boolean;
+    
+            /** Farm Label */
+            farmLabel: string;
+    
+            /** FID */
+            fid: string;
+    
+            /** Form Digest Timeout Seconds */
+            formDigestTimeoutSeconds: number;
+    
+            /** Form Digest Value */
+            formDigestValue: string;
+    
+            /** Group Color */
+            groupColor: string;
+    
+            /** Group Has Homepage */
+            groupHasHomepage: boolean;
+    
+            /** Group ID */
+            groupId: string;
+    
+            /** Group Type */
+            groupType: string;
+    
+            /** Guests Enabled */
+            guestsEnabled: boolean;
+    
+            /** Has Manage Web Permissions */
+            hasManageWebPermissions: boolean;
+    
+            /** Has Pending Web Template Extension */
+            hasPendingWebTemplateExtension: boolean;
+    
+            /** Hide Sync Button On ODB */
+            hideSyncButtonOnODB: boolean;
+    
+            /** Hub Site ID */
+            hubSiteId: boolean;
+    
+            /** IDLE Session Sign Out Enabled */
+            idleSessionSignOutEnabled: boolean;
+    
+            /** Is Anonymous Guest User */
+            isAnonymousGuestUser: boolean;
+    
+            /** Is App Web */
+            isAppWeb: boolean;
+    
+            /** Is Archived */
+            isArchived: boolean;
+    
+            /** Is Email Authentication Guest User */
+            isEmailAuthenticationGuestUser: boolean;
+    
+            /** Is External Guest User */
+            isExternalGuestUser: boolean;
+    
+            /** Is Group Related Site */
+            isGroupRelatedSite: boolean;
+    
+            /** Is Groupify Disabled */
+            isGroupifyDisabled: boolean;
+    
+            /** Is Groupify Menu Button Feature Off */
+            isGroupifyMenuButtonFeatureOff: boolean;
+    
+            /** Is Hub Site */
+            isHubSite: boolean;
+    
+            /** Is Location Service Available */
+            isLocationserviceAvailable: boolean;
+    
+            /** Is Multi Geo ODB Mode */
+            isMultiGeoODBMode: boolean;
+    
+            /** Is Multi Geo Tenant */
+            isMultiGeoTenant: boolean;
+    
+            /** Is No-Script Enabled */
+            isNoScriptEnabled: boolean;
+    
+            /** Is Site Administrator */
+            isSiteAdmin: boolean;
+    
+            /** Is Site Owner */
+            isSiteOwner: boolean;
+    
+            /** Is SharePoint Online */
+            isSPO: boolean;
+    
+            /** Is Shared By Link Enabled */
+            isShareByLinkEnabled: boolean;
+    
+            /** Is Teams Channel Site */
+            isTeamsChannelSite: boolean;
+    
+            /** Is Teams Connected Site */
+            isTeamsConnectedSite: boolean;
+    
+            /** Is Tenant Development Site */
+            isTenantDevSite: boolean;
+    
+            /** Is Unauthorized Tenant */
+            isUnauthorizedTenant: boolean;
+    
+            /** Is Web Welcome Page */
+            isWebWelcomePage: boolean;
+    
+            /** Layouts Url */
+            layoutsUrl: string;
+    
+            /** List Base Template */
+            listBaseTemplate: number;
+    
+            /** List Base Type */
+            listBaseType: number;
+    
+            /** List Id */
+            listId: string;
+    
+            /** List Item Count */
+            listItemCount: number;
+    
+            /** List Permissions Mask */
+            listPermsMask: BasePermissions;
+    
+            /** List Title */
+            listTitle: string;
+    
+            /** List Url */
+            listUrl: string;
+    
+            /** Maximum File Size */
+            maximumFileSize: number;
+    
+            /** Modern Theming Enabled */
+            modernThemingEnabled: boolean;
+    
+            /** MS Graph Endpoint Url */
+            msGraphEndpointUrl: string;
+    
+            /** MS Mru Endpoint Url */
+            msMruEndpointUrl: string;
+    
+            /** Multi Geo Info */
+            multiGeoInfo: Array<any>;
+    
+            /** Navigation Information */
+            navigationInfo: any;
+    
+            /** NID */
+            nid: number;
+    
+            /** Open in Client */
+            openInClient: boolean;
+    
+            /** Page Item Id */
+            pageItemId: number;
+    
+            /** Page List Id */
+            pageListId: string;
+    
+            /** Page Permissions Mask */
+            pagePermsMask: BasePermissions;
+    
+            /** Page Personalization Scope */
+            pagePersonalizationScope: number;
+    
+            /** Portal URL */
+            portalUrl: string;
+    
+            /** Prefer User Time Zone */
+            preferUserTimeZone: boolean;
+    
+            /** Preview Features Enabled */
+            PreviewFeaturesEnabled: boolean;
+    
+            /** Profile Url */
+            profileUrl: string;
+    
+            /** Publishing Feature On */
+            PublishingFeatureOn: boolean;
+    
+            /** Recycle Bin Item Count */
+            RecycleBinItemCount: number;
+    
+            /** Server Redirected Url */
+            serverRedirectedUrl: string;
+    
+            /** Server Request Path */
+            serverRequestPath: string;
+    
+            /** Server Time */
+            serverTime: string;
+    
+            /** Show NGSC Dialog for Sync on ODB */
+            showNGSCDialogForSyncOnODB: boolean;
+    
+            /** Show NGSC Dialog for Sync on TS */
+            showNGSCDialogForSyncOnTS: boolean;
+    
+            /** Site Absolute Url */
+            siteAbsoluteUrl: string;
+    
+            /** Site Classification */
+            siteClassification: string;
+    
+            /** Site Client Tag */
+            siteClientTag: string;
+    
+            /** Site Color */
+            siteColor: string;
+    
+            /** Site ID */
+            siteId: string;
+    
+            /** Site Pages Enabled */
+            sitePagesEnabled: boolean;
+    
+            /** Site Pages Feature Version */
+            sitePagesFeatureVersion: number;
+    
+            /** Site Server Relative Url */
+            siteServerRelativeUrl: string;
+    
+            /** Site Subscription ID */
+            siteSubscriptionId: string;
+    
+            /** Social Bar Enabled */
+            socialBarEnabled: boolean;
+    
+            /** Support Percent Store Page */
+            supportPercentStorePage: boolean;
+    
+            /** Support Pound Store Path */
+            supportPoundStorePath: boolean;
+    
+            /** System User Key */
+            systemUserKey: string;
+    
+            /** Teams Channel Type */
+            teamsChannelType: number;
+    
+            /** Tenant App Version */
+            tenantAppVersion: string;
+    
+            /** Tenant Display Name */
+            tenantDisplayName: string;
+    
+            /** The current theme State */
+            theme: IThemeState;
+    
+            /** Theme Cache Token */
+            themeCacheToken: string;
+    
+            /** Theme CSS Folder Url */
+            themedCssFolderUrl: string;
+    
+            /** Theme Image File Names */
+            themedImageFileNames: any;
+    
+            /** Update From Digest Page Loaded */
+            updateFromDigestPageLoaded: Date;
+    
+            /** User Display Name */
+            userDisplayName: string;
+    
+            /** User EMail */
+            userEmail: string;
+    
+            /** User First Day of Week */
+            userFirstDayOfWeek: any;
+    
+            /** User Id */
+            userId: number;
+    
+            /** User Login Name */
+            userLoginName: string;
+    
+            /** User Photo Cdn Base Url */
+            userPhotoCdnBaseUrl: string;
+    
+            /** User Principal Name */
+            userPrincipalName: string;
+    
+            /** User Time 24 */
+            userTime24: boolean;
+    
+            /** User Time Zone Data */
+            userTimeZoneData: any;
+    
+            /** User Voice for Feedback Enabled */
+            userVoiceForFeedbackEnabled: boolean;
+    
+            /** View ID */
+            viewId: string;
+    
+            /** View Only Experience Enabled */
+            viewOnlyExperienceEnabled: boolean;
+    
+            /** Web Absolute Url */
+            webAbsoluteUrl: string;
+    
+            /** Web Description */
+            webDescription: string;
+    
+            /** Web Domain */
+            webDomain: string;
+    
+            /** Web First Day of Week */
+            webFirstDayOfWeek: number;
+    
+            /** Web ID */
+            webId: string;
+    
+            /** Web Language */
+            webLanguage: number;
+    
+            /** Web Language Name */
+            webLanguageName: string;
+    
+            /** Web Logo Url */
+            webLogoUrl: string;
+    
+            /** Web Permissions Mask */
+            webPermMasks: BasePermissions;
+    
+            /** Web Server Relative Url */
+            webServerRelativeUrl: string;
+    
+            /** Web Template */
+            webTemplate: string;
+    
+            /** Web Template Configuration */
+            webTemplateConfiguration: string;
+    
+            /** Web Time 24 */
+            webTime24: boolean;
+    
+            /** Web Time Zone Data */
+            webTimeZoneData: object;
+    
+            /** Web Title */
+            webTitle: string;
+    
+            /** Web UI Version */
+            webUIVersion: number;
+    
+            /** Window */
+            window: {
+                    $REST: any;
+                    addEventListener: any;
+                    clearInterval: any;
+                    document: HTMLDocument;
+                    setInterval: any;
+                    SP: any;
+                    SPClientTemplates: any;
+            };
+    
+    
+            /**
+                * Runs a loop to ensure the digest value doesn't expire.
+                */
+            enableRefreshToken();
+    
+            /**
+                * Generates a guid.
+                * @returns A GUID as a string value.
+                */
+            generateGUID: () => string;
+    
+            /**
+                * Gets the context information of another web.
+                * This is required for making POST requests on other site collections.
+                * @param url The relative url of the web.
+                * @return The context information of the web.
+                */
+            getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
+    
+            /**
+                * Value in minutes, to refresh the token prior to it expiring
+                */
+            refreshToken: number;
+    
+            /**
+                * Sets the page context information for modern pages.
+                * @param spfxPageContext - The page context information variable from a SPFx project.
+                */
+            setPageContext(spfxPageContext: any);
+    }
+    
+    export interface IThemeState {
+            accent: string;
+            accentButtonBackground: string;
+            accentButtonText: string;
+            actionLink: string;
+            actionLinkHovered: string;
+            black: string;
+            blackTranslucent40: string;
+            blockingBackground: string;
+            blockingIcon: string;
+            blue: string;
+            blueDark: string;
+            blueLight: string;
+            blueMid: string;
+            bodyBackground: string;
+            bodyBackgroundChecked: string;
+            bodyBackgroundHovered: string;
+            bodyDivider: string;
+            bodyFrameBackground: string;
+            bodyFrameDivider: string;
+            bodyStandoutBackground: string;
+            bodySubtext: string;
+            bodyText: string;
+            bodyTextChecked: string;
+            buttonBackground: string;
+            buttonBackgroundChecked: string;
+            buttonBackgroundCheckedHovered: string;
+            buttonBackgroundDisabled: string;
+            buttonBackgroundHovered: string;
+            buttonBackgroundPressed: string;
+            buttonBorder: string;
+            buttonBorderDisabled: string;
+            buttonText: string;
+            buttonTextChecked: string;
+            buttonTextCheckedHovered: string;
+            buttonTextDisabled: string;
+            buttonTextHovered: string;
+            buttonTextPressed: string;
+            cardShadow: string;
+            cardShadowHovered: string;
+            cardStandoutBackground: string;
+            defaultStateBackground: string;
+            disabledBackground: string;
+            disabledBodySubtext: string;
+            disabledBodyText: string;
+            disabledBorder: string;
+            disabledSubtext: string;
+            disabledText: string;
+            elevation4: string;
+            elevation8: string;
+            elevation16: string;
+            elevation64: string;
+            errorBackground: string;
+            errorIcon: string;
+            errorText: string;
+            focusBorder: string;
+            green: string;
+            greenDark: string;
+            greenLight: string;
+            infoBackground: string;
+            infoIcon: string;
+            inputBackground: string;
+            inputBackgroundChecked: string;
+            inputBackgroundCheckedHovered: string;
+            inputBorder: string;
+            inputBorderHovered: string;
+            inputFocusBorderAlt: string;
+            inputForegroundChecked: string;
+            inputIcon: string;
+            inputIconDisabled: string;
+            inputIconHovered: string;
+            inputPlaceholderBackgroundChecked: string;
+            inputPlaceholderText: string;
+            inputText: string;
+            inputTextHovered: string;
+            largeFontFamily: string;
+            largeFontSize: string;
+            largeFontWeight: string;
+            largeMozOsxFontSmoothing: string;
+            largeWebkitFontSmoothing: string;
+            link: string;
+            linkHovered: string;
+            listBackground: string;
+            listHeaderBackgroundHovered: string;
+            listHeaderBackgroundPressed: string;
+            listItemBackgroundChecked: string;
+            listItemBackgroundCheckedHovered: string;
+            listItemBackgroundHovered: string;
+            listText: string;
+            listTextColor: string;
+            magenta: string;
+            magentaDark: string;
+            magentaLight: string;
+            mediumFontFamily: string;
+            mediumFontSize: string;
+            mediumFontWeight: string;
+            mediumMozOsxFontSmoothing: string;
+            mediumPlusFontFamily: string;
+            mediumPlusFontSize: string;
+            mediumPlusFontWeight: string;
+            mediumPlusMozOsxFontSmoothing: string;
+            mediumPlusWebkitFontSmoothing: string;
+            mediumWebkitFontSmoothing: string;
+            megaFontFamily: string;
+            megaFontSize: string;
+            megaFontWeight: string;
+            megaMozOsxFontSmoothing: string;
+            megaWebkitFontSmoothing: string;
+            menuBackground: string;
+            menuDivider: string;
+            menuHeader: string;
+            menuIcon: string;
+            menuItemBackgroundChecked: string;
+            menuItemBackgroundHovered: string;
+            menuItemBackgroundPressed: string;
+            menuItemText: string;
+            menuItemTextHovered: string;
+            messageLink: string;
+            messageLinkHovered: string;
+            messageText: string;
+            neutralDark: string;
+            neutralLight: string;
+            neutralLighter: string;
+            neutralLighterAlt: string;
+            neutralPrimary: string;
+            neutralPrimaryAlt: string;
+            neutralQuaternary: string;
+            neutralQuaternaryAlt: string;
+            neutralSecondary: string;
+            neutralSecondaryAlt: string;
+            neutralTertiary: string;
+            neutralTertiaryAlt: string;
+            orange: string;
+            orangeLight: string;
+            orangeLighter: string;
+            primaryButtonBackground: string;
+            primaryButtonBackgroundDisabled: string;
+            primaryButtonBackgroundHovered: string;
+            primaryButtonBackgroundPressed: string;
+            primaryButtonBorder: string;
+            primaryButtonText: string;
+            primaryButtonTextDisabled: string;
+            primaryButtonTextHovered: string;
+            primaryButtonTextPressed: string;
+            purple: string;
+            purpleDark: string;
+            purpleLight: string;
+            red: string;
+            redDark: string;
+            roundedCorner2: string;
+            roundedCorner4: string;
+            roundedCorner6: string;
+            severeWarningBackground: string;
+            severeWarningIcon: string;
+            smallFontFamily: string;
+            smallFontSize: string;
+            smallFontWeight: string;
+            smallInputBorder: string;
+            smallMozOsxFontSmoothing: string;
+            smallPlusFontFamily: string;
+            smallPlusFontSize: string;
+            smallPlusFontWeight: string;
+            smallPlusMozOsxFontSmoothing: string;
+            smallPlusWebkitFontSmoothing: string;
+            smallWebkitFontSmoothing: string;
+            successBackground: string;
+            successIcon: string;
+            successText: string;
+            superLargeFontFamily: string;
+            superLargeFontSize: string;
+            superLargeFontWeight: string;
+            superLargeMozOsxFontSmoothing: string;
+            superLargeWebkitFontSmoothing: string;
+            teal: string;
+            tealDark: string;
+            tealLight: string;
+            themeAccentTranslucent10: string;
+            themeDark: string;
+            themeDarkAlt: string;
+            themeDarker: string;
+            themeLight: string;
+            themeLighter: string;
+            themeLighterAlt: string;
+            themePrimary: string;
+            themeSecondary: string;
+            themeTertiary: string;
+            tinyFontFamily: string;
+            tinyFontSize: string;
+            tinyFontWeight: string;
+            tinyMozOsxFontSmoothing: string;
+            tinyWebkitFontSmoothing: string;
+            variantBorder: string;
+            variantBorderHovered: string;
+            warningBackground: string;
+            warningHighlight: string;
+            warningIcon: string;
+            warningText: string;
+            white: string;
+            whiteTranslucent40: string;
+            xLargeFontFamily: string;
+            xLargeFontSize: string;
+            xLargeFontWeight: string;
+            xLargeMozOsxFontSmoothing: string;
+            xLargePlusFontFamily: string;
+            xLargePlusFontSize: string;
+            xLargePlusFontWeight: string;
+            xLargePlusMozOsxFontSmoothing: string;
+            xLargePlusWebkitFontSmoothing: string;
+            xLargeWebkitFontSmoothing: string;
+            xSmallFontFamily: string;
+            xSmallFontSize: string;
+            xSmallFontWeight: string;
+            xSmallMozOsxFontSmoothing: string;
+            xSmallWebkitFontSmoothing: string;
+            xxLargeFontFamily: string;
+            xxLargeFontSize: string;
+            xxLargeFontWeight: string;
+            xxLargeMozOsxFontSmoothing: string;
+            xxLargePlusFontFamily: string;
+            xxLargePlusFontSize: string;
+            xxLargePlusFontWeight: string;
+            xxLargePlusMozOsxFontSmoothing: string;
+            xxLargePlusWebkitFontSmoothing: string;
+            xxLargeWebkitFontSmoothing: string;
+            yellow: string;
+            yellowDark: string;
+            yellowLight: string;
+    }
+}
+
+declare module 'gd-sprest/lib/directorySession' {
+    import { IDirectorySession as IDirectorySessionCore } from "gd-sprest-def/lib/SP/Directory/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.Directory.DirectorySession
+        */
+    export const DirectorySession: IDirectorySession;
+    
+    /**
+        * Directory Session
+        * @category Directory Session
+        */
+    export interface IDirectorySession {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IDirectorySessionCore;
+    }
+}
+
+declare module 'gd-sprest/lib/graph' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { Graph as GraphCore } from "gd-sprest-def/lib/microsoft";
+    import { IGraph as IGraphCore, IGraphToken } from "gd-sprest/intellisense/graph";
+    import { ITargetInfo } from "gd-sprest/utils";
+    
+    /**
+        * Graph
+        */
+    export const Graph: IGraph;
+    
+    /**
+        * Graph Properties
+        */
+    export interface IGraphProperties {
+            /** The access token. Defaults to the Graph.Token value if not set. */
+            accessToken?: string;
+    
+            /** The cloud environment. Defaults to the Graph.Cloud or commercial environment if not set. */
+            cloud?: string;
+    
+            /** The data to be sent in the body of the request. */
+            data?: string;
+    
+            /** The request type GET or POST. */
+            requestType?: string;
+    
+            /** The url of the graph api request. */
+            url: string;
+    
+            /** The version of the graph api to use. */
+            version?: string;
+    }
+    
+    /**
+        * Graph EndPoints
+        */
+    export interface IGraphCustom extends IGraphCore {
+            me(): IBaseExecution<GraphCore.user>;
+            group(id: string): IBaseExecution<GraphCore.group>;
+            groups(): IBaseExecution<GraphCore.groupCollections>;
+            list(siteId: string, id: string): IBaseExecution<GraphCore.list>;
+            lists(siteId: string): IBaseExecution<GraphCore.listCollections>;
+            site(id: string): IBaseExecution<GraphCore.site>;
+            sites(): IBaseExecution<GraphCore.siteCollections>;
+            user(id: string): IBaseExecution<GraphCore.user>;
+            users(): IBaseExecution<GraphCore.userCollections>;
+    }
+    
+    /**
+        * Graph
+        */
+    export interface IGraph {
+            /**
+                * Creates an instance of the graph library.
+                * @param props - The graph request information.
+                */
+            (props?: IGraphProperties): IGraphCustom;
+    
+            /** The default cloud environment to use for the requests. */
+            Cloud: string;
+    
+            /** The default token to use for the requests. */
+            Token: string;
+    
+            /** The default token's expiration. */
+            TokenExpiration: number;
+    
+            /** The default version to use for the requests. */
+            Version: string;
+    
+            /**
+                * Method to get the access token from a classic page.
+                * @param resource - The graph api endpoint.
+                * @param tokenType - The token type.
+                */
+            getAccessToken(resource?: string, tokenType?: string): IBaseExecution<IGraphToken>;
+    }
+}
+
+declare module 'gd-sprest/lib/groupService' {
+    import { IGroupService as IGroupServiceCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/Microsoft.SharePoint.Portal.GroupService
+        */
+    export const GroupService: IGroupService;
+    
+    /**
+        * Group Service
+        * @category Group Site
+        */
+    export interface IGroupService {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IGroupServiceCore;
+    }
+}
+
+declare module 'gd-sprest/lib/groupSiteManager' {
+    import { IGroupSiteManager as IGroupSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/Microsoft.SharePoint.Portal.GroupSiteManager
+        */
+    export const GroupSiteManager: IGroupSiteManager;
+    
+    /**
+        * Group Site Manager
+        * @category Group Site
+        */
+    export interface IGroupSiteManager {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IGroupSiteManagerCore;
+    }
+}
+
+declare module 'gd-sprest/lib/hubSites' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { IHubSiteCollection } from "gd-sprest-def/lib/SP/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.HubSite.Collection
+        */
+    export const HubSites: IHubSites;
+    
+    /**
+        * Hub Sites
+        * @category Hub Site
+        */
+    export interface IHubSites {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IBaseExecution<IHubSiteCollection>;
+    
+            /**
+                * A static method to see if the current user can create a hub site.
+                */
+            canCreate(): IBaseExecution<{ CanCreate: boolean }>;
+    }
+}
+
+declare module 'gd-sprest/lib/hubSitesUtility' {
+    import { ISPHubSitesUtility as ISPHubSitesUtilityCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/HubSitesUtility
+        */
+    export const HubSitesUtility: IHubSitesUtility;
+    
+    /**
+        * Hub Sites Utility
+        * @category Hub Site
+        */
+    export interface IHubSitesUtility {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): ISPHubSitesUtilityCore;
+    }
+}
+
+declare module 'gd-sprest/lib/list' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { RenderListDataParameters } from "gd-sprest-def/lib/SP/complextypes";
+    import { IList as IListCore, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/web/lists/getByTitle('listName')
+        *
+        * #### Get list from the current web
+        *
+        * ```typescript
+        * List("Site Assets").execute(list => {
+        *   let title = list.Title;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * List("Site Assets").query({
+        *  Expand: ["ContentTypes", "Fields", "Views"]
+        * }).execute(list => {
+        *   let contentTypes = list.ContentTypes.results;
+        *   let fields = list.Fields.results;
+        *   let views = list.Views.results;
+        * });
+        * ```
+        */
+    export const List: IList;
+    
+    /**
+        * List
+        * @category List
+        */
+    export interface IList {
+            /**
+                * Creates an instance of the library.
+                * @category List
+                * @param listName - The name of the list.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (listName: string, targetInfo?: ITargetInfoProps): IListCore;
+    
+            /**
+                * @category List
+                * A static method to get the list by the entity name.
+                * @param props - The list entity request properties.
+                */
+            getByEntityName(props: IListEntityProps): IListCore;
+    
+            /**
+                * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
+                * @category List
+                * @param listFullUrl - The absolute url of the list.
+                * @param parameters - The optional list data parameters.
+                */
+            getDataAsStream(listFullUrl: string, parameters?: RenderListDataParameters): IBaseExecution<IListDataStream>;
+    
+            /**
+                * Runs a flow against a list item.
+                */
+            runFlow(props: IRunFlow): PromiseLike<IRunFlowResult>;
+    }
+    
+    /**
+        * List Data Stream
+        * @category List
+        */
+    export interface IListDataStream<RowProps = ListItem> {
+            FilterFields?: string;
+            FilterLink: string;
+            FirstRow: number;
+            FolderPermissions: string;
+            ForceNoHierarchy: string;
+            HierarchyHasIndention: string;
+            LastRow: number;
+            Row: Array<RowProps>;
+            RowLimit: number;
+    }
+    
+    /**
+        * List Entity Properties
+        * @category List
+        */
+    export interface IListEntityProps {
+            /** The callback method. */
+            callback?: (list: IListCore) => void;
+    
+            /** The list entity name. */
+            name: string;
+    
+            /** The target information to pass to the web request. */
+            targetInfo?: ITargetInfoProps;
+    
+            /** The relative url of the web containing the list. */
+            url?: string;
+    }
+    
+    /**
+        * Properties for running a flow
+        */
+    export interface IRunFlow {
+            cloudEnv?: string;
+            data: object;
+            id?: string;
+            list: string;
+            token?: string;
+            webUrl?: string;
+    }
+    
+    /**
+        * Flow execution result
+        */
+    export interface IRunFlowResult {
+            errorDetails?: object;
+            errorMessage?: string;
+            executed: boolean;
+            flowToken?: string;
+    }
+}
+
+declare module 'gd-sprest/lib/navigation' {
+    import { INavigationServiceRest } from "gd-sprest-def/lib/Microsoft/SharePoint/Navigation/REST/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/navigation
+        */
+    export const Navigation: INavigation;
+    
+    /**
+        * Navigation
+        * @category Navigation
+        */
+    export interface INavigation {
+            /**
+                * Creates an instance of the navigation library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): INavigationServiceRest;
+    }
+}
+
+declare module 'gd-sprest/lib/peopleManager' {
+    import { IPeopleManager as IPeopleManagerCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.UserProfiles.PeopleManager
+        */
+    export const PeopleManager: IPeopleManager;
+    
+    /**
+        * People Manager
+        * @category People Manager
+        */
+    export interface IPeopleManager {
+            /**
+                * Creates an instance of the people manager library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IPeopleManagerCore;
+    }
+}
+
+declare module 'gd-sprest/lib/peoplePicker' {
+    import { IPeoplePicker as IPeoplePickerCore } from "gd-sprest/intellisense/peoplePicker";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface
+        */
+    export const PeoplePicker: IPeoplePicker;
+    
+    /**
+        * People Picker
+        * @category People Picker
+        */
+    export interface IPeoplePicker {
+            /**
+                * Creates an instance of the people picker library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IPeoplePickerCore;
+    }
+}
+
+declare module 'gd-sprest/lib/profileLoader' {
+    import { IProfileLoader as IProfileLoaderCore } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.UserProfiles.ProfileLoader.getProfileLoader
+        */
+    export const ProfileLoader: IProfileLoader;
+    
+    /**
+        * Profile Loader
+        * @category Profile Loader
+        */
+    export interface IProfileLoader {
+            /**
+                * Creates an instance of the profile loader library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IProfileLoaderCore;
+    }
+}
+
+declare module 'gd-sprest/lib/search' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { SearchRequest, SearchResult } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST";
+    import { ISearchService } from "gd-sprest-def/lib/Microsoft/Office/Server/Search/REST/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/search
+        */
+    export const Search: ISearch;
+    
+    /**
+        * Search Post Query
+        */
+    export interface ISearchPostQuery {
+            getAllItems?: boolean;
+            onQueryCompleted?: (results: SearchResult) => void;
+            query: SearchRequest
+            targetInfo?: ITargetInfoProps;
+            url?: string;
+            useBatch?: boolean;
+    }
+    
+    /**
+        * Search
+        * @category Search
+        */
+    export interface ISearch {
+            /**
+                * Creates an instance of the search library.
+                * @param url - The optional url to execute the search against.
+                * @param targetInfo - The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): ISearchService;
+    
+            /**
+                * Method to get the app context information.
+                * @param siteUrl - The absolute url of the site.
+                */
+            getAppContext(siteUrl: string): IBaseExecution;
+    
+            /**
+                * Method to get the query from the search parameters.
+                * @param parameters - The search parameters.
+                */
+            getQuery(parameters: SearchRequest): Array<string>;
+    
+            /**
+                * Method to get the url of a site, by its id.
+                * @param id - The site id.
+                */
+            getUrlById(id: string): IBaseExecution<{ GetUrlById: string }>;
+    
+            /**
+                * Method to execute a post query
+                * @param 
+                */
+            postQuery<T = any>(props: ISearchPostQuery): PromiseLike<SearchResult & { results: T[] }>;
+    }
+}
+
+declare module 'gd-sprest/lib/site' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { ISite as ISiteCore } from "gd-sprest-def/lib/SP/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/site
+        *
+        * #### Get the current site collection
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().execute(site => {
+        *   let hubSiteId = site.HubSiteId;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a site collection to include various collections
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().query({
+        *  Expand: ["UserCustomActions"]
+        * }).execute(list => {
+        *   let actions = site.UserCustomActions.results;
+        * });
+        * ```
+        */
+    export const Site: ISite;
+    
+    /**
+        * Site
+        * @category Site
+        */
+    export interface ISite {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): ISiteCore;
+    
+            /**
+                * Method to check if a site collection exists.
+                * @param url - The absolute url of the site collection.
+                */
+            exists(url: string): IBaseExecution<ISiteExists>;
+    
+            /**
+                * Method to get the app context information.
+                * @param siteUrl - The absolute url of the site.
+                */
+            getAppContext(siteUrl: string): IBaseExecution;
+    
+            /**
+                * Method to get the url of a site, by its id.
+                * @param id - The site id.
+                */
+            getUrlById(id: string): IBaseExecution<ISiteUrl>;
+    }
+    
+    /**
+        * Site Exists
+        */
+    export interface ISiteExists {
+            /** True if the site collection exists, false otherwise. */
+            Exists: boolean;
+    }
+    
+    /**
+        * Site Url
+        */
+    export interface ISiteUrl {
+            /** The site url. */
+            GetUrlById: string;
+    }
+}
+
+declare module 'gd-sprest/lib/siteIconManager' {
+    import { SiteIconManager as SiteIconManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/siteIconManager
+        *
+        */
+    export const SiteIconManager: ISiteIconManager;
+    
+    /**
+        * Site Icon Manager
+        * @category Site Icon Manager
+        */
+    export interface ISiteIconManager {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SiteIconManagerCore;
+    }
+}
+
+declare module 'gd-sprest/lib/siteManager' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { ISPSiteManager as ISPSiteManagerCore } from "gd-sprest-def/lib/Microsoft/SharePoint/Portal/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/siteManager
+        *
+        * #### Get list from the current site collection
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().execute(site => {
+        *   let hubSiteId = site.HubSiteId;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * Site().query({
+        *  Expand: ["UserCustomActions"]
+        * }).execute(list => {
+        *   let actions = site.UserCustomActions.results;
+        * });
+        * ```
+        */
+    export const SiteManager: ISiteManager;
+    
+    /**
+        * Site Manager
+        * @category Site Manager
+        */
+    export interface ISiteManager {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): ISPSiteManagerCore;
+    }
+}
+
+declare module 'gd-sprest/lib/sitePages' {
+    import { File, ListItem } from "gd-sprest-def/lib/SP/entitytypes";
+    import { SitePage, ISitePageService } from "gd-sprest-def/lib/SP/Publishing/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/sitePages
+        *
+        * #### Get site pages
+        *
+        * ```typescript
+        * import { Site } from "gd-sprest";
+        * 
+        * SitePages().execute(sitePages => {
+        *   // TODO
+        * });
+        * ```
+        */
+    export const SitePages: ISitePages;
+    
+    /**
+        * Site Pages
+        * @category Site Pages
+        */
+    export interface ISitePages {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): ISitePageService;
+    
+            /**
+                * Converts the modern page layout type.
+                * @param pageUrl - The url of the page.
+                * @param layout - The page layout type.
+                * @param webUrl - The url containing the page, if it's not within the same web.
+                */
+            convertPage(pageUrl: string, layout: string, webUrl?: string): PromiseLike<void>;
+    
+            /**
+                * Creates a modern page.
+                * @param fileName - The name of the file to create, including the .aspx extension.
+                * @param title - The title of the page.
+                * @param template - The type of page to create.
+                * @param url - The url of the web to create the page in.
+                * @param targetInfo - The target information properties.
+                */
+            createPage(fileName: string, title: string, template: string, url?: string, targetInfo?: ITargetInfoProps): PromiseLike<{
+                    file: File;
+                    item: ListItem;
+                    page: SitePage;
+            }>;
+    }
+}
+
+declare module 'gd-sprest/lib/socialFeed' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { SocialPostCreationData } from "gd-sprest-def/lib/SP/Social/complextypes";
+    import { ISocialRestThread, SocialRestThread } from "gd-sprest-def/lib/SP/Social/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/Social.Feed
+        */
+    export const SocialFeed: ISocialFeed;
+    
+    /**
+        * Social Feed
+        * @cateogry Social Feed
+        */
+    export interface ISocialFeed {
+            /**
+                * Creates an instance of the social feed library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): ISocialRestThread;
+    
+            /**
+                * Posts to a feed.
+                * @param accountName - The account name to post to.
+                * @param postInfo - The post information.
+                */
+            postToFeed(accountName: string, postInfo: SocialPostCreationData): IBaseExecution<SocialRestThread>;
+    
+            /**
+                * Post to the current user's feed.
+                * @param postInfo - The post information.
+                */
+            postToMyFeed(postInfo: SocialPostCreationData): IBaseExecution<SocialRestThread>;
+    }
+}
+
+declare module 'gd-sprest/lib/themeManager' {
+    import { IThemeManager as IThemeManagerCore } from "gd-sprest-def/lib/SP/Utilities/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/ThemeManager
+        */
+    export const ThemeManager: IThemeManager;
+    
+    /**
+        * Theme Manager
+        * @category Theme Manager
+        */
+    export interface IThemeManager {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IThemeManagerCore;
+    }
+}
+
+declare module 'gd-sprest/lib/userProfile' {
+    import { IProfileLoader } from "gd-sprest-def/lib/SP/UserProfiles/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.UserProfiles.ProfileLoader.getProfileLoader/getUserProfile
+        */
+    export const UserProfile: IUserProfile;
+    
+    /**
+        * User Profile
+        * @category User Profile
+        */
+    export interface IUserProfile {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfoProps): IProfileLoader;
+    }
+}
+
+declare module 'gd-sprest/lib/utility' {
+    import { IUtility as IUtilityCore } from "gd-sprest/intellisense/utility";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.Utilities.Utility
+        */
+    export const Utility: IUtility;
+    
+    /**
+        * Utility
+        * @category Utility
+        */
+    export interface IUtility {
+            /**
+                * Creates an instance of the utility library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): IUtilityCore;
+    }
+}
+
+declare module 'gd-sprest/lib/web' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import * as SP from "gd-sprest-def/lib/SP/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/web
+        *
+        * #### Get current web
+        *
+        * ```typescript
+        * import { Web } from "gd-sprest";
+        * 
+        * Web().execute(web => {
+        *   let title = web.Title;
+        * });
+        * ```
+        * 
+        *
+        * #### Query a list to include various collections
+        *
+        * ```typescript
+        * import { Web } from "gd-sprest";
+        * 
+        * Web().query({
+        *  Expand: ["ContentTypes", "Fields", "Lists", "RootFolder"]
+        * }).execute(web => {
+        *   let contentTypes = web.ContentTypes.results;
+        *   let fields = web.Fields.results;
+        *   let lists = web.Lists.results;
+        *   let rootFolder = web.RootFolder;
+        * });
+        * ```
+        */
+    export const Web: IWeb;
+    
+    /**
+        * Web
+        */
+    export interface IWeb {
+            /**
+                * Creates an instance of the web library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SP.IWeb;
+    
+            /**
+                * Method to get a remote web.
+                * @param requestUrl - The absolute url of the remote web.
+                */
+            getRemoteWeb(requestUrl: string): IBaseExecution<SP.RemoteWeb>;
+    
+            /**
+                * Method to get the web url from a page url. (SPO Only)
+                * @param pageUrl - The absolute url of the page.
+                */
+            getWebUrlFromPageUrl(pageUrl: string): IBaseExecution<{ GetWebUrlFromPageUrl: string }>;
+    
+            /**
+                * 
+                * @param query - The process query.
+                * @param webUrl - The web url to execute the request against.
+                */
+            processQuery(query: string, webUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/lib/webTemplateExtensions' {
+    import * as SP from "gd-sprest/intellisense/webTemplateExtensions";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/Microsoft.SharePoint.Utilities.WebTemplateExtensions
+        */
+    export const WebTemplateExtensions: IWebTemplateExtensions;
+    
+    /**
+        * Web Template Extensions
+        * @category WebTemplateExtensions
+        */
+    export interface IWebTemplateExtensions {
+            /**
+                * Creates an instance of the utility library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SP.IWebTemplateExtensions;
+    }
+}
+
+declare module 'gd-sprest/lib/wfInstanceService' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import * as SP from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.WorkflowServices.WorkflowInstanceService.Current
+        */
+    export const WorkflowInstanceService: IWorkflowInstanceService;
+    
+    /**
+        * Workflow Instance Service
+        */
+    export interface IWorkflowInstanceService {
+            /**
+                * Creates an instance of the web library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SP.IWorkflowInstanceService;
+    }
+}
+
+declare module 'gd-sprest/lib/wfSubscriptionService' {
+    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import * as SP from "gd-sprest-def/lib/SP/WorkflowServices/entitytypes";
+    import { ITargetInfoProps } from "gd-sprest/utils";
+    
+    /**
+        * #### REST API
+        * _api/SP.WorkflowServices.WorkflowSubscriptionService.Current
+        */
+    export const WorkflowSubscriptionService: IWorkflowSubscriptionService;
+    
+    /**
+        * Workflow Subscription Service
+        */
+    export interface IWorkflowSubscriptionService {
+            /**
+                * Creates an instance of the web library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfoProps): SP.IWorkflowSubscriptionService;
+    }
+}
+
 declare module 'gd-sprest/v2/drive' {
     import { IBaseQuery } from "gd-sprest-def/lib/base";
     import { drive, driveMethods } from "gd-sprest-def/lib/Microsoft/Graph/entityTypes";
@@ -6520,6 +6526,255 @@ declare module 'gd-sprest/intellisense/webTemplateExtensions' {
     export interface IWebTemplateExtensions extends IWebTemplateExtensionsMethods, IBaseExecution<IWebTemplateExtensions> { }
 }
 
+declare module 'gd-sprest/helper/methods/addContentEditorWebPart' {
+    import { IContentEditorWebPart } from "gd-sprest/helper/webpart";
+    
+    /**
+      * Adds a content editor webpart to a page.
+      * @category Helper
+      * @param url The relative url of the page.
+      * @param wpProps The webpart properties.
+      * @returns A promise is returned.
+      */
+    export const addContentEditorWebPart: IaddContentEditorWebPart;
+    export interface IaddContentEditorWebPart {
+        (url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/addPermissionLevel' {
+    import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def/lib/SP";
+    
+    /**
+        * Properties
+        */
+    export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
+            Permissions: Array<number>;
+            Name: string;
+            Order?: number;
+            WebUrl?: string;
+    }
+    
+    /**
+        * Adds a permission level to the current or specified web.
+        * @props properties
+        */
+    export const addPermissionLevel: IaddPermissionLevel;
+    export interface IaddPermissionLevel {
+            (props: IaddPermissionLevelProps): PromiseLike<RoleDefinition>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/addScriptEditorWebPart' {
+    import { IScriptEditorWebPart } from "gd-sprest/helper/webpart";
+    
+    /**
+      * Adds a script editor webpart to a page.
+      * @category Helper
+      * @param url - The relative url of the page.
+      * @param wpProps - The webpart properties.
+      */
+    export const addScriptEditorWebPart: IaddScriptEditorWebPart;
+    export interface IaddScriptEditorWebPart {
+        (url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/copyPermissionLevel' {
+    import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def/lib/SP";
+    
+    /**
+        * Properties
+        */
+    export interface IcopyPermissionLevelProps extends RoleDefinitionCreationInformation {
+            AddPermissions?: Array<number>;
+            Description: string;
+            BasePermission: string;
+            Order?: number;
+            Name: string;
+            RemovePermissions?: Array<number>;
+            WebUrl?: string;
+    }
+    
+    /**
+        * Copies a permission level to the current or specified web.
+        * @props properties
+        */
+    export const copyPermissionLevel: IcopyPermissionLevel;
+    export interface IcopyPermissionLevel {
+            (props: IcopyPermissionLevelProps): PromiseLike<RoleDefinition>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/createContentType' {
+    import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
+    import { ContentType } from "gd-sprest-def/lib/SP/entitytypes";
+    
+    /**
+        * Creates a content type in a web or specified list.
+        * @category Helper
+        * @param props - The content type creation properties.
+        */
+    export const createContentType: IcreateContentType;
+    export interface IcreateContentType {
+            (props: IcreateContentTypeProps): PromiseLike<ContentType>;
+    }
+    
+    /**
+        * The create content type properties
+        * @category Helper
+        * @param ctInfo - The content type information.
+        * @param parentInfo - The parent content type id and url containing it.
+        * @param webUrl - The relative url to create the content type in.
+        * @param listName - The list name to add the content type to.
+        */
+    export interface IcreateContentTypeProps {
+            ctInfo: ContentTypeCreationInformation;
+            listName?: string;
+            parentContentTypeId?: string;
+            parentContentTypeUrl?: string;
+            webUrl?: string;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/createDocSet' {
+    import { ListItem } from "gd-sprest-def/lib/SP/entitytypes";
+    
+    /**
+      * Creates a document set item.
+      * @category Helper
+      * @param name - The name of the document set folder to create.
+      * @param listName - The name of the document set library.
+      * @param webUrl - The url of the web containing the document set library.
+      */
+    export const createDocSet: IcreateDocSet;
+    export interface IcreateDocSet {
+        (name: string, listName: string, webUrl?: string): PromiseLike<ListItem>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/getCurrentTheme' {
+    /**
+      * Gets the current theme information for a classic page.
+      * @category Helper
+      */
+    export const getCurrentTheme: IgetCurrentTheme;
+    export interface IgetCurrentTheme {
+        (): PromiseLike<{ [key: string]: string }>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/hasPermissions' {
+    /**
+      * Determines if the user has permissions, based on the permission kind value
+      * @category Helper
+      */
+    export const hasPermissions: IhasPermissions;
+    export interface IhasPermissions {
+        (permissionMask: any, permissions: Array<number> | number): boolean;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/loadSPCore' {
+    /**
+      * Loads the core SharePoint JavaScript library for JSOM.
+      * @category Helper
+      */
+    export const loadSPCore: IloadSPCore;
+    export interface IloadSPCore {
+        (additionalLibs?: string[]): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/parse' {
+    /**
+      * Convert a JSON string to a base object
+      * @category Helper
+      */
+    export const parse: Iparse;
+    export interface Iparse {
+        <T = any>(jsonString: string): T;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/request' {
+    /**
+        * XML HTTP Request
+        * @category Helper
+        */
+    export const request: Irequest;
+    export interface Irequest {
+            (props: IRequest): PromiseLike<any>;
+    }
+    
+    /**
+        * The XML HTTP request properties.
+        */
+    export interface IRequest {
+            /** The data to pass in the request. */
+            data?: any;
+    
+            /** The request headers. */
+            headers?: { [key: string]: string };
+    
+            /** The request method. */
+            method?: string;
+    
+            /** The request url. */
+            url: string;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setContentTypeFields' {
+    /**
+      * Sets the field links associated with a content type.
+      * @param ctInfo The content type information
+      * @category Helper
+      */
+    export const setContentTypeFields: IsetContentTypeFields;
+    export interface IsetContentTypeFields {
+        (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setGroupOwner' {
+    /**
+      * Sets a site group owner.
+      * This uses JSOM to set a site group owner's property to another group. You can only set the owner to a user, using the REST API.
+      * @param groupName The group name to update.
+      * @param ownerName The owner group name. 
+      */
+    export const setGroupOwner: IsetGroupOwner;
+    export interface IsetGroupOwner {
+        (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/setWebProperty' {
+    /**
+      * Adds or updates a key/value pair for a web's property bag
+      * This uses JSOM to set a web's property. The REST API doesn't support this at the moment.
+      * @param key The property key.
+      * @param value The property value.
+      * @param siteUrl The site url to apply the property to. If blank, it will default to the current web.
+      */
+    export const setWebProperty: IsetWebProperty;
+    export interface IsetWebProperty {
+        (key: string, value: string, indexed?: boolean, siteUrl?: string): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/helper/methods/stringify' {
+    /**
+      * Convert an object to a string
+      * @category Helper
+      */
+    export const stringify: IStringify;
+    export interface IStringify {
+        (obj: any): string;
+    }
+}
+
 declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/base";
     export * from "gd-sprest/utils/batch";
@@ -6887,255 +7142,6 @@ declare module 'gd-sprest/intellisense/graph' {
     
             // A string value that can be used to classify user types in your directory, such as “Member” and “Guest”.
             userType?: string;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/addContentEditorWebPart' {
-    import { IContentEditorWebPart } from "gd-sprest/helper/webpart";
-    
-    /**
-      * Adds a content editor webpart to a page.
-      * @category Helper
-      * @param url The relative url of the page.
-      * @param wpProps The webpart properties.
-      * @returns A promise is returned.
-      */
-    export const addContentEditorWebPart: IaddContentEditorWebPart;
-    export interface IaddContentEditorWebPart {
-        (url: string, wpProps: IContentEditorWebPart): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/addPermissionLevel' {
-    import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def/lib/SP";
-    
-    /**
-        * Properties
-        */
-    export interface IaddPermissionLevelProps extends RoleDefinitionCreationInformation {
-            Permissions: Array<number>;
-            Name: string;
-            Order?: number;
-            WebUrl?: string;
-    }
-    
-    /**
-        * Adds a permission level to the current or specified web.
-        * @props properties
-        */
-    export const addPermissionLevel: IaddPermissionLevel;
-    export interface IaddPermissionLevel {
-            (props: IaddPermissionLevelProps): PromiseLike<RoleDefinition>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/addScriptEditorWebPart' {
-    import { IScriptEditorWebPart } from "gd-sprest/helper/webpart";
-    
-    /**
-      * Adds a script editor webpart to a page.
-      * @category Helper
-      * @param url - The relative url of the page.
-      * @param wpProps - The webpart properties.
-      */
-    export const addScriptEditorWebPart: IaddScriptEditorWebPart;
-    export interface IaddScriptEditorWebPart {
-        (url: string, wpProps: IScriptEditorWebPart): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/copyPermissionLevel' {
-    import { RoleDefinition, RoleDefinitionCreationInformation } from "gd-sprest-def/lib/SP";
-    
-    /**
-        * Properties
-        */
-    export interface IcopyPermissionLevelProps extends RoleDefinitionCreationInformation {
-            AddPermissions?: Array<number>;
-            Description: string;
-            BasePermission: string;
-            Order?: number;
-            Name: string;
-            RemovePermissions?: Array<number>;
-            WebUrl?: string;
-    }
-    
-    /**
-        * Copies a permission level to the current or specified web.
-        * @props properties
-        */
-    export const copyPermissionLevel: IcopyPermissionLevel;
-    export interface IcopyPermissionLevel {
-            (props: IcopyPermissionLevelProps): PromiseLike<RoleDefinition>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/createContentType' {
-    import { ContentTypeCreationInformation } from "gd-sprest-def/lib/SP/complextypes";
-    import { ContentType } from "gd-sprest-def/lib/SP/entitytypes";
-    
-    /**
-        * Creates a content type in a web or specified list.
-        * @category Helper
-        * @param props - The content type creation properties.
-        */
-    export const createContentType: IcreateContentType;
-    export interface IcreateContentType {
-            (props: IcreateContentTypeProps): PromiseLike<ContentType>;
-    }
-    
-    /**
-        * The create content type properties
-        * @category Helper
-        * @param ctInfo - The content type information.
-        * @param parentInfo - The parent content type id and url containing it.
-        * @param webUrl - The relative url to create the content type in.
-        * @param listName - The list name to add the content type to.
-        */
-    export interface IcreateContentTypeProps {
-            ctInfo: ContentTypeCreationInformation;
-            listName?: string;
-            parentContentTypeId?: string;
-            parentContentTypeUrl?: string;
-            webUrl?: string;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/createDocSet' {
-    import { ListItem } from "gd-sprest-def/lib/SP/entitytypes";
-    
-    /**
-      * Creates a document set item.
-      * @category Helper
-      * @param name - The name of the document set folder to create.
-      * @param listName - The name of the document set library.
-      * @param webUrl - The url of the web containing the document set library.
-      */
-    export const createDocSet: IcreateDocSet;
-    export interface IcreateDocSet {
-        (name: string, listName: string, webUrl?: string): PromiseLike<ListItem>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/getCurrentTheme' {
-    /**
-      * Gets the current theme information for a classic page.
-      * @category Helper
-      */
-    export const getCurrentTheme: IgetCurrentTheme;
-    export interface IgetCurrentTheme {
-        (): PromiseLike<{ [key: string]: string }>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/hasPermissions' {
-    /**
-      * Determines if the user has permissions, based on the permission kind value
-      * @category Helper
-      */
-    export const hasPermissions: IhasPermissions;
-    export interface IhasPermissions {
-        (permissionMask: any, permissions: Array<number> | number): boolean;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/loadSPCore' {
-    /**
-      * Loads the core SharePoint JavaScript library for JSOM.
-      * @category Helper
-      */
-    export const loadSPCore: IloadSPCore;
-    export interface IloadSPCore {
-        (additionalLibs?: string[]): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/parse' {
-    /**
-      * Convert a JSON string to a base object
-      * @category Helper
-      */
-    export const parse: Iparse;
-    export interface Iparse {
-        <T = any>(jsonString: string): T;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/request' {
-    /**
-        * XML HTTP Request
-        * @category Helper
-        */
-    export const request: Irequest;
-    export interface Irequest {
-            (props: IRequest): PromiseLike<any>;
-    }
-    
-    /**
-        * The XML HTTP request properties.
-        */
-    export interface IRequest {
-            /** The data to pass in the request. */
-            data?: any;
-    
-            /** The request headers. */
-            headers?: { [key: string]: string };
-    
-            /** The request method. */
-            method?: string;
-    
-            /** The request url. */
-            url: string;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/setContentTypeFields' {
-    /**
-      * Sets the field links associated with a content type.
-      * @param ctInfo The content type information
-      * @category Helper
-      */
-    export const setContentTypeFields: IsetContentTypeFields;
-    export interface IsetContentTypeFields {
-        (ctInfo: { id: string, fields: Array<string>, listName?: string, webUrl?: string }): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/setGroupOwner' {
-    /**
-      * Sets a site group owner.
-      * This uses JSOM to set a site group owner's property to another group. You can only set the owner to a user, using the REST API.
-      * @param groupName The group name to update.
-      * @param ownerName The owner group name. 
-      */
-    export const setGroupOwner: IsetGroupOwner;
-    export interface IsetGroupOwner {
-        (groupName: string, ownerName: string, siteUrl?: string): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/setWebProperty' {
-    /**
-      * Adds or updates a key/value pair for a web's property bag
-      * This uses JSOM to set a web's property. The REST API doesn't support this at the moment.
-      * @param key The property key.
-      * @param value The property value.
-      * @param siteUrl The site url to apply the property to. If blank, it will default to the current web.
-      */
-    export const setWebProperty: IsetWebProperty;
-    export interface IsetWebProperty {
-        (key: string, value: string, indexed?: boolean, siteUrl?: string): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/helper/methods/stringify' {
-    /**
-      * Convert an object to a string
-      * @category Helper
-      */
-    export const stringify: IStringify;
-    export interface IStringify {
-        (obj: any): string;
     }
 }
 
