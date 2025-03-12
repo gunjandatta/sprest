@@ -5146,6 +5146,10 @@ export const Mapper: IMapper = {
     },
 
     "SP.Directory.Group": {
+        properties: [
+            "Members|SP.Directory.Group.Collection", "Owners|SP.Directory.Group.Collection"
+        ],
+
         delete: {
             requestType: RequestType.Delete
         },
@@ -5157,12 +5161,14 @@ export const Mapper: IMapper = {
     "SP.Directory.Group.Collection": {
         add: {
             argNames: ["objectId"],
+            requestType: RequestType.Post
         },
 
         query: { argNames: ["oData"], requestType: RequestType.OData },
 
         remove: {
             argNames: ["objectId"],
+            requestType: RequestType.Post
         },
 
     },
