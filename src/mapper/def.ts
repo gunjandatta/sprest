@@ -9049,8 +9049,8 @@ export const Mapper: IMapper = {
         ],
 
         addImage: {
-            argNames: ["pageName", "imageFileName", "imageStream", "pageId"],
-            requestType: RequestType.PostWithArgs
+            argNames: ["pageName", "imageFileName", "pageId", "imageStream"],
+            requestType: RequestType.PostWithArgsAndData
         },
 
         addImageFromExternalUrl: {
