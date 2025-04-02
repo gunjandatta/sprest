@@ -9075,6 +9075,7 @@ export const Mapper: IMapper = {
 
         getOrCreateAssetFolder: {
             argNames: ["pageName", "createFolderIfNeeded", "subFolderName", "pageId"],
+            requestType: RequestType.PostWithArgs
         },
 
         pagesInLib: {
