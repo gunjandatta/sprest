@@ -5132,6 +5132,7 @@ export const Mapper: IMapper = {
         },
 
         me: {
+            returnType: "SP.Directory.User"
         },
 
         user: {
@@ -5220,6 +5221,10 @@ export const Mapper: IMapper = {
     },
 
     "SP.Directory.User": {
+        properties: [
+            "membership|SP.Directory.Group", "ownership|SP.Directory.Group"
+        ],
+
         getUserLinks: {
             argNames: ["linkName", "groupType"],
         },

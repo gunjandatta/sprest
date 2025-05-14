@@ -5400,6 +5400,17 @@ declare module 'gd-sprest/sptypes/sptypes' {
     }
     
     /**
+        * List Read Security
+        */
+    export type IListReadSecurity = {
+            /** All users have read access to all items */
+            All: number,
+    
+            /** Users have access only to items they create */
+            User: number
+    };
+    
+    /**
         * List Template Types
      */
     export type IListTemplateType = {
@@ -5651,6 +5662,20 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** XML Form library */
             XMLForm: number
+    };
+    
+    /**
+        * List Write Security
+        */
+    export type IListWriteSecurity = {
+            /** All users have write access to all items */
+            All: number,
+    
+            /** Users have access only to items they create */
+            User: number,
+    
+            /** Users have write access to no items */
+            None: number
     };
     
     /**

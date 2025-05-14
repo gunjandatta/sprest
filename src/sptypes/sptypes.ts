@@ -393,6 +393,14 @@ export const ListExperienceOptions: SPTypes.IListExperienceOptions = {
 }
 
 /**
+ * List Read Security
+ */
+export type IListReadSecurity = {
+    All: 1,
+    User: 2
+};
+
+/**
  * List Template Types
 */
 export const ListTemplateType: SPTypes.IListTemplateType = {
@@ -479,6 +487,15 @@ export const ListTemplateType: SPTypes.IListTemplateType = {
     WorkflowHistory: 140,
     WorkflowProcess: 118,
     XMLForm: 115
+};
+
+/**
+ * List Write Security
+ */
+export type IListWriteSecurity = {
+    All: 1,
+    User: 2,
+    None: 4
 };
 
 /**
