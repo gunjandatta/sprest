@@ -395,7 +395,7 @@ export const ListExperienceOptions: SPTypes.IListExperienceOptions = {
 /**
  * List Read Security
  */
-export type IListReadSecurity = {
+export const ListReadSecurity: SPTypes.IListReadSecurity = {
     All: 1,
     User: 2
 };
@@ -492,7 +492,7 @@ export const ListTemplateType: SPTypes.IListTemplateType = {
 /**
  * List Write Security
  */
-export type IListWriteSecurity = {
+export const ListWriteSecurity: SPTypes.IListWriteSecurity = {
     All: 1,
     User: 2,
     None: 4
