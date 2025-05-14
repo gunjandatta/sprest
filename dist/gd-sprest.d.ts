@@ -456,9 +456,10 @@ declare module 'gd-sprest/sptypes' {
         FileTemplateType: Types.IFileTemplateType;
         FormDisplayMode: Types.IFormDisplayMode;
         FriendlyDateFormat: Types.IFriendlyDateFormat;
-        //GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
         ListExperienceOptions: Types.IListExperienceOptions;
+        ListReadSecurity: Types.IListReadSecurity;
         ListTemplateType: Types.IListTemplateType;
+        ListWriteSecurity: Types.IListWriteSecurity;
         LocaleLCIDType: Types.ILocaleLCIDType;
         ModalDialogResult: Types.ModalDialogResult,
         NodeType: Types.INodeType;
@@ -472,6 +473,7 @@ declare module 'gd-sprest/sptypes' {
         RenderListDataOptions: Types.IRenderListDataOptions;
         ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
         RoleType: Types.IRoleType;
+        SearchScope: Types.ISearchScope;
         StatusPriColor: Types.IStatusPriColor;
         UrlFormatType: Types.IUrlFormatType;
         URLZones: Types.IURLZones;
@@ -4796,17 +4798,6 @@ declare module 'gd-sprest/sptypes/sptypes' {
     };
     
     /**
-        * Client Template Utility
-        */
-    export type IClientTemplateUtility = {
-            /** User Lookup Delimiter */
-            UserLookupDelimitString: string,
-    
-            /** Multi-User Value Delimiter */
-            UserMultiValueDelimitString: string
-    }
-    
-    /**
         * Client Side Page Layouts
         */
     export type IClientSidePageLayout = {
@@ -4817,6 +4808,17 @@ declare module 'gd-sprest/sptypes/sptypes' {
             SingleWebPartAppPage: string;
             Spaces: string;
             Topic: string;
+    }
+    
+    /**
+        * Client Template Utility
+        */
+    export type IClientTemplateUtility = {
+            /** User Lookup Delimiter */
+            UserLookupDelimitString: string,
+    
+            /** Multi-User Value Delimiter */
+            UserMultiValueDelimitString: string
     }
     
     /**
@@ -4895,6 +4897,17 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** export typeeration whose values specify that the minimum permission is reader. */
             Reader: number
+    };
+    
+    /**
+        * Event Receiver Synchronization Types
+        */
+    export type IEventReceiverSynchronizationType = {
+            /** Event to be triggered asynchronously. */
+            Asynchronous: number,
+    
+            /** Event to be triggered synchronously. */
+            Synchronization: number
     };
     
     /**
@@ -5125,17 +5138,6 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** Identifies workflow event receivers, and is therefore not a true event type. */
             ContextEvent: number,
-    };
-    
-    /**
-        * Event Receiver Synchronization Types
-        */
-    export type IEventReceiverSynchronizationType = {
-            /** Event to be triggered asynchronously. */
-            Asynchronous: number,
-    
-            /** Event to be triggered synchronously. */
-            Synchronization: number
     };
     
     /**
@@ -5376,13 +5378,6 @@ declare module 'gd-sprest/sptypes/sptypes' {
     
             /** Relative (standard friendly relative) */
             Relative: number
-    }
-    
-    /**
-        * Base Permission Result
-        */
-    export interface IGetUserEffectivePermissionsResult {
-            GetUserEffectivePermissions: BasePermissions
     }
     
     /**

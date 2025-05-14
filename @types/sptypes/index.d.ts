@@ -31,9 +31,10 @@ export interface ISPTypes {
     FileTemplateType: Types.IFileTemplateType;
     FormDisplayMode: Types.IFormDisplayMode;
     FriendlyDateFormat: Types.IFriendlyDateFormat;
-    //GetUserEffectivePermissionsResult: Types.IGetUserEffectivePermissionsResult;
     ListExperienceOptions: Types.IListExperienceOptions;
+    ListReadSecurity: Types.IListReadSecurity;
     ListTemplateType: Types.IListTemplateType;
+    ListWriteSecurity: Types.IListWriteSecurity;
     LocaleLCIDType: Types.ILocaleLCIDType;
     ModalDialogResult: Types.ModalDialogResult,
     NodeType: Types.INodeType;
@@ -47,6 +48,7 @@ export interface ISPTypes {
     RenderListDataOptions: Types.IRenderListDataOptions;
     ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
     RoleType: Types.IRoleType;
+    SearchScope: Types.ISearchScope;
     StatusPriColor: Types.IStatusPriColor;
     UrlFormatType: Types.IUrlFormatType;
     URLZones: Types.IURLZones;
