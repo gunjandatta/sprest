@@ -127,7 +127,9 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
         if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
 
         // Generate the schema
-        schemaXml = "<Field " + toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
+        schemaXml += "</Field>";
 
         // Resolve the request
         _resolve(schemaXml);
