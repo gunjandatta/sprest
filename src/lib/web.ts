@@ -36,19 +36,11 @@ Web.getRemoteWeb = ((requestUrl: string) => {
 
 // Static method to get the sharing settings
 Web.getSharingSettings = ((data: { objectUrl: string, groupId?: number, useSimplifiedRoles?: boolean }, query?: IODataQuery) => {
-    // See if we are querying the information
-    if (query) {
-        let oData = new OData(query);
-
-        // Update the url
-        data.objectUrl += "?" + oData.QueryString;
-    }
-
     // Return the sharing settings
     return new Base({
         data,
         defaultToWebFl: true,
-        endpoint: "SP.Web.GetObjectSharingSettings",
+        endpoint: "SP.Web.GetObjectSharingSettings" + (query ? "?" + (new OData(query)).QueryString : ""),
         method: "POST"
     });
 }) as any;

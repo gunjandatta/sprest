@@ -473,6 +473,7 @@ declare module 'gd-sprest/sptypes' {
         RenderListDataOptions: Types.IRenderListDataOptions;
         ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
         RoleType: Types.IRoleType;
+        SearchResultSource: Types.ISearchResultSource;
         SearchScope: Types.ISearchScope;
         StatusPriColor: Types.IStatusPriColor;
         UrlFormatType: Types.IUrlFormatType;
@@ -6083,6 +6084,25 @@ declare module 'gd-sprest/sptypes/sptypes' {
             /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
             WebDesigner: number
     };
+    
+    /**
+        * Search Result Source
+        */
+    export interface ISearchResultSource {
+            Conversations: string,
+            Documents: string,
+            LocalPeopleResults: string,
+            LocalReportsAndDataResults: string,
+            LocalSharePointResults: string,
+            LocalVideoResults: string,
+            Pages: string,
+            Pictures: string,
+            Popular: string,
+            RecentlyChangedItems: string,
+            RecommendedItems: string,
+            SharePointGlobalSearch: string,
+            Wiki: string
+    }
     
     /**
         * Search Scope

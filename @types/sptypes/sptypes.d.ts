@@ -1417,6 +1417,25 @@ export type IRoleType = {
 };
 
 /**
+ * Search Result Source
+ */
+export interface ISearchResultSource {
+    Conversations: string,
+    Documents: string,
+    LocalPeopleResults: string,
+    LocalReportsAndDataResults: string,
+    LocalSharePointResults: string,
+    LocalVideoResults: string,
+    Pages: string,
+    Pictures: string,
+    Popular: string,
+    RecentlyChangedItems: string,
+    RecommendedItems: string,
+    SharePointGlobalSearch: string,
+    Wiki: string
+}
+
+/**
  * Search Scope
  */
 export interface ISearchScope {

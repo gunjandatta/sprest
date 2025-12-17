@@ -48,6 +48,7 @@ export interface ISPTypes {
     RenderListDataOptions: Types.IRenderListDataOptions;
     ReorderingRuleMatchType: Types.IReorderingRuleMatchType;
     RoleType: Types.IRoleType;
+    SearchResultSource: Types.ISearchResultSource;
     SearchScope: Types.ISearchScope;
     StatusPriColor: Types.IStatusPriColor;
     UrlFormatType: Types.IUrlFormatType;
