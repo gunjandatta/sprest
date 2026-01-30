@@ -589,6 +589,9 @@ export const ListForm: IListForm = {
     saveItem: (info: IListFormResult, formValues: any = {}, checkItemVersion?: boolean): PromiseLike<IListFormResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
+            // Set the metadata type
+            formValues["__metadata"] = formValues["__metadata"] || { type: info.list.ListItemEntityTypeFullName };
+
             // See if this is an existing item
             if (info.item && info.item.update) {
                 // Set the request properties if we are checking the item version
@@ -611,9 +614,6 @@ export const ListForm: IListForm = {
                     }, reject);
                 }, reject);
             } else {
-                // Set the metadata type
-                formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
-
                 // Add the item
                 info.list.Items().add(formValues).execute(item => {
                     // Update the info
