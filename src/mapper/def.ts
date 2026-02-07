@@ -10422,7 +10422,7 @@ export const Mapper: IMapper = {
     },
 
     "SP.SensitivityLabelCollection": {
-        getSensitivityLabelAsStream: {
+        getSensitivityLabelsAsStream: {
             argNames: ["expand", "filter"],
             name: "sp.sensitivitylabelcollection.getsensitivitylabelsasstream?expand='[[expand]]'&filter='[[filter]]'",
             replaceEndpointFl: true,
