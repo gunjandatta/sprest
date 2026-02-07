@@ -367,7 +367,7 @@ export const Request = {
         let execute = (targetInfo: TargetInfo, batchIdx?: number, onComplete?: () => void) => {
             // See if this is an asynchronous request
             if (asyncFl) {
-                // See if the not a batch request, and it already exists
+                // See if this is not a batch request, and it already exists
                 if (base.xhr && !isBatchRequest) {
                     // Execute the callback
                     callback ? callback(base, false) : null;
@@ -730,6 +730,12 @@ export const Request = {
 
                     // Set the next item flag
                     base.nextFl = data["@odata.nextLink"] || (data.d && data.d.__next);
+
+                    // See if the callback for odata query exists
+                    if(base.targetInfo.callbackQuery) {
+                        // Call the method
+                        base.targetInfo.callbackQuery(data.d.results);
+                    }
 
                     // See if there are more items to get
                     if (base.nextFl) {

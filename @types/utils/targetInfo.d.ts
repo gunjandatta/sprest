@@ -1,3 +1,5 @@
+import { ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
+
 /**
  * Target Information
  */
@@ -44,6 +46,9 @@ export interface ITargetInfoProps {
 
     /** The method to execute after the asynchronous request executes. */
     callback?: () => void;
+
+    /** The method to execute for each set of pages using the OData query. */
+    callbackQuery?: (items?: ListItemOData[]) => void;
 
     /** The data to be passed in the body of the request. */
     data?: any;
