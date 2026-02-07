@@ -149,6 +149,11 @@ export interface IREST {
     Search: LibTypes.ISearch;
 
     /**
+     * Use this api to get the sensitivity labels for the user.
+     */
+    SensitivityLabels: LibTypes.ISensitivityLabels;
+
+    /**
      * Use this api to interact with a SharePoint site collection.
      */
     Site: LibTypes.ISite;
