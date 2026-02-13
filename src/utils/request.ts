@@ -678,6 +678,12 @@ export const Request = {
                 else {
                     // Update the base object's properties
                     Request.addProperties(obj, data);
+
+                    // See if the response is an array
+                    if (typeof (data) === "object" && typeof (data.length) === "number" && typeof (data.push) === "function") {
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, data);
+                    }
                 }
 
                 // See if the batch request exists
@@ -732,7 +738,7 @@ export const Request = {
                     base.nextFl = data["@odata.nextLink"] || (data.d && data.d.__next);
 
                     // See if the callback for odata query exists
-                    if(base.targetInfo.callbackQuery) {
+                    if (base.targetInfo.callbackQuery) {
                         // Call the method
                         base.targetInfo.callbackQuery(data.d.results);
                     }
