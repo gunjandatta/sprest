@@ -18,3 +18,8 @@ export const SensitivityLabels: ISensitivityLabels = ((targetInfo?: ITargetInfoP
     // Return the sensitivity labels
     return sensitivityLabels;
 }) as any as ISensitivityLabels;
+
+SensitivityLabels.getLabelsForUser = () => {
+    // Call the method w/ default parameters
+    return SensitivityLabels().getSensitivityLabelsAsStream("sensitivityPolicySettings,sublabels($expand=sensitivityPolicySettings)", "applicableto has ''file''") as any;
+}

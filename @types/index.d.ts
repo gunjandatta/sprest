@@ -4,13 +4,13 @@
 import {
     Apps, ContextInfo, DirectorySession, Graph, GroupService, GroupSiteManager, HubSites,
     HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search,
-    Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
+    SensitivityLabels, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
     Utility, Web, WebTemplateExtensions, WorkflowInstanceService, WorkflowSubscriptionService
 } from "./lib";
 export {
     Apps, ContextInfo, DirectorySession, Graph, GroupService, GroupSiteManager, HubSites,
     HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search,
-    Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
+    SensitivityLabels, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
     Utility, Web, WebTemplateExtensions, WorkflowInstanceService, WorkflowSubscriptionService
 }
 

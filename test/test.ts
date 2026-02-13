@@ -4,6 +4,10 @@ import {
 
 import { v2 } from "../@types";
 
+$REST.SensitivityLabels.getLabelsForUser().execute(labels => {
+    labels.results[0].sublabels.length;
+})
+
 v2.drive().execute(drive => {
     drive.id;
     drive.getFolder("");
