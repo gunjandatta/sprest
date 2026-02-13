@@ -1,4 +1,4 @@
-import { IBase, IBatchRequest, IBatchRequestV2 } from "../../@types/utils";
+import { IBase, IBatchRequest } from "../../@types/utils";
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
 
@@ -73,24 +73,24 @@ export class Batch {
         // See if this is v2
         if (isV2) {
             // Create the batch requests
-            batchRequests = Batch.createBatchV2(requests);
+            batchRequests.push(Batch.createBatchV2(batchId, requests));
         } else {
             // Create the batch requests
             batchRequests.push(Batch.createBatch(batchId, requests));
-
-            // End the batch request
-            batchRequests.push("--" + batchId + "--");
         }
+
+        // End the batch request
+        batchRequests.push("--" + batchId + "--");
 
         // Return the target information
         return new TargetInfo({
             url,
             endpoint: (isV2 ? "_api/v2.0/" : "") + "$batch",
             method: "POST",
-            data: isV2 ? { requests: batchRequests } : batchRequests.join("\r\n"),
+            data: batchRequests.join("\r\n"),
             requestDigest,
             requestHeader: {
-                "Content-Type": isV2 ? "application/json" : 'multipart/mixed; boundary="' + batchId + '"'
+                "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
             }
         });
     }
@@ -154,34 +154,52 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    private static createBatchV2(requests: Array<IBatchRequest>) {
-        let batch: IBatchRequestV2[] = [];
+    private static createBatchV2(batchId: string, requests: Array<IBatchRequest>) {
+        let batch = [];
 
         // Parse the requests
         for (let i = 0; i < requests.length; i++) {
             let request = requests[i];
 
             // Create the batch request
-            let batchRequest: IBatchRequestV2 = {
-                id: (i + 1).toString(),
-                method: request.targetInfo.requestMethod,
-                url: request.targetInfo.requestUrl
-            };
+            batch.push("--" + batchId);
 
-            // See if a body is set
-            if (request.targetInfo.requestData) {
-                batchRequest.body = request.targetInfo.requestData;
-                batchRequest.headers = {
-                    "Content-Type": "application/json"
-                };
+            // Determine if the batch requires a change set
+            let requiresChangeset = request && request.targetInfo.requestMethod != "GET";
+            if (requiresChangeset) {
+                // Create a change set
+                batch.push("Content-Type: multipart/mixed; boundary=" + request.changesetId);
+                batch.push("");
+                batch.push("--" + request.changesetId);
+                batch.push("Content-Type: application/http");
+                batch.push("Content-Transfer-Encoding: binary");
+                batch.push("");
+                batch.push(request.targetInfo.requestMethod + " " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push("Content-Type: application/json;odata=verbose");
+                // See if we are making a delete/update
+                if (request.targetInfo.requestMethod == "DELETE" || request.targetInfo.requestMethod == "MERGE") {
+                    // Append the header for deleting/updating
+                    batch.push("IF-MATCH: *");
+                }
+                batch.push("");
+                request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
+                batch.push("");
+                batch.push("--" + request.changesetId + "--");
+            } else {
+                // Create a change set
+                batch.push("Content-Type: application/http");
+                batch.push("Content-Transfer-Encoding: binary");
+                batch.push("");
+                batch.push("GET " + request.targetInfo.requestUrl + " HTTP/1.1");
+                batch.push("Accept: application/json");
+                batch.push("");
+                request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
+                batch.push("");
             }
-
-            // Add the batch request
-            batch.push(batchRequest);
         }
 
-        // Return the batch requests
-        return batch;
+        // Return the batch request
+        return batch.join("\r\n");
     }
 
     // Process the batch request callbacks
