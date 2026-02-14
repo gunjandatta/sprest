@@ -547,7 +547,7 @@ export const Request = {
     // Method to convert the input arguments into an object
     updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchIdx: number = 0) => {
         // Ensure the request was successful
-        if (base.status >= 200 && base.status < 300) {
+        if ((base.status >= 200 && base.status < 300) || (isBatchRequest && base.status == 422)) {
             // Return if we are expecting a buffer
             if (base.requestType == RequestType.GetBuffer) { return; }
 
