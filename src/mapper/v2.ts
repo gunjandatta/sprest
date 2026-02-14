@@ -4043,7 +4043,7 @@ export const MapperV2: IMapper = {
 		},
 		getFolder: {
 			argNames: ["folderUrl"],
-            name: "root:/[[folderUrl]]:",
+			name: "root:/[[folderUrl]]:",
 			requestType: RequestType.GraphGetReplace,
 			returnType: "driveItem"
 		},
@@ -6393,6 +6393,11 @@ export const MapperV2: IMapper = {
 		},
 	},
 	lists: {
+		add: {
+			argNames: ["values"],
+			name: "",
+			requestType: RequestType.PostWithArgsInBody
+		},
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 	},
 	listItem: {
@@ -6439,6 +6444,11 @@ export const MapperV2: IMapper = {
 		},
 	},
 	listItems: {
+		add: {
+			argNames: ["fields"],
+			name: "",
+			requestType: RequestType.PostWithArgsInBody
+		},
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 	},
 	listItemVersion: {

@@ -168,23 +168,21 @@ export class Batch {
             let requiresChangeset = request && request.targetInfo.requestMethod != "GET";
             if (requiresChangeset) {
                 // Create a change set
-                batch.push("Content-Type: multipart/mixed; boundary=" + request.changesetId);
-                batch.push("");
-                batch.push("--" + request.changesetId);
                 batch.push("Content-Type: application/http");
                 batch.push("Content-Transfer-Encoding: binary");
                 batch.push("");
                 batch.push(request.targetInfo.requestMethod + " " + request.targetInfo.requestUrl + " HTTP/1.1");
-                batch.push("Content-Type: application/json;odata=verbose");
+                batch.push("Accept: application/json");
+                batch.push("Content-Type: application/json");
                 // See if we are making a delete/update
                 if (request.targetInfo.requestMethod == "DELETE" || request.targetInfo.requestMethod == "MERGE") {
                     // Append the header for deleting/updating
                     batch.push("IF-MATCH: *");
                 }
+                request.targetInfo.requestData ? batch.push("Content-Length: " + request.targetInfo.requestData.length) : null;
                 batch.push("");
                 request.targetInfo.requestData ? batch.push(request.targetInfo.requestData) : null;
                 batch.push("");
-                batch.push("--" + request.changesetId + "--");
             } else {
                 // Create a change set
                 batch.push("Content-Type: application/http");
