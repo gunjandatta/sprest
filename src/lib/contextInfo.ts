@@ -208,7 +208,11 @@ class _ContextInfo {
     }
 
     private static _loopId = null;
-    static enableRefreshToken() {
+    private static _onRefresh: (() => void)[] = [];
+    static enableRefreshToken(callback?: () => void) {
+        // Set the refresh event
+        if (callback) { this._onRefresh.push(callback); }
+
         // See if the request digest exists
         if (this.formDigestValue == null) { return; }
 
@@ -231,6 +235,9 @@ class _ContextInfo {
                 // Update the context info
                 this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
                 this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
+
+                // Call the events
+                this._onRefresh.forEach(callback => { callback(); });
             }, () => {
                 // Log
                 console.info("[gd-sprest] Unable to get the context information to refresh the token.");

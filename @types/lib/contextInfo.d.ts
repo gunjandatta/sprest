@@ -467,7 +467,7 @@ export interface IContextInformation {
     /**
      * Runs a loop to ensure the digest value doesn't expire.
      */
-    enableRefreshToken();
+    enableRefreshToken(callback?: () => void);
 
     /**
      * Generates a guid.

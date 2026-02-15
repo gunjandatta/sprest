@@ -3300,7 +3300,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             /**
                 * Runs a loop to ensure the digest value doesn't expire.
                 */
-            enableRefreshToken();
+            enableRefreshToken(callback?: () => void);
     
             /**
                 * Generates a guid.
