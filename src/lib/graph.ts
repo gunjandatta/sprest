@@ -1,6 +1,7 @@
 import { IGraph, IGraphProperties } from "../../@types/lib/graph";
 import { SPTypes } from "../sptypes";
 import { Base, Request, RequestType } from "../utils";
+import { ContextInfo } from "./contextInfo";
 
 // Default Token
 //export const Token
@@ -50,6 +51,7 @@ Graph.getAccessToken = (resource?: string, tokenType?: string) => {
     return new Base({
         endpoint: "SP.OAuth.Token/Acquire",
         method: "POST",
+        requestDigest: ContextInfo.formDigestValue,
         data
     }) as any;
 }
