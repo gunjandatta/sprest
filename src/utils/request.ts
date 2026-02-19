@@ -626,10 +626,10 @@ export const Request = {
                 // Else, see if the data properties exists
                 else if (data.d) {
                     // Get the endpoint method to see if it's part of the response
-                    let endpointInfo = base.targetInfo.endpoint.split('/');
-                    let endpointMethod = endpointInfo[endpointInfo.length - 1] || "";
-                    endpointMethod = endpointMethod[0].toUpperCase() + endpointMethod.substring(1);
-                    if (data.d[endpointMethod]) {
+                    let endpointInfo = base.targetInfo.endpoint?.split('/') || "";
+                    let endpointMethod = endpointInfo ? endpointInfo[endpointInfo.length - 1] || "" : "";
+                    endpointMethod = endpointMethod ? endpointMethod[0].toUpperCase() + endpointMethod.substring(1) : "";
+                    if (endpointMethod && data.d[endpointMethod]) {
                         // Update the response to be that object
                         data.d = data.d[endpointMethod];
                     }
