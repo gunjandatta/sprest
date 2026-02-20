@@ -1,4 +1,5 @@
 import { IContextInformation } from "../../@types/lib";
+import { WebWorker } from "../helper/methods/webWorker";
 import { Base } from "../utils";
 import { Graph } from "./graph";
 
@@ -207,17 +208,17 @@ class _ContextInfo {
         this.enableRefreshToken();
     }
 
-    private static _loopId = null;
+    private static _worker = null;
     private static _onRefresh: (() => void)[] = [];
     static enableRefreshToken(callback?: () => void) {
         // Set the refresh event
         if (callback) { this._onRefresh.push(callback); }
 
-        // See if the request digest exists
+        // Ensure the request digest exists
         if (this.formDigestValue == null) { return; }
 
-        // See if we already have a loop
-        if (this._loopId) { return; }
+        // See if we already have a worker process
+        if (this._worker) { return; }
 
         // Refresh method for REST
         let refreshREST = () => {
@@ -242,9 +243,8 @@ class _ContextInfo {
                 // Log
                 console.info("[gd-sprest] Unable to get the context information to refresh the token.");
 
-                // Stop the loop
-                clearInterval(this._loopId);
-                this._loopId = null;
+                // Stop the process
+                this._worker.stop();
             });
         }
 
@@ -271,20 +271,22 @@ class _ContextInfo {
                 // Log
                 console.info("[gd-sprest] Unable to refresh the graph token.");
 
-                // Stop the loop
-                clearInterval(this._loopId);
-                this._loopId = null;
+                // Stop the process
+                this._worker.stop();
             });
         }
 
-        // Create a loop
-        this._loopId = setInterval(() => {
+        // Create the process
+        this._worker = WebWorker(() => {
             // Refresh the REST API token
             refreshREST();
 
             // Refresh the Graph API token
             refreshGraph();
         }, 1000);
+
+        // Start the process
+        this._worker.start();
     }
 
     // Value in minutes to refresh the token
