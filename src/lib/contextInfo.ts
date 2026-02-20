@@ -194,6 +194,7 @@ class _ContextInfo {
         // Create a new base object
         return new Base({
             endpoint: "contextinfo",
+            keepalive: true,
             method: "POST",
             url
         });
@@ -220,7 +221,11 @@ class _ContextInfo {
         if (this.formDigestValue == null) { return; }
 
         // See if we already have a worker process
-        if (this._worker) { return; }
+        if (this._worker) {
+            // Ensure it's running
+            this._worker.start();
+            return;
+        }
 
         // Refresh method for REST
         let refreshREST = () => {

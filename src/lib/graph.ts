@@ -50,6 +50,7 @@ Graph.getAccessToken = (resource?: string, tokenType?: string) => {
     // Get the access token
     return new Base({
         endpoint: "SP.OAuth.Token/Acquire",
+        keepalive: true,
         method: "POST",
         data
     }) as any;
