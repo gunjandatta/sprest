@@ -6995,12 +6995,9 @@ declare module 'gd-sprest/helper/methods/webWorker' {
       * @param callback The method to execute when the process is working.
       * @param interval The sleep time in milliseconds to wait before calling the callback method
       */
-    export const WebWorker: IWebWorker;
+    export const WebWorker: (callback: () => void, interval: number) => IWebWorker;
     
     export interface IWebWorker {
-        // Constructor
-        (callback: () => void, interval: number): IWebWorker;
-    
         // Stops the worker process
         stop: () => void;
     

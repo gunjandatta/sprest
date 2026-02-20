@@ -277,7 +277,7 @@ class _ContextInfo {
         }
 
         // Create the process
-        this._worker = new WebWorker(() => {
+        this._worker = WebWorker(() => {
             // Refresh the REST API token
             refreshREST();
 

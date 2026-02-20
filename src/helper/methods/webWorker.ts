@@ -1,5 +1,5 @@
 // Web Worker
-export class WebWorker {
+class _WebWorker {
     private _worker: Worker = null;
 
     // Constructor
@@ -28,6 +28,7 @@ export class WebWorker {
     // Stops the loop
     stop() { this._worker.postMessage("stop"); }
 }
+export function WebWorker(callback: () => void, interval: number = 1000) { return new _WebWorker(callback, interval); }
 
 // The worker code
 function WorkerCode(interval: number) {
