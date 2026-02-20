@@ -272,8 +272,31 @@ export class XHRRequest {
 
         // See if we are executing the request
         if (this.executeFl) {
-            // Execute the request
-            this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+            // See if we are using keep alive
+            if (this.targetInfo.props.keepalive && this.asyncFl) {
+                // Create a fetch request
+                fetch(this.targetInfo.requestUrl, {
+                    body: this.targetInfo.requestData,
+                    headers: this.headers,
+                    keepalive: true,
+                    method: this.isGraph ? this.targetInfo.requestMethod : (this.targetInfo.requestMethod == "GET" ? "GET" : "POST")
+                }).then(response => {
+                    // Set the xhr object
+                    this.xhr = response as any;
+
+                    // Return the response
+                    return (this.targetInfo.props.bufferFl ? response.arrayBuffer() : response.text()) as any;
+                }).then(response => {
+                    // Set the xhr response
+                    (this.xhr as any).response = response;
+
+                    // Execute the request completed event
+                    this.onRequestCompleted ? this.onRequestCompleted(this) : null;
+                });
+            } else {
+                // Execute the request
+                this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+            }
         }
     }
 }
