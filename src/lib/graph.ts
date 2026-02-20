@@ -51,7 +51,6 @@ Graph.getAccessToken = (resource?: string, tokenType?: string) => {
     return new Base({
         endpoint: "SP.OAuth.Token/Acquire",
         method: "POST",
-        requestDigest: ContextInfo.formDigestValue,
         data
     }) as any;
 }

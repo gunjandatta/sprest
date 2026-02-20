@@ -211,6 +211,8 @@ class _ContextInfo {
     private static _worker = null;
     private static _onRefresh: (() => void)[] = [];
     static enableRefreshToken(callback?: () => void) {
+        let isRunning = false;
+
         // Set the refresh event
         if (callback) { this._onRefresh.push(callback); }
 
@@ -222,11 +224,17 @@ class _ContextInfo {
 
         // Refresh method for REST
         let refreshREST = () => {
+            // Do nothing if it's currently running
+            if (isRunning) { return; }
+
             // See if the digest is valid
             if (this.validateToken()) { return; }
 
             // Log
             console.info("[gd-sprest] Token has expired. Trying to refresh the token.");
+
+            // Set the flag
+            isRunning = true;
 
             // Get the context
             this.getWeb().execute(context => {
@@ -239,17 +247,26 @@ class _ContextInfo {
 
                 // Call the events
                 this._onRefresh.forEach(callback => { callback(); });
+
+                // Set the flag
+                isRunning = false;
             }, () => {
                 // Log
                 console.info("[gd-sprest] Unable to get the context information to refresh the token.");
 
                 // Stop the process
                 this._worker.stop();
+
+                // Set the flag
+                isRunning = false;
             });
         }
 
         // Refresh method for Graph
         let refreshGraph = () => {
+            // Do nothing if it's currently running
+            if (isRunning) { return; }
+
             // Ensure we have a token
             if (Graph.TokenExpiration) {
                 // See if the digest is valid
@@ -259,6 +276,9 @@ class _ContextInfo {
             // Log
             console.info("[gd-sprest] Graph Token has expired. Trying to refresh the token.");
 
+            // Set the flag
+            isRunning = true;
+
             // Get the cloud access token
             Graph.getAccessToken(Graph.Cloud, "SPO").execute(auth => {
                 // Log
@@ -267,12 +287,18 @@ class _ContextInfo {
                 // Set the access token and expiration
                 Graph.Token = auth.access_token;
                 Graph.TokenExpiration = parseInt(auth.expires_on) * 1000;
+
+                // Set the flag
+                isRunning = false;
             }, () => {
                 // Log
                 console.info("[gd-sprest] Unable to refresh the graph token.");
 
                 // Stop the process
                 this._worker.stop();
+
+                // Set the flag
+                isRunning = false;
             });
         }
 

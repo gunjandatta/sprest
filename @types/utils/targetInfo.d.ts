@@ -65,6 +65,9 @@ export interface ITargetInfoProps {
     /** The endpoint of the request. */
     endpoint?: string;
 
+    /** Uses a fetch instead of xml http request. */
+    keepalive?: boolean;
+
     /** The method to execute. */
     method?: string;
 
