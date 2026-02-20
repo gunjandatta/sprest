@@ -48,7 +48,6 @@ export const Request = {
 
             // Get the methods for this object type
             methods = MapperV2[objType];
-            console.log("[gd-sprest] v2 response detected. Type is: " + objType, methods);
         }
         // Else, get the methods from the default mapper, otherwise get it from the custom mapper
         else if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
