@@ -231,73 +231,49 @@ export class XHRRequest {
 
     // Method to execute the xml http request
     private executeRequest(requestDigest: string) {
-        // Executes the request
-        let sendRequest = (onComplete?: () => void) => {
-            // Ensure the xml http request exists
-            if (this.xhr == null) { return null; }
+        // Ensure the xml http request exists
+        if (this.xhr == null) { return null; }
 
-            // Open the request
-            if (this.isGraph) {
-                this.xhr.open(this.targetInfo.requestMethod, this.targetInfo.requestUrl, this.asyncFl);
-            } else {
-                this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
-            }
+        // Open the request
+        if (this.isGraph) {
+            this.xhr.open(this.targetInfo.requestMethod, this.targetInfo.requestUrl, this.asyncFl);
+        } else {
+            this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
+        }
 
-            // See if we are making an asynchronous request
-            if (this.asyncFl) {
-                // Set the state change event
-                this.xhr.onreadystatechange = () => {
-                    // See if the request has finished
-                    if (this.xhr.readyState == 4) {
-                        // Execute the request completed event
-                        this.onRequestCompleted ? this.onRequestCompleted(this) : null;
-
-                        // Execute the event
-                        onComplete ? onComplete() : null;
-                    }
+        // See if we are making an asynchronous request
+        if (this.asyncFl) {
+            // Set the state change event
+            this.xhr.onreadystatechange = () => {
+                // See if the request has finished
+                if (this.xhr.readyState == 4) {
+                    // Execute the request completed event
+                    this.onRequestCompleted ? this.onRequestCompleted(this) : null;
                 }
-            }
-
-            // See if we the response type is an array buffer
-            // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-            if (this.targetInfo.props.bufferFl && this.asyncFl) {
-                // Set the response type
-                this.xhr.responseType = "arraybuffer";
-            }
-            else {
-                // Default the headers
-                this.defaultHeaders(requestDigest);
-
-                // Ensure the arguments passed is defaulted as a string, unless it's an array buffer
-                if (this.targetInfo.requestData && typeof (this.targetInfo.requestData) !== "string") {
-                    // Stringify the data object, if it's not an array buffer
-                    this.targetInfo.requestData = this.targetInfo.requestData.byteLength ? this.targetInfo.requestData : JSON.stringify(this.targetInfo.requestData);
-                }
-            }
-
-            // See if we are executing the request
-            if (this.executeFl) {
-                // Execute the request
-                this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
             }
         }
 
-        // See if this is an async request
-        if (this.asyncFl) {
-            // Execute the request within a worker process
-            let worker = WebWorker(() => {
-                // Stop the process so we don't send multiple
-                worker.stop();
+        // See if we the response type is an array buffer
+        // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
+        if (this.targetInfo.props.bufferFl && this.asyncFl) {
+            // Set the response type
+            this.xhr.responseType = "arraybuffer";
+        }
+        else {
+            // Default the headers
+            this.defaultHeaders(requestDigest);
 
-                // Execute the request
-                sendRequest();
-            }, 10);
+            // Ensure the arguments passed is defaulted as a string, unless it's an array buffer
+            if (this.targetInfo.requestData && typeof (this.targetInfo.requestData) !== "string") {
+                // Stringify the data object, if it's not an array buffer
+                this.targetInfo.requestData = this.targetInfo.requestData.byteLength ? this.targetInfo.requestData : JSON.stringify(this.targetInfo.requestData);
+            }
+        }
 
-            // Start the process
-            worker.start();
-        } else {
+        // See if we are executing the request
+        if (this.executeFl) {
             // Execute the request
-            sendRequest();
+            this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
         }
     }
 }
