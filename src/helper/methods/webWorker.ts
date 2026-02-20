@@ -1,31 +1,32 @@
 // Web Worker
-export function WebWorker(callback: () => void, interval: number = 1000) {
-    // Create the worker process
-    const blob = new Blob([WorkerCode(interval)], { type: "application/javascript" });
-    const worker: Worker = new Worker(URL.createObjectURL(blob));
+export class WebWorker {
+    private _worker: Worker = null;
 
-    // Set the callback method
-    worker.onmessage = () => {
+    // Constructor
+    constructor(callback: () => void, interval: number = 1000) {
+        // Create the worker process
+        let blob = new Blob([WorkerCode(interval)], { type: "application/javascript" });
+        this._worker = new Worker(URL.createObjectURL(blob));
 
-        // Call the callback method
-        callback();
+        // Set the callback method
+        this._worker.onmessage = () => {
+            // Call the callback method
+            callback();
+        }
+
+        // Watch the unload event to stop the loop
+        window.addEventListener("beforeunload", () => {
+            // Stop the loop
+            this.stop();
+            this._worker.terminate();
+        });
     }
 
-    // Watch the unload event to stop the loop
-    window.addEventListener("beforeunload", () => {
-        // Stop the loop
-        this.stop();
-        this._worker.terminate();
-    });
-
     // Starts the loop
-    const start = () => { this._worker.postMessage("start"); }
+    start() { this._worker.postMessage("start"); }
 
     // Stops the loop
-    const stop = () => { this._worker.postMessage("stop"); }
-
-    // Return the public methods
-    return { start, stop }
+    stop() { this._worker.postMessage("stop"); }
 }
 
 // The worker code
