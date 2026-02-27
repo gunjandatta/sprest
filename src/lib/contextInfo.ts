@@ -312,8 +312,11 @@ class _ContextInfo {
             // Refresh the REST API token
             refreshREST();
 
-            // Refresh the Graph API token
-            refreshGraph();
+            // Ensure this is SPO
+            if (this.isSPO) {
+                // Refresh the Graph API token
+                refreshGraph();
+            }
         }, 1000);
 
         // Start the process
@@ -321,8 +324,8 @@ class _ContextInfo {
     }
 
     // Value in minutes to refresh the token
-    // Default is 5 minutes prior to it expiring
-    private static _refreshToken = 5;
+    // Default is 15 minutes prior to it expiring
+    private static _refreshToken = 15;
     static get refreshToken() { return this._refreshToken; }
     static set refreshToken(value: number) { this._refreshToken = value; }
 
