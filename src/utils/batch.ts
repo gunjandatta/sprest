@@ -66,7 +66,7 @@ export class Batch {
     }
 
     // Method to generate a batch request
-    static getTargetInfo(url: string, requests: Array<IBatchRequest>, requestDigest: string, isV2: boolean = false): TargetInfo {
+    static getTargetInfo(url: string, requests: Array<IBatchRequest>, requestDigest: string, requestHeader: object = {}, isV2: boolean = false): TargetInfo {
         let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
@@ -82,6 +82,9 @@ export class Batch {
         // End the batch request
         batchRequests.push("--" + batchId + "--");
 
+        // Update the request header
+        requestHeader["Content-Type"] = 'multipart/mixed; boundary="' + batchId + '"';
+
         // Return the target information
         return new TargetInfo({
             url,
@@ -89,9 +92,7 @@ export class Batch {
             method: "POST",
             data: batchRequests.join("\r\n"),
             requestDigest,
-            requestHeader: {
-                "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
-            }
+            requestHeader
         });
     }
 

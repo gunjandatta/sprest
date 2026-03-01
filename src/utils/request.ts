@@ -459,7 +459,7 @@ export const Request = {
                 // Return a promise
                 return new Promise(resolve => {
                     // Execute the request
-                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest, base.targetInfo.requestDigest, base.targetInfo.endpoint.indexOf("_api/v2") >= 0), batchIdx++, () => {
+                    execute(Batch.getTargetInfo(base.targetInfo.url, batchRequest, base.targetInfo.requestDigest, base.targetInfo.requestHeader, base.targetInfo.endpoint.indexOf("_api/v2") >= 0), batchIdx++, () => {
                         // Resolve the request
                         resolve(null);
                     });
