@@ -658,7 +658,7 @@ export const Request = {
                     Helper.updateSearchResults(obj);
                 }
                 // Else, see if this is a graph request
-                else if (data["@odata.context"]) {
+                else if (data["@odata.context"] || data["odata.type"]) {
                     // Save a reference to it
                     obj["d"] = data;
 
@@ -666,7 +666,7 @@ export const Request = {
                     Request.addProperties(obj, data);
 
                     // Add the methods
-                    Request.addMethods(obj, data, data["@odata.context"]);
+                    Request.addMethods(obj, data, data["@odata.context"] || data["odata.type"]);
 
                     // See if we are not bypassing the processing of the response
                     if (base.targetInfo.disableProcessing != true) {
