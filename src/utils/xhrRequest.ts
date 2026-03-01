@@ -1,4 +1,5 @@
 import { Base } from "gd-sprest-def";
+import { WebWorker } from "../helper/methods/webWorker";
 import { ContextInfo, Graph } from "../lib";
 import { TargetInfo } from ".";
 declare var ActiveXObject;
@@ -98,7 +99,7 @@ export class XHRRequest {
     /*********************************************************************************************************************************/
 
     // Method to create the xml http request
-    private createXHR() {
+    private createXHR(): XMLHttpRequest {
         // See if the generic object doesn't exist
         if (typeof (XMLHttpRequest) !== "undefined") {
             // Create an instance of the xml http request object
@@ -199,9 +200,9 @@ export class XHRRequest {
         // Set the request digest
         let requestDigest: any | string = this.targetInfo.props.requestDigest || "";
         if (requestDigest == "") {
-            // Get the request digest
-            requestDigest = ContextInfo.document ? ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
+            // Set the request digest
             requestDigest = requestDigest ? requestDigest.value : ContextInfo.formDigestValue;
+            requestDigest = requestDigest ? requestDigest : (ContextInfo.document ? ContextInfo.document.querySelector("#__REQUESTDIGEST") : "");
         }
 
         // See if we are targeting the context endpoint
@@ -234,7 +235,7 @@ export class XHRRequest {
         if (this.xhr == null) { return null; }
 
         // Open the request
-        if(this.isGraph) {
+        if (this.isGraph) {
             this.xhr.open(this.targetInfo.requestMethod, this.targetInfo.requestUrl, this.asyncFl);
         } else {
             this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
@@ -271,8 +272,31 @@ export class XHRRequest {
 
         // See if we are executing the request
         if (this.executeFl) {
-            // Execute the request
-            this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+            // See if we are using keep alive
+            if (this.targetInfo.props.keepalive && this.asyncFl) {
+                // Create a fetch request
+                fetch(this.targetInfo.requestUrl, {
+                    body: this.targetInfo.requestData,
+                    headers: this.headers,
+                    keepalive: true,
+                    method: this.isGraph ? this.targetInfo.requestMethod : (this.targetInfo.requestMethod == "GET" ? "GET" : "POST")
+                }).then(response => {
+                    // Set the xhr object
+                    this.xhr = response as any;
+
+                    // Return the response
+                    return (this.targetInfo.props.bufferFl ? response.arrayBuffer() : response.text()) as any;
+                }).then(response => {
+                    // Set the xhr response
+                    (this.xhr as any).response = response;
+
+                    // Execute the request completed event
+                    this.onRequestCompleted ? this.onRequestCompleted(this) : null;
+                });
+            } else {
+                // Execute the request
+                this.targetInfo.props.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+            }
         }
     }
 }

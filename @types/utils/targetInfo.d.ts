@@ -1,3 +1,5 @@
+import { ListItemOData } from "gd-sprest-def/lib/SP/entitytypes";
+
 /**
  * Target Information
  */
@@ -45,6 +47,9 @@ export interface ITargetInfoProps {
     /** The method to execute after the asynchronous request executes. */
     callback?: () => void;
 
+    /** The method to execute for each set of pages using the OData query. */
+    callbackQuery?: (items?: ListItemOData[]) => void;
+
     /** The data to be passed in the body of the request. */
     data?: any;
 
@@ -54,8 +59,14 @@ export interface ITargetInfoProps {
     /** Sets the Cache-Control header to no-cache */
     disableCache?: boolean;
 
+    /** True to not process the response, when dealing with querying large lists. */
+    disableProcessing?: boolean;
+
     /** The endpoint of the request. */
     endpoint?: string;
+
+    /** Uses a fetch instead of xml http request. */
+    keepalive?: boolean;
 
     /** The method to execute. */
     method?: string;

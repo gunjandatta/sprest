@@ -393,6 +393,14 @@ export const ListExperienceOptions: SPTypes.IListExperienceOptions = {
 }
 
 /**
+ * List Read Security
+ */
+export const ListReadSecurity: SPTypes.IListReadSecurity = {
+    All: 1,
+    User: 2
+};
+
+/**
  * List Template Types
 */
 export const ListTemplateType: SPTypes.IListTemplateType = {
@@ -479,6 +487,15 @@ export const ListTemplateType: SPTypes.IListTemplateType = {
     WorkflowHistory: 140,
     WorkflowProcess: 118,
     XMLForm: 115
+};
+
+/**
+ * List Write Security
+ */
+export const ListWriteSecurity: SPTypes.IListWriteSecurity = {
+    All: 1,
+    User: 2,
+    None: 4
 };
 
 /**
@@ -831,6 +848,25 @@ export const SearchScope: SPTypes.ISearchScope = {
     Tenant: 1,
     Hub: 2,
     Site: 3
+}
+
+/**
+ * Search Source Ids
+ */
+export const SearchSourceId: SPTypes.ISearchResultSource = {
+    Conversations: "459dd1b7-216f-4386-9709-287d5d22f568",
+    Documents: "e7ec8cee-ded8-43c9-beb5-436b54b31e84",
+    LocalPeopleResults: "b09a7990-05ea-4af9-81ef-edfab16c4e31",
+    LocalReportsAndDataResults: "203fba36-2763-4060-9931-8beafc7b6d3c",
+    LocalSharePointResults: "8413cd39-2156-4e00-b54d-11efd9abdb89",
+    LocalVideoResults: "78b793ce-7956-4669-aa3b-451fc5defebf",
+    Pages: "5e34578e-4d08-4edc-8bf3-002acf3cdbcc",
+    Pictures: "38403c8c-3975-41a8-826e-717f2d41568a",
+    Popular: "97c71db1-58ce-4891-8b64-585bc2326c12",
+    RecentlyChangedItems: "ba63bbae-fa9c-42c0-b027-9a878f16557c",
+    RecommendedItems: "ec675252-14fa-4fbe-84dd-8d098ed74181",
+    SharePointGlobalSearch: "e7ec8cee-ded8-43c9-beb5-436b54b31e84",
+    Wiki: "9479bf85-e257-4318-b5a8-81a180f5faa1"
 }
 
 /**

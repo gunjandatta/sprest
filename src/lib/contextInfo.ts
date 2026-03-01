@@ -1,5 +1,7 @@
 import { IContextInformation } from "../../@types/lib";
+import { WebWorker } from "../helper/methods/webWorker";
 import { Base } from "../utils";
+import { Graph } from "./graph";
 
 /**
  * Context Information
@@ -188,16 +190,159 @@ class _ContextInfo {
     }
 
     // Method to get the context information for a web
-    static getWeb = (url?: string) => {
+    static getWeb(url?: string) {
         // Create a new base object
         return new Base({
             endpoint: "contextinfo",
+            keepalive: true,
             method: "POST",
             url
         });
     }
 
     // Method to set the page context information from an SPFX project
-    static setPageContext = (spfxPageContext: any) => { ContextInfo["_spfxPageContext"] = spfxPageContext; }
+    static setPageContext = (spfxPageContext: any) => {
+        // Set the page context information
+        ContextInfo["_spfxPageContext"] = spfxPageContext;
+
+        // Enable the refresh token
+        this.enableRefreshToken();
+    }
+
+    private static _worker = null;
+    private static _onRefresh: (() => void)[] = [];
+    static enableRefreshToken(callback?: () => void) {
+        let isRunning = false;
+
+        // Set the refresh event
+        if (callback) { this._onRefresh.push(callback); }
+
+        // Ensure the request digest exists
+        if (this.formDigestValue == null) { return; }
+
+        // See if we already have a worker process
+        if (this._worker) {
+            // Ensure it's running
+            this._worker.start();
+            return;
+        }
+
+        // Refresh method for REST
+        let refreshREST = () => {
+            // Do nothing if it's currently running
+            if (isRunning) { return; }
+
+            // See if the digest is valid
+            if (this.validateToken()) { return; }
+
+            // Log
+            console.info("[gd-sprest] Token has expired. Trying to refresh the token.");
+
+            // Set the flag
+            isRunning = true;
+
+            // Get the context
+            this.getWeb().execute(context => {
+                // Log
+                console.info("[gd-sprest] Successfully updated the token information.");
+
+                // Update the context info
+                this._contextInfo.formDigestTimeoutSeconds = context.GetContextWebInformation.FormDigestTimeoutSeconds;
+                this._contextInfo.formDigestValue = context.GetContextWebInformation.FormDigestValue;
+
+                // Call the events
+                this._onRefresh.forEach(callback => { callback(); });
+
+                // Set the flag
+                isRunning = false;
+            }, () => {
+                // Log
+                console.info("[gd-sprest] Unable to get the context information to refresh the token.");
+
+                // Stop the process
+                this._worker.stop();
+
+                // Set the flag
+                isRunning = false;
+            });
+        }
+
+        // Refresh method for Graph
+        let refreshGraph = () => {
+            // Do nothing if it's currently running
+            if (isRunning) { return; }
+
+            // Ensure we have a token
+            if (Graph.TokenExpiration) {
+                // See if the digest is valid
+                if (Date.now() < Graph.TokenExpiration - (60000 * ContextInfo.refreshToken)) { return; }
+            }
+
+            // Log
+            console.info("[gd-sprest] Graph Token has expired. Trying to refresh the token.");
+
+            // Set the flag
+            isRunning = true;
+
+            // Get the cloud access token
+            Graph.getAccessToken(Graph.Cloud, "SPO").execute(auth => {
+                // Log
+                console.info("[gd-sprest] Successfully updated the graph token.");
+
+                // Set the access token and expiration
+                Graph.Token = auth.access_token;
+                Graph.TokenExpiration = parseInt(auth.expires_on) * 1000;
+
+                // Set the flag
+                isRunning = false;
+            }, () => {
+                // Log
+                console.info("[gd-sprest] Unable to refresh the graph token.");
+
+                // Stop the process
+                this._worker.stop();
+
+                // Set the flag
+                isRunning = false;
+            });
+        }
+
+        // Create the process
+        this._worker = WebWorker(() => {
+            // Refresh the REST API token
+            refreshREST();
+
+            // Ensure this is SPO
+            if (this.isSPO) {
+                // Refresh the Graph API token
+                refreshGraph();
+            }
+        }, 1000);
+
+        // Start the process
+        this._worker.start();
+    }
+
+    // Value in minutes to refresh the token
+    // Default is 15 minutes prior to it expiring
+    private static _refreshToken = 15;
+    static get refreshToken() { return this._refreshToken; }
+    static set refreshToken(value: number) { this._refreshToken = value; }
+
+    // Method to validate the token
+    static validateToken(digestValue: string = this._contextInfo.formDigestValue): boolean {
+        // See if no value exists
+        if (digestValue == null) {
+            return false;
+        }
+
+        // Get the current token expiration time
+        let dtToken = new Date(digestValue.split(',')[1]);
+        let timeout = this.formDigestTimeoutSeconds || 0;
+
+        // Return true if it's still valid
+        // Time the token was granted + Timeout in seconds - (1 min (60000) * refresh token value)
+        return Date.now() < dtToken.getTime() + timeout * 1000 - (60000 * this.refreshToken);
+    }
 }
 export const ContextInfo: IContextInformation = _ContextInfo as any;

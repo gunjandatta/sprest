@@ -77,7 +77,7 @@ export const Helper: IBaseHelper = {
             targetInfo = Object.create(base.targetInfo);
 
             // See if this is a graph request and an id exists for the parent
-            if (base["@odata.etag"] && base["id"]) {
+            if ((base["@odata.etag"] || (base?.parent ? base?.parent["@odata.context"] : null)) && base["id"]) {
                 // Append the id
                 targetInfo.endpoint += "/" + base["id"];
             }

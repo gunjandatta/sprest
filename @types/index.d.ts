@@ -1,11 +1,17 @@
 /**
  * Library
  */
-import { Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, UserProfile, Utility, Web, ThemeManager, WorkflowInstanceService, WorkflowSubscriptionService } from "./lib";
+import {
+    Apps, ContextInfo, DirectorySession, Graph, GroupService, GroupSiteManager, HubSites,
+    HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search,
+    SensitivityLabels, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
+    Utility, Web, WebTemplateExtensions, WorkflowInstanceService, WorkflowSubscriptionService
+} from "./lib";
 export {
-    Apps, ContextInfo, Graph, GroupService, GroupSiteManager, HubSites, HubSitesUtility,
-    List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SiteIconManager, SiteManager,
-    SitePages, SocialFeed, ThemeManager, UserProfile, Utility, Web, WorkflowInstanceService, WorkflowSubscriptionService
+    Apps, ContextInfo, DirectorySession, Graph, GroupService, GroupSiteManager, HubSites,
+    HubSitesUtility, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search,
+    SensitivityLabels, Site, SiteIconManager, SiteManager, SitePages, SocialFeed, ThemeManager, UserProfile,
+    Utility, Web, WebTemplateExtensions, WorkflowInstanceService, WorkflowSubscriptionService
 }
 
 /**

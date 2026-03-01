@@ -4,8 +4,16 @@ import {
 
 import { v2 } from "../@types";
 
+$REST.SensitivityLabels.getLabelsForUser().execute(labels => {
+    labels.results[0].sublabels.length;
+})
+
 v2.drive().execute(drive => {
     drive.id;
+    drive.getFolder("");
+    drive.root().children().execute(items => {
+        items.results[0].sensitivityLabel;
+    });
 })
 
 v2.drives().execute(drives => {
@@ -68,6 +76,9 @@ Web().getUserEffectivePermissions("").execute(perm => {
     // Save the permissions
     perm.GetUserEffectivePermissions;
 });
+Web.getSharingSettings({objectUrl: ""}).execute(web => {
+    web.IsUserSiteAdmin;
+})
 
 SitePages().Pages().createAppPage({
     PageLayoutType: SPTypes.ClientSidePageLayout.Article,
@@ -139,7 +150,7 @@ $REST.Web().Lists("Documents").RoleAssignments().execute(roles => {
     roles.results[0].PrincipalId;
 });
 $REST.Web().Lists("Documents").RoleAssignments().execute(roles => { });
-$REST.Web().Lists().getById("").RoleAssignments();
+$REST.Web().Lists().getById("").getSharingInformation;
 $REST.Web().Lists().getByTitle("").RoleAssignments();
 $REST.Web().Lists("").RoleAssignments();
 $REST.Web().Lists().query({}).execute(lists => {
@@ -252,5 +263,7 @@ $REST.Helper.SPConfig({
     }]
 }).install();
 
-Helper.Executor([""], s => {
+$REST.Web().execute(web => {
+    web.WebTemplate;
+    web.getAvailableWebTemplates(1033).getByName
 })

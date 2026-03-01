@@ -465,6 +465,11 @@ export interface IContextInformation {
      */
 
     /**
+     * Runs a loop to ensure the digest value doesn't expire.
+     */
+    enableRefreshToken(callback?: () => void);
+
+    /**
      * Generates a guid.
      * @returns A GUID as a string value.
      */
@@ -477,6 +482,11 @@ export interface IContextInformation {
      * @return The context information of the web.
      */
     getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
+
+    /**
+     * Value in minutes, to refresh the token prior to it expiring
+     */
+    refreshToken: number;
 
     /**
      * Sets the page context information for modern pages.

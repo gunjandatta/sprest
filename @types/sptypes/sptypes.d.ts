@@ -130,17 +130,6 @@ export type IChoiceFormatType = {
 };
 
 /**
- * Client Template Utility
- */
-export type IClientTemplateUtility = {
-    /** User Lookup Delimiter */
-    UserLookupDelimitString: string,
-
-    /** Multi-User Value Delimiter */
-    UserMultiValueDelimitString: string
-}
-
-/**
  * Client Side Page Layouts
  */
 export type IClientSidePageLayout = {
@@ -151,6 +140,17 @@ export type IClientSidePageLayout = {
     SingleWebPartAppPage: string;
     Spaces: string;
     Topic: string;
+}
+
+/**
+ * Client Template Utility
+ */
+export type IClientTemplateUtility = {
+    /** User Lookup Delimiter */
+    UserLookupDelimitString: string,
+
+    /** Multi-User Value Delimiter */
+    UserMultiValueDelimitString: string
 }
 
 /**
@@ -229,6 +229,17 @@ export type IDraftVisibilityType = {
 
     /** export typeeration whose values specify that the minimum permission is reader. */
     Reader: number
+};
+
+/**
+ * Event Receiver Synchronization Types
+ */
+export type IEventReceiverSynchronizationType = {
+    /** Event to be triggered asynchronously. */
+    Asynchronous: number,
+
+    /** Event to be triggered synchronously. */
+    Synchronization: number
 };
 
 /**
@@ -459,17 +470,6 @@ export type IEventReceiverType = {
 
     /** Identifies workflow event receivers, and is therefore not a true event type. */
     ContextEvent: number,
-};
-
-/**
- * Event Receiver Synchronization Types
- */
-export type IEventReceiverSynchronizationType = {
-    /** Event to be triggered asynchronously. */
-    Asynchronous: number,
-
-    /** Event to be triggered synchronously. */
-    Synchronization: number
 };
 
 /**
@@ -713,13 +713,6 @@ export type IFriendlyDateFormat = {
 }
 
 /**
- * Base Permission Result
- */
-export interface IGetUserEffectivePermissionsResult {
-    GetUserEffectivePermissions: BasePermissions
-}
-
-/**
  * List Experience Options
  */
 export type IListExperienceOptions = {
@@ -732,6 +725,17 @@ export type IListExperienceOptions = {
     /** Classic experience */
     ClassicExperience: number
 }
+
+/**
+ * List Read Security
+ */
+export type IListReadSecurity = {
+    /** All users have read access to all items */
+    All: number,
+
+    /** Users have access only to items they create */
+    User: number
+};
 
 /**
  * List Template Types
@@ -985,6 +989,20 @@ export type IListTemplateType = {
 
     /** XML Form library */
     XMLForm: number
+};
+
+/**
+ * List Write Security
+ */
+export type IListWriteSecurity = {
+    /** All users have write access to all items */
+    All: number,
+
+    /** Users have access only to items they create */
+    User: number,
+
+    /** Users have write access to no items */
+    None: number
 };
 
 /**
@@ -1397,6 +1415,25 @@ export type IRoleType = {
     /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
     WebDesigner: number
 };
+
+/**
+ * Search Result Source
+ */
+export interface ISearchResultSource {
+    Conversations: string,
+    Documents: string,
+    LocalPeopleResults: string,
+    LocalReportsAndDataResults: string,
+    LocalSharePointResults: string,
+    LocalVideoResults: string,
+    Pages: string,
+    Pictures: string,
+    Popular: string,
+    RecentlyChangedItems: string,
+    RecommendedItems: string,
+    SharePointGlobalSearch: string,
+    Wiki: string
+}
 
 /**
  * Search Scope

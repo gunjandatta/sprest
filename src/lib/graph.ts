@@ -1,6 +1,7 @@
 import { IGraph, IGraphProperties } from "../../@types/lib/graph";
 import { SPTypes } from "../sptypes";
 import { Base, Request, RequestType } from "../utils";
+import { ContextInfo } from "./contextInfo";
 
 // Default Token
 //export const Token
@@ -35,6 +36,7 @@ export const Graph: IGraph = ((props: IGraphProperties) => {
 // Default Values
 Graph.Cloud = "";
 Graph.Token = "";
+Graph.TokenExpiration = null;
 Graph.Version = "";
 
 // Method to get the graph token from a classic page
@@ -48,6 +50,7 @@ Graph.getAccessToken = (resource?: string, tokenType?: string) => {
     // Get the access token
     return new Base({
         endpoint: "SP.OAuth.Token/Acquire",
+        keepalive: true,
         method: "POST",
         data
     }) as any;

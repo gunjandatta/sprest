@@ -1,6 +1,8 @@
+import { IODataQuery } from "gd-sprest-def";
 import { IWeb } from "../../@types/lib";
 import { ContextInfo } from "./contextInfo";
-import { Base, Request, RequestType } from "../utils";
+import { Base, OData, Request, RequestType } from "../utils";
+import { Graph } from "./graph";
 
 export const Web: IWeb = ((url?, targetInfo?) => {
     let web = new Base(targetInfo);
@@ -22,6 +24,25 @@ export const Web: IWeb = ((url?, targetInfo?) => {
     return web;
 }) as any as IWeb;
 
+
+// Method to get the onedive web for the current user
+Web.getOneDrive = (targetInfo = {}) => {
+    // Set the url of the drive
+    let host = document.location.host.split('.');
+    let url = `https://${host[0]}-my.${host[1]}.${host[2]}/personal/${ContextInfo.userPrincipalName.replace(/[@,.]/g, '_')}`;
+
+    // Return the web for the user's onedrive
+    return Web(url, {
+        ...targetInfo, ...{
+            requestHeader: {
+                Authorization: "Bearer " + Graph.Token,
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        }
+    });
+}
+
 // Static method to get a remote web
 Web.getRemoteWeb = ((requestUrl: string) => {
     // Return the remote web information
@@ -29,6 +50,17 @@ Web.getRemoteWeb = ((requestUrl: string) => {
         data: { requestUrl },
         defaultToWebFl: true,
         endpoint: "SP.RemoteWeb?$expand=Web",
+        method: "POST"
+    });
+}) as any;
+
+// Static method to get the sharing settings
+Web.getSharingSettings = ((data: { objectUrl: string, groupId?: number, useSimplifiedRoles?: boolean }, query?: IODataQuery) => {
+    // Return the sharing settings
+    return new Base({
+        data,
+        defaultToWebFl: true,
+        endpoint: "SP.Web.GetObjectSharingSettings" + (query ? "?" + (new OData(query)).QueryString : ""),
         method: "POST"
     });
 }) as any;

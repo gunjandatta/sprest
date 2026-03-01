@@ -1,5 +1,6 @@
 export * from "./apps";
 export * from "./contextInfo";
+export * from "./directorySession";
 export * from "./graph";
 export * from "./groupService";
 export * from "./groupSiteManager";
@@ -11,6 +12,7 @@ export * from "./peopleManager";
 export * from "./peoplePicker";
 export * from "./profileLoader";
 export * from "./search";
+export * from "./sensitivityLabels";
 export * from "./site";
 export * from "./siteIconManager";
 export * from "./siteManager";

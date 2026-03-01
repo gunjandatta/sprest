@@ -48,7 +48,6 @@ export const Request = {
 
             // Get the methods for this object type
             methods = MapperV2[objType];
-            console.log("[gd-sprest] v2 response detected. Type is: " + objType, methods);
         }
         // Else, get the methods from the default mapper, otherwise get it from the custom mapper
         else if ((methods = Mapper[objType + (isCollection ? ".Collection" : "")]) == null) {
@@ -367,7 +366,7 @@ export const Request = {
         let execute = (targetInfo: TargetInfo, batchIdx?: number, onComplete?: () => void) => {
             // See if this is an asynchronous request
             if (asyncFl) {
-                // See if the not a batch request, and it already exists
+                // See if this is not a batch request, and it already exists
                 if (base.xhr && !isBatchRequest) {
                     // Execute the callback
                     callback ? callback(base, false) : null;
@@ -547,7 +546,7 @@ export const Request = {
     // Method to convert the input arguments into an object
     updateDataObject: (base: IBase, isBatchRequest: boolean = false, batchIdx: number = 0) => {
         // Ensure the request was successful
-        if (base.status >= 200 && base.status < 300) {
+        if ((base.status >= 200 && base.status < 300) || (isBatchRequest && base.status == 422)) {
             // Return if we are expecting a buffer
             if (base.requestType == RequestType.GetBuffer) { return; }
 
@@ -604,11 +603,14 @@ export const Request = {
                         // Add the methods
                         Request.addMethods(obj, objData, objData["@odata.context"]);
 
-                        // Update the data collection
-                        Helper.updateDataCollection(obj, objData["results"]);
+                        // See if we are not bypassing the processing of the response
+                        if (base.targetInfo.disableProcessing != true) {
+                            // Update the data collection
+                            Helper.updateDataCollection(obj, objData["results"]);
 
-                        // Update the expanded properties
-                        Helper.updateExpandedProperties(obj);
+                            // Update the expanded properties
+                            Helper.updateExpandedProperties(obj);
+                        }
 
                         // Update the search results
                         Helper.updateSearchResults(obj);
@@ -622,6 +624,15 @@ export const Request = {
                 }
                 // Else, see if the data properties exists
                 else if (data.d) {
+                    // Get the endpoint method to see if it's part of the response
+                    let endpointInfo = base.targetInfo.endpoint?.split('/') || "";
+                    let endpointMethod = endpointInfo ? endpointInfo[endpointInfo.length - 1] || "" : "";
+                    endpointMethod = endpointMethod ? endpointMethod[0].toUpperCase() + endpointMethod.substring(1) : "";
+                    if (endpointMethod && data.d[endpointMethod]) {
+                        // Update the response to be that object
+                        data.d = data.d[endpointMethod];
+                    }
+
                     // Save a reference to it
                     obj["d"] = data.d;
 
@@ -634,17 +645,20 @@ export const Request = {
                     // Add the methods
                     Request.addMethods(obj, data.d, data["@odata.context"]);
 
-                    // Update the data collection
-                    Helper.updateDataCollection(obj, data.d.results);
+                    // See if we are not bypassing the processing of the response
+                    if (base.targetInfo.disableProcessing != true) {
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, data.d.results);
 
-                    // Update the expanded properties
-                    Helper.updateExpandedProperties(obj);
+                        // Update the expanded properties
+                        Helper.updateExpandedProperties(obj);
+                    }
 
                     // Update the search results
                     Helper.updateSearchResults(obj);
                 }
                 // Else, see if this is a graph request
-                else if (data["@odata.context"]) {
+                else if (data["@odata.context"] || data["odata.type"]) {
                     // Save a reference to it
                     obj["d"] = data;
 
@@ -652,14 +666,23 @@ export const Request = {
                     Request.addProperties(obj, data);
 
                     // Add the methods
-                    Request.addMethods(obj, data, data["@odata.context"]);
+                    Request.addMethods(obj, data, data["@odata.context"] || data["odata.type"]);
 
-                    // Update the data collection
-                    Helper.updateDataCollection(obj, data.value);
+                    // See if we are not bypassing the processing of the response
+                    if (base.targetInfo.disableProcessing != true) {
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, data.value);
+                    }
                 }
                 else {
                     // Update the base object's properties
                     Request.addProperties(obj, data);
+
+                    // See if the response is an array
+                    if (typeof (data) === "object" && typeof (data.length) === "number" && typeof (data.push) === "function") {
+                        // Update the data collection
+                        Helper.updateDataCollection(obj, data);
+                    }
                 }
 
                 // See if the batch request exists
@@ -713,6 +736,12 @@ export const Request = {
                     // Set the next item flag
                     base.nextFl = data["@odata.nextLink"] || (data.d && data.d.__next);
 
+                    // See if the callback for odata query exists
+                    if (base.targetInfo.callbackQuery) {
+                        // Call the method
+                        base.targetInfo.callbackQuery(data.d.results);
+                    }
+
                     // See if there are more items to get
                     if (base.nextFl) {
                         // See if we are getting all items in the base request
@@ -728,11 +757,14 @@ export const Request = {
                                 // Convert the response and see if values were returned
                                 let data = JSON.parse(xhr.response);
                                 if (data.d || data.value) {
-                                    // Update the data collection
-                                    Helper.updateDataCollection(base as any, data.d?.results || data.value);
+                                    // See if we are not bypassing the processing of the response
+                                    if (base.targetInfo.disableProcessing != true) {
+                                        // Update the data collection
+                                        Helper.updateDataCollection(base as any, data.d?.results || data.value);
 
-                                    // Update the expanded properties
-                                    Helper.updateExpandedProperties(base);
+                                        // Update the expanded properties
+                                        Helper.updateExpandedProperties(base);
+                                    }
 
                                     // Append the raw data results
                                     if (base["d"]?.results) {

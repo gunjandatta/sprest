@@ -42,6 +42,11 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
+     * A reference to the _api/sp.directory.directorysession endpoint.
+     */
+    DirectorySession: LibTypes.IDirectorySession;
+
+    /**
      * The default library for a site.
      */
     drive: LibV2Types.Idrive;
@@ -142,6 +147,11 @@ export interface IREST {
      * @param settings - The search settings.
      */
     Search: LibTypes.ISearch;
+
+    /**
+     * Use this api to get the sensitivity labels for the user.
+     */
+    SensitivityLabels: LibTypes.ISensitivityLabels;
 
     /**
      * Use this api to interact with a SharePoint site collection.
