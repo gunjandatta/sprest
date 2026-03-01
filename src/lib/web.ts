@@ -26,17 +26,19 @@ export const Web: IWeb = ((url?, targetInfo?) => {
 
 
 // Method to get the onedive web for the current user
-Web.getOneDrive = (token?: string) => {
+Web.getOneDrive = (targetInfo = {}) => {
     // Set the url of the drive
     let host = document.location.host.split('.');
     let url = `https://${host[0]}-my.${host[1]}.${host[2]}/personal/${ContextInfo.userPrincipalName.replace(/[@,.]/g, '_')}`;
 
     // Return the web for the user's onedrive
     return Web(url, {
-        requestHeader: {
-            Authorization: "Bearer " + (token || Graph.Token),
-            Accept: "application/json",
-            "Content-Type": "application/json"
+        ...targetInfo, ...{
+            requestHeader: {
+                Authorization: "Bearer " + Graph.Token,
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
         }
     });
 }

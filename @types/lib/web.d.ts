@@ -47,9 +47,9 @@ export interface IWeb {
 
     /**
      * Method to return the web of the current user's OneDrive.
-     * @param token - The token to use for the call.
+     * @param targetInfo - (Optional) The target information.
      */
-    getOneDrive(token?: string): SP.IWeb;
+    getOneDrive(targetInfo?: ITargetInfoProps): SP.IWeb;
 
     /**
      * Method to get a remote web.
