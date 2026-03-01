@@ -739,7 +739,7 @@ export const Request = {
                     // See if the callback for odata query exists
                     if (base.targetInfo.callbackQuery) {
                         // Call the method
-                        base.targetInfo.callbackQuery(data.value || data.d.results);
+                        base.targetInfo.callbackQuery(data.d?.results || data.value);
                     }
 
                     // See if there are more items to get
@@ -768,7 +768,7 @@ export const Request = {
 
                                     // Append the raw data results
                                     if (base["d"]?.results) {
-                                        base["d"].results = base["d"].results.concat(data.d?.results);
+                                        base["d"].results = base["d"].results.concat(data.d.results);
                                     } else {
                                         base["value"] = base["value"].concat(data.value);
                                     }
