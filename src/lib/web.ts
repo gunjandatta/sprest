@@ -34,7 +34,9 @@ Web.getOneDrive = (token?: string) => {
     // Return the web for the user's onedrive
     return Web(url, {
         requestHeader: {
-            Authorization: "Bearer " + (token || Graph.Token)
+            Authorization: "Bearer " + (token || Graph.Token),
+            Accept: "application/json",
+            "Content-Type": "application/json"
         }
     });
 }
