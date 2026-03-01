@@ -658,7 +658,7 @@ export const Request = {
                     Helper.updateSearchResults(obj);
                 }
                 // Else, see if this is a graph request
-                else if (data["@odata.context"] || data["odata.type"]) {
+                else if (data["@odata.context"] || data["odata.type"] || data["odata.metadata"]) {
                     // Save a reference to it
                     obj["d"] = data;
 
@@ -666,7 +666,7 @@ export const Request = {
                     Request.addProperties(obj, data);
 
                     // Add the methods
-                    Request.addMethods(obj, data, data["@odata.context"] || data["odata.type"]);
+                    Request.addMethods(obj, data, data["@odata.context"] || data["odata.type"] || data["odata.metadata"]);
 
                     // See if we are not bypassing the processing of the response
                     if (base.targetInfo.disableProcessing != true) {
@@ -739,7 +739,7 @@ export const Request = {
                     // See if the callback for odata query exists
                     if (base.targetInfo.callbackQuery) {
                         // Call the method
-                        base.targetInfo.callbackQuery(data.d.results);
+                        base.targetInfo.callbackQuery(data.value || data.d.results);
                     }
 
                     // See if there are more items to get
