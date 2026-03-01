@@ -2,6 +2,7 @@ import { IODataQuery } from "gd-sprest-def";
 import { IWeb } from "../../@types/lib";
 import { ContextInfo } from "./contextInfo";
 import { Base, OData, Request, RequestType } from "../utils";
+import { Graph } from "./graph";
 
 export const Web: IWeb = ((url?, targetInfo?) => {
     let web = new Base(targetInfo);
@@ -22,6 +23,21 @@ export const Web: IWeb = ((url?, targetInfo?) => {
     // Return the web
     return web;
 }) as any as IWeb;
+
+
+// Method to get the onedive web for the current user
+Web.getOneDrive = (token?: string) => {
+    // Set the url of the drive
+    let host = document.location.host.split('.');
+    let url = `https://${host[0]}-my.${host[1]}.${host[2]}/personal/${ContextInfo.userPrincipalName.replace(/[@,.]/g, '_')}`;
+
+    // Return the web for the user's onedrive
+    return Web(url, {
+        requestHeader: {
+            Authorization: "Bearer " + (token || Graph.Token)
+        }
+    });
+}
 
 // Static method to get a remote web
 Web.getRemoteWeb = ((requestUrl: string) => {
