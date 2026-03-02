@@ -4257,6 +4257,12 @@ declare module 'gd-sprest/lib/site' {
             getAppContext(siteUrl: string): IBaseExecution;
     
             /**
+                * Method to return the web of the current user's OneDrive.
+                * @param targetInfo - (Optional) The target information.
+                */
+            getOneDrive(targetInfo?: ITargetInfoProps): SP.IWeb;
+    
+            /**
                 * Method to get the url of a site, by its id.
                 * @param id - The site id.
                 */

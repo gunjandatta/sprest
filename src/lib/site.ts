@@ -1,6 +1,8 @@
 import { ISite } from "../../@types/lib";
 import { ITargetInfoProps } from "../../@types/utils";
 import { Base, Request } from "../utils";
+import { ContextInfo } from "./contextInfo";
+import { Graph } from "./graph";
 
 /**
  * Site
@@ -46,6 +48,24 @@ Site.getAppContext = ((siteUrl: string) => {
         method: "POST"
     });
 }) as any;
+
+// Method to get the onedive web for the current user
+Site.getOneDrive = (targetInfo = {}) => {
+    // Set the url of the drive
+    let host = document.location.host.split('.');
+    let url = `https://${host[0]}-my.${host[1]}.${host[2]}/personal/${ContextInfo.userPrincipalName.replace(/[@,.]/g, '_')}`;
+
+    // Return the web for the user's onedrive
+    return Site(url, {
+        ...targetInfo, ...{
+            requestHeader: {
+                Authorization: "Bearer " + Graph.Token,
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        }
+    });
+}
 
 // Method to get the url by id
 Site.getUrlById = ((id: string) => {

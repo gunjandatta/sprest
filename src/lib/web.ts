@@ -1,7 +1,7 @@
 import { IODataQuery } from "gd-sprest-def";
 import { IWeb } from "../../@types/lib";
-import { ContextInfo } from "./contextInfo";
 import { Base, OData, Request, RequestType } from "../utils";
+import { ContextInfo } from "./contextInfo";
 import { Graph } from "./graph";
 
 export const Web: IWeb = ((url?, targetInfo?) => {
@@ -23,7 +23,6 @@ export const Web: IWeb = ((url?, targetInfo?) => {
     // Return the web
     return web;
 }) as any as IWeb;
-
 
 // Method to get the onedive web for the current user
 Web.getOneDrive = (targetInfo = {}) => {
