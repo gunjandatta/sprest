@@ -672,6 +672,9 @@ export const Request = {
                     if (base.targetInfo.disableProcessing != true) {
                         // Update the data collection
                         Helper.updateDataCollection(obj, data.value);
+
+                        // Update the expanded properties
+                        Helper.updateExpandedProperties(obj);
                     }
                 }
                 else {

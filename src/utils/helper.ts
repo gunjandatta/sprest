@@ -307,9 +307,9 @@ export const Helper: IBaseHelper = {
 
                 // See if this is a v2 request, and set the default object type
                 let objType = null;
-                if (obj["@odata.context"]) {
+                if (obj["@odata.context"] || obj["odata.type"] || obj["odata.metadata"]) {
                     // Get the object type
-                    let metadataType = (obj["@odata.context"] || objType);
+                    let metadataType = (obj["@odata.context"] || obj["odata.type"] || obj["odata.metadata"] || objType);
                     let values = metadataType.split("_api/v2.0/$metadata#");
                     if (values.length > 1) {
                         objType = values[1];
@@ -344,7 +344,7 @@ export const Helper: IBaseHelper = {
             let result = results[i];
 
             // See if this property was expanded
-            if (result["__metadata"]) {
+            if (result["__metadata"] || result["@odata.context"] || result["odata.type"] || result["odata.metadata"]) {
                 // Add the base methods
                 Helper.addBaseMethods(base, result);
 
@@ -378,6 +378,11 @@ export const Helper: IBaseHelper = {
                     if (prop["results"] && prop["results"].length > 0) {
                         // Update the expanded collection
                         Helper.updateExpandedCollection(base, prop.results);
+                    }
+                    // Else, see if this is a graph collection
+                    else if (typeof (prop?.length) === "number" && typeof (result[key + "@odata.navigationLinkUrl"]) === "string") {
+                        // Update the expanded collection
+                        Helper.updateExpandedCollection(base, prop);
                     }
                     // Else, see if this property was expanded
                     else if (prop["__metadata"]) {
