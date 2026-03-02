@@ -189,6 +189,12 @@ export const Request = {
                         break;
                 }
 
+                // See if this is a graph collection
+                if (typeof (value?.length) === "number" && typeof (base[key + "@odata.navigationLinkUrl"]) === "string") {
+                    // Set the results
+                    base[key].results = base[key].splice(0, base[key].length);
+                }
+
                 // See if the base is a collection
                 if (base[key] && base[key].results) {
                     // Ensure the collection is an object
