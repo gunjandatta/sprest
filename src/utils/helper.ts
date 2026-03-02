@@ -374,15 +374,16 @@ export const Helper: IBaseHelper = {
                 // Ensure the property exists
                 let prop = result[key];
                 if (prop) {
+                    // See if this is a graph collection
+                    if (typeof (prop?.length) === "number" && typeof (result[key + "@odata.navigationLinkUrl"]) === "string") {
+                        // Set the results
+                        prop.results = prop.splice(0, prop.length);
+                    }
+
                     // See if this is a collection
                     if (prop["results"] && prop["results"].length > 0) {
                         // Update the expanded collection
                         Helper.updateExpandedCollection(base, prop.results);
-                    }
-                    // Else, see if this is a graph collection
-                    else if (typeof (prop?.length) === "number" && typeof (result[key + "@odata.navigationLinkUrl"]) === "string") {
-                        // Update the expanded collection
-                        Helper.updateExpandedCollection(base, prop);
                     }
                     // Else, see if this property was expanded
                     else if (prop["__metadata"]) {
