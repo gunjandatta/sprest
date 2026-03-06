@@ -7,7 +7,7 @@ import { Base, Request, RequestType } from "../utils";
  * Drive
  * Returns the default library for a site.
  */
-export const drive: Idrive = ((props: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps } = {}) => {
+export const drive: Idrive = ((props: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps, webId?: string } = {}) => {
     let drive = new Base(props.targetInfo);
 
     // Default the properties
@@ -21,10 +21,10 @@ export const drive: Idrive = ((props: { driveId?: string, siteId?: string, siteU
     if (drive.targetInfo.endpoint == undefined) {
         if (props.driveId) {
             // Set the endpoint
-            drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') + "/" : ""}drives/${props.driveId}`;
+            drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') + (props.webId ? "," + props.webId.replace(/^\{|\}$/g, '') : "") + "/" : ""}drives/${props.driveId}`;
         } else {
             // Default the endpoint
-            drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') + "/" : ""}drive`;
+            drive.targetInfo.endpoint = `_api/v2.0/${props.siteId ? "sites/" + props.siteId.replace(/[{}]/g, '') + (props.webId ? "," + props.webId.replace(/^\{|\}$/g, '') : "") + "/" : ""}drive`;
         }
 
         // Add the methods

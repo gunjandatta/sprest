@@ -26,10 +26,10 @@ export const drives: Idrives;
 export interface Idrives {
     /**
      * Get the libraries for a site.
-     * @param id - (Optional) The drive id to target.
      * @param siteId - (Optional) The site id to target, current by default.
      * @param siteUrl - (Optional) The site url to target, current by default.
      * @param targetInfo - (Optional) The target information.
+     * @param webId - (Optional) The web id to target.
      */
-    (props?: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): driveCollection;
+    (props?: { siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps, webId?: string }): driveCollection;
 }

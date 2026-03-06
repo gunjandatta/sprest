@@ -28,7 +28,9 @@ export interface Idrive {
      * Get the default library for a site.
      * @param driveId - (Optional) Sets the drive to get, otherwise gets the default drive for the site.
      * @param siteId - (Optional) The site id to target, current by default.
+     * @param siteUrl - (Optional) The site url to target, current by default.
      * @param targetInfo - (Optional) The target information.
+     * @param webId - (Optional) The web id to target.
      */
-    (props?: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps }): IBaseQuery<drive> & driveMethods;
+    (props?: { driveId?: string, siteId?: string, siteUrl?: string, targetInfo?: ITargetInfoProps, webId?: string }): IBaseQuery<drive> & driveMethods;
 }
