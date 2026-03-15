@@ -227,6 +227,14 @@ export const Request = {
                 }
             }
         }
+
+        // See if a return property was set and value exists
+        if (base.targetInfo.returnProp && data[base.targetInfo.returnProp]) {
+            // Parse the data properties
+            for (var key in data[base.targetInfo.returnProp]) {
+                base[key] = data[base.targetInfo.returnProp][key];
+            }
+        }
     },
 
     // Method to execute the request

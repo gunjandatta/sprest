@@ -5642,6 +5642,7 @@ export const Mapper: IMapper = {
 
         validateGroupName: {
             argNames: ["displayName", "alias"],
+            returnProp: "ValidateGroupName"
         },
 
     },
@@ -7625,6 +7626,7 @@ export const Mapper: IMapper = {
         getUserEffectivePermissions: {
             argNames: ["userName"],
             name: "getUserEffectivePermissions(@user)?@user='[[userName]]'",
+            returnProp: "GetUserEffectivePermissions",
             requestType: RequestType.GetReplace
         },
 
@@ -7936,6 +7938,7 @@ export const Mapper: IMapper = {
         getUserEffectivePermissions: {
             argNames: ["userName"],
             name: "getUserEffectivePermissions(@user)?@user='[[userName]]'",
+            returnProp: "GetUserEffectivePermissions",
             requestType: RequestType.GetReplace
         },
 
@@ -12171,6 +12174,7 @@ export const Mapper: IMapper = {
         getUserEffectivePermissions: {
             argNames: ["userName"],
             name: "getUserEffectivePermissions(@user)?@user='[[userName]]'",
+            returnProp: "GetUserEffectivePermissions",
             requestType: RequestType.GetReplace
         },
 
@@ -12899,6 +12903,7 @@ export const Mapper: IMapper = {
         getUserEffectivePermissions: {
             argNames: ["userName"],
             name: "getUserEffectivePermissions(@user)?@user='[[userName]]'",
+            returnProp: "GetUserEffectivePermissions",
             requestType: RequestType.GetReplace
         },
 

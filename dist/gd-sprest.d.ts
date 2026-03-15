@@ -7707,6 +7707,9 @@ declare module 'gd-sprest/utils/targetInfo' {
             /** The request type. */
             requestType?: number;
     
+            /** The property that contains the request response. */
+            returnProp?: string;
+    
             /** The url of the site/web to execute the request against. */
             url?: string;
     }

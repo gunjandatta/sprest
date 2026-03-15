@@ -107,6 +107,7 @@ export const Helper: IBaseHelper = {
         targetInfo.method = methodInfo.requestMethod;
         targetInfo.requestDigest = typeof (targetInfo.requestDigest) === "undefined" && base.base && base.base.targetInfo.requestDigest ? base.base.targetInfo.requestDigest : targetInfo.requestDigest;
         targetInfo.requestType = methodConfig.requestType;
+        targetInfo.returnProp = methodConfig.returnProp;
 
         // See if we are appending the endpoint
         if (methodInfo.appendEndpointFl) {
