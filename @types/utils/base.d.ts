@@ -26,6 +26,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     /** The responses. */
     responses: Array<IBase>;
 
+    /** The flag to stop any requests for a query or batch request. */
+    stopFl: boolean;
+
     /** The wait flags. */
     waitFlags: Array<boolean>;
 
@@ -72,6 +75,12 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 
     /** Gets the property. */
     getProperty(propertyName: string, requestType?: string);
+
+    /** Returns the root base object. */
+    root(): IBase;
+
+    /** Stops any requests for a batch or query. */
+    stop();
 
     /** Updates the metdata uri. */
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps);

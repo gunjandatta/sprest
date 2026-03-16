@@ -467,9 +467,13 @@ export const Request = {
         let isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
         if (isBatchRequest) {
             let batchIdx = 0;
+            let root = base.root();
 
             // Parse the requests
             Executor(base.base.batchRequests, batchRequest => {
+                // Do nothing if the stop flag is set
+                if (root.stopFl) { return; }
+
                 // Return a promise
                 return new Promise(resolve => {
                     // Execute the request
@@ -761,8 +765,11 @@ export const Request = {
 
                     // See if there are more items to get
                     if (base.nextFl) {
+                        // Get the root base object
+                        let root = base.root();
+
                         // See if we are getting all items in the base request
-                        if (base.getAllItemsFl) {
+                        if (base.getAllItemsFl && root.stopFl != true) {
                             // Create the target information to query the next set of results
                             let targetInfo = Object.create(base.targetInfo);
                             targetInfo.accessToken = base.targetInfo.accessToken || (base.xhr.isGraph ? Graph.Token : null);

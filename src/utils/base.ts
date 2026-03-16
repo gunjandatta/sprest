@@ -40,6 +40,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     requestType: number;
     response: string;
     status: number;
+    stopFl: boolean;
     targetInfo: ITargetInfoProps;
     xml: string | XMLDocument;
     xhr: XHRRequest;
@@ -76,6 +77,12 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
 
     // Method to get the request digest value
     getRequestDigest() { return this.targetInfo.requestDigest; }
+
+    // Returns the root base object
+    root() { let root = this; while (root.parent) { root = root.parent as any; } return root; }
+
+    // Method to stop any requests related to getting all items with the query
+    stop() { this.stopFl = true; }
 
     // Method to stringify the object
     stringify(): string { return Helper.stringify(this); }

@@ -7413,6 +7413,9 @@ declare module 'gd-sprest/utils/base' {
             /** The responses. */
             responses: Array<IBase>;
     
+            /** The flag to stop any requests for a query or batch request. */
+            stopFl: boolean;
+    
             /** The wait flags. */
             waitFlags: Array<boolean>;
     
@@ -7453,6 +7456,12 @@ declare module 'gd-sprest/utils/base' {
     
             /** Gets the property. */
             getProperty(propertyName: string, requestType?: string);
+    
+            /** Returns the root base object. */
+            root(): IBase;
+    
+            /** Stops any requests for a batch or query. */
+            stop();
     
             /** Updates the metdata uri. */
             updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
