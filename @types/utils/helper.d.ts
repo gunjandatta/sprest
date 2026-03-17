@@ -27,6 +27,9 @@ export interface IBaseHelper {
     /** Gets the XHR request information. */
     getRequestInfo(base: IBase): IRequestInfo;
 
+    /** Returns the root base object. */
+    getRootParent(base: IBase): IBase;
+
     /** Converts the base object to a JSON string. */
     stringify(base: IBase): string;
 

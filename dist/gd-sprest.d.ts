@@ -7457,9 +7457,6 @@ declare module 'gd-sprest/utils/base' {
             /** Gets the property. */
             getProperty(propertyName: string, requestType?: string);
     
-            /** Returns the root base object. */
-            root(): IBase;
-    
             /** Stops any requests for a batch or query. */
             stop();
     
@@ -7528,6 +7525,9 @@ declare module 'gd-sprest/utils/helper' {
     
         /** Gets the XHR request information. */
         getRequestInfo(base: IBase): IRequestInfo;
+    
+        /** Returns the root base object. */
+        getRootParent(base: IBase): IBase;
     
         /** Converts the base object to a JSON string. */
         stringify(base: IBase): string;

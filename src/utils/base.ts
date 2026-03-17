@@ -78,9 +78,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     // Method to get the request digest value
     getRequestDigest() { return this.targetInfo.requestDigest; }
 
-    // Returns the root base object
-    root() { let root = this; while (root.parent) { root = root.parent as any; } return root; }
-
     // Method to stop any requests related to getting all items with the query
     stop() { this.stopFl = true; }
 

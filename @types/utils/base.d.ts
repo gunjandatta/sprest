@@ -76,9 +76,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     /** Gets the property. */
     getProperty(propertyName: string, requestType?: string);
 
-    /** Returns the root base object. */
-    root(): IBase;
-
     /** Stops any requests for a batch or query. */
     stop();
 

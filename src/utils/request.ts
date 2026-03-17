@@ -467,7 +467,7 @@ export const Request = {
         let isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
         if (isBatchRequest) {
             let batchIdx = 0;
-            let root = base.root();
+            let root = Helper.getRootParent(base);
 
             // Parse the requests
             Executor(base.base.batchRequests, batchRequest => {
@@ -766,7 +766,7 @@ export const Request = {
                     // See if there are more items to get
                     if (base.nextFl) {
                         // Get the root base object
-                        let root = base.root();
+                        let root = Helper.getRootParent(base);
 
                         // See if we are getting all items in the base request
                         if (base.getAllItemsFl && root.stopFl != true) {

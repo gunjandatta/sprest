@@ -22,7 +22,6 @@ export const Helper: IBaseHelper = {
         obj["getCollection"] = base.getCollection;
         obj["getProperty"] = base.getProperty;
         obj["parent"] = base;
-        obj["root"] = base.root;
         obj["stop"] = base.stop;
         obj["targetInfo"] = base.targetInfo;
         obj["updateMetadataUri"] = base.updateMetadataUri;
@@ -273,6 +272,13 @@ export const Helper: IBaseHelper = {
 
         // Return the request information
         return xhr.requestInfo;
+    },
+
+    getRootParent: (base: IBase): IBase => {
+        // Find the root base object and return it
+        let root = base;
+        while (root.parent) { root = root.parent as any; }
+        return root;
     },
 
     // Method to stringify the object
