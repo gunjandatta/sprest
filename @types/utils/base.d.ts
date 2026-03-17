@@ -76,9 +76,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     /** Gets the property. */
     getProperty(propertyName: string, requestType?: string);
 
-    /** Stops any requests for a batch or query. */
-    stop();
-
     /** Updates the metdata uri. */
     updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
 

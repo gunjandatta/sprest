@@ -7457,9 +7457,6 @@ declare module 'gd-sprest/utils/base' {
             /** Gets the property. */
             getProperty(propertyName: string, requestType?: string);
     
-            /** Stops any requests for a batch or query. */
-            stop();
-    
             /** Updates the metdata uri. */
             updateMetadataUri(metadata, targetInfo: ITargetInfoProps);
     
