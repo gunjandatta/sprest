@@ -4,9 +4,11 @@
             "dom",
             "es2015"
         ],
-        "outDir": "build",
+        "outDir": "./build",
+        "rootDir": "./src",
         "skipLibCheck": true,
-        "target": "es5"
+        "strict": false,
+        "target": "es2015"
     },
     "include": [
         "src/**/*.ts"
