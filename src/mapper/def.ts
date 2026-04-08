@@ -5649,7 +5649,7 @@ export const Mapper: IMapper = {
 
     "SP.Directory.Group": {
         properties: [
-            "Members|SP.Directory.Group.Collection", "Owners|SP.Directory.Group.Collection"
+            "members|SP.Directory.Group.Collection", "owners|SP.Directory.Group.Collection"
         ],
 
         delete: {
