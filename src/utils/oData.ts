@@ -11,6 +11,7 @@ export class OData {
     private _expand?: Array<string>;
     private _filter?: string;
     private _getAllItems?: boolean;
+    private _getAllItemsWaitTime?: number;
     private _orderBy?: Array<string>;
     private _search?: string;
     private _select?: Array<string>;
@@ -29,6 +30,7 @@ export class OData {
         this._expand = oData && oData.Expand ? oData.Expand : [];
         this._filter = oData && oData.Filter ? oData.Filter : null;
         this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
+        this._getAllItemsWaitTime = oData && oData.GetAllItemsWaitTime ? oData.GetAllItemsWaitTime : 0;
         this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
         this._search = oData && oData.Search ? oData.Search : null;
         this._select = oData && oData.Select ? oData.Select : [];
@@ -56,6 +58,11 @@ export class OData {
     // Flag to get all items
     get GetAllItems(): boolean { return this._getAllItems; }
     set GetAllItems(value: boolean) { this._getAllItems = value; }
+
+
+    // Time in ms to wait between calls to avoid throttling
+    get GetAllItemsWaitTime(): number { return this._getAllItemsWaitTime; }
+    set GetAllItemsWaitTime(value: number) { this._getAllItemsWaitTime = value; }
 
     // Order By
     get OrderBy(): Array<string> { return this._orderBy; }

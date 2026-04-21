@@ -147,6 +147,7 @@ export const Helper: IBaseHelper = {
         // Set the properties
         obj.base = base.base ? base.base : base;
         obj.getAllItemsFl = methodInfo.getAllItemsFl;
+        obj.getAllItemsWaitTime = methodInfo.getAllItemsWaitTime;
         obj.parent = base;
         obj.requestType = methodConfig.requestType;
 

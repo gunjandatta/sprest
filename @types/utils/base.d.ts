@@ -58,6 +58,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     /** Flag to get all items. */
     getAllItemsFl: boolean;
 
+    /** Time in ms to wait inbetween requests when getting all items. */
+    getAllItemsWaitTime: number;
+
     /** Flag determining if more items exist. */
     nextFl: boolean;
 

@@ -38,6 +38,9 @@ export class MethodInfo implements Base.IMethodInfo {
     // Flag to determine if we are getting all items
     get getAllItemsFl(): boolean { return this.methodInfo.getAllItemsFl; }
 
+    // Time in ms to wait inbetween requests for getting all items
+    get getAllItemsWaitTime(): number { return this.methodInfo.getAllItemsWaitTime; }
+
     // Flag to determine if this method replaces the endpoint
     get replaceEndpointFl(): boolean { return this.methodInfo.replaceEndpointFl ? true : false; }
 
@@ -230,6 +233,7 @@ export class MethodInfo implements Base.IMethodInfo {
 
             // Set the get all items Flag
             this.methodInfo.getAllItemsFl = oData.GetAllItems;
+            this.methodInfo.getAllItemsWaitTime = oData.GetAllItemsWaitTime;
         }
         // Else, see if we are not passing the data in the body or query string as a variable
         else if (!this.passDataInBody && !this.passDataInQSAsVar) {

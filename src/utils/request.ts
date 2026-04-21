@@ -776,34 +776,37 @@ export const Request = {
                             targetInfo.endpoint = "";
                             targetInfo.url = data["@odata.nextLink"] || data.d.__next;
 
-                            // Create a new object
-                            new XHRRequest(true, new TargetInfo(targetInfo), (xhr) => {
-                                // Convert the response and see if values were returned
-                                let data = JSON.parse(xhr.response);
-                                if (data.d || data.value) {
-                                    // See if we are not bypassing the processing of the response
-                                    if (base.targetInfo.disableProcessing != true) {
-                                        // Update the data collection
-                                        Helper.updateDataCollection(base as any, data.d?.results || data.value);
+                            // Wait before we execute the call
+                            setTimeout(() => {
+                                // Create a new object
+                                new XHRRequest(true, new TargetInfo(targetInfo), (xhr) => {
+                                    // Convert the response and see if values were returned
+                                    let data = JSON.parse(xhr.response);
+                                    if (data.d || data.value) {
+                                        // See if we are not bypassing the processing of the response
+                                        if (base.targetInfo.disableProcessing != true) {
+                                            // Update the data collection
+                                            Helper.updateDataCollection(base as any, data.d?.results || data.value);
 
-                                        // Update the expanded properties
-                                        Helper.updateExpandedProperties(base);
-                                    }
+                                            // Update the expanded properties
+                                            Helper.updateExpandedProperties(base);
+                                        }
 
-                                    // Append the raw data results
-                                    if (base["d"]?.results) {
-                                        base["d"].results = base["d"].results.concat(data.d.results);
+                                        // Append the raw data results
+                                        if (base["d"]?.results) {
+                                            base["d"].results = base["d"].results.concat(data.d.results);
+                                        } else {
+                                            base["value"] = base["value"].concat(data.value);
+                                        }
+
+                                        // Validate the data collection
+                                        request(xhr, resolve);
                                     } else {
-                                        base["value"] = base["value"].concat(data.value);
+                                        // Resolve the promise
+                                        resolve();
                                     }
-
-                                    // Validate the data collection
-                                    request(xhr, resolve);
-                                } else {
-                                    // Resolve the promise
-                                    resolve();
-                                }
-                            });
+                                });
+                            }, typeof (base.getAllItemsWaitTime) === "number" ? base.getAllItemsWaitTime : 0);
                         } else {
                             // Add a method to get the next set of results
                             base["next"] = new Function("return this.getNextSetOfResults();");
