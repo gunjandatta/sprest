@@ -1,5 +1,5 @@
 import { Base } from "gd-sprest-def";
-import { WebWorker } from "../helper/methods/webWorker";
+import { IRateLimit } from "gd-sprest-def/base";
 import { ContextInfo, Graph } from "../lib";
 import { TargetInfo } from ".";
 declare var ActiveXObject;
@@ -54,6 +54,19 @@ export class XHRRequest {
 
     // The data send in the body of the request
     get requestData() { return this.targetInfo.requestData; }
+
+    // Return the rate limit information
+    get rateLimit(): IRateLimit {
+        // Ensure the rate limit information exists
+        if (this.xhr == null || this.getResponseHeader("RateLimit-Limit") == null) { return null; }
+
+        // Return the rate limit information
+        return {
+            limit: this.getResponseHeader("RateLimit-Limit"),
+            remaining: parseInt(this.getResponseHeader("RateLimit-Remaining")),
+            reset: parseInt(this.getResponseHeader("RateLimit-Reset"))
+        }
+    }
 
     // The request headers
     get requestHeaders() { return this.headers; }
