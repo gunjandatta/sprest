@@ -776,19 +776,14 @@ export const Request = {
                             targetInfo.endpoint = "";
                             targetInfo.url = data["@odata.nextLink"] || data.d.__next;
 
-                            // Determine if we are about to get throttled
-                            let rateLimitRemaining = parseInt(xhr.getResponseHeader("RateLimit-Remaining"));
-                            let rateLimitReset = parseInt(xhr.getResponseHeader("RateLimit-Reset"));
+                            // Set the sleep value to prevent throttling
                             let sleepInMS = 0;
-                            if (typeof (rateLimitRemaining) === "number" && typeof (rateLimitReset) === "number") {
-                                // Ensure we are below the threshold
-                                if (rateLimitRemaining < 50) {
-                                    // Calculate the time to wait before executing the next call
-                                    sleepInMS = rateLimitReset * 1000;
+                            if (xhr.rateLimit && xhr.rateLimit.remaining < 50) {
+                                // Set the rate
+                                sleepInMS = xhr.rateLimit.reset * 1000;
 
-                                    // Log
-                                    console.info("[gd-sprest] Throttle approaching from response. Waiting " + sleepInMS + "ms before sending the next request.");
-                                }
+                                // Log
+                                console.info("[gd-sprest] Throttle approaching... Waiting " + sleepInMS + "ms before sending the next request.", xhr.rateLimit);
                             }
 
                             // Wait before we execute the call
@@ -806,6 +801,9 @@ export const Request = {
                                             // Update the expanded properties
                                             Helper.updateExpandedProperties(base);
                                         }
+
+                                        // Set the rate limit information
+                                        base.rateLimit = xhr.rateLimit;
 
                                         // Append the raw data results
                                         if (base["d"]?.results) {
