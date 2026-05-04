@@ -43,6 +43,9 @@ export class XHRRequest {
     // Flag indicating the request has completed
     get completedFl(): boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
 
+    // Gets a response header
+    getResponseHeader(key: string) { return this.xhr ? this.xhr.getResponseHeader(key) : ""; }
+
     // The response
     get response() { return this.xhr ? this.xhr.response : null; }
 

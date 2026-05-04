@@ -776,6 +776,21 @@ export const Request = {
                             targetInfo.endpoint = "";
                             targetInfo.url = data["@odata.nextLink"] || data.d.__next;
 
+                            // Determine if we are about to get throttled
+                            let rateLimitRemaining = parseInt(xhr.getResponseHeader("RateLimit-Remaining"));
+                            let rateLimitReset = parseInt(xhr.getResponseHeader("RateLimit-Reset"));
+                            let sleepInMS = 0;
+                            if (typeof (rateLimitRemaining) === "number" && typeof (rateLimitReset) === "number") {
+                                // Ensure we are below the threshold
+                                if (rateLimitRemaining < 50) {
+                                    // Calculate the time to wait before executing the next call
+                                    sleepInMS = rateLimitReset * 1000;
+
+                                    // Log
+                                    console.info("[gd-sprest] Throttle approaching from response. Waiting " + sleepInMS + "ms before sending the next request.");
+                                }
+                            }
+
                             // Wait before we execute the call
                             setTimeout(() => {
                                 // Create a new object
@@ -806,7 +821,7 @@ export const Request = {
                                         resolve();
                                     }
                                 });
-                            }, typeof (base.getAllItemsWaitTime) === "number" ? base.getAllItemsWaitTime : 0);
+                            }, sleepInMS);
                         } else {
                             // Add a method to get the next set of results
                             base["next"] = new Function("return this.getNextSetOfResults();");

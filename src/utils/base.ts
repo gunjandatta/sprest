@@ -35,7 +35,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
 
     base: IBase;
     getAllItemsFl: boolean;
-    getAllItemsWaitTime: number;
     existsFl;
     nextFl: boolean;
     requestType: number;
