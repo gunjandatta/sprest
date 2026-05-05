@@ -57,15 +57,15 @@ export class XHRRequest {
 
     // Return the rate limit information
     get rateLimit(): IRateLimit {
-        // Ensure the rate limit information exists
-        if (this.xhr == null || this.getResponseHeader("RateLimit-Limit") == null) { return null; }
+        // Ensure the a response exists
+        if (this.xhr == null || this.xhr.getResponseHeader == null) { return null; }
 
         // Return the rate limit information
-        return {
+        return this.getResponseHeader("RateLimit-Limit") ? {
             limit: this.getResponseHeader("RateLimit-Limit"),
             remaining: parseInt(this.getResponseHeader("RateLimit-Remaining")),
             reset: parseInt(this.getResponseHeader("RateLimit-Reset"))
-        }
+        } : null;
     }
 
     // The request headers
