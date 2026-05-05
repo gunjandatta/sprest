@@ -44,7 +44,19 @@ export class XHRRequest {
     get completedFl(): boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
 
     // Gets a response header
-    getResponseHeader(key: string) { return this.xhr ? this.xhr.getResponseHeader(key) : ""; }
+    getResponseHeader(key: string) {
+        // Ensure the a response exists
+        if (this.xhr == null) { return null; }
+
+        // See if the xml http request was used
+        if (this.xhr.getResponseHeader) { return this.xhr.getResponseHeader(key); }
+
+        // See if the fetch command was used
+        if (this.xhr["headers"]) { return this.xhr["headers"].get(key); }
+
+        // Return null by default
+        return null;
+    }
 
     // The response
     get response() { return this.xhr ? this.xhr.response : null; }
@@ -57,9 +69,6 @@ export class XHRRequest {
 
     // Return the rate limit information
     get rateLimit(): IRateLimit {
-        // Ensure the a response exists
-        if (this.xhr == null || this.xhr.getResponseHeader == null) { return null; }
-
         // Return the rate limit information
         return this.getResponseHeader("RateLimit-Limit") ? {
             limit: this.getResponseHeader("RateLimit-Limit"),
