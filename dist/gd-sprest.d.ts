@@ -2838,7 +2838,7 @@ declare module 'gd-sprest/lib/apps' {
 }
 
 declare module 'gd-sprest/lib/contextInfo' {
-    import { IBaseExecution } from "gd-sprest-def/lib/base";
+    import { IBaseExecution, IRateLimit } from "gd-sprest-def/lib/base";
     import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
     
     /**
@@ -3121,6 +3121,9 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Publishing Feature On */
             PublishingFeatureOn: boolean;
     
+            /** The last rate limit information for a request. */
+            rateLimit?: IRateLimit & { requestTime: number; }
+    
             /** Recycle Bin Item Count */
             RecycleBinItemCount: number;
     
@@ -3299,6 +3302,11 @@ declare module 'gd-sprest/lib/contextInfo' {
     
     
             /**
+                * Clears the callback events for the rate limit.
+                */
+            clearRateLimitCallbacks();
+    
+            /**
                 * Runs a loop to ensure the digest value doesn't expire.
                 */
             enableRefreshToken(callback?: () => void);
@@ -3318,6 +3326,12 @@ declare module 'gd-sprest/lib/contextInfo' {
             getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
     
             /**
+                * Event triggered when the rate limit information is set.
+                * @param callback The method to execute when the rate limit value is set.
+                */
+            onRateLimitDetected(callback: (rateLimit: IRateLimit) => void);
+    
+            /**
                 * Value in minutes, to refresh the token prior to it expiring
                 */
             refreshToken: number;
@@ -3327,6 +3341,12 @@ declare module 'gd-sprest/lib/contextInfo' {
                 * @param spfxPageContext - The page context information variable from a SPFx project.
                 */
             setPageContext(spfxPageContext: any);
+    
+            /**
+                * Sets the rate limit information from the last request containing it.
+                * @param rateLimit The rate limit information from the request.
+                */
+            setRateLimit(rateLimit: IRateLimit);
     }
     
     export interface IThemeState {
@@ -7722,6 +7742,7 @@ declare module 'gd-sprest/utils/targetInfo' {
 }
 
 declare module 'gd-sprest/utils/xhrRequest' {
+    import { IRateLimit } from "gd-sprest-def/base";
     import { ITargetInfo } from "gd-sprest/utils/targetInfo";
     
     /**
@@ -7741,6 +7762,9 @@ declare module 'gd-sprest/utils/xhrRequest' {
     
             // Flag indicating if this is a graph request
             isGraph: boolean;
+    
+            // The rate limit information
+            rateLimit?: IRateLimit;
     
             // The response
             response: string;

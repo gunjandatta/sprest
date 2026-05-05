@@ -1,4 +1,4 @@
-import { IBaseExecution } from "gd-sprest-def/lib/base";
+import { IBaseExecution, IRateLimit } from "gd-sprest-def/lib/base";
 import { BasePermissions, ContextWebInformation } from "gd-sprest-def/lib/SP/complextypes";
 
 /**
@@ -284,6 +284,9 @@ export interface IContextInformation {
     /** Publishing Feature On */
     PublishingFeatureOn: boolean;
 
+    /** The last rate limit information for a request. */
+    rateLimit?: IRateLimit & { requestTime: number; }
+
     /** Recycle Bin Item Count */
     RecycleBinItemCount: number;
 
@@ -465,6 +468,11 @@ export interface IContextInformation {
      */
 
     /**
+     * Clears the callback events for the rate limit.
+     */
+    clearRateLimitCallbacks();
+
+    /**
      * Runs a loop to ensure the digest value doesn't expire.
      */
     enableRefreshToken(callback?: () => void);
@@ -484,6 +492,12 @@ export interface IContextInformation {
     getWeb(url: string): IBaseExecution<{ GetContextWebInformation: ContextWebInformation }>;
 
     /**
+     * Event triggered when the rate limit information is set.
+     * @param callback The method to execute when the rate limit value is set.
+     */
+    onRateLimitDetected(callback: (rateLimit: IRateLimit) => void);
+
+    /**
      * Value in minutes, to refresh the token prior to it expiring
      */
     refreshToken: number;
@@ -493,6 +507,12 @@ export interface IContextInformation {
      * @param spfxPageContext - The page context information variable from a SPFx project.
      */
     setPageContext(spfxPageContext: any);
+
+    /**
+     * Sets the rate limit information from the last request containing it.
+     * @param rateLimit The rate limit information from the request.
+     */
+    setRateLimit(rateLimit: IRateLimit);
 }
 
 // Theme State

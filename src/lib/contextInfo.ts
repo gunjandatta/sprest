@@ -1,3 +1,4 @@
+import { IRateLimit } from "gd-sprest-def/base";
 import { IContextInformation } from "../../@types/lib";
 import { WebWorker } from "../helper/methods/webWorker";
 import { Base } from "../utils";
@@ -200,6 +201,14 @@ class _ContextInfo {
         });
     }
 
+    // Method to add an event
+    private static _onRateLimitCallbacks: ((rateLimit: IRateLimit) => void)[] = [];
+    static clearRateLimitCallbacks() { this._onRateLimitCallbacks = []; }
+    static onRateLimitDetected(callback: (rateLimit: IRateLimit) => void) {
+        // Add the event
+        this._onRateLimitCallbacks.push(callback);
+    }
+
     // Method to set the page context information from an SPFX project
     static setPageContext = (spfxPageContext: any) => {
         // Set the page context information
@@ -207,6 +216,19 @@ class _ContextInfo {
 
         // Enable the refresh token
         this.enableRefreshToken();
+    }
+
+    // Method to set the rate limit value
+    static setRateLimit = (rateLimit: IRateLimit) => {
+        // Ensure a value exists
+        if (rateLimit) {
+            // Set the rate limit information
+            ContextInfo.rateLimit = rateLimit as any;
+            ContextInfo.rateLimit.requestTime = Date.now();
+
+            // Call the events
+            this._onRateLimitCallbacks.forEach(callback => { callback(rateLimit); });
+        }
     }
 
     private static _worker = null;

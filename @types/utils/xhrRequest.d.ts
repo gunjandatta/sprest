@@ -1,3 +1,4 @@
+import { IRateLimit } from "gd-sprest-def/base";
 import { ITargetInfo } from "./targetInfo";
 
 /**
@@ -17,6 +18,9 @@ export interface IXHRRequest {
 
     // Flag indicating if this is a graph request
     isGraph: boolean;
+
+    // The rate limit information
+    rateLimit?: IRateLimit;
 
     // The response
     response: string;

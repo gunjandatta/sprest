@@ -387,10 +387,17 @@ export const Request = {
                 } else {
                     // Create the request
                     base.xhr = new XHRRequest(asyncFl, targetInfo, () => {
-                        // Update the response and status
+                        // Update the base properties
+                        base.rateLimit = base.xhr.rateLimit;
                         base.response = base.xhr.response;
                         base.status = base.xhr.status;
                         let errorFl = !(base.status >= 200 && base.status < 300);
+
+                        // See if a rate limit exists
+                        if (base.rateLimit) {
+                            // Set the context information
+                            ContextInfo.setRateLimit(base.rateLimit);
+                        }
 
                         // See if we are returning a file buffer
                         if (base.requestType == RequestType.GetBuffer) {
@@ -436,9 +443,16 @@ export const Request = {
                 // Create the request
                 base.xhr = new XHRRequest(asyncFl, targetInfo);
 
-                // Update the response and status
+                // Update the base properties
+                base.rateLimit = base.xhr.rateLimit;
                 base.response = base.xhr.response;
                 base.status = base.xhr.status;
+
+                // See if a rate limit exists
+                if (base.rateLimit) {
+                    // Set the context information
+                    ContextInfo.setRateLimit(base.rateLimit);
+                }
 
                 // See if we are returning a file buffer
                 if (base.requestType == RequestType.GetBuffer) {
