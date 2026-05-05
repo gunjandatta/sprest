@@ -792,9 +792,9 @@ export const Request = {
 
                             // Set the sleep value to prevent throttling
                             let sleepInMS = 0;
-                            if (xhr.rateLimit && xhr.rateLimit.remaining < 50) {
-                                // Set the rate
-                                sleepInMS = xhr.rateLimit.reset * 1000;
+                            if (xhr.rateLimit) {
+                                // Set the sleep time to be twice the amount of suggested
+                                sleepInMS = xhr.rateLimit.reset * 2000;
 
                                 // Log
                                 console.info("[gd-sprest] Throttle approaching... Waiting " + sleepInMS + "ms before sending the next request.", xhr.rateLimit);
