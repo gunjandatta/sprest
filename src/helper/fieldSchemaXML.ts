@@ -390,7 +390,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo, targetWebUrl?: string): Pr
         let schemaXml: string = null;
 
         // Set the field type
-        props["Type"] = "User";
+        props["Type"] = fieldInfo.multi ? "UserMulti" : "User";
 
         // Set the user properties
         if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
