@@ -4086,6 +4086,9 @@ export const MapperV2: IMapper = {
 			name: "",
 			requestType: RequestType.GraphDelete
 		},
+		content: {
+			requestType: RequestType.GetBuffer
+		},
 		query: { argNames: ["oData"], requestType: RequestType.OData },
 		workbook: {
 			returnType: "workbook"
