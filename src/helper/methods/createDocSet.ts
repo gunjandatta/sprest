@@ -1,7 +1,6 @@
 import { ListItem } from "gd-sprest-def/lib/SP";
 import { IcreateDocSet } from "../../../@types/helper/methods";
-import { Web } from "../../lib";
-import { request } from "./request";
+import { ContextInfo, Web } from "../../lib";
 
 /**
  * Creates a document set item.
@@ -25,29 +24,62 @@ export const createDocSet: IcreateDocSet = (name: string, listName: string, webU
                 }
             }
 
-            // Create the document set item
-            request({
-                method: "POST",
-                url: list.ParentWebUrl + "/_vti_bin/listdata.svc/" + list.Title.replace(/ /g, ""),
-                headers: {
-                    Accept: "application/json;odata=verbose",
-                    "Content-Type": "application/json;odata=verbose",
-                    Slug: list.RootFolder.ServerRelativeUrl + "/" + name + "|" + ctId,
-                    "X-Requested-With": "XMLHttpRequest"
-                },
-                data: {
-                    Title: name,
-                    Path: list.RootFolder.ServerRelativeUrl
-                }
-            }).then(response => {
-                // See if the request was successful
-                if (response.d && response.d.Id > 0) {
+            // Method to get the web information
+            ((): PromiseLike<string> => {
+                // Return a promise
+                return new Promise((resolve, reject) => {
+                    if (webUrl) {
+                        // Get the web context information
+                        ContextInfo.getWeb(webUrl).execute(webInfo => {
+                            resolve(webInfo.GetContextWebInformation.FormDigestValue);
+                        }, reject);
+                    } else {
+                        // Resolve the promise
+                        resolve(null);
+                    }
+                });
+            })().then(value => {
+                // Create the document set item
+                Web(webUrl, { requestDigest: value }).Lists(listName).addValidateUpdateItem({
+                    FolderUrl: list.RootFolder.ServerRelativeUrl,
+                    UnderlyingObjectType: 1
+                }, [
+                    {
+                        FieldName: "HTML_x0020_File_x0020_Type",
+                        FieldValue: "SharePoint.DocumentSet"
+                    },
+                    {
+                        FieldName: "ContentTypeId",
+                        FieldValue: ctId
+                    },
+                    {
+                        FieldName: "FileLeafRef",
+                        FieldValue: name
+                    }
+                ], false, "", true).execute(resp => {
+                    // Parse the results
+                    let itemId = 0;
+                    for (let i = 0; i < resp.results.length; i++) {
+                        // See if this is the item id
+                        if (resp.results[i].FieldName == "Id") {
+                            itemId = parseInt(resp.results[i].FieldValue);
+                            break;
+                        }
+                    }
+
                     // Get the document set item and resolve the promise
-                    Web(webUrl).Lists(listName).Items(response.d.Id).execute(resolve);
-                } else {
+                    Web(webUrl).Lists(listName).Items(itemId).execute(resolve);
+                }, (request) => {
+                    let errorMessage = request.response;
+
+                    // Try to determine the error message
+                    try {
+                        errorMessage = (JSON.parse(errorMessage)).error.message.value;
+                    } catch { }
+
                     // Reject the promise
-                    reject(response["response"])
-                }
+                    reject(errorMessage);
+                });
             });
         }, reject);
     });
