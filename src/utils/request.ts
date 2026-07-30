@@ -750,6 +750,12 @@ export const Request = {
             if (isBatchRequest) {
                 // Process the callbacks
                 Batch.processCallbacks(base.base.batchRequests[batchIdx]);
+
+                // See if the callback for odata query exists
+                if (base.targetInfo.callbackQuery) {
+                    // Call the method
+                    base.targetInfo.callbackQuery(base.base.batchRequests[batchIdx]);
+                }
             }
         }
     },
