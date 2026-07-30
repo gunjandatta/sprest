@@ -486,7 +486,7 @@ export const Request = {
             // Parse the requests
             Executor(base.base.batchRequests, batchRequest => {
                 // Do nothing if the stop flag is set
-                if (root.stopFl) { return; }
+                if (root.stopFl || base.stopFl) { return; }
 
                 // Return a promise
                 return new Promise(resolve => {
@@ -785,7 +785,7 @@ export const Request = {
                         let root = Helper.getRootParent(base);
 
                         // See if we are getting all items in the base request
-                        if (base.getAllItemsFl && root.stopFl != true) {
+                        if (base.getAllItemsFl && (root.stopFl || base.stopFl) != true) {
                             // Create the target information to query the next set of results
                             let targetInfo = Object.create(base.targetInfo);
                             targetInfo.accessToken = base.targetInfo.accessToken || (base.xhr.isGraph ? Graph.Token : null);
